@@ -152,7 +152,7 @@ nImO::Map::addValue
         }
         if (newKey->enumerationType() == _keyKind)
         {
-            MapValue keyValue(newKey, newValue);
+            MapValue keyValue{newKey, newValue};
 
             result = inherited2::emplace(keyValue);
         }
@@ -196,7 +196,7 @@ nImO::Map::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Map)   otherPtr = other.asMap();
+        CPtr(Map)   otherPtr{other.asMap()};
 
         if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
@@ -502,7 +502,7 @@ nImO::Map::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[]{ kStartMapChar, '\0' };
+    static const char   initialChars[]{ kStartMapChar, kEndOfString };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -513,7 +513,7 @@ nImO::Map::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[]{ kEndMapChar, kKeyValueSeparator, '\0' };
+    static const char   terminalChars[]{ kEndMapChar, kKeyValueSeparator, kEndOfString };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;

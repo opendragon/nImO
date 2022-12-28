@@ -368,7 +368,7 @@ nImO::ArgumentsToArgString
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -407,7 +407,7 @@ nImO::ArgumentsToDescriptionArray
     // Determine the width of the 'name' column.
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -436,7 +436,7 @@ nImO::ArgumentsToDescriptionArray
         }
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
-            Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+            Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
             if (nullptr != anArg)
             {
@@ -478,7 +478,7 @@ nImO::CombineArguments
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if (0 < ii)
         {
@@ -584,7 +584,7 @@ nImO::ProcessArguments
     badArgs = "";
     for (size_t ii = 0; numArgs > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -597,7 +597,7 @@ nImO::ProcessArguments
     // follow the optional arguments, which follow the mandatory ones.
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -626,7 +626,7 @@ nImO::ProcessArguments
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
-            Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+            Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
             if ((nullptr != anArg) && (! anArg->isExtra()))
             {
@@ -649,7 +649,7 @@ nImO::ProcessArguments
     // unsatisfied.
     for (size_t ii = numToCheck; numArgs > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if ((nullptr != anArg) && (! anArg->isExtra()))
         {
@@ -693,7 +693,7 @@ nImO::PromptForValues
     }
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg = arguments[ii];
+        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
 
         if ((nullptr != anArg) && (! anArg->isRequired()) && (! anArg->isExtra()))
         {

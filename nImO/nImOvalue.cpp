@@ -457,11 +457,11 @@ nImO::Value::initialize
     (void)
 {
     ODL_ENTER(); //####
-    CPtr(char)  prefixes = Logical::getInitialCharacters();
+    CPtr(char)  prefixes{Logical::getInitialCharacters()};
 
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &Logical::readFromStringBuffer);
 
@@ -471,7 +471,7 @@ nImO::Value::initialize
     prefixes = Number::getInitialCharacters();
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &Number::readFromStringBuffer);
 
@@ -481,7 +481,7 @@ nImO::Value::initialize
     prefixes = String::getInitialCharacters();
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &String::readFromStringBuffer);
 
@@ -491,7 +491,7 @@ nImO::Value::initialize
     prefixes = Array::getInitialCharacters();
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &Array::readFromStringBuffer);
 
@@ -501,7 +501,7 @@ nImO::Value::initialize
     prefixes = Map::getInitialCharacters();
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &Map::readFromStringBuffer);
 
@@ -511,14 +511,14 @@ nImO::Value::initialize
     prefixes = Set::getInitialCharacters();
     if (nullptr != prefixes)
     {
-        for ( ; '\0' != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             BufferReaderValue   aValue(*prefixes, &Set::readFromStringBuffer);
 
             gReaders.emplace(aValue);
         }
     }
-    CPtr(char)  suffixes = Array::getTerminalCharacters();
+    CPtr(char)  suffixes{Array::getTerminalCharacters()};
 
     gTerminators = suffixes;
     suffixes = Map::getTerminalCharacters();

@@ -95,6 +95,8 @@ const char  nImO::kEndArrayChar = ')';
 
 const char  nImO::kEndMapChar = '}';
 
+const char  nImO::kEndOfString = '\0';
+
 const char  nImO::kEndSetChar = ']';
 
 const char  nImO::kKeyValueSeparator = '>';
@@ -180,12 +182,12 @@ nImO::B2I
     ODL_P1("inString = ", &inString); //####
     ODL_I1("numBytes = ", numBytes); //####
     bool            isNegative = (0 != (0x080 & inString[0]));
-    CPtr(uint8_t)   walker = inString;
+    CPtr(uint8_t)   walker{inString};
     int64_t         result = (isNegative ? -1 : 0);
 
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
-        uint8_t aByte = *walker++;
+        uint8_t aByte{*walker++};
 
         result = ((result << 8) | aByte);
     }
@@ -241,13 +243,13 @@ nImO::CompareBytes
 
     if (memcmp(first, second, numBytes))
     {
-        CPtr(uint8_t)   firstWalker = StaticCast(CPtr(uint8_t), first);
-        CPtr(uint8_t)   secondWalker = StaticCast(CPtr(uint8_t), second);
+        CPtr(uint8_t)   firstWalker{StaticCast(CPtr(uint8_t), first)};
+        CPtr(uint8_t)   secondWalker{StaticCast(CPtr(uint8_t), second)};
 
         for (size_t ii = 0; numBytes > ii; ++ii)
         {
-            uint8_t firstByte = *firstWalker++;
-            uint8_t secondByte = *secondWalker++;
+            uint8_t firstByte{*firstWalker++};
+            uint8_t secondByte{*secondWalker++};
 
             if (firstByte != secondByte)
             {
@@ -384,11 +386,11 @@ nImO::GetConfiguredValue
     ODL_ENTER(); //####
     if ((0 < key.length()) && (nullptr != lConfigurationValues))
     {
-        Ptr(InitFile::ObjectValue)  asObjectValue = lConfigurationValues->AsObject();
+        Ptr(InitFile::ObjectValue)  asObjectValue{lConfigurationValues->AsObject()};
 
         if (nullptr != asObjectValue)
         {
-            InitFile::SpBaseValue   value = asObjectValue->GetValue(key);
+            InitFile::SpBaseValue   value{asObjectValue->GetValue(key)};
 
             if (nullptr != value)
             {
@@ -831,9 +833,9 @@ nImO::ProcessStandardUtilitiesOptions
                                                     T_("  --vers, -v \tPrint version information and exit")};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     Option_::Descriptor         usage[9]; // first, config, help, info, json, logg, tabs, version, last
-    Ptr(Option_::Descriptor)    usageWalker = usage;
+    Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
-    Ptr(Ptr(char))              argvWork = argv;
+    Ptr(Ptr(char))              argvWork{argv};
     std::string                 usageString{"USAGE: "};
     std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
@@ -895,10 +897,10 @@ nImO::ProcessStandardUtilitiesOptions
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats                      stats(usage, argcWork, argvWork);
-    std::unique_ptr<Option_::Option[]>  options(new Option_::Option[stats.options_max]);
-    std::unique_ptr<Option_::Option[]>  buffer(new Option_::Option[stats.buffer_max]);
-    Option_::Parser                     parse(usage, argcWork, argvWork, options.get(), buffer.get(), 1);
+    Option_::Stats                      stats{usage, argcWork, argvWork};
+    std::unique_ptr<Option_::Option[]>  options{new Option_::Option[stats.options_max]};
+    std::unique_ptr<Option_::Option[]>  buffer{new Option_::Option[stats.buffer_max]};
+    Option_::Parser                     parse{usage, argcWork, argvWork, options.get(), buffer.get(), 1};
     std::string                         badArgs;
 
     if (parse.error())
@@ -942,7 +944,7 @@ nImO::ProcessStandardUtilitiesOptions
         {
             logging = true;
         }
-        Ptr(Option_::Option)    configOption = options[StaticCast(size_t, OptionIndex::CONFIG)];
+        Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::CONFIG)]};
 
         if ((! ignoreConfigFilePath) && (nullptr != configOption) && (nullptr != configOption->arg))
         {

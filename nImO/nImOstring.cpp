@@ -147,7 +147,7 @@ nImO::String::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr != otherPtr)
         {
@@ -181,7 +181,7 @@ nImO::String::equalTo
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -257,7 +257,7 @@ nImO::String::extractValue
     }
     if (0 < numBytes)
     {
-        std::unique_ptr<char[]> holder(new char[numBytes + 1]);
+        std::unique_ptr<char[]> holder{new char[numBytes + 1]};
         bool                    okSoFar = (nullptr != holder);
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
@@ -279,7 +279,7 @@ nImO::String::extractValue
         }
         if (okSoFar)
         {
-            holder[numBytes] = '\0';
+            holder[numBytes] = kEndOfString;
             result.reset(new String(holder.get()));
             ODL_I1("numBytes <- ", numBytes); //####
         }
@@ -316,7 +316,7 @@ nImO::String::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static CPtr(char)   initialChars = "\"'";
+    static CPtr(char)   initialChars{"\"'"};
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -349,7 +349,7 @@ nImO::String::greaterThan
     }
     else
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -382,7 +382,7 @@ nImO::String::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -419,7 +419,7 @@ nImO::String::lessThan
     }
     else
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -452,7 +452,7 @@ nImO::String::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(String)    otherPtr = other.asString();
+        CPtr(String)    otherPtr{other.asString()};
 
         if (nullptr == otherPtr)
         {
@@ -536,8 +536,8 @@ nImO::String::readFromStringBuffer
         int                 octalSum;
         ScanState           state = ScanState::Normal;
         StringBuffer        holding;
-        static CPtr(char)   standardEscapes = "abtnvfrs";
-        static CPtr(char)   standardEscapesActual = "\a\b\t\n\v\f\r ";
+        static CPtr(char)   standardEscapes{"abtnvfrs"};
+        static CPtr(char)   standardEscapesActual{"\a\b\t\n\v\f\r "};
 
         for ( ; ! done; )
         {
@@ -579,7 +579,7 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            CPtr(char)  whichEscape = strchr(standardEscapes, aChar);
+                            CPtr(char)  whichEscape{strchr(standardEscapes, aChar)};
 
                             if (nullptr == whichEscape)
                             {
@@ -618,7 +618,7 @@ nImO::String::readFromStringBuffer
                             }
                             else
                             {
-                                CPtr(char)  replacement = standardEscapesActual + (whichEscape - standardEscapes);
+                                CPtr(char)  replacement{standardEscapesActual + (whichEscape - standardEscapes)};
 
                                 holding.addChar(*replacement);
                                 state = ScanState::Normal;

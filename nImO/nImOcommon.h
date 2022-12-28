@@ -985,6 +985,9 @@ namespace nImO
     /*! @brief The character that ends a Map value. */
     extern const char   kEndMapChar;
 
+    /*! @brief The character that ends a string. */
+    extern const char   kEndOfString;
+
     /*! @brief The character that ends a Set value. */
     extern const char   kEndSetChar;
 

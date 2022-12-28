@@ -185,11 +185,11 @@ doTestEmptyArrayValue
         {
             static const char   expectedSquishedString[]
             {
-                kStartArrayChar, kEndArrayChar, '\0'
+                kStartArrayChar, kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
-                kStartArrayChar, ' ', kEndArrayChar, '\0'
+                kStartArrayChar, ' ', kEndArrayChar, kEndOfString
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -258,13 +258,13 @@ doTestSingularArrayValue
             {
                 kStartArrayChar,
                     '1', '2', '3', '.', '4', '5',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -337,7 +337,7 @@ doTestSmallArrayValue
                     't', 'r', 'u', 'e', ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                     '4', '2',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -346,7 +346,7 @@ doTestSmallArrayValue
                     't', 'r', 'u', 'e', ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                     '4', '2', ' ',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -415,7 +415,7 @@ doTestBigArrayValue
 
         if (nullptr != stuff)
         {
-            UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
             if (bigBlob)
             {
@@ -1016,11 +1016,11 @@ doTestEmptyMapValue
         {
             static const char   expectedSquishedString[]
             {
-                kStartMapChar, kEndMapChar, '\0'
+                kStartMapChar, kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
-                kStartMapChar, ' ', kEndMapChar, '\0'
+                kStartMapChar, ' ', kEndMapChar, kEndOfString
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -1090,14 +1090,14 @@ doTestSingularLogicalMapValue
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
@@ -1167,13 +1167,13 @@ doTestSingularIntegerMapValue
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
@@ -1244,14 +1244,14 @@ doTestSingularStringMapValue
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                         kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                         kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(123.45));
@@ -1323,7 +1323,7 @@ doTestSmallLogicalMapValue
                     'f', 'a', 'l', 's', 'e', kKeyValueSeparator, '4', '2', ' ',
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                     '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -1331,7 +1331,7 @@ doTestSmallLogicalMapValue
                     'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
@@ -1404,7 +1404,7 @@ doTestSmallIntegerMapValue
                     '1', '2', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ' ',
                     '1', '7', kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ' ',
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -1412,7 +1412,7 @@ doTestSmallIntegerMapValue
                     '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
                     '1', '7', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
@@ -1489,7 +1489,7 @@ doTestSmallStringMapValue
                         '1', '2', '3', '.', '4', '5', ' ',
                     '"', 'l', 'i', 'm', 'a', '"', kKeyValueSeparator,
                         '1', '2', '.', '3', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -1500,7 +1500,7 @@ doTestSmallStringMapValue
                         '1', '2', '3', '.', '4', '5', ' ',
                     '"', 'l', 'i', 'm', 'a', '"', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '.', '3', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
@@ -2074,11 +2074,11 @@ doTestEmptySetValue
         {
             static const char   expectedSquishedString[]
             {
-                kStartSetChar, kEndSetChar, '\0'
+                kStartSetChar, kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
-                kStartSetChar, ' ', kEndSetChar, '\0'
+                kStartSetChar, ' ', kEndSetChar, kEndOfString
             };
 
             if (0 == compareValueWithString(*stuff, expectedString))
@@ -2147,13 +2147,13 @@ doTestSingularLogicalSetValue
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true));
@@ -2223,13 +2223,13 @@ doTestSingularIntegerSetValue
             {
                 kStartSetChar,
                     '4', '2',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42));
@@ -2299,13 +2299,13 @@ doTestSingularStringSetValue
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("charlie"));
@@ -2376,14 +2376,14 @@ doTestSmallLogicalSetValue
                 kStartSetChar,
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     'f', 'a', 'l', 's', 'e', ' ',
                     't', 'r', 'u', 'e', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true));
@@ -2459,7 +2459,7 @@ doTestSmallIntegerSetValue
                     '1', '7', ' ',
                     '4', '2', ' ',
                     '1', '2', '3',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -2468,7 +2468,7 @@ doTestSmallIntegerSetValue
                     '1', '7', ' ',
                     '4', '2', ' ',
                     '1', '2', '3', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(123));
@@ -2548,7 +2548,7 @@ doTestSmallStringSetValue
                     '"', 'b', 'e', 't', 'a', '"', ' ',
                     '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
                     '"', 'g', 'a', 'm', 'm', 'a', '"',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
@@ -2557,7 +2557,7 @@ doTestSmallStringSetValue
                     '"', 'b', 'e', 't', 'a', '"', ' ',
                     '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
                     '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("gamma"));
@@ -3143,13 +3143,13 @@ doTestArrayWithArrayValue
             {
                 kStartArrayChar,
                     kStartArrayChar, kEndArrayChar,
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartArrayChar, ' ', kEndArrayChar, ' ',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Array>());
@@ -3219,13 +3219,13 @@ doTestArrayWithMapValue
             {
                 kStartArrayChar,
                     kStartMapChar, kEndMapChar,
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartMapChar, ' ', kEndMapChar, ' ',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Map>());
@@ -3295,13 +3295,13 @@ doTestArrayWithSetValue
             {
                 kStartArrayChar,
                     kStartSetChar, kEndSetChar,
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
                     kStartSetChar, ' ', kEndSetChar, ' ',
-                kEndArrayChar, '\0'
+                kEndArrayChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Set>());
@@ -3372,14 +3372,14 @@ doTestMapWithArrayValue
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartArrayChar, kEndArrayChar,
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
                         kStartArrayChar, ' ', kEndArrayChar, ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Array>());
@@ -3450,14 +3450,14 @@ doTestMapWithMapValue
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartMapChar, kEndMapChar,
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
                         kStartMapChar, ' ', kEndMapChar, ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Map>());
@@ -3528,14 +3528,14 @@ doTestMapWithSetValue
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator,
                         kStartSetChar, kEndSetChar,
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ',
                         kStartSetChar, ' ', kEndSetChar, ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Set>());
@@ -3606,14 +3606,14 @@ doTestLogicalMapValueWithIncompatibleKeys
                 kStartMapChar,
                     't', 'r', 'u', 'e', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
@@ -3686,13 +3686,13 @@ doTestIntegerMapValueWithIncompatibleKeys
             {
                 kStartMapChar,
                     '4', '2', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
@@ -3766,14 +3766,14 @@ doTestStringMapValueWithIncompatibleKeys
                 kStartMapChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
                     kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
                     kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
-                kEndMapChar, '\0'
+                kEndMapChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(123.45));
@@ -3846,13 +3846,13 @@ doTestLogicalSetValueWithIncompatibleKeys
             {
                 kStartSetChar,
                     't', 'r', 'u', 'e',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     't', 'r', 'u', 'e', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Logical>(true));
@@ -3925,13 +3925,13 @@ doTestIntegerSetValueWithIncompatibleKeys
             {
                 kStartSetChar,
                     '4', '2',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '4', '2', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<Integer>(42));
@@ -4004,13 +4004,13 @@ doTestStringSetValueWithIncompatibleKeys
             {
                 kStartSetChar,
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                kEndSetChar, '\0'
+                kEndSetChar, kEndOfString
             };
 
             stuff->addValue(std::make_shared<String>("charlie"));

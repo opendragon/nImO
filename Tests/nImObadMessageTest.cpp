@@ -132,7 +132,7 @@ attemptExtractValueAndCheck
     }
     else
     {
-        CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+        CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
         if (nullptr != asFlaw)
         {

@@ -230,7 +230,7 @@ nImO::Blob::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr != otherPtr)
         {
@@ -252,7 +252,7 @@ nImO::Blob::equalTo
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -328,7 +328,7 @@ nImO::Blob::extractValue
     }
     if (0 < numBytes)
     {
-        UpAuint8_t  holder(new uint8_t[numBytes]);
+        UpAuint8_t  holder{new uint8_t[numBytes]};
         bool        okSoFar = (nullptr != holder);
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
@@ -408,7 +408,7 @@ nImO::Blob::greaterThan
     }
     else
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -441,7 +441,7 @@ nImO::Blob::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -478,7 +478,7 @@ nImO::Blob::lessThan
     }
     else
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {
@@ -511,7 +511,7 @@ nImO::Blob::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Blob)  otherPtr = other.asBlob();
+        CPtr(Blob)  otherPtr{other.asBlob()};
 
         if (nullptr == otherPtr)
         {

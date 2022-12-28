@@ -190,7 +190,7 @@ nImO::Set::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Set)   otherPtr = other.asSet();
+        CPtr(Set)   otherPtr{other.asSet()};
 
         if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
@@ -452,7 +452,7 @@ nImO::Set::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   initialChars[]{ kStartSetChar, '\0' };
+    static const char   initialChars[]{ kStartSetChar, kEndOfString };
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -463,7 +463,7 @@ nImO::Set::getTerminalCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static const char   terminalChars[]{ kEndSetChar, '\0' };
+    static const char   terminalChars[]{ kEndSetChar, kEndOfString };
 
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;

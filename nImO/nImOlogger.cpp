@@ -139,7 +139,7 @@ nImO::Logger::report
     (const nImO::StringVector & stringsToSend)
 {
     bool            okSoFar = false;
-    nImO::SpArray   stringArray(new nImO::Array);
+    nImO::SpArray   stringArray{new nImO::Array};
 
     ODL_OBJENTER(); //####
     for (size_t ii = 0; ii < stringsToSend.size(); ++ii)

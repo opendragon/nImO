@@ -126,13 +126,13 @@ nImO::ChunkArray::appendBytes
     if ((nullptr != data) && (0 < numBytes))
     {
         ODL_LOG("(data && (0 < numBytes))"); //####
-        CPtr(uint8_t)   walker = data;
+        CPtr(uint8_t)   walker{data};
 
         // Invalidate the cache.
         _cachedString.clear();
         for (size_t bytesLeft = numBytes; 0 < bytesLeft; )
         {
-            Ptr(BufferChunk)    lastChunk = _buffers[_numChunks - 1];
+            Ptr(BufferChunk)    lastChunk{_buffers[_numChunks - 1]};
             size_t              available = lastChunk->getAvailableBytes();
 
             if (bytesLeft <= available)
@@ -144,7 +144,7 @@ nImO::ChunkArray::appendBytes
             else
             {
                 ODL_LOG("! (bytesLeft <= available)"); //####
-                Ptr(BufferChunk)    prevChunk = lastChunk;
+                Ptr(BufferChunk)    prevChunk{lastChunk};
 
                 lastChunk = new BufferChunk(_buffersArePadded);
                 if (nullptr != lastChunk)
@@ -202,7 +202,7 @@ nImO::ChunkArray::atEnd
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
-            Ptr(BufferChunk)    aChunk = _buffers[chunkNumber];
+            Ptr(BufferChunk)    aChunk{_buffers[chunkNumber]};
 
             if (nullptr != aChunk)
             {
@@ -241,7 +241,7 @@ nImO::ChunkArray::getByte
         if (_numChunks > chunkNumber)
         {
             ODL_LOG("(_numChunks > chunkNumber)"); //####
-            Ptr(BufferChunk)    aChunk = _buffers[chunkNumber];
+            Ptr(BufferChunk)    aChunk{_buffers[chunkNumber]};
 
             if (nullptr != aChunk)
             {
@@ -249,7 +249,7 @@ nImO::ChunkArray::getByte
                 if (offset < aChunk->getDataSize())
                 {
                     ODL_LOG("(offset < aChunk->getDataSize())"); //####
-                    CPtr(uint8_t)   thisData = aChunk->getData();
+                    CPtr(uint8_t)   thisData{aChunk->getData()};
 
                     result = *(thisData + offset);
                     atEnd = false;
@@ -276,7 +276,7 @@ nImO::ChunkArray::getBytes
         _cachedString.reserve(length + (_buffersArePadded ? 1 : 0));
         for (size_t ii = 0; _numChunks > ii; ++ii)
         {
-            Ptr(BufferChunk)    aChunk = _buffers[ii];
+            Ptr(BufferChunk)    aChunk{_buffers[ii]};
 
             if (nullptr != aChunk)
             {
@@ -304,7 +304,7 @@ nImO::ChunkArray::getLength
     if (nullptr != _buffers)
     {
         ODL_LOG("(_buffers)"); //####
-        Ptr(BufferChunk)    aChunk = _buffers[_numChunks - 1];
+        Ptr(BufferChunk)    aChunk{_buffers[_numChunks - 1]};
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);
         if (nullptr != aChunk)
@@ -329,14 +329,14 @@ nImO::ChunkArray::reset
         ODL_LOG("(1 < _numChunks)"); //####
         for (size_t ii = 1; _numChunks > ii; ++ii)
         {
-            Ptr(BufferChunk)    aChunk = _buffers[ii];
+            Ptr(BufferChunk)    aChunk{_buffers[ii]};
 
             if (nullptr != aChunk)
             {
                 delete aChunk;
             }
         }
-        Ptr(BufferChunk)    firstChunk = *_buffers;
+        Ptr(BufferChunk)    firstChunk{*_buffers};
 
         delete[] _buffers;
         _buffers = new Ptr(BufferChunk)[1];

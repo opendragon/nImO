@@ -219,7 +219,7 @@ doTestBufferChunkWithSingleByte
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
             {
-                CPtr(uint8_t) storedData = stuff->getData();
+                CPtr(uint8_t) storedData{stuff->getData()};
 
                 if ((nullptr != storedData) && (data == *storedData))
                 {
@@ -293,7 +293,7 @@ doTestFilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    CPtr(uint8_t) storedData = stuff->getData();
+                    CPtr(uint8_t) storedData{stuff->getData()};
 
                     if (nullptr != storedData)
                     {
@@ -384,7 +384,7 @@ doTestOverfilledBufferChunk
                 }
                 if ((0 == stuff->getAvailableBytes()) && (howMuch == stuff->getDataSize()))
                 {
-                    CPtr(uint8_t) storedData = stuff->getData();
+                    CPtr(uint8_t) storedData{stuff->getData()};
 
                     if (nullptr != storedData)
                     {
@@ -584,9 +584,9 @@ doTestStringBufferWithCharacters
     {
         if (1 < argc)
         {
-            CPtr(char)  inString = *argv;
-            CPtr(char)  outString = argv[1];
-            size_t      outLength = strlen(outString);
+            CPtr(char)  inString{*argv};
+            CPtr(char)  outString{argv[1]};
+            size_t      outLength{strlen(outString)};
             auto        stuff{make_unique<StringBuffer>()};
 
             if (nullptr != stuff)
@@ -659,7 +659,7 @@ doTestStringBufferWithLogical
     {
         if (1 < argc)
         {
-            CPtr(char)  outString = argv[1];
+            CPtr(char)  outString{argv[1]};
             int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
@@ -732,7 +732,7 @@ doTestStringBufferWithInteger
     {
         if (1 < argc)
         {
-            CPtr(char)  outString = argv[1];
+            CPtr(char)  outString{argv[1]};
             int64_t     value;
 
             if (ConvertToInt64(*argv, value))
@@ -803,9 +803,9 @@ doTestStringBufferWithString
     {
         if (1 < argc)
         {
-            CPtr(char)  inString = *argv;
-            CPtr(char)  outString = argv[1];
-            size_t      outLength = strlen(outString);
+            CPtr(char)  inString{*argv};
+            CPtr(char)  outString{argv[1]};
+            size_t      outLength{strlen(outString)};
             auto        stuff{make_unique<StringBuffer>()};
 
             if (nullptr != stuff)
@@ -876,9 +876,9 @@ doTestStringBufferWithSpecialCharacters
 
     try
     {
-        CPtr(char)  inString = "abc\tdef\f\rghi\302";
-        CPtr(char)  outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
-        size_t      outLength = strlen(outString);
+        CPtr(char)  inString{"abc\tdef\f\rghi\302"};
+        CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
+        size_t      outLength{strlen(outString)};
         auto        stuff{make_unique<StringBuffer>()};
 
         if (nullptr != stuff)
@@ -944,7 +944,7 @@ doTestStringBufferWithDouble
     {
         if (1 < argc)
         {
-            CPtr(char)  outString = argv[1];
+            CPtr(char)  outString{argv[1]};
             double      value;
 
             if (ConvertToDouble(*argv, value))
@@ -1028,8 +1028,8 @@ doTestBigStringBuffer
 
         if (nullptr != stuff)
         {
-            CPtr(char)  bigString = "abcdefghijklmnopqrstuvwxyz0123456789";
-            size_t      bigLength = strlen(bigString);
+            CPtr(char)  bigString{"abcdefghijklmnopqrstuvwxyz0123456789"};
+            size_t      bigLength{strlen(bigString)};
 
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -1103,7 +1103,7 @@ doTestStringBufferWithEmptyBlob
         {
             stuff->addBytes(nullptr, 0);
             auto        resultString{stuff->getString()};
-            CPtr(char)  expectedString = "%0%%";
+            CPtr(char)  expectedString{"%0%%"};
 
             if (0 == resultString.compare(expectedString))
             {
@@ -1158,13 +1158,13 @@ doTestStringBufferWithSmallBlob
 
         if (nullptr != stuff)
         {
-            UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
+            UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
 
             if (nullptr != smallBlob)
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr = smallBlob.get();
+                    Ptr(uint8_t)    addr{smallBlob.get()};
                     uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     smallBlob[ii] = aByte;
@@ -1242,13 +1242,13 @@ doTestStringBufferWithBigBlob
 
         if (nullptr != stuff)
         {
-            UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
+            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
             if (nullptr != bigBlob)
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr = bigBlob.get();
+                    Ptr(uint8_t)    addr{bigBlob.get()};
                     uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
 
                     bigBlob[ii] = aByte;
@@ -1441,7 +1441,7 @@ doTestLogicalValue
     {
         if (1 < argc)
         {
-            CPtr(char)  outString = argv[1];
+            CPtr(char)  outString{argv[1]};
             int64_t     value;
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
@@ -1563,7 +1563,7 @@ doTestNumberValue
     {
         if (1 < argc)
         {
-            CPtr(char)  outString = argv[1];
+            CPtr(char)  outString{argv[1]};
             int64_t     intValue;
 
             if (ConvertToInt64(*argv, intValue))
@@ -1767,8 +1767,8 @@ doTestStringValueWithEscapes
 
     try
     {
-        CPtr(char)  inString = "abc\tdef\f\rghi\302";
-        CPtr(char)  outString = "\"abc\\tdef\\f\\rghi\\M-B\"";
+        CPtr(char)  inString{"abc\tdef\f\rghi\302"};
+        CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
         auto        stuff{make_unique<String>(inString)};
 
         if (nullptr != stuff)
@@ -1875,7 +1875,7 @@ doTestSmallBlobValue
 
     try
     {
-        UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
 
         if (smallBlob)
         {
@@ -1957,7 +1957,7 @@ doTestBigBlobValue
 
     try
     {
-        UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
+        UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
         if (nullptr != bigBlob)
         {
@@ -2368,8 +2368,8 @@ doTestBlobCopyAndAssign
 
     try
     {
-        UpAuint8_t  bigBlob(new uint8_t[kBigTestSize]);
-        UpAuint8_t  smallBlob(new uint8_t[kSmallTestSize]);
+        UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+        UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
 
         if ((nullptr != bigBlob) && (nullptr != smallBlob))
         {
@@ -2385,12 +2385,12 @@ doTestBlobCopyAndAssign
 
                 smallBlob[ii] = aByte;
             }
-            Blob            smallStuff(smallBlob.get(), kSmallTestSize);
-            Blob            bigStuff(bigBlob.get(), kBigTestSize);
+            Blob            smallStuff{smallBlob.get(), kSmallTestSize};
+            Blob            bigStuff{bigBlob.get(), kBigTestSize};
             size_t          smallLength = 0;
             size_t          bigLength = 0;
-            CPtr(uint8_t)   smallValue = smallStuff.getValue(smallLength);
-            CPtr(uint8_t)   bigValue = bigStuff.getValue(bigLength);
+            CPtr(uint8_t)   smallValue{smallStuff.getValue(smallLength)};
+            CPtr(uint8_t)   bigValue{bigStuff.getValue(bigLength)};
 
             result = ((kSmallTestSize == smallLength) ? 0 : 1);
             if (0 == result)
@@ -2407,8 +2407,8 @@ doTestBlobCopyAndAssign
             }
             if (0 == result)
             {
-                Blob    smallCopy(smallStuff);
-                Blob    bigCopy(bigStuff);
+                Blob    smallCopy{smallStuff};
+                Blob    bigCopy{bigStuff};
 
                 smallLength = bigLength = 0;
                 smallValue = smallCopy.getValue(smallLength);

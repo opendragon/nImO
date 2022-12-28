@@ -133,7 +133,7 @@ extractValueAndCheck
     }
     else
     {
-        CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+        CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
         if (nullptr == asFlaw)
         {
@@ -171,7 +171,7 @@ extractValueAndCheck
             stuff.close();
             if (nullptr != extractedValue)
             {
-                CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+                CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
                 if (nullptr == asFlaw)
                 {
@@ -242,7 +242,7 @@ doTestExtractEmptyMessage
                 }
                 else
                 {
-                    CPtr(Flaw)  asFlaw = extractedValue->asFlaw();
+                    CPtr(Flaw)  asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr != asFlaw)
                     {
@@ -3906,7 +3906,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 }
                 else
                 {
-                    CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+                    CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr != asFlaw)
                     {

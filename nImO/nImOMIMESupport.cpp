@@ -151,11 +151,11 @@ nImO::DecodeMIMEToBytes
         {
             for (size_t jj = count4s; jj < 4; jj++)
             {
-                group6[jj] = '\0';
+                group6[jj] = kEndOfString;
             }
             for (size_t jj = 0; jj < 4; jj++)
             {
-                CPtr(char)  offset = strchr(kMIMECharSet, group6[jj]);
+                CPtr(char)  offset{strchr(kMIMECharSet, group6[jj])};
 
                 if (nullptr == offset)
                 {
@@ -195,7 +195,7 @@ nImO::EncodeBytesAsMIME
      CPtr(void)     inBytes,
      const size_t   numBytes)
 {
-    CPtr(uint8_t)   rawBytes = StaticCast(CPtr(uint8_t), inBytes);
+    CPtr(uint8_t)   rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
     uint8_t         group8[3];
     uint8_t         group6[4];
     size_t          count3s = 0;
@@ -227,7 +227,7 @@ nImO::EncodeBytesAsMIME
     {
         for (size_t ii = count3s; ii < 3; ii++)
         {
-            group8[ii] = '\0';
+            group8[ii] = kEndOfString;
         }
         group6[0] = ((group8[0] & 0xfc) >> 2);
         group6[1] = ((group8[0] & 0x03) << 4) + ((group8[1] & 0xf0) >> 4);

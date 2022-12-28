@@ -110,8 +110,8 @@ nImO::ContextWithMDNS::ContextWithMDNS
 
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue = *retValue;
-            Ptr(InitFile::AddressValue) asAddress = actualValue->AsAddress();
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
 
             if (nullptr == asAddress)
             {
@@ -134,8 +134,8 @@ nImO::ContextWithMDNS::ContextWithMDNS
         retValue = GetConfiguredValue(kPortKey);
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue = *retValue;
-            Ptr(InitFile::IntegerValue) asInteger = actualValue->AsInteger();
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
 
             if (nullptr == asInteger)
             {

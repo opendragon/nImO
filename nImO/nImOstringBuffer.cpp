@@ -355,7 +355,7 @@ nImO::StringBuffer::processCharacters
                 inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                 if (0x20 > aByte)
                 {
-                    CPtr(char)  controlString = kCanonicalControl[aByte];
+                    CPtr(char)  controlString{kCanonicalControl[aByte]};
 
                     inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
                                            strlen(controlString) * sizeof(*controlString));
@@ -400,7 +400,7 @@ nImO::StringBuffer::processCharacters
                         inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
                         if (0x20 > aByte)
                         {
-                            CPtr(char)  controlString = kCanonicalControl[aByte];
+                            CPtr(char)  controlString{kCanonicalControl[aByte]};
 
                             inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
                             inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
@@ -448,7 +448,7 @@ nImO::operator <<
     ODL_P2("out = ", &out, "aBuffer = ", &aBuffer); //####
     for (size_t ii = 0, num = aBuffer.getNumChunks(); num > ii; ++ii)
     {
-        Ptr(BufferChunk)    aChunk = aBuffer.getBufferChunk(ii);
+        Ptr(BufferChunk)    aChunk{aBuffer.getBufferChunk(ii)};
 
         if (nullptr != aChunk)
         {

@@ -106,16 +106,19 @@ class ReceiveOnLoggingPort final
              const uint16_t         port) :
                 _runFlag(runFlag), _socket(*service)
         {
-            asio::ip::address_v4    listenAddress(0);
-            asio::ip::address_v4    multicastAddress(address);
-            asio::ip::udp::endpoint listenEndpoint(listenAddress, port);
+            asio::ip::address_v4    listenAddress{0};
+            asio::ip::address_v4    multicastAddress{address};
+            asio::ip::udp::endpoint listenEndpoint{listenAddress, port};
 
             _socket.open(listenEndpoint.protocol());
-            _socket.set_option(asio::ip::udp::socket::reuse_address(true));
-            _socket.bind(listenEndpoint);
-            // Join the multicast group.
-            _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
-            receiveMessages();
+            if (_socket.is_open())
+            {
+                _socket.set_option(asio::ip::udp::socket::reuse_address(true));
+                _socket.bind(listenEndpoint);
+                // Join the multicast group.
+                _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
+                receiveMessages();
+            }
         }
 
     protected :
@@ -273,8 +276,7 @@ main
                     // Check for messages.
                     boost::unique_lock<boost::mutex>    lock(lReceivedLock);
 
-                    //while ((nullptr == lValueJustReceived) && lKeepRunning)
-                    while ((0 == lReceivedValues.size()) && lKeepRunning)
+                    while (lKeepRunning && (0 == lReceivedValues.size()))
                     {
                         lReceivedCondition.wait(lock);
                     }

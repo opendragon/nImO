@@ -144,7 +144,7 @@ nImO::Logical::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr != otherPtr)
         {
@@ -178,7 +178,7 @@ nImO::Logical::equalTo
 
     if (&other != this)
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr == otherPtr)
         {
@@ -255,7 +255,7 @@ nImO::Logical::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static CPtr(char)   initialChars = "ftFT";
+    static CPtr(char)   initialChars{"ftFT"};
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -288,7 +288,7 @@ nImO::Logical::greaterThan
     }
     else
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr == otherPtr)
         {
@@ -321,7 +321,7 @@ nImO::Logical::greaterThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr == otherPtr)
         {
@@ -358,7 +358,7 @@ nImO::Logical::lessThan
     }
     else
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr == otherPtr)
         {
@@ -391,7 +391,7 @@ nImO::Logical::lessThanOrEqual
 
     if (&other != this)
     {
-        CPtr(Logical)   otherPtr = other.asLogical();
+        CPtr(Logical)   otherPtr{other.asLogical()};
 
         if (nullptr == otherPtr)
         {

@@ -208,7 +208,7 @@ extractValueAndCheck
                 }
                 else
                 {
-                    CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+                    CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr == asFlaw)
                     {
@@ -392,7 +392,7 @@ doTestMIMEExtractEmptyMessage
                         }
                         else
                         {
-                            CPtr(Flaw)    asFlaw = extractedValue->asFlaw();
+                            CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
 
                             if (nullptr != asFlaw)
                             {

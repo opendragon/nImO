@@ -111,14 +111,11 @@ class ReceiveOnLoggingPort final
             asio::ip::udp::endpoint listenEndpoint{listenAddress, port};
 
             _socket.open(listenEndpoint.protocol());
-            if (_socket.is_open())
-            {
-                _socket.set_option(asio::ip::udp::socket::reuse_address(true));
-                _socket.bind(listenEndpoint);
-                // Join the multicast group.
-                _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
-                receiveMessages();
-            }
+            _socket.set_option(asio::ip::udp::socket::reuse_address(true));
+            _socket.bind(listenEndpoint);
+            // Join the multicast group.
+            _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
+            receiveMessages();
         }
 
     protected :

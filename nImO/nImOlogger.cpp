@@ -38,12 +38,19 @@
 
 #include "nImOlogger.h"
 #include <nImOarray.h>
+#include <nImOmap.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
+
+#if MAC_OR_LINUX_
+# include <unistd.h>
+#else // ! MAC_OR_LINUX_
+# include <winsock.h>
+#endif // ! MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -77,6 +84,12 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+const std::string   nImO::kComputerNameKey{"computer"};
+
+const std::string   nImO::kMessageKey{"message"};
+
+const std::string   nImO::kTagKey{"tag"};
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -90,13 +103,22 @@
 #endif // defined(__APPLE__)
 
 nImO::Logger::Logger
-    (SPservice      service,
-     const uint32_t logAddress,
-     const uint16_t logPort):
+    (SPservice              service,
+     const std::string &    tag,
+     const uint32_t         logAddress,
+     const uint16_t         logPort):
         _address(logAddress), _port(logPort), _endpoint(asio::ip::address_v4(_address), _port),
         _socket(*service, _endpoint.protocol())
 {
     ODL_ENTER(); //####
+    char    tmp[300];
+
+    if (0 != gethostname(tmp, sizeof(tmp)))
+    {
+        strcpy(tmp, "unknown");
+    }
+    _computerName = std::make_shared<String>(tmp);
+    _tag = std::make_shared<String>(tag);
     ODL_EXIT_P(this); //####
 } // nImO::Logger::Logger
 
@@ -115,20 +137,16 @@ bool
 nImO::Logger::report
     (const std::string &    stringToSend)
 {
-    bool    okSoFar = false;
+    bool    okSoFar;
 
     ODL_OBJENTER(); //####
     if (0 < stringToSend.length())
     {
-        nImO::Message   messageToSend;
-
-        messageToSend.open(true);
-        messageToSend.setValue(std::make_shared<String>(stringToSend));
-        messageToSend.close();
-        if (report(messageToSend))
-        {
-            okSoFar = true;
-        }
+        okSoFar = report(std::make_shared<String>(stringToSend));
+    }
+    else
+    {
+        okSoFar = false;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -138,32 +156,29 @@ bool
 nImO::Logger::report
     (const nImO::StringVector & stringsToSend)
 {
-    bool            okSoFar = false;
-    nImO::SpArray   stringArray{new nImO::Array};
+    bool    okSoFar;
 
     ODL_OBJENTER(); //####
-    for (size_t ii = 0; ii < stringsToSend.size(); ++ii)
+    if (1 <= stringsToSend.size())
     {
-        stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
-    }
-    if (0 < stringArray->size())
-    {
-        nImO::Message   messageToSend;
-
-        messageToSend.open(true);
-        if (1 < stringArray->size())
+        if (1 < stringsToSend.size())
         {
-            messageToSend.setValue(stringArray);
+            SpArray stringArray{new Array};
+
+            for (size_t ii = 0; ii < stringsToSend.size(); ++ii)
+            {
+                stringArray->addValue(std::make_shared<String>(stringsToSend[ii]));
+            }
+            okSoFar = report(stringArray);
         }
         else
         {
-            messageToSend.setValue(stringArray->at(0));
+            okSoFar = report(stringsToSend[0]);
         }
-        messageToSend.close();
-        if (report(messageToSend))
-        {
-            okSoFar = true;
-        }
+    }
+    else
+    {
+        okSoFar = false;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -171,39 +186,55 @@ nImO::Logger::report
 
 bool
 nImO::Logger::report
-    (nImO::Message &    messageToSend)
+    (SpValue    valueToSend)
 {
     bool    okSoFar = false;
 
     ODL_OBJENTER(); //####
-    if (0 < messageToSend.getLength())
+    if (nullptr == valueToSend)
     {
-        auto    asString{messageToSend.getBytes()};
-
-        if (0 < asString.length())
-        {
-            nImO::StringVector  outVec;
-
-            nImO::EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
-
-            // send the encoded message to the logging ports
-            _socket.async_send_to(asio::buffer(*outString), _endpoint,
-                                  [outString]
-                                  (system::error_code   /*ec*/,
-                                   std::size_t          /*length*/)
-                                  {
-                                  });
-            okSoFar = true;
-        }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
-        }
+        ODL_LOG("(nullptr == valueToSend)"); //####
     }
     else
     {
-        ODL_LOG("! (0 < messageToSend.getLength())"); //####
+        Message messageToSend;
+        SpMap   messageMap{new Map};
+
+        messageToSend.open(true);
+        messageMap->addValue(std::make_shared<String>(kMessageKey), valueToSend);
+        messageMap->addValue(std::make_shared<String>(kComputerNameKey), _computerName);
+        messageMap->addValue(std::make_shared<String>(kTagKey), _tag);
+        messageToSend.setValue(messageMap);
+        messageToSend.close();
+        if (0 < messageToSend.getLength())
+        {
+            auto    asString{messageToSend.getBytes()};
+
+            if (0 < asString.length())
+            {
+                nImO::StringVector  outVec;
+
+                nImO::EncodeBytesAsMIME(outVec, asString);
+                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
+
+                // send the encoded message to the logging ports
+                _socket.async_send_to(asio::buffer(*outString), _endpoint,
+                                      [outString]
+                                      (system::error_code   /*ec*/,
+                                       std::size_t          /*length*/)
+                                      {
+                                      });
+                okSoFar = true;
+            }
+            else
+            {
+                ODL_LOG("! (0 < asString.length())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < messageToSend.getLength())"); //####
+        }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -1012,7 +1012,7 @@ namespace nImO
     /*! @brief The escape character. */
     extern const uint8_t    kEscapeChar;
 
-    /*! @brief The directory separator string; */
+    /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;
 
 } // nImO

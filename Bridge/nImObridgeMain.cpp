@@ -107,7 +107,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::UtilityContext    ourContext{progName, logging, firstArg.getCurrentValue()};
+            nImO::UtilityContext    ourContext{progName, "bridge", logging, firstArg.getCurrentValue()};
 
         }
         catch (...)

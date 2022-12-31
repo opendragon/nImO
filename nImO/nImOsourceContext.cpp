@@ -78,12 +78,13 @@
 
 nImO::SourceContext::SourceContext
     (const std::string &    executableName,
+     const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, logging, true, nodeName)
+        inherited(executableName, tag, logging, true, nodeName)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {

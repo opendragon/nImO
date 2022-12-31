@@ -55,6 +55,16 @@
 
 namespace nImO
 {
+
+    /*! @brief The key for the computer name in a log message. */
+    extern const std::string    kComputerNameKey;
+
+    /*! @brief The key for the message in a log message. */
+    extern const std::string    kMessageKey;
+
+    /*! @brief The The key for the tag in a log message. */
+    extern const std::string    kTagKey;
+
     /*! @brief A class to provide the @nImO logging mechanism. */
     class Logger final
     {
@@ -73,12 +83,14 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] service The I/O service to attach to.
+             @param[in] tag The symbolic name for the current process.
              @param[in] logAddress The multicast address to use.
              @param[in] logPort The multicast port to use. */
             Logger
-                (SPservice      service,
-                 const uint32_t logAddress,
-                 const uint16_t logPort);
+                (SPservice              service,
+                 const std::string &    tag,
+                 const uint32_t         logAddress,
+                 const uint16_t         logPort);
 
             /*! @brief The destructor. */
             virtual
@@ -92,6 +104,13 @@ namespace nImO
             report
                 (const std::string &    stringToSend);
 
+            /*! @brief Log a message.
+             @param[in] valueToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (SpValue    valueToSend);
+
             /*! @brief Log a complex message.
              @param[in] stringsToSend The message to be logged.
              @return @c true if the message was successfully logged. */
@@ -104,13 +123,6 @@ namespace nImO
 
         private :
             // Private methods.
-
-            /*! @brief Log a message.
-             @param[in] messageToSend The message to be logged.
-             @return @c true if the message was successfully logged. */
-            bool
-            report
-                (Message &  messageToSend);
 
         public :
             // Public fields.
@@ -132,6 +144,12 @@ namespace nImO
         
             /*! @brief The socket for a multicast transmission. */
             asio::ip::udp::socket _socket;
+
+            /*! @brief The symbolic name for the current process. */
+            SpString    _tag;
+
+            /*! @brief The name of the computer. */
+            SpString    _computerName;
 
     }; // Logger
 

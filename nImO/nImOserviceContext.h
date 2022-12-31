@@ -74,12 +74,14 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] logging @c true if the executing program is to be logged.
-            @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
+             @param[in] executable The name of the executing program.
+             @param[in] tag The symbolic name for the current process.
+             @param[in] logging @c true if the executing program is to be logged.
+             @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
+             @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
                 (const std::string &    executableName,
+                 const std::string &    tag,
                  const bool             logging,
                  const bool             autoLaunchRegistry = true,
                  const std::string &    nodeName = "");

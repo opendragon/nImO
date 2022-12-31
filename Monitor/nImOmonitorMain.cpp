@@ -38,6 +38,7 @@
 
 #include <nImOcontextWithMDNS.h>
 #include <nImOarray.h>
+#include <nImOmap.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
 #include <nImOvalue.h>
@@ -78,6 +79,15 @@ static boost::mutex lReceivedLock;
 
 /*! @brief Used to indicate that lReceivedValues is ready to use. */
 static boost::condition_variable    lReceivedCondition;
+
+/*! @brief Used to extract the computer name from the received Message. */
+static nImO::SpString    lComputerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
+
+/*! @brief Used to extract the tag from the received Message. */
+static nImO::SpString    lTagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
+
+/*! @brief Used to extract the message from the received Message. */
+static nImO::SpString    lMessageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
 
 /*! @brief A class to provide values that are used to compare pointers to values. */
 class ReceiveOnLoggingPort final
@@ -258,7 +268,7 @@ main
         {
             uint32_t                loggingAddress;
             uint16_t                loggingPort;
-            nImO::ContextWithMDNS   ourContext{progName, logging};
+            nImO::ContextWithMDNS   ourContext{progName, "monitor", logging};
 
             nImO::SetSignalHandlers(catchSignal);
             ourContext.getLoggingInfo(loggingAddress, loggingPort);
@@ -287,38 +297,136 @@ main
                 {
                     time_t              rawTime;
                     std::string         nowAsString;
-                    CPtr(nImO::Array)   asArray{nextValue->asArray()};
+                    CPtr(nImO::Map)     asMap{nextValue->asMap()};
                     char                timeBuffer[80];
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "%F/%T ", localtime(&rawTime));
-                    if (nullptr == asArray)
+                    if (nullptr == asMap)
                     {
-                        CPtr(nImO::String)  asString{nextValue->asString()};
+                        CPtr(nImO::Array)   asArray{nextValue->asArray()};
 
-                        if (nullptr == asString)
+                        // 'old' style
+                        if (nullptr == asArray)
                         {
-                            std::cout << timeBuffer << *nextValue << std::endl;
+                            CPtr(nImO::String)  asString{nextValue->asString()};
+
+                            std::cout << timeBuffer;
+                            if (nullptr == asString)
+                            {
+                                std::cout << *nextValue;
+                            }
+                            else
+                            {
+                                std::cout << asString->getValue();
+                            }
+                            std::cout << std::endl;
                         }
                         else
                         {
-                            std::cout << timeBuffer << asString->getValue() << std::endl;
+                            for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
+                            {
+                                nImO::SpValue       element{asArray->at(ii)};
+                                CPtr(nImO::String)  asString{element->asString()};
+
+                                std::cout << timeBuffer;
+                                if (nullptr == asString)
+                                {
+                                    std::cout << *element;
+                                }
+                                else
+                                {
+                                    std::cout << asString->getValue();
+                                }
+                                std::cout << std::endl;
+                            }
                         }
                     }
                     else
                     {
-                        for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
-                        {
-                            nImO::SpValue       element{asArray->at(ii)};
-                            CPtr(nImO::String)  asString{element->asString()};
+                        // Get the computer name
+                        auto            anIterator = asMap->find(lComputerNameKey);
+                        nImO::SpValue   theComputerName;
+                        nImO::SpValue   theTag;
 
-                            if (nullptr == asString)
+                        if (anIterator == asMap->end())
+                        {
+                            theComputerName = nullptr;
+                        }
+                        else
+                        {
+                            theComputerName = anIterator->second;
+                        }
+                        // Get the tag
+                        anIterator = asMap->find(lTagKey);
+                        if (anIterator == asMap->end())
+                        {
+                            theTag = nullptr;
+                        }
+                        else
+                        {
+                            theTag = anIterator->second;
+                        }
+                        // Get the message
+                        anIterator = asMap->find(lMessageKey);
+                        if (anIterator != asMap->end())
+                        {
+                            nImO::SpValue       theMessage{anIterator->second};
+                            CPtr(nImO::Array)   asArray{theMessage->asArray()};
+                            std::string         tagText;
+                            std::string         computerNameText;
+
+                            if (nullptr != theTag)
                             {
-                                std::cout << timeBuffer << *element << std::endl;
+                                CPtr(nImO::String)  asString{theTag->asString()};
+
+                                if (nullptr != asString)
+                                {
+                                    tagText = asString->getValue() + "@";
+                                }
+                            }
+                            if (nullptr != theComputerName)
+                            {
+                                CPtr(nImO::String)  asString{theComputerName->asString()};
+
+                                if (nullptr != asString)
+                                {
+                                    computerNameText = asString->getValue() + "/";
+                                }
+                            }
+                            if (nullptr == asArray)
+                            {
+                                CPtr(nImO::String)  asString{theMessage->asString()};
+
+                                std::cout << computerNameText << tagText << timeBuffer;
+                                if (nullptr == asString)
+                                {
+                                    std::cout << *nextValue;
+                                }
+                                else
+                                {
+                                    std::cout << asString->getValue();
+                                }
+                                std::cout << std::endl;
                             }
                             else
                             {
-                                std::cout << timeBuffer << asString->getValue() << std::endl;
+                                for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
+                                {
+                                    nImO::SpValue       element{asArray->at(ii)};
+                                    CPtr(nImO::String)  asString{element->asString()};
+
+                                    std::cout << computerNameText << tagText << timeBuffer;
+                                    if (nullptr == asString)
+                                    {
+                                        std::cout << *element;
+                                    }
+                                    else
+                                    {
+                                        std::cout << asString->getValue();
+                                    }
+                                    std::cout << std::endl;
+                                }
                             }
                         }
                     }

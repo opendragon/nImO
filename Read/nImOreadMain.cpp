@@ -112,7 +112,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::SinkContext   ourContext{progName, logging, secondArg.getCurrentValue()};
+            nImO::SinkContext   ourContext{progName, "read", logging, secondArg.getCurrentValue()};
 
         }
         catch (...)

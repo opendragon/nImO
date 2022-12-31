@@ -140,7 +140,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::SourceContext ourContext{progName, logging, secondArg.getCurrentValue()};
+            nImO::SourceContext ourContext{progName, "write", logging, secondArg.getCurrentValue()};
 
             nImO::SetSignalHandlers(catchSignal);
             // Open a nImO channel to collect messages.

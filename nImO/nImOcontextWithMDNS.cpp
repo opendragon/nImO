@@ -96,12 +96,13 @@ static std::string  kPortKey = "logger port";
 
 nImO::ContextWithMDNS::ContextWithMDNS
     (const std::string &    executableName,
+     const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
         inherited(executableName, nodeName), _loggingEnabled(logging), _logger(nullptr)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
@@ -161,7 +162,7 @@ nImO::ContextWithMDNS::ContextWithMDNS
         }
         if (_loggingEnabled)
         {
-            _logger = new Logger(getService(), _logAddress, _logPort);
+            _logger = new Logger(getService(), tag, _logAddress, _logPort);
         }
     }
     catch (...)

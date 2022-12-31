@@ -78,13 +78,14 @@
 
 nImO::ServiceContext::ServiceContext
     (const std::string &    executableName,
+     const std::string &    tag,
      const bool             logging,
      const bool             autoLaunchRegistry,
      const std::string &    nodeName) :
-        inherited(executableName, logging, autoLaunchRegistry, nodeName)
+        inherited(executableName, tag, logging, autoLaunchRegistry, nodeName)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B2("logging = ", logging, "autoLaunchRegistry = ", autoLaunchRegistry); //####
     try
     {

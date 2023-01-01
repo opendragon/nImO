@@ -89,7 +89,7 @@ nImO::Number::Number
 } // nImO::Number::Number
 
 nImO::Number::Number
-    (nImO::Number &&    other)
+    (nImO::Number &&    MDNS_UNUSED_PARAM_(other))
     noexcept :
         inherited()
 {

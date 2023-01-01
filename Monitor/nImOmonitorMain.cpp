@@ -71,8 +71,59 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A structure to hold a received message. */
+struct ReceivedData final
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor.
+         @param[in] receivedMessage The message from the sender.
+         @param[in] receivedAddress The send IP address. */
+        ReceivedData
+            (nImO::SpValue  receivedMessage,
+             const uint32_t receivedAddress) :
+                _receivedMessage(receivedMessage), _receivedAddress(receivedAddress)
+        {
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+    public :
+        // Public fields.
+
+        /*! @brief The message from the sender. */
+        nImO::SpValue   _receivedMessage;
+
+        /*! @brief The IP address of the sender. */
+        uint32_t    _receivedAddress;
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+}; // ReceivedData
+
+/*! @brief A holder for a shared pointer to ReceivedData. */
+using SpReceivedData = std::shared_ptr<ReceivedData>;
+
 /*! @brief The sequence of received messages. */
-static std::deque<nImO::SpValue>    lReceivedValues;
+static std::deque<SpReceivedData>   lReceivedData;
 
 /*! @brief Used to protect lReceivedValues. */
 static boost::mutex lReceivedLock;
@@ -89,7 +140,7 @@ static nImO::SpString    lTagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
 /*! @brief Used to extract the message from the received Message. */
 static nImO::SpString    lMessageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
 
-/*! @brief A class to provide values that are used to compare pointers to values. */
+/*! @brief A class to handle receiving messages. */
 class ReceiveOnLoggingPort final
 {
     public :
@@ -154,14 +205,19 @@ class ReceiveOnLoggingPort final
                                                    // We need to convert the raw data to a string!
                                                    if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
                                                    {
-                                                       nImO::Message   newMessage;
+                                                       nImO::Message    newMessage;
+                                                       uint32_t         senderAddress =
+                                                                            _senderEndpoint.address().to_v4().to_uint();
 
                                                        newMessage.open(false);
                                                        newMessage.appendBytes(inBytes.data(), inBytes.size());
+                                                       SpReceivedData   newData{std::make_shared<ReceivedData>(newMessage.getValue(),
+                                                                                                               senderAddress)};
+
                                                        {
                                                            boost::lock_guard<boost::mutex>  lock(lReceivedLock);
 
-                                                           lReceivedValues.push_back(newMessage.getValue());
+                                                           lReceivedData.push_back(newData);
                                                        }
                                                        newMessage.close();
                                                        lReceivedCondition.notify_one();
@@ -277,44 +333,49 @@ main
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; lKeepRunning; )
             {
-                nImO::SpValue   nextValue;
+                SpReceivedData  nextData;
 
                 {
                     // Check for messages.
                     boost::unique_lock<boost::mutex>    lock(lReceivedLock);
 
-                    while (lKeepRunning && (0 == lReceivedValues.size()))
+                    while (lKeepRunning && (0 == lReceivedData.size()))
                     {
                         lReceivedCondition.wait(lock);
                     }
                     if (lKeepRunning)
                     {
-                        nextValue = lReceivedValues.front();
-                        lReceivedValues.pop_front();
+                        nextData = lReceivedData.front();
+                        lReceivedData.pop_front();
                     }
                 }
                 if (lKeepRunning)
                 {
-                    time_t              rawTime;
-                    std::string         nowAsString;
-                    CPtr(nImO::Map)     asMap{nextValue->asMap()};
-                    char                timeBuffer[80];
+                    time_t          rawTime;
+                    std::string     nowAsString;
+                    CPtr(nImO::Map) asMap{nextData->_receivedMessage->asMap()};
+                    uint32_t        sender{nextData->_receivedAddress};
+                    char            timeBuffer[80];
+                    std::string     addressString;
 
                     time(&rawTime);
-                    strftime(timeBuffer, sizeof(timeBuffer), "%F/%T ", localtime(&rawTime));
+                    strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
+                    addressString = "[" + std::to_string((sender >> 24) & 0x0FF) + "." +
+                                    std::to_string((sender >> 16) & 0x0FF) + "." +
+                                    std::to_string((sender >> 8) & 0x0FF) + "." + std::to_string(sender & 0x0FF) + "]";
                     if (nullptr == asMap)
                     {
-                        CPtr(nImO::Array)   asArray{nextValue->asArray()};
+                        CPtr(nImO::Array)   asArray{nextData->_receivedMessage->asArray()};
 
                         // 'old' style
                         if (nullptr == asArray)
                         {
-                            CPtr(nImO::String)  asString{nextValue->asString()};
+                            CPtr(nImO::String)  asString{nextData->_receivedMessage->asString()};
 
-                            std::cout << timeBuffer;
+                            std::cout << addressString << timeBuffer;
                             if (nullptr == asString)
                             {
-                                std::cout << *nextValue;
+                                std::cout << *nextData->_receivedMessage;
                             }
                             else
                             {
@@ -329,7 +390,7 @@ main
                                 nImO::SpValue       element{asArray->at(ii)};
                                 CPtr(nImO::String)  asString{element->asString()};
 
-                                std::cout << timeBuffer;
+                                std::cout << addressString << timeBuffer;
                                 if (nullptr == asString)
                                 {
                                     std::cout << *element;
@@ -382,7 +443,7 @@ main
 
                                 if (nullptr != asString)
                                 {
-                                    tagText = asString->getValue() + "@";
+                                    tagText = "#" + asString->getValue();
                                 }
                             }
                             if (nullptr != theComputerName)
@@ -391,17 +452,17 @@ main
 
                                 if (nullptr != asString)
                                 {
-                                    computerNameText = asString->getValue() + "/";
+                                    computerNameText = asString->getValue();
                                 }
                             }
                             if (nullptr == asArray)
                             {
                                 CPtr(nImO::String)  asString{theMessage->asString()};
 
-                                std::cout << computerNameText << tagText << timeBuffer;
+                                std::cout << addressString << computerNameText << tagText << timeBuffer;
                                 if (nullptr == asString)
                                 {
-                                    std::cout << *nextValue;
+                                    std::cout << *theMessage;
                                 }
                                 else
                                 {
@@ -416,7 +477,7 @@ main
                                     nImO::SpValue       element{asArray->at(ii)};
                                     CPtr(nImO::String)  asString{element->asString()};
 
-                                    std::cout << computerNameText << tagText << timeBuffer;
+                                    std::cout << addressString << computerNameText << tagText << timeBuffer;
                                     if (nullptr == asString)
                                     {
                                         std::cout << *element;
@@ -430,7 +491,7 @@ main
                             }
                         }
                     }
-                    nextValue.reset();
+                    nextData.reset();
                 }
             }
         }

@@ -85,7 +85,7 @@ namespace nImO
             Atom
                 (void);
 
-                /*! @brief The move constructor.
+            /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             Atom
                 (Atom &&	other)

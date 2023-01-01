@@ -114,6 +114,20 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
+BaseArgumentDescriptor::BaseArgumentDescriptor
+    (BaseArgumentDescriptor &&    other)
+    noexcept :
+        _argDescription(other._argDescription), _argMode(other._argMode), _argName(other._argName),
+        _valid(other._valid)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._argDescription = other._argName = "";
+    other._argMode = ArgumentMode::Unknown;
+    other._valid = false;
+    ODL_EXIT_P(this); //####
+} // BaseArgumentDescriptor::BaseArgumentDescriptor
+
 BaseArgumentDescriptor::~BaseArgumentDescriptor
     (void)
 {

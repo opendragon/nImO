@@ -104,6 +104,18 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
+ChannelArgumentDescriptor::ChannelArgumentDescriptor
+    (ChannelArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._defaultValue = "";
+    other._currentValue.reset();
+    ODL_EXIT_P(this); //####
+} // ChannelArgumentDescriptor::ChannelArgumentDescriptor
+
 ChannelArgumentDescriptor::~ChannelArgumentDescriptor
     (void)
 {

@@ -102,6 +102,17 @@ nImO::Value::Value
     ODL_EXIT_P(this); //####
 } // nImO::Value::Value
 
+/*! @brief The move constructor.
+ @param[in] other The object to be moved. */
+nImO::Value::Value
+    (nImO::Value &&    other)
+    noexcept
+{
+    MDNS_UNUSED_ARG_(other)
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Value::Value
+
 nImO::Value::~Value
     (void)
 {

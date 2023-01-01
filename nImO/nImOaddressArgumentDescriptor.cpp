@@ -108,6 +108,17 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
+AddressArgumentDescriptor::AddressArgumentDescriptor
+    (AddressArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _addrBuff(other._addrBuff)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._addrBuff = nullptr;
+    ODL_EXIT_P(this); //####
+} // AddressArgumentDescriptor::AddressArgumentDescriptor
+
 AddressArgumentDescriptor::~AddressArgumentDescriptor
     (void)
 {

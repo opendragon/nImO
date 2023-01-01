@@ -84,6 +84,16 @@ nImO::Container::Container
     ODL_EXIT_P(this); //####
 } // nImO::Container::Container
 
+//nImO::Container::Container
+//    (Container &&    other)
+//    noexcept :
+//        inherited(other)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    ODL_EXIT_P(this); //####
+//} // nImO::Container::Container
+
 nImO::Container::~Container
     (void)
 {

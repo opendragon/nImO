@@ -100,6 +100,18 @@ nImO::Array::Array
     ODL_EXIT_P(this); //####
 } // nImO::Array::Array
 
+//nImO::Array::Array
+//    (nImO::Array &&    other)
+//    noexcept :
+//        inherited1(other), inherited2(other)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    addEntries(other);
+//    other.clear();
+//    ODL_EXIT_P(this); //####
+//} // nImO::Array::Array
+
 nImO::Array::~Array
     (void)
 {

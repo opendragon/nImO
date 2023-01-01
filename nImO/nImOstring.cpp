@@ -115,6 +115,19 @@ nImO::String::String
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
+/*! @brief The move constructor.
+ @param[in] other The object to be moved. */
+nImO::String::String
+    (nImO::String &&    other)
+    noexcept :
+        inherited(), _value(other._value)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._value = "";
+    ODL_EXIT_P(this); //####
+} // nImO::String::String
+
 nImO::String::~String
     (void)
 {

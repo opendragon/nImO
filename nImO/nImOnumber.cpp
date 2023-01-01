@@ -88,6 +88,15 @@ nImO::Number::Number
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number
 
+nImO::Number::Number
+    (nImO::Number &&    other)
+    noexcept :
+        inherited()
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Number::Number
+
 nImO::Number::~Number
     (void)
 {

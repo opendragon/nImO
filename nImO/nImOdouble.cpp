@@ -108,6 +108,17 @@ nImO::Double::Double
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
+//nImO::Double::Double
+//    (nImO::Double &&    other)
+//    noexcept :
+//        inherited(other), _floatValue(other._floatValue)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    other._floatValue = 0;
+//    ODL_EXIT_P(this); //####
+//} // nImO::Double::Double
+
 nImO::Double::~Double
     (void)
 {

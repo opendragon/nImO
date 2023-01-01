@@ -95,10 +95,21 @@ StringArgumentDescriptor::StringArgumentDescriptor
 
 StringArgumentDescriptor::StringArgumentDescriptor
     (const StringArgumentDescriptor &   other) :
-        inherited(other), _defaultValue(other._defaultValue)
+        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // StringArgumentDescriptor::StringArgumentDescriptor
+
+StringArgumentDescriptor::StringArgumentDescriptor
+    (StringArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._defaultValue = other._currentValue = "";
     ODL_EXIT_P(this); //####
 } // StringArgumentDescriptor::StringArgumentDescriptor
 

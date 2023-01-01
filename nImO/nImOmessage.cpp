@@ -119,6 +119,22 @@ nImO::Message::Message
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
+//nImO::Message::Message
+//    (Message &&    other)
+//    noexcept :
+//        inherited(other), _lock(), _cachedTransmissionString(other._cachedTransmissionString),
+//        _readPosition(other._readPosition), _state(other._state), _headerAdded(other._headerAdded)
+//{
+//    ODL_ENTER(); //####
+//    ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
+//    ODL_B1("_headerAdded <- ", _headerAdded); //####
+//    other._cachedTransmissionString = "";
+//    other._readPosition = 0;
+//    other._state = MessageState::Unknown;
+//    other._headerAdded = false;
+//    ODL_EXIT_P(this); //####
+//} // nImO::Message::Message
+
 nImO::Message::~Message
     (void)
 {

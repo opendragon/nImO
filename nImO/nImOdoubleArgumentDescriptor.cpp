@@ -112,6 +112,20 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
+DoubleArgumentDescriptor::DoubleArgumentDescriptor
+    (DoubleArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
+        _hasMinimumValue(other._hasMinimumValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._defaultValue = other._maximumValue = other._minimumValue = 0;
+    other._hasMaximumValue = other._hasMinimumValue = false;
+    ODL_EXIT_P(this); //####
+} // DoubleArgumentDescriptor::DoubleArgumentDescriptor
+
 DoubleArgumentDescriptor::~DoubleArgumentDescriptor
     (void)
 {

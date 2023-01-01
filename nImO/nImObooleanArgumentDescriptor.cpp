@@ -95,10 +95,21 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
 BooleanArgumentDescriptor::BooleanArgumentDescriptor
     (const BooleanArgumentDescriptor & other) :
-        inherited(other), _defaultValue(other._defaultValue)
+        inherited(other), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
+
+BooleanArgumentDescriptor::BooleanArgumentDescriptor
+    (BooleanArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._currentValue = other._defaultValue = false;
     ODL_EXIT_P(this); //####
 } // BooleanArgumentDescriptor::BooleanArgumentDescriptor
 

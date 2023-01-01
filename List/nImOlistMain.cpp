@@ -82,7 +82,7 @@ struct T_choiceInfo
          const std::string &    description) :
             _choice(choice), _description(description)
     {
-    } // constructor
+    }
 
 }; // T_choiceInfo
 

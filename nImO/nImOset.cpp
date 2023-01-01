@@ -92,11 +92,23 @@ nImO::Set::Set
 
 nImO::Set::Set
     (const nImO::Set &  other) :
-        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+        inherited1(), inherited2(), _keyKind(other._keyKind)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     addEntries(other);
+    ODL_EXIT_P(this); //####
+} // nImO::Set::Set
+
+nImO::Set::Set
+(nImO::Set &&    other)
+    noexcept :
+    inherited1(), inherited2(), _keyKind(other._keyKind)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    other.clear();
     ODL_EXIT_P(this); //####
 } // nImO::Set::Set
 

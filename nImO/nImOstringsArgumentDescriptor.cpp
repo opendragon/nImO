@@ -103,6 +103,18 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
+StringsArgumentDescriptor::StringsArgumentDescriptor
+    (StringsArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._defaultValue = "";
+    other._allowedValues = StringSet();
+    ODL_EXIT_P(this); //####
+} // StringsArgumentDescriptor::StringsArgumentDescriptor
+
 StringsArgumentDescriptor::~StringsArgumentDescriptor
     (void)
 {

@@ -99,6 +99,16 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
+ExtraArgumentDescriptor::ExtraArgumentDescriptor
+    (ExtraArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // ExtraArgumentDescriptor::ExtraArgumentDescriptor
+
 ExtraArgumentDescriptor::~ExtraArgumentDescriptor
     (void)
 {

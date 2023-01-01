@@ -104,6 +104,22 @@ nImO::BufferChunk::BufferChunk
     ODL_EXIT_P(this); //####
 } // nImO::BufferChunk::BufferChunk
 
+//nImO::BufferChunk::BufferChunk
+//    (nImO::BufferChunk &&    other)
+//    noexcept :
+//        _buffer(other._buffer), _bufferEnd(other._bufferEnd), _write(other._write), _padded(other._padded)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    other._buffer.reset();
+//    other._bufferEnd = other._write = nullptr;
+//    other._padded = false;
+//    ODL_EXIT_P(this); //####
+//} // nImO::BufferChunk::BufferChunk
+
+/*! @brief @c true if the buffer has an extra byte. */
+bool    _padded;
+
 nImO::BufferChunk::~BufferChunk
     (void)
 {

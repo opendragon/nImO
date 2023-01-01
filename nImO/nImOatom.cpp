@@ -84,6 +84,16 @@ nImO::Atom::Atom
     ODL_EXIT_P(this); //####
 } // nImO::Atom::Atom
 
+//nImO::Atom::Atom
+//    (nImO::Atom &&    other)
+//    noexcept :
+//        inherited(other)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    ODL_EXIT_P(this); //####
+//} // nImO::Atom::Atom
+
 nImO::Atom::~Atom
     (void)
 {

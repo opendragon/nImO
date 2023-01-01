@@ -131,15 +131,6 @@ static boost::mutex lReceivedLock;
 /*! @brief Used to indicate that lReceivedValues is ready to use. */
 static boost::condition_variable    lReceivedCondition;
 
-/*! @brief Used to extract the computer name from the received Message. */
-static nImO::SpString    lComputerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
-
-/*! @brief Used to extract the tag from the received Message. */
-static nImO::SpString    lTagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
-
-/*! @brief Used to extract the message from the received Message. */
-static nImO::SpString    lMessageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
-
 /*! @brief A class to handle receiving messages. */
 class ReceiveOnLoggingPort final
 {
@@ -405,8 +396,11 @@ main
                     }
                     else
                     {
+                        nImO::SpString  computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
+                        nImO::SpString  tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
+                        nImO::SpString  messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
                         // Get the computer name
-                        auto            anIterator = asMap->find(lComputerNameKey);
+                        auto            anIterator = asMap->find(computerNameKey);
                         nImO::SpValue   theComputerName;
                         nImO::SpValue   theTag;
 
@@ -419,7 +413,7 @@ main
                             theComputerName = anIterator->second;
                         }
                         // Get the tag
-                        anIterator = asMap->find(lTagKey);
+                        anIterator = asMap->find(tagKey);
                         if (anIterator == asMap->end())
                         {
                             theTag = nullptr;
@@ -429,7 +423,7 @@ main
                             theTag = anIterator->second;
                         }
                         // Get the message
-                        anIterator = asMap->find(lMessageKey);
+                        anIterator = asMap->find(messageKey);
                         if (anIterator != asMap->end())
                         {
                             nImO::SpValue       theMessage{anIterator->second};

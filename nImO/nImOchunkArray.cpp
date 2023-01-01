@@ -95,6 +95,21 @@ nImO::ChunkArray::ChunkArray
     ODL_EXIT_P(this); //####
 } // nImO::ChunkArray::ChunkArray
 
+nImO::ChunkArray::ChunkArray
+    (ChunkArray &&    other)
+    noexcept :
+        _buffers(other._buffers), _buffersArePadded(other._buffersArePadded), _cachedString(other._cachedString),
+        _numChunks(other._numChunks)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._buffers = nullptr;
+    other._buffersArePadded = false;
+    other._cachedString = "";
+    other._numChunks = 0;
+    ODL_EXIT_P(this); //####
+} // nImO::ChunkArray::ChunkArray
+
 nImO::ChunkArray::~ChunkArray
     (void)
 {

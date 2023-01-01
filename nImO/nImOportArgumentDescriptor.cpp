@@ -106,6 +106,17 @@ PortArgumentDescriptor::PortArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
+PortArgumentDescriptor::PortArgumentDescriptor
+    (PortArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _isSystemPort(other._isSystemPort)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._isSystemPort = false;
+    ODL_EXIT_P(this); //####
+} // PortArgumentDescriptor::PortArgumentDescriptor
+
 PortArgumentDescriptor::~PortArgumentDescriptor
     (void)
 {

@@ -83,6 +83,16 @@ nImO::Channel::Channel
     ODL_EXIT_P(this); //####
 } // nImO::Channel::Channel
 
+nImO::Channel::Channel
+    (nImO::Channel &&    other)
+    noexcept
+{
+    MDNS_UNUSED_ARG_(other)
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Channel::Channel
+
 nImO::Channel::~Channel
     (void)
 {

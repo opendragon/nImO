@@ -145,6 +145,18 @@ nImO::ChannelName::ChannelName
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
+nImO::ChannelName::ChannelName
+    (nImO::ChannelName &&    other)
+    noexcept :
+        _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._network = other._node = other._path = "";
+    other._transport = Transport::Unknown;
+    ODL_EXIT_P(this); //####
+} // nImO::ChannelName::ChannelName
+
 nImO::ChannelName::~ChannelName
     (void)
 {

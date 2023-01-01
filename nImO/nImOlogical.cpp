@@ -112,6 +112,17 @@ nImO::Logical::Logical
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
+//nImO::Logical::Logical
+//    (Logical &&    other)
+//    noexcept :
+//        inherited(other), _value(other._value)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    other._value = false;
+//    ODL_EXIT_P(this); //####
+//} // nImO::Logical::Logical
+
 nImO::Logical::~Logical
     (void)
 {

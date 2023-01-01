@@ -97,6 +97,16 @@ nImO::Invalid::Invalid
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
+nImO::Invalid::Invalid
+    (nImO::Invalid &&    other)
+    noexcept :
+        inherited(), _description(other._description)
+{
+    ODL_ENTER(); //####
+    other._description = "";
+    ODL_EXIT_P(this); //####
+} // nImO::Invalid::Invalid
+
 nImO::Invalid::~Invalid
     (void)
 {

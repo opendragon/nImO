@@ -100,6 +100,18 @@ nImO::Map::Map
     ODL_EXIT_P(this); //####
 } // nImO::Map::Map
 
+//nImO::Map::Map
+//    (nImO::Map &&    other)
+//    noexcept:
+//        inherited1(other), inherited2(other), _keyKind(other._keyKind)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    addEntries(other);
+//    other.clear();
+//    ODL_EXIT_P(this); //####
+//} // nImO::Map::Map
+
 nImO::Map::~Map
     (void)
 {

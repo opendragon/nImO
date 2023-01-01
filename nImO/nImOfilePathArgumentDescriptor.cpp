@@ -179,6 +179,19 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
+FilePathArgumentDescriptor::FilePathArgumentDescriptor
+    (FilePathArgumentDescriptor &&    other)
+    noexcept :
+        inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
+        _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._pathPrefix = other._pathSuffix = "";
+    other._defaultSet = other._forOutput = other._useRandomPath = false;
+    ODL_EXIT_P(this); //####
+} // FilePathArgumentDescriptor::FilePathArgumentDescriptor
+
 FilePathArgumentDescriptor::~FilePathArgumentDescriptor
     (void)
 {

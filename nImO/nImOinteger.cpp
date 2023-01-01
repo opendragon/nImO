@@ -108,6 +108,17 @@ nImO::Integer::Integer
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
+//nImO::Integer::Integer
+//    (nImO::Integer &&    other)
+//    noexcept :
+//        inherited(other), _intValue(other._intValue)
+//{
+//    ODL_ENTER(); //####
+//    ODL_P1("other = ", &other); //####
+//    other._intValue = 0;
+//    ODL_EXIT_P(this); //####
+//} // nImO::Integer::Integer
+
 nImO::Integer::~Integer
     (void)
 {

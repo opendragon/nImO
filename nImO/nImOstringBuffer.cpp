@@ -131,6 +131,15 @@ nImO::StringBuffer::StringBuffer
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
+//nImO::StringBuffer::StringBuffer
+//    (StringBuffer &&    other)
+//    noexcept :
+//        inherited(other)
+//{
+//    ODL_ENTER(); //####
+//    ODL_EXIT_P(this); //####
+//} // nImO::StringBuffer::StringBuffer
+
 nImO::StringBuffer::~StringBuffer
     (void)
 {

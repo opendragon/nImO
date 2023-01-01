@@ -209,15 +209,15 @@ namespace nImO
             /*! @brief The current value of the command-line argument. */
             bool    _currentValue;
 
-# if defined(__APPLE__)
+# if MAC_OR_LINUX_
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // defined(__APPLE__)
+# endif // MAC_OR_LINUX_
             /*! @brief Filler to pad to alignment boundary */
             char    _filler[6];
-# if defined(__APPLE__)
+# if MAC_OR_LINUX_
 #  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+# endif // MAC_OR_LINUX_
 
     }; // BooleanArgumentDescriptor
 

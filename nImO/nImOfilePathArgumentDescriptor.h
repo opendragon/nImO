@@ -219,15 +219,15 @@ namespace nImO
             and @c false if the file path is fixed. */
             bool    _useRandomPath;
 
-# if defined(__APPLE__)
+# if MAC_OR_LINUX_
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // defined(__APPLE__)
+# endif // MAC_OR_LINUX_
             /*! @brief Filler to pad to alignment boundary */
             char    _filler[5];
-# if defined(__APPLE__)
+# if MAC_OR_LINUX_
 #  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+# endif // MAC_OR_LINUX_
 
     }; // FilePathArgumentDescriptor
 

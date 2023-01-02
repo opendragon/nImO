@@ -85,7 +85,7 @@
 #endif // defined(__APPLE__)
 
 std::ostream &
-nImO::operator <<
+nImO::operator<<
     (std::ostream &                 out,
      const nImO::ComparisonStatus & aValue)
 {
@@ -97,4 +97,4 @@ nImO::operator <<
     out.flags(originalFormat);
     ODL_EXIT_P(&out); //####
     return out;
-} // nImO::operator <<
+} // nImO::operator<<

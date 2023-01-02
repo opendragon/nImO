@@ -84,7 +84,7 @@ nImO::Channel::Channel
 } // nImO::Channel::Channel
 
 nImO::Channel::Channel
-    (nImO::Channel &&    other)
+    (Channel && other)
     noexcept
 {
     MDNS_UNUSED_ARG_(other)

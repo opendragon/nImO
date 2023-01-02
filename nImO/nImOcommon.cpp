@@ -161,7 +161,7 @@ localCatcher
 
 double
 nImO::B2D
-    (const nImO::NumberAsBytes &    inString)
+    (const NumberAsBytes &  inString)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -175,8 +175,8 @@ nImO::B2D
 
 int64_t
 nImO::B2I
-    (const nImO::NumberAsBytes &    inString,
-     const size_t                   numBytes)
+    (const NumberAsBytes &  inString,
+     const size_t           numBytes)
 {
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
@@ -363,8 +363,8 @@ nImO::ConvertToInt64
 
 void
 nImO::D2B
-    (const double           inValue,
-     nImO::NumberAsBytes &  outString)
+    (const double       inValue,
+     NumberAsBytes &    outString)
 {
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
@@ -376,6 +376,70 @@ nImO::D2B
     I2B(inValueAsInt, outString);
     ODL_EXIT(); //####
 } // nImO::D2B
+
+void
+nImO::DumpMemoryToStandardError
+    (CPtr(void)     address,
+     const size_t   numBytes)
+{
+    if ((nullptr != address) && (0 < numBytes))
+    {
+        const size_t    bytesPerRow = 16;
+        size_t          offset = 0;
+        size_t          bytesInNextRow = std::min(numBytes, bytesPerRow);
+
+        std::cerr << "____ | 00 01 02 03 | 04 05 06 07 | 08 09 0A 0B | 0C 0D 0E 0F |" << std::endl;
+        for ( ; offset < numBytes; offset += bytesPerRow)
+        {
+            std::cerr << std::hex << std::setw(4) << std::setfill('0') << offset << " : ";
+            for (size_t ii = 0; ii < bytesInNextRow; ++ii)
+            {
+                CPtr(uint8_t)   ptrToByte = ReinterpretCast(CPtr(uint8_t), address) + offset + ii;
+                uint            aByte = *ptrToByte;
+
+                std::cerr << std::setw(2) << std::setfill('0') << aByte << " ";
+                if (3 == (ii % 4))
+                {
+                    std::cerr << "| ";
+                }
+            }
+            if (bytesPerRow > bytesInNextRow)
+            {
+                for (size_t ii = bytesInNextRow; ii < bytesPerRow; ++ii)
+                {
+                    std::cerr << "   ";
+                    if (3 == (ii % 4))
+                    {
+                        std::cerr << "| ";
+                    }
+                }
+            }
+            for (size_t ii = 0; ii < bytesInNextRow; ++ii)
+            {
+                CPtr(char)  ptrToChar = ReinterpretCast(CPtr(char), address) + offset + ii;
+                char        aChar = *ptrToChar;
+
+                if (std::isprint(aChar))
+                {
+                    std::cerr << aChar;
+                }
+                else
+                {
+                    std::cerr << ".";
+                }
+                if (3 == (ii % 4))
+                {
+                    std::cerr << " ";
+                }
+            }
+            std::cerr << std::endl;
+            if ((offset + bytesPerRow) < numBytes)
+            {
+                bytesInNextRow = std::min(numBytes - (offset + bytesPerRow), bytesPerRow);
+            }
+        }
+    }
+} // nImO::DumpMemoryToStandardError
 
 boost::optional<InitFile::SpBaseValue>
 nImO::GetConfiguredValue
@@ -479,8 +543,8 @@ nImO::GetRandomHexString
 
 size_t
 nImO::I2B
-    (const int64_t          inValue,
-     nImO::NumberAsBytes &  outString)
+    (const int64_t      inValue,
+     NumberAsBytes &    outString)
 {
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
@@ -773,21 +837,21 @@ nImO::OutputDescription
 
 bool
 nImO::ProcessStandardUtilitiesOptions
-    (const int                  argc,
-     Ptr(Ptr(char))             argv,
-     nImO::DescriptorVector &   argumentDescriptions,
-     const std::string &        utilityDescription,
-     const std::string &        utilityExample,
-     const int                  year,
-     CPtr(char)                 copyrightHolder,
-     nImO::OutputFlavour &      flavour,
-     bool &                     logging,
-     std::string &              configPath,
-     HelpFunction               helper,
-     const bool                 ignoreConfigFilePath,
-     const bool                 ignoreFlavours,
-     const bool                 ignoreLogging,
-     Ptr(nImO::StringVector)    arguments)
+    (const int              argc,
+     Ptr(Ptr(char))         argv,
+     DescriptorVector &     argumentDescriptions,
+     const std::string &    utilityDescription,
+     const std::string &    utilityExample,
+     const int              year,
+     CPtr(char)             copyrightHolder,
+     OutputFlavour &        flavour,
+     bool &                 logging,
+     std::string &          configPath,
+     HelpFunction           helper,
+     const bool             ignoreConfigFilePath,
+     const bool             ignoreFlavours,
+     const bool             ignoreLogging,
+     Ptr(StringVector)      arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -973,10 +1037,10 @@ nImO::ProcessStandardUtilitiesOptions
 } // nImO::ProcessStandardUtilitiesOptions
 
 nImO::Transport
-ResolveTransport
-    (const nImO::Transport  firstTransport,
-     const nImO::Transport  secondTransport,
-     const nImO::Transport  defaultTransport)
+nImO::ResolveTransport
+    (const Transport    firstTransport,
+     const Transport    secondTransport,
+     const Transport    defaultTransport)
 {
     Transport   result;
 
@@ -1020,9 +1084,9 @@ ResolveTransport
 } /* ResolveTransport */
 
 nImO::Transport
-ResolveTransport
-    (const nImO::Transport  firstTransport,
-     const nImO::Transport  defaultTransport)
+nImO::ResolveTransport
+    (const Transport    firstTransport,
+     const Transport    defaultTransport)
 {
     Transport   result;
 
@@ -1105,7 +1169,7 @@ nImO::SanitizeString
 
 void
 nImO::SetSignalHandlers
-    (nImO::SignalHandler    theHandler)
+    (SignalHandler  theHandler)
 {
 #if MAC_OR_LINUX_
     sigset_t            blocking;

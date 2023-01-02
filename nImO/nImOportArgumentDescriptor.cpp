@@ -107,9 +107,9 @@ PortArgumentDescriptor::PortArgumentDescriptor
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
 PortArgumentDescriptor::PortArgumentDescriptor
-    (PortArgumentDescriptor &&    other)
+    (PortArgumentDescriptor &&  other)
     noexcept :
-        inherited(other), _isSystemPort(other._isSystemPort)
+        inherited(std::move(other)), _isSystemPort(other._isSystemPort)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -139,6 +139,36 @@ PortArgumentDescriptor::clone
     ODL_EXIT_P(result.get());
     return result;
 } // PortArgumentDescriptor::clone
+
+PortArgumentDescriptor &
+PortArgumentDescriptor::operator=
+    (const PortArgumentDescriptor & other)
+{
+    if (this != &other)
+    {
+        PortArgumentDescriptor  temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // PortArgumentDescriptor::operator=
+
+PortArgumentDescriptor &
+PortArgumentDescriptor::operator=
+    (PortArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _isSystemPort = other._isSystemPort;
+        other._isSystemPort = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // PortArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 PortArgumentDescriptor::parseArgString
@@ -172,7 +202,7 @@ PortArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(defaultString, intValue))
+            if (ConvertToInt64(defaultString, intValue))
             {
                 defaultValue = StaticCast(int, intValue);
             }

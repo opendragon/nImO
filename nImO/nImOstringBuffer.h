@@ -85,7 +85,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             StringBuffer
-                (StringBuffer &&	other)
+                (StringBuffer &&    other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -205,19 +205,19 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             StringBuffer &
-            operator =
+            operator=
                 (const StringBuffer &   other) = delete;
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
             @return The updated object. */
             StringBuffer &
-            operator =
-                (StringBuffer &&  other)
+            operator=
+                (StringBuffer &&    other)
                 noexcept;
 
             friend std::ostream &
-            operator <<
+            operator<<
                 (std::ostream &         out,
                  const StringBuffer &   aBuffer);
 
@@ -252,7 +252,7 @@ namespace nImO
      @param[in] aBuffer The StringBuffer to be printed.
      @return The modified stream. */
     std::ostream &
-    operator <<
+    operator<<
         (std::ostream &         out,
          const StringBuffer &   aBuffer);
 

@@ -84,6 +84,15 @@ nImO::Flaw::Flaw
     ODL_EXIT_P(this); //####
 } // nImO::Flaw::Flaw
 
+nImO::Flaw::Flaw
+    (Flaw &&    other)
+    noexcept:
+        inherited(std::move(other))
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Flaw::Flaw
+
 nImO::Flaw::~Flaw
     (void)
 {
@@ -106,7 +115,7 @@ nImO::Flaw::asFlaw
 } // nImO::Flaw::asFlaw
 
 std::ostream &
-nImO::Flaw::operator <<
+nImO::Flaw::operator<<
     (std::ostream & out)
     const
 {
@@ -115,7 +124,7 @@ nImO::Flaw::operator <<
     out << getDescription();
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Flaw::operator <<
+} // nImO::Flaw::operator<<
 
 #if defined(__APPLE__)
 # pragma mark Global functions

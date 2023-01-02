@@ -83,7 +83,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             ChunkArray
-                (ChunkArray &&	other)
+                (ChunkArray &&  other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -156,14 +156,14 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             ChunkArray &
-            operator =
+            operator=
                 (const ChunkArray & other) = delete;
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
             @return The updated object. */
             ChunkArray &
-            operator =
+            operator=
                 (ChunkArray &&  other)
                 noexcept;
 

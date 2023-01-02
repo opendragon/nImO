@@ -105,7 +105,7 @@ StringArgumentDescriptor::StringArgumentDescriptor
 StringArgumentDescriptor::StringArgumentDescriptor
     (StringArgumentDescriptor &&    other)
     noexcept :
-        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+        inherited(std::move(other)), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -168,6 +168,37 @@ StringArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(_currentValue); //####
     return _currentValue;
 } // StringArgumentDescriptor::getProcessedValue
+
+StringArgumentDescriptor &
+StringArgumentDescriptor::operator=
+    (const StringArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        StringArgumentDescriptor    temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // StringArgumentDescriptor::operator=
+
+StringArgumentDescriptor &
+StringArgumentDescriptor::operator=
+    (StringArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _currentValue = other._currentValue;
+        _defaultValue = other._defaultValue;
+        other._defaultValue = other._currentValue = "";
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // StringArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 StringArgumentDescriptor::parseArgString

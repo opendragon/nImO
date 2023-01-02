@@ -128,6 +128,21 @@ namespace nImO
                 return _currentValue;
             }
 
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            StringsArgumentDescriptor &
+            operator=
+                (const StringsArgumentDescriptor &  other);
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            StringsArgumentDescriptor &
+            operator=
+                (StringsArgumentDescriptor &&  other)
+                noexcept;
+
             /*! @brief Construct a descriptor, if at all possible, from the input string.
             @param[in] inString The input string in 'arguments' format.
             @return A valid descriptor or @c nullptr if the input is not recognized. */

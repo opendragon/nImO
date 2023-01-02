@@ -90,7 +90,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             Double
-                (Double &&	other)
+                (Double &&  other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -200,7 +200,7 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             inline Double &
-            operator =
+            operator=
                 (const Double & other)
             {
                 if (this != &other)
@@ -214,7 +214,7 @@ namespace nImO
             @param[in] other The object to be moved.
             @return The updated object. */
             Double &
-            operator =
+            operator=
                 (Double &&  other)
                 noexcept;
 
@@ -222,7 +222,7 @@ namespace nImO
             @param[in] value The value to be assigned.
             @return The updated object. */
             inline Double &
-            operator =
+            operator=
                 (const double   value)
             {
                 _floatValue = value;
@@ -264,7 +264,7 @@ namespace nImO
             @param[in] aValue The object to be printed.
             @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

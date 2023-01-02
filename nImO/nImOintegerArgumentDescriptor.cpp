@@ -113,9 +113,9 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 } // IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
 IntegerArgumentDescriptor::IntegerArgumentDescriptor
-    (IntegerArgumentDescriptor &&    other)
+    (IntegerArgumentDescriptor &&   other)
     noexcept :
-        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+        inherited(std::move(other)), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
         _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
         _hasMinimumValue(other._hasMinimumValue)
 {
@@ -182,6 +182,41 @@ IntegerArgumentDescriptor::getProcessedValue
     return result;
 } // IntegerArgumentDescriptor::getProcessedValue
 
+IntegerArgumentDescriptor &
+IntegerArgumentDescriptor::operator=
+    (const IntegerArgumentDescriptor &  other)
+{
+    if (this != &other)
+    {
+        IntegerArgumentDescriptor   temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // IntegerArgumentDescriptor::operator=
+
+IntegerArgumentDescriptor &
+IntegerArgumentDescriptor::operator=
+    (IntegerArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _defaultValue = other._defaultValue;
+        _maximumValue = other._maximumValue;
+        _minimumValue = other._minimumValue;
+        _hasMaximumValue = other._hasMaximumValue;
+        _hasMinimumValue = other._hasMinimumValue;
+        other._defaultValue = other._maximumValue = other._minimumValue = 0;
+        other._hasMaximumValue = other._hasMinimumValue = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // IntegerArgumentDescriptor::operator=
+
 SpBaseArgumentDescriptor
 IntegerArgumentDescriptor::parseArgString
     (const std::string &    inString)
@@ -208,7 +243,7 @@ IntegerArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(defaultString, intValue))
+            if (ConvertToInt64(defaultString, intValue))
             {
                 defaultValue = StaticCast(int, intValue);
             }
@@ -225,7 +260,7 @@ IntegerArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(minValString, intValue))
+            if (ConvertToInt64(minValString, intValue))
             {
                 minValue = StaticCast(int, intValue);
             }
@@ -238,7 +273,7 @@ IntegerArgumentDescriptor::parseArgString
         {
             int64_t intValue;
 
-            if (nImO::ConvertToInt64(maxValString, intValue))
+            if (ConvertToInt64(maxValString, intValue))
             {
                 maxValue = StaticCast(int, intValue);
             }
@@ -316,7 +351,7 @@ IntegerArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     int64_t intValue;
 
-    if (nImO::ConvertToInt64(value, intValue))
+    if (ConvertToInt64(value, intValue))
     {
         setValidity(true);
         ODL_B1("_valid <- ", isValid()); //####

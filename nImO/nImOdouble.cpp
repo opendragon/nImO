@@ -100,7 +100,7 @@ nImO::Double::Double
 } // nImO::Double::Double
 
 nImO::Double::Double
-    (const nImO::Double &   other) :
+    (const Double & other) :
         inherited(), _floatValue(other._floatValue)
 {
     ODL_ENTER(); //####
@@ -108,16 +108,16 @@ nImO::Double::Double
     ODL_EXIT_P(this); //####
 } // nImO::Double::Double
 
-//nImO::Double::Double
-//    (nImO::Double &&    other)
-//    noexcept :
-//        inherited(other), _floatValue(other._floatValue)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    other._floatValue = 0;
-//    ODL_EXIT_P(this); //####
-//} // nImO::Double::Double
+nImO::Double::Double
+    (Double &&  other)
+    noexcept :
+        inherited(std::move(other)), _floatValue(other._floatValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._floatValue = 0;
+    ODL_EXIT_P(this); //####
+} // nImO::Double::Double
 
 nImO::Double::~Double
     (void)
@@ -142,7 +142,7 @@ nImO::Double::asDouble
 
 bool
 nImO::Double::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -176,7 +176,7 @@ nImO::Double::enumerationType
 
 nImO::ComparisonStatus
 nImO::Double::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -218,10 +218,10 @@ nImO::Double::equalTo
 
 nImO::SpValue
 nImO::Double::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -278,7 +278,7 @@ nImO::Double::extractValue
 
         if (! okSoFar)
         {
-            result.reset(new Invalid("Bad count for Double @", position));
+            result.reset(new Invalid("Bad count for Double", position));
         }
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {
@@ -342,7 +342,7 @@ nImO::Double::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Double::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -388,7 +388,7 @@ nImO::Double::greaterThan
 
 nImO::ComparisonStatus
 nImO::Double::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -430,7 +430,7 @@ nImO::Double::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Double::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -476,7 +476,7 @@ nImO::Double::lessThan
 
 nImO::ComparisonStatus
 nImO::Double::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -516,8 +516,25 @@ nImO::Double::lessThanOrEqual
     return result;
 } // nImO::Double::lessThanOrEqual
 
+nImO::Double &
+nImO::Double::operator=
+    (Double &&  other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _floatValue = other._floatValue;
+        other._floatValue = 0;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Double::operator=
+
 std::ostream &
-nImO::Double::operator <<
+nImO::Double::operator<<
     (std::ostream & out)
     const
 {
@@ -526,12 +543,12 @@ nImO::Double::operator <<
     out << _floatValue;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Double::operator <<
+} // nImO::Double::operator<<
 
 void
 nImO::Double::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(squished);
@@ -544,7 +561,7 @@ nImO::Double::printToStringBuffer
 
 void
 nImO::Double::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_OBJENTER(); //####

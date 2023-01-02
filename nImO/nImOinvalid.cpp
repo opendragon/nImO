@@ -87,20 +87,23 @@ nImO::Invalid::Invalid
 
 nImO::Invalid::Invalid
     (const std::string &    description,
-     const int64_t          associatedValue) :
+     const int64_t          position) :
         inherited(), _description(description)
 {
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
-    ODL_I1("associatedValue = ", associatedValue); //####
-    _description += std::to_string(associatedValue);
+    ODL_I1("position = ", position); //####
+    std::stringstream   restOfDescription;
+
+    restOfDescription << " @" << position << "d/0x" << std::hex << position;
+    _description += restOfDescription.str();
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
 nImO::Invalid::Invalid
-    (nImO::Invalid &&    other)
+    (Invalid && other)
     noexcept :
-        inherited(), _description(other._description)
+        inherited(std::move(other)), _description(other._description)
 {
     ODL_ENTER(); //####
     other._description = "";

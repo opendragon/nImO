@@ -105,9 +105,9 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
-    (ChannelArgumentDescriptor &&    other)
+    (ChannelArgumentDescriptor &&   other)
     noexcept :
-        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+        inherited(std::move(other)), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -175,6 +175,38 @@ ChannelArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ChannelArgumentDescriptor::getProcessedValue
+
+ChannelArgumentDescriptor &
+ChannelArgumentDescriptor::operator=
+    (const ChannelArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        ChannelArgumentDescriptor   temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // ChannelArgumentDescriptor::operator=
+
+ChannelArgumentDescriptor &
+ChannelArgumentDescriptor::operator=
+    (ChannelArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _currentValue = other._currentValue;
+        _defaultValue = other._defaultValue;
+        other._defaultValue = "";
+        other._currentValue.reset();
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // ChannelArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::parseArgString

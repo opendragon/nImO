@@ -115,7 +115,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
 BaseArgumentDescriptor::BaseArgumentDescriptor
-    (BaseArgumentDescriptor &&    other)
+    (BaseArgumentDescriptor &&  other)
     noexcept :
         _argDescription(other._argDescription), _argMode(other._argMode), _argName(other._argName),
         _valid(other._valid)
@@ -193,6 +193,41 @@ BaseArgumentDescriptor::isLogical
     ODL_OBJEXIT_B(false); //####
     return false;
 } // BaseArgumentDescriptor::isLogical
+
+BaseArgumentDescriptor &
+BaseArgumentDescriptor::operator=
+    (const BaseArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        _argDescription = other._argDescription;
+        _argMode = other._argMode;
+        _argName = other._argName;
+        _valid = other._valid;
+    }
+    return *this;
+} // BaseArgumentDescriptor::operator=
+
+BaseArgumentDescriptor &
+BaseArgumentDescriptor::operator=
+    (BaseArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _argDescription = other._argDescription;
+        _argMode = other._argMode;
+        _argName = other._argName;
+        _valid = other._valid;
+        other._argDescription = other._argName = "";
+        other._argMode = ArgumentMode::Unknown;
+        other._valid = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // BaseArgumentDescriptor::operator=
 
 bool
 BaseArgumentDescriptor::partitionString
@@ -564,7 +599,7 @@ nImO::ModeFromString
     ArgumentMode result{ArgumentMode::Unknown};
     int64_t      modeAsInt;
 
-    if (nImO::ConvertToInt64(modeString, modeAsInt))
+    if (ConvertToInt64(modeString, modeAsInt))
     {
         // Check that only the known bits are set!
         if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))

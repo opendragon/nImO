@@ -103,9 +103,9 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 } // BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
 BooleanArgumentDescriptor::BooleanArgumentDescriptor
-    (BooleanArgumentDescriptor &&    other)
+    (BooleanArgumentDescriptor &&   other)
     noexcept :
-        inherited(other), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
+        inherited(std::move(other)), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -178,6 +178,37 @@ BooleanArgumentDescriptor::isLogical
     ODL_OBJEXIT_B(true); //####
     return true;
 } // BooleanArgumentDescriptor::isLogical
+
+BooleanArgumentDescriptor &
+BooleanArgumentDescriptor::operator=
+    (const BooleanArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        BooleanArgumentDescriptor   temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // BooleanArgumentDescriptor::operator=
+
+BooleanArgumentDescriptor &
+BooleanArgumentDescriptor::operator=
+    (BooleanArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _defaultValue = other._defaultValue;
+        _currentValue = other._currentValue;
+        other._currentValue = other._defaultValue = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // BooleanArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 BooleanArgumentDescriptor::parseArgString

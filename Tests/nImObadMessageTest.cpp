@@ -190,7 +190,7 @@ doTestMessageInitialEndTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Message with incorrect start tag @0");
+                                                 "Message with incorrect start tag @0d/0x0");
         }
         else
         {
@@ -246,7 +246,7 @@ doTestMessageTerminalStartTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Message with incorrect end tag @1");
+                                                 "Empty Message with incorrect end tag @1d/0x1");
         }
         else
         {
@@ -305,7 +305,7 @@ doTestEmptyMessageWithContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Message with incorrect end tag @1");
+                                                 "Empty Message with incorrect end tag @1d/0x1");
         }
         else
         {
@@ -365,7 +365,7 @@ doTestNonEmptyMessageWithoutContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Message with mismatched initial Value tag @1");
+                                                 "Message with mismatched initial Value tag @1d/0x1");
         }
         else
         {
@@ -428,7 +428,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Message with mismatched initial Value tag @1");
+                                                 "Message with mismatched initial Value tag @1d/0x1");
         }
         else
         {
@@ -491,7 +491,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Message with mismatched end Value tag @2");
+                                                 "Message with mismatched end Value tag @2d/0x2");
         }
         else
         {
@@ -553,7 +553,7 @@ doTestNonEmptyMessageWithInvalidContentTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @1");
+                                                 "Unexpected character in Message @1d/0x1");
         }
         else
         {
@@ -617,7 +617,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Bad count for Double @2");
+                                                 "Bad count for Double @2d/0x2");
         }
         else
         {
@@ -682,7 +682,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Null Value read @4");
+                                                 "Null Value read @4d/0x4");
         }
         else
         {
@@ -747,7 +747,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Null Value read @4");
+                                                 "Null Value read @4d/0x4");
         }
         else
         {
@@ -815,7 +815,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @1");
+                                                 "Unexpected character in Message @1d/0x1");
         }
         else
         {
@@ -883,7 +883,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Array with incorrect end tag @2");
+                                                 "Empty Array with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -954,7 +954,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Array with incorrect end tag @2");
+                                                 "Empty Array with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -1027,7 +1027,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @3");
+                                                 "Unexpected character in Message @3d/0x3");
         }
         else
         {
@@ -1099,7 +1099,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Array with zero or negative count @4");
+                                                 "Array with zero or negative count @4d/0x4");
         }
         else
         {
@@ -1178,7 +1178,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @5");
+                                                 "Unexpected character in Message @5d/0x5");
         }
         else
         {
@@ -1260,7 +1260,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Non-empty Array with incorrect end tag @5");
+                                                 "Non-empty Array with incorrect end tag @5d/0x5");
         }
         else
         {
@@ -1352,7 +1352,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Non-empty Array with incorrect end tag @29");
+                                                 "Non-empty Array with incorrect end tag @29d/0x1d");
         }
         else
         {
@@ -1420,7 +1420,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @1");
+                                                 "Unexpected character in Message @1d/0x1");
         }
         else
         {
@@ -1488,7 +1488,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Map with incorrect end tag @2");
+                                                 "Empty Map with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -1559,7 +1559,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Map with incorrect end tag @2");
+                                                 "Empty Map with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -1632,7 +1632,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @3");
+                                                 "Unexpected character in Message @3d/0x3");
         }
         else
         {
@@ -1704,7 +1704,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Map with zero or negative count @4");
+                                                 "Map with zero or negative count @4d/0x4");
         }
         else
         {
@@ -1789,7 +1789,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @7");
+                                                 "Unexpected character in Message @7d/0x7");
         }
         else
         {
@@ -1874,7 +1874,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Non-empty Map with incorrect end tag @5");
+                                                 "Non-empty Map with incorrect end tag @5d/0x5");
         }
         else
         {
@@ -1956,7 +1956,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @6");
+                                                 "Unexpected character in Message @6d/0x6");
         }
         else
         {
@@ -2024,7 +2024,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @1");
+                                                 "Unexpected character in Message @1d/0x1");
         }
         else
         {
@@ -2092,7 +2092,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Set with incorrect end tag @2");
+                                                 "Empty Set with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -2163,7 +2163,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Empty Set with incorrect end tag @2");
+                                                 "Empty Set with incorrect end tag @2d/0x2");
         }
         else
         {
@@ -2236,7 +2236,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @3");
+                                                 "Unexpected character in Message @3d/0x3");
         }
         else
         {
@@ -2308,7 +2308,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Set with zero or negative count @4");
+                                                 "Set with zero or negative count @4d/0x4");
         }
         else
         {
@@ -2387,7 +2387,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @5");
+                                                 "Unexpected character in Message @5d/0x5");
         }
         else
         {
@@ -2469,7 +2469,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
             const size_t    insertionCount{A_SIZE(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
-                                                 "Unexpected character in Message @6");
+                                                 "Unexpected character in Message @6d/0x6");
         }
         else
         {

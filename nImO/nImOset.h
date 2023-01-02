@@ -114,7 +114,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             Set
-                (Set &&	other)
+                (Set && other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -282,7 +282,7 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             Set &
-            operator =
+            operator=
                 (const Set &    other)
             {
                 if (this != &other)
@@ -291,14 +291,14 @@ namespace nImO
                     addEntries(other);
                 }
                 return *this;
-            } // operator =
+            } // operator=
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
             @return The updated object. */
             Set &
-            operator =
-                (Set &&  other)
+            operator=
+                (Set && other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -355,7 +355,7 @@ namespace nImO
             @param[in] aValue The object to be printed.
             @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

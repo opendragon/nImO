@@ -91,7 +91,7 @@ nImO::Map::Map
 } // nImO::Map::
 
 nImO::Map::Map
-    (const nImO::Map &  other) :
+    (const Map &    other) :
         inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
 {
     ODL_ENTER(); //####
@@ -100,17 +100,17 @@ nImO::Map::Map
     ODL_EXIT_P(this); //####
 } // nImO::Map::Map
 
-//nImO::Map::Map
-//    (nImO::Map &&    other)
-//    noexcept:
-//        inherited1(other), inherited2(other), _keyKind(other._keyKind)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    addEntries(other);
-//    other.clear();
-//    ODL_EXIT_P(this); //####
-//} // nImO::Map::Map
+nImO::Map::Map
+    (Map && other)
+    noexcept:
+        inherited1(std::move(other)), inherited2(std::move(other)), _keyKind(other._keyKind)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    other.clear();
+    ODL_EXIT_P(this); //####
+} // nImO::Map::Map
 
 nImO::Map::~Map
     (void)
@@ -126,7 +126,7 @@ nImO::Map::~Map
 
 void
 nImO::Map::addEntries
-    (const nImO::Map &  other)
+    (const Map &    other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -145,8 +145,8 @@ nImO::Map::addEntries
 
 nImO::Map::InsertResult
 nImO::Map::addValue
-    (nImO::SpValue  newKey,
-     nImO::SpValue  newValue)
+    (SpValue    newKey,
+     SpValue    newValue)
 {
     ODL_OBJENTER(); //####
     ODL_P2("newKey = ", newKey.get(), "newValue = ", newValue.get()); //####
@@ -199,7 +199,7 @@ nImO::Map::clear
 
 bool
 nImO::Map::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -263,7 +263,7 @@ nImO::Map::empty
 
 nImO::ComparisonStatus
 nImO::Map::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -295,10 +295,10 @@ nImO::Map::equalTo
 
 nImO::SpValue
 nImO::Map::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -337,7 +337,7 @@ nImO::Map::extractValue
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Map with incorrect end tag @", position));
+                result.reset(new Invalid("Empty Map with incorrect end tag", position));
             }
         }
     }
@@ -365,7 +365,7 @@ nImO::Map::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Map with zero or negative count @", position));
+                    result.reset(new Invalid("Map with zero or negative count", position));
                 }
                 else
                 {
@@ -399,7 +399,7 @@ nImO::Map::extractValue
                                 if (nullptr == keyValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null key Value read @", position));
+                                    result.reset(new Invalid("Null key Value read", position));
                                     okSoFar = false;
                                 }
                                 else if (keyValue->asFlaw())
@@ -427,7 +427,7 @@ nImO::Map::extractValue
                                         if (nullptr == vValue)
                                         {
                                             ODL_LOG("(nullptr == aValue)"); //####
-                                            result.reset(new Invalid("Null value Value read @", position));
+                                            result.reset(new Invalid("Null value Value read", position));
                                             okSoFar = false;
                                         }
                                         else if (vValue->asFlaw())
@@ -472,7 +472,7 @@ nImO::Map::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Map with incorrect end tag @", position));
+                                    result.reset(new Invalid("Non-empty Map with incorrect end tag", position));
                                     okSoFar = false;
                                 }
                             }
@@ -545,7 +545,7 @@ nImO::Map::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Map::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -578,7 +578,7 @@ nImO::Map::greaterThan
 
 nImO::ComparisonStatus
 nImO::Map::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -623,7 +623,7 @@ nImO::Map::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Map::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -656,7 +656,7 @@ nImO::Map::lessThan
 
 nImO::ComparisonStatus
 nImO::Map::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -686,8 +686,26 @@ nImO::Map::lessThanOrEqual
     return result;
 } // nImO::Map::lessThanOrEqual
 
+nImO::Map &
+nImO::Map::operator=
+    (Map && other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited1::operator=(std::move(other));
+        inherited2::operator=(std::move(other));
+        addEntries(other);
+        other.clear();
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Map::operator=
+
 std::ostream &
-nImO::Map::operator <<
+nImO::Map::operator<<
     (std::ostream & out)
     const
 {
@@ -701,12 +719,12 @@ nImO::Map::operator <<
     out << " " << kEndMapChar;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Map::operator <<
+} // nImO::Map::operator<<
 
 void
 nImO::Map::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     ODL_OBJENTER(); //####
@@ -783,8 +801,8 @@ nImO::Map::random
 
 nImO::SpValue
 nImO::Map::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -927,7 +945,7 @@ const
 
 void
 nImO::Map::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_OBJENTER(); //####

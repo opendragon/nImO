@@ -183,7 +183,7 @@ nImO::Blob::Blob
 } // nImO::Blob::Blob
 
 nImO::Blob::Blob
-    (const nImO::Blob & other) :
+    (const Blob &   other) :
         inherited(), _value(), _size(0)
 {
     ODL_ENTER(); //####
@@ -197,17 +197,16 @@ nImO::Blob::Blob
     ODL_EXIT_P(this); //####
 } // nImO::Blob::Blob
 
-//nImO::Blob::Blob
-//    (nImO::Blob &&    other)
-//    noexcept :
-//        inherited(other), _value(other._value), _size(other._size)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    other._size = 0;
-//    other._value.reset();
-//    ODL_EXIT_P(this); //####
-//} // nImO::Blob::Blob
+nImO::Blob::Blob
+    (Blob &&    other)
+    noexcept :
+        inherited(std::move(other)), _value(std::move(other._value)), _size(other._size)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._size = 0;
+    ODL_EXIT_P(this); //####
+} // nImO::Blob::Blob
 
 nImO::Blob::~Blob
     (void)
@@ -233,7 +232,7 @@ nImO::Blob::asBlob
 
 bool
 nImO::Blob::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -255,7 +254,7 @@ nImO::Blob::deeplyEqualTo
 
 nImO::ComparisonStatus
 nImO::Blob::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -288,10 +287,10 @@ nImO::Blob::equalTo
 
 nImO::SpValue
 nImO::Blob::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -407,7 +406,7 @@ nImO::Blob::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Blob::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -444,7 +443,7 @@ nImO::Blob::greaterThan
 
 nImO::ComparisonStatus
 nImO::Blob::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -477,7 +476,7 @@ nImO::Blob::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Blob::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -514,7 +513,7 @@ nImO::Blob::lessThan
 
 nImO::ComparisonStatus
 nImO::Blob::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -546,8 +545,8 @@ nImO::Blob::lessThanOrEqual
 } // nImO::Blob::lessThanOrEqual
 
 nImO::Blob &
-nImO::Blob::operator =
-    (const nImO::Blob & other)
+nImO::Blob::operator=
+    (const Blob &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -563,10 +562,28 @@ nImO::Blob::operator =
     }
     ODL_OBJEXIT_P(this);
     return *this;
-} // nImO::Blob::operator =
+} // nImO::Blob::operator=
+
+nImO::Blob &
+nImO::Blob::operator=
+    (Blob &&    other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _value = std::move(other._value);
+        _size = other._size;
+        other._size = 0;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Blob::operator=
 
 std::ostream &
-nImO::Blob::operator <<
+nImO::Blob::operator<<
     (std::ostream & out)
     const
 {
@@ -575,12 +592,12 @@ nImO::Blob::operator <<
     out << "Blob(#bytes=" << _size << ")";
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Blob::operator <<
+} // nImO::Blob::operator<<
 
 void
 nImO::Blob::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(squished);
@@ -593,7 +610,7 @@ nImO::Blob::printToStringBuffer
 
 void
 nImO::Blob::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_OBJENTER(); //####

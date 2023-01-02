@@ -115,7 +115,7 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 DoubleArgumentDescriptor::DoubleArgumentDescriptor
     (DoubleArgumentDescriptor &&    other)
     noexcept :
-        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
+        inherited(std::move(other)), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
         _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
         _hasMinimumValue(other._hasMinimumValue)
 {
@@ -182,6 +182,41 @@ DoubleArgumentDescriptor::getProcessedValue
     return result;
 } // DoubleArgumentDescriptor::getProcessedValue
 
+DoubleArgumentDescriptor &
+DoubleArgumentDescriptor::operator=
+    (const DoubleArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        DoubleArgumentDescriptor    temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // DoubleArgumentDescriptor::operator=
+
+DoubleArgumentDescriptor &
+DoubleArgumentDescriptor::operator=
+    (DoubleArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _defaultValue = other._defaultValue;
+        _maximumValue = other._maximumValue;
+        _minimumValue = other._minimumValue;
+        _hasMaximumValue = other._hasMaximumValue;
+        _hasMinimumValue = other._hasMinimumValue;
+        other._defaultValue = other._maximumValue = other._minimumValue = 0;
+        other._hasMaximumValue = other._hasMinimumValue = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // DoubleArgumentDescriptor::operator=
+
 SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::parseArgString
     (const std::string &    inString)
@@ -208,7 +243,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(defaultString, dblValue))
+            if (ConvertToDouble(defaultString, dblValue))
             {
                 minValue = defaultValue;
             }
@@ -225,7 +260,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(minValString, dblValue))
+            if (ConvertToDouble(minValString, dblValue))
             {
                 minValue = dblValue;
             }
@@ -238,7 +273,7 @@ DoubleArgumentDescriptor::parseArgString
         {
             double  dblValue;
 
-            if (nImO::ConvertToDouble(maxValString, dblValue))
+            if (ConvertToDouble(maxValString, dblValue))
             {
                 maxValue = dblValue;
             }
@@ -316,7 +351,7 @@ DoubleArgumentDescriptor::validate
     ODL_OBJENTER(); //####
     double  dblValue;
 
-    if (nImO::ConvertToDouble(value, dblValue))
+    if (ConvertToDouble(value, dblValue))
     {
         setValidity(true);
         ODL_B1("_valid <- ", isValid()); //####

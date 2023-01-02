@@ -141,11 +141,11 @@ Option::Option
 } // Option::Option
 
 void
-Option::operator =
+Option::operator=
     (const Option &orig)
 {
     init(orig.desc, orig.name, orig.arg);
-} // Option::operator =
+} // Option::operator=
 
 Stats::Stats
     (void) :
@@ -770,11 +770,11 @@ Parser::StoreOptionAction::perform
 } // Parser::StoreOptionAction::perform
 
 void
-PrintUsageImplementation::IStringWriter::operator ()
+PrintUsageImplementation::IStringWriter::operator()
     (const char *,
      const int)
 {
-} // PrintUsageImplementation::IStringWriter::operator ()
+} // PrintUsageImplementation::IStringWriter::operator()
 
 void
 PrintUsageImplementation::indent

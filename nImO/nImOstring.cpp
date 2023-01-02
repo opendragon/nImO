@@ -107,7 +107,7 @@ nImO::String::String
 } // nImO::String::String
 
 nImO::String::String
-    (const nImO::String &   other) :
+    (const String & other) :
         inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
@@ -115,12 +115,10 @@ nImO::String::String
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
-/*! @brief The move constructor.
- @param[in] other The object to be moved. */
 nImO::String::String
-    (nImO::String &&    other)
+    (String &&  other)
     noexcept :
-        inherited(), _value(other._value)
+        inherited(std::move(other)), _value(other._value)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -151,7 +149,7 @@ nImO::String::asString
 
 bool
 nImO::String::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -185,7 +183,7 @@ nImO::String::enumerationType
 
 nImO::ComparisonStatus
 nImO::String::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -218,10 +216,10 @@ nImO::String::equalTo
 
 nImO::SpValue
 nImO::String::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     nImO::SpArray      parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -349,7 +347,7 @@ nImO::String::getTypeTag
 
 nImO::ComparisonStatus
 nImO::String::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -386,7 +384,7 @@ nImO::String::greaterThan
 
 nImO::ComparisonStatus
 nImO::String::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -419,7 +417,7 @@ nImO::String::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::String::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -456,7 +454,7 @@ nImO::String::lessThan
 
 nImO::ComparisonStatus
 nImO::String::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -487,8 +485,25 @@ nImO::String::lessThanOrEqual
     return result;
 } // nImO::String::lessThanOrEqual
 
+nImO::String &
+nImO::String::operator=
+    (String &&  other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _value = other._value;
+        other._value = "";
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::String::operator=
+
 std::ostream &
-nImO::String::operator <<
+nImO::String::operator<<
     (std::ostream & out)
     const
 {
@@ -497,12 +512,12 @@ nImO::String::operator <<
     out << "\"" << _value << "\"";
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::String::operator <<
+} // nImO::String::operator<<
 
 void
 nImO::String::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(squished);
@@ -515,8 +530,8 @@ nImO::String::printToStringBuffer
 
 nImO::SpValue
 nImO::String::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -821,7 +836,7 @@ nImO::String::readFromStringBuffer
 
 void
 nImO::String::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_ENTER(); //####

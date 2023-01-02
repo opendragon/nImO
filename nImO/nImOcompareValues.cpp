@@ -94,10 +94,22 @@ nImO::CompareValues::~CompareValues
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+nImO::CompareValues &
+nImO::CompareValues::operator=
+    (CompareValues &&    other)
+    noexcept
+{
+    MDNS_UNUSED_ARG_(other);
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::CompareValues::operator=
+
 bool
 nImO::CompareValues::operator()
-    (nImO::SpValue  lhs,
-     nImO::SpValue  rhs)
+    (SpValue    lhs,
+     SpValue    rhs)
     const
 {
     bool    result;

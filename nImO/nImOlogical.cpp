@@ -104,7 +104,7 @@ nImO::Logical::Logical
 } // nImO::Logical::Logical
 
 nImO::Logical::Logical
-    (const nImO::Logical &  other) :
+    (const Logical &    other) :
         inherited(), _value(other._value)
 {
     ODL_ENTER(); //####
@@ -112,16 +112,16 @@ nImO::Logical::Logical
     ODL_EXIT_P(this); //####
 } // nImO::Logical::Logical
 
-//nImO::Logical::Logical
-//    (Logical &&    other)
-//    noexcept :
-//        inherited(other), _value(other._value)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    other._value = false;
-//    ODL_EXIT_P(this); //####
-//} // nImO::Logical::Logical
+nImO::Logical::Logical
+    (Logical && other)
+    noexcept :
+        inherited(std::move(other)), _value(other._value)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._value = false;
+    ODL_EXIT_P(this); //####
+} // nImO::Logical::Logical
 
 nImO::Logical::~Logical
     (void)
@@ -146,7 +146,7 @@ nImO::Logical::asLogical
 
 bool
 nImO::Logical::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &    other)
     const
 {
     ODL_OBJENTER(); //####
@@ -180,7 +180,7 @@ nImO::Logical::enumerationType
 
 nImO::ComparisonStatus
 nImO::Logical::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -213,10 +213,10 @@ nImO::Logical::equalTo
 
 nImO::SpValue
 nImO::Logical::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     MDNS_UNUSED_ARG_(theMessage);
     ODL_ENTER(); //####
@@ -286,7 +286,7 @@ nImO::Logical::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Logical::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -323,7 +323,7 @@ nImO::Logical::greaterThan
 
 nImO::ComparisonStatus
 nImO::Logical::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -356,7 +356,7 @@ nImO::Logical::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Logical::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -393,7 +393,7 @@ nImO::Logical::lessThan
 
 nImO::ComparisonStatus
 nImO::Logical::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -425,8 +425,8 @@ nImO::Logical::lessThanOrEqual
 } // nImO::Logical::lessThanOrEqual
 
 nImO::Logical &
-nImO::Logical::operator =
-    (const nImO::Logical &  other)
+nImO::Logical::operator=
+    (const Logical &    other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -439,7 +439,24 @@ nImO::Logical::operator =
 } // nImO::Logical::operator=
 
 nImO::Logical &
-nImO::Logical::operator =
+nImO::Logical::operator=
+    (Logical && other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _value = other._value;
+        other._value = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Logical::operator=
+
+nImO::Logical &
+nImO::Logical::operator=
     (const bool value)
 {
     ODL_OBJENTER(); //####
@@ -450,7 +467,7 @@ nImO::Logical::operator =
 } // nImO::Logical::operator=
 
 std::ostream &
-nImO::Logical::operator <<
+nImO::Logical::operator<<
     (std::ostream & out)
     const
 {
@@ -462,12 +479,12 @@ nImO::Logical::operator <<
     out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Logical::operator <<
+} // nImO::Logical::operator<<
 
 void
 nImO::Logical::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(squished);
@@ -480,8 +497,8 @@ nImO::Logical::printToStringBuffer
 
 nImO::SpValue
 nImO::Logical::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -552,7 +569,7 @@ nImO::Logical::readFromStringBuffer
 
 void
 nImO::Logical::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_ENTER(); //####

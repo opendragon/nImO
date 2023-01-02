@@ -104,9 +104,9 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
 StringsArgumentDescriptor::StringsArgumentDescriptor
-    (StringsArgumentDescriptor &&    other)
+    (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited(other), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
+        inherited(std::move(other)), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -170,6 +170,38 @@ StringsArgumentDescriptor::getProcessedValue
     ODL_OBJEXIT_s(_currentValue); //####
     return _currentValue;
 } // StringsArgumentDescriptor::getProcessedValue
+
+StringsArgumentDescriptor &
+StringsArgumentDescriptor::operator=
+    (const StringsArgumentDescriptor &  other)
+{
+    if (this != &other)
+    {
+        StringsArgumentDescriptor   temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // StringsArgumentDescriptor::operator=
+
+StringsArgumentDescriptor &
+StringsArgumentDescriptor::operator=
+    (StringsArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _defaultValue = other._defaultValue;
+        _allowedValues = other._allowedValues;
+        other._defaultValue = "";
+        other._allowedValues = StringSet();
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // StringsArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 StringsArgumentDescriptor::parseArgString

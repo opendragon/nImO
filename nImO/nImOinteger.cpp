@@ -100,7 +100,7 @@ nImO::Integer::Integer
 } // nImO::Integer::Integer
 
 nImO::Integer::Integer
-    (const nImO::Integer &  other) :
+    (const Integer &    other) :
         inherited(), _intValue(other._intValue)
 {
     ODL_ENTER(); //####
@@ -108,16 +108,16 @@ nImO::Integer::Integer
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
-//nImO::Integer::Integer
-//    (nImO::Integer &&    other)
-//    noexcept :
-//        inherited(other), _intValue(other._intValue)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    other._intValue = 0;
-//    ODL_EXIT_P(this); //####
-//} // nImO::Integer::Integer
+nImO::Integer::Integer
+    (Integer && other)
+    noexcept :
+        inherited(std::move(other)), _intValue(other._intValue)
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    other._intValue = 0;
+    ODL_EXIT_P(this); //####
+} // nImO::Integer::Integer
 
 nImO::Integer::~Integer
     (void)
@@ -142,7 +142,7 @@ nImO::Integer::asInteger
 
 bool
 nImO::Integer::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -176,7 +176,7 @@ nImO::Integer::enumerationType
 
 nImO::ComparisonStatus
 nImO::Integer::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -218,10 +218,10 @@ nImO::Integer::equalTo
 
 nImO::SpValue
 nImO::Integer::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -277,7 +277,7 @@ nImO::Integer::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Integer::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -323,7 +323,7 @@ nImO::Integer::greaterThan
 
 nImO::ComparisonStatus
 nImO::Integer::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -365,7 +365,7 @@ nImO::Integer::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Integer::lessThan
-    (const nImO::Value &    other)
+    (const Value &    other)
     const
 {
     ODL_OBJENTER(); //####
@@ -411,7 +411,7 @@ nImO::Integer::lessThan
 
 nImO::ComparisonStatus
 nImO::Integer::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -451,8 +451,25 @@ nImO::Integer::lessThanOrEqual
     return result;
 } // nImO::Integer::lessThanOrEqual
 
+nImO::Integer &
+nImO::Integer::operator=
+    (Integer && other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _intValue = other._intValue;
+        other._intValue = 0;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Integer::operator=
+
 std::ostream &
-nImO::Integer::operator <<
+nImO::Integer::operator<<
     (std::ostream & out)
     const
 {
@@ -461,12 +478,12 @@ nImO::Integer::operator <<
     out << _intValue;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Integer::operator <<
+} // nImO::Integer::operator<<
 
 void
 nImO::Integer::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(squished);
@@ -479,7 +496,7 @@ nImO::Integer::printToStringBuffer
 
 void
 nImO::Integer::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_OBJENTER(); //####

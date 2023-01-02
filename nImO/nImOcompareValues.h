@@ -93,6 +93,14 @@ namespace nImO
             ~CompareValues
                 (void);
 
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            CompareValues &
+            operator=
+                (CompareValues &&    other)
+                noexcept;
+
             /*! @brief Compare two Values, returning @c true if the first is less than the second.
             @param[in] lhs The first Value to be compared.
             @param[in] rhs The second Value to be compared.

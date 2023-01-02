@@ -154,7 +154,7 @@ nImO::Logger::report
 
 bool
 nImO::Logger::report
-    (const nImO::StringVector & stringsToSend)
+    (const StringVector &   stringsToSend)
 {
     bool    okSoFar;
 

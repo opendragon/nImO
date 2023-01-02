@@ -88,7 +88,7 @@ namespace nImO
             @param[in] other The status to be merged in.
             @return The modified status. */
             inline ComparisonStatus &
-            operator &=
+            operator&=
                 (const ComparisonStatus &   other)
             {
                 _result &= other._result;
@@ -100,7 +100,7 @@ namespace nImO
             @param[in] other The status to be copied.
             @return The modified status. */
             inline ComparisonStatus &
-            operator =
+            operator=
                 (const ComparisonStatus &   other)
             {
                 _result = other._result;
@@ -112,7 +112,7 @@ namespace nImO
                 @param[in] other The status to be compared with.
                 @return @c true if the two statuses are comparable and equal. */
             inline bool
-            operator ==
+            operator==
                 (const ComparisonStatus &   other)
                 const
             {
@@ -123,7 +123,7 @@ namespace nImO
                 @param[in] other The status to be compared with.
                 @return @c false if the two statuses are comparable and equal and @c true otherwise. */
             inline bool
-            operator !=
+            operator!=
                 (const ComparisonStatus &   other)
                 const
             {
@@ -134,7 +134,7 @@ namespace nImO
             @param[in] value The status to be assigned.
             @return The modified status. */
             inline ComparisonStatus &
-                operator =
+                operator=
                 (const bool value)
             {
                 _result = value;
@@ -173,7 +173,7 @@ namespace nImO
             }
 
             friend std::ostream &
-            operator <<
+            operator<<
                 (std::ostream &             out,
                  const ComparisonStatus &   aValue);
 
@@ -205,7 +205,7 @@ namespace nImO
      @param[in] aValue The object to be printed.
      @return The modified stream. */
     std::ostream &
-    operator <<
+    operator<<
         (std::ostream &             out,
          const ComparisonStatus &   aValue);
 

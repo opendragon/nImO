@@ -310,7 +310,7 @@ namespace nImO
             @param[in] other The Value to be compared with.
             @return The relative ordering of the two Values. */
             inline bool
-            operator <
+            operator<
                 (const Value &  other)
             {
                 ComparisonStatus    result(lessThan(other));
@@ -322,7 +322,7 @@ namespace nImO
             @param[in] other The Value to be compared with.
             @return The relative ordering of the two Values. */
             inline bool
-            operator >
+            operator>
                 (const Value &  other)
             {
                 ComparisonStatus    result(greaterThan(other));
@@ -334,7 +334,7 @@ namespace nImO
             @param[in] other The Value to be compared with.
             @return The relative ordering of the two Values. */
             inline bool
-            operator <=
+            operator<=
                 (const Value &  other)
             {
                 ComparisonStatus    result(lessThanOrEqual(other));
@@ -346,7 +346,7 @@ namespace nImO
             @param[in] other The Value to be compared with.
             @return The relative ordering of the two Values. */
             inline bool
-            operator >=
+            operator>=
                 (const Value &  other)
             {
                 ComparisonStatus    result(greaterThanOrEqual(other));
@@ -358,7 +358,7 @@ namespace nImO
                 @param[in] other The Value to be compared with.
                 @return @c true if the two Values are comparable and equal. */
             inline bool
-            operator ==
+            operator==
                 (const Value &  other)
             {
                 ComparisonStatus    result(equalTo(other));
@@ -370,7 +370,7 @@ namespace nImO
                 @param[in] other The Value to be compared with.
                 @return @c false if the two Values are comparable and equal and @c true otherwise. */
             inline bool
-            operator !=
+            operator!=
                 (const Value &  other)
             {
                 ComparisonStatus    result(equalTo(other));
@@ -405,7 +405,7 @@ namespace nImO
                 const;
 
             friend std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out,
                  const Value &  aValue);
 
@@ -416,12 +416,20 @@ namespace nImO
             Value
                 (void);
 
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            Value &
+            operator=
+                (Value && other)
+                noexcept;
+
             /*! @brief Insert a readable version of the object into an output stream.
             @param[in,out] out The stream to be added to.
             @param[in] aValue The object to be printed.
             @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const;
 
@@ -492,7 +500,7 @@ namespace nImO
      @param[in] aValue The Value to be printed.
      @return The modified stream. */
     std::ostream &
-    operator <<
+    operator<<
         (std::ostream & out,
          const Value &  aValue);
 

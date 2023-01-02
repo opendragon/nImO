@@ -210,7 +210,7 @@ nImO::ContextWithMDNS::report
 
 bool
 nImO::ContextWithMDNS::report
-    (const nImO::StringVector & stringsToSend)
+    (const StringVector & stringsToSend)
     const
 {
     bool    okSoFar;

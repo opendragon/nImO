@@ -100,7 +100,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
 AddressArgumentDescriptor::AddressArgumentDescriptor
-    (const AddressArgumentDescriptor &other) :
+    (const AddressArgumentDescriptor &  other) :
         inherited(other), _addrBuff(nullptr)
 {
     ODL_ENTER(); //####
@@ -109,9 +109,9 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
 AddressArgumentDescriptor::AddressArgumentDescriptor
-    (AddressArgumentDescriptor &&    other)
+    (AddressArgumentDescriptor &&   other)
     noexcept :
-        inherited(other), _addrBuff(other._addrBuff)
+        inherited(std::move(other)), _addrBuff(other._addrBuff)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -141,6 +141,36 @@ AddressArgumentDescriptor::clone
     ODL_EXIT_P(result.get());
     return result;
 } // AddressArgumentDescriptor::clone
+
+AddressArgumentDescriptor &
+AddressArgumentDescriptor::operator=
+    (const AddressArgumentDescriptor &   other)
+{
+    if (this != &other)
+    {
+        AddressArgumentDescriptor   temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // AddressArgumentDescriptor::operator=
+
+AddressArgumentDescriptor &
+AddressArgumentDescriptor::operator=
+    (AddressArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _addrBuff = other._addrBuff;
+        other._addrBuff = nullptr;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // AddressArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 AddressArgumentDescriptor::parseArgString

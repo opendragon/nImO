@@ -95,7 +95,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             String
-                (String &&	other)
+                (String &&  other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -221,7 +221,7 @@ namespace nImO
              @param[in] other The object to be copied.
              @return The updated object. */
             inline String &
-            operator =
+            operator=
                 (const String & other)
             {
                 if (this != &other)
@@ -235,7 +235,7 @@ namespace nImO
              @param[in] other The object to be moved.
              @return The updated object. */
             String &
-            operator =
+            operator=
                 (String &&  other)
                 noexcept;
 
@@ -243,7 +243,7 @@ namespace nImO
              @param[in] value The value to be assigned.
              @return The updated object. */
             inline String &
-            operator =
+            operator=
                 (const std::string &    value)
             {
                 _value = value;
@@ -254,7 +254,7 @@ namespace nImO
              @param[in] value The value to be assigned.
              @return The updated object. */
             inline String &
-            operator =
+            operator=
                 (CPtr(char) value)
             {
                 _value = value;
@@ -297,7 +297,7 @@ namespace nImO
              @param[in] aValue The object to be printed.
              @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

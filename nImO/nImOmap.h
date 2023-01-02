@@ -117,7 +117,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             Map
-                (Map &&	other)
+                (Map && other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -288,7 +288,7 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             inline Map &
-            operator =
+            operator=
                 (const Map &    other)
             {
                 if (this != &other)
@@ -303,8 +303,8 @@ namespace nImO
             @param[in] other The object to be moved.
             @return The updated object. */
             Map &
-            operator =
-                (Map &&  other)
+            operator=
+                (Map && other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -361,7 +361,7 @@ namespace nImO
             @param[in] aValue The object to be printed.
             @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

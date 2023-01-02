@@ -84,15 +84,15 @@ nImO::Atom::Atom
     ODL_EXIT_P(this); //####
 } // nImO::Atom::Atom
 
-//nImO::Atom::Atom
-//    (nImO::Atom &&    other)
-//    noexcept :
-//        inherited(other)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    ODL_EXIT_P(this); //####
-//} // nImO::Atom::Atom
+nImO::Atom::Atom
+    (Atom &&    other)
+    noexcept :
+        inherited(std::move(other))
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Atom::Atom
 
 nImO::Atom::~Atom
     (void)
@@ -104,6 +104,21 @@ nImO::Atom::~Atom
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+nImO::Atom &
+nImO::Atom::operator=
+    (Atom &&    other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Atom::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

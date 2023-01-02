@@ -119,6 +119,14 @@ namespace nImO
             Container
                 (void);
 
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            Container &
+            operator=
+                (Container &&   other)
+                noexcept;
+
         private :
             // Private methods.
 

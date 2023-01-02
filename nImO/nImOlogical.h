@@ -90,7 +90,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             Logical
-                (Logical &&	other)
+                (Logical && other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -213,22 +213,22 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             Logical &
-            operator =
+            operator=
                 (const Logical &    other);
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
             @return The updated object. */
             Logical &
-            operator =
-                (Logical &&  other)
+            operator=
+                (Logical && other)
                 noexcept;
 
             /*! @brief The assignment operator.
             @param[in] value The value to be assigned.
             @return The updated object. */
             Logical &
-            operator =
+            operator=
                 (const bool value);
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -267,7 +267,7 @@ namespace nImO
             @param[in] aValue The object to be printed.
             @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

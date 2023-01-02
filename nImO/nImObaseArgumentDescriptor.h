@@ -199,7 +199,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             BaseArgumentDescriptor
-                (BaseArgumentDescriptor &&	other)
+                (BaseArgumentDescriptor &&  other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -338,26 +338,17 @@ namespace nImO
             }
 
             /*! @brief The copy assignment operator.
-             @tparam Type The type of value being assigned.
              @param[in] other The object to be copied.
              @return The updated object. */
-            template
-                <typename Type>
-            Type &
-            operator =
-                (const Type &   other)
-            {
-                Type    temp(other);
-
-                swap(temp);
-                return *this;
-            }
+            BaseArgumentDescriptor &
+            operator=
+                (const BaseArgumentDescriptor & other);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
             BaseArgumentDescriptor &
-            operator =
+            operator=
                 (BaseArgumentDescriptor &&  other)
                 noexcept;
 

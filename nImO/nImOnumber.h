@@ -77,12 +77,6 @@ namespace nImO
             Number
                 (void);
 
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            Number
-                (Number &&	other)
-                noexcept;
-
             /*! @brief The destructor. */
             virtual
             ~Number
@@ -113,6 +107,20 @@ namespace nImO
 
         protected :
             // Protected methods.
+
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            Number
+                (Number &&    other)
+                noexcept;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            Number &
+            operator=
+                (Number && other)
+                noexcept;
 
         private :
             // Private methods.

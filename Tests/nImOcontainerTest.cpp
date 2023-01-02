@@ -111,7 +111,7 @@ catchSignal
 static int
 compareValueWithSquishedString
     (const Value &  aValue,
-     CPtr(char)   aString)
+     CPtr(char)     aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
@@ -136,7 +136,7 @@ compareValueWithSquishedString
 static int
 compareValueWithString
     (const Value &  aValue,
-     CPtr(char)   aString)
+     CPtr(char)     aString)
 {
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####

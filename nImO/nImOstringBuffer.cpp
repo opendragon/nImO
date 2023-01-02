@@ -131,14 +131,14 @@ nImO::StringBuffer::StringBuffer
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
-//nImO::StringBuffer::StringBuffer
-//    (StringBuffer &&    other)
-//    noexcept :
-//        inherited(other)
-//{
-//    ODL_ENTER(); //####
-//    ODL_EXIT_P(this); //####
-//} // nImO::StringBuffer::StringBuffer
+nImO::StringBuffer::StringBuffer
+    (StringBuffer &&    other)
+    noexcept :
+        inherited(std::move(other))
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::StringBuffer::StringBuffer
 
 nImO::StringBuffer::~StringBuffer
     (void)
@@ -314,6 +314,21 @@ nImO::StringBuffer::convertToValue
     return result;
 } // nImO::StringBuffer::convertToValue
 
+nImO::StringBuffer &
+nImO::StringBuffer::operator=
+    (StringBuffer &&    other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited(std::move(other));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::StringBuffer::operator=
+
 void
 nImO::StringBuffer::processCharacters
     (CPtr(char)     aString,
@@ -449,7 +464,7 @@ nImO::StringBuffer::processCharacters
 #endif // defined(__APPLE__)
 
 std::ostream &
-nImO::operator <<
+nImO::operator<<
     (std::ostream &             out,
      const nImO::StringBuffer & aBuffer)
 {
@@ -471,4 +486,4 @@ nImO::operator <<
     }
     ODL_EXIT_P(&out); //####
     return out;
-} // nImO::operator <<
+} // nImO::operator<<

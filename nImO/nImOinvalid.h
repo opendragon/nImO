@@ -84,10 +84,10 @@ namespace nImO
 
             /*! @brief The constructor.
             @param[in] description A textual description of the problem encountered.
-            @param[in] associatedValue A number that is concatenated to the description. */
+            @param[in] position A number that represents an offset where the problem occurred. */
             Invalid
                 (const std::string &    description,
-                 const int64_t          associatedValue);
+                 const int64_t          position);
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */

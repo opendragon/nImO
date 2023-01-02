@@ -92,7 +92,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             Blob
-                (Blob &&	other)
+                (Blob &&    other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -195,15 +195,15 @@ namespace nImO
              @param[in] other The object to be copied.
              @return The updated object. */
             Blob &
-            operator =
+            operator=
                 (const Blob &   other);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
             Blob &
-            operator =
-                (Blob &&  other)
+            operator=
+                (Blob &&    other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -233,7 +233,7 @@ namespace nImO
              @param[in] aValue The object to be printed.
              @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

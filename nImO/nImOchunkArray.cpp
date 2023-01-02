@@ -96,7 +96,7 @@ nImO::ChunkArray::ChunkArray
 } // nImO::ChunkArray::ChunkArray
 
 nImO::ChunkArray::ChunkArray
-    (ChunkArray &&    other)
+    (ChunkArray &&  other)
     noexcept :
         _buffers(other._buffers), _buffersArePadded(other._buffersArePadded), _cachedString(other._cachedString),
         _numChunks(other._numChunks)
@@ -331,6 +331,14 @@ nImO::ChunkArray::getLength
     ODL_OBJEXIT_I(totalLength); //####
     return totalLength;
 } // nImO::ChunkArray::getLength
+
+nImO::ChunkArray &
+nImO::ChunkArray::operator=
+    (ChunkArray &&  other)
+    noexcept
+{
+
+} // nImO::ChunkArray::operator=
 
 nImO::ChunkArray &
 nImO::ChunkArray::reset

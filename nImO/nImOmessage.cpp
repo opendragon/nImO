@@ -119,21 +119,21 @@ nImO::Message::Message
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
-//nImO::Message::Message
-//    (Message &&    other)
-//    noexcept :
-//        inherited(other), _lock(), _cachedTransmissionString(other._cachedTransmissionString),
-//        _readPosition(other._readPosition), _state(other._state), _headerAdded(other._headerAdded)
-//{
-//    ODL_ENTER(); //####
-//    ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
-//    ODL_B1("_headerAdded <- ", _headerAdded); //####
-//    other._cachedTransmissionString = "";
-//    other._readPosition = 0;
-//    other._state = MessageState::Unknown;
-//    other._headerAdded = false;
-//    ODL_EXIT_P(this); //####
-//} // nImO::Message::Message
+nImO::Message::Message
+    (Message && other)
+    noexcept :
+        inherited(std::move(other)), _lock(), _cachedTransmissionString(other._cachedTransmissionString),
+        _readPosition(other._readPosition), _state(other._state), _headerAdded(other._headerAdded)
+{
+    ODL_ENTER(); //####
+    ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
+    ODL_B1("_headerAdded <- ", _headerAdded); //####
+    other._cachedTransmissionString = "";
+    other._readPosition = 0;
+    other._state = MessageState::Unknown;
+    other._headerAdded = false;
+    ODL_EXIT_P(this); //####
+} // nImO::Message::Message
 
 nImO::Message::~Message
     (void)
@@ -281,7 +281,7 @@ nImO::Message::getValue
                 else
                 {
                     ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                    result.reset(new Invalid("Empty Message with incorrect end tag @", _readPosition));
+                    result.reset(new Invalid("Empty Message with incorrect end tag", _readPosition));
                 }
             }
             else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
@@ -312,7 +312,7 @@ nImO::Message::getValue
                         ODL_I1("_readPosition <- ", _readPosition); //####
                         if (nullptr == result)
                         {
-                            result.reset(new Invalid("Null Value read @", _readPosition));
+                            result.reset(new Invalid("Null Value read", _readPosition));
                         }
                         else if (! result->asFlaw())
                         {
@@ -340,29 +340,28 @@ nImO::Message::getValue
                                 else
                                 {
                                     ODL_LOG("! (nextTag == initTag)"); //####
-                                    result.reset(new Invalid("Message with mismatched end Value "
-                                                             "tag @", _readPosition));
+                                    result.reset(new Invalid("Message with mismatched end Value tag", _readPosition));
                                 }
                             }
                             else
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
                                         "(aByte & kInitTermMessageMask))"); //####
-                                result.reset(new Invalid("Message with incorrect end tag @", _readPosition));
+                                result.reset(new Invalid("Message with incorrect end tag", _readPosition));
                             }
                         }
                     }
                     else
                     {
                         ODL_LOG("! (nextTag == initTag)"); //####
-                        result.reset(new Invalid("Message with mismatched initial Value tag @", _readPosition));
+                        result.reset(new Invalid("Message with mismatched initial Value tag", _readPosition));
                     }
                 }
             }
             else
             {
                 ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                result.reset(new Invalid("Message with incorrect start tag @", _readPosition));
+                result.reset(new Invalid("Message with incorrect start tag", _readPosition));
             }
         }
     }
@@ -395,6 +394,29 @@ nImO::Message::open
     return *this;
 } // nImO::Message::open
 
+nImO::Message &
+nImO::Message::operator=
+    (Message && other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _cachedTransmissionString = other._cachedTransmissionString;
+        _readPosition = other._readPosition;
+        _state = other._state;
+        _headerAdded = other._headerAdded;
+        other._cachedTransmissionString = "";
+        other._readPosition = 0;
+        other._state = MessageState::Unknown;
+        other._headerAdded = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Message::operator=
+
 nImO::ChunkArray &
 nImO::Message::reset
     (void)
@@ -415,7 +437,7 @@ nImO::Message::reset
 
 nImO::Message &
 nImO::Message::setValue
-    (nImO::SpValue  theValue)
+    (SpValue    theValue)
 {
     ODL_OBJENTER(); //####
     ODL_P1("theValue = ", theValue); //####

@@ -100,9 +100,9 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
-    (ExtraArgumentDescriptor &&    other)
+    (ExtraArgumentDescriptor && other)
     noexcept :
-        inherited(other)
+        inherited(std::move(other))
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -174,6 +174,34 @@ ExtraArgumentDescriptor::isExtra
     ODL_OBJEXIT_B(true); //####
     return true;
 } // ExtraArgumentDescriptor::isExtra
+
+ExtraArgumentDescriptor &
+ExtraArgumentDescriptor::operator=
+    (const ExtraArgumentDescriptor &    other)
+{
+    if (this != &other)
+    {
+        ExtraArgumentDescriptor temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // ExtraArgumentDescriptor::operator=
+
+ExtraArgumentDescriptor &
+ExtraArgumentDescriptor::operator=
+    (ExtraArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // ExtraArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::parseArgString

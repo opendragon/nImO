@@ -91,6 +91,14 @@ namespace nImO
                 (Atom &&	other)
                 noexcept;
 
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            Atom &
+            operator=
+                (Atom && other)
+                noexcept;
+
         private :
             // Private methods.
 

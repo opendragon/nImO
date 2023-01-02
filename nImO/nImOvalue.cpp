@@ -102,10 +102,8 @@ nImO::Value::Value
     ODL_EXIT_P(this); //####
 } // nImO::Value::Value
 
-/*! @brief The move constructor.
- @param[in] other The object to be moved. */
 nImO::Value::Value
-    (nImO::Value &&    other)
+    (Value &&   other)
     noexcept
 {
     MDNS_UNUSED_ARG_(other)
@@ -126,9 +124,9 @@ nImO::Value::~Value
 
 void
 nImO::Value::addToExtractionMap
-    (const DataKind         aByte,
-     const DataKind         aMask,
-     nImO::Value::Extractor theExtractor)
+    (const DataKind aByte,
+     const DataKind aMask,
+     Extractor      theExtractor)
 {
     ODL_ENTER(); //####
     ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
@@ -263,7 +261,7 @@ nImO::Value::asString
 
 bool
 nImO::Value::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -285,7 +283,7 @@ nImO::Value::enumerationType
 
 nImO::ComparisonStatus
 nImO::Value::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -302,10 +300,10 @@ nImO::Value::equalTo
 
 int64_t
 nImO::Value::extractInt64FromMessage
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::IntStatus &      status)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     IntStatus &        status)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
@@ -397,10 +395,10 @@ nImO::Value::getTypeTag
 
 nImO::SpValue
 nImO::Value::getValueFromMessage
-    (const nImO::Message &  inMessage,
-     size_t &               position,
-     const int              leadByte,
-     nImO::SpArray          parent)
+    (const Message &    inMessage,
+     size_t &           position,
+     const int          leadByte,
+     SpArray            parent)
 {
     ODL_ENTER(); //####
     ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
@@ -411,7 +409,7 @@ nImO::Value::getValueFromMessage
     if (gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
-        result.reset(new Invalid("Unexpected character in Message @", position));
+        result.reset(new Invalid("Unexpected character in Message", position));
     }
     else
     {
@@ -420,7 +418,7 @@ nImO::Value::getValueFromMessage
         if (nullptr == handler)
         {
             ODL_LOG("(nullptr == handler)"); //####
-            result.reset(new Invalid("No handler for character in Message @", position));
+            result.reset(new Invalid("No handler for character in Message", position));
         }
         else
         {
@@ -434,7 +432,7 @@ nImO::Value::getValueFromMessage
 
 nImO::ComparisonStatus
 nImO::Value::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     MDNS_UNUSED_ARG_(other);
@@ -448,7 +446,7 @@ nImO::Value::greaterThan
 
 nImO::ComparisonStatus
 nImO::Value::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -591,7 +589,7 @@ nImO::Value::isLegalTerminator
 
 nImO::ComparisonStatus
 nImO::Value::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     MDNS_UNUSED_ARG_(other);
@@ -605,7 +603,7 @@ nImO::Value::lessThan
 
 nImO::ComparisonStatus
 nImO::Value::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -620,8 +618,20 @@ nImO::Value::lessThanOrEqual
     return result;
 } // nImO::Value::lessThanOrEqual
 
+nImO::Value &
+nImO::Value::operator=
+    (Value &&   other)
+    noexcept
+{
+    MDNS_UNUSED_ARG_(other);
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Value::operator=
+
 std::ostream &
-nImO::Value::operator <<
+nImO::Value::operator<<
     (std::ostream & out)
     const
 {
@@ -633,12 +643,12 @@ nImO::Value::operator <<
     out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Value::operator <<
+} // nImO::Value::operator<<
 
 void
 nImO::Value::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     MDNS_UNUSED_ARG_(outBuffer);
@@ -651,8 +661,8 @@ nImO::Value::printToStringBuffer
 
 nImO::SpValue
 nImO::Value::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -706,8 +716,8 @@ nImO::Value::readFromStringBuffer
 
 void
 nImO::Value::writeInt64ToMessage
-    (nImO::Message &    outMessage,
-     const int64_t      outValue)
+    (Message &      outMessage,
+     const int64_t  outValue)
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
@@ -746,7 +756,7 @@ nImO::Value::writeInt64ToMessage
 
 void
 nImO::Value::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     MDNS_UNUSED_ARG_(outMessage);
@@ -760,7 +770,7 @@ nImO::Value::writeToMessage
 #endif // defined(__APPLE__)
 
 std::ostream &
-nImO::operator <<
+nImO::operator<<
     (std::ostream &         out,
      const nImO::Value &    aValue)
 {
@@ -769,4 +779,4 @@ nImO::operator <<
     aValue.operator<<(out);
     ODL_EXIT_P(&out); //####
     return out;
-} // nImO::operator <<
+} // nImO::operator<<

@@ -137,7 +137,7 @@ nImO::ChannelName::ChannelName
 } // nImO::ChannelName::ChannelName
 
 nImO::ChannelName::ChannelName
-    (const nImO::ChannelName &  other) :
+    (const ChannelName &  other) :
         _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
 {
     ODL_ENTER(); //####
@@ -146,7 +146,7 @@ nImO::ChannelName::ChannelName
 } // nImO::ChannelName::ChannelName
 
 nImO::ChannelName::ChannelName
-    (nImO::ChannelName &&    other)
+    (ChannelName && other)
     noexcept :
         _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
 {
@@ -398,7 +398,7 @@ nImO::ChannelName::transportNames
 
 std::string
 nImO::ChannelName::transportToName
-    (const nImO::Transport    aValue)
+    (const Transport    aValue)
 {
     ODL_ENTER(); //####
     std::string result;

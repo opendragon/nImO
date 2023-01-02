@@ -180,10 +180,10 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
-    (FilePathArgumentDescriptor &&    other)
+    (FilePathArgumentDescriptor &&  other)
     noexcept :
-        inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
-        _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+        inherited(std::move(other)), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
+        _defaultSet(other._defaultSet), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -259,6 +259,41 @@ FilePathArgumentDescriptor::isForFiles
     ODL_OBJEXIT_B(true); //####
     return true;
 } // FilePathArgumentDescriptor::isForFiles
+
+FilePathArgumentDescriptor &
+FilePathArgumentDescriptor::operator=
+    (const FilePathArgumentDescriptor & other)
+{
+    if (this != &other)
+    {
+        FilePathArgumentDescriptor  temp(other);
+
+        swap(temp);
+    }
+    return *this;
+} // FilePathArgumentDescriptor::operator=
+
+FilePathArgumentDescriptor &
+FilePathArgumentDescriptor::operator=
+    (FilePathArgumentDescriptor &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+        _pathPrefix = other._pathPrefix;
+        _pathSuffix = other._pathSuffix;
+        _defaultSet = other._defaultSet;
+        _forOutput = other._forOutput;
+        _useRandomPath = other._useRandomPath;
+        other._pathPrefix = other._pathSuffix = "";
+        other._defaultSet = other._forOutput = other._useRandomPath = false;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // FilePathArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::parseArgString

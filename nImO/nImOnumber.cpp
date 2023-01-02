@@ -89,7 +89,7 @@ nImO::Number::Number
 } // nImO::Number::Number
 
 nImO::Number::Number
-    (nImO::Number &&    MDNS_UNUSED_PARAM_(other))
+    (Number &&  MDNS_UNUSED_PARAM_(other))
     noexcept :
         inherited()
 {
@@ -129,10 +129,25 @@ nImO::Number::getInitialCharacters
     return initialChars;
 } // nImO::Number::getInitialCharacters
 
+nImO::Number &
+nImO::Number::operator=
+    (Number &&    other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Number::operator=
+
 nImO::SpValue
 nImO::Number::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####

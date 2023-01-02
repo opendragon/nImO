@@ -735,6 +735,14 @@ namespace nImO
         (const double       inValue,
          NumberAsBytes &    outString);
 
+    /*! @brief Write out a block of memory as a formatted dump to standard error.
+     @param[in] address Starting address of memory to dump.
+     @param[in] numBytes The number of bytes to dump. */
+    void
+    DumpMemoryToStandardError
+        (CPtr(void)     address,
+         const size_t   numBytes);
+
     /*! @brief Get a value associated with the provided key in the configuration data.
      @param[in] key The key took look up in the configuration data.
      @return The associated value if found, or 'empty'. */
@@ -787,7 +795,7 @@ namespace nImO
      @param[in] rightValue The value to be inverted.
      @return The result of the inversion of the value. */
     inline constexpr DataKind
-    operator ~
+    operator~
         (const DataKind rightValue)
     {
         return StaticCast(DataKind, ~ toUType(rightValue));
@@ -798,7 +806,7 @@ namespace nImO
      @param[in] rightValue The second value to be merged.
      @return The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |
+    operator|
         (const DataKind leftValue,
          const DataKind rightValue)
     {
@@ -810,7 +818,7 @@ namespace nImO
      @param[in] rightValue The second value to be merged.
      @return The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |
+    operator|
         (const DataKind leftValue,
          const uint8_t  rightValue)
     {
@@ -822,7 +830,7 @@ namespace nImO
      @param[in] rightValue The second value to be merged.
      @return The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator |
+    operator|
         (const uint8_t  leftValue,
          const DataKind rightValue)
     {
@@ -834,7 +842,7 @@ namespace nImO
       @param[in] rightValue The second value to be merged.
       @return The result of the bit-wise merge of the two values. */
     inline constexpr DataKind
-    operator &
+    operator&
         (const DataKind leftValue,
          const DataKind rightValue)
     {
@@ -846,7 +854,7 @@ namespace nImO
      @param[in] rightValue The second value to be combined.
      @return The result of the bit-wise masking of the two values. */
     inline constexpr DataKind
-    operator &
+    operator&
         (const DataKind leftValue,
          const uint8_t  rightValue)
     {
@@ -858,7 +866,7 @@ namespace nImO
      @param[in] rightValue The second value to be combined.
      @return The result of the bit-wise masking of the two values. */
     inline constexpr DataKind
-    operator &
+    operator&
         (const uint8_t  leftValue,
          const DataKind rightValue)
     {

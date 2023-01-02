@@ -85,7 +85,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             BufferChunk
-                (BufferChunk &&	other)
+                (BufferChunk && other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -138,15 +138,15 @@ namespace nImO
              @param[in] other The object to be copied.
              @return The updated object. */
             BufferChunk &
-            operator =
+            operator=
                 (const BufferChunk &    other) = delete;
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
             BufferChunk &
-            operator =
-                (BufferChunk &&  other)
+            operator=
+                (BufferChunk && other)
                 noexcept;
 
             /*! @brief Prepare the buffer for reuse.

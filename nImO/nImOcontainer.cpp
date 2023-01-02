@@ -84,15 +84,15 @@ nImO::Container::Container
     ODL_EXIT_P(this); //####
 } // nImO::Container::Container
 
-//nImO::Container::Container
-//    (Container &&    other)
-//    noexcept :
-//        inherited(other)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    ODL_EXIT_P(this); //####
-//} // nImO::Container::Container
+nImO::Container::Container
+    (Container &&   other)
+    noexcept :
+        inherited(std::move(other))
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Container::Container
 
 nImO::Container::~Container
     (void)
@@ -114,6 +114,21 @@ nImO::Container::asContainer
     ODL_OBJEXIT_P(this); //####
     return this;
 } // nImO::Container::asContainer
+
+nImO::Container &
+nImO::Container::operator=
+    (Container &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited::operator=(std::move(other));
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Container::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

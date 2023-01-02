@@ -91,7 +91,7 @@ nImO::Set::Set
 } // nImO::Set::Set
 
 nImO::Set::Set
-    (const nImO::Set &  other) :
+    (const Set &    other) :
         inherited1(), inherited2(), _keyKind(other._keyKind)
 {
     ODL_ENTER(); //####
@@ -101,9 +101,9 @@ nImO::Set::Set
 } // nImO::Set::Set
 
 nImO::Set::Set
-(nImO::Set &&    other)
+    (Set && other)
     noexcept :
-    inherited1(), inherited2(), _keyKind(other._keyKind)
+        inherited1(std::move(other)), inherited2(std::move(other)), _keyKind(other._keyKind)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -126,7 +126,7 @@ nImO::Set::~Set
 
 void
 nImO::Set::addEntries
-    (const nImO::Set &  other)
+    (const Set &    other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -142,7 +142,7 @@ nImO::Set::addEntries
 
 nImO::Set::InsertResult
 nImO::Set::addValue
-    (nImO::SpValue  val)
+    (SpValue    val)
 {
     ODL_OBJENTER(); //####
     ODL_P1("val = ", &val); //####
@@ -193,7 +193,7 @@ nImO::Set::clear
 
 bool
 nImO::Set::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -243,7 +243,7 @@ nImO::Set::empty
 
 nImO::ComparisonStatus
 nImO::Set::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -275,10 +275,10 @@ nImO::Set::equalTo
 
 nImO::SpValue
 nImO::Set::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -317,7 +317,7 @@ nImO::Set::extractValue
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Set with incorrect end tag @", position));
+                result.reset(new Invalid("Empty Set with incorrect end tag", position));
             }
         }
     }
@@ -345,7 +345,7 @@ nImO::Set::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Set with zero or negative count @", position));
+                    result.reset(new Invalid("Set with zero or negative count", position));
                 }
                 else
                 {
@@ -379,7 +379,7 @@ nImO::Set::extractValue
                                 if (nullptr == aValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null Value read @", position));
+                                    result.reset(new Invalid("Null Value read", position));
                                     okSoFar = false;
                                 }
                                 else if (aValue->asFlaw())
@@ -422,7 +422,7 @@ nImO::Set::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Set with incorrect end tag @", position));
+                                    result.reset(new Invalid("Non-empty Set with incorrect end tag", position));
                                     okSoFar = false;
                                 }
                             }
@@ -495,7 +495,7 @@ nImO::Set::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Set::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -528,7 +528,7 @@ nImO::Set::greaterThan
 
 nImO::ComparisonStatus
 nImO::Set::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -560,7 +560,7 @@ nImO::Set::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Set::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -593,7 +593,7 @@ nImO::Set::lessThan
 
 nImO::ComparisonStatus
 nImO::Set::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -623,8 +623,26 @@ nImO::Set::lessThanOrEqual
     return result;
 } // nImO::Set::lessThanOrEqual
 
+nImO::Set &
+nImO::Set::operator=
+    (Set && other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited1::operator=(std::move(other));
+        inherited2::operator=(std::move(other));
+        addEntries(other);
+        other.clear();
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Set::operator=
+
 std::ostream &
-nImO::Set::operator <<
+nImO::Set::operator<<
     (std::ostream & out)
     const
 {
@@ -643,12 +661,12 @@ nImO::Set::operator <<
     out << " " << kEndSetChar;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Set::operator <<
+} // nImO::Set::operator<<
 
 void
 nImO::Set::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     ODL_OBJENTER(); //####
@@ -720,8 +738,8 @@ nImO::Set::random
 
 nImO::SpValue
 nImO::Set::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -834,7 +852,7 @@ nImO::Set::size
 
 void
 nImO::Set::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_OBJENTER(); //####

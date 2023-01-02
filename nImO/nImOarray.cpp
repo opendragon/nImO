@@ -91,7 +91,7 @@ nImO::Array::Array
 } // nImO::Array::Array
 
 nImO::Array::Array
-    (const nImO::Array &    other) :
+    (const Array &  other) :
         inherited1(), inherited2()
 {
     ODL_ENTER(); //####
@@ -100,17 +100,17 @@ nImO::Array::Array
     ODL_EXIT_P(this); //####
 } // nImO::Array::Array
 
-//nImO::Array::Array
-//    (nImO::Array &&    other)
-//    noexcept :
-//        inherited1(other), inherited2(other)
-//{
-//    ODL_ENTER(); //####
-//    ODL_P1("other = ", &other); //####
-//    addEntries(other);
-//    other.clear();
-//    ODL_EXIT_P(this); //####
-//} // nImO::Array::Array
+nImO::Array::Array
+    (Array &&   other)
+    noexcept :
+        inherited1(std::move(other)), inherited2(std::move(other))
+{
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    addEntries(other);
+    other.clear();
+    ODL_EXIT_P(this); //####
+} // nImO::Array::Array
 
 nImO::Array::~Array
     (void)
@@ -126,7 +126,7 @@ nImO::Array::~Array
 
 nImO::Array &
 nImO::Array::addEntries
-    (const nImO::Array &    other)
+    (const Array &  other)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -159,7 +159,7 @@ nImO::Array::clear
 
 bool
 nImO::Array::deeplyEqualTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -209,7 +209,7 @@ nImO::Array::empty
 
 nImO::ComparisonStatus
 nImO::Array::equalTo
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -232,10 +232,10 @@ nImO::Array::equalTo
 
 nImO::SpValue
 nImO::Array::extractValue
-    (const nImO::Message &  theMessage,
-     const int              leadByte,
-     size_t &               position,
-     nImO::SpArray          parentValue)
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
 {
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
@@ -270,7 +270,7 @@ nImO::Array::extractValue
             else
             {
                 ODL_LOG("! (endMarker == aByte)"); //####
-                result.reset(new Invalid("Empty Array with incorrect end tag @", position));
+                result.reset(new Invalid("Empty Array with incorrect end tag", position));
             }
         }
     }
@@ -294,7 +294,7 @@ nImO::Array::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Array with zero or negative count @", position));
+                    result.reset(new Invalid("Array with zero or negative count", position));
                 }
                 else
                 {
@@ -331,7 +331,7 @@ nImO::Array::extractValue
                                 if (nullptr == aValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null Value read @", position));
+                                    result.reset(new Invalid("Null Value read", position));
                                     okSoFar = false;
                                 }
                                 else if (aValue->asFlaw())
@@ -369,8 +369,7 @@ nImO::Array::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Array with incorrect end "
-                                                             "tag @", position));
+                                    result.reset(new Invalid("Non-empty Array with incorrect end tag", position));
                                 }
                             }
                         }
@@ -442,7 +441,7 @@ nImO::Array::getTypeTag
 
 nImO::ComparisonStatus
 nImO::Array::greaterThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -465,7 +464,7 @@ nImO::Array::greaterThan
 
 nImO::ComparisonStatus
 nImO::Array::greaterThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -488,7 +487,7 @@ nImO::Array::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Array::lessThan
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -511,7 +510,7 @@ nImO::Array::lessThan
 
 nImO::ComparisonStatus
 nImO::Array::lessThanOrEqual
-    (const nImO::Value &    other)
+    (const Value &  other)
     const
 {
     ODL_OBJENTER(); //####
@@ -532,8 +531,26 @@ nImO::Array::lessThanOrEqual
     return result;
 } // nImO::Array::lessThanOrEqual
 
+nImO::Array &
+nImO::Array::operator=
+    (Array &&   other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        inherited1::operator=(std::move(other));
+        inherited2::operator=(std::move(other));
+        addEntries(other);
+        other.clear();
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Array::operator=
+
 std::ostream &
-nImO::Array::operator <<
+nImO::Array::operator<<
     (std::ostream & out)
     const
 {
@@ -552,12 +569,12 @@ nImO::Array::operator <<
     out << " " << kEndArrayChar;
     ODL_OBJEXIT_P(&out); //####
     return out;
-} // nImO::Array::operator <<
+} // nImO::Array::operator<<
 
 void
 nImO::Array::printToStringBuffer
-    (nImO::StringBuffer &   outBuffer,
-     const bool             squished)
+    (StringBuffer & outBuffer,
+     const bool     squished)
     const
 {
     ODL_OBJENTER(); //####
@@ -629,8 +646,8 @@ nImO::Array::random
 
 nImO::SpValue
 nImO::Array::readFromStringBuffer
-    (const nImO::StringBuffer & inBuffer,
-     size_t &                   position)
+    (const StringBuffer &   inBuffer,
+     size_t &               position)
 {
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -716,7 +733,7 @@ nImO::Array::size
 
 void
 nImO::Array::writeToMessage
-    (nImO::Message &    outMessage)
+    (Message &  outMessage)
     const
 {
     ODL_ENTER(); //####

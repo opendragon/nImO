@@ -110,7 +110,7 @@ namespace nImO
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             Array
-                (Array &&	other)
+                (Array &&   other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -262,7 +262,7 @@ namespace nImO
              @param[in] other The object to be copied.
              @return The updated object. */
             inline Array &
-            operator =
+            operator=
                 (const Array &  other)
             {
                 if (this != &other)
@@ -277,8 +277,8 @@ namespace nImO
              @param[in] other The object to be moved.
              @return The updated object. */
             Array &
-            operator =
-                (Array &&  other)
+            operator=
+                (Array &&   other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -335,7 +335,7 @@ namespace nImO
              @param[in] aValue The object to be printed.
              @return The modified stream. */
             virtual std::ostream &
-            operator <<
+            operator<<
                 (std::ostream & out)
                 const
                 override;

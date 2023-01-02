@@ -85,7 +85,7 @@ namespace nImO
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */
             Message
-                (Message &&	other)
+                (Message && other)
                 noexcept;
 
             /*! @brief The destructor. */
@@ -155,15 +155,15 @@ namespace nImO
             @param[in] other The object to be copied.
             @return The updated object. */
             Message &
-            operator =
+            operator=
                 (const Message &    other) = delete;
 
             /*! @brief The move assignment operator.
             @param[in] other The object to be moved.
             @return The updated object. */
             Message &
-            operator =
-                (Message &&  other)
+            operator=
+                (Message && other)
                 noexcept;
 
             /*! @brief Return @c true if the read position is past the last character.

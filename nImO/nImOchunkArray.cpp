@@ -337,7 +337,21 @@ nImO::ChunkArray::operator=
     (ChunkArray &&  other)
     noexcept
 {
-
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _buffers = other._buffers;
+        _buffersArePadded = other._buffersArePadded;
+        _cachedString = other._cachedString;
+        _numChunks = other._numChunks;
+        other._buffers = nullptr;
+        other._buffersArePadded = false;
+        other._cachedString = "";
+        other._numChunks = 0;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
 } // nImO::ChunkArray::operator=
 
 nImO::ChunkArray &

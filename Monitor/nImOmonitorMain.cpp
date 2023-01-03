@@ -201,7 +201,6 @@ class ReceiveOnLoggingPort final
                                                                             _senderEndpoint.address().to_v4().to_uint();
 
                                                        newMessage.open(false);
-nImO::DumpMemoryToStandardError(inBytes.data(), inBytes.size());//!!
                                                        newMessage.appendBytes(inBytes.data(), inBytes.size());
                                                        SpReceivedData   newData{std::make_shared<ReceivedData>(newMessage.getValue(),
                                                                                                                senderAddress)};

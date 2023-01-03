@@ -4111,12 +4111,13 @@ doTestMIMEInsertArrayWithManyDoublesMessage
             const size_t    numValues = 43;
             SpArray         arrayManyDoubles{new Array};
             std::string     expectedArrayManyDoublesLines[]{
-                                    "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAAQBgAAAAA",
-                                    "AABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAAAABAKgAAAAAAAEAs",
-                                    "AAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAAAAAAAEA0AAAAAAAAQDUAAAAA",
-                                    "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
-                                    "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
-                                    "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
+                                    "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA",
+                                    "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA",
+                                    "AABAKgAAAAAAAEAsAAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAA",
+                                    "AAAAAEA0AAAAAAAAQDUAAAAAAABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6",
+                                    "AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAA",
+                                    "QECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAAAABAQoAAAAAAAEBDAAAAAAAAQEOAAAAA",
+                                    "AABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
             const size_t    expectedArrayManyDoublesLinesCount{A_SIZE(expectedArrayManyDoublesLines)};
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -4172,12 +4173,13 @@ doTestMIMEExtractArrayWithManyDoublesMessage
         {
             const size_t    numValues = 43;
             std::string     insertedArrayManyDoublesLines[]{
-                                    "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAAQBgAAAAA",
-                                    "AABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAAAABAKgAAAAAAAEAs",
-                                    "AAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAAAAAAAEA0AAAAAAAAQDUAAAAA",
-                                    "AABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9",
-                                    "AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAAQECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAA",
-                                    "AABAQoAAAAAAAEBDAAAAAAAAQEOAAAAAAABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
+                                "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA",
+                                "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA",
+                                "AABAKgAAAAAAAEAsAAAAAAAAQC4AAAAAAABAMAAAAAAAAEAxAAAAAAAAQDIAAAAAAABAMwAA",
+                                "AAAAAEA0AAAAAAAAQDUAAAAAAABANgAAAAAAAEA3AAAAAAAAQDgAAAAAAABAOQAAAAAAAEA6",
+                                "AAAAAAAAQDsAAAAAAABAPAAAAAAAAEA9AAAAAAAAQD4AAAAAAABAPwAAAAAAAEBAAAAAAAAA",
+                                "QECAAAAAAABAQQAAAAAAAEBBgAAAAAAAQEIAAAAAAABAQoAAAAAAAEBDAAAAAAAAQEOAAAAA",
+                                "AABARAAAAAAAAEBEgAAAAAAAQEUAAAAAAADh/w==" };
             const size_t    insertedArrayManyDoublesLinesCount{A_SIZE(insertedArrayManyDoublesLines)};
             Array           arrayManyDoubles;
 
@@ -4846,10 +4848,10 @@ doTestMIMEInsertArrayWithRangeOfIntegers
         {
             SpArray         arrayWithRangeOfIntegers{new Array};
             std::string     expectedArrayWithRangeOfIntegersLines[]{
-                                    "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSlEAAlCRhO",
-                                    "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
-                                    "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
-                                    "uoeidgAA4f8=" };
+                                "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl",
+                                "EAAlCRhOcqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55",
+                                "YCLwvcAj/2dpgCP6Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm",
+                                "/HKBWzmAACbceQ2QPwAAJ/6cuoeidgAA4f8=" };
             const size_t    expectedArrayWithRangeOfIntegersLinesCount{A_SIZE(expectedArrayWithRangeOfIntegersLines)};
 
             arrayWithRangeOfIntegers->addValue(std::make_shared<Integer>(1));
@@ -4936,10 +4938,10 @@ doTestMIMEExtractArrayWithRangeOfIntegers
         if (nullptr != stuff)
         {
             std::string     insertedArrayWithRangeOfIntegersLines[]{
-                                    "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSlEAAlCRhO",
-                                    "cqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55YCLwvcAj/2dpgCP6",
-                                    "Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm/HKBWzmAACbceQ2QPwAAJ/6c",
-                                    "uoeidgAA4f8=" };
+                                "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl",
+                                "EAAlCRhOcqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55",
+                                "YCLwvcAj/2dpgCP6Ch8AI8RlNgAk/av0HAAk6LeJGAAl/xcrWvAAJfbnsY1gACWlDO+FwAAm",
+                                "/HKBWzmAACbceQ2QPwAAJ/6cuoeidgAA4f8=" };
             const size_t    insertedArrayWithRangeOfIntegersLinesCount{A_SIZE(insertedArrayWithRangeOfIntegersLines)};
             Array           arrayWithRangeOfIntegers;
 

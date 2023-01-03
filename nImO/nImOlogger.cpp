@@ -212,9 +212,9 @@ nImO::Logger::report
 
             if (0 < asString.length())
             {
-                nImO::StringVector  outVec;
+                StringVector    outVec;
 
-                nImO::EncodeBytesAsMIME(outVec, asString);
+                EncodeBytesAsMIME(outVec, asString);
                 auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
 
                 // send the encoded message to the logging ports

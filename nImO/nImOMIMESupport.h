@@ -103,7 +103,7 @@ namespace nImO
         (StringVector &         outValue,
          const std::string &    inString)
     {
-        EncodeBytesAsMIME(outValue, inString.c_str(), inString.length());
+        EncodeBytesAsMIME(outValue, inString.data(), inString.length());
     }
 
 } // nImO

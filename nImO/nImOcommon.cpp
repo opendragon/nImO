@@ -388,6 +388,8 @@ nImO::DumpMemoryToStandardError
         size_t          offset = 0;
         size_t          bytesInNextRow = std::min(numBytes, bytesPerRow);
 
+        std::cerr << "**** address: " << std::hex << ReinterpretCast(intptr_t, address) << ", size: " << std::dec <<
+                    numBytes << " ****" << std::endl;
         std::cerr << "____ | 00 01 02 03 | 04 05 06 07 | 08 09 0A 0B | 0C 0D 0E 0F |" << std::endl;
         for ( ; offset < numBytes; offset += bytesPerRow)
         {
@@ -438,6 +440,7 @@ nImO::DumpMemoryToStandardError
                 bytesInNextRow = std::min(numBytes - (offset + bytesPerRow), bytesPerRow);
             }
         }
+        std::cerr << std::dec;
     }
 } // nImO::DumpMemoryToStandardError
 

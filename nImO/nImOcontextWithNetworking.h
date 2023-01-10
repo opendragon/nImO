@@ -40,6 +40,7 @@
 # define nImOcontextWithNetworking_H_ /* Header guard */
 
 # include <nImOcontext.h>
+# include <nImOlogger.h>
 # include <nImOmessage.h>
 
 # if defined(__APPLE__)
@@ -74,20 +75,53 @@ namespace nImO
         public :
             // Public methods.
 
+            /*! @brief The constructor.
+             @param[in] executable The name of the executing program.
+             @param[in] tag The symbolic name for the current process.
+             @param[in] logging @c true if the executing program is to be logged.
+             @param[in] nodeName The @nImO-visible name of the executing program. */
+            ContextWithNetworking
+                (const std::string &    executableName,
+                 const std::string &    tag,
+                 const bool             logging,
+                 const std::string &    nodeName = "");
+
             /*! @brief The destructor. */
             virtual
             ~ContextWithNetworking
                 (void);
 
+            /*! @brief Return the address and port to use for logging.
+             @param[out] address The address for logging.
+             @param[out] port The port for logging. */
+            inline void
+            getLoggingInfo
+                (uint32_t & address,
+                 uint16_t & port)
+                const
+            {
+                address = _logAddress;
+                port = _logPort;
+            }
+
+            /*! @brief Log a message.
+             @param[in] stringToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const std::string &    stringToSend)
+                const;
+
+            /*! @brief Log a message.
+             @param[in] stringsToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const StringVector &   stringsToSend)
+                const;
+
         protected :
             // Protected methods.
-
-            /*! @brief The constructor.
-             @param[in] executable The name of the executing program.
-             @param[in] nodeName The @nImO-visible name of the executing program. */
-            ContextWithNetworking
-                (const std::string &    executableName,
-                 const std::string &    nodeName = "");
 
         private :
             // Private methods.
@@ -106,6 +140,18 @@ namespace nImO
 
             /*! @brief A 'dummy' operation to keep the service queue alive. */
             UPwork  _work;
+
+            /*! @brief The multicast address used for logging. */
+            uint32_t    _logAddress;
+
+            /*! @brief The multicast port used for logging. */
+            uint16_t    _logPort;
+
+            /*! @brief @c true if logging has been enabled. */
+            bool _loggingEnabled;
+
+            /*! @brief The active logger. */
+            Ptr(Logger) _logger;
 
     }; // ContextWithNetworking
 

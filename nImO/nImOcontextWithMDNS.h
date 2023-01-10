@@ -40,8 +40,6 @@
 # define nImOcontextWithMDNS_H_ /* Header guard */
 
 # include <nImOcontextWithNetworking.h>
-# include <nImOlogger.h>
-# include <nImOmessage.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -91,35 +89,6 @@ namespace nImO
             ~ContextWithMDNS
                 (void);
 
-            /*! @brief Return the address and port to use for logging.
-             @param[out] address The address for logging.
-             @param[out] port The port for logging. */
-            inline void
-            getLoggingInfo
-                (uint32_t & address,
-                 uint16_t & port)
-                const
-            {
-                address = _logAddress;
-                port = _logPort;
-            }
-
-            /*! @brief Log a message.
-             @param[in] stringToSend The message to be logged.
-             @return @c true if the message was successfully logged. */
-            bool
-            report
-                (const std::string &    stringToSend)
-                const;
-
-            /*! @brief Log a message.
-             @param[in] stringsToSend The message to be logged.
-             @return @c true if the message was successfully logged. */
-            bool
-            report
-                (const StringVector &   stringsToSend)
-                const;
-
         protected :
             // Protected methods.
 
@@ -134,18 +103,6 @@ namespace nImO
 
         private :
             // Private fields.
-
-            /*! @brief The multicast address used for logging. */
-            uint32_t    _logAddress;
-
-            /*! @brief The multicast port used for logging. */
-            uint16_t    _logPort;
-
-            /*! @brief @c true if logging has been enabled. */
-            bool _loggingEnabled;
-
-            /*! @brief The active logger. */
-            Ptr(Logger) _logger;
 
     }; // ContextWithMDNS
 

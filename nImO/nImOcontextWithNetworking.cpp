@@ -37,6 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOcontextWithNetworking.h"
+#include "initFileAddress.h"
+#include "initFileInteger.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -60,6 +62,22 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A macro to convert four integers into an IPv4 address. */
+#define IPV4_ADDR(a_, b_, c_, d_) \
+        (((a_ & 0x0ff) << 24) | ((b_ & 0x0ff) << 16) | ((c_ & 0x0ff) << 8) | (d_ & 0x0ff))
+
+/*! @brief The address to be used for logging, if none is specified in the configuration file. */
+static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
+
+/*! @brief The port to be used for logging, if none is specified in the configuration file. */
+static uint16_t kDefaultLogPort = 1954;
+
+/*! @brief The key for the logger address in the configuration file. */
+static std::string  kAddressKey = "logger address";
+
+/*! @brief The key for the logger port in the configuration file. */
+static std::string  kPortKey = "logger port";
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -78,11 +96,13 @@
 
 nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    executableName,
+     const std::string &    tag,
+     const bool             logging,
      const std::string &    nodeName) :
-    inherited(executableName, nodeName)
+        inherited(executableName, nodeName), _loggingEnabled(logging), _logger(nullptr)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
@@ -98,6 +118,64 @@ nImO::ContextWithNetworking::ContextWithNetworking
                                     getService()->run();
                                 });
         }
+        // Get the address and port to use for logging.
+        boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kAddressKey);
+
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
+
+            if (nullptr == asAddress)
+            {
+                _logAddress = kDefaultLogAddress;
+            }
+            else
+            {
+                _logAddress = asAddress->GetValue();
+                if (239 != (_logAddress >> 24))
+                {
+                    std::cerr << "Invalid address in configuration file; using default address." << std::endl;
+                    _logAddress = kDefaultLogAddress;
+                }
+            }
+        }
+        else
+        {
+            _logAddress = kDefaultLogAddress;
+        }
+        retValue = GetConfiguredValue(kPortKey);
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+
+            if (nullptr == asInteger)
+            {
+                _logPort = kDefaultLogPort;
+            }
+            else
+            {
+                int64_t tempValue = asInteger->GetValue();
+
+                if ((0 < tempValue) && (tempValue <= 0x0FFFF))
+                {
+                    _logPort = StaticCast(uint16_t, tempValue);
+                }
+                else
+                {
+                    _logPort = kDefaultLogPort;
+                }
+            }
+        }
+        else
+        {
+            _logPort = kDefaultLogPort;
+        }
+        if (_loggingEnabled)
+        {
+            _logger = new Logger(getService(), tag, _logAddress, _logPort);
+        }
     }
     catch (...)
     {
@@ -111,6 +189,10 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     (void)
 {
     ODL_OBJENTER(); //####
+    if (nullptr != _logger)
+    {
+        delete _logger;
+    }
     _work.reset(nullptr);
     _pool.join_all();
     ODL_OBJEXIT(); //####
@@ -119,6 +201,46 @@ nImO::ContextWithNetworking::~ContextWithNetworking
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+bool
+nImO::ContextWithNetworking::report
+    (const std::string &    stringToSend)
+    const
+{
+    bool    okSoFar;
+
+    ODL_OBJENTER(); //####
+    if (_loggingEnabled && (nullptr != _logger))
+    {
+        okSoFar = _logger->report(stringToSend);
+    }
+    else
+    {
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ContextWithNetworking::report
+
+bool
+nImO::ContextWithNetworking::report
+    (const StringVector & stringsToSend)
+    const
+{
+    bool    okSoFar;
+
+    ODL_OBJENTER(); //####
+    if (_loggingEnabled && (nullptr != _logger))
+    {
+        okSoFar = _logger->report(stringsToSend);
+    }
+    else
+    {
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ContextWithNetworking::report
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -313,9 +313,9 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            uint32_t                loggingAddress;
-            uint16_t                loggingPort;
-            nImO::ContextWithMDNS   ourContext{progName, "monitor", logging};
+            uint32_t                    loggingAddress;
+            uint16_t                    loggingPort;
+            nImO::ContextWithNetworking ourContext{progName, "monitor", logging};
 
             nImO::SetSignalHandlers(catchSignal);
             ourContext.getLoggingInfo(loggingAddress, loggingPort);

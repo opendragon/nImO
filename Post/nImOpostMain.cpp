@@ -114,13 +114,13 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::ContextWithMDNS   ourContext{progName, "post", logging};
-            std::string             header{secondArg.getCurrentValue()};
-            bool                    readFromStdin{firstArg.getCurrentValue()};
+            nImO::ContextWithNetworking ourContext{progName, "post", logging};
+            std::string                 header{secondArg.getCurrentValue()};
+            bool                        readFromStdin{firstArg.getCurrentValue()};
 
             if (readFromStdin)
             {
-                nImO::StringVector      stuffToSend;
+                nImO::StringVector  stuffToSend;
 
                 if (0 < header.length())
                 {

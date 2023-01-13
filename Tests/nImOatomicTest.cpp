@@ -146,9 +146,9 @@ doTestEmptyBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // empty buffer chunk
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -199,9 +199,9 @@ doTestBufferChunkWithSingleByte
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk with 1 byte of data
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -264,9 +264,9 @@ doTestFilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk filled with data
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -355,9 +355,9 @@ doTestOverfilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk overfilled with data
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -446,9 +446,9 @@ doTestBufferChunkReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting buffer chunk
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -510,9 +510,9 @@ doTestEmptyStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string buffer
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -573,7 +573,7 @@ doTestStringBufferWithCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with character string
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -648,7 +648,7 @@ doTestStringBufferWithLogical
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with logical
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -721,7 +721,7 @@ doTestStringBufferWithInteger
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with integer
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -792,7 +792,7 @@ doTestStringBufferWithString
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with string
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -865,9 +865,9 @@ doTestStringBufferWithSpecialCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with special chars
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -933,7 +933,7 @@ doTestStringBufferWithDouble
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with floating point
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1013,9 +1013,9 @@ doTestBigStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // big string buffer
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1086,9 +1086,9 @@ doTestStringBufferWithEmptyBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with empty blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1143,9 +1143,9 @@ doTestStringBufferWithSmallBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with small blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1227,9 +1227,9 @@ doTestStringBufferWithBigBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with big blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1311,9 +1311,9 @@ doTestStringBufferReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting string buffer
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1377,9 +1377,9 @@ doTestDefaultLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default logical value
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1430,7 +1430,7 @@ doTestLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // logical values
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1498,9 +1498,9 @@ doTestDefaultIntegerValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default integer value
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1552,7 +1552,7 @@ doTestNumberValue
      const int      argc,
      Ptr(Ptr(char)) argv) // number values
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1645,9 +1645,9 @@ doTestDefaultStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default string value
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1698,7 +1698,7 @@ doTestStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // string values
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1756,9 +1756,9 @@ doTestStringValueWithEscapes
      const int      argc,
      Ptr(Ptr(char)) argv) // string value with escapes
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1811,9 +1811,9 @@ doTestDefaultBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1864,9 +1864,9 @@ doTestSmallBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1946,9 +1946,9 @@ doTestBigBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // big blob
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2028,9 +2028,9 @@ doTestLogicalCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // logical copy and assign
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2100,9 +2100,9 @@ doTestIntegerCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // integer copy and assign
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2193,9 +2193,9 @@ doTestDoubleCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // floating point copy and assign
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2285,9 +2285,9 @@ doTestStringCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // string copy and assign
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2357,9 +2357,9 @@ doTestBlobCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // blob copy and assign
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2474,9 +2474,9 @@ doTestValidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2593,9 +2593,9 @@ doTestValidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid number compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3031,9 +3031,9 @@ doTestValidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3175,9 +3175,9 @@ doTestValidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid blob compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3329,9 +3329,9 @@ doTestInvalidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3432,9 +3432,9 @@ doTestInvalidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid number compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3535,9 +3535,9 @@ doTestInvalidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3638,9 +3638,9 @@ doTestInvalidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid blob compares
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

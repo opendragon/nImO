@@ -206,9 +206,9 @@ doTestExtractEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -314,9 +314,9 @@ doTestExtractLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -397,9 +397,9 @@ doTestExtractTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -500,9 +500,9 @@ doTestExtractSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -585,9 +585,9 @@ doTestExtractMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -674,9 +674,9 @@ doTestExtractBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -765,9 +765,9 @@ doTestExtractEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -830,9 +830,9 @@ doTestExtractShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -898,9 +898,9 @@ doTestExtractMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -985,9 +985,9 @@ doTestExtractEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1049,9 +1049,9 @@ doTestExtractSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1121,9 +1121,9 @@ doTestExtractMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1218,9 +1218,9 @@ doTestExtractSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1313,9 +1313,9 @@ doTestExtractEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1381,9 +1381,9 @@ doTestExtractEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1449,9 +1449,9 @@ doTestExtractEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1517,9 +1517,9 @@ doTestExtractArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1595,9 +1595,9 @@ doTestExtractArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1673,9 +1673,9 @@ doTestExtractArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1756,9 +1756,9 @@ doTestExtractArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1835,9 +1835,9 @@ doTestExtractArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1914,9 +1914,9 @@ doTestExtractArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1997,9 +1997,9 @@ doTestExtractArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2079,9 +2079,9 @@ doTestExtractArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2161,9 +2161,9 @@ doTestExtractArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2243,9 +2243,9 @@ doTestExtractArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2325,9 +2325,9 @@ doTestExtractArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2413,9 +2413,9 @@ doTestExtractArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2497,9 +2497,9 @@ doTestExtractArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2581,9 +2581,9 @@ doTestExtractArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2673,9 +2673,9 @@ doTestExtractArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2765,9 +2765,9 @@ doTestExtractArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2857,9 +2857,9 @@ doTestExtractArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2949,9 +2949,9 @@ doTestExtractArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3041,9 +3041,9 @@ doTestExtractArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3133,9 +3133,9 @@ doTestExtractArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3388,9 +3388,9 @@ doTestExtractLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3468,9 +3468,9 @@ doTestExtractIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3548,9 +3548,9 @@ doTestExtractStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string map message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3629,9 +3629,9 @@ doTestExtractLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3706,9 +3706,9 @@ doTestExtractIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3783,9 +3783,9 @@ doTestExtractStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string set message
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3861,9 +3861,9 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

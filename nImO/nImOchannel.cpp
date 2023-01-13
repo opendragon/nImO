@@ -87,7 +87,7 @@ nImO::Channel::Channel
     (Channel && other)
     noexcept
 {
-    MDNS_UNUSED_ARG_(other)
+    NIMO_UNUSED_ARG_(other)
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####

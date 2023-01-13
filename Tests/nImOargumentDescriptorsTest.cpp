@@ -136,7 +136,7 @@ doTestAddressArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -232,7 +232,7 @@ doTestBooleanArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -324,7 +324,7 @@ doTestChannelArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -417,7 +417,7 @@ doTestDoubleArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -513,7 +513,7 @@ doTestFilePathArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -609,7 +609,7 @@ doTestIntegerArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -708,7 +708,7 @@ doTestPortArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -804,7 +804,7 @@ doTestStringArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -884,7 +884,7 @@ doTestStringsArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####

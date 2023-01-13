@@ -132,7 +132,7 @@ static void
 localCatcher
     (int    signal)
 {
-    MDNS_UNUSED_ARG_(signal);
+    NIMO_UNUSED_ARG_(signal);
     ODL_ENTER(); //####
     //ODL_I1("signal = ", signal); //####
 #if 0

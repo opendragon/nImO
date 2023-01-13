@@ -112,7 +112,7 @@ doTestInvalidArgs
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid args
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -195,7 +195,7 @@ doTestIntegerSize
      const int      argc,
      Ptr(Ptr(char)) argv) // integer size
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -256,9 +256,9 @@ doTestDoubleSize
      const int      argc,
      Ptr(Ptr(char)) argv) // double size
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -304,7 +304,7 @@ doTestIntegerConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // integer conversion
 {
-    MDNS_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -376,9 +376,9 @@ doTestDoubleConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // double conversion
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

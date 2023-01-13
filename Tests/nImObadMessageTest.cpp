@@ -165,9 +165,9 @@ doTestMessageInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong initial tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -221,9 +221,9 @@ doTestMessageTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong terminal tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -277,9 +277,9 @@ doTestEmptyMessageWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message with content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -336,9 +336,9 @@ doTestNonEmptyMessageWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty message without content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -396,9 +396,9 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -459,9 +459,9 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -522,9 +522,9 @@ doTestNonEmptyMessageWithInvalidContentTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with invalid content tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -584,9 +584,9 @@ doTestNonEmptyMessageWithZeroDoubleCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad double count
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -648,9 +648,9 @@ doTestNonEmptyMessageWithStringWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with string with invalid length
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -713,9 +713,9 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with blob with invalid length
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -778,9 +778,9 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with initial end tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -846,9 +846,9 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with terminal start tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -914,9 +914,9 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty array with content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -985,9 +985,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array without content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1058,9 +1058,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array with invalid count
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1130,9 +1130,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too few values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1209,9 +1209,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1291,9 +1291,9 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many doubles
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1383,9 +1383,9 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with initial end tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1451,9 +1451,9 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with terminal start tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1519,9 +1519,9 @@ doTestNonEmptyMessageWithEmptyMapWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty map with content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1590,9 +1590,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map without content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1663,9 +1663,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map with invalid count
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1735,9 +1735,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too few values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1820,9 +1820,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too many values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1905,9 +1905,9 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with incomplete pair
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1987,9 +1987,9 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with initial end tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2055,9 +2055,9 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with terminal start tag
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2123,9 +2123,9 @@ doTestNonEmptyMessageWithEmptySetWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty set with content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2194,9 +2194,9 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set without content
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2267,9 +2267,9 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set with invalid count
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2339,9 +2339,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too few values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2418,9 +2418,9 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too many values
 {
-    MDNS_UNUSED_ARG_(launchPath);
-    MDNS_UNUSED_ARG_(argc);
-    MDNS_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

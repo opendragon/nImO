@@ -106,7 +106,7 @@ nImO::Value::Value
     (Value &&   other)
     noexcept
 {
-    MDNS_UNUSED_ARG_(other)
+    NIMO_UNUSED_ARG_(other)
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Value::Value
@@ -435,7 +435,7 @@ nImO::Value::greaterThan
     (const Value &  other)
     const
 {
-    MDNS_UNUSED_ARG_(other);
+    NIMO_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
@@ -592,7 +592,7 @@ nImO::Value::lessThan
     (const Value &  other)
     const
 {
-    MDNS_UNUSED_ARG_(other);
+    NIMO_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
@@ -623,7 +623,7 @@ nImO::Value::operator=
     (Value &&   other)
     noexcept
 {
-    MDNS_UNUSED_ARG_(other);
+    NIMO_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT_P(this); //####
@@ -651,8 +651,8 @@ nImO::Value::printToStringBuffer
      const bool     squished)
     const
 {
-    MDNS_UNUSED_ARG_(outBuffer);
-    MDNS_UNUSED_ARG_(squished);
+    NIMO_UNUSED_ARG_(outBuffer);
+    NIMO_UNUSED_ARG_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
@@ -759,7 +759,7 @@ nImO::Value::writeToMessage
     (Message &  outMessage)
     const
 {
-    MDNS_UNUSED_ARG_(outMessage);
+    NIMO_UNUSED_ARG_(outMessage);
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_OBJEXIT(); //####

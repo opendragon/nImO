@@ -81,6 +81,7 @@
 # include <csignal>
 # include <cstdlib>
 # include <cstring>
+# include <iomanip>
 # include <iostream>
 # include <list>
 # include <map>
@@ -91,14 +92,14 @@
 # include <sstream>
 # include <vector>
 
-# if MAC_OR_LINUX_
-#  pragma GCC diagnostic push
-#  pragma GCC diagnostic ignored "-Wunused-function"
-# endif // MAC_OR_LINUX_
-# include <mdns.hpp>
-# if MAC_OR_LINUX_
-#  pragma GCC diagnostic pop
-# endif // MAC_OR_LINUX_
+//# if MAC_OR_LINUX_
+//#  pragma GCC diagnostic push
+//#  pragma GCC diagnostic ignored "-Wunused-function"
+//# endif // MAC_OR_LINUX_
+//# include <mdns.hpp>
+//# if MAC_OR_LINUX_
+//#  pragma GCC diagnostic pop
+//# endif // MAC_OR_LINUX_
 
 # if MAC_OR_LINUX_
 #  include <arpa/inet.h>
@@ -198,32 +199,33 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
- @tparam Type The type of value being converted.
- @param[in] enumerator The value to be converted.
+ @tparam Type_ The type of value being converted.
+ @param[in] enumerator_ The value to be converted.
  @return The input value as its underlying type. */
 template
-    <typename   Type>
-constexpr typename std::underlying_type<Type>::type
+    <typename   Type_>
+constexpr typename std::underlying_type<Type_>::type
 toUType
-    (Type   enumerator)
+    (Type_  enumerator_)
     noexcept
 {
-    return StaticCast(typename std::underlying_type<Type>::type, enumerator);
+    return StaticCast(typename std::underlying_type<Type_>::type, enumerator_);
 }
 
 /*! @brief Return a unique_ptr for a freshly-allocated object.
  { From Effective Modern C++. }
- @tparam Type The type of value being allocated.
- @param[in] params The arguments for the constructor.
+ @tparam Type_ The type of value being allocated.
+ @tparam Types_ The types of arguments for the constructor.
+ @param[in] params_ The arguments for the constructor.
  @return A unique_ptr to the newly-allocated object. */
 template
-    <typename       Type,
-     typename...    Types>
-std::unique_ptr<Type>
+    <typename       Type_,
+     typename...    Types_>
+std::unique_ptr<Type_>
 make_unique
-    (Types &&...    params)
+    (Types_ &&...   params_)
 {
-    return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
+    return std::unique_ptr<Type_>(new Type_(std::forward<Types_>(params_)...));
 }
 
 using namespace boost;
@@ -460,13 +462,6 @@ namespace nImO
 
     }; // Enumerable
 
-    /*! @brief A pointer to a function that can be invoked when help is requested, to
-     provide more detailed information on the arguments to an application.
-     @param[in,out] outStream The stream to write to. */
-    typedef void
-        (* HelpFunction)
-            (std::ostream & outStream);
-
     /*! @brief The state of a Message. */
     enum class MessageState
     {
@@ -515,6 +510,31 @@ namespace nImO
         Unknown
 
     }; // Transport
+
+    /*! @brief A pointer to a function that can be invoked when help is requested, to
+     provide more detailed information on the arguments to an application.
+     @param[in,out] outStream The stream to write to. */
+    typedef void
+        (* HelpFunction)
+            (std::ostream & outStream);
+
+    namespace internal_
+    {
+        /*! @brief A function used to suppress 'unused variable' warnings.
+         @tparam Type_ The type of value being ignored. */
+        template
+            <typename Type_>
+        void
+        ignore_unused_variable_
+            (const Type_ &)
+        {
+        } // ignore_unused_variable_
+
+    }; // internal_
+
+# define NIMO_UNUSED_ARG_(var_)  nImO::internal_::ignore_unused_variable_(var_)
+# define NIMO_UNUSED_PARAM_(xx_) /* xx_ */
+# define NIMO_UNUSED_VAR_(var_)  NIMO_UNUSED_ARG_(var_)
 
     /*! @brief The minimum count representable in a short floating point. */
     const int   DataKindDoubleShortCountMinValue = 1;

@@ -486,7 +486,7 @@ nImO::Integer::printToStringBuffer
      const bool     squished)
     const
 {
-    MDNS_UNUSED_ARG_(squished);
+    NIMO_UNUSED_ARG_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####

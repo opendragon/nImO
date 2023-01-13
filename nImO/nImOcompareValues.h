@@ -79,7 +79,7 @@ namespace nImO
             inline CompareValues
                 (const CompareValues &	other)
             {
-                MDNS_UNUSED_ARG_(other);
+                NIMO_UNUSED_ARG_(other);
             }
 
             /*! @brief The move constructor.

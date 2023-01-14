@@ -311,4 +311,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOlogical_H_)
+#endif // not defined(nImOlogical_H_)

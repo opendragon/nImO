@@ -108,4 +108,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOzMIMESupport_H_)
+#endif // not defined(nImOzMIMESupport_H_)

@@ -128,13 +128,13 @@ nImO::Array &
 nImO::Array::addEntries
     (const Array &  other)
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     for (auto & walker : other)
     {
         addValue(walker);
     }
-    ODL_EXIT_P(this); //####
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::Array::addEntries
 
@@ -453,7 +453,7 @@ nImO::Array::greaterThan
     {
         SpValue aValue{*walker};
 
-        if (aValue)
+        if (nullptr != aValue)
         {
             result &= aValue->greaterThan(other);
         }

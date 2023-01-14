@@ -104,4 +104,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOtestContext_H_)
+#endif // not defined(nImOtestContext_H_)

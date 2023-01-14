@@ -224,4 +224,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOmessage_H_)
+#endif // not defined(nImOmessage_H_)

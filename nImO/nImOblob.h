@@ -289,4 +289,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOblob_H_)
+#endif // not defined(nImOblob_H_)

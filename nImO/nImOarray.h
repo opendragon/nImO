@@ -382,4 +382,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOarray_H_)
+#endif // not defined(nImOarray_H_)

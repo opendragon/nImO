@@ -110,4 +110,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOserviceContext_H_)
+#endif // not defined(nImOserviceContext_H_)

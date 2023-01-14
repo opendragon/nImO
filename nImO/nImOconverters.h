@@ -109,5 +109,5 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOconverters_H_)
+#endif // not defined(nImOconverters_H_)
 

@@ -115,4 +115,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOatom_H_)
+#endif // not defined(nImOatom_H_)

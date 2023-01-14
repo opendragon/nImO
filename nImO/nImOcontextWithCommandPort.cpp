@@ -80,19 +80,15 @@ nImO::ContextWithCommandPort::ContextWithCommandPort
     (const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
-     const bool             autoLaunchRegistry,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, nodeName)
+        inherited(executableName, tag, logging, nodeName), _acceptor(*getService()), _keepGoing(true)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
-        if (autoLaunchRegistry)
-        {
-            //TBD
-        }
+        createCommandPort();
     }
     catch (...)
     {
@@ -107,12 +103,79 @@ nImO::ContextWithCommandPort::~ContextWithCommandPort
 {
     ODL_OBJENTER(); //####
 //    removeAllEntries();
+    removeAnnouncement();
+    destroyCommandPort();
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithCommandPort::~ContextWithCommandPort
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::ContextWithCommandPort::createCommandPort
+    (void)
+{
+    ODL_OBJENTER(); //####
+    _acceptor.open(asio::ip::tcp::v4());
+    _acceptor.listen();
+    _commandPort = _acceptor.local_endpoint().port();
+    Ptr(CommandSession) newSession = new CommandSession(*this);
+
+    _acceptor.async_accept(newSession->getSocket(),
+                           [this, newSession]
+                           (const system::error_code  ec)
+                           {
+                               handleAccept(newSession, ec);
+                           });
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithCommandPort::createCommandPort
+
+void
+nImO::ContextWithCommandPort::destroyCommandPort
+(void)
+{
+    ODL_OBJENTER(); //####
+    _keepGoing = false;
+    _acceptor.cancel();
+    _acceptor.close();
+    for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
+    {
+        Ptr(CommandSession) aSession = *walker;
+
+        aSession->getSocket().cancel();
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithCommandPort::destroyCommandPort
+
+void
+nImO::ContextWithCommandPort::handleAccept
+    (Ptr(CommandSession)                newSession,
+     const boost::system::error_code &  error)
+{
+    ODL_OBJENTER(); //####
+    if (error)
+    {
+        delete newSession;
+    }
+    else if (_keepGoing)
+    {
+        newSession->start();
+        newSession = new CommandSession(*this);
+        _sessions.insert(newSession);
+        _acceptor.async_accept(newSession->getSocket(),
+                               [this, newSession]
+                               (const system::error_code  ec)
+                               {
+                                   handleAccept(newSession, ec);
+                               });
+    }
+    else
+    {
+        delete newSession;
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithCommandPort::handleAccept
 
 #if defined(__APPLE__)
 # pragma mark Global functions

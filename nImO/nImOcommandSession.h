@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOflaw.h
+//  File:       nImO/nImOcommandSession.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO error or flaw values.
+//  Contains:   The class declaration for a nImO command session.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2017 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2017-02-28
+//  Created:    2023-01-14
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOflaw_H_))
-# define nImOflaw_H_ /* Header guard */
+#if (! defined(nImOcommandSession_H_))
+# define nImOcommandSession_H_ /* Header guard */
 
-# include <nImOvalue.h>
+# include <nImOcontext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,20 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO error or flaw values. */
+ @brief The class declaration for a %nImO command session. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide simple values. */
-    class Flaw : public Value
+
+    // Forward declarations.
+
+    class ContextWithCommandPort;
+
+    /*! @brief A class to provide binary data with unknown structure. */
+    class CommandSession final
     {
 
         public :
@@ -67,54 +72,34 @@ namespace nImO
         private :
             // Private type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = Value;
-
         public :
             // Public methods.
 
+            /*! @brief The constructor.
+             @param[in] owner The Context that is using the command session. */
+            CommandSession
+                (ContextWithCommandPort &   owner);
+
             /*! @brief The destructor. */
-            virtual
-            ~Flaw
+            ~CommandSession
                 (void);
 
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            Flaw
-                (Flaw &&	other)
-                noexcept;
-
-            /*! @brief Return non-@c nullptr if the object is a Flaw.
-            @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-            virtual CPtr(Flaw)
-            asFlaw
+            /*! @brief Return the socket for this session.
+             @return The session socket. */
+            inline asio::ip::tcp::socket &
+            getSocket
                 (void)
-                const
-                override;
+            {
+                return _socket;
+            }
 
-            /*! @brief Return a textual description of the Flaw.
-            @return A textual description of the Flaw. */
-            virtual std::string
-            getDescription
-                (void)
-                const = 0;
+            /*! @brief Initiate the communication. */
+            void
+            start
+                (void);
 
         protected :
             // Protected methods.
-
-            /*! @brief The constructor. */
-            Flaw
-                (void);
-
-            /*! @brief Insert a readable version of the object into an output stream.
-            @param[in,out] out The stream to be added to.
-            @param[in] aValue The object to be printed.
-            @return The modified stream. */
-            virtual std::ostream &
-            operator<<
-                (std::ostream & out)
-                const
-                override;
 
         private :
             // Private methods.
@@ -128,8 +113,14 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // Flaw
+            /*! @brief The socket used for command request and response. */
+            asio::ip::tcp::socket   _socket;
+
+            /*! @brief The context that created this session. */
+            //ContextWithCommandPort &    _owner;
+
+    }; // CommandSession
 
 } // nImO
 
-#endif // not defined(nImOflaw_H_)
+#endif // not defined(nImOcommandSession_H_)

@@ -308,4 +308,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOdouble)
+#endif // not defined(nImOdouble)

@@ -189,4 +189,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImObufferChunk_H_)
+#endif // not defined(nImObufferChunk_H_)

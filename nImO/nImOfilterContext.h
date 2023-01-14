@@ -108,4 +108,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOfilterContext_H_)
+#endif // not defined(nImOfilterContext_H_)

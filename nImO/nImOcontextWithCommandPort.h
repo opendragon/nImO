@@ -40,6 +40,7 @@
 # define nImOcontextWithCommandPort_H_ /* Header guard */
 
 # include <nImOcontextWithMDNS.h>
+# include <nImOcommandSession.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -78,6 +79,10 @@ namespace nImO
             ~ContextWithCommandPort
                 (void);
 
+            void
+            forgetSession
+                (Ptr(CommandSession)    aSession);
+
         protected :
             // Protected methods.
 
@@ -85,17 +90,33 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
-             @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithCommandPort
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
-                 const bool             autoLaunchRegistry = true,
                  const std::string &    nodeName = "");
 
         private :
             // Private methods.
+
+            /*! @brief Create the command port to be used. */
+            void
+            createCommandPort
+                (void);
+
+            /*! @brief Destroy the command port. */
+            void
+            destroyCommandPort
+                (void);
+
+            /*! @brief Handle an asynchronous accept request.
+             @param[in] newSession The command session for the request.
+             @param[in] error The error status of the request. */
+            void
+            handleAccept
+                (Ptr(CommandSession)                newSession,
+                 const boost::system::error_code &  error);
 
         public :
             // Public fields.
@@ -106,8 +127,20 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The acceptor for command port connections. */
+            asio::ip::tcp::acceptor _acceptor;
+
+            /*! @brief The command port. */
+            uint16_t    _commandPort;
+
+            /*! @brief Set to @c false to stop asynchronous operations. */
+            boost::atomic<bool> _keepGoing;
+
+            /*! @brief The active sessions. */
+            std::set<Ptr(CommandSession)>   _sessions;
+
     }; // ContextWithCommandPort
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithCommandPort_H_)
+#endif // not defined(nImOcontextWithCommandPort_H_)

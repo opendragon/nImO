@@ -41,6 +41,15 @@
 
 # include <nImOcontextWithNetworking.h>
 
+# if MAC_OR_LINUX_
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wunused-function"
+# endif // MAC_OR_LINUX_
+# include <mdns.hpp>
+# if MAC_OR_LINUX_
+#  pragma GCC diagnostic pop
+# endif // MAC_OR_LINUX_
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -89,11 +98,52 @@ namespace nImO
             ~ContextWithMDNS
                 (void);
 
+            /*! @brief Find Registry if already running.
+             @return @c true if the Registry is located. */
+            bool
+            findRegistry
+                (void);
+
+            /*! @brief Send an announcement via mDNS. */
+            void
+            makeAnnouncement
+                (void);
+
         protected :
             // Protected methods.
 
+            /*! @brief Collect announcements via mDNS. */
+            void
+            gatherAnnouncements
+                (void);
+
+            /*! @brief Check if the Registry service is running and launch it if it isn't. */
+            void
+            launchRegistryIfNotActive
+                (void);
+
+            /*! @brief Retract the announcement via mDNS. */
+            void
+            removeAnnouncement
+                (void);
+
+            /*! @brief Stop collecting announcements via mDNS. */
+            void
+            stopGatheringAnnouncements
+                (void);
+
         private :
             // Private methods.
+
+            /*! @brief Close the open sockets. */
+            void
+            closeSockets
+                (void);
+
+            /*! @brief Create the sockets to be used. */
+            void
+            openSockets
+                (void);
 
         public :
             // Public fields.
@@ -104,8 +154,14 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The sockets to use. */
+            int _sockets[4];
+
+            /*! @brief The number of sockets in use. */
+            int _numSockets;
+
     }; // ContextWithMDNS
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithMDNS_H_)
+#endif // not defined(nImOcontextWithMDNS_H_)

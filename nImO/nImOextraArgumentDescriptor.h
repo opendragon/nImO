@@ -215,4 +215,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOextraArgumentDescriptor_H_)
+#endif // not defined(nImOextraArgumentDescriptor_H_)

@@ -168,4 +168,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOcontextWithNetworking_H_)
+#endif // not defined(nImOcontextWithNetworking_H_)

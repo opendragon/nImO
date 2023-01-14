@@ -185,8 +185,8 @@ class ReceiveOnLoggingPort final
             {
                 _socket.async_receive_from(asio::buffer(_data), _senderEndpoint,
                                            [this]
-                                           (system::error_code  ec,
-                                            std::size_t         length)
+                                           (const system::error_code    ec,
+                                            const std::size_t           length)
                                            {
                                                if (! ec)
                                                {

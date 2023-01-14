@@ -411,4 +411,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOmap_H_)
+#endif // not defined(nImOmap_H_)

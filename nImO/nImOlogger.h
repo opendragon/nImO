@@ -155,4 +155,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOlogger_H_)
+#endif // not defined(nImOlogger_H_)

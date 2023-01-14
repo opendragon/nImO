@@ -300,4 +300,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOinteger_H_)
+#endif // not defined(nImOinteger_H_)

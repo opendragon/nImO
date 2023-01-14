@@ -138,4 +138,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOnumber_H_)
+#endif // not defined(nImOnumber_H_)

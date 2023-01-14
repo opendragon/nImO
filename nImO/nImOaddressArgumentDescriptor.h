@@ -183,4 +183,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOaddressArgumentDescriptor_H_)
+#endif // not defined(nImOaddressArgumentDescriptor_H_)

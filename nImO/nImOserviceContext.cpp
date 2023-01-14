@@ -82,14 +82,18 @@ nImO::ServiceContext::ServiceContext
      const bool             logging,
      const bool             autoLaunchRegistry,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, autoLaunchRegistry, nodeName)
+        inherited(executableName, tag, logging, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B2("logging = ", logging, "autoLaunchRegistry = ", autoLaunchRegistry); //####
     try
     {
-
+        if (autoLaunchRegistry)
+        {
+            launchRegistryIfNotActive();
+        }
+        makeAnnouncement();
     }
     catch (...)
     {

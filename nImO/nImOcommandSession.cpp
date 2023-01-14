@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOregistryMain.cpp
+//  File:       nImO/nImOcommandSession.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to read from a nImO channel.
+//  Contains:   The class definition for a nImO command session.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-24
+//  Created:    2023-01-14
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOserviceContext.h>
+#include "nImOcommandSession.h"
+#include "nImOcontextWithCommandPort.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,10 +48,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A service application to register #nImO entities. */
-
-/*! @dir Read
- @brief The set of files that implement the Register application. */
+ @brief The class definition for a %nImO command session. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -72,55 +70,95 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::CommandSession::CommandSession
+    (ContextWithCommandPort &   owner) :
+        _socket(*owner.getService())//, _owner(owner)
+{
+    ODL_ENTER(); //####
+    try
+    {
+
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_P(this); //####
+} // nImO::CommandSession::CommandSession
+
+nImO::CommandSession::~CommandSession
+(void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::CommandSession::~CommandSession
+
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+void
+nImO::CommandSession::start
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::CommandSession::start
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for reading from a #nImO channel.
 
- Standard output will receive messages received on the #nImO channel.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
-{
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
-
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+#if 0
+    void start()
     {
-        nImO::LoadConfiguration(configFilePath);
-        try
-        {
-            nImO::ServiceContext    ourContext{progName, "registry", logging, false};
+        socket_.async_read_some(boost::asio::buffer(data_, max_length),
+                                boost::bind(&session::handle_read, this,
+                                            boost::asio::placeholders::error,
+                                            boost::asio::placeholders::bytes_transferred));
+    }
 
-            if (ourContext.findRegistry())
-            {
-                ourContext.report("Registry already running.");
-            }
-            else
-            {
-                //TBD
-                ourContext.makeAnnouncement();
-            }
-        }
-        catch (...)
+    void handle_read(const boost::system::error_code& error,
+                     size_t bytes_transferred)
+    {
+        if (!error)
         {
-            ODL_LOG("Exception caught"); //####
+            boost::asio::async_write(socket_,
+                                     boost::asio::buffer(data_, bytes_transferred),
+                                     boost::bind(&session::handle_write, this,
+                                                 boost::asio::placeholders::error));
+        }
+        else
+        {
+            delete this;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
-} // main
+
+    void handle_write(const boost::system::error_code& error)
+    {
+        if (!error)
+        {
+            socket_.async_read_some(boost::asio::buffer(data_, max_length),
+                                    boost::bind(&session::handle_read, this,
+                                                boost::asio::placeholders::error,
+                                                boost::asio::placeholders::bytes_transferred));
+        }
+        else
+        {
+            delete this;
+        }
+    }
+
+private:
+    enum { max_length = 1024 };
+    char data_[max_length];
+#endif//0

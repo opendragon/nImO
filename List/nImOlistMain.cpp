@@ -69,7 +69,8 @@ enum class E_choice
     kApps,
     kChan,
     kConn,
-    kServ
+    kServ,
+    kAll
 }; // E_choice
 
 struct T_choiceInfo
@@ -151,6 +152,7 @@ main
     lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});
     lChoiceMap.insert({"serv", T_choiceInfo{E_choice::kServ, "active services"}});
+    lChoiceMap.insert({"all", T_choiceInfo{E_choice::kAll, "all"}});
     nImO::StringSet choiceSet;
 
     for (auto & walker : lChoiceMap)
@@ -191,6 +193,9 @@ main
                         break;
 
                     case E_choice::kServ :
+                        break;
+
+                    case E_choice::kAll :
                         break;
 
                 }

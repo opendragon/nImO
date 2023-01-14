@@ -110,14 +110,7 @@ nImO::Logger::Logger
         _address(logAddress), _port(logPort), _endpoint(asio::ip::address_v4(_address), _port),
         _socket(*service, _endpoint.protocol())
 {
-    ODL_ENTER(); //####
-    char    tmp[300];
-
-    if (0 != gethostname(tmp, sizeof(tmp)))
-    {
-        strcpy(tmp, "unknown");
-    }
-    _computerName = std::make_shared<String>(tmp);
+    _computerName = std::make_shared<String>(GetShortComputerName());
     _tag = std::make_shared<String>(tag);
     ODL_EXIT_P(this); //####
 } // nImO::Logger::Logger
@@ -220,8 +213,8 @@ nImO::Logger::report
                 // send the encoded message to the logging ports
                 _socket.async_send_to(asio::buffer(*outString), _endpoint,
                                       [outString]
-                                      (system::error_code   /*ec*/,
-                                       std::size_t          /*length*/)
+                                      (const system::error_code /*ec*/,
+                                       const std::size_t        /*length*/)
                                       {
                                       });
                 okSoFar = true;

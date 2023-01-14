@@ -506,4 +506,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOvalue_H_)
+#endif // not defined(nImOvalue_H_)

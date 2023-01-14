@@ -39,7 +39,7 @@
 #if (! defined(nImOutilityContext_H_))
 # define nImOutilityContext_H_ /* Header guard */
 
-# include <nImOcontextWithCommandPort.h>
+# include <nImOcontextWithMDNS.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for a 'utility' application. */
-    class UtilityContext final : public ContextWithCommandPort
+    class UtilityContext final : public ContextWithMDNS
     {
 
         public :
@@ -68,7 +68,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithCommandPort;
+            using inherited = ContextWithMDNS;
 
         public :
             // Public methods.
@@ -108,4 +108,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOutilityContext_H_)
+#endif // not defined(nImOutilityContext_H_)

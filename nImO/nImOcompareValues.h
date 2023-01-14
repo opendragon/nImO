@@ -130,4 +130,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOcompareValues_H_)
+#endif // not defined(nImOcompareValues_H_)

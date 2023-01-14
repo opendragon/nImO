@@ -66,4 +66,4 @@
 
 #cmakedefine nImO_DoExplicitCheckForOK /* Check OK responses for validity */
 
-#endif // ! defined(nImOconfig_H_)
+#endif // not defined(nImOconfig_H_)

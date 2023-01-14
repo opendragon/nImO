@@ -165,6 +165,8 @@
 		F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOatomicTest.rc.in; path = Tests/nImOatomicTest.rc.in; sourceTree = "<group>"; };
 		F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainerTest.cpp; path = Tests/nImOcontainerTest.cpp; sourceTree = "<group>"; };
 		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
+		F6BE1C242973491F009828BF /* nImOcommandSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandSession.h; path = nImO/nImOcommandSession.h; sourceTree = "<group>"; };
+		F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandSession.cpp; path = nImO/nImOcommandSession.cpp; sourceTree = "<group>"; };
 		F6C146291CD18D830045C291 /* nImOinteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOinteger.h; path = nImO/nImOinteger.h; sourceTree = "<group>"; };
 		F6C1462A1CD18D830045C291 /* nImOinteger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinteger.cpp; path = nImO/nImOinteger.cpp; sourceTree = "<group>"; };
 		F6C1462B1CD18D830045C291 /* nImOdouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOdouble.h; path = nImO/nImOdouble.h; sourceTree = "<group>"; };
@@ -527,6 +529,8 @@
 				F6811BD3240FFD9700B09333 /* nImOchannelName.h */,
 				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
 				F6F238541CD96F290005554A /* nImOchunkArray.h */,
+				F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */,
+				F6BE1C242973491F009828BF /* nImOcommandSession.h */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
 				F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */,
 				F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */,

@@ -46,15 +46,6 @@
 # include <ifaddrs.h>
 #endif // MAC_OR_LINUX_
 
-//# if MAC_OR_LINUX_
-//#  pragma GCC diagnostic push
-//#  pragma GCC diagnostic ignored "-Wunused-function"
-//# endif // MAC_OR_LINUX_
-//# include <mdns.hpp>
-//# if MAC_OR_LINUX_
-//#  pragma GCC diagnostic pop
-//# endif // MAC_OR_LINUX_
-
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -104,7 +95,7 @@ getLocalAddresses
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    Ptr(struct ifaddrs) addresses;
+    Ptr(struct ifaddrs)         addresses;
 #else // not MAC_OR_LINUX_
     Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress;
     ULONG                       addressSize = 8000;
@@ -259,12 +250,13 @@ nImO::ContextWithMDNS::ContextWithMDNS
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName)
+        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName), _numSockets(0)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     getLocalAddresses();
+    openSockets();
     ODL_EXIT_P(this); //####
 } // nImO::ContextWithMDNS::ContextWithMDNS
 
@@ -272,6 +264,7 @@ nImO::ContextWithMDNS::~ContextWithMDNS
     (void)
 {
     ODL_OBJENTER(); //####
+    closeSockets();
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::~ContextWithMDNS
 
@@ -279,6 +272,145 @@ nImO::ContextWithMDNS::~ContextWithMDNS
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+nImO::ContextWithMDNS::closeSockets
+    (void)
+{
+    ODL_OBJENTER(); //####
+    for (int isock = 0; isock < _numSockets; ++isock)
+    {
+        mDNS::socket_close(_sockets[isock]);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::closeSockets
+
+bool
+nImO::ContextWithMDNS::findRegistry
+    (void)
+{
+    ODL_OBJENTER(); //####
+    bool    found = false;
+
+    //TBD
+    ODL_OBJEXIT_B(found); //####
+    return found;
+} // nImO::ContextWithMDNS::findRegistry
+
+void
+nImO::ContextWithMDNS::gatherAnnouncements
+    (void)
+{
+    ODL_OBJENTER(); //####
+    //TBD
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::gatherAnnouncements
+
+void
+nImO::ContextWithMDNS::launchRegistryIfNotActive
+    (void)
+{
+    ODL_OBJENTER(); //####
+    //TBD
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::launchRegistryIfNotActive
+
+void
+nImO::ContextWithMDNS::makeAnnouncement
+    (void)
+{
+    ODL_OBJENTER(); //####
+    //TBD
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::makeAnnouncement
+
+void
+nImO::ContextWithMDNS::openSockets
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (lHasIpv4)
+    {
+        struct sockaddr_in    sock_addr;
+
+        memset(&sock_addr, 0, sizeof(sock_addr));
+        sock_addr.sin_family = AF_INET;
+        sock_addr.sin_addr.s_addr = INADDR_ANY;
+        sock_addr.sin_port = htons(MDNS_PORT);
+        int    sock = mDNS::socket_open_ipv4(sock_addr);
+
+        if (sock >= 0)
+        {
+            _sockets[_numSockets++] = sock;
+        }
+    }
+    if (lHasIpv6)
+    {
+        struct sockaddr_in6    sock_addr;
+
+        memset(&sock_addr, 0, sizeof(sock_addr));
+        sock_addr.sin6_family = AF_INET6;
+        sock_addr.sin6_addr = in6addr_any;
+        sock_addr.sin6_port = htons(MDNS_PORT);
+        int    sock = mDNS::socket_open_ipv6(sock_addr);
+
+        if (sock >= 0)
+        {
+            _sockets[_numSockets++] = sock;
+        }
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::openSockets
+
+void
+nImO::ContextWithMDNS::removeAnnouncement
+    (void)
+{
+    ODL_OBJENTER(); //####
+    //TBD
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::removeAnnouncement
+
+void
+nImO::ContextWithMDNS::stopGatheringAnnouncements
+    (void)
+{
+    ODL_OBJENTER(); //####
+    //TBD
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::stopGatheringAnnouncements
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+#if 0
+GetShortComputerName()
+
+//---------------------------- SetUpAnnouncer -------------------------------
+void __fastcall TfrmMain::SetUpAnnouncer
+(const AnsiString &    hostName)
+{
+    lTraceObject.SetDeferredStreamName(hostName + mess_dash + IntToStr(GetTcpServerPort()) + ".log");
+    gAnnouncementThread = new T_AnnounceServiceThread(lTraceObject, hostName, CADSIM_MDNS_PATH, GetTcpServerPort(),
+                                                      GetTcpServerAddress());
+    gAnnouncementThread->OnTerminate = doTerminateAnnouncementThread;
+    gAnnouncementThread->Start();
+}
+//---------------------------- End SetUpAnnouncer ---------------------------
+
+AnsiString    hostName;
+char            hostnameBuffer[256];
+DWORD            hostnameSize = StaticCast(DWORD, sizeof(hostnameBuffer));
+
+SetUpTcpServer(mainForm);
+if (GetComputerNameA(hostnameBuffer, &hostnameSize))
+{
+    stripDomain(hostnameBuffer);
+    hostName = hostnameBuffer;
+}
+SetUpAnnouncer(mainForm, hostName);
+
+
+//---------------------------- stripDomain ----------------------------------
+//---------------------------- End stripDomain ------------------------------
+#endif//0

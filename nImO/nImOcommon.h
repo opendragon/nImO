@@ -45,29 +45,29 @@
 // Make sure that a couple of critical macros are defined!
 # if (! defined(TRUE))
 #  define TRUE  1
-# endif // ! defined(TRUE)
+# endif // not defined(TRUE)
 # if (! defined(FALSE))
 #  define FALSE 0
-# endif // ! defined(FALSE)
+# endif // not defined(FALSE)
 
 # if (! defined(LINUX_))
 /*! @brief @c TRUE if Linux, FALSE otherwise. */
 #  if defined(__linux__)
 #   define LINUX_ TRUE
-#  else // ! defined(__linux__)
+#  else // not defined(__linux__)
 #   define LINUX_ FALSE
-#  endif // ! defined(__linux__)
-# endif // ! defined(LINUX_)
+#  endif // not defined(__linux__)
+# endif // not defined(LINUX_)
 # if (! defined(MAC_OR_LINUX_))
 /* TRUE if non-Windows, FALSE if Windows. */
 #  if defined(__APPLE__)
 #   define MAC_OR_LINUX_ TRUE
 #  elif defined(__linux__)
 #   define MAC_OR_LINUX_ TRUE
-#  else // ! defined(__linux__)
+#  else // not defined(__linux__)
 #   define MAC_OR_LINUX_ FALSE
-#  endif // ! defined(__linux__)
-# endif // ! defined(MAC_OR_LINUX_)
+#  endif // not defined(__linux__)
+# endif // not defined(MAC_OR_LINUX_)
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -134,7 +134,7 @@
 
 # if (! defined(FALSE))
 #  define FALSE 0
-# endif // ! defined(FALSE)
+# endif // not defined(FALSE)
 
 /*! @brief The line length for command-line help output. */
 constexpr size_t    HELP_LINE_LENGTH_ = 250;
@@ -168,7 +168,7 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 # if (! defined(TRUE))
 #  define TRUE 1
-# endif // ! defined(TRUE)
+# endif // not defined(TRUE)
 
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
@@ -779,6 +779,12 @@ namespace nImO
     GetRandomHexString
         (void);
 
+    /*! @brief Return the short form of the computer name.
+     @return The short form of the computer name. */
+    std::string
+    GetShortComputerName
+        (void);
+
     /*! @brief Convert an integer value into a set of bytes and return the minimum number of bytes
      needed to represent the value.
      @param[in] inValue The number to be converted.
@@ -1036,4 +1042,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOcommon_H_)
+#endif // not defined(nImOcommon_H_)

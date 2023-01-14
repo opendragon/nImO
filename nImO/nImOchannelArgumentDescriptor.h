@@ -221,4 +221,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOchannelArgumentDescriptor_H_)
+#endif // not defined(nImOchannelArgumentDescriptor_H_)

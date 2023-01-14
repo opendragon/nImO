@@ -226,4 +226,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOchunkArray_H_)
+#endif // not defined(nImOchunkArray_H_)

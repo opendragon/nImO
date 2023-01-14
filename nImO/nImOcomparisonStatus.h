@@ -211,4 +211,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOcomparisonStatus_H_)
+#endif // not defined(nImOcomparisonStatus_H_)

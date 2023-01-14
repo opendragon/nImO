@@ -186,4 +186,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOportArgumentDescriptor_H_)
+#endif // not defined(nImOportArgumentDescriptor_H_)

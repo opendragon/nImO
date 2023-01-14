@@ -65,6 +65,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelName.cpp"
             "${THIS_SOURCE_DIR}/nImOchunkArray.cpp"
+            "${THIS_SOURCE_DIR}/nImOcommandSession.cpp"
             "${THIS_SOURCE_DIR}/nImOcommon.cpp"
             "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
             "${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp"
@@ -140,6 +141,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOchannelName.h"
         "${THIS_SOURCE_DIR}/nImOchunkArray.h"
+        "${THIS_SOURCE_DIR}/nImOcommandSession.h"
         "${THIS_SOURCE_DIR}/nImOcommon.h"
         "${THIS_SOURCE_DIR}/nImOcompareValues.h"
         "${THIS_SOURCE_DIR}/nImOcomparisonStatus.h"
@@ -195,6 +197,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
         ${THIS_SOURCE_DIR}/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/nImOchunkArray.h
+        ${THIS_SOURCE_DIR}/nImOcommandSession.cpp ${THIS_SOURCE_DIR}/nImOcommandSession.h
         ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.h
         ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.h
         ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.h

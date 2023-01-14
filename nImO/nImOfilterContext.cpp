@@ -81,14 +81,15 @@ nImO::FilterContext::FilterContext
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, true, nodeName)
+        inherited(executableName, tag, logging, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
-
+        launchRegistryIfNotActive();
+        makeAnnouncement();
     }
     catch (...)
     {

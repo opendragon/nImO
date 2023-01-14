@@ -341,4 +341,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOstring_H_)
+#endif // not defined(nImOstring_H_)

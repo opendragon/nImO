@@ -104,4 +104,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOchannel_H_)
+#endif // not defined(nImOchannel_H_)

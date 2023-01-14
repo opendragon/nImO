@@ -56,6 +56,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/asio.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -523,18 +532,18 @@ std::string
 nImO::GetRandomHexString
     (void)
 {
-    ODL_ENTER(); //####
     int                 randNumb;
     std::string         result;
     std::stringstream   buff;
 
+    ODL_ENTER(); //####
     if (! lRandomSeeded)
     {
 #if defined(__APPLE__)
         sranddev();
-#else // ! defined(__APPLE__)
+#else // not defined(__APPLE__)
         srand(StaticCast(unsigned int, time(nullptr)));
-#endif // ! defined(__APPLE__)
+#endif // not defined(__APPLE__)
         lRandomSeeded = true;
     }
     randNumb = (rand() % 10000);
@@ -544,17 +553,33 @@ nImO::GetRandomHexString
     return result;
 } // nImO::GetRandomHexString
 
+std::string
+nImO::GetShortComputerName
+    (void)
+{
+    ODL_ENTER(); //####
+    std::string result{boost::asio::ip::host_name()};
+    size_t      dotPos{result.find('.')};
+
+    if (std::string::npos != dotPos)
+    {
+        result.resize(dotPos);
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::GetShortComputerName
+
 size_t
 nImO::I2B
     (const int64_t      inValue,
      NumberAsBytes &    outString)
 {
-    ODL_ENTER(); //####
-    ODL_X1("inValue = ", inValue); //####
-    ODL_P1("outString = ", &outString); //####
     int64_t workValue = inValue;
     size_t  length = 0;
 
+    ODL_ENTER(); //####
+    ODL_X1("inValue = ", inValue); //####
+    ODL_P1("outString = ", &outString); //####
     for (size_t ii = sizeof(inValue); 0 < ii; --ii)
     {
         outString[ii - 1] = (0x0FF & workValue);

@@ -248,4 +248,4 @@ namespace nImO
 
 } // nImO
 
-#endif // ! defined(nImOfilePathArgumentDescriptor_H_)
+#endif // not defined(nImOfilePathArgumentDescriptor_H_)

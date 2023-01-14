@@ -62,10 +62,6 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief A macro to convert four integers into an IPv4 address. */
-#define IPV4_ADDR(a_, b_, c_, d_) \
-        (((a_ & 0x0ff) << 24) | ((b_ & 0x0ff) << 16) | ((c_ & 0x0ff) << 8) | (d_ & 0x0ff))
-
 /*! @brief The address to be used for logging, if none is specified in the configuration file. */
 static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
 
@@ -98,17 +94,35 @@ nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
+     const int              numReservedThreads,
      const std::string &    nodeName) :
         inherited(executableName, nodeName), _loggingEnabled(logging), _logger(nullptr)
 {
+#if (! MAC_OR_LINUX_)
+    WORD    versionWanted = MAKEWORD(1, 1);
+#endif // not MAC_OR_LINUX_
+
+#if (! MAC_OR_LINUX_)
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
+    if (0 != WSAStartup(versionWanted, &_wsaData))
+    {
+        std::cerr << "Failed to initialize WinSock" << std::endl;
+        throw "WinSock problem";
+
+    }
+#endif // not MAC_OR_LINUX_
     try
     {
-        // The number of threads requested should be one less than the number possible, to account for the main thread.
+        // The number of threads requested should be one less than the number possible, to account for the main thread
+        // and the reserved threads.
         int numThreadsInPool = std::max(static_cast<int>(thread::hardware_concurrency()), 1) - 1;
 
+        if ((0 < numReservedThreads) && ((numReservedThreads + 1) < numThreadsInPool))
+        {
+            numThreadsInPool -= numReservedThreads;
+        }
         _work.reset(new asio::io_service::work(*getService()));
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
@@ -195,6 +209,9 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     }
     _work.reset(nullptr);
     _pool.join_all();
+#if (! MAC_OR_LINUX_)
+    WSACleanup();
+#endif // not MAC_OR_LINUX_
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithNetworking::~ContextWithNetworking
 

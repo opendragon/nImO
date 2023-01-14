@@ -61,6 +61,9 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief Counter to prevent more than one context per application. */
+static int lNumContexts = 0;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -84,6 +87,11 @@ nImO::Context::Context
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    if (0 < lNumContexts++)
+    {
+        throw "Too many contexts.";
+
+    }
     try
     {
         Value::initialize();

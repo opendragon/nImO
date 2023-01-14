@@ -54,6 +54,10 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief A macro to convert four integers into an IPv4 address. */
+# define IPV4_ADDR(a_, b_, c_, d_) \
+                    (((a_ & 0x0ff) << 24) | ((b_ & 0x0ff) << 16) | ((c_ & 0x0ff) << 8) | (d_ & 0x0ff))
+
 namespace nImO
 {
     /*! @brief A class to provide support for an application that uses networking. */
@@ -79,11 +83,13 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
+             @param[in] numReservedThreads The number of threads which the application will need for itself.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithNetworking
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
+                 const int              numReservedThreads = 0,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
@@ -132,11 +138,11 @@ namespace nImO
         protected :
             // Protected fields.
 
-        private :
-            // Private fields.
-
             /*! @brief The pool of active threads. */
             boost::thread_group _pool;
+
+        private :
+            // Private fields.
 
             /*! @brief A 'dummy' operation to keep the service queue alive. */
             UPwork  _work;
@@ -152,6 +158,11 @@ namespace nImO
 
             /*! @brief The active logger. */
             Ptr(Logger) _logger;
+
+# if (! MAC_OR_LINUX_)
+            /*! @brief Required for Windows networking. */
+            WSADATA _wsaData;
+# endif // not MAC_OR_LINUX_
 
     }; // ContextWithNetworking
 

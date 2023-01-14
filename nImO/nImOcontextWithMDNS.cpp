@@ -41,6 +41,20 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
+#if MAC_OR_LINUX_
+//# include <netdb.h>
+# include <ifaddrs.h>
+#endif // MAC_OR_LINUX_
+
+//# if MAC_OR_LINUX_
+//#  pragma GCC diagnostic push
+//#  pragma GCC diagnostic ignored "-Wunused-function"
+//# endif // MAC_OR_LINUX_
+//# include <mdns.hpp>
+//# if MAC_OR_LINUX_
+//#  pragma GCC diagnostic pop
+//# endif // MAC_OR_LINUX_
+
 #if defined(__APPLE__)
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -60,6 +74,21 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The root path for MDNS queries. */
+#define NIMO_MDNS_PATH  "_nimo._tcp.local."
+
+/*! @brief @c true if an IPv4 address was found. */
+static bool lHasIpv4 = false;
+
+/*! @brief @c true if an IPv6 address was found. */
+static bool lHasIpv6 = false;
+
+/*! @brief The first IPv4 address found. */
+static struct sockaddr_in   lServiceAddressIpv4;
+
+/*@ @brief The first IPv6 address found. */
+static struct sockaddr_in6  lServiceAddressIpv6;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -67,6 +96,155 @@
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Find the IPv4 and IPv6 addresses for the machine, if available. */
+static void
+getLocalAddresses
+    (void)
+{
+    ODL_ENTER(); //####
+#if MAC_OR_LINUX_
+    Ptr(struct ifaddrs) addresses;
+#else // not MAC_OR_LINUX_
+    Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress;
+    ULONG                       addressSize = 8000;
+    uint                        ret;
+    uint                        numRetries = 4;
+#endif // not MAC_OR_LINUX_
+
+#if MAC_OR_LINUX_
+    if (-1 == getifaddrs(&addresses))
+    {
+        throw "Failed to get network adapter addresses";
+    }
+    bool    firstIpv4 = true;
+    bool    firstIpv6 = true;
+
+    for (Ptr(struct ifaddrs) address = addresses; nullptr != address; address = address->ifa_next)
+    {
+        if (AF_INET == address->ifa_addr->sa_family)
+        {
+            struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr);
+
+            if (IPV4_ADDR(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
+            {
+                if (firstIpv4)
+                {
+                    lServiceAddressIpv4 = saddr;
+                    firstIpv4 = false;
+                }
+                lHasIpv4 = true;
+            }
+        }
+        else if (AF_INET6 == address->ifa_addr->sa_family)
+        {
+            struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr);
+            static const uint8_t    localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
+                                                    0, 0, 0, 0, 0, 0, 0, 1 };
+            static const uint8_t    localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
+                                                          0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+            if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
+                (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+            {
+                if (firstIpv6)
+                {
+                    lServiceAddressIpv6 = saddr;
+                    firstIpv6 = false;
+                }
+                lHasIpv6 = true;
+            }
+        }
+    }
+    freeifaddrs(addresses);
+#else // not MAC_OR_LINUX_
+    do
+    {
+        adapterAddress = ReinterpretCast(Ptr(IP_ADAPTER_ADDRESSES), malloc(addressSize));
+        ret = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_ANYCAST, 0, adapterAddress,
+                                   &addressSize);
+        if (ERROR_BUFFER_OVERFLOW == ret)
+        {
+            free(adapterAddress);
+            adapterAddress = nullptr;
+            addressSize *= 2;
+        }
+        else
+        {
+            break;
+
+        }
+    }
+    while (numRetries-- > 0);
+    if ((nullptr == adapterAddress) || (ret != NO_ERROR))
+    {
+        free(adapterAddress);
+        throw "Failed to get network adapter addresses";
+    }
+    bool    firstIpv4 = true;
+    bool    firstIpv6 = true;
+
+    for (PIP_ADAPTER_ADDRESSES adapter = adapterAddress; nullptr != adapter; adapter = adapter->Next)
+    {
+        if (TUNNEL_TYPE_TEREDO == adapter->TunnelType)
+        {
+            continue;
+
+        }
+        if (adapter->OperStatus != IfOperStatusUp)
+        {
+            continue;
+
+        }
+        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast = adapter->FirstUnicastAddress; nullptr != unicast;
+             unicast = unicast->Next)
+        {
+            if (AF_INET == unicast->Address.lpSockaddr->sa_family)
+            {
+                struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr);
+
+                if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
+                    (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
+                {
+                    if (firstIpv4)
+                    {
+                        lServiceAddressIpv4 = saddr;
+                        firstIpv4 = false;
+                    }
+                    lHasIpv4 = true;
+                }
+            }
+            else if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
+            {
+                struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr);
+                static const uchar      localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
+                                                        0, 0, 0, 0, 0, 0, 0, 1 };
+                static const uchar      localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
+                                                              0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+                if ((NldsPreferred == unicast->DadState) &&
+                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+                {
+                    if (firstIpv6)
+                    {
+                        lServiceAddressIpv6 = saddr;
+                        firstIpv6 = false;
+                    }
+                    lHasIpv6 = true;
+                }
+            }
+        }
+    }
+    free(adapterAddress);
+#endif // not MAC_OR_LINUX_
+    if ((! lHasIpv4) && (! lHasIpv6))
+    {
+        throw "No usable network addresses found.";
+    }
+    ODL_EXIT(); //####
+} // getLocalAddresses
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -81,11 +259,12 @@ nImO::ContextWithMDNS::ContextWithMDNS
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, nodeName)
+        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
+    getLocalAddresses();
     ODL_EXIT_P(this); //####
 } // nImO::ContextWithMDNS::ContextWithMDNS
 

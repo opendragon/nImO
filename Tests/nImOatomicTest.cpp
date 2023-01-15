@@ -109,7 +109,7 @@ catchSignal
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithString
@@ -130,6 +130,31 @@ compareValueWithString
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
+
+/*! @brief Compare a Value object with a JSON string.
+ @param[in] aValue The object to be compared.
+ @param[in] aString The JSON string to be compared to.
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
+ the object representation as JSON. */
+static int
+compareValueWithStringAsJSON
+    (const Value &  aValue,
+     CPtr(char)     aString)
+{
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
+    StringBuffer    buff;
+    int             result;
+
+    aValue.printToStringBufferAsJSON(buff);
+    auto    valString{buff.getString()};
+
+    result = valString.compare(aString);
+    ODL_S2("got: ", valString.c_str(), "expected: ", aString); //####
+    ODL_EXIT_I(result); //####
+    return result;
+} // compareValueWithStringAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -3727,6 +3752,385 @@ doTestInvalidBlobCompares
 } // doTestInvalidBlobCompares
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 100 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultLogicalValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // default logical value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Logical>()};
+
+        if (nullptr != stuff)
+        {
+            if (0 == compareValueWithStringAsJSON(*stuff, "false"))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, \"false\"))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultLogicalValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 101 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestLogicalValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // logical values
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        if (1 < argc)
+        {
+            CPtr(char)  outString{argv[1]};
+            int64_t     value;
+
+            if (ConvertToInt64(*argv, value) && (0 <= value))
+            {
+                auto    stuff{make_unique<Logical>(0 != value)};
+
+                if (nullptr != stuff)
+                {
+                    if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr != stuff)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (ConvertToInt64(*argv, value) && (0 <= value))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLogicalValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 102 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultIntegerValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // default integer value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Integer>()};
+
+        if (nullptr != stuff)
+        {
+            if ((0 == compareValueWithStringAsJSON(*stuff, "0")) && (nullptr != stuff->asInteger()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"0\")) && " //####
+                        "(nullptr != stuff->asInteger()))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultIntegerValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 103 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNumberValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // number values
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        if (1 < argc)
+        {
+            CPtr(char)  outString{argv[1]};
+            int64_t     intValue;
+
+            if (ConvertToInt64(*argv, intValue))
+            {
+                auto    stuff{make_unique<Integer>(intValue)};
+
+                if (nullptr != stuff)
+                {
+                    if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr != stuff)"); //####
+                }
+            }
+            else
+            {
+                double floatValue;
+
+                if (ConvertToDouble(*argv, floatValue))
+                {
+                    auto    stuff{make_unique<Double>(floatValue)};
+
+                    if (nullptr != stuff)
+                    {
+                        if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nullptr != stuff)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ConvertToDouble(*argv, floatValue)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNumberValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 104 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultStringValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // default string value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<String>()};
+
+        if (nullptr != stuff)
+        {
+            if (0 == compareValueWithStringAsJSON(*stuff, "\"\""))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("(0 == compareValueWithStringAsJSON(*stuff, \"\\\"\\\"\"))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultStringValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 105 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestStringValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // string values
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        if (1 < argc)
+        {
+            auto    stuff{make_unique<String>(*argv)};
+
+            if (nullptr != stuff)
+            {
+                if (0 == compareValueWithStringAsJSON(*stuff, argv[1]))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, argv[1]))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (nullptr != stuff)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestStringValueAsJSON
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -3927,6 +4331,30 @@ main
 
                     case 87 :
                         result = doTestInvalidBlobCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 100 :
+                        result = doTestDefaultLogicalValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 101 :
+                        result = doTestLogicalValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 102 :
+                        result = doTestDefaultIntegerValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 103 :
+                        result = doTestNumberValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 104 :
+                        result = doTestDefaultStringValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 105 :
+                        result = doTestStringValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

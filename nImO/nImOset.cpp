@@ -697,6 +697,44 @@ nImO::Set::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::Set::printToStringBuffer
 
+void
+nImO::Set::printToStringBufferAsJSON
+    (StringBuffer & outBuffer,
+     const bool     squished)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    bool first = true;
+
+    outBuffer.addChar(kStartArrayChar);
+    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    {
+        SpValue aValue{*walker};
+
+        if (nullptr != aValue)
+        {
+            if (! first)
+            {
+                outBuffer.addChar(',');
+            }
+            if ((! squished) || (! first))
+            {
+                outBuffer.addChar(' ');
+            }
+            aValue->printToStringBufferAsJSON(outBuffer);
+            first = false;
+        }
+    }
+    if (! squished)
+    {
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndArrayChar);
+    ODL_OBJEXIT(); //####
+} // nImO::Set::printToStringBufferAsJSON
+
 nImO::Set::const_iterator
 nImO::Set::random
     (void)

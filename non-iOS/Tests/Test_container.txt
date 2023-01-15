@@ -223,3 +223,55 @@ add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 304)
 add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 305)
 # Test string set searches
 add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 306)
+
+# Test empty array as JSON
+add_test(NAME TestEmptyArrayValueAsJSON COMMAND ${THIS_TARGET} 320)
+# Test singular array as JSON
+add_test(NAME TestSingularArrayValueAsJSON COMMAND ${THIS_TARGET} 321)
+# Test small array as JSON
+add_test(NAME TestSmallArrayValueAsJSON COMMAND ${THIS_TARGET} 322)
+# Test big array as JSON
+add_test(NAME TestBigArrayValueAsJSON COMMAND ${THIS_TARGET} 323)
+
+# Test empty map as JSON
+add_test(NAME TestEmptyMapValueAsJSON COMMAND ${THIS_TARGET} 340)
+# Test singular map with logical keys as JSON
+add_test(NAME TestSingularLogicalMapValueAsJSON COMMAND ${THIS_TARGET} 341)
+# Test singular map with integer keys as JSON
+add_test(NAME TestSingularIntegerMapValueAsJSON COMMAND ${THIS_TARGET} 342)
+# Test singular map with string keys as JSON
+add_test(NAME TestSingularStringMapValueAsJSON COMMAND ${THIS_TARGET} 343)
+# Test small map with logical keys as JSON
+add_test(NAME TestSmallLogicalMapValueAsJSON COMMAND ${THIS_TARGET} 344)
+# Test small map with integer keys as JSON
+add_test(NAME TestSmallIntegerMapValueAsJSON COMMAND ${THIS_TARGET} 345)
+# Test small map with string keys as JSON
+add_test(NAME TestSmallStringMapValueAsJSON COMMAND ${THIS_TARGET} 346)
+
+# Test empty set as JSON
+add_test(NAME TestEmptySetValueAsJSON COMMAND ${THIS_TARGET} 360)
+# Test singular set with logical keys as JSON
+add_test(NAME TestSingularLogicalSetValueAsJSON COMMAND ${THIS_TARGET} 361)
+# Test singular set with integer keys as JSON
+add_test(NAME TestSingularIntegerSetValueAsJSON COMMAND ${THIS_TARGET} 362)
+# Test singular set with string keys as JSON
+add_test(NAME TestSingularStringSetValueAsJSON COMMAND ${THIS_TARGET} 363)
+# Test small set with logical keys as JSON
+add_test(NAME TestSmallLogicalSetValueAsJSON COMMAND ${THIS_TARGET} 364)
+# Test small set with integer keys as JSON
+add_test(NAME TestSmallIntegerSetValueAsJSON COMMAND ${THIS_TARGET} 365)
+# Test small set with string keys as JSON
+add_test(NAME TestSmallStringSetValueAsJSON COMMAND ${THIS_TARGET} 366)
+
+# Test array with array as JSON
+add_test(NAME TestArrayWithArrayValueAsJSON COMMAND ${THIS_TARGET} 380)
+# Test array with map as JSON
+add_test(NAME TestArrayWithMapValueAsJSON COMMAND ${THIS_TARGET} 381)
+# Test array with set as JSON
+add_test(NAME TestArrayWithSetValueAsJSON COMMAND ${THIS_TARGET} 382)
+# Test map with array as JSON
+add_test(NAME TestMapWithArrayValueAsJSON COMMAND ${THIS_TARGET} 383)
+# Test map with map as JSON
+add_test(NAME TestMapWithMapValueAsJSON COMMAND ${THIS_TARGET} 384)
+# Test map with set as JSON
+add_test(NAME TestMapWithSetValueAsJSON COMMAND ${THIS_TARGET} 385)

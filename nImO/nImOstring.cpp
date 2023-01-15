@@ -528,6 +528,20 @@ nImO::String::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::String::printToStringBuffer
 
+void
+nImO::String::printToStringBufferAsJSON
+    (StringBuffer & outBuffer,
+     const bool     squished)
+    const
+{
+    NIMO_UNUSED_ARG_(squished);
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    outBuffer.addString(_value, true);
+    ODL_OBJEXIT(); //####
+} // nImO::String::printToStringBufferAsJSON
+
 nImO::SpValue
 nImO::String::readFromStringBuffer
     (const StringBuffer &   inBuffer,

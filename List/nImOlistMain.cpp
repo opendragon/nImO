@@ -160,7 +160,7 @@ main
         choiceSet.insert(walker.first);
     }
     nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"),
-                                             nImO::ArgumentMode::OptionalModifiable, "apps", choiceSet};
+                                             nImO::ArgumentMode::OptionalModifiable, "all", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;

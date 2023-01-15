@@ -98,7 +98,7 @@ catchSignal
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithString

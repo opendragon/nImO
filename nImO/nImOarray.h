@@ -292,6 +292,17 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Add a JSON representation of the object to the buffer.
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible. */
+            virtual void
+            printToStringBufferAsJSON
+                (StringBuffer & outBuffer,
+                 const bool     squished = false)
+                const
+                override;
+
             /*! @brief Return a random iterator from the Array. */
             const_iterator
             random

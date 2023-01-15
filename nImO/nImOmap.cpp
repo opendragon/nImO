@@ -760,6 +760,60 @@ nImO::Map::printToStringBuffer
     ODL_OBJEXIT(); //####
 } // nImO::Map::printToStringBuffer
 
+void
+nImO::Map::printToStringBufferAsJSON
+    (StringBuffer & outBuffer,
+     const bool     squished)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    bool    first = true;
+
+    outBuffer.addChar(kStartMapChar);
+    for (auto & walker : *this)
+    {
+        if (! first)
+        {
+            outBuffer.addChar(',');
+        }
+        if ((! squished) || (! first))
+        {
+            outBuffer.addChar(' ');
+        }
+        SpValue keyValue = walker.first;
+
+        if (nullptr != keyValue->asString())
+        {
+            keyValue->printToStringBufferAsJSON(outBuffer);
+        }
+        else if ((nullptr != keyValue->asNumber()) || (nullptr != keyValue->asLogical()))
+        {
+            outBuffer.addChar('"');
+            keyValue->printToStringBufferAsJSON(outBuffer);
+            outBuffer.addChar('"');
+        }
+        if (! squished)
+        {
+            outBuffer.addChar(' ');
+        }
+        outBuffer.addChar(kKeyValueSeparator);
+        if (! squished)
+        {
+            outBuffer.addChar(' ');
+        }
+        walker.second->printToStringBufferAsJSON(outBuffer);
+        first = false;
+    }
+    if (! squished)
+    {
+        outBuffer.addChar(' ');
+    }
+    outBuffer.addChar(kEndMapChar);
+    ODL_OBJEXIT(); //####
+} // nImO::Map::printToStringBufferAsJSON
+
 nImO::Map::const_iterator
 nImO::Map::random
     (void)

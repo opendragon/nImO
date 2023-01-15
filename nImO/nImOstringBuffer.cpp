@@ -181,7 +181,7 @@ nImO::StringBuffer::addBytes
     {
         uint8_t aByte = inBytes[ii];
 
-        addChar(hexDigits[(aByte >> 4) &0x0F]).addChar(hexDigits[aByte &0x0F]);
+        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
     }
     addChar(kBlobSeparator);
     ODL_EXIT_P(this); //####

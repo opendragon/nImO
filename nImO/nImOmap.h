@@ -110,12 +110,12 @@ namespace nImO
                 (void);
 
             /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
+             @param[in] other The object to be copied. */
             Map
                 (const Map &    other);
 
             /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
+             @param[in] other The object to be moved. */
             Map
                 (Map && other)
                 noexcept;
@@ -126,17 +126,17 @@ namespace nImO
                 (void);
 
             /*! @brief Override the standard insert operation to ignore inserting incompatible values.
-            @param[in] newKey The key for the Value.
-            @param[in] newValue The Value to be inserted.
-            @return A pair<iterator, bool> indicating the success or failure of the insert
-            operation. */
+             @param[in] newKey The key for the Value.
+             @param[in] newValue The Value to be inserted.
+             @return A pair<iterator, bool> indicating the success or failure of the insert
+             operation. */
             InsertResult
             addValue
                 (SpValue    newKey,
                  SpValue    newValue);
 
             /*! @brief Return non-@c nullptr if the object is a Map.
-            @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
+             @return Non-@c nullptr if the object is a Map and @c nullptr otherwise. */
             virtual CPtr(Map)
             asMap
                 (void)
@@ -150,8 +150,8 @@ namespace nImO
                 override;
 
             /*! @brief Return @c true if two Values are structurally identical.
-            @param[in] other The Value to be compared with.
-            @return @c true if the two Values are structurally identical. */
+             @param[in] other The Value to be compared with.
+             @return @c true if the two Values are structurally identical. */
             virtual bool
             deeplyEqualTo
                 (const Value &  other)
@@ -166,8 +166,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             equalTo
                 (const Value &  other)
@@ -175,9 +175,9 @@ namespace nImO
                 override;
 
             /*! @brief Search the Map for an element with the given key value and return an iterator
-            to it, or Map::end if not found.
-            @param[in] key The key to be searched for.
-            @return An iterator for the given key key value or Map::end if not found. */
+             to it, or Map::end if not found.
+             @param[in] key The key to be searched for.
+             @return An iterator for the given key key value or Map::end if not found. */
             inline iterator
             find
                 (SpValue    key)
@@ -195,11 +195,10 @@ namespace nImO
                 return result;
             }
 
-
             /*! @brief Search the Map for an element with the given key value and return an iterator
-            to it, or Map::end if not found.
-            @param[in] key The key to be searched for.
-            @return An iterator for the given key key value or Map::end if not found. */
+             to it, or Map::end if not found.
+             @param[in] key The key to be searched for.
+             @return An iterator for the given key key value or Map::end if not found. */
             inline const_iterator
             find
                 (const SpValue  key)
@@ -219,9 +218,9 @@ namespace nImO
             }
 
             /*! @brief Get the extraction information for Map objects.
-            @param[out] aByte The byte value that indicates the start of a Map value.
-            @param[out] aMask The mask to apply to a lead byte.
-            @param[out] theExtractor The function to perform when the lead byte is seen. */
+             @param[out] aByte The byte value that indicates the start of a Map value.
+             @param[out] aMask The mask to apply to a lead byte.
+             @param[out] theExtractor The function to perform when the lead byte is seen. */
             static void
             getExtractionInfo
                 (DataKind &     aByte,
@@ -229,19 +228,19 @@ namespace nImO
                  Extractor &    theExtractor);
 
             /*! @brief Return the characters that can appear as the start of a Map.
-            @return The characters that can appear as the start of a Map. */
+             @return The characters that can appear as the start of a Map. */
             static CPtr(char)
             getInitialCharacters
                 (void);
 
             /*! @brief Return the characters that can appear as the end of a Map.
-            @return The characters that can appear as the end of a Map. */
+             @return The characters that can appear as the end of a Map. */
             static CPtr(char)
             getTerminalCharacters
                 (void);
 
             /*! @brief Return the type tag for the Value for use with Messages.
-            @return The type tag for the Value for use with Messages. */
+             @return The type tag for the Value for use with Messages. */
             virtual DataKind
             getTypeTag
                 (void)
@@ -249,8 +248,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             greaterThan
                 (const Value &  other)
@@ -258,8 +257,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             greaterThanOrEqual
                 (const Value &  other)
@@ -267,8 +266,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             lessThan
                 (const Value &  other)
@@ -276,8 +275,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             lessThanOrEqual
                 (const Value &  other)
@@ -285,8 +284,8 @@ namespace nImO
                 override;
 
             /*! @brief The copy assignment operator.
-            @param[in] other The object to be copied.
-            @return The updated object. */
+             @param[in] other The object to be copied.
+             @return The updated object. */
             inline Map &
             operator=
                 (const Map &    other)
@@ -300,19 +299,30 @@ namespace nImO
             }
 
             /*! @brief The move assignment operator.
-            @param[in] other The object to be moved.
-            @return The updated object. */
+             @param[in] other The object to be moved.
+             @return The updated object. */
             Map &
             operator=
                 (Map && other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
-            @param[in,out] outBuffer The buffer to be appended to.
-            @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
             is as readable as possible. */
             virtual void
             printToStringBuffer
+                (StringBuffer & outBuffer,
+                 const bool     squished = false)
+                const
+                override;
+
+            /*! @brief Add a JSON representation of the object to the buffer.
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible. */
+            virtual void
+            printToStringBufferAsJSON
                 (StringBuffer & outBuffer,
                  const bool     squished = false)
                 const
@@ -330,9 +340,9 @@ namespace nImO
                 (void);
 
             /*! @brief Convert a readable representation of the object in a buffer into an object.
-            @param[in] inBuffer The buffer to be scanned.
-            @param[in,out] position Where in the buffer to start.
-            @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
+             @param[in] inBuffer The buffer to be scanned.
+             @param[in,out] position Where in the buffer to start.
+             @return A new object if there is a valid object in the buffer and @c nullptr otherwise. */
             static SpValue
             readFromStringBuffer
                 (const StringBuffer &   inBuffer,
@@ -346,7 +356,7 @@ namespace nImO
                 override;
 
             /*! @brief Add a binary representation of the object to the message.
-            @param[in,out] outMessage The Message to be appended to. */
+             @param[in,out] outMessage The Message to be appended to. */
             virtual void
             writeToMessage
                 (Message &  outMessage)
@@ -357,9 +367,9 @@ namespace nImO
             // Protected methods.
 
             /*! @brief Insert a readable version of the object into an output stream.
-            @param[in,out] out The stream to be added to.
-            @param[in] aValue The object to be printed.
-            @return The modified stream. */
+             @param[in,out] out The stream to be added to.
+             @param[in] aValue The object to be printed.
+             @return The modified stream. */
             virtual std::ostream &
             operator<<
                 (std::ostream & out)
@@ -370,24 +380,24 @@ namespace nImO
             // Private methods.
 
             /*! @brief Add the entries from another Map.
-            @param[in] other The object to be copied from. */
+             @param[in] other The object to be copied from. */
             void
             addEntries
                 (const Map &    other);
 
             /*! @brief Extracts Value objects from a Message.
-            Note that the parentValue argument is normally @c nullptr, and is used for handling
-            multiple floating-point numbers in a sequence; if a series of Double values are
-            extracted, they are directly added to the Array and the last Value is returned as
-            the result of the function; for all other Value objects, the (single) Value that is
-            extracted is added to the Array to simplify the logic, as well as being returned.
-            @param[in] theMessage The Message being processed.
-            @param[in] leadByte The initial byte of the Value.
-            @param[in,out] position The location of the next byte to be processed.
-            @param[in] parentValue A pointer to the Value that will contain the new object.
-            @return @c nullptr if the Value could not be extracted because the Message ended before
-            the Value did, a Flaw if the Value could not be extracted because it was not correct and
-            a non-Flaw Value if extraction was successful. */
+             Note that the parentValue argument is normally @c nullptr, and is used for handling
+             multiple floating-point numbers in a sequence; if a series of Double values are
+             extracted, they are directly added to the Array and the last Value is returned as
+             the result of the function; for all other Value objects, the (single) Value that is
+             extracted is added to the Array to simplify the logic, as well as being returned.
+             @param[in] theMessage The Message being processed.
+             @param[in] leadByte The initial byte of the Value.
+             @param[in,out] position The location of the next byte to be processed.
+             @param[in] parentValue A pointer to the Value that will contain the new object.
+             @return @c nullptr if the Value could not be extracted because the Message ended before
+             the Value did, a Flaw if the Value could not be extracted because it was not correct and
+             a non-Flaw Value if extraction was successful. */
             static SpValue
             extractValue
                 (const Message &    theMessage,

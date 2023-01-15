@@ -609,6 +609,20 @@ nImO::Blob::printToStringBuffer
 } // nImO::Blob::printToStringBuffer
 
 void
+nImO::Blob::printToStringBufferAsJSON
+    (StringBuffer & outBuffer,
+     const bool     squished)
+    const
+{
+    NIMO_UNUSED_ARG_(squished);
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    outBuffer.addString("<blob>");
+    ODL_OBJEXIT(); //####
+} // nImO::Blob::printToStringBufferAsJSON
+
+void
 nImO::Blob::writeToMessage
     (Message &  outMessage)
     const

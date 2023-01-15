@@ -78,12 +78,12 @@ namespace nImO
                 (void);
 
             /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
+             @param[in] other The object to be copied. */
             StringBuffer
                 (const StringBuffer &   other) = delete;
 
             /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
+             @param[in] other The object to be moved. */
             StringBuffer
                 (StringBuffer &&    other)
                 noexcept;
@@ -94,24 +94,24 @@ namespace nImO
                 (void);
 
             /*! @brief Add a boolean value to the buffer.
-            @param[in] aBool The value to add.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aBool The value to add.
+             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addBool
                 (const bool aBool);
 
             /*! @brief Add a sequence of bytes to the buffer.
-            @param[in] inBytes The bytes to be added.
-            @param[in] numBytes The number of bytes to add.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] inBytes The bytes to be added.
+             @param[in] numBytes The number of bytes to add.
+             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addBytes
                 (CPtr(uint8_t)  inBytes,
                  const size_t   numBytes);
 
             /*! @brief Add a character to the buffer.
-            @param[in] aChar The character to add.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aChar The character to add.
+             @return The StringBuffer object so that cascading can be done. */
             inline StringBuffer &
             addChar
                 (const char aChar)
@@ -123,8 +123,8 @@ namespace nImO
             }
 
             /*! @brief Add a character string representation of a floating-point value to the buffer.
-            @param[in] aDouble The value to add.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aDouble The value to add.
+             @return The StringBuffer object so that cascading can be done. */
             inline StringBuffer &
             addDouble
                 (const double   aDouble)
@@ -134,8 +134,8 @@ namespace nImO
             }
 
             /*! @brief Add a character string representation of an integer value to the buffer.
-            @param[in] aLong The value to add.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aLong The value to add.
+             @return The StringBuffer object so that cascading can be done. */
             inline StringBuffer &
             addLong
                 (const int64_t  aLong)
@@ -145,25 +145,25 @@ namespace nImO
             }
 
             /*! @brief Add a character string to the buffer.
-            @param[in] aString The value to add.
-            @param[in] addQuotes @c true if the string is to be delimited by quote characters.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aString The value to add.
+             @param[in] addQuotes @c true if the string is to be delimited by quote characters.
+             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addString
                 (CPtr(char) aString,
                  const bool addQuotes = false);
 
             /*! @brief Add a character string to the buffer.
-            @param[in] aString The value to add.
-            @param[in] addQuotes @c true if the string is to be delimited by quote characters.
-            @return The StringBuffer object so that cascading can be done. */
+             @param[in] aString The value to add.
+             @param[in] addQuotes @c true if the string is to be delimited by quote characters.
+             @return The StringBuffer object so that cascading can be done. */
             StringBuffer &
             addString
                 (const std::string &    aString,
                  const bool             addQuotes = false);
 
             /*! @brief Add a horizontal tab character to the buffer.
-            @return The StringBuffer object so that cascading can be done. */
+             @return The StringBuffer object so that cascading can be done. */
             inline StringBuffer &
             addTab
                 (void)
@@ -173,16 +173,16 @@ namespace nImO
             }
 
             /*! @brief Convert the buffer to a Value.
-            @return The Value represented by the buffer contents. */
+             @return The Value represented by the buffer contents. */
             SpValue
             convertToValue
                 (void)
                 const;
 
             /*! @brief Return the byte found at a particular index.
-            @param[in] index The zero-based location in the buffer.
-            @param[out] atEnd @c true if the index is past the end of the buffer.
-            @return The byte found at the provided index. */
+             @param[in] index The zero-based location in the buffer.
+             @param[out] atEnd @c true if the index is past the end of the buffer.
+             @return The byte found at the provided index. */
             inline int
             getChar
                 (const size_t   index,
@@ -193,7 +193,7 @@ namespace nImO
             }
 
             /*! @brief Return a copy of the characters in the buffer.
-            @return A copy of the characters in the buffer. */
+             @return A copy of the characters in the buffer. */
             inline std::string
             getString
                 (void)
@@ -202,15 +202,15 @@ namespace nImO
             }
 
             /*! @brief The copy assignment operator.
-            @param[in] other The object to be copied.
-            @return The updated object. */
+             @param[in] other The object to be copied.
+             @return The updated object. */
             StringBuffer &
             operator=
                 (const StringBuffer &   other) = delete;
 
             /*! @brief The move assignment operator.
-            @param[in] other The object to be moved.
-            @return The updated object. */
+             @param[in] other The object to be moved.
+             @return The updated object. */
             StringBuffer &
             operator=
                 (StringBuffer &&    other)
@@ -228,8 +228,8 @@ namespace nImO
             // Private methods.
 
             /*! @brief Add quotes and escapes to a string.
-            @param[in] aString The string to be processed.
-            @param[in] length The length of the string. */
+             @param[in] aString The string to be processed.
+             @param[in] length The length of the string. */
             void
             processCharacters
                 (CPtr(char)     aString,

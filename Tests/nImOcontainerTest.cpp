@@ -106,7 +106,7 @@ catchSignal
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithSquishedString
@@ -131,7 +131,7 @@ compareValueWithSquishedString
 /*! @brief Compare a Value object with a string.
  @param[in] aValue The object to be compared.
  @param[in] aString The string to be compared to.
- @return @c -1, @c 0 or @c 1 depending on where the string is greater than, equal to or less than
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
  the object representation as a string. */
 static int
 compareValueWithString
@@ -152,6 +152,56 @@ compareValueWithString
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithString
+
+/*! @brief Compare a Value object with a JSON string.
+ @param[in] aValue The object to be compared.
+ @param[in] aString The JSON string to be compared to.
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
+ the object representation as JSON. */
+static int
+compareValueWithSquishedStringAsJSON
+    (const Value &  aValue,
+     CPtr(char)     aString)
+{
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
+    StringBuffer    buff;
+    int             result;
+
+    aValue.printToStringBufferAsJSON(buff, true);
+    auto    resultString{buff.getString()};
+
+    result = resultString.compare(aString);
+    ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
+    ODL_EXIT_I(result); //####
+    return result;
+} // compareValueWithSquishedStringAsJSON
+
+/*! @brief Compare a Value object with a JSON string.
+ @param[in] aValue The object to be compared.
+ @param[in] aString The JSON string to be compared to.
+ @return @c -1, @c 0 or @c 1 depending on whether the string is greater than, equal to or less than
+ the object representation as JSON. */
+static int
+compareValueWithStringAsJSON
+    (const Value &  aValue,
+     CPtr(char)     aString)
+{
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
+    StringBuffer    buff;
+    int             result;
+
+    aValue.printToStringBufferAsJSON(buff);
+    auto    resultString{buff.getString()};
+
+    result = resultString.compare(aString);
+    ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
+    ODL_EXIT_I(result); //####
+    return result;
+} // compareValueWithStringAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 1 ***
@@ -417,7 +467,7 @@ doTestBigArrayValue
         {
             UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
-            if (bigBlob)
+            if (nullptr != bigBlob)
             {
                 std::string expectedSquishedString;
                 std::string expectedString;
@@ -2042,6 +2092,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
     ODL_EXIT_I(result); //####
     return result;
 } // doTestClearingNonEmptyMapUsingRandomIterator
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
@@ -7798,6 +7849,1905 @@ doTestStringSetSearches
 } // doTestStringSetSearches
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 320 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // empty array value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar, kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ', kEndArrayChar, kEndOfString
+            };
+
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 321 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular array value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '1', '2', '3', '.', '4', '5',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '1', '2', '3', '.', '4', '5', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 322 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small array value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '1', '2', '3', '.', '4', '5', ',',
+                't', 'r', 'u', 'e', ',',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ',',
+                '4', '2',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '1', '2', '3', '.', '4', '5', ',', ' ',
+                't', 'r', 'u', 'e', ',', ' ',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ',', ' ',
+                '4', '2', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<String>("charlie"));
+            stuff->addValue(std::make_shared<Integer>(42));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 323 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestBigArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // big array value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+
+            if (nullptr != bigBlob)
+            {
+                std::string expectedSquishedString;
+                std::string expectedString;
+                char        numBuff[10];
+
+                expectedSquishedString += kStartArrayChar;
+                expectedString += kStartArrayChar;
+                expectedString += ' ';
+                for (size_t ii = 0; kBigTestSize > ii; ++ii)
+                {
+                    Ptr(uint8_t)    addr = bigBlob.get();
+                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+
+                    if (0 != ii)
+                    {
+                        expectedString += ", ";
+                        expectedSquishedString += ',';
+                    }
+                    bigBlob[ii] = aByte;
+                    stuff->addValue(std::make_shared<Integer>(aByte));
+                    snprintf(numBuff, sizeof(numBuff), "%d", aByte);
+                    expectedString += numBuff;
+                    expectedSquishedString += numBuff;
+                }
+                expectedString += ' ';
+                expectedSquishedString += kEndArrayChar;
+                expectedString += kEndArrayChar;
+                if (0 == compareValueWithStringAsJSON(*stuff, expectedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+                }
+                if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString.c_str()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                            "expectedSquishedString))"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestBigArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 340 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptyMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // empty map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar, kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ', kEndMapChar, kEndOfString
+            };
+
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 341 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularLogicalMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular logical map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', 't', 'r', 'u', 'e', '"', kKeyValueSeparator,
+                '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', 't', 'r', 'u', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularLogicalMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 342 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularIntegerMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular integer map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '4', '2', '"', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularIntegerMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 343 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularStringMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular string map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularStringMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 344 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallLogicalMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small logical map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', 'f', 'a', 'l', 's', 'e', '"', kKeyValueSeparator, '4', '2', ',',
+                '"', 't', 'r', 'u', 'e', '"', kKeyValueSeparator,
+                '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', 'f', 'a', 'l', 's', 'e', '"', ' ', kKeyValueSeparator, ' ', '4', '2', ',', ' ',
+                '"', 't', 'r', 'u', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(false), std::make_shared<Integer>(42));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallLogicalMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 345 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallIntegerMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small integer map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '1', '2', '"', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ',',
+                '"', '1', '7', '"', kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ',',
+                '"', '4', '2', '"', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '1', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ',', ' ',
+                '"', '1', '7', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ',', ' ',
+                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallIntegerMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 346 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallStringMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small string map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', kKeyValueSeparator,
+                '1', '2', '3', '4', '.', '5', ',',
+                '"', 'd', 'e', 'l', 't', 'a', '"', kKeyValueSeparator,
+                '1', '2', '3', '.', '4', '5', ',',
+                '"', 'l', 'i', 'm', 'a', '"', kKeyValueSeparator,
+                '1', '2', '.', '3', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '1', '2', '3', '4', '.', '5', ',', ' ',
+                '"', 'd', 'e', 'l', 't', 'a', '"', ' ', kKeyValueSeparator, ' ',
+                '1', '2', '3', '.', '4', '5', ',', ' ',
+                '"', 'l', 'i', 'm', 'a', '"', ' ', kKeyValueSeparator, ' ',
+                '1', '2', '.', '3', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<String>("charlie"), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallStringMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 360 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestEmptySetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // empty set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar, kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ', kEndArrayChar, kEndOfString
+            };
+
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptySetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 361 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularLogicalSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular logical set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                't', 'r', 'u', 'e',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                't', 'r', 'u', 'e', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Logical>(true));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularLogicalSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 362 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularIntegerSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular integer set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '4', '2',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '4', '2', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularIntegerSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 363 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularStringSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // singular string set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<String>("charlie"));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularStringSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 364 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallLogicalSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small logical set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                'f', 'a', 'l', 's', 'e', ',',
+                't', 'r', 'u', 'e',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                'f', 'a', 'l', 's', 'e', ',', ' ',
+                't', 'r', 'u', 'e', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Logical>(false));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Logical>(false));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallLogicalSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 365 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallIntegerSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small integer set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '1', '2', ',',
+                '1', '7', ',',
+                '4', '2', ',',
+                '1', '2', '3',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '1', '2', ',', ' ',
+                '1', '7', ',', ' ',
+                '4', '2', ',', ' ',
+                '1', '2', '3', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(123));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Integer>(17));
+            stuff->addValue(std::make_shared<Integer>(12));
+            stuff->addValue(std::make_shared<Integer>(123));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Integer>(17));
+            stuff->addValue(std::make_shared<Integer>(12));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallIntegerSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 366 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallStringSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // small string set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Set>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', 'a', 'l', 'p', 'h', 'a', '"', ',',
+                '"', 'b', 'e', 't', 'a', '"', ',',
+                '"', 'd', 'e', 'l', 't', 'a', '"', ',',
+                '"', 'g', 'a', 'm', 'm', 'a', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', 'a', 'l', 'p', 'h', 'a', '"', ',', ' ',
+                '"', 'b', 'e', 't', 'a', '"', ',', ' ',
+                '"', 'd', 'e', 'l', 't', 'a', '"', ',', ' ',
+                '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
+            stuff->addValue(std::make_shared<String>("gamma"));
+            stuff->addValue(std::make_shared<String>("alpha"));
+            stuff->addValue(std::make_shared<String>("delta"));
+            stuff->addValue(std::make_shared<String>("beta"));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallStringSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 380 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayWithArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // array with array value
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                kStartArrayChar, kEndArrayChar,
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Array>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestArrayWithArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 381 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayWithMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // array with map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                kStartMapChar, kEndMapChar,
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                kStartMapChar, ' ', kEndMapChar, ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Map>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestArrayWithMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 382 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestArrayWithSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // array with set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Array>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                kStartArrayChar, kEndArrayChar,
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Set>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestArrayWithSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 383 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMapWithArrayValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // map with array
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '4', '2', '"', kKeyValueSeparator,
+                kStartArrayChar, kEndArrayChar,
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Array>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMapWithArrayValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 384 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMapWithMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // map with map
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '4', '2', '"', kKeyValueSeparator,
+                kStartMapChar, kEndMapChar,
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                kStartMapChar, ' ', kEndMapChar, ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Map>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMapWithMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 385 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMapWithSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // map with set
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        auto    stuff{make_unique<Map>()};
+
+        if (nullptr != stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '4', '2', '"', kKeyValueSeparator,
+                kStartArrayChar, kEndArrayChar,
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                kStartArrayChar, ' ', kEndArrayChar, ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Set>());
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMapWithSetValue
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -8150,6 +10100,102 @@ main
 
                     case 306 :
                         result = doTestStringSetSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 320 :
+                        result = doTestEmptyArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 321 :
+                        result = doTestSingularArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 322 :
+                        result = doTestSmallArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 323 :
+                        result = doTestBigArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 340 :
+                        result = doTestEmptyMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 341 :
+                        result = doTestSingularLogicalMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 342 :
+                        result = doTestSingularIntegerMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 343 :
+                        result = doTestSingularStringMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 344 :
+                        result = doTestSmallLogicalMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 345 :
+                        result = doTestSmallIntegerMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 346 :
+                        result = doTestSmallStringMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 360 :
+                        result = doTestEmptySetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 361 :
+                        result = doTestSingularLogicalSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 362 :
+                        result = doTestSingularIntegerSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 363 :
+                        result = doTestSingularStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 364 :
+                        result = doTestSmallLogicalSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 365 :
+                        result = doTestSmallIntegerSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 366 :
+                        result = doTestSmallStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 380 :
+                        result = doTestArrayWithArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 381 :
+                        result = doTestArrayWithMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 382 :
+                        result = doTestArrayWithSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 383 :
+                        result = doTestMapWithArrayValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 384 :
+                        result = doTestMapWithMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 385 :
+                        result = doTestMapWithSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

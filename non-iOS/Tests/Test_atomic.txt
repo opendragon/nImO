@@ -172,3 +172,20 @@ add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 85)
 add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 86)
 # Test invalid blob compares
 add_test(NAME TestInvalidBlobCompares COMMAND ${THIS_TARGET} 87)
+
+# Test default logical value as JSON
+add_test(NAME TestDefaultLogicalValueJSON COMMAND ${THIS_TARGET} 100)
+# Test false logical value as JSON
+add_test(NAME TestFalseLogicalValueJSON COMMAND ${THIS_TARGET} 101 0 "false")
+# Test true logical value as JSON
+add_test(NAME TestTrueLogicalValueJSON COMMAND ${THIS_TARGET} 101 1 "true")
+# Test default number value as JSON
+add_test(NAME TestDefaultIntegerValueJSON COMMAND ${THIS_TARGET} 102)
+# Test integer number value as JSON
+add_test(NAME TestIntegerNumberValueJSON COMMAND ${THIS_TARGET} 103 "12345" "12345")
+# Test double number value as JSON
+add_test(NAME TestDoubleNumberValueJSON COMMAND ${THIS_TARGET} 103 "123.45" "123.45")
+# Test default string value as JSON
+add_test(NAME TestDefaultStringValueJSON COMMAND ${THIS_TARGET} 104)
+# Test short string value as JSON
+add_test(NAME TestShortStringValueJSON COMMAND ${THIS_TARGET} 105 "abcdef" "\"abcdef\"")

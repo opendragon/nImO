@@ -78,17 +78,17 @@ namespace nImO
                 (void);
 
             /*! @brief The constructor.
-            @param[in] initialValue The initial value for the object. */
+             @param[in] initialValue The initial value for the object. */
             explicit Integer
                 (const int64_t  initialValue);
 
             /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
+             @param[in] other The object to be copied. */
             Integer
                 (const Integer &    other);
 
             /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
+             @param[in] other The object to be moved. */
             Integer
                 (Integer && other)
                 noexcept;
@@ -99,7 +99,7 @@ namespace nImO
                 (void);
 
             /*! @brief Return non-@c nullptr if the object is an Integer.
-            @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
+             @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
             virtual CPtr(Integer)
             asInteger
                 (void)
@@ -107,8 +107,8 @@ namespace nImO
                 override;
 
             /*! @brief Return @c true if two Values are structurally identical.
-            @param[in] other The Value to be compared with.
-            @return @c true if the two Values are structurally identical. */
+             @param[in] other The Value to be compared with.
+             @return @c true if the two Values are structurally identical. */
             virtual bool
             deeplyEqualTo
                 (const Value &  other)
@@ -116,7 +116,7 @@ namespace nImO
                 override;
 
             /*! @brief Return the enumeration type of an object.
-            @return The enumeration type of an object. */
+             @return The enumeration type of an object. */
             virtual Enumerable
             enumerationType
                 (void)
@@ -124,8 +124,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             equalTo
                 (const Value &  other)
@@ -133,9 +133,9 @@ namespace nImO
                 override;
 
             /*! @brief Get the extraction information for Integer objects.
-            @param[out] aByte The byte value that indicates the start of an Integer value.
-            @param[out] aMask The mask to apply to a lead byte.
-            @param[out] theExtractor The function to perform when the lead byte is seen. */
+             @param[out] aByte The byte value that indicates the start of an Integer value.
+             @param[out] aMask The mask to apply to a lead byte.
+             @param[out] theExtractor The function to perform when the lead byte is seen. */
             static void
             getExtractionInfo
                 (DataKind &     aByte,
@@ -143,7 +143,7 @@ namespace nImO
                  Extractor &    theExtractor);
 
             /*! @brief Return the value of the object.
-            @return The value of the object. */
+             @return The value of the object. */
             inline int64_t
             getIntegerValue
                 (void)
@@ -153,7 +153,7 @@ namespace nImO
             }
 
             /*! @brief Return the type tag for the Value for use with Messages.
-            @return The type tag for the Value for use with Messages. */
+             @return The type tag for the Value for use with Messages. */
             virtual DataKind
             getTypeTag
                 (void)
@@ -161,8 +161,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             greaterThan
                 (const Value &  other)
@@ -170,8 +170,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             greaterThanOrEqual
                 (const Value &  other)
@@ -179,8 +179,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             lessThan
                 (const Value &  other)
@@ -188,8 +188,8 @@ namespace nImO
                 override;
 
             /*! @brief Return the relative ordering of two Values.
-            @param[in] other The Value to be compared with.
-            @return The relative ordering of the two Values. */
+             @param[in] other The Value to be compared with.
+             @return The relative ordering of the two Values. */
             virtual ComparisonStatus
             lessThanOrEqual
                 (const Value &  other)
@@ -197,8 +197,8 @@ namespace nImO
                 override;
 
             /*! @brief The copy assignment operator.
-            @param[in] other The object to be copied.
-            @return The updated object. */
+             @param[in] other The object to be copied.
+             @return The updated object. */
             inline Integer &
             operator=
                 (const Integer &    other)
@@ -211,16 +211,16 @@ namespace nImO
             }
 
             /*! @brief The move assignment operator.
-            @param[in] other The object to be moved.
-            @return The updated object. */
+             @param[in] other The object to be moved.
+             @return The updated object. */
             Integer &
             operator=
                 (Integer && other)
                 noexcept;
 
             /*! @brief The assignment operator.
-            @param[in] value The value to be assigned.
-            @return The updated object. */
+             @param[in] value The value to be assigned.
+             @return The updated object. */
             inline Integer &
             operator=
                 (const int64_t  value)
@@ -230,8 +230,8 @@ namespace nImO
             }
 
             /*! @brief Add a readable representation of the object to the buffer.
-            @param[in,out] outBuffer The buffer to be appended to.
-            @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
             is as readable as possible. */
             virtual void
             printToStringBuffer
@@ -240,8 +240,19 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Add a JSON representation of the object to the buffer.
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible. */
+            virtual void
+            printToStringBufferAsJSON
+                (StringBuffer & outBuffer,
+                 const bool     squished = false)
+                const
+                override;
+
             /*! @brief Add a binary representation of the object to the message.
-            @param[in,out] outMessage The Message to be appended to. */
+             @param[in,out] outMessage The Message to be appended to. */
             virtual void
             writeToMessage
                 (Message &  outMessage)
@@ -252,9 +263,9 @@ namespace nImO
             // Protected methods.
 
             /*! @brief Insert a readable version of the object into an output stream.
-            @param[in,out] out The stream to be added to.
-            @param[in] aValue The object to be printed.
-            @return The modified stream. */
+             @param[in,out] out The stream to be added to.
+             @param[in] aValue The object to be printed.
+             @return The modified stream. */
             virtual std::ostream &
             operator<<
                 (std::ostream & out)
@@ -265,18 +276,18 @@ namespace nImO
             // Private methods.
 
             /*! @brief Extracts Value objects from a Message.
-            Note that the parentValue argument is normally @c nullptr, and is used for handling
-            multiple floating-point numbers in a sequence; if a series of Double values are extracted,
-            they are directly added to the Array and the last Value is returned as the result of the
-            function; for all other Value objects, the (single) Value that is extracted is added to
-            the Array to simplify the logic, as well as being returned.
-            @param[in] theMessage The Message being processed.
-            @param[in] leadByte The initial byte of the Value.
-            @param[in,out] position The location of the next byte to be processed.
-            @param[in] parentValue A pointer to the Value that will contain the new object.
-            @return @c nullptr if the Value could not be extracted because the Message ended before
-            the Value did, a Flaw if the Value could not be extracted because it was not correct and
-            a non-Flaw Value if extraction was successful. */
+             Note that the parentValue argument is normally @c nullptr, and is used for handling
+             multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+             they are directly added to the Array and the last Value is returned as the result of the
+             function; for all other Value objects, the (single) Value that is extracted is added to
+             the Array to simplify the logic, as well as being returned.
+             @param[in] theMessage The Message being processed.
+             @param[in] leadByte The initial byte of the Value.
+             @param[in,out] position The location of the next byte to be processed.
+             @param[in] parentValue A pointer to the Value that will contain the new object.
+             @return @c nullptr if the Value could not be extracted because the Message ended before
+             the Value did, a Flaw if the Value could not be extracted because it was not correct and
+             a non-Flaw Value if extraction was successful. */
             static SpValue
             extractValue
                 (const Message &    theMessage,

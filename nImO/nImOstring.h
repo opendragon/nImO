@@ -272,6 +272,17 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Add a JSON representation of the object to the buffer.
+             @param[in,out] outBuffer The buffer to be appended to.
+             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
+             is as readable as possible. */
+            virtual void
+            printToStringBufferAsJSON
+                (StringBuffer & outBuffer,
+                 const bool     squished = false)
+                const
+                override;
+
             /*! @brief Convert a readable representation of the object in a buffer into an object.
              @param[in] inBuffer The buffer to be scanned.
              @param[in,out] position Where in the buffer to start.
@@ -306,18 +317,18 @@ namespace nImO
             // Private methods.
 
             /*! @brief Extracts Value objects from a Message.
-            Note that the parentValue argument is normally @c nullptr, and is used for handling
-            multiple floating-point numbers in a sequence; if a series of Double values are extracted,
-            they are directly added to the Array and the last Value is returned as the result of the
-            function; for all other Value objects, the (single) Value that is extracted is added to
-            the Array to simplify the logic, as well as being returned.
+             Note that the parentValue argument is normally @c nullptr, and is used for handling
+             multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+             they are directly added to the Array and the last Value is returned as the result of the
+             function; for all other Value objects, the (single) Value that is extracted is added to
+             the Array to simplify the logic, as well as being returned.
              @param[in] theMessage The Message being processed.
              @param[in] leadByte The initial byte of the Value.
              @param[in,out] position The location of the next byte to be processed.
              @param[in] parentValue A pointer to the Value that will contain the new object.
              @return @c nullptr if the Value could not be extracted because the Message ended before
-            the Value did, a Flaw if the Value could not be extracted because it was not correct and
-            a non-Flaw Value if extraction was successful. */
+             the Value did, a Flaw if the Value could not be extracted because it was not correct and
+             a non-Flaw Value if extraction was successful. */
             static SpValue
             extractValue
                 (const Message &    theMessage,

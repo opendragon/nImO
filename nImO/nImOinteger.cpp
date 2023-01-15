@@ -495,6 +495,20 @@ nImO::Integer::printToStringBuffer
 } // nImO::Integer::printToStringBuffer
 
 void
+nImO::Integer::printToStringBufferAsJSON
+    (StringBuffer & outBuffer,
+     const bool     squished)
+    const
+{
+    NIMO_UNUSED_ARG_(squished);
+    ODL_OBJENTER(); //####
+    ODL_P1("outBuffer = ", &outBuffer); //####
+    ODL_B1("squished = ", squished); //####
+    outBuffer.addLong(_intValue);
+    ODL_OBJEXIT(); //####
+} // nImO::Integer::printToStringBufferAsJSON
+
+void
 nImO::Integer::writeToMessage
     (Message &  outMessage)
     const

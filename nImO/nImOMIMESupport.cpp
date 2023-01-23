@@ -69,12 +69,22 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The 'equals' character that is used to pad MIME data. */
 static const char   kEqualsChar = '=';
+
+/*! @brief The set of characters to be used with MIME data. */
 static const char   kMIMECharSet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+/*! @brief The 'plus' character that is used in MIME data.
+ This is a convenience declaration to simply validity checks. */
 static const char   kPlusChar = '+';
+
+/*! @brief The 'slash' character that is used in MIME data.
+ This is a convenience declaration to simply validity checks. */
 static const char   kSlashChar = '/';
 
-static const size_t kMaxMIMELine = 72;
+/*! @brief The maximum line length when converting to a MIME representation of data. */
+static const size_t kMaxMIMELine = 72; // Must be divisible by 4!
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -84,6 +94,9 @@ static const size_t kMaxMIMELine = 72;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Check if a character can be used for MIME data.
+ @param[in] ch The character to be checked.
+ @return @c true if the character is valid in MIME data. */
 static bool
 isValidMIMEChar
     (const char ch)
@@ -108,10 +121,29 @@ nImO::DecodeMIMEToBytes
     uint8_t     group6[4];
     uint8_t     group8[3];
     size_t      count4s = 0;
+    size_t      numRows = inValue.size();
+    size_t      newSize = 0;
     std::string line;
 
     outBytes.clear();
-    for (size_t ii = 0, mm = inValue.size(); okSoFar && (ii < mm); ++ii)
+    // First, validate the row sizes.
+    for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
+    {
+        line = inValue[ii];
+        if (0 == (line.length() % 4))
+        {
+            newSize += ((line.length() / 4) * 3);
+        }
+        else
+        {
+            okSoFar = false;
+        }
+    }
+    if (okSoFar)
+    {
+        outBytes.reserve(newSize);
+    }
+    for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
     {
         line = inValue[ii];
         for (size_t jj = 0, nn = line.length(); jj < nn; ++jj)
@@ -202,6 +234,11 @@ nImO::EncodeBytesAsMIME
     std::string     line;
 
     outValue.clear();
+    // Calculate the number of rows.
+    size_t  numQuads = ((numBytes + 2) / 3);
+    size_t  numRows = (((4 * numQuads) + kMaxMIMELine - 1) / kMaxMIMELine);
+
+    outValue.reserve(numRows);
     for (size_t ii = 0; ii < numBytes; ++ii)
     {
         group8[count3s++] = rawBytes[ii];

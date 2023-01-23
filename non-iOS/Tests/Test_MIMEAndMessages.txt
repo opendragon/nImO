@@ -238,3 +238,8 @@ add_test(NAME TestMIMEExtractStringSetMessage COMMAND ${THIS_TARGET} 411)
 add_test(NAME TestMIMEInsertArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 500)
 # Test message with array with range of integers
 add_test(NAME TestMIMEExtractArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 501)
+
+# Test message with bad number of characters
+add_test(NAME TestMEMExtractWithBadNumberOfCharacters COMMAND ${THIS_TARGET} 600)
+# Test message with bad characters
+add_test(NAME TestMEMExtractWithBadCharacters COMMAND ${THIS_TARGET} 601)

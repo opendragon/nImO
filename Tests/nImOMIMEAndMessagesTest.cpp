@@ -4999,6 +4999,102 @@ doTestMIMEExtractArrayWithRangeOfIntegers
 } // doTestMIMEExtractArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 600 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+TestMEMExtractWithBadNumberOfCharacters
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // message with bad number of characters
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        StringVector    inVec;
+        ByteVector      outBytes;
+
+        inVec.push_back("99UQAA3l/w=");
+        if (DecodeMIMEToBytes(inVec, outBytes))
+        {
+            ODL_LOG("DecodeMIMEToBytes(inVec, outBytes)"); //####
+        }
+        else
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithRangeOfIntegers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 601 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+TestMEMExtractWithBadCharacters
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // message with bad characters
+{
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result = 1;
+
+    try
+    {
+        StringVector    inVec;
+        ByteVector      outBytes;
+
+        inVec.push_back("99?QAA3l/w==");
+        if (DecodeMIMEToBytes(inVec, outBytes))
+        {
+            ODL_LOG("DecodeMIMEToBytes(inVec, outBytes)"); //####
+        }
+        else
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithRangeOfIntegers
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -5378,6 +5474,14 @@ main
 
                     case 501 :
                         result = doTestMIMEExtractArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 600 :
+                        result = TestMEMExtractWithBadNumberOfCharacters(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 601 :
+                        result = TestMEMExtractWithBadCharacters(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

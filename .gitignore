@@ -34,6 +34,12 @@ nImO/swig_nImO_out_python
 nImOConfigVersion.cmake
 nImOconfig.h
 nImOconfig.hpp
+non-iOS/examples/Echo/nImOechoClient
+non-iOS/examples/Echo/nImOechoClient.dir/
+non-iOS/examples/Echo/nImOechoClient.rc
+non-iOS/examples/Echo/nImOechoService
+non-iOS/examples/Echo/nImOechoService.dir/
+non-iOS/examples/Echo/nImOechoService.rc
 non-iOS/examples/Ricochet/nImOricochet
 non-iOS/examples/Ricochet/nImOricochet.dir/
 non-iOS/examples/Ricochet/nImOricochet.rc

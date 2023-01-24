@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOricochetControlMain.cpp
+//  File:       nImOechoServiceMain.cpp
 //
 //  Project:    nImO
 //
@@ -8,7 +8,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-24
+//  Created:    2023-01-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImObooleanArgumentDescriptor.h>
-#include <nImOmiscellaneousContext.h>
-#include <nImOportArgumentDescriptor.h>
-#include <nImOstringArgumentDescriptor.h>
+#include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -53,7 +50,7 @@
  @brief An example application to demonstrate using the nImO library in a program. */
 
 /*! @dir Version
- @brief The set of files that implement the RicochetControl application. */
+ @brief The set of files that implement the EchoService application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -93,25 +90,19 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
-                                                nImO::ArgumentMode::Optional, false};
-    nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"),
-                                                nImO::ArgumentMode::Optional, 2020};
-    nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::DescriptorVector  argumentList;
+    nImO::OutputFlavour     flavour;
+    bool                    logging = false;
+    std::string             configFilePath;
 
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo service example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true, true))
     {
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::MiscellaneousContext  ourContext(progName);
+            nImO::ServiceContext    ourContext(progName, "EchoService", logging);
 
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number

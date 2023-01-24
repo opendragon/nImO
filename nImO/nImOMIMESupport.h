@@ -52,6 +52,10 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief The string to follow a MIME message being sent via TCP/IP; UDP/IP MIME messages are
+ contained within a single datagram so don't need this string. */
+# define MIME_MESSAGE_TERMINATOR_   "$$$"
+
 namespace nImO
 {
     /*! @brief Return a copy of the bytes in the Message as well as the number of bytes to be

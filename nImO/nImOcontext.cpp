@@ -61,8 +61,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Counter to prevent more than one context per application. */
-static int lNumContexts = 0;
+/*! @brief Flag to prevent more than one context per application. */
+static bool lContextCreated = false;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -87,13 +87,14 @@ nImO::Context::Context
 {
     ODL_ENTER(); //####
     //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
-    if (0 < lNumContexts++)
+    if (lContextCreated)
     {
         throw "Too many contexts.";
 
     }
     try
     {
+        lContextCreated = true;
         Value::initialize();
 #if 0
 #if (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
@@ -141,6 +142,7 @@ nImO::Context::~Context
 {
     ODL_OBJENTER(); //####
 //    removeAllEntries();
+    lContextCreated = false;
     ODL_OBJEXIT(); //####
 } // nImO::Context::~Context
 

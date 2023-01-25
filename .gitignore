@@ -103,6 +103,9 @@ non-iOS/Tests/nImOcommonTest.rc
 non-iOS/Tests/nImOcontainerTest
 non-iOS/Tests/nImOcontainerTest.dir/
 non-iOS/Tests/nImOcontainerTest.rc
+non-iOS/Tests/nImOcontextTest
+non-iOS/Tests/nImOcontextTest.dir/
+non-iOS/Tests/nImOcontextTest.rc
 non-iOS/Tests/nImOconvertersTest
 non-iOS/Tests/nImOconvertersTest.rc
 non-iOS/Tests/nImOmessageExtractTest
@@ -132,3 +135,4 @@ non-iOS/Version/nImOversion.rc
 non-iOS/Write/nImOwrite
 non-iOS/Write/nImOwrite.dir/
 non-iOS/Write/nImOwrite.rc
+nImO.xcodeproj/project.xcworkspace/xcuserdata/

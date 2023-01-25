@@ -118,3 +118,19 @@ nImO::ServiceContext::~ServiceContext
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+void
+nImO::BlockRegistryLaunch
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // nImO::BlockRegistryLaunch
+
+void
+nImO::UnblockRegistryLaunch
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // nImO::UnblockRegistryLaunch

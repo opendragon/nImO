@@ -43,11 +43,10 @@ set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Bridge)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 else()
     set(VERS_RESOURCE "")
 endif()
-
-configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
 
 # Set up our program
 add_executable(${THIS_TARGET}

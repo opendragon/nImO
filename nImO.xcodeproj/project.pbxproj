@@ -182,6 +182,9 @@
 		F6D1740924128D1000133E72 /* Test_argumentDescriptors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_argumentDescriptors.txt; path = "non-iOS/Tests/Test_argumentDescriptors.txt"; sourceTree = "<group>"; };
 		F6D1740A24128E2D00133E72 /* nImOargumentDescriptorsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOargumentDescriptorsTest.cpp; path = Tests/nImOargumentDescriptorsTest.cpp; sourceTree = "<group>"; };
 		F6D1740B24128E2D00133E72 /* nImOargumentDescriptorsTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOargumentDescriptorsTest.rc.in; path = Tests/nImOargumentDescriptorsTest.rc.in; sourceTree = "<group>"; };
+		F6D6DDFA2981424600922249 /* nImOcontextTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontextTest.rc.in; path = Tests/nImOcontextTest.rc.in; sourceTree = "<group>"; };
+		F6D6DDFB2981424600922249 /* nImOcontextTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextTest.cpp; path = Tests/nImOcontextTest.cpp; sourceTree = "<group>"; };
+		F6D6DDFC298142D400922249 /* Test_context.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_context.txt; path = "non-iOS/Tests/Test_context.txt"; sourceTree = "<group>"; };
 		F6D7AD04224A5D4B0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD06224A5D760095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = iOS/CMakeLists.txt; sourceTree = "<group>"; };
 		F6D7AD08224A5DAF0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Connect/CMakeLists.txt"; sourceTree = "<group>"; };
@@ -469,6 +472,8 @@
 				F683BD88240F335A009E20FE /* nImOchannelTest.rc.in */,
 				F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */,
 				F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */,
+				F6D6DDFB2981424600922249 /* nImOcontextTest.cpp */,
+				F6D6DDFA2981424600922249 /* nImOcontextTest.rc.in */,
 				F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */,
 				F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */,
 				F6A4A0551CD236BD005D1AF8 /* nImOmessageExtractTest.cpp */,
@@ -763,6 +768,7 @@
 				F679D6C4241270CE001648DB /* Test_badMessage.txt */,
 				F679D6C224126ED8001648DB /* Test_channel.txt */,
 				F679D6CE2412751F001648DB /* Test_container.txt */,
+				F6D6DDFC298142D400922249 /* Test_context.txt */,
 				F679D6CB2412751E001648DB /* Test_converters.txt */,
 				F679D6C524127191001648DB /* Test_messageExtract.txt */,
 				F679D6CC2412751E001648DB /* Test_messageInsert.txt */,

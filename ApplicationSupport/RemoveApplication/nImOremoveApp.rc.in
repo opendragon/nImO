@@ -67,12 +67,12 @@ BEGIN
         BLOCK "100904b0"
         BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
-            VALUE "FileDescription", "Version\0"
+            VALUE "FileDescription", "Remove Application\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
             VALUE "InternalName", "nImOremo.exe\0"
             VALUE "LegalCopyright", "(c) 2020 by @nImO_COMPANY@.\0"
             VALUE "OriginalFilename", "nImOremo.exe\0"
-            VALUE "ProductName", "Version\0"
+            VALUE "ProductName", "Remove Application\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END
     END

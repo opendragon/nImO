@@ -162,6 +162,16 @@ namespace nImO
 
     }; // ContextWithMDNS
 
+    /*! @brief Block the launching of the Registry program - used with the Registry and test programs. */
+    void
+    BlockRegistryLaunch
+        (void);
+
+    /*! @brief Unblock the launching of the Registry program - used with the test programs. */
+    void
+    UnblockRegistryLaunch
+        (void);
+
 } // nImO
 
 #endif // not defined(nImOcontextWithMDNS_H_)

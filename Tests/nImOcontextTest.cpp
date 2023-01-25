@@ -114,9 +114,11 @@ doTestCreateContextWithMDNS
 
     try
     {
+        BlockRegistryLaunch();
         ContextWithMDNS aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
+        UnblockRegistryLaunch();
         result = 0;
     }
     catch (...)
@@ -176,9 +178,11 @@ doTestCreateFilterContext
 
     try
     {
+        BlockRegistryLaunch();
         FilterContext   aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
+        UnblockRegistryLaunch();
         result = 0;
     }
     catch (...)
@@ -239,7 +243,7 @@ doTestCreateServiceContext
     try
     {
         BlockRegistryLaunch();
-        ServiceContext  aContext("", "", false, false);
+        ServiceContext  aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -271,9 +275,11 @@ doTestCreateSinkContext
 
     try
     {
+        BlockRegistryLaunch();
         SinkContext aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
+        UnblockRegistryLaunch();
         result = 0;
     }
     catch (...)
@@ -302,9 +308,11 @@ doTestCreateSourceContext
 
     try
     {
+        BlockRegistryLaunch();
         SourceContext   aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
+        UnblockRegistryLaunch();
         result = 0;
     }
     catch (...)
@@ -364,9 +372,11 @@ doTestCreateUtilityContext
 
     try
     {
+        BlockRegistryLaunch();
         UtilityContext  aContext("", "", false);
 
         NIMO_UNUSED_VAR_(aContext);
+        UnblockRegistryLaunch();
         result = 0;
     }
     catch (...)

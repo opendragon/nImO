@@ -80,19 +80,15 @@ nImO::ServiceContext::ServiceContext
     (const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
-     const bool             autoLaunchRegistry,
      const std::string &    nodeName) :
         inherited(executableName, tag, logging, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    //ODL_B2("logging = ", logging, "autoLaunchRegistry = ", autoLaunchRegistry); //####
+    //ODL_B1("logging = ", logging); //####
     try
     {
-        if (autoLaunchRegistry)
-        {
-            launchRegistryIfNotActive();
-        }
+        launchRegistryIfNotActive();
         makeAnnouncement();
     }
     catch (...)
@@ -118,19 +114,3 @@ nImO::ServiceContext::~ServiceContext
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
-
-void
-nImO::BlockRegistryLaunch
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT(); //####
-} // nImO::BlockRegistryLaunch
-
-void
-nImO::UnblockRegistryLaunch
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT(); //####
-} // nImO::UnblockRegistryLaunch

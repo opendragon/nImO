@@ -104,7 +104,8 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::ServiceContext    ourContext{progName, "registry", logging, false};
+            nImO::BlockRegistryLaunch();
+            nImO::ServiceContext    ourContext{progName, "registry", logging};
 
             if (ourContext.findRegistry())
             {
@@ -115,6 +116,7 @@ main
                 //TBD
                 ourContext.makeAnnouncement();
             }
+            nImO::UnblockRegistryLaunch();
         }
         catch (...)
         {

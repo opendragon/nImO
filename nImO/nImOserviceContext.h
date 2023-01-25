@@ -77,13 +77,11 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
-             @param[in] autoLaunchRegistry @c true if the Registry program is to be launched if not already running.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
-                 const bool             autoLaunchRegistry = true,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
@@ -107,16 +105,6 @@ namespace nImO
             // Private fields.
 
     }; // ServiceContext
-
-    /*! @brief Block the launching of the Registry program - used with the Registry and test programs. */
-    void
-    BlockRegistryLaunch
-        (void);
-
-    /*! @brief Unblock the launching of the Registry program - used with the test programs. */
-    void
-    UnblockRegistryLaunch
-        (void);
 
 } // nImO
 

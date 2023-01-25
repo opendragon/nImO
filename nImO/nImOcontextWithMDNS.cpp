@@ -383,6 +383,26 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
+void
+nImO::BlockRegistryLaunch
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // nImO::BlockRegistryLaunch
+
+void
+nImO::UnblockRegistryLaunch
+    (void)
+{
+    ODL_ENTER(); //####
+    ODL_EXIT(); //####
+} // nImO::UnblockRegistryLaunch
+
+
+
+
+
 #if 0
 GetShortComputerName()
 

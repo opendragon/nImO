@@ -93,6 +93,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistry.cpp"
+            "${THIS_SOURCE_DIR}/nImOregistryPortal.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceContext.cpp"
             "${THIS_SOURCE_DIR}/nImOset.cpp"
             "${THIS_SOURCE_DIR}/nImOsinkContext.cpp"
@@ -171,6 +172,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOnumber.h"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistry.h"
+        "${THIS_SOURCE_DIR}/nImOregistryPortal.h"
         "${THIS_SOURCE_DIR}/nImOserviceContext.h"
         "${THIS_SOURCE_DIR}/nImOset.h"
         "${THIS_SOURCE_DIR}/nImOsinkContext.h"
@@ -227,6 +229,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistry.cpp ${THIS_SOURCE_DIR}/nImOregistry.h
+        ${THIS_SOURCE_DIR}/nImOregistryPortal.cpp ${THIS_SOURCE_DIR}/nImOregistryPortal.h
         ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.h
         ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.h
         ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.h

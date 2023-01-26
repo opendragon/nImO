@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOregistryMain.cpp
+//  File:       nImO/nImOregistry.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to read from a nImO channel.
+//  Contains:   The class definition for nImO registries.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-24
+//  Created:    2023-01-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOregistry.h>
-#include <nImOserviceContext.h>
+#include "nImOregistry.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -48,10 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A service application to register #nImO entities. */
-
-/*! @dir Read
- @brief The set of files that implement the Register application. */
+ @brief The class definition for %nImO registries. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -73,57 +69,41 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for reading from a #nImO channel.
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
 
- Standard output will receive messages received on the #nImO channel.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+nImO::Registry::Registry
+    (void)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
+    ODL_EXIT_P(this); //####
+} // nImO::Registry::Registry
 
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
-    {
-        nImO::LoadConfiguration(configFilePath);
-        try
-        {
-            nImO::BlockRegistryLaunch();
-            nImO::ServiceContext    ourContext{progName, "registry", logging};
+nImO::Registry::Registry
+    (Registry &&    other)
+    noexcept
+{
+    NIMO_UNUSED_ARG_(other)
+    ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Registry::Registry
 
-            if (ourContext.findRegistry())
-            {
-                ourContext.report("Registry already running.");
-            }
-            else
-            {
-                //TBD
-                ourContext.makeAnnouncement();
-            }
-            nImO::UnblockRegistryLaunch();
-        }
-        catch (...)
-        {
-            ODL_LOG("Exception caught"); //####
-        }
-    }
-    ODL_EXIT_I(0); //####
-    return 0;
-} // main
+nImO::Registry::~Registry
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::Registry::~Registry
+
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

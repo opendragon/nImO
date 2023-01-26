@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tests/CMakeLists.txt
+#  File:       non-iOS/Tests/Test_registry.txt
 #
 #  Project:    nImO
 #
@@ -8,7 +8,7 @@
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2016 by OpenDragon.
+#  Copyright:  (c) 2023 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,23 +32,34 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2016-02-18
+#  Created:    2023-01-26
 #
 #--------------------------------------------------------------------------------------------------
 
-include_directories("${nImO_SOURCE_DIR}")
+set(THIS_TARGET nImOregistryTest)
 
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tests)
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
 
-include(Test_argumentDescriptors.txt)
-include(Test_atomic.txt)
-include(Test_badMessage.txt)
-include(Test_channel.txt)
-include(Test_container.txt)
-include(Test_context.txt)
-include(Test_converters.txt)
-include(Test_messageExtract.txt)
-include(Test_messageInsert.txt)
-include(Test_MIMEAndMessages.txt)
-include(Test_parser.txt)
-include(Test_registry.txt)
+enable_testing()
+
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOregistryTest.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+## Test create a ContextWithMDNS
+#add_test(NAME TestCreateContextWithMDNS COMMAND ${THIS_TARGET} 1)
+## Test create a ContextWithNetworking
+#add_test(NAME TestCreateContextWithNetworking COMMAND ${THIS_TARGET} 2)
+## Test create a FilterContext
+#add_test(NAME TestCreateFilterContext COMMAND ${THIS_TARGET} 3)

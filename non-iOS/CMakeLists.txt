@@ -302,22 +302,11 @@ install(PROGRAMS
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
-add_subdirectory(ApplicationSupport)
-add_subdirectory(Bridge)
-add_subdirectory(Connect)
 add_subdirectory(CPack)
-add_subdirectory(Disconnect)
-add_subdirectory(Info)
-add_subdirectory(Launch)
-add_subdirectory(List)
-add_subdirectory(Monitor)
 add_subdirectory(nImO)
-add_subdirectory(Post)
-add_subdirectory(Read)
 add_subdirectory(Registry)
 add_subdirectory(Tests)
-add_subdirectory(Version)
-add_subdirectory(Write)
+add_subdirectory(Tools)
 add_subdirectory(examples)
 
 enable_testing()

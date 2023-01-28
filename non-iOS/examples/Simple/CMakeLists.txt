@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/examples/CMakeLists.txt
+#  File:       non-iOS/examples/Simple/CMakeLists.txt
 #
 #  Project:    nImO
 #
@@ -8,7 +8,7 @@
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2020 by OpenDragon.
+#  Copyright:  (c) 2023 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,12 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2020-02-24
+#  Created:    2023-01-28
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(Echo)
-add_subdirectory(Ricochet)
-add_subdirectory(Simple)
+add_subdirectory(FanIn)
+add_subdirectory(FanOut)
+add_subdirectory(Passthrough)
 
 enable_testing()

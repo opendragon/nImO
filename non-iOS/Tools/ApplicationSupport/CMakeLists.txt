@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/examples/CMakeLists.txt
+#  File:       non-iOS/Tools/ApplicationSupport/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The example applications for the nImO project.
+#  Contains:   The application support tools for the nImO project.
 #
 #  Written by: Norman Jaffe
 #
@@ -32,12 +32,11 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2020-02-24
+#  Created:    2020-02-27
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(Echo)
-add_subdirectory(Ricochet)
-add_subdirectory(Simple)
+add_subdirectory(AddApplication)
+add_subdirectory(RemoveApplication)
 
 enable_testing()

@@ -384,57 +384,53 @@ main
     {
         nImO::TestContext   ourContext(progName);
 
-#if 0
-        if (2 < --argc)
+        if (0 < --argc)
         {
             int64_t selector;
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
-
                 SetSignalHandlers(catchSignal);
-                ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
-                    case 1 :
-                        result = doTestParseChannelName(expected, *(argv + 3));
-                        break;
-
-                    case 2 :
-                        if (3 < argc)
-                        {
-                            result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
-
-                    case 3 :
-                        if (3 < argc)
-                        {
-                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
-
-                    case 4 :
-                        if (3 < argc)
-                        {
-                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
-
-                    case 5 :
-                        if (3 < argc)
-                        {
-                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
-
-                    case 6 :
-                        if (3 < argc)
-                        {
-                            result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
-                        }
-                        break;
+//                    case 1 :
+//                        result = doTestParseChannelName(expected, *(argv + 3));
+//                        break;
+//
+//                    case 2 :
+//                        if (3 < argc)
+//                        {
+//                            result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
+//                        }
+//                        break;
+//
+//                    case 3 :
+//                        if (3 < argc)
+//                        {
+//                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
+//                        }
+//                        break;
+//
+//                    case 4 :
+//                        if (3 < argc)
+//                        {
+//                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
+//                        }
+//                        break;
+//
+//                    case 5 :
+//                        if (3 < argc)
+//                        {
+//                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
+//                        }
+//                        break;
+//
+//                    case 6 :
+//                        if (3 < argc)
+//                        {
+//                            result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
+//                        }
+//                        break;
 
                     default :
                         break;
@@ -452,9 +448,8 @@ main
         }
         else
         {
-            ODL_LOG("! (2 < --argc)"); //####
+            ODL_LOG("! (0 < --argc)"); //####
         }
-#endif//0
     }
     catch (...)
     {

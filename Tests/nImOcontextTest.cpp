@@ -521,7 +521,7 @@ main
         }
         else
         {
-            ODL_LOG("! (2 < --argc)"); //####
+            ODL_LOG("! (0 < --argc)"); //####
         }
     }
     catch (...)

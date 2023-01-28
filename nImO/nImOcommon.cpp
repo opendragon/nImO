@@ -888,7 +888,8 @@ nImO::ProcessStandardUtilitiesOptions
     ODL_P2("logging = ", &logging, "arguments = ", arguments); //####
     ODL_S1s("utilityDescription = ", utilityDescription); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
-    ODL_B2("ignoreFlavours = ", ignoreFlavours, "ignoreLogging = ", ignoreLogging); //####
+    ODL_B3("ignoreConfigFilePath = ", ignoreConfigFilePath, "ignoreFlavours = ", ignoreFlavours, //####
+           "ignoreLogging = ", ignoreLogging); //####
     enum class OptionIndex
     {
         UNKNOWN,

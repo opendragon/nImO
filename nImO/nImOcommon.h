@@ -922,6 +922,7 @@ namespace nImO
      @param[out] logging Set if the -l option is seen.
      @param[out] configFilePath Set to the path specified with a -c option if provided.
      @param[in] helper A function to call when -h is requested, to provide more details.
+     @param[in] ignoreConfigFilePath @c true if the config file path option is ignored and @c false otherwise.
      @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
      @param[in] ignoreLogging @c true if the logging option is ignored and @c false otherwise.
      @param[in] arguments If non-@c nullptr, returns the arguments for the utility.

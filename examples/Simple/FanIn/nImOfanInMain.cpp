@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOfilterContext.h>
+#include <nImOintegerArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -90,11 +91,14 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
+    nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"),
+                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+    bool                            logging = false;
+    std::string                     configFilePath;
 
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "FanIn example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))

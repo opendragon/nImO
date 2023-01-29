@@ -94,10 +94,10 @@ namespace nImO
         /*! @brief The argument is both optional and modifiable. */
         OptionalModifiable = (Optional | Modifiable),
 
-        /*! @brief The argument is both required and modifiable. */
+        /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
 
-        /*! @brief The argument is both optional and modifiable. */
+        /*! @brief The argument is both optional and is a password. */
         OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */

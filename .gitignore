@@ -52,6 +52,9 @@ non-iOS/examples/Simple/FanIn/nImOfanIn.rc
 non-iOS/examples/Simple/FanOut/nImOfanOut
 non-iOS/examples/Simple/FanOut/nImOfanOut.dir/
 non-iOS/examples/Simple/FanOut/nImOfanOut.rc
+non-iOS/examples/Simple/Junction/nImOjunction
+non-iOS/examples/Simple/Junction/nImOjunction.dir/
+non-iOS/examples/Simple/Junction/nImOjunction.rc
 non-iOS/examples/Simple/Passthrough/nImOpassthrough
 non-iOS/examples/Simple/Passthrough/nImOpassthrough.dir/
 non-iOS/examples/Simple/Passthrough/nImOpassthrough.rc

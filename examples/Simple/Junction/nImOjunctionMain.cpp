@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOfanOutMain.cpp
+//  File:       nImOjunctionMain.cpp
 //
 //  Project:    nImO
 //
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-01-28
+//  Created:    2023-01-29
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@
  @brief An example application to demonstrate using the nImO library in a program. */
 
 /*! @dir Version
- @brief The set of files that implement the FanOut application. */
+ @brief The set of files that implement the Junction application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -91,7 +91,9 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"),
+    nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"),
+                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+    nImO::IntegerArgumentDescriptor secondArg{"numOut", T_("Number of output channels"),
                                                 nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
@@ -99,14 +101,15 @@ main
     std::string                     configFilePath;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "FanOut example", "", 2023,
+    argumentList.push_back(&secondArg);
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Junction example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))
     {
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::FilterContext ourContext(progName, "FanOut", logging);
+            nImO::FilterContext ourContext(progName, "Junction", logging);
 
         }
         catch (...)

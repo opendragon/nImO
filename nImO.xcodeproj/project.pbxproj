@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		F60394F02986C06B004A7F8C /* nImOjunctionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOjunctionMain.cpp; sourceTree = "<group>"; };
+		F60394F12986C06B004A7F8C /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F60394F22986C06B004A7F8C /* nImOjunction.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOjunction.rc.in; sourceTree = "<group>"; };
+		F60394F42986C14E004A7F8C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddressArgumentDescriptor.cpp; path = nImO/nImOaddressArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -252,6 +256,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		F60394EF2986C06B004A7F8C /* Junction */ = {
+			isa = PBXGroup;
+			children = (
+				F60394F22986C06B004A7F8C /* nImOjunction.rc.in */,
+				F60394F02986C06B004A7F8C /* nImOjunctionMain.cpp */,
+				F60394F12986C06B004A7F8C /* resource.h */,
+			);
+			path = Junction;
+			sourceTree = "<group>";
+		};
+		F60394F32986C14E004A7F8C /* Junction */ = {
+			isa = PBXGroup;
+			children = (
+				F60394F42986C14E004A7F8C /* CMakeLists.txt */,
+			);
+			path = Junction;
+			sourceTree = "<group>";
+		};
 		F613D15E288D82FB008712C9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +318,7 @@
 			children = (
 				F65C48C92985612B00430284 /* FanIn */,
 				F65C48D12985612B00430284 /* FanOut */,
+				F60394EF2986C06B004A7F8C /* Junction */,
 				F65C48CD2985612B00430284 /* Passthrough */,
 			);
 			name = Simple;
@@ -338,6 +361,7 @@
 				F65C48D62985614A00430284 /* FanIn */,
 				F65C48D82985614A00430284 /* CMakeLists.txt */,
 				F65C48DB2985614A00430284 /* FanOut */,
+				F60394F32986C14E004A7F8C /* Junction */,
 				F65C48D92985614A00430284 /* Passthrough */,
 			);
 			name = Simple;
@@ -526,8 +550,8 @@
 			isa = PBXGroup;
 			children = (
 				F65C4B9F2985636700430284 /* nImOwrite.rc.in */,
-				F65C4BA02985636700430284 /* resource.h */,
 				F65C4BA12985636700430284 /* nImOwriteMain.cpp */,
+				F65C4BA02985636700430284 /* resource.h */,
 			);
 			path = Write;
 			sourceTree = "<group>";
@@ -535,8 +559,8 @@
 		F65C4BA22985636700430284 /* Monitor */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BA32985636700430284 /* nImOmonitorMain.cpp */,
 				F65C4BA42985636700430284 /* nImOmonitor.rc.in */,
+				F65C4BA32985636700430284 /* nImOmonitorMain.cpp */,
 				F65C4BA52985636700430284 /* resource.h */,
 			);
 			path = Monitor;
@@ -564,8 +588,8 @@
 		F65C4BAB2985636800430284 /* AddApplication */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BAC2985636800430284 /* nImOaddAppMain.cpp */,
 				F65C4BAD2985636800430284 /* nImOaddApp.rc.in */,
+				F65C4BAC2985636800430284 /* nImOaddAppMain.cpp */,
 				F65C4BAE2985636800430284 /* resource.h */,
 			);
 			path = AddApplication;
@@ -574,9 +598,9 @@
 		F65C4BAF2985636800430284 /* RemoveApplication */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BB02985636800430284 /* resource.h */,
 				F65C4BB12985636800430284 /* nImOremoveApp.rc.in */,
 				F65C4BB22985636800430284 /* nImOremoveAppMain.cpp */,
+				F65C4BB02985636800430284 /* resource.h */,
 			);
 			path = RemoveApplication;
 			sourceTree = "<group>";
@@ -594,8 +618,8 @@
 		F65C4BB72985636800430284 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BB82985636800430284 /* nImOlaunchMain.cpp */,
 				F65C4BB92985636800430284 /* nImOlaunch.rc.in */,
+				F65C4BB82985636800430284 /* nImOlaunchMain.cpp */,
 				F65C4BBA2985636800430284 /* resource.h */,
 			);
 			path = Launch;
@@ -605,8 +629,8 @@
 			isa = PBXGroup;
 			children = (
 				F65C4BBC2985636800430284 /* nImOread.rc.in */,
-				F65C4BBD2985636800430284 /* resource.h */,
 				F65C4BBE2985636800430284 /* nImOreadMain.cpp */,
+				F65C4BBD2985636800430284 /* resource.h */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -614,9 +638,9 @@
 		F65C4BBF2985636800430284 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BC02985636800430284 /* resource.h */,
 				F65C4BC12985636800430284 /* nImOinfo.rc.in */,
 				F65C4BC22985636800430284 /* nImOinfoMain.cpp */,
+				F65C4BC02985636800430284 /* resource.h */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -624,8 +648,8 @@
 		F65C4BC32985636800430284 /* Version */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BC42985636800430284 /* nImOversionMain.cpp */,
 				F65C4BC52985636800430284 /* nImOversion.rc.in */,
+				F65C4BC42985636800430284 /* nImOversionMain.cpp */,
 				F65C4BC62985636800430284 /* resource.h */,
 			);
 			path = Version;
@@ -634,8 +658,8 @@
 		F65C4BC72985636800430284 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BC82985636800430284 /* nImOlistMain.cpp */,
 				F65C4BC92985636800430284 /* nImOlist.rc.in */,
+				F65C4BC82985636800430284 /* nImOlistMain.cpp */,
 				F65C4BCA2985636800430284 /* resource.h */,
 			);
 			path = List;
@@ -644,9 +668,9 @@
 		F65C4BCB2985636800430284 /* Disconnect */ = {
 			isa = PBXGroup;
 			children = (
-				F65C4BCC2985636800430284 /* resource.h */,
-				F65C4BCD2985636800430284 /* nImOdisconnectMain.cpp */,
 				F65C4BCE2985636800430284 /* nImOdisconnect.rc.in */,
+				F65C4BCD2985636800430284 /* nImOdisconnectMain.cpp */,
+				F65C4BCC2985636800430284 /* resource.h */,
 			);
 			path = Disconnect;
 			sourceTree = "<group>";
@@ -654,9 +678,9 @@
 		F65C4BCF2985636800430284 /* Connect */ = {
 			isa = PBXGroup;
 			children = (
+				F65C4BD22985636800430284 /* nImOconnect.rc.in */,
 				F65C4BD02985636800430284 /* nImOconnectMain.cpp */,
 				F65C4BD12985636800430284 /* resource.h */,
-				F65C4BD22985636800430284 /* nImOconnect.rc.in */,
 			);
 			path = Connect;
 			sourceTree = "<group>";
@@ -675,10 +699,10 @@
 			isa = PBXGroup;
 			children = (
 				F68373EE2404097F0030F969 /* nImOricochet.rc.in */,
-				F68373ED2404097F0030F969 /* nImOricochetMain.cpp */,
-				F68373EC2404097F0030F969 /* resource.h */,
 				F61D262D2404BB7200C73ACC /* nImOricochetControl.rc.in */,
 				F61D262E2404BBBB00C73ACC /* nImOricochetControlMain.cpp */,
+				F68373ED2404097F0030F969 /* nImOricochetMain.cpp */,
+				F68373EC2404097F0030F969 /* resource.h */,
 			);
 			name = Ricochet;
 			sourceTree = "<group>";

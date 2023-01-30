@@ -61,14 +61,40 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
+/*! @brief The Registry service for MDNS queries. */
+# define NIMO_REGISTRY_SERVICE_NAME  "_nimo_registry._tcp.local."
+
+/*! @brief The key in the mDNS data for the Registry address. */
+# define NIMO_REGISTRY_ADDRESS_KEY  "registry_address"
+
 namespace nImO
 {
+    // Forward references
+    class AnnounceServiceData;
+
     /*! @brief A class to provide support for an application that uses mDNS. */
     class ContextWithMDNS : public ContextWithNetworking
     {
 
         public :
             // Public type definitions.
+
+            /*! @brief Which threads to launch. */
+            enum class ThreadMode : uint8_t
+            {
+                /*! @brief Neither thread is to be launched. */
+                LaunchNeither = 0x00,
+
+                /*! @brief The announcer thread is to be launched. */
+                LaunchAnnouncer = 0x01,
+
+                /*! @brief The browser thread is to be launched. */
+                LaunchBrowser = 0x02,
+
+                /*! @brief The browser thread is to be launched. */
+                LaunchBoth = (LaunchAnnouncer | LaunchBrowser)
+
+            }; // ThreadMode
 
         protected :
             // Protected type definitions.
@@ -86,11 +112,13 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
+             @param[in] whichThreads Which threads, if any, to start.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithMDNS
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
+                 const ThreadMode       whichThreads,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
@@ -104,10 +132,18 @@ namespace nImO
             findRegistry
                 (void);
 
-            /*! @brief Send an announcement via mDNS. */
-            void
-            makeAnnouncement
-                (void);
+            /*! @brief Send a port announcement via mDNS.
+             @param[in] port The port number being announced.
+             @param[in] serviceName The mDNS service name.
+             @param[in] hostName The name of the computer.
+             @param[in] dataKey The key for the instance-specific data.
+             @return @c true if the announcement was constructed and sent. */
+            bool
+            makePortAnnouncement
+                (const uint16_t         port,
+                 const std::string &    serviceName,
+                 const std::string &    hostName,
+                 const std::string &    dataKey);
 
         protected :
             // Protected methods.
@@ -117,8 +153,9 @@ namespace nImO
             gatherAnnouncements
                 (void);
 
-            /*! @brief Check if the Registry service is running and launch it if it isn't. */
-            void
+            /*! @brief Check if the Registry service is running and launch it if it isn't.
+             @return @c true if the Registry was located or launched. */
+            bool
             launchRegistryIfNotActive
                 (void);
 
@@ -140,9 +177,31 @@ namespace nImO
             closeSockets
                 (void);
 
+            /*! @brief The announcer thread function.
+             @param[in,out] owner The owning object for the thread. */
+            static void
+            executeAnnouncer
+                (ContextWithMDNS &  owner);
+
+            /*! @brief The browset thread function.
+             @param[in,out] owner The owning object for the thread. */
+            static void
+            executeBrowser
+                (ContextWithMDNS &  owner);
+
             /*! @brief Create the sockets to be used. */
             void
             openSockets
+                (void);
+
+            /*! @brief Start the announce and browse threads. */
+            void
+            setUpThreads
+                (void);
+
+            /*! @brief Stop the announce and browse threads. */
+            void
+            shutDownThreads
                 (void);
 
         public :
@@ -160,12 +219,44 @@ namespace nImO
             /*! @brief The number of sockets in use. */
             int _numSockets;
 
+            /*! @brief Which threads are to be launched. */
+            ThreadMode  _whichThreads;
+
+            /*! @brief Data to be used with the announcer thread. */
+            Ptr(AnnounceServiceData)    _announceData;
+
+            /*! @brief The buffer to be used for MDNS I/O operations. */
+            Ptr(char)   _buffer;
+
     }; // ContextWithMDNS
+
+    UnaryAndBinaryOperators(ContextWithMDNS::ThreadMode)
 
     /*! @brief Block the launching of the Registry program - used with the Registry and test programs. */
     void
     BlockRegistryLaunch
         (void);
+
+    mDNS::string_t
+    IpAddressToString
+        (Ptr(char)                  buffer,
+         const size_t               capacity,
+         const struct sockaddr &    addr,
+         const size_t               addrLen);
+
+    mDNS::string_t
+    Ipv4AddressToString
+        (Ptr(char)                  buffer,
+         const size_t               capacity,
+         const struct sockaddr_in & addr,
+         const size_t               addrLen);
+
+    mDNS::string_t
+    Ipv6AddressToString
+        (Ptr(char)                      buffer,
+         const size_t                   capacity,
+         const struct sockaddr_in6 &    addr,
+         const size_t                   addrLen);
 
     /*! @brief Unblock the launching of the Registry program - used with the test programs. */
     void

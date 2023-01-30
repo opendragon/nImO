@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOcontextWithMDNS.h"
+#include "nImOannounceServiceData.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -65,8 +66,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The root path for MDNS queries. */
-#define NIMO_MDNS_PATH  "_nimo._tcp.local."
+/*! @brief The size of the MDNS I/O buffer. */
+const size_t    kBufferCapacity = 2048;
 
 /*! @brief @c true if an IPv4 address was found. */
 static bool lHasIpv4 = false;
@@ -74,11 +75,26 @@ static bool lHasIpv4 = false;
 /*! @brief @c true if an IPv6 address was found. */
 static bool lHasIpv6 = false;
 
+/*! @brief @c true if the Registry can be launched if not found. */
+static bool lRegistryLaunchAllowed = true;
+
 /*! @brief The first IPv4 address found. */
 static struct sockaddr_in   lServiceAddressIpv4;
 
 /*@ @brief The first IPv6 address found. */
 static struct sockaddr_in6  lServiceAddressIpv6;
+
+/*! @brief Set to @c true to cause the announcer thread to terminate. */
+static boost::atomic<bool>  lAnnouncerThreadStop;
+
+/*! @brief Set to @c true to cause the browser thread to terminate. */
+static boost::atomic<bool>  lBrowserThreadStop;
+
+/*! @brief The buffer used to record the name from a mDNS request. */
+static char    lNameBuffer[256];
+
+/*! @brief The buffer used to send replies for mDNS requests. */
+static char    lSendBuffer[1024];
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -95,9 +111,9 @@ getLocalAddresses
 {
     ODL_ENTER(); //####
 #if MAC_OR_LINUX_
-    Ptr(struct ifaddrs)         addresses;
+    Ptr(struct ifaddrs)         addresses = nullptr;
 #else // not MAC_OR_LINUX_
-    Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress;
+    Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress = nullptr;
     ULONG                       addressSize = 8000;
     uint                        ret;
     uint                        numRetries = 4;
@@ -237,6 +253,256 @@ getLocalAddresses
     ODL_EXIT(); //####
 } // getLocalAddresses
 
+/*! @brief Handle received mDNS service requests. */
+static bool announcementServiceCallback
+    (const int                  sock,
+     const struct sockaddr &    from,
+     const size_t               addrLen,
+     mDNS::entry_type_t         entry,
+     const uint16_t             queryId,
+     const uint16_t             rType,
+     const uint16_t             rClass,
+     const uint32_t             ttl,
+     CPtr(void)                 data,
+     const size_t               size,
+     const size_t               nameOffset,
+     const size_t               nameLength,
+     const size_t               recordOffset,
+     const size_t               recordLength,
+     Ptr(void)                  userData)
+{
+    NIMO_UNUSED_ARG_(ttl);
+    NIMO_UNUSED_ARG_(nameLength);
+    NIMO_UNUSED_ARG_(recordOffset);
+    NIMO_UNUSED_ARG_(recordLength);
+    if (entry != mDNS::kEntryTypeQuestion)
+    {
+        return false;
+
+    }
+    const char                          kDnsSd[] = "_services._dns-sd._udp.local.";
+    CPtr(nImO::AnnounceServiceData)     servicePtr = ReinterpretCast(CPtr(nImO::AnnounceServiceData), userData);
+    const nImO::AnnounceServiceData &   service = *servicePtr;
+    size_t                              offset = nameOffset;
+    mDNS::string_t                      name = mDNS::mDNSPrivate::string_extract(data, size, offset, lNameBuffer,
+                                                                                 sizeof(lNameBuffer));
+
+    if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
+    {
+        if ((mDNS::kRecordTypePTR == rType) || (mDNS::kRecordTypeANY == rType))
+        {
+            // The PTR query was for the DNS-SD domain, send answer with a PTR record for the
+            // service name we advertise, typically on the "<_service-name>._tcp.local." format
+
+            // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
+            // "<hostname>.<_service-name>._tcp.local."
+            mDNS::record_t  answer;
+            // Send the answer, unicast or multicast depending on flag in query
+            bool            unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+
+            answer.name = name;
+            answer.type = mDNS::kRecordTypePTR;
+            answer.data.ptr.name = service._serviceName;
+            if (unicast)
+            {
+                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
+                                           nullptr, 0, nullptr, 0);
+            }
+            else
+            {
+                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, nullptr, 0);
+            }
+        }
+    }
+    else if ((name.length == service._serviceName.length) &&
+             (0 == strncmp(name.str, service._serviceName.str, name.length)))
+    {
+        if ((mDNS::kRecordTypePTR == rType) || (mDNS::kRecordTypeANY == rType))
+        {
+            // The PTR query was for our service (usually "<_service-name._tcp.local"), answer a PTR
+            // record reverse mapping the queried service name to our service instance name
+            // (typically on the "<hostname>.<_service-name>._tcp.local." format), and add
+            // additional records containing the SRV record mapping the service instance name to our
+            // qualified hostname (typically "<hostname>.local.") and port, as well as any IPv4/IPv6
+            // address for the hostname as A/AAAA records, and two test TXT records
+
+            // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
+            // "<hostname>.<_service-name>._tcp.local."
+            mDNS::record_t  answer = service._recordPTR;
+            mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+            size_t          additionalCount = 0;
+
+            // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
+            // "<hostname>.local." with port. Set weight & priority to 0.
+            memset(&additional, 0, sizeof(additional));
+            additional[additionalCount++] = service._recordSRV;
+            // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
+            if (AF_INET == service._addressIpv4.sin_family)
+            {
+                additional[additionalCount++] = service._recordA;
+            }
+            if (AF_INET6 == service._addressIpv6.sin6_family)
+            {
+                additional[additionalCount++] = service._recordAAAA;
+            }
+            // Add TXT records for our service instance name, will be coalesced into
+            // one record with both key-value pair strings by the library
+            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+            {
+                additional[additionalCount++] = service._recordTXT[ii];
+            }
+            // Send the answer, unicast or multicast depending on flag in query
+            bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+
+            // Send the answer, unicast or multicast depending on flag in query
+            if (unicast)
+            {
+                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
+                                           nullptr, 0, additional, additionalCount);
+            }
+            else
+            {
+                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
+                                             additionalCount);
+            }
+        }
+    }
+    else if ((name.length == service._serviceInstance.length) &&
+             (0 == strncmp(name.str, service._serviceInstance.str, name.length)))
+    {
+        if ((mDNS::kRecordTypeSRV == rType) || (mDNS::kRecordTypeANY == rType))
+        {
+            // The SRV query was for our service instance (usually
+            // "<hostname>.<_service-name._tcp.local"), answer a SRV record mapping the service
+            // instance name to our qualified hostname (typically "<hostname>.local.") and port, as
+            // well as any IPv4/IPv6 address for the hostname as A/AAAA records, and two test TXT
+            // records
+
+            // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
+            // "<hostname>.<_service-name>._tcp.local."
+            mDNS::record_t  answer = service._recordSRV;
+            mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+            size_t          additionalCount = 0;
+
+            // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
+            memset(&additional, 0, sizeof(additional));
+            if (AF_INET == service._addressIpv4.sin_family)
+            {
+                additional[additionalCount++] = service._recordA;
+            }
+            if (AF_INET6 == service._addressIpv6.sin6_family)
+            {
+                additional[additionalCount++] = service._recordAAAA;
+            }
+            // Add TXT records for our service instance name, will be coalesced into
+            // one record with both key-value pair strings by the library
+            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+            {
+                additional[additionalCount++] = service._recordTXT[ii];
+            }
+            // Send the answer, unicast or multicast depending on flag in query
+            bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+
+            if (unicast)
+            {
+                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
+                                           nullptr, 0, additional, additionalCount);
+            }
+            else
+            {
+                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
+                                             additionalCount);
+            }
+        }
+    }
+    else if ((name.length == service._hostNameQualified.length) &&
+             (0 == strncmp(name.str, service._hostNameQualified.str, name.length)))
+    {
+        if (((mDNS::kRecordTypeA == rType) || (mDNS::kRecordTypeANY == rType)) &&
+            (AF_INET == service._addressIpv4.sin_family))
+        {
+            // The A query was for our qualified hostname (typically "<hostname>.local.") and we
+            // have an IPv4 address, answer with an A record mapping the hostname to an IPv4
+            // address, as well as any IPv6 address for the hostname, and two test TXT records
+
+            // Answer A records mapping "<hostname>.local." to IPv4 address
+            mDNS::record_t  answer = service._recordA;
+            mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+            size_t          additionalCount = 0;
+
+            // AAAA record mapping "<hostname>.local." to IPv6 addresses
+            memset(&additional, 0, sizeof(additional));
+            if (AF_INET6 == service._addressIpv6.sin6_family)
+            {
+                additional[additionalCount++] = service._recordAAAA;
+            }
+            // Add TXT records for our service instance name, will be coalesced into
+            // one record with both key-value pair strings by the library
+            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+            {
+                additional[additionalCount++] = service._recordTXT[ii];
+            }
+            // Send the answer, unicast or multicast depending on flag in query
+            bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+
+            if (unicast)
+            {
+                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
+                                           nullptr, 0, additional, additionalCount);
+            }
+            else
+            {
+                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
+                                             additionalCount);
+            }
+        }
+        else if (((mDNS::kRecordTypeAAAA == rType) || (mDNS::kRecordTypeANY == rType)) &&
+                 (AF_INET6 == service._addressIpv6.sin6_family))
+        {
+            // The AAAA query was for our qualified hostname (typically "<hostname>.local.") and we
+            // have an IPv6 address, answer with an AAAA record mappiing the hostname to an IPv6
+            // address, as well as any IPv4 address for the hostname, and two test TXT records
+
+            // Answer AAAA records mapping "<hostname>.local." to IPv6 address
+            mDNS::record_t  answer = service._recordAAAA;
+            mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+            size_t          additionalCount = 0;
+
+            // A record mapping "<hostname>.local." to IPv4 addresses
+            memset(&additional, 0, sizeof(additional));
+            if (AF_INET == service._addressIpv4.sin_family)
+            {
+                additional[additionalCount++] = service._recordA;
+            }
+            // Add TXT records for our service instance name, will be coalesced into
+            // one record with both key-value pair strings by the library
+            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+            {
+                additional[additionalCount++] = service._recordTXT[ii];
+            }
+            // Send the answer, unicast or multicast depending on flag in query
+            bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+
+            if (unicast)
+            {
+                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
+                                           nullptr, 0, additional, additionalCount);
+            }
+            else
+            {
+                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
+                                             additionalCount);
+            }
+        }
+    }
+    return true;
+} // announcementServiceCallback
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -249,14 +515,17 @@ nImO::ContextWithMDNS::ContextWithMDNS
     (const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
+     const ThreadMode       whichThreads,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName), _numSockets(0)
+        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName), _numSockets(0),
+        _whichThreads(whichThreads), _announceData(nullptr), _buffer(new char[kBufferCapacity])
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     getLocalAddresses();
     openSockets();
+    setUpThreads();
     ODL_EXIT_P(this); //####
 } // nImO::ContextWithMDNS::ContextWithMDNS
 
@@ -264,7 +533,43 @@ nImO::ContextWithMDNS::~ContextWithMDNS
     (void)
 {
     ODL_OBJENTER(); //####
+    if (nullptr != _announceData)
+    {
+        // Send a goodbye on end of service
+        mDNS::record_t    additional[kNumTxtRecords + 3];
+        size_t            additionalCount = 0;
+
+        memset(additional, 0, sizeof(additional));
+        additional[additionalCount++] = _announceData->_recordSRV;
+        if (AF_INET == _announceData->_addressIpv4.sin_family)
+        {
+            additional[additionalCount++] = _announceData->_recordA;
+        }
+        if (AF_INET6 == _announceData->_addressIpv6.sin6_family)
+        {
+            additional[additionalCount++] = _announceData->_recordAAAA;
+        }
+        for (size_t ii = 0; ii < kNumTxtRecords; ++ii)
+        {
+            additional[additionalCount++] = _announceData->_recordTXT[ii];
+        }
+        report("mDNS 'goodbyes' sent.");
+        for (int isock = 0; isock < _numSockets; ++isock)
+        {
+            mDNS::goodbye_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, 0, 0,
+                                    additional, additionalCount);
+        }
+    }
+    shutDownThreads();
     closeSockets();
+    if (nullptr != _announceData)
+    {
+        delete _announceData;
+    }
+    if (nullptr != _buffer)
+    {
+        delete[] _buffer;
+    }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::~ContextWithMDNS
 
@@ -283,6 +588,95 @@ nImO::ContextWithMDNS::closeSockets
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::closeSockets
+
+void
+nImO::ContextWithMDNS::executeAnnouncer
+    (ContextWithMDNS &  owner)
+{
+    ODL_ENTER(); //####
+    struct timeval timeout;
+
+    timeout.tv_sec = 2;
+    timeout.tv_usec = 0;
+    owner.report("Announcer thread starting.");
+    for ( ; ; )
+    {
+//        if (interrupted())
+//        {
+//            break;
+//
+//        }
+        int     nfds = 0;
+        fd_set  readfs;
+
+        FD_ZERO(&readfs);
+        for (int isock = 0; isock < owner._numSockets; ++isock)
+        {
+//            if (interrupted())
+//            {
+//                break;
+//
+//            }
+            if (owner._sockets[isock] >= nfds)
+            {
+                nfds = owner._sockets[isock] + 1;
+            }
+#if (! MAC_OR_LINUX_)
+# pragma option push -w-csu
+#endif /* not MAC_OR_LINUX_ */
+            FD_SET(owner._sockets[isock], &readfs);
+#if (! MAC_OR_LINUX_)
+# pragma option pop
+#endif /* not MAC_OR_LINUX_ */
+        }
+//        if (! interrupted())
+        {
+            int    res = select(nfds, &readfs, nullptr, nullptr, &timeout);
+
+            if (res >= 0)
+            {
+                for (int isock = 0; (0 < res) && (isock < owner._numSockets); ++isock)
+                {
+//                    if (interrupted())
+//                    {
+//                        break;
+//
+//                    }
+                    if (FD_ISSET(owner._sockets[isock], &readfs))
+                    {
+                        mDNS::socket_listen(owner._sockets[isock], owner._buffer, kBufferCapacity,
+                                            announcementServiceCallback, owner._announceData);
+                    }
+#if (! MAC_OR_LINUX_)
+# pragma option push -w-csu
+#endif /* not MAC_OR_LINUX_ */
+                    FD_SET(owner._sockets[isock], &readfs);
+#if (! MAC_OR_LINUX_)
+# pragma option pop
+#endif /* not MAC_OR_LINUX_ */
+                }
+            }
+            else
+            {
+                break;
+
+            }
+        }
+    }
+    owner.report("Announcer thread terminating.");
+    ODL_EXIT(); //####
+} // nImO::ContextWithMDNS::executeAnnouncer
+
+void
+nImO::ContextWithMDNS::executeBrowser
+    (ContextWithMDNS &  owner)
+{
+    ODL_ENTER(); //####
+    owner.report("Browser thread starting.");
+    //TBD
+    owner.report("Browser thread terminating.");
+    ODL_EXIT(); //####
+} // nImO::ContextWithMDNS::executeBrowser
 
 bool
 nImO::ContextWithMDNS::findRegistry
@@ -305,23 +699,101 @@ nImO::ContextWithMDNS::gatherAnnouncements
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::gatherAnnouncements
 
-void
+bool
 nImO::ContextWithMDNS::launchRegistryIfNotActive
     (void)
 {
+    bool    wasFoundOrLaunched;
+
     ODL_OBJENTER(); //####
-    //TBD
-    ODL_OBJEXIT(); //####
+    if (lRegistryLaunchAllowed)
+    {
+        wasFoundOrLaunched = findRegistry();
+        if (! wasFoundOrLaunched)
+        {
+            //TBD
+        }
+    }
+    else
+    {
+        wasFoundOrLaunched = true;
+    }
+    ODL_OBJEXIT_B(wasFoundOrLaunched); //####
+    return wasFoundOrLaunched;
 } // nImO::ContextWithMDNS::launchRegistryIfNotActive
 
-void
-nImO::ContextWithMDNS::makeAnnouncement
-    (void)
+bool
+nImO::ContextWithMDNS::makePortAnnouncement
+    (const uint16_t         port,
+     const std::string &    serviceName,
+     const std::string &    hostName,
+     const std::string &    dataKey)
 {
     ODL_OBJENTER(); //####
-    //TBD
-    ODL_OBJEXIT(); //####
-} // nImO::ContextWithMDNS::makeAnnouncement
+    bool    okSoFar;
+
+    if (nullptr == _announceData)
+    {
+        okSoFar = false;
+    }
+    else
+    {
+        char        addressBuffer[64];
+        std::string hostAddress;
+
+        _announceData->_port = port;
+        if (lHasIpv4)
+        {
+            mDNS::string_t  addressString{Ipv4AddressToString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv4,
+                                                              sizeof(lServiceAddressIpv4))};
+
+            hostAddress = addressString.str;
+            release_mdns_string(addressString);
+        }
+        else if (lHasIpv6)
+        {
+            mDNS::string_t  addressString{Ipv6AddressToString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv6,
+                                                              sizeof(lServiceAddressIpv6))};
+
+            hostAddress = addressString.str;
+            release_mdns_string(addressString);
+        }
+        else
+        {
+            hostAddress = SELF_ADDRESS_IPADDR_;
+        }
+        okSoFar = _announceData->setServiceAndHostName(serviceName, hostName, dataKey, hostAddress);
+        if (okSoFar)
+        {
+            // Send an announcement on startup of service
+            mDNS::record_t    additional[kNumTxtRecords + 3];
+            size_t            additionalCount = 0;
+
+            memset(additional, 0, sizeof(additional));
+            additional[additionalCount++] = _announceData->_recordSRV;
+            if (AF_INET == _announceData->_addressIpv4.sin_family)
+            {
+                additional[additionalCount++] = _announceData->_recordA;
+            }
+            if (AF_INET6 == _announceData->_addressIpv6.sin6_family)
+            {
+                additional[additionalCount++] = _announceData->_recordAAAA;
+            }
+            for (size_t ii = 0; ii < kNumTxtRecords; ++ii)
+            {
+                additional[additionalCount++] = _announceData->_recordTXT[ii];
+            }
+            for (int isock = 0; isock < _numSockets; ++isock)
+            {
+                mDNS::announce_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, nullptr,
+                                         0, additional, additionalCount);
+            }
+            report("mDNS announcements sent.");
+        }
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ContextWithMDNS::makePortAnnouncement
 
 void
 nImO::ContextWithMDNS::openSockets
@@ -371,6 +843,49 @@ nImO::ContextWithMDNS::removeAnnouncement
 } // nImO::ContextWithMDNS::removeAnnouncement
 
 void
+nImO::ContextWithMDNS::setUpThreads
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (ThreadMode::LaunchAnnouncer == (ThreadMode::LaunchAnnouncer & _whichThreads))
+    {
+        lAnnouncerThreadStop = false;
+        _announceData = new AnnounceServiceData(lServiceAddressIpv4, lServiceAddressIpv6);
+        _pool.create_thread([this]
+                            (void)
+                            {
+                                executeAnnouncer(*this);
+                            });
+    }
+    if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
+    {
+        lBrowserThreadStop = false;
+        _pool.create_thread([this]
+                            (void)
+                            {
+                                executeBrowser(*this);
+                            });
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::setUpThreads
+
+void
+nImO::ContextWithMDNS::shutDownThreads
+    (void)
+{
+    ODL_OBJENTER(); //####
+    if (ThreadMode::LaunchAnnouncer == (ThreadMode::LaunchAnnouncer & _whichThreads))
+    {
+        lAnnouncerThreadStop = true;
+    }
+    if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
+    {
+        lBrowserThreadStop = true;
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithMDNS::shutDownThreads
+
+void
 nImO::ContextWithMDNS::stopGatheringAnnouncements
     (void)
 {
@@ -388,49 +903,92 @@ nImO::BlockRegistryLaunch
     (void)
 {
     ODL_ENTER(); //####
+    lRegistryLaunchAllowed = false;
     ODL_EXIT(); //####
 } // nImO::BlockRegistryLaunch
+
+mDNS::string_t
+nImO::IpAddressToString
+    (Ptr(char)                  buffer,
+     const size_t               capacity,
+     const struct sockaddr &    addr,
+     const size_t               addrLen)
+{
+    if (AF_INET6 == addr.sa_family)
+    {
+        return Ipv6AddressToString(buffer, capacity, ReinterpretCast(const struct sockaddr_in6 &, addr), addrLen);
+
+    }
+    return Ipv4AddressToString(buffer, capacity, ReinterpretCast(const struct sockaddr_in &, addr), addrLen);
+} // nImO::IpAddressToString
+
+mDNS::string_t
+nImO::Ipv4AddressToString
+    (Ptr(char)                  buffer,
+     const size_t               capacity,
+     const struct sockaddr_in & addr,
+     const size_t               addrLen)
+{
+    char    host[NI_MAXHOST] = { 0 };
+    char    service[NI_MAXSERV] = { 0 };
+    int     ret = getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+                              NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST);
+    int     len = 0;
+
+    if (0 == ret)
+    {
+        if (0 == addr.sin_port)
+        {
+            len = snprintf(buffer, capacity, "%s", host);
+        }
+        else
+        {
+            len = snprintf(buffer, capacity, "%s:%s", host, service);
+        }
+    }
+    if (len >= StaticCast(int, capacity))
+    {
+        len = StaticCast(int, capacity) - 1;
+    }
+    return make_mdns_string(buffer, len);
+} // nImO::Ipv4AddressToString
+
+mDNS::string_t
+nImO::Ipv6AddressToString
+    (Ptr(char)                      buffer,
+     const size_t                   capacity,
+     const struct sockaddr_in6 &    addr,
+     const size_t                   addrLen)
+{
+    char    host[NI_MAXHOST] = { 0 };
+    char    service[NI_MAXSERV] = { 0 };
+    int     ret = getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+                              NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST);
+    int     len = 0;
+
+    if (0 == ret)
+    {
+        if (0 == addr.sin6_port)
+        {
+            len = snprintf(buffer, capacity, "%s", host);
+        }
+        else
+        {
+            len = snprintf(buffer, capacity, "[%s]:%s", host, service);
+        }
+    }
+    if (len >= StaticCast(int, capacity))
+    {
+        len = StaticCast(int, capacity) - 1;
+    }
+    return make_mdns_string(buffer, len);
+} // nImO::Ipv6AddressToString
 
 void
 nImO::UnblockRegistryLaunch
     (void)
 {
     ODL_ENTER(); //####
+    lRegistryLaunchAllowed = true;
     ODL_EXIT(); //####
 } // nImO::UnblockRegistryLaunch
-
-
-
-
-
-#if 0
-GetShortComputerName()
-
-//---------------------------- SetUpAnnouncer -------------------------------
-void __fastcall TfrmMain::SetUpAnnouncer
-(const AnsiString &    hostName)
-{
-    lTraceObject.SetDeferredStreamName(hostName + mess_dash + IntToStr(GetTcpServerPort()) + ".log");
-    gAnnouncementThread = new T_AnnounceServiceThread(lTraceObject, hostName, CADSIM_MDNS_PATH, GetTcpServerPort(),
-                                                      GetTcpServerAddress());
-    gAnnouncementThread->OnTerminate = doTerminateAnnouncementThread;
-    gAnnouncementThread->Start();
-}
-//---------------------------- End SetUpAnnouncer ---------------------------
-
-AnsiString    hostName;
-char            hostnameBuffer[256];
-DWORD            hostnameSize = StaticCast(DWORD, sizeof(hostnameBuffer));
-
-SetUpTcpServer(mainForm);
-if (GetComputerNameA(hostnameBuffer, &hostnameSize))
-{
-    stripDomain(hostnameBuffer);
-    hostName = hostnameBuffer;
-}
-SetUpAnnouncer(mainForm, hostName);
-
-
-//---------------------------- stripDomain ----------------------------------
-//---------------------------- End stripDomain ------------------------------
-#endif//0

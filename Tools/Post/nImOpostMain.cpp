@@ -102,8 +102,8 @@ main
     nImO::OutputFlavour             flavour;
     bool                            logging = true; // We need to have the logging ports set up!
     nImO::StringVector              arguments;
-    int                             result = 1;
     std::string                     configFilePath;
+    int                             exitCode = 0;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
@@ -134,32 +134,33 @@ main
                 }
                 if (1 < stuffToSend.size())
                 {
-                    if (ourContext.report(stuffToSend))
+                    if (! ourContext.report(stuffToSend))
                     {
-                        result = 0;
+                        exitCode = 1;
                     }
                 }
                 else if (0 < stuffToSend.size())
                 {
-                    if (ourContext.report(stuffToSend[0]))
+                    if (! ourContext.report(stuffToSend[0]))
                     {
-                        result = 0;
+                        exitCode = 1;
                     }
                 }
             }
             else if (0 < header.length())
             {
-                if (ourContext.report(header))
+                if (! ourContext.report(header))
                 {
-                    result = 0;
+                    exitCode = 1;
                 }
             }
         }
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(result); //####
-    return result;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

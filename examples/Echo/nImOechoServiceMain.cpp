@@ -94,6 +94,7 @@ main
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
     std::string             configFilePath;
+    int                     exitCode = 0;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo service example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
@@ -102,8 +103,17 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::ServiceContext    ourContext(progName, "EchoService", logging);
+            nImO::ServiceContext    ourContext{progName, "EchoService", logging};
 
+            if (ourContext.findRegistry())
+            {
+                // TBD
+            }
+            else
+            {
+                ourContext.report("Registry not found.");
+                exitCode = 2;
+            }
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number
             //get the list of cluster machines from 'hosts.list'
@@ -138,8 +148,9 @@ main
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

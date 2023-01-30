@@ -80,8 +80,9 @@ nImO::ContextWithCommandPort::ContextWithCommandPort
     (const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
+     const ThreadMode       whichThreads,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, nodeName), _acceptor(*getService()), _keepGoing(true)
+        inherited(executableName, tag, logging, whichThreads, nodeName), _acceptor(*getService()), _keepGoing(true)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
@@ -103,7 +104,6 @@ nImO::ContextWithCommandPort::~ContextWithCommandPort
 {
     ODL_OBJENTER(); //####
 //    removeAllEntries();
-    removeAnnouncement();
     destroyCommandPort();
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithCommandPort::~ContextWithCommandPort
@@ -154,12 +154,15 @@ nImO::ContextWithCommandPort::handleAccept
      const boost::system::error_code &  error)
 {
     ODL_OBJENTER(); //####
+    bool    releaseSession;
+
     if (error)
     {
-        delete newSession;
+        releaseSession = true;
     }
     else if (_keepGoing)
     {
+        releaseSession = false;
         newSession->start();
         newSession = new CommandSession(*this);
         _sessions.insert(newSession);
@@ -172,7 +175,17 @@ nImO::ContextWithCommandPort::handleAccept
     }
     else
     {
-        delete newSession;
+        releaseSession = true;
+    }
+    if (releaseSession)
+    {
+        auto    found(_sessions.find(newSession));
+
+        if (_sessions.end() != found)
+        {
+            _sessions.erase(found);
+            delete newSession;
+        }
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithCommandPort::handleAccept

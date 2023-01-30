@@ -64,6 +64,9 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief Set to @false when a SIGINT occurs. */
+static boost::atomic<bool>  lKeepRunning(true);
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -71,6 +74,33 @@
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief The signal handler to catch requests to stop the application.
+ @param[in] signal The signal being handled. */
+static void
+catchSignal
+    (int signal)
+{
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
+#if defined(SIGINT)
+    if (SIGINT == signal)
+    {
+        lKeepRunning = false;
+        //lReceivedCondition.notify_one(); // make sure to exit from the read!!!
+    }
+    else
+#endif // defined(SIGINT)
+    {
+        std::string message{"Exiting due to signal "};
+
+        message += std::to_string(signal);
+        message += " = ";
+        message += nImO::NameOfSignal(signal);
+        ODL_EXIT_EXIT(1); //####
+        exit(1);
+    }
+} // catchSignal
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -97,6 +127,7 @@ main
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
     std::string             configFilePath;
+    int                     exitCode = 0;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
@@ -106,7 +137,8 @@ main
         try
         {
             nImO::BlockRegistryLaunch();
-            nImO::ServiceContext    ourContext{progName, "registry", logging};
+            nImO::ServiceContext    ourContext{progName, "registry", logging,
+                                                nImO::ServiceContext::ThreadMode::LaunchAnnouncer};
 
             if (ourContext.findRegistry())
             {
@@ -114,16 +146,24 @@ main
             }
             else
             {
-                //TBD
-                ourContext.makeAnnouncement();
+                nImO::SetSignalHandlers(catchSignal);
+                if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
+                                                    nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
+                {
+                    for ( ; lKeepRunning; )
+                    {
+
+                    }
+                }
             }
             nImO::UnblockRegistryLaunch();
         }
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

@@ -63,7 +63,6 @@
 # include <boost/shared_array.hpp>
 # include <boost/thread.hpp>
 # include <boost/thread/locks.hpp>
-# include <boost/thread/mutex.hpp>
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

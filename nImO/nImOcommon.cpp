@@ -559,7 +559,7 @@ nImO::GetShortComputerName
 {
     ODL_ENTER(); //####
     std::string result{boost::asio::ip::host_name()};
-    size_t      dotPos{result.find('.')};
+    size_t      dotPos = result.find('.');
 
     if (std::string::npos != dotPos)
     {
@@ -916,7 +916,7 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::JSON), 0, "j", "json",
                                                 Option_::Arg::None,
                                                 T_("  --json, -j \tGenerate output in JSON format")};
-    Option_::Descriptor         loggDescriptor{StaticCast(unsigned int, OptionIndex::VERSION), 0, "l",
+    Option_::Descriptor         loggDescriptor{StaticCast(unsigned int, OptionIndex::LOGG), 0, "l",
                                                 "logg", Option_::Arg::None, T_("  --logg, -l \tLog application")};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::TABS), 0, "t", "tabs",
                                                 Option_::Arg::None,

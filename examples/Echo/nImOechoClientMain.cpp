@@ -94,6 +94,7 @@ main
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
     std::string             configFilePath;
+    int                     exitCode = 0;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo client example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
@@ -104,6 +105,15 @@ main
         {
             nImO::UtilityContext    ourContext(progName, "EchoClient", logging);
 
+            if (ourContext.findRegistry())
+            {
+                // TBD
+            }
+            else
+            {
+                ourContext.report("Registry not found.");
+                exitCode = 2;
+            }
 #if 0
             running = true
             while running
@@ -134,8 +144,9 @@ main
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

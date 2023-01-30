@@ -188,6 +188,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         }
         if (_loggingEnabled)
         {
+            std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+
             _logger = new Logger(getService(), tag, _logAddress, _logPort);
         }
     }
@@ -203,9 +205,14 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     (void)
 {
     ODL_OBJENTER(); //####
-    if (nullptr != _logger)
     {
-        delete _logger;
+        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+
+        if (nullptr != _logger)
+        {
+            delete _logger;
+            _logger = nullptr;
+        }
     }
     _work.reset(nullptr);
     _pool.join_all();
@@ -227,9 +234,18 @@ nImO::ContextWithNetworking::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
-    if (_loggingEnabled && (nullptr != _logger))
+    if (_loggingEnabled)
     {
-        okSoFar = _logger->report(stringToSend);
+        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+
+        if (nullptr == _logger)
+        {
+            okSoFar = true;
+        }
+        else
+        {
+            okSoFar = _logger->report(stringToSend);
+        }
     }
     else
     {
@@ -247,9 +263,18 @@ nImO::ContextWithNetworking::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
-    if (_loggingEnabled && (nullptr != _logger))
+    if (_loggingEnabled)
     {
-        okSoFar = _logger->report(stringsToSend);
+        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+
+        if (nullptr == _logger)
+        {
+            okSoFar = true;
+        }
+        else
+        {
+            okSoFar = _logger->report(stringsToSend);
+        }
     }
     else
     {

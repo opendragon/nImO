@@ -123,6 +123,7 @@ main
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
     std::string             configFilePath; // not used
+    int                     exitCode = 0;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
                                               "Reports the version number of the libraries used", progName, 2016,
@@ -184,8 +185,9 @@ main
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

@@ -11,6 +11,8 @@
 		F60394F12986C06B004A7F8C /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F60394F22986C06B004A7F8C /* nImOjunction.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOjunction.rc.in; sourceTree = "<group>"; };
 		F60394F42986C14E004A7F8C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOannounceServiceData.cpp; path = nImO/nImOannounceServiceData.cpp; sourceTree = "<group>"; };
+		F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOannounceServiceData.h; path = nImO/nImOannounceServiceData.h; sourceTree = "<group>"; };
 		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddressArgumentDescriptor.cpp; path = nImO/nImOaddressArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -791,6 +793,8 @@
 			children = (
 				F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */,
 				F60F864B1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.h */,
+				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
+				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
 				F6EE0AC11CA2C7F4004748ED /* nImOarray.cpp */,
 				F6EE0AC21CA2C7F4004748ED /* nImOarray.h */,
 				F6EE0AC31CA2C7F4004748ED /* nImOatom.cpp */,

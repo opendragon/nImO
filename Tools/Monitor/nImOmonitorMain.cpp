@@ -126,10 +126,10 @@ using SpReceivedData = std::shared_ptr<ReceivedData>;
 static std::deque<SpReceivedData>   lReceivedData;
 
 /*! @brief Used to protect lReceivedValues. */
-static boost::mutex lReceivedLock;
+static std::mutex lReceivedLock;
 
 /*! @brief Used to indicate that lReceivedValues is ready to use. */
-static boost::condition_variable    lReceivedCondition;
+static std::condition_variable    lReceivedCondition;
 
 /*! @brief A class to handle receiving messages. */
 class ReceiveOnLoggingPort final
@@ -206,7 +206,7 @@ class ReceiveOnLoggingPort final
                                                                                                                senderAddress)};
 
                                                        {
-                                                           boost::lock_guard<boost::mutex>  lock(lReceivedLock);
+                                                           std::lock_guard<std::mutex>  lock(lReceivedLock);
 
                                                            lReceivedData.push_back(newData);
                                                        }
@@ -305,6 +305,7 @@ main
     nImO::OutputFlavour     flavour;
     bool                    logging = false; // We will create the logging port used by other applications
     std::string             configFilePath;
+    int                     exitCode = 0;
 
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
@@ -328,7 +329,7 @@ main
 
                 {
                     // Check for messages.
-                    boost::unique_lock<boost::mutex>    lock(lReceivedLock);
+                    std::unique_lock<std::mutex>    lock(lReceivedLock);
 
                     while (lKeepRunning && (0 == lReceivedData.size()))
                     {
@@ -492,8 +493,9 @@ main
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

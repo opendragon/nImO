@@ -221,6 +221,62 @@ make_unique
 
 using namespace boost;
 
+# define UnaryAndBinaryOperators(Type_) \
+inline constexpr Type_ \
+operator~\
+    (const Type_ rightValue)\
+{\
+    return StaticCast(Type_, ~ toUType(rightValue));\
+}\
+\
+inline constexpr Type_ \
+operator|\
+    (const Type_ leftValue,\
+     const Type_ rightValue)\
+{\
+    return StaticCast(Type_, toUType(leftValue) | toUType(rightValue));\
+}\
+\
+inline constexpr Type_ \
+operator|\
+    (const Type_ leftValue,\
+     const uint8_t  rightValue)\
+{\
+    return StaticCast(Type_, toUType(leftValue) | rightValue);\
+}\
+\
+inline constexpr Type_ \
+operator|\
+    (const uint8_t  leftValue,\
+     const Type_ rightValue)\
+{\
+    return StaticCast(Type_, leftValue | toUType(rightValue));\
+}\
+\
+inline constexpr Type_ \
+operator&\
+    (const Type_ leftValue,\
+     const Type_ rightValue)\
+{\
+    return StaticCast(Type_, toUType(leftValue) & toUType(rightValue));\
+}\
+\
+inline constexpr Type_ \
+operator&\
+    (const Type_ leftValue,\
+     const uint8_t  rightValue)\
+{\
+    return StaticCast(Type_, toUType(leftValue) & rightValue);\
+}\
+\
+inline constexpr Type_ \
+operator&\
+    (const uint8_t  leftValue,\
+     const Type_ rightValue)\
+{\
+    return StaticCast(Type_, leftValue & toUType(rightValue));\
+}
+
 namespace nImO
 {
     // Forward declarations.
@@ -420,16 +476,16 @@ namespace nImO
                 OtherMessageExpectedOtherValue = 0x0003,
 
         /*! @brief The mask for detecting the start or end of a Message. */
-        StartOfMessageMask = Other | OtherMessage | OtherMessageStartEndMask,
+        StartOfMessageMask = (Other | OtherMessage | OtherMessageStartEndMask),
 
         /*! @brief The value for the start of a Message. */
-        StartOfMessageValue = Other | OtherMessage | OtherMessageStartValue,
+        StartOfMessageValue = (Other | OtherMessage | OtherMessageStartValue),
 
         /*! @brief The value for the start of a Message. */
-        EndOfMessageValue = Other | OtherMessage | OtherMessageEndValue,
+        EndOfMessageValue = (Other | OtherMessage | OtherMessageEndValue),
 
         /*! @brief A value that will not normally appear in a Message. */
-        EscapeValue = Other | OtherContainerStart | OtherContainerTypeReserved
+        EscapeValue = (Other | OtherContainerStart | OtherContainerTypeReserved)
 
     }; // DataKind
 
@@ -808,87 +864,7 @@ namespace nImO
     NameOfSignal
         (const int  theSignal);
 
-    /*! @brief Complement a DataKind value.
-     @param[in] rightValue The value to be inverted.
-     @return The result of the inversion of the value. */
-    inline constexpr DataKind
-    operator~
-        (const DataKind rightValue)
-    {
-        return StaticCast(DataKind, ~ toUType(rightValue));
-    }
-
-    /*! @brief Merge two DataKind values together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @return The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator|
-        (const DataKind leftValue,
-         const DataKind rightValue)
-    {
-        return StaticCast(DataKind, toUType(leftValue) | toUType(rightValue));
-    }
-
-    /*! @brief Merge a DataKind value and an unsigned byte together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @return The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator|
-        (const DataKind leftValue,
-         const uint8_t  rightValue)
-    {
-        return StaticCast(DataKind, toUType(leftValue) | rightValue);
-    }
-
-    /*! @brief Merge a DataKind value and an unsigned byte together.
-     @param[in] leftValue The first value to be merged.
-     @param[in] rightValue The second value to be merged.
-     @return The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator|
-        (const uint8_t  leftValue,
-         const DataKind rightValue)
-    {
-        return StaticCast(DataKind, leftValue | toUType(rightValue));
-    }
-
-      /*! @brief Merge two DataKind values together.
-      @param[in] leftValue The first value to be merged.
-      @param[in] rightValue The second value to be merged.
-      @return The result of the bit-wise merge of the two values. */
-    inline constexpr DataKind
-    operator&
-        (const DataKind leftValue,
-         const DataKind rightValue)
-    {
-        return StaticCast(DataKind, toUType(leftValue) & toUType(rightValue));
-    }
-
-      /*! @brief Mask an unsigned byte with a DataKind mask.
-     @param[in] leftValue The first value to be combined.
-     @param[in] rightValue The second value to be combined.
-     @return The result of the bit-wise masking of the two values. */
-    inline constexpr DataKind
-    operator&
-        (const DataKind leftValue,
-         const uint8_t  rightValue)
-    {
-        return StaticCast(DataKind, toUType(leftValue) & rightValue);
-    }
-
-    /*! @brief Mask an unsigned byte with a DataKind mask.
-     @param[in] leftValue The first value to be combined.
-     @param[in] rightValue The second value to be combined.
-     @return The result of the bit-wise masking of the two values. */
-    inline constexpr DataKind
-    operator&
-        (const uint8_t  leftValue,
-         const DataKind rightValue)
-    {
-        return StaticCast(DataKind, leftValue & toUType(rightValue));
-    }
+    UnaryAndBinaryOperators(DataKind)
 
     /*! @brief Write out a (possibly multi-line) description.
      @param[in,out] outStream The stream to write to.

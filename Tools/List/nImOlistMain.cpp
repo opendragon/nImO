@@ -165,6 +165,7 @@ main
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
     std::string                     configFilePath;
+    int                             exitCode = 0;
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
@@ -176,36 +177,51 @@ main
         try
         {
             nImO::UtilityContext    ourContext{progName, "list", logging};
-            std::string             choice{firstArg.getCurrentValue()};
-            auto                    match{lChoiceMap.find(choice)};
 
-            if (match != lChoiceMap.end())
+            if (ourContext.findRegistry())
             {
-                switch (match->second._choice)
+                std::string choice{firstArg.getCurrentValue()};
+                auto        match{lChoiceMap.find(choice)};
+
+                if (match != lChoiceMap.end())
                 {
-                    case E_choice::kApps :
-                        break;
+                    switch (match->second._choice)
+                    {
+                        case E_choice::kApps :
+                            // TBD
+                            break;
 
-                    case E_choice::kChan :
-                        break;
+                        case E_choice::kChan :
+                            // TBD
+                            break;
 
-                    case E_choice::kConn :
-                        break;
+                        case E_choice::kConn :
+                            // TBD
+                            break;
 
-                    case E_choice::kServ :
-                        break;
+                        case E_choice::kServ :
+                            // TBD
+                            break;
 
-                    case E_choice::kAll :
-                        break;
+                        case E_choice::kAll :
+                            // TBD
+                            break;
 
+                    }
                 }
+            }
+            else
+            {
+                ourContext.report("Registry not found.");
+                exitCode = 2;
             }
         }
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

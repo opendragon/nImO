@@ -115,7 +115,7 @@ doTestCreateContextWithMDNS
     try
     {
         BlockRegistryLaunch();
-        ContextWithMDNS aContext("", "", false);
+        ContextWithMDNS aContext{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -124,6 +124,7 @@ doTestCreateContextWithMDNS
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -147,7 +148,7 @@ doTestCreateContextWithNetworking
 
     try
     {
-        ContextWithNetworking   aContext("", "", false);
+        ContextWithNetworking   aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         result = 0;
@@ -179,7 +180,7 @@ doTestCreateFilterContext
     try
     {
         BlockRegistryLaunch();
-        FilterContext   aContext("", "", false);
+        FilterContext   aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -188,6 +189,7 @@ doTestCreateFilterContext
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -243,7 +245,7 @@ doTestCreateServiceContext
     try
     {
         BlockRegistryLaunch();
-        ServiceContext  aContext("", "", false);
+        ServiceContext  aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -252,6 +254,7 @@ doTestCreateServiceContext
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -276,7 +279,7 @@ doTestCreateSinkContext
     try
     {
         BlockRegistryLaunch();
-        SinkContext aContext("", "", false);
+        SinkContext aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -285,6 +288,7 @@ doTestCreateSinkContext
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -309,7 +313,7 @@ doTestCreateSourceContext
     try
     {
         BlockRegistryLaunch();
-        SourceContext   aContext("", "", false);
+        SourceContext   aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -318,6 +322,7 @@ doTestCreateSourceContext
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -373,7 +378,7 @@ doTestCreateUtilityContext
     try
     {
         BlockRegistryLaunch();
-        UtilityContext  aContext("", "", false);
+        UtilityContext  aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         UnblockRegistryLaunch();
@@ -382,6 +387,7 @@ doTestCreateUtilityContext
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -405,25 +411,29 @@ doTestCreateTwoContexts
 
     try
     {
-        UtilityContext  aContext1("", "", false);
+        BlockRegistryLaunch();
+        UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2("", "", false);
+            UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
+            UnblockRegistryLaunch();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
+            UnblockRegistryLaunch();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
+        UnblockRegistryLaunch();
         throw;
     }
     ODL_EXIT_I(result); //####

@@ -99,6 +99,7 @@ main
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
     std::string                     configFilePath;
+    int                             exitCode = 0;
 
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
@@ -109,14 +110,24 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::FilterContext ourContext(progName, "Junction", logging);
+            nImO::FilterContext ourContext{progName, "Junction", logging};
 
+            if (ourContext.findRegistry())
+            {
+                // TBD
+            }
+            else
+            {
+                ourContext.report("Registry not found.");
+                exitCode = 2;
+            }
         }
         catch (...)
         {
             ODL_LOG("Exception caught"); //####
+            exitCode = -1;
         }
     }
-    ODL_EXIT_I(0); //####
-    return 0;
+    ODL_EXIT_I(exitCode); //####
+    return exitCode;
 } // main

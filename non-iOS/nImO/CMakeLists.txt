@@ -55,6 +55,7 @@ endif()
 add_library(${THIS_TARGET}
             "${DO_SHARED}"
             "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp"
             "${THIS_SOURCE_DIR}/nImOarray.cpp"
             "${THIS_SOURCE_DIR}/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp"
@@ -133,6 +134,7 @@ install(TARGETS ${THIS_TARGET}
 
 install(FILES
         "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImOannounceServiceData.h"
         "${THIS_SOURCE_DIR}/nImOarray.h"
         "${THIS_SOURCE_DIR}/nImOatom.h"
         "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h"
@@ -191,6 +193,7 @@ install(FILES
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES ${THIS_SOURCE_DIR}/swig_nImO_in/nImOcommon.i
         ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp ${THIS_SOURCE_DIR}/nImOannounceServiceData.h
         ${THIS_SOURCE_DIR}/nImOarray.cpp ${THIS_SOURCE_DIR}/nImOarray.h
         ${THIS_SOURCE_DIR}/nImOatom.cpp ${THIS_SOURCE_DIR}/nImOatom.h
         ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h

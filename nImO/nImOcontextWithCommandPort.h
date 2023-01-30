@@ -79,9 +79,21 @@ namespace nImO
             ~ContextWithCommandPort
                 (void);
 
+            /*! @brief Remove a session from the set of known sessions.
+             @param[in] aSession The session to remove. */
             void
             forgetSession
                 (Ptr(CommandSession)    aSession);
+
+            /*! @brief Returns the port number for the command port.
+             @return The port number of the command port. */
+            inline uint16_t
+            getCommandPort
+                (void)
+                const
+            {
+                return _commandPort;
+            }
 
         protected :
             // Protected methods.
@@ -90,11 +102,13 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
+             @param[in] whichThreads Which threads, if any, to start.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithCommandPort
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
+                 const ThreadMode       whichThreads,
                  const std::string &    nodeName = "");
 
         private :

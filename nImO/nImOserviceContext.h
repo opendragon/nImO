@@ -77,11 +77,13 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
+             @param[in] whichThreads Which threads, if any, to start.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
                 (const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
+                 const ThreadMode       whichThreads = ThreadMode::LaunchBrowser,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */

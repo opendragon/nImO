@@ -159,6 +159,9 @@ namespace nImO
             /*! @brief The active logger. */
             Ptr(Logger) _logger;
 
+            /*! @brief Mutex to protect against simultaneous access to the logger. */
+            mutable std::mutex  _loggerLock;
+
 # if (! MAC_OR_LINUX_)
             /*! @brief Required for Windows networking. */
             WSADATA _wsaData;

@@ -81,15 +81,17 @@ nImO::UtilityContext::UtilityContext
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, nodeName)
+        inherited(executableName, tag, logging, ThreadMode::LaunchBrowser, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
     try
     {
-        launchRegistryIfNotActive();
-        gatherAnnouncements();
+        if (launchRegistryIfNotActive())
+        {
+            // TBD
+        }
     }
     catch (...)
     {

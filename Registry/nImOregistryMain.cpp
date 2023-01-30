@@ -138,7 +138,8 @@ main
         {
             nImO::BlockRegistryLaunch();
             nImO::ServiceContext    ourContext{progName, "registry", logging,
-                                                nImO::ServiceContext::ThreadMode::LaunchAnnouncer};
+                                                nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
+                                                    nImO::ServiceContext::ThreadMode::LaunchBrowser};
 
             if (ourContext.findRegistry())
             {

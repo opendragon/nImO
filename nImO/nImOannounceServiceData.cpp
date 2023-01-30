@@ -114,8 +114,9 @@ nImO::AnnounceServiceData::~AnnounceServiceData
 #endif // defined(__APPLE__)
 
 bool
-nImO::AnnounceServiceData::setServiceAndHostName
-    (const std::string &    serviceName,
+nImO::AnnounceServiceData::setServiceData
+    (const uint16_t         port,
+     const std::string &    serviceName,
      const std::string &    hostName,
      const std::string &    dataKey,
      const std::string &    hostAddress)
@@ -126,6 +127,7 @@ nImO::AnnounceServiceData::setServiceAndHostName
 
     if ((0 < serviceNameLength) && (0 < hostNameLength))
     {
+        _port = port;
         _serviceNameBuffer = StaticCast(Ptr(char), malloc(serviceNameLength + 2));
         memcpy(_serviceNameBuffer, serviceName.c_str(), serviceNameLength);
         if (_serviceNameBuffer[serviceNameLength - 1] != '.')

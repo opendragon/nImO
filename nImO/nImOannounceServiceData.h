@@ -93,14 +93,16 @@ namespace nImO
                 (void);
 
             /*! @brief Set up the service and host name fields.
+             @param[in] port The port number to use.
              @param[in] serviceName The name of the service being announced.
              @param[in] hostName The name of the computer.
              @param[in] dataKey The key for the instance-specific data.
              @param[in] hostAddress The IP address of the service.
              @return @c true if the mDNS announcement was constructed. */
             bool
-            setServiceAndHostName
-                (const std::string &    serviceName,
+            setServiceData
+                (const uint16_t         port,
+                 const std::string &    serviceName,
                  const std::string &    hostName,
                  const std::string &    dataKey,
                  const std::string &    hostAddress);

@@ -237,6 +237,11 @@ namespace nImO
     BlockRegistryLaunch
         (void);
 
+    /*! @brief Convert an IP address to an MDNS string.
+     @param[in,out] buffer Temporary buffer to use for conversion.
+     @param[in] capacity The size of the temporary buffer.
+     @param[in] addr The address to convert.
+     @param[in] addrLen The size of the address. */
     mDNS::string_t
     IpAddressToString
         (Ptr(char)                  buffer,
@@ -244,6 +249,11 @@ namespace nImO
          const struct sockaddr &    addr,
          const size_t               addrLen);
 
+    /*! @brief Convert an IPv4 address to an MDNS string.
+     @param[in,out] buffer Temporary buffer to use for conversion.
+     @param[in] capacity The size of the temporary buffer.
+     @param[in] addr The address to convert.
+     @param[in] addrLen The size of the address. */
     mDNS::string_t
     Ipv4AddressToString
         (Ptr(char)                  buffer,
@@ -251,6 +261,11 @@ namespace nImO
          const struct sockaddr_in & addr,
          const size_t               addrLen);
 
+    /*! @brief Convert an IPv6 address to an MDNS string.
+     @param[in,out] buffer Temporary buffer to use for conversion.
+     @param[in] capacity The size of the temporary buffer.
+     @param[in] addr The address to convert.
+     @param[in] addrLen The size of the address. */
     mDNS::string_t
     Ipv6AddressToString
         (Ptr(char)                      buffer,

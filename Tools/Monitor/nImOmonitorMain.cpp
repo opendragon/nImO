@@ -153,7 +153,7 @@ class ReceiveOnLoggingPort final
          @param[in] port The port to listen on. */
         ReceiveOnLoggingPort
             (nImO::SPservice        service,
-             boost::atomic<bool> &  runFlag,
+             std::atomic<bool> &    runFlag,
              const uint32_t         address,
              const uint16_t         port) :
                 _runFlag(runFlag), _socket(*service)
@@ -229,7 +229,7 @@ class ReceiveOnLoggingPort final
         // Private fields.
 
         /*! @brief A reference to the 'keep going' flag. */
-        boost::atomic<bool> &   _runFlag;
+        std::atomic<bool> & _runFlag;
 
         /*! @brief The socket for a multicast reception. */
         asio::ip::udp::socket   _socket;
@@ -243,7 +243,7 @@ class ReceiveOnLoggingPort final
 }; // ReceiveOnLoggingPort
 
 /*! @brief Set to @false when a SIGINT occurs. */
-static boost::atomic<bool>  lKeepRunning(true);
+static std::atomic<bool>    lKeepRunning(true);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

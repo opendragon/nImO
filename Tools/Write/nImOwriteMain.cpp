@@ -66,7 +66,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Set to @0 when a SIGINT occurs. */
-static boost::atomic<bool>  lKeepRunning(true);
+static std::atomic<bool>    lKeepRunning(true);
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

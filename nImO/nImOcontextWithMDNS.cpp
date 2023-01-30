@@ -85,10 +85,10 @@ static struct sockaddr_in   lServiceAddressIpv4;
 static struct sockaddr_in6  lServiceAddressIpv6;
 
 /*! @brief Set to @c true to cause the announcer thread to terminate. */
-static boost::atomic<bool>  lAnnouncerThreadStop;
+static std::atomic<bool>    lAnnouncerThreadStop;
 
 /*! @brief Set to @c true to cause the browser thread to terminate. */
-static boost::atomic<bool>  lBrowserThreadStop;
+static std::atomic<bool>    lBrowserThreadStop;
 
 /*! @brief The buffer used to record the name from a mDNS request. */
 static char    lNameBuffer[256];

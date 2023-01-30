@@ -148,7 +148,7 @@ namespace nImO
             uint16_t    _commandPort;
 
             /*! @brief Set to @c false to stop asynchronous operations. */
-            boost::atomic<bool> _keepGoing;
+            std::atomic<bool>   _keepGoing;
 
             /*! @brief The active sessions. */
             std::set<Ptr(CommandSession)>   _sessions;

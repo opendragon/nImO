@@ -71,6 +71,7 @@ namespace nImO
 {
     // Forward references
     class AnnounceServiceData;
+    class RecordHandler;
 
     /*! @brief A class to provide support for an application that uses mDNS. */
     class ContextWithMDNS : public ContextWithNetworking
@@ -104,6 +105,8 @@ namespace nImO
 
             /*! @brief The class that this class is derived from. */
             using inherited = ContextWithNetworking;
+
+            friend class RecordHandler;
 
         public :
             // Public methods.
@@ -163,11 +166,6 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Collect announcements via mDNS. */
-            void
-            gatherAnnouncements
-                (void);
-
             /*! @brief Check if the Registry service is running and launch it if it isn't.
              @return @c true if the Registry was located or launched. */
             bool
@@ -204,19 +202,14 @@ namespace nImO
             executeBrowser
                 (ContextWithMDNS &  owner);
 
+            /*! @brief Collect announcements via mDNS. */
+            void
+            gatherAnnouncements
+                (void);
+
             /*! @brief Create the sockets to be used. */
             void
             openSockets
-                (void);
-
-            /*! @brief Start the announce and browse threads. */
-            void
-            setUpThreads
-                (void);
-
-            /*! @brief Stop the announce and browse threads. */
-            void
-            shutDownThreads
                 (void);
 
         public :
@@ -228,8 +221,14 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief Set to @c true to initiate a new scan of announcements. */
+            std::atomic<bool>   _requestNewScan;
+
+            /*! @brief The active query identifiers. */
+            int _queryId[8];
+
             /*! @brief The sockets to use. */
-            int _sockets[4];
+            int _sockets[8];
 
             /*! @brief The number of sockets in use. */
             int _numSockets;
@@ -242,6 +241,21 @@ namespace nImO
 
             /*! @brief The buffer to be used for MDNS I/O operations. */
             Ptr(char)   _buffer;
+
+            /*! @brief The identifying tag for the Registry process. */
+            std::string _registryTag;
+
+            /*! @brief The IP port for connections to the Registry process. */
+            uint16_t    _registryPort;
+
+            /*! @brief The preferred address for connections to the Registry process. */
+            std::string _registryPreferredAddress;
+
+            /*! @brief Set to @c true when the Registry has reported its address. */
+            std::atomic<bool>   _haveAddress;
+
+            /*! @brief Set to @c true when the Registry has reported its port. */
+            std::atomic<bool>   _havePort;
 
     }; // ContextWithMDNS
 
@@ -287,6 +301,12 @@ namespace nImO
          const size_t                   capacity,
          const struct sockaddr_in6 &    addr,
          const size_t                   addrLen);
+
+    /*! @brief Convert an MDNS string to a standard string.
+     @param[in] inString The MDNS string to be converted.
+     @return A standard string with the contents of the MDNS string. */
+    std::string MdnsStringToString
+        (const mDNS::string_t & inString);
 
     /*! @brief Unblock the launching of the Registry program - used with the test programs. */
     void

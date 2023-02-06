@@ -68,11 +68,17 @@ static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
 /*! @brief The port to be used for logging, if none is specified in the configuration file. */
 static uint16_t kDefaultLogPort = 1954;
 
+/*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
+static int kDefaultRegistryTimeout = 5;
+
 /*! @brief The key for the logger address in the configuration file. */
 static std::string  kAddressKey = "logger address";
 
 /*! @brief The key for the logger port in the configuration file. */
 static std::string  kPortKey = "logger port";
+
+/*! @brief The key for the maximum number of seconds to watch for a running Registry. */
+static std::string  kRegistryTimeoutKey = "registry search timeout";
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -191,6 +197,34 @@ nImO::ContextWithNetworking::ContextWithNetworking
             std::lock_guard<std::mutex> loggerGuard(_loggerLock);
 
             _logger = new Logger(getService(), tag, _logAddress, _logPort);
+        }
+        retValue = GetConfiguredValue(kRegistryTimeoutKey);
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue(*retValue);
+            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+
+            if (nullptr == asInteger)
+            {
+                _registrySearchTimeout = kDefaultRegistryTimeout;
+            }
+            else
+            {
+                int tempValue = asInteger->GetValue();
+
+                if (0 < tempValue)
+                {
+                    _registrySearchTimeout = tempValue;
+                }
+                else
+                {
+                    _logPort = kDefaultRegistryTimeout;
+                }
+            }
+        }
+        else
+        {
+            _registrySearchTimeout = kDefaultRegistryTimeout;
         }
     }
     catch (...)

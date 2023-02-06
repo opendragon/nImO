@@ -1,4 +1,5 @@
 {
 "logger address" : @239.55.12.17, // This is a local multicast address
-"logger port" : 2261 # this should parse fine
+"logger port" : 2261, # this should parse fine
+"registry search timeout" : 10
 }

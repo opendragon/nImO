@@ -124,7 +124,7 @@ nImO::ContextWithCommandPort::createCommandPort
 
     _acceptor.async_accept(newSession->getSocket(),
                            [this, newSession]
-                           (const system::error_code  ec)
+                           (const boost::system::error_code  ec)
                            {
                                handleAccept(newSession, ec);
                            });
@@ -150,8 +150,8 @@ nImO::ContextWithCommandPort::destroyCommandPort
 
 void
 nImO::ContextWithCommandPort::handleAccept
-    (Ptr(CommandSession)                newSession,
-     const boost::system::error_code &  error)
+    (Ptr(CommandSession)        newSession,
+     const system::error_code & error)
 {
     ODL_OBJENTER(); //####
     bool    releaseSession;

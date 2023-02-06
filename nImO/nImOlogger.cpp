@@ -213,8 +213,8 @@ nImO::Logger::report
                 // send the encoded message to the logging ports
                 _socket.async_send_to(asio::buffer(*outString), _endpoint,
                                       [outString]
-                                      (const system::error_code /*ec*/,
-                                       const std::size_t        /*length*/)
+                                      (const system::error_code NIMO_UNUSED_PARAM_(ec),
+                                       const std::size_t        NIMO_UNUSED_PARAM_(length))
                                       {
                                       });
                 okSoFar = true;

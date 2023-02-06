@@ -129,6 +129,15 @@ namespace nImO
         protected :
             // Protected methods.
 
+            /*! @brief Return the number of seconds allowed for the search for an active Registry. */
+            inline int
+            getRegistrySearchTimeout
+                (void)
+                const
+            {
+                return _registrySearchTimeout;
+            }
+
         private :
             // Private methods.
 
@@ -161,6 +170,9 @@ namespace nImO
 
             /*! @brief Mutex to protect against simultaneous access to the logger. */
             mutable std::mutex  _loggerLock;
+
+            /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
+            int _registrySearchTimeout;
 
 # if (! MAC_OR_LINUX_)
             /*! @brief Required for Windows networking. */

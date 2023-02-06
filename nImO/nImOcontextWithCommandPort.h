@@ -129,8 +129,8 @@ namespace nImO
              @param[in] error The error status of the request. */
             void
             handleAccept
-                (Ptr(CommandSession)                newSession,
-                 const boost::system::error_code &  error);
+                (Ptr(CommandSession)        newSession,
+                 const system::error_code & error);
 
         public :
             // Public fields.

@@ -242,7 +242,7 @@ class ReceiveOnLoggingPort final
 
 }; // ReceiveOnLoggingPort
 
-/*! @brief Set to @false when a SIGINT occurs. */
+/*! @brief Set to @c false when a SIGINT occurs. */
 static std::atomic<bool>    lKeepRunning(true);
 
 #if defined(__APPLE__)

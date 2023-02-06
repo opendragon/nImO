@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOregistryPortal.h
+//  File:       nImO/nImOregistryProxy.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the interface to nImO registries.
+//  Contains:   The class definition for access to nImO registries.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,72 +36,68 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOregistryPortal_H_))
-# define nImOregistryPortal_H_ /* Header guard */
+#include "nImOregistryProxy.h"
 
-# include <nImOcommon.h>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO registries. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+ @brief The class definition for access to %nImO registries. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-namespace nImO
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::RegistryProxy::RegistryProxy
+    (ContextWithNetworking &    context,
+     const std::string &        address,
+     const uint16_t             port) :
+        _context(context), _address(address), _port(port)
 {
-    /*! @brief A class to provide access to the Registry. */
-    class RegistryPortal final
-    {
+    ODL_ENTER(); //####
+    _context.report("Registry found at " + _address + ":" + std::to_string(_port) + ".");
+    ODL_EXIT_P(this); //####
+} // nImO::RegistryProxy::RegistryProxy
 
-        public :
-            // Public type definitions.
+nImO::RegistryProxy::~RegistryProxy
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::RegistryProxy::~~RegistryProxy
 
-        protected :
-            // Protected type definitions.
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-        private :
-            // Private type definitions.
-
-        public :
-            // Public methods.
-
-            /*! @brief The constructor. */
-            RegistryPortal
-                (void);
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            RegistryPortal
-                (RegistryPortal &&  other)
-                noexcept;
-
-            /*! @brief The destructor. */
-            virtual
-            ~RegistryPortal
-                (void);
-
-        protected :
-            // Protected methods.
-
-        private :
-            // Private methods.
-
-        public :
-            // Public fields.
-
-        protected :
-            // Protected fields.
-
-        private :
-            // Private fields.
-
-    }; // Registry
-
-} // nImO
-
-#endif // not defined(nImOregistryPortal_H_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

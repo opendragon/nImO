@@ -64,7 +64,7 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Set to @false when a SIGINT occurs. */
+/*! @brief Set to @c false when a SIGINT occurs. */
 static std::atomic<bool>    lKeepRunning(true);
 
 #if defined(__APPLE__)
@@ -141,13 +141,13 @@ main
                                                 nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
                                                     nImO::ServiceContext::ThreadMode::LaunchBrowser};
 
+            nImO::SetSignalHandlers(catchSignal);
             if (ourContext.findRegistry())
             {
                 ourContext.report("Registry already running.");
             }
             else
             {
-                nImO::SetSignalHandlers(catchSignal);
                 if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                     nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                 {

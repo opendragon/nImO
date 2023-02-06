@@ -685,12 +685,15 @@ nImO::ContextWithMDNS::executeBrowser
 
 bool
 nImO::ContextWithMDNS::findRegistry
-    (void)
+    (std::string &  address,
+     uint16_t &     port)
 {
     ODL_OBJENTER(); //####
     bool    found = false;
 
     //TBD
+address = "";
+port = 0;
     ODL_OBJEXIT_B(found); //####
     return found;
 } // nImO::ContextWithMDNS::findRegistry

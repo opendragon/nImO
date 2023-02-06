@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include "nImOregistryProxy.h"
 #include <nImOstringsArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
@@ -64,32 +65,53 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-enum class E_choice
-{
-    kApps,
-    kChan,
-    kConn,
-    kServ,
-    kAll
-}; // E_choice
+/*! @brief Set to @c false when a SIGINT occurs. */
+static std::atomic<bool>    lKeepRunning(true);
 
-struct T_choiceInfo
+/*! @brief The available choices. */
+enum class Choice
 {
-    E_choice    _choice;
+    /*! @brief Return information on the known applications. */
+    kApps,
+
+    /*! @brief Return information on the known channels. */
+    kChan,
+
+    /*! @brief Return information on the known connections. */
+    kConn,
+
+    /*! @brief Return information on the known services. */
+    kServ,
+
+    /*! @brief Return information on the known applications, channels, connections and services. */
+    kAll
+
+}; // Choice
+
+/*! @brief Convenience structure for choices. */
+struct ChoiceInfo
+{
+    /*! @brief A particular choice. */
+    Choice  _choice;
+
+    /*! @brief The description of the choice. */
     std::string _description;
 
-    T_choiceInfo
-        (const E_choice         choice,
+    /*! @brief The constructor.
+     @param[in] choice The choice value associated with the description.
+     @param[in] description The text describing the choice. */
+    ChoiceInfo
+        (const Choice           choice,
          const std::string &    description) :
             _choice(choice), _description(description)
     {
     }
 
-}; // T_choiceInfo
+}; // ChoiceInfo
 
-typedef std::map<std::string, T_choiceInfo> T_choiceMap;
+typedef std::map<std::string, ChoiceInfo> ChoiceMap;
 
-static T_choiceMap  lChoiceMap;
+static ChoiceMap  lChoiceMap;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -99,15 +121,41 @@ static T_choiceMap  lChoiceMap;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief The signal handler to catch requests to stop the application.
+ @param[in] signal The signal being handled. */
+static void
+catchSignal
+    (int signal)
+{
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
+#if defined(SIGINT)
+    if (SIGINT == signal)
+    {
+        lKeepRunning = false;
+    }
+    else
+#endif // defined(SIGINT)
+    {
+        std::string message{"Exiting due to signal "};
+
+        message += std::to_string(signal);
+        message += " = ";
+        message += nImO::NameOfSignal(signal);
+        ODL_EXIT_EXIT(1); //####
+        exit(1);
+    }
+} // catchSignal
+
 /*! @brief Writes out a description of the 'choice' argument.
  @param[in,out] outStream The stream to write to. */
 static void
 helpForList
     (std::ostream & outStream)
 {
-    outStream << "Available choices:" << std::endl;
     size_t  choiceWidth = 0;
 
+    outStream << "Available choices:" << std::endl;
     for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
         size_t  thisWidth = walker->first.length();
@@ -148,11 +196,11 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    lChoiceMap.insert({"apps", T_choiceInfo{E_choice::kApps, "available applications"}});
-    lChoiceMap.insert({"chan", T_choiceInfo{E_choice::kChan, "available channels"}});
-    lChoiceMap.insert({"conn", T_choiceInfo{E_choice::kConn, "active connections"}});
-    lChoiceMap.insert({"serv", T_choiceInfo{E_choice::kServ, "active services"}});
-    lChoiceMap.insert({"all", T_choiceInfo{E_choice::kAll, "all"}});
+    lChoiceMap.insert({"apps", ChoiceInfo{Choice::kApps, "available applications"}});
+    lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});
+    lChoiceMap.insert({"conn", ChoiceInfo{Choice::kConn, "active connections"}});
+    lChoiceMap.insert({"serv", ChoiceInfo{Choice::kServ, "active services"}});
+    lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
     nImO::StringSet choiceSet;
 
     for (auto & walker : lChoiceMap)
@@ -177,33 +225,38 @@ main
         try
         {
             nImO::UtilityContext    ourContext{progName, "list", logging};
+            std::string             registryAddress;
+            uint16_t                registryPort;
 
-            if (ourContext.findRegistry())
+            nImO::SetSignalHandlers(catchSignal);
+            if (ourContext.findRegistry(registryAddress, registryPort))
             {
                 std::string choice{firstArg.getCurrentValue()};
                 auto        match{lChoiceMap.find(choice)};
 
                 if (match != lChoiceMap.end())
                 {
+                    nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+
                     switch (match->second._choice)
                     {
-                        case E_choice::kApps :
+                        case Choice::kApps :
                             // TBD
                             break;
 
-                        case E_choice::kChan :
+                        case Choice::kChan :
                             // TBD
                             break;
 
-                        case E_choice::kConn :
+                        case Choice::kConn :
                             // TBD
                             break;
 
-                        case E_choice::kServ :
+                        case Choice::kServ :
                             // TBD
                             break;
 
-                        case E_choice::kAll :
+                        case Choice::kAll :
                             // TBD
                             break;
 

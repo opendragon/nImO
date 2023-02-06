@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOchannelArgumentDescriptor.h>
+#include "nImOregistryProxy.h"
 #include <nImOsourceContext.h>
 #include <nImOstringArgumentDescriptor.h>
 
@@ -65,7 +66,7 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Set to @0 when a SIGINT occurs. */
+/*! @brief Set to @c false when a SIGINT occurs. */
 static std::atomic<bool>    lKeepRunning(true);
 
 #if defined(__APPLE__)
@@ -142,12 +143,16 @@ main
         try
         {
             nImO::SourceContext ourContext{progName, "write", logging, secondArg.getCurrentValue()};
+            std::string         registryAddress;
+            uint16_t            registryPort;
 
-            if (ourContext.findRegistry())
+            nImO::SetSignalHandlers(catchSignal);
+            if (ourContext.findRegistry(registryAddress, registryPort))
             {
-                nImO::SetSignalHandlers(catchSignal);
+                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+
                 // Open a nImO channel to collect messages.
-                // Wait for messages until exit requested via Ctrl-C.
+                // Wait for messages until exit requested via Ctrl-C or a shutdown command is received.
                 for ( ; lKeepRunning; )
                 {
                     // TBD

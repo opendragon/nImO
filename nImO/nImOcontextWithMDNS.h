@@ -126,11 +126,26 @@ namespace nImO
             ~ContextWithMDNS
                 (void);
 
-            /*! @brief Find Registry if already running.
+            /*! @brief Find the Registry if it's running.
+             @param[out] address The IP address of the Registry, if found.
+             @param[out] port The IP port of the Registry, if found.
              @return @c true if the Registry is located. */
             bool
             findRegistry
-                (void);
+                (std::string &  address,
+                 uint16_t &     port);
+
+            /*! @brief Find the Registry if it's running.
+             @return @c true if the Registry is located. */
+            inline bool
+            findRegistry
+                (void)
+            {
+                std::string ignoredAddress;
+                uint16_t    ignoredPort;
+
+                return findRegistry(ignoredAddress, ignoredPort);
+            }
 
             /*! @brief Send a port announcement via mDNS.
              @param[in] port The port number being announced.

@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontext.h
+//  File:       nImO/nImOregistryProxy.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO execution context.
+//  Contains:   The class declaration for the interface to nImO registries.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2023-01-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontext_H_))
-# define nImOcontext_H_ /* Header guard */
+#if (! defined(nImOregistryProxy_H_))
+# define nImOregistryProxy_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOcontextWithNetworking.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,42 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO execution context. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
-
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# endif // defined(__APPLE__)
-# include <boost/asio.hpp>
-# include <boost/asio/read_until.hpp>
-# include <boost/bind/bind.hpp>
-# include <boost/shared_array.hpp>
-# include <boost/thread.hpp>
-# include <boost/thread/locks.hpp>
+ @brief The class declaration for %nImO registries. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-
-    /*! @brief A holder for a shared pointer to an Asio service . */
-    typedef std::shared_ptr<asio::io_service>       SPservice;
-
-    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
-    typedef std::shared_ptr<asio::ip::tcp::socket>  SPsocketTCP;
-
-    /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
-    typedef std::shared_ptr<asio::ip::udp::socket>  SPsocketUDP;
-
-    /*! @brief A holder for a shared pointer to an Asio 'work' placeholder. */
-    typedef std::unique_ptr<asio::io_service::work> UPwork;
-
-    /*! @brief A class to provide binary data with unknown structure. */
-    class Context
+    /*! @brief A class to provide access to the Registry. */
+    class RegistryProxy final
     {
 
         public :
@@ -97,55 +70,48 @@ namespace nImO
         public :
             // Public methods.
 
+            /*! @brief The constructor.
+             @param[in] context The application context to use.
+             @param[in] address The IP address of the Registry.
+             @param[in] port The IP port of the Registry. */
+            RegistryProxy
+                (ContextWithNetworking &    context,
+                 const std::string &        address,
+                 const uint16_t             port);
+
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            Context
-                (const Context &  other) = delete;
+            RegistryProxy
+                (const RegistryProxy &  other) = delete;
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            Context
-                (Context &&  other)
+            RegistryProxy
+                (RegistryProxy &&  other)
                 noexcept = delete;
 
             /*! @brief The destructor. */
             virtual
-            ~Context
+            ~RegistryProxy
                 (void);
-
-            /*! @brief Return the I/O service.
-             @return The I/O service. */
-            inline SPservice
-            getService
-                (void)
-            {
-                return _service;
-            }
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            Context &
+            RegistryProxy &
             operator=
-                (const Context &  other) = delete;
+                (const RegistryProxy &  other) = delete;
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            Context &
+            RegistryProxy &
             operator=
-                (Context &&  other)
+                (RegistryProxy &&   other)
                 noexcept = delete;
 
         protected :
             // Protected methods.
-
-            /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
-            Context
-                (const std::string &    executableName,
-                 const std::string &    nodeName = "");
 
         private :
             // Private methods.
@@ -156,20 +122,20 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The name of the executing program. */
-            std::string _executableName;
-
-            /*! @brief The @nImO-visible name of the executing program. */
-            std::string _nodeName;
-
         private :
             // Private fields.
 
-            /*! @brief The service object to be used for asynchronous operations. */
-            SPservice   _service;
+            /*! @brief The application context to use. */
+            ContextWithNetworking & _context;
 
-    }; // Context
+            /*! @brief The IP address of the Registry. */
+            std::string _address;
+
+            /*! @brief The IP port of the Registry. */
+            uint16_t _port;
+
+    }; // RegistryProxy
 
 } // nImO
 
-#endif // not defined(nImOcontext_H_)
+#endif // not defined(nImOregistryProxy_H_)

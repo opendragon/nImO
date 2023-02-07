@@ -1115,7 +1115,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
         timeOut.async_wait([this]
                            (const system::error_code &  error)
                            {
-                               if (! error)
+                               if (0 == error.value())
                                {
                                    report("timed out!");
                                    stopGatheringAnnouncements();

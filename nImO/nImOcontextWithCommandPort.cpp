@@ -156,22 +156,25 @@ nImO::ContextWithCommandPort::handleAccept
     bool    releaseSession;
 
     ODL_OBJENTER(); //####
-    if (error)
+    if (0 == error.value())
     {
-        releaseSession = true;
-    }
-    else if (_keepGoing)
-    {
-        releaseSession = false;
-        newSession->start();
-        newSession = new CommandSession(*this);
-        _sessions.insert(newSession);
-        _acceptor.async_accept(newSession->getSocket(),
-                               [this, newSession]
-                               (const system::error_code  ec)
-                               {
-                                   handleAccept(newSession, ec);
-                               });
+        if (_keepGoing)
+        {
+            releaseSession = false;
+            newSession->start();
+            newSession = new CommandSession(*this);
+            _sessions.insert(newSession);
+            _acceptor.async_accept(newSession->getSocket(),
+                                   [this, newSession]
+                                   (const system::error_code  ec)
+                                   {
+                                       handleAccept(newSession, ec);
+                                   });
+        }
+        else
+        {
+            releaseSession = true;
+        }
     }
     else
     {

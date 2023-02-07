@@ -130,7 +130,7 @@ nImO::CommandSession::start
     void handle_read(const system::error_code& error,
                      size_t bytes_transferred)
     {
-        if (! error)
+        if (0 == error.value())
         {
             boost::asio::async_write(socket_,
                                      boost::asio::buffer(data_, bytes_transferred),
@@ -145,7 +145,7 @@ nImO::CommandSession::start
 
     void handle_write(const system::error_code& error)
     {
-        if (! error)
+        if (0 == error.value())
         {
             socket_.async_read_some(boost::asio::buffer(data_, max_length),
                                     boost::bind(&session::handle_read, this,

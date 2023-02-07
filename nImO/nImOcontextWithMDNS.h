@@ -302,12 +302,6 @@ namespace nImO
          const struct sockaddr_in6 &    addr,
          const size_t                   addrLen);
 
-    /*! @brief Convert an MDNS string to a standard string.
-     @param[in] inString The MDNS string to be converted.
-     @return A standard string with the contents of the MDNS string. */
-    std::string MdnsStringToString
-        (const mDNS::string_t & inString);
-
     /*! @brief Unblock the launching of the Registry program - used with the test programs. */
     void
     UnblockRegistryLaunch

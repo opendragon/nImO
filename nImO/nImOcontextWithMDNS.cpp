@@ -211,12 +211,12 @@ namespace nImO
             {
                 if (mDNS::kEntryTypeAnswer == entry)
                 {
-                    std::string _entryData = nImO::MdnsStringToString(entryData);
+                    std::string _entryData = mdns_string_to_std_string(entryData);
 
                     if (NIMO_REGISTRY_SERVICE_NAME == _entryData)
                     {
                         _owner.report("PTR Data");
-                        _owner._registryTag = firstPartOfPath(nImO::MdnsStringToString(ptrData));
+                        _owner._registryTag = firstPartOfPath(mdns_string_to_std_string(ptrData));
                         _owner._havePort = false;
                         _owner._haveAddress = false;
                         _processing = true;
@@ -256,12 +256,12 @@ namespace nImO
             {
                 if (_processing)
                 {
-                    std::string keyString{nImO::MdnsStringToString(keyData)};
+                    std::string keyString{mdns_string_to_std_string(keyData)};
 
                     if (NIMO_REGISTRY_ADDRESS_KEY == keyString)
                     {
                         _owner.report("TXT Data");
-                        _owner._registryPreferredAddress = nImO::MdnsStringToString(valueData);
+                        _owner._registryPreferredAddress = mdns_string_to_std_string(valueData);
                         _owner._haveAddress = true;
                     }
                 }
@@ -1420,15 +1420,6 @@ nImO::Ipv6AddressToString
     }
     return make_mdns_string(buffer, len);
 } // nImO::Ipv6AddressToString
-
-std::string nImO::MdnsStringToString
-    (const mDNS::string_t & inString)
-{
-    std::string outString(inString.str);
-
-    outString.resize(inString.length);
-    return outString;
-} // nImO::MdnsStringToString
 
 void
 nImO::UnblockRegistryLaunch

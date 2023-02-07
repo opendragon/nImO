@@ -61,6 +61,7 @@
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
+		F64B0DAD299268EB000D13C1 /* nimo-config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nimo-config.txt"; path = "non-iOS/nimo-config.txt"; sourceTree = "<group>"; };
 		F65C48CA2985612B00430284 /* nImOfanIn.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanIn.rc.in; sourceTree = "<group>"; };
 		F65C48CB2985612B00430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F65C48CC2985612B00430284 /* nImOfanInMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanInMain.cpp; sourceTree = "<group>"; };
@@ -907,8 +908,9 @@
 		F6D7AD05224A5D560095AA43 /* non-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F683BD86240F2F27009E20FE /* nimo.sh */,
 				F6D7AD04224A5D4B0095AA43 /* CMakeLists.txt */,
+				F64B0DAD299268EB000D13C1 /* nimo-config.txt */,
+				F683BD86240F2F27009E20FE /* nimo.sh */,
 				F68373F1240409BE0030F969 /* examples */,
 				F6D7AD1B224A5F0F0095AA43 /* nImO */,
 				F613D161288D8455008712C9 /* Registry */,

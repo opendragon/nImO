@@ -287,11 +287,22 @@ else()
     endfunction()
 endif()
 
+if(WIN32)
+    set(nImO_RUN_CONFIG_DIR "C:/nImO")
+else()
+    set(nImO_RUN_CONFIG_DIR "/etc/nImO")
+endif()
+
 install(FILES
         ${nImO_CONFIG_DIR}/nImOConfig.cmake
         ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake
         DESTINATION ${LIB_DEST}
         COMPONENT scripts)
+
+install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/nimo-config.txt
+        DESTINATION ${nImO_RUN_CONFIG_DIR}
+        PERMISSIONS OWNER_WRITE OWNER_READ)
 
 install(PROGRAMS
         ${CMAKE_CURRENT_BINARY_DIR}/nimo.sh

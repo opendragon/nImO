@@ -90,7 +90,13 @@ static bool lRandomSeeded = false;
 /*! @brief The maximum integer that we wish to use for generated random values. */
 static const int    kMaxRandom = 123456789;
 
-static const std::string    kDefaultConfigFilePath = "nimo-config.txt";
+#if MAC_OR_LINUX_
+# define CONFIG_FILE_ROOT_PATH  "/etc/nImO/"
+#else // ! MAC_OR_LINUX_
+# define CONFIG_FILE_ROOT_PATH  "C:/nImO/"
+#endif // ! MAC_OR_LINUX_
+
+static const std::string    kDefaultConfigFilePath = CONFIG_FILE_ROOT_PATH "nimo-config.txt";
 
 static InitFile::SpBaseValue    lConfigurationValues;
 

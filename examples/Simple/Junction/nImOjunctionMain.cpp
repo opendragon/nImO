@@ -115,12 +115,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"),
                                                 nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
     nImO::IntegerArgumentDescriptor secondArg{"numOut", T_("Number of output channels"),
@@ -131,6 +126,10 @@ main
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Junction example", "", 2023,

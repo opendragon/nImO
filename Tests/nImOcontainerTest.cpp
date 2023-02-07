@@ -92,10 +92,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -113,12 +113,12 @@ compareValueWithSquishedString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
     int             result;
 
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
     aValue.printToStringBuffer(buff, true);
     auto    resultString{buff.getString()};
 
@@ -138,12 +138,12 @@ compareValueWithString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
     int             result;
 
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
     aValue.printToStringBuffer(buff);
     auto    resultString{buff.getString()};
 
@@ -163,12 +163,12 @@ compareValueWithSquishedStringAsJSON
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
     int             result;
 
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
     aValue.printToStringBufferAsJSON(buff, true);
     auto    resultString{buff.getString()};
 
@@ -188,12 +188,12 @@ compareValueWithStringAsJSON
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
     int             result;
 
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
     aValue.printToStringBufferAsJSON(buff);
     auto    resultString{buff.getString()};
 
@@ -218,6 +218,8 @@ doTestEmptyArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -225,8 +227,6 @@ doTestEmptyArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -289,6 +289,8 @@ doTestSingularArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -296,8 +298,6 @@ doTestSingularArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -365,6 +365,8 @@ doTestSmallArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -372,8 +374,6 @@ doTestSmallArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -450,6 +450,8 @@ doTestBigArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // big array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -457,8 +459,6 @@ doTestBigArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -542,6 +542,8 @@ doTestEmptyArraySizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -549,8 +551,6 @@ doTestEmptyArraySizeFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -595,6 +595,8 @@ doTestNonEmptyArraySizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -602,8 +604,6 @@ doTestNonEmptyArraySizeFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -649,6 +649,8 @@ doTestEmptyArrayEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -656,8 +658,6 @@ doTestEmptyArrayEmptyFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -702,6 +702,8 @@ doTestNonEmptyArrayEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -709,8 +711,6 @@ doTestNonEmptyArrayEmptyFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -756,6 +756,8 @@ doTestEmptyArrayClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -763,8 +765,6 @@ doTestEmptyArrayClearFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -810,6 +810,8 @@ doTestNonEmptyArrayClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -817,8 +819,6 @@ doTestNonEmptyArrayClearFunction
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -865,6 +865,8 @@ doTestEmptyArrayRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -872,8 +874,6 @@ doTestEmptyArrayRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -918,6 +918,8 @@ doTestNonEmptyArrayRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -925,8 +927,6 @@ doTestNonEmptyArrayRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -978,6 +978,8 @@ doTestClearingNonEmptyArrayUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty array using random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -985,8 +987,6 @@ doTestClearingNonEmptyArrayUsingRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -1049,6 +1049,8 @@ doTestEmptyMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1056,8 +1058,6 @@ doTestEmptyMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1120,6 +1120,8 @@ doTestSingularLogicalMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1127,8 +1129,6 @@ doTestSingularLogicalMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1198,6 +1198,8 @@ doTestSingularIntegerMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1205,8 +1207,6 @@ doTestSingularIntegerMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1274,6 +1274,8 @@ doTestSingularStringMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1281,8 +1283,6 @@ doTestSingularStringMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1352,6 +1352,8 @@ doTestSmallLogicalMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1359,8 +1361,6 @@ doTestSmallLogicalMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1433,6 +1433,8 @@ doTestSmallIntegerMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1440,8 +1442,6 @@ doTestSmallIntegerMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1515,6 +1515,8 @@ doTestSmallStringMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small string map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1522,8 +1524,6 @@ doTestSmallStringMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1603,6 +1603,8 @@ doTestEmptyMapSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1610,8 +1612,6 @@ doTestEmptyMapSizeFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1656,6 +1656,8 @@ doTestNonEmptyMapSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1663,8 +1665,6 @@ doTestNonEmptyMapSizeFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1710,6 +1710,8 @@ doTestEmptyMapEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1717,8 +1719,6 @@ doTestEmptyMapEmptyFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1763,6 +1763,8 @@ doTestNonEmptyMapEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1770,8 +1772,6 @@ doTestNonEmptyMapEmptyFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1817,6 +1817,8 @@ doTestEmptyMapClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1824,8 +1826,6 @@ doTestEmptyMapClearFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1871,6 +1871,8 @@ doTestNonEmptyMapClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1878,8 +1880,6 @@ doTestNonEmptyMapClearFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1926,6 +1926,8 @@ doTestEmptyMapRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1933,8 +1935,6 @@ doTestEmptyMapRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -1979,6 +1979,8 @@ doTestNonEmptyMapRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1986,8 +1988,6 @@ doTestNonEmptyMapRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -2038,6 +2038,8 @@ doTestClearingNonEmptyMapUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty map using random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2045,8 +2047,6 @@ doTestClearingNonEmptyMapUsingRandomIterator
      //ODL_S1("launchPath = ", launchPath); //####
      //ODL_I1("argc = ", argc); //####
      //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -2108,6 +2108,8 @@ doTestEmptySetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2115,8 +2117,6 @@ doTestEmptySetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2179,6 +2179,8 @@ doTestSingularLogicalSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2186,8 +2188,6 @@ doTestSingularLogicalSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2255,6 +2255,8 @@ doTestSingularIntegerSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2262,8 +2264,6 @@ doTestSingularIntegerSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2331,6 +2331,8 @@ doTestSingularStringSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2338,8 +2340,6 @@ doTestSingularStringSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2407,6 +2407,8 @@ doTestSmallLogicalSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2414,8 +2416,6 @@ doTestSmallLogicalSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2488,6 +2488,8 @@ doTestSmallIntegerSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2495,8 +2497,6 @@ doTestSmallIntegerSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2577,6 +2577,8 @@ doTestSmallStringSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small string set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2584,8 +2586,6 @@ doTestSmallStringSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2666,6 +2666,8 @@ doTestEmptySetSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2673,8 +2675,6 @@ doTestEmptySetSizeFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2719,6 +2719,8 @@ doTestNonEmptySetSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set size()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2726,8 +2728,6 @@ doTestNonEmptySetSizeFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2773,6 +2773,8 @@ doTestEmptySetEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2780,8 +2782,6 @@ doTestEmptySetEmptyFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2826,6 +2826,8 @@ doTestNonEmptySetEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set empty()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2833,8 +2835,6 @@ doTestNonEmptySetEmptyFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2880,6 +2880,8 @@ doTestEmptySetClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2887,8 +2889,6 @@ doTestEmptySetClearFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2934,6 +2934,8 @@ doTestNonEmptySetClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set clear()
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2941,8 +2943,6 @@ doTestNonEmptySetClearFunction
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -2989,6 +2989,8 @@ doTestEmptySetRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2996,8 +2998,6 @@ doTestEmptySetRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -3042,6 +3042,8 @@ doTestNonEmptySetRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3049,8 +3051,6 @@ doTestNonEmptySetRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -3103,6 +3103,8 @@ doTestClearingNonEmptySetUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty set using random iterator
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3110,8 +3112,6 @@ doTestClearingNonEmptySetUsingRandomIterator
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -3175,6 +3175,8 @@ doTestArrayWithArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3182,8 +3184,6 @@ doTestArrayWithArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -3251,6 +3251,8 @@ doTestArrayWithMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3258,8 +3260,6 @@ doTestArrayWithMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -3327,6 +3327,8 @@ doTestArrayWithSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3334,8 +3336,6 @@ doTestArrayWithSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -3403,6 +3403,8 @@ doTestMapWithArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with array
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3410,8 +3412,6 @@ doTestMapWithArrayValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3481,6 +3481,8 @@ doTestMapWithMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3488,8 +3490,6 @@ doTestMapWithMapValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3559,6 +3559,8 @@ doTestMapWithSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3566,8 +3568,6 @@ doTestMapWithSetValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3637,6 +3637,8 @@ doTestLogicalMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3644,8 +3646,6 @@ doTestLogicalMapValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3718,6 +3718,8 @@ doTestIntegerMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3725,8 +3727,6 @@ doTestIntegerMapValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3797,6 +3797,8 @@ doTestStringMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // string map with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3804,8 +3806,6 @@ doTestStringMapValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -3878,6 +3878,8 @@ doTestLogicalSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3885,8 +3887,6 @@ doTestLogicalSetValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -3957,6 +3957,8 @@ doTestIntegerSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -3964,8 +3966,6 @@ doTestIntegerSetValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -4036,6 +4036,8 @@ doTestStringSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // string set with incompatible keys
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -4043,8 +4045,6 @@ doTestStringSetValueWithIncompatibleKeys
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -4115,6 +4115,8 @@ doTestValidArrayCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid array compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -4122,8 +4124,6 @@ doTestValidArrayCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testLogicals
@@ -4820,6 +4820,8 @@ doTestValidLogicalMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -4827,8 +4829,6 @@ doTestValidLogicalMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testLogicals
@@ -5111,6 +5111,8 @@ doTestValidIntegerMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid integer map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -5118,8 +5120,6 @@ doTestValidIntegerMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testNumbers
@@ -5388,6 +5388,8 @@ doTestValidStringMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -5395,8 +5397,6 @@ doTestValidStringMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testStrings
@@ -5591,6 +5591,8 @@ doTestValidLogicalSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -5598,8 +5600,6 @@ doTestValidLogicalSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testLogicals
@@ -5882,6 +5882,8 @@ doTestValidIntegerSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid integer set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -5889,8 +5891,6 @@ doTestValidIntegerSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testNumbers
@@ -6159,6 +6159,8 @@ doTestValidStringSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6166,8 +6168,6 @@ doTestValidStringSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         struct testStrings
@@ -6362,6 +6362,8 @@ doTestInvalidArrayCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid array compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6369,8 +6371,6 @@ doTestInvalidArrayCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -6477,6 +6477,8 @@ doTestInvalidLogicalMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6484,8 +6486,6 @@ doTestInvalidLogicalMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -6590,6 +6590,8 @@ doTestInvalidIntegerMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid integer map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6597,8 +6599,6 @@ doTestInvalidIntegerMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -6702,6 +6702,8 @@ doTestInvalidStringMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string map compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6709,8 +6711,6 @@ doTestInvalidStringMapCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -6816,6 +6816,8 @@ doTestInvalidLogicalSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6823,8 +6825,6 @@ doTestInvalidLogicalSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -6929,6 +6929,8 @@ doTestInvalidIntegerSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid integer set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -6936,8 +6938,6 @@ doTestInvalidIntegerSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -7041,6 +7041,8 @@ doTestInvalidStringSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string set compares
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7048,8 +7050,6 @@ doTestInvalidStringSetCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         ComparisonStatus    status;
@@ -7155,6 +7155,8 @@ doTestArrayIndices
      const int      argc,
      Ptr(Ptr(char)) argv) // array indices
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7162,8 +7164,6 @@ doTestArrayIndices
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Array   stuff;
@@ -7272,6 +7272,8 @@ doTestLogicalMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7279,8 +7281,6 @@ doTestLogicalMapSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Map             stuff;
@@ -7377,6 +7377,8 @@ doTestIntegerMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7384,8 +7386,6 @@ doTestIntegerMapSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Map             stuff;
@@ -7482,6 +7482,8 @@ doTestStringMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // string map searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7489,8 +7491,6 @@ doTestStringMapSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Map             stuff;
@@ -7587,6 +7587,8 @@ doTestLogicalSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7594,8 +7596,6 @@ doTestLogicalSetSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Set             stuff;
@@ -7679,6 +7679,8 @@ doTestIntegerSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7686,8 +7688,6 @@ doTestIntegerSetSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Set             stuff;
@@ -7771,6 +7771,8 @@ doTestStringSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // string set searches
 {
+    int result = 0;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7778,8 +7780,6 @@ doTestStringSetSearches
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 0;
-
     try
     {
         Set             stuff;
@@ -7863,6 +7863,8 @@ doTestEmptyArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7870,8 +7872,6 @@ doTestEmptyArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -7934,6 +7934,8 @@ doTestSingularArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -7941,8 +7943,6 @@ doTestSingularArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -8010,6 +8010,8 @@ doTestSmallArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8017,8 +8019,6 @@ doTestSmallArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -8095,6 +8095,8 @@ doTestBigArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // big array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8102,8 +8104,6 @@ doTestBigArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -8188,6 +8188,8 @@ doTestEmptyMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8195,8 +8197,6 @@ doTestEmptyMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8259,6 +8259,8 @@ doTestSingularLogicalMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8266,8 +8268,6 @@ doTestSingularLogicalMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8337,6 +8337,8 @@ doTestSingularIntegerMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8344,8 +8346,6 @@ doTestSingularIntegerMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8413,6 +8413,8 @@ doTestSingularStringMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8420,8 +8422,6 @@ doTestSingularStringMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8491,6 +8491,8 @@ doTestSmallLogicalMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8498,8 +8500,6 @@ doTestSmallLogicalMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8572,6 +8572,8 @@ doTestSmallIntegerMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8579,8 +8581,6 @@ doTestSmallIntegerMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8654,6 +8654,8 @@ doTestSmallStringMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small string map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8661,8 +8663,6 @@ doTestSmallStringMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -8742,6 +8742,8 @@ doTestEmptySetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8749,8 +8751,6 @@ doTestEmptySetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -8813,6 +8813,8 @@ doTestSingularLogicalSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8820,8 +8822,6 @@ doTestSingularLogicalSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -8889,6 +8889,8 @@ doTestSingularIntegerSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8896,8 +8898,6 @@ doTestSingularIntegerSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -8965,6 +8965,8 @@ doTestSingularStringSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -8972,8 +8974,6 @@ doTestSingularStringSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -9041,6 +9041,8 @@ doTestSmallLogicalSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9048,8 +9050,6 @@ doTestSmallLogicalSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -9122,6 +9122,8 @@ doTestSmallIntegerSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9129,8 +9131,6 @@ doTestSmallIntegerSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -9211,6 +9211,8 @@ doTestSmallStringSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small string set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9218,8 +9220,6 @@ doTestSmallStringSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Set>()};
@@ -9300,6 +9300,8 @@ doTestArrayWithArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array value
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9307,8 +9309,6 @@ doTestArrayWithArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -9376,6 +9376,8 @@ doTestArrayWithMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9383,8 +9385,6 @@ doTestArrayWithMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -9452,6 +9452,8 @@ doTestArrayWithSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9459,8 +9461,6 @@ doTestArrayWithSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Array>()};
@@ -9528,6 +9528,8 @@ doTestMapWithArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with array
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9535,8 +9537,6 @@ doTestMapWithArrayValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -9606,6 +9606,8 @@ doTestMapWithMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with map
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9613,8 +9615,6 @@ doTestMapWithMapValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -9684,6 +9684,8 @@ doTestMapWithSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with set
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -9691,8 +9693,6 @@ doTestMapWithSetValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Map>()};
@@ -9765,16 +9765,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (0 < --argc)
         {

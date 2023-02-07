@@ -152,10 +152,10 @@ nImO::String::deeplyEqualTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     bool    result = (&other == this);
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (! result)
     {
         CPtr(String)    otherPtr{other.asString()};
@@ -174,9 +174,9 @@ nImO::String::enumerationType
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::String;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::String::enumerationType
@@ -186,10 +186,10 @@ nImO::String::equalTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(String)    otherPtr{other.asString()};
@@ -221,15 +221,15 @@ nImO::String::extractValue
      size_t &           position,
      nImO::SpArray      parentValue)
 {
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue == (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
 
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
     if (isShort)
@@ -326,9 +326,9 @@ CPtr(char)
 nImO::String::getInitialCharacters
     (void)
 {
-    ODL_ENTER(); //####
     static CPtr(char)   initialChars{"\"'"};
 
+    ODL_ENTER(); //####
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::String::getInitialCharacters
@@ -338,9 +338,9 @@ nImO::String::getTypeTag
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::String::getTypeTag
@@ -350,10 +350,10 @@ nImO::String::greaterThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -387,10 +387,10 @@ nImO::String::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(String)    otherPtr{other.asString()};
@@ -420,10 +420,10 @@ nImO::String::lessThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -457,10 +457,10 @@ nImO::String::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(String)    otherPtr{other.asString()};
@@ -547,13 +547,13 @@ nImO::String::readFromStringBuffer
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
-    ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
     size_t  localIndex = position;
     bool    atEnd;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     if ((! atEnd) && ((kSingleQuote == aChar) || (kDoubleQuote == aChar)))
     {
         enum class ScanState
@@ -853,10 +853,10 @@ nImO::String::writeToMessage
     (Message &  outMessage)
     const
 {
-    ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
     size_t length = _value.length();
 
+    ODL_ENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
     if (0 < length)
     {
         ODL_LOG("(0 < length)"); //####

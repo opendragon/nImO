@@ -117,22 +117,21 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/out"};
+                                                nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
-                                             nImO::ArgumentMode::OptionalModifiable, "source"};
+                                                nImO::ArgumentMode::OptionalModifiable, "source"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,

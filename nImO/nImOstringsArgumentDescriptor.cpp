@@ -131,10 +131,10 @@ StringsArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<StringsArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // StringsArgumentDescriptor::clone
 
@@ -142,9 +142,9 @@ std::string
 StringsArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_defaultValue};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // StringsArgumentDescriptor::getDefaultValue
@@ -153,9 +153,9 @@ std::string
 StringsArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{"\""};
 
+    ODL_OBJENTER(); //####
     result += getDefaultValue();
     result += "\"";
     ODL_OBJEXIT_s(result); //####
@@ -207,13 +207,13 @@ SpBaseArgumentDescriptor
 StringsArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::StringsTypeTag, 3, name, argMode, inVector, 4))
     {
         std::string defaultString{inVector[0]};
@@ -284,12 +284,11 @@ std::string
 StringsArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::StringsTypeTag)};
-
-    result += getParameterSeparator();
     std::string scratch;
 
+    ODL_OBJENTER(); //####
+    result += getParameterSeparator();
     for (auto & walker : _allowedValues)
     {
         scratch += walker;

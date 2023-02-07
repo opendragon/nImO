@@ -95,11 +95,11 @@ checkChar
     (const char aChar,
      const bool slashAllowed = false)
 {
+    bool    result;
+
     ODL_ENTER(); //####
     ODL_C1("aChar = ", aChar); //####
     ODL_B1("slashAllowed = ", slashAllowed); //####
-    bool    result;
-
     if (isalnum(aChar))
     {
         result = true;
@@ -173,10 +173,9 @@ nImO::ChannelName::getName
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     std::string result;
 
-    ODL_OBJEXIT(); //####
+    ODL_OBJENTER(); //####
     if (0 < _network.length())
     {
         result += _network;
@@ -387,9 +386,9 @@ nImO::StringSet
 nImO::ChannelName::transportNames
     (void)
 {
-    ODL_ENTER(); //####
     StringSet   result;
 
+    ODL_ENTER(); //####
     result.insert(kProtocolUdpName);
     result.insert(kProtocolTcpName);
     ODL_EXIT(); //####
@@ -400,9 +399,9 @@ std::string
 nImO::ChannelName::transportToName
     (const Transport    aValue)
 {
-    ODL_ENTER(); //####
     std::string result;
 
+    ODL_ENTER(); //####
     switch (aValue)
     {
         case Transport::TCP :

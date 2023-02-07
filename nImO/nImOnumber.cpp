@@ -122,9 +122,9 @@ CPtr(char)
 nImO::Number::getInitialCharacters
     (void)
 {
-    ODL_ENTER(); //####
     static CPtr(char)   initialChars{"+-.0123456789"};
 
+    ODL_ENTER(); //####
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Number::getInitialCharacters
@@ -149,8 +149,6 @@ nImO::Number::readFromStringBuffer
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
-    ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     enum class ScanState
     {
         Initial,
@@ -177,6 +175,8 @@ nImO::Number::readFromStringBuffer
     SpValue     result;
     size_t      localIndex = position;
 
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     for (int aChar; (! done); )
     {
         aChar = tolower(inBuffer.getChar(localIndex++, atEnd));

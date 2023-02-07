@@ -88,12 +88,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"),
                                                 nImO::ArgumentMode::OptionalModifiable, false};
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),
@@ -105,6 +100,10 @@ main
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",

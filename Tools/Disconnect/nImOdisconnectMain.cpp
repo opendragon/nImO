@@ -116,22 +116,21 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
-                                             nImO::ArgumentMode::RequiredModifiable, "/out"};
+                                                nImO::ArgumentMode::RequiredModifiable, "/out"};
     nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
-                                              nImO::ArgumentMode::RequiredModifiable, "/in"};
+                                                nImO::ArgumentMode::RequiredModifiable, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",

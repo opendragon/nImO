@@ -132,10 +132,10 @@ ChannelArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<ChannelArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // ChannelArgumentDescriptor::clone
 
@@ -143,9 +143,9 @@ std::string
 ChannelArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_defaultValue};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ChannelArgumentDescriptor::getDefaultValue
@@ -154,9 +154,9 @@ std::string
 ChannelArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_defaultValue};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ChannelArgumentDescriptor::getPrintableDefaultValue
@@ -165,9 +165,9 @@ std::string
 ChannelArgumentDescriptor::getProcessedValue
 (void)
 {
-    ODL_OBJENTER(); //####
     std::string result;
 
+    ODL_OBJENTER(); //####
     if (_currentValue)
     {
         result = _currentValue->getName();
@@ -212,13 +212,13 @@ SpBaseArgumentDescriptor
 ChannelArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::ChannelTypeTag, 3, name, argMode, inVector))
     {
         bool        okSoFar;
@@ -247,9 +247,9 @@ void
 ChannelArgumentDescriptor::setToDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string failReason;
 
+    ODL_OBJENTER(); //####
     _currentValue = ChannelName::parse(_defaultValue, failReason);
     ODL_S1s("_currentValue = ", _currentValue->getName()); //####
     ODL_OBJEXIT(); //####
@@ -271,9 +271,9 @@ std::string
 ChannelArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::ChannelTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -283,10 +283,10 @@ bool
 ChannelArgumentDescriptor::validate
     (const std::string &    value)
 {
-    ODL_OBJENTER(); //####
-    std::string failReason;
+    std::string     failReason;
     SpChannelName   trialValue{ChannelName::parse(value, failReason)};
 
+    ODL_OBJENTER(); //####
     setValidity(nullptr != trialValue);
     ODL_B1("_valid <- ", isValid()); //####
     if (isValid())

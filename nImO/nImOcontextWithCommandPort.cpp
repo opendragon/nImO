@@ -153,9 +153,9 @@ nImO::ContextWithCommandPort::handleAccept
     (Ptr(CommandSession)        newSession,
      const system::error_code & error)
 {
-    ODL_OBJENTER(); //####
     bool    releaseSession;
 
+    ODL_OBJENTER(); //####
     if (error)
     {
         releaseSession = true;

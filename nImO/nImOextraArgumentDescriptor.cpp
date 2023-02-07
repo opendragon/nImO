@@ -125,10 +125,10 @@ ExtraArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<ExtraArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // ExtraArgumentDescriptor::clone
 
@@ -136,9 +136,9 @@ std::string
 ExtraArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ExtraArgumentDescriptor::getDefaultValue
@@ -147,9 +147,9 @@ std::string
 ExtraArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{getDefaultValue()};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ExtraArgumentDescriptor::getPrintableDefaultValue
@@ -158,9 +158,9 @@ std::string
 ExtraArgumentDescriptor::getProcessedValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ExtraArgumentDescriptor::getProcessedValue
@@ -207,13 +207,13 @@ SpBaseArgumentDescriptor
 ExtraArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::ExtraTypeTag, 3, name, argMode, inVector))
     {
         std::string defaultString{inVector[0]}; // ignored
@@ -247,9 +247,9 @@ std::string
 ExtraArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::ExtraTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += suffixFields("");
     ODL_OBJEXIT_s(result); //####
     return result;

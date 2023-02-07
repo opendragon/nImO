@@ -84,10 +84,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -105,12 +105,12 @@ compareValueWithString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
-    ODL_P1("aValue = ", &aValue); //####
-    ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
     int             result;
 
+    ODL_ENTER(); //###
+    ODL_P1("aValue = ", &aValue); //####
+    ODL_S1("aString = ", aString); //####
     aValue.printToStringBuffer(buff);
     auto    resultString{buff.getString()};
 
@@ -135,11 +135,11 @@ doTestParseLogicalValue
      CPtr(char) inString,
      CPtr(char) expectedString) // logical values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -211,11 +211,11 @@ doTestParseNumberValue
      CPtr(char) inString,
      CPtr(char) expectedString) // number values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -287,11 +287,11 @@ doTestParseStringValue
      CPtr(char) inString,
      CPtr(char) expectedString) // string values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -363,11 +363,11 @@ doTestParseArrayValue
      CPtr(char) inString,
      CPtr(char) expectedString) // array values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -439,11 +439,11 @@ doTestParseSetValue
      CPtr(char) inString,
      CPtr(char) expectedString) // set values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -515,11 +515,11 @@ doTestParseMapValue
      CPtr(char) inString,
      CPtr(char) expectedString) // map values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -591,11 +591,11 @@ doTestParseImplicitArrayValue
      CPtr(char) inString,
      CPtr(char) expectedString) // implicit array values
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         StringBuffer    buff;
@@ -670,16 +670,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (3 < --argc)
         {

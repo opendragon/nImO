@@ -115,12 +115,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"),
                                                 nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
@@ -129,6 +124,10 @@ main
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "FanOut example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,

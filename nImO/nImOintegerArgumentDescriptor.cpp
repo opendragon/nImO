@@ -142,10 +142,10 @@ IntegerArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<IntegerArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // IntegerArgumentDescriptor::clone
 
@@ -153,9 +153,9 @@ std::string
 IntegerArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{std::to_string(_defaultValue)};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntegerArgumentDescriptor::getDefaultValue
@@ -164,9 +164,9 @@ std::string
 IntegerArgumentDescriptor::getPrintableDefaultValue
 (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{getDefaultValue()};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntegerArgumentDescriptor::getPrintableDefaultValue
@@ -175,9 +175,9 @@ std::string
 IntegerArgumentDescriptor::getProcessedValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{std::to_string(_currentValue)};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // IntegerArgumentDescriptor::getProcessedValue
@@ -221,13 +221,13 @@ SpBaseArgumentDescriptor
 IntegerArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::IntegerTypeTag, 5, name, argMode, inVector))
     {
         bool        okSoFar = true;
@@ -326,9 +326,9 @@ std::string
 IntegerArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::IntegerTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += getParameterSeparator();
     if (_hasMinimumValue)
     {
@@ -348,9 +348,9 @@ bool
 IntegerArgumentDescriptor::validate
     (const std::string &    value)
 {
-    ODL_OBJENTER(); //####
     int64_t intValue;
 
+    ODL_OBJENTER(); //####
     if (ConvertToInt64(value, intValue))
     {
         setValidity(true);

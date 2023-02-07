@@ -79,10 +79,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -105,11 +105,11 @@ doTestParseChannelName
     (const bool     expected,
      CPtr(char)   inString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -144,11 +144,11 @@ doTestParseExpectedName
      CPtr(char)   inString,
      CPtr(char)   expectedString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -189,11 +189,11 @@ doTestParseExtractNetwork
      CPtr(char)   inString,
      CPtr(char)   expectedString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -234,11 +234,11 @@ doTestParseExtractNode
      CPtr(char)   inString,
      CPtr(char)   expectedString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -279,11 +279,11 @@ doTestParseExtractPath
      CPtr(char)   inString,
      CPtr(char)   expectedString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -324,11 +324,11 @@ doTestParseExtractProtocol
      CPtr(char)   inString,
      CPtr(char)   expectedString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
-    int result = 1;
-
     try
     {
         std::string     failed;
@@ -373,16 +373,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (0 < --argc)
         {

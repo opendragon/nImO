@@ -75,5 +75,174 @@ add_test(NAME TestCreateSourceContext COMMAND ${THIS_TARGET} 7)
 add_test(NAME TestCreateTestContext COMMAND ${THIS_TARGET} 8)
 ## Test create a UtilityContext
 add_test(NAME TestCreateUtilityContext COMMAND ${THIS_TARGET} 9)
-## Test create two Contexts
-add_test(NAME TestCreateTwoContexts COMMAND ${THIS_TARGET} 10)
+
+## Test create ContextWithMDNS and ContextWithMDNS
+add_test(NAME TestCreateMDNSAndMDNSContexts COMMAND ${THIS_TARGET} 100)
+## Test create ContextWithMDNS and ContextWithNetworking
+add_test(NAME TestCreateMDNSAndNetworkingContexts COMMAND ${THIS_TARGET} 101)
+## Test create ContextWithMDNS and FilterContext
+add_test(NAME TestCreateMDNSAndFilterContexts COMMAND ${THIS_TARGET} 102)
+## Test create ContextWithMDNS and MiscellaneousContext
+add_test(NAME TestCreateMDNSAndMiscellaneousContexts COMMAND ${THIS_TARGET} 103)
+## Test create ContextWithMDNS and ServiceContext
+add_test(NAME TestCreateMDNSAndServiceContexts COMMAND ${THIS_TARGET} 104)
+## Test create ContextWithMDNS and SinkContext
+add_test(NAME TestCreateMDNSAndSinkContexts COMMAND ${THIS_TARGET} 105)
+## Test create ContextWithMDNS and SourceContext
+add_test(NAME TestCreateMDNSAndSourceContexts COMMAND ${THIS_TARGET} 106)
+## Test create ContextWithMDNS and TestContext
+add_test(NAME TestCreateMDNSAndTestContexts COMMAND ${THIS_TARGET} 107)
+## Test create ContextWithMDNS and UtilityContext
+add_test(NAME TestCreateMDNSAndUtilityContexts COMMAND ${THIS_TARGET} 108)
+
+## Test create ContextWithNetworking and ContextWithMDNS
+add_test(NAME TestCreateNetworkingAndMDNSContexts COMMAND ${THIS_TARGET} 110)
+## Test create ContextWithNetworking and ContextWithNetworking
+add_test(NAME TestCreateNetworkingAndNetworkingContexts COMMAND ${THIS_TARGET} 111)
+## Test create ContextWithNetworking and FilterContext
+add_test(NAME TestCreateNetworkingAndFilterContexts COMMAND ${THIS_TARGET} 112)
+## Test create ContextWithNetworking and MiscellaneousContext
+add_test(NAME TestCreateNetworkingAndMiscellaneousContexts COMMAND ${THIS_TARGET} 113)
+## Test create ContextWithNetworking and ServiceContext
+add_test(NAME TestCreateNetworkingAndServiceContexts COMMAND ${THIS_TARGET} 114)
+## Test create ContextWithNetworking and SinkContext
+add_test(NAME TestCreateNetworkingAndSinkContexts COMMAND ${THIS_TARGET} 115)
+## Test create ContextWithNetworking and SourceContext
+add_test(NAME TestCreateNetworkingAndSourceContexts COMMAND ${THIS_TARGET} 116)
+## Test create ContextWithNetworking and TestContext
+add_test(NAME TestCreateNetworkingAndTestContexts COMMAND ${THIS_TARGET} 117)
+## Test create ContextWithNetworking and UtilityContext
+add_test(NAME TestCreateNetworkingAndUtilityContexts COMMAND ${THIS_TARGET} 118)
+
+## Test create FilterContext and ContextWithMDNS
+add_test(NAME TestCreateFilterAndMDNSContexts COMMAND ${THIS_TARGET} 120)
+## Test create FilterContext and ContextWithNetworking
+add_test(NAME TestCreateFilterAndNetworkingContexts COMMAND ${THIS_TARGET} 121)
+## Test create FilterContext and FilterContext
+add_test(NAME TestCreateFilterAndFilterContexts COMMAND ${THIS_TARGET} 122)
+## Test create FilterContext and MiscellaneousContext
+add_test(NAME TestCreateFilterAndMiscellaneousContexts COMMAND ${THIS_TARGET} 123)
+## Test create FilterContext and ServiceContext
+add_test(NAME TestCreateFilterAndServiceContexts COMMAND ${THIS_TARGET} 124)
+## Test create FilterContext and SinkContext
+add_test(NAME TestCreateFilterAndSinkContexts COMMAND ${THIS_TARGET} 125)
+## Test create FilterContext and SourceContext
+add_test(NAME TestCreateFilterAndSourceContexts COMMAND ${THIS_TARGET} 126)
+## Test create FilterContext and TestContext
+add_test(NAME TestCreateFilterAndTestContexts COMMAND ${THIS_TARGET} 127)
+## Test create FilterContext and UtilityContext
+add_test(NAME TestCreateFilterAndUtilityContexts COMMAND ${THIS_TARGET} 128)
+
+## Test create MiscellaneousContext and ContextWithMDNS
+add_test(NAME TestCreateMiscellaneousAndMDNSContexts COMMAND ${THIS_TARGET} 130)
+## Test create MiscellaneousContext and ContextWithNetworking
+add_test(NAME TestCreateMiscellaneousAndNetworkingContexts COMMAND ${THIS_TARGET} 131)
+## Test create MiscellaneousContext and FilterContext
+add_test(NAME TestCreateMiscellaneousAndFilterContexts COMMAND ${THIS_TARGET} 132)
+## Test create MiscellaneousContext and MiscellaneousContext
+add_test(NAME TestCreateMiscellaneousAndMiscellaneousContexts COMMAND ${THIS_TARGET} 133)
+## Test create MiscellaneousContext and ServiceContext
+add_test(NAME TestCreateMiscellaneousAndServiceContexts COMMAND ${THIS_TARGET} 134)
+## Test create MiscellaneousContext and SinkContext
+add_test(NAME TestCreateMiscellaneousAndSinkContexts COMMAND ${THIS_TARGET} 135)
+## Test create MiscellaneousContext and SourceContext
+add_test(NAME TestCreateMiscellaneousAndSourceContexts COMMAND ${THIS_TARGET} 136)
+## Test create MiscellaneousContext and TestContext
+add_test(NAME TestCreateMiscellaneousAndTestContexts COMMAND ${THIS_TARGET} 137)
+## Test create MiscellaneousContext and UtilityContext
+add_test(NAME TestCreateMiscellaneousAndUtilityContexts COMMAND ${THIS_TARGET} 138)
+
+## Test create ServiceContext and ContextWithMDNS
+add_test(NAME TestCreateServiceAndMDNSContexts COMMAND ${THIS_TARGET} 140)
+## Test create ServiceContext and ContextWithNetworking
+add_test(NAME TestCreateServiceAndNetworkingContexts COMMAND ${THIS_TARGET} 141)
+## Test create ServiceContext and FilterContext
+add_test(NAME TestCreateServiceAndFilterContexts COMMAND ${THIS_TARGET} 142)
+## Test create ServiceContext and MiscellaneousContext
+add_test(NAME TestCreateServiceAndMiscellaneousContexts COMMAND ${THIS_TARGET} 143)
+## Test create ServiceContext and ServiceContext
+add_test(NAME TestCreateServiceAndServiceContexts COMMAND ${THIS_TARGET} 144)
+## Test create ServiceContext and SinkContext
+add_test(NAME TestCreateServiceAndSinkContexts COMMAND ${THIS_TARGET} 145)
+## Test create ServiceContext and SourceContext
+add_test(NAME TestCreateServiceAndSourceContexts COMMAND ${THIS_TARGET} 146)
+## Test create ServiceContext and TestContext
+add_test(NAME TestCreateServiceAndTestContexts COMMAND ${THIS_TARGET} 147)
+## Test create ServiceContext and UtilityContext
+add_test(NAME TestCreateServiceAndUtilityContexts COMMAND ${THIS_TARGET} 148)
+
+## Test create SinkContext and ContextWithMDNS
+add_test(NAME TestCreateSinkAndMDNSContexts COMMAND ${THIS_TARGET} 150)
+## Test create SinkContext and ContextWithNetworking
+add_test(NAME TestCreateSinkAndNetworkingContexts COMMAND ${THIS_TARGET} 151)
+## Test create SinkContext and FilterContext
+add_test(NAME TestCreateSinkAndFilterContexts COMMAND ${THIS_TARGET} 152)
+## Test create SinkContext and MiscellaneousContext
+add_test(NAME TestCreateSinkAndMiscellaneousContexts COMMAND ${THIS_TARGET} 153)
+## Test create SinkContext and ServiceContext
+add_test(NAME TestCreateSinkAndServiceContexts COMMAND ${THIS_TARGET} 154)
+## Test create SinkContext and SinkContext
+add_test(NAME TestCreateSinkAndSinkContexts COMMAND ${THIS_TARGET} 155)
+## Test create SinkContext and SourceContext
+add_test(NAME TestCreateSinkAndSourceContexts COMMAND ${THIS_TARGET} 156)
+## Test create SinkContext and TestContext
+add_test(NAME TestCreateSinkAndTestContexts COMMAND ${THIS_TARGET} 157)
+## Test create SinkContext and UtilityContext
+add_test(NAME TestCreateSinkAndUtilityContexts COMMAND ${THIS_TARGET} 158)
+
+## Test create SourceContext and ContextWithMDNS
+add_test(NAME TestCreateSourceAndMDNSContexts COMMAND ${THIS_TARGET} 160)
+## Test create SourceContext and ContextWithNetworking
+add_test(NAME TestCreateSourceAndNetworkingContexts COMMAND ${THIS_TARGET} 161)
+## Test create SourceContext and FilterContext
+add_test(NAME TestCreateSourceAndFilterContexts COMMAND ${THIS_TARGET} 162)
+## Test create SourceContext and MiscellaneousContext
+add_test(NAME TestCreateSourceAndMiscellaneousContexts COMMAND ${THIS_TARGET} 163)
+## Test create SourceContext and ServiceContext
+add_test(NAME TestCreateSourceAndServiceContexts COMMAND ${THIS_TARGET} 164)
+## Test create SourceContext and SinkContext
+add_test(NAME TestCreateSourceAndSinkContexts COMMAND ${THIS_TARGET} 165)
+## Test create SourceContext and SourceContext
+add_test(NAME TestCreateSourceAndSourceContexts COMMAND ${THIS_TARGET} 166)
+## Test create SourceContext and TestContext
+add_test(NAME TestCreateSourceAndTestContexts COMMAND ${THIS_TARGET} 167)
+## Test create SourceContext and UtilityContext
+add_test(NAME TestCreateSourceAndUtilityContexts COMMAND ${THIS_TARGET} 168)
+
+## Test create TestContext and ContextWithMDNS
+add_test(NAME TestCreateTestAndMDNSContexts COMMAND ${THIS_TARGET} 170)
+## Test create TestContext and ContextWithNetworking
+add_test(NAME TestCreateTestAndNetworkingContexts COMMAND ${THIS_TARGET} 171)
+## Test create TestContext and FilterContext
+add_test(NAME TestCreateTestAndFilterContexts COMMAND ${THIS_TARGET} 172)
+## Test create TestContext and MiscellaneousContext
+add_test(NAME TestCreateTestAndMiscellaneousContexts COMMAND ${THIS_TARGET} 173)
+## Test create TestContext and ServiceContext
+add_test(NAME TestCreateTestAndServiceContexts COMMAND ${THIS_TARGET} 174)
+## Test create TestContext and SinkContext
+add_test(NAME TestCreateTestAndSinkContexts COMMAND ${THIS_TARGET} 175)
+## Test create TestContext and SourceContext
+add_test(NAME TestCreateTestAndSourceContexts COMMAND ${THIS_TARGET} 176)
+## Test create TestContext and TestContext
+add_test(NAME TestCreateTestAndTestContexts COMMAND ${THIS_TARGET} 177)
+## Test create TestContext and UtilityContext
+add_test(NAME TestCreateTestAndUtilityContexts COMMAND ${THIS_TARGET} 178)
+
+## Test create UtilityContext and ContextWithMDNS
+add_test(NAME TestCreateUtilityAndMDNSContexts COMMAND ${THIS_TARGET} 180)
+## Test create UtilityContext and ContextWithNetworking
+add_test(NAME TestCreateUtilityAndNetworkingContexts COMMAND ${THIS_TARGET} 181)
+## Test create UtilityContext and FilterContext
+add_test(NAME TestCreateUtilityAndFilterContexts COMMAND ${THIS_TARGET} 182)
+## Test create UtilityContext and MiscellaneousContext
+add_test(NAME TestCreateUtilityAndMiscellaneousContexts COMMAND ${THIS_TARGET} 183)
+## Test create UtilityContext and ServiceContext
+add_test(NAME TestCreateUtilityAndServiceContexts COMMAND ${THIS_TARGET} 184)
+## Test create UtilityContext and SinkContext
+add_test(NAME TestCreateUtilityAndSinkContexts COMMAND ${THIS_TARGET} 185)
+## Test create UtilityContext and SourceContext
+add_test(NAME TestCreateUtilityAndSourceContexts COMMAND ${THIS_TARGET} 186)
+## Test create UtilityContext and TestContext
+add_test(NAME TestCreateUtilityAndTestContexts COMMAND ${THIS_TARGET} 187)
+## Test create UtilityContext and UtilityContext
+add_test(NAME TestCreateUtilityAndUtilityContexts COMMAND ${THIS_TARGET} 188)

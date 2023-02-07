@@ -89,10 +89,10 @@ nImO::operator<<
     (std::ostream &                 out,
      const nImO::ComparisonStatus & aValue)
 {
-    ODL_ENTER(); //###
-    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
     std::ios_base::fmtflags  originalFormat = out.flags();
 
+    ODL_ENTER(); //###
+    ODL_P2("out = ", &out, "aValue = ", &aValue); //####
     out << "result:" << std::boolalpha << aValue._result << "/valid:" << aValue._valid;
     out.flags(originalFormat);
     ODL_EXIT_P(&out); //####

@@ -158,7 +158,7 @@ nImO::StringBuffer::addBool
     ODL_OBJENTER(); //####
     ODL_B1("aBool = ", aBool); //####
     addString(Logical::getCanonicalRepresentation(aBool));
-    ODL_EXIT_P(this); //####
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBool
 
@@ -167,15 +167,15 @@ nImO::StringBuffer::addBytes
     (CPtr(uint8_t)  inBytes,
      const size_t   numBytes)
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("inBytes = ", inBytes); //####
-    ODL_I1("numBytes = ", numBytes); //####
     static const char hexDigits[16] =
     {
         '0', '1', '2', '3', '4', '5', '6', '7',
         '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
     };
 
+    ODL_OBJENTER(); //####
+    ODL_P1("inBytes = ", inBytes); //####
+    ODL_I1("numBytes = ", numBytes); //####
     addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
@@ -184,7 +184,7 @@ nImO::StringBuffer::addBytes
         addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
     }
     addChar(kBlobSeparator);
-    ODL_EXIT_P(this); //####
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBytes
 
@@ -218,11 +218,11 @@ nImO::StringBuffer::addString
     (const std::string &    aString,
      const bool             addQuotes)
 {
+    size_t  length = aString.length();
+
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_B1("addQuotes = ", addQuotes); //####
-    size_t  length = aString.length();
-
     if (addQuotes)
     {
         processCharacters(aString.c_str(), length);
@@ -240,10 +240,10 @@ nImO::StringBuffer::convertToValue
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     size_t  position = 0;
     SpValue result{Value::readFromStringBuffer(*this, position)};
 
+    ODL_OBJENTER(); //####
     ODL_P1("result <- ", result.get()); //####
     if (0 != result)
     {
@@ -334,16 +334,16 @@ nImO::StringBuffer::processCharacters
     (CPtr(char)     aString,
      const size_t   length)
 {
-    ODL_ENTER(); //####
-    ODL_S1("aString = ", aString); //####
-    ODL_I1("length = ", length); //####
-    // First, determine how many of each kind of quote character there are, and if there are
-    // 'special' characters - control characters or characters with the high bit set
     bool    hasSpecials = false;
     size_t  numSingleQuotes = 0;
     size_t  numDoubleQuotes = 0;
     size_t  numEscapes = 0;
 
+    ODL_ENTER(); //####
+    ODL_S1("aString = ", aString); //####
+    ODL_I1("length = ", length); //####
+    // First, determine how many of each kind of quote character there are, and if there are
+    // 'special' characters - control characters or characters with the high bit set
     for (size_t ii = 0; length > ii; ++ii)
     {
         uint8_t aByte = StaticCast(uint8_t, aString[ii]);

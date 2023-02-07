@@ -305,7 +305,6 @@ static void
 getLocalAddresses
     (void)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     Ptr(struct ifaddrs)         addresses = nullptr;
 #else // not MAC_OR_LINUX_
@@ -315,6 +314,7 @@ getLocalAddresses
     uint                        numRetries = 4;
 #endif // not MAC_OR_LINUX_
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     if (-1 == getifaddrs(&addresses))
     {
@@ -890,9 +890,9 @@ void
 nImO::ContextWithMDNS::executeAnnouncer
     (ContextWithMDNS &  owner)
 {
-    ODL_ENTER(); //####
     struct timeval timeout;
 
+    ODL_ENTER(); //####
     timeout.tv_sec = 2;
     timeout.tv_usec = 0;
     owner.report("Announcer thread starting.");
@@ -968,10 +968,10 @@ void
 nImO::ContextWithMDNS::executeBrowser
     (ContextWithMDNS &  owner)
 {
-    ODL_ENTER(); //####
     RecordHandler   handler(owner);
     struct timeval  timeout;
 
+    ODL_ENTER(); //####
     timeout.tv_sec = 10;
     timeout.tv_usec = 0;
     owner.report("Browser thread starting.");
@@ -1066,9 +1066,9 @@ nImO::ContextWithMDNS::findRegistry
     (std::string &  address,
      uint16_t &     port)
 {
-    ODL_OBJENTER(); //####
     bool    found;
 
+    ODL_OBJENTER(); //####
     gatherAnnouncements();
     if (_havePort && _haveAddress)
     {
@@ -1165,9 +1165,9 @@ nImO::ContextWithMDNS::makePortAnnouncement
      const std::string &    hostName,
      const std::string &    dataKey)
 {
-    ODL_OBJENTER(); //####
     bool    okSoFar;
 
+    ODL_OBJENTER(); //####
     if (nullptr != _announceData)
     {
         delete _announceData;
@@ -1326,8 +1326,6 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
     ODL_OBJENTER(); //####
     if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
     {
-        //TBD
-
         lBrowserThreadStop = true;
     }
     ODL_OBJEXIT(); //####

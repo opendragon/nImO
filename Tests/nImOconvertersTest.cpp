@@ -86,10 +86,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -112,13 +112,13 @@ doTestInvalidArgs
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid args
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         if (0 < argc)
@@ -195,13 +195,13 @@ doTestIntegerSize
      const int      argc,
      Ptr(Ptr(char)) argv) // integer size
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         if (1 < argc)
@@ -256,6 +256,8 @@ doTestDoubleSize
      const int      argc,
      Ptr(Ptr(char)) argv) // double size
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -263,8 +265,6 @@ doTestDoubleSize
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         double  value = ((rand() % 10000) * 0.1);
@@ -304,13 +304,13 @@ doTestIntegerConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // integer conversion
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         if (0 < argc)
@@ -376,6 +376,8 @@ doTestDoubleConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // double conversion
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -383,8 +385,6 @@ doTestDoubleConversion
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         for (int ii = 0; ii < kNumDoubleTests; ++ii)
@@ -447,16 +447,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (0 < --argc)
         {

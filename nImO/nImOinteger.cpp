@@ -145,10 +145,10 @@ nImO::Integer::deeplyEqualTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     bool    result = (&other == this);
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (! result)
     {
         CPtr(Integer)   otherPtr{other.asInteger()};
@@ -167,9 +167,9 @@ nImO::Integer::enumerationType
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::Integer;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Integer::enumerationType
@@ -179,10 +179,10 @@ nImO::Integer::equalTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};
@@ -223,14 +223,14 @@ nImO::Integer::extractValue
      size_t &           position,
      SpArray            parentValue)
 {
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     SpValue     result;
     IntStatus   numStatus;
     int64_t     holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
 
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     if (IntStatus::Successful == numStatus)
     {
         result.reset(new Integer(holder));
@@ -268,9 +268,9 @@ nImO::Integer::getTypeTag
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedIntegerValue;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Integer::getTypeTag
@@ -280,10 +280,10 @@ nImO::Integer::greaterThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -326,10 +326,10 @@ nImO::Integer::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};
@@ -368,10 +368,10 @@ nImO::Integer::lessThan
     (const Value &    other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -414,10 +414,10 @@ nImO::Integer::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};

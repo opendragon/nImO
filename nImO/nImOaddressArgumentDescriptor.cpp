@@ -135,10 +135,10 @@ AddressArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<AddressArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // AddressArgumentDescriptor::clone
 
@@ -176,13 +176,13 @@ SpBaseArgumentDescriptor
 AddressArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::AddressTypeTag, 3, name, argMode, inVector))
     {
         bool            okSoFar = true;
@@ -223,9 +223,9 @@ std::string
 AddressArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::AddressTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -235,9 +235,9 @@ bool
 AddressArgumentDescriptor::validate
     (const std::string &    value)
 {
-    ODL_OBJENTER(); //####
     std::string testValue;
 
+    ODL_OBJENTER(); //####
     if (SELF_ADDRESS_NAME_ == value)
     {
         testValue = SELF_ADDRESS_IPADDR_;

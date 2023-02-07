@@ -128,12 +128,12 @@ nImO::Value::addToExtractionMap
      const DataKind aMask,
      Extractor      theExtractor)
 {
-    ODL_ENTER(); //####
-    ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
-    ODL_P1("theExtractor = ", &theExtractor); //####
     uint8_t lByte = toUType(aByte);
     uint8_t lMask = toUType(aMask);
 
+    ODL_ENTER(); //####
+    ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
+    ODL_P1("theExtractor = ", &theExtractor); //####
     if ((0 != lMask) && (nullptr != theExtractor))
     {
         for (uint8_t ii = 0; 255 > ii; ++ii)
@@ -274,9 +274,9 @@ nImO::Value::enumerationType
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     Enumerable  result = Enumerable::NotEnumerable;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Value::enumerationType
@@ -286,10 +286,10 @@ nImO::Value::equalTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         result.clear();
@@ -305,11 +305,11 @@ nImO::Value::extractInt64FromMessage
      size_t &           position,
      IntStatus &        status)
 {
+    int64_t result = 0;
+
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
     ODL_X1("leadByte = ", leadByte); //####
-    int64_t result = 0;
-
     if (DataKind::Integer == (leadByte & DataKind::Mask))
     {
         bool    isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
@@ -386,9 +386,9 @@ nImO::Value::getTypeTag
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     DataKind    result = StaticCast(DataKind, 0);
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Value::getTypeTag
@@ -400,12 +400,12 @@ nImO::Value::getValueFromMessage
      const int          leadByte,
      SpArray            parent)
 {
-    ODL_ENTER(); //####
-    ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     auto    match{gExtractors.find(StaticCast(uint8_t, leadByte))};
 
+    ODL_ENTER(); //####
+    ODL_P3("inMessage = ", &inMessage, "position = ", &position, "parent = ", parent.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     if (gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
@@ -435,10 +435,10 @@ nImO::Value::greaterThan
     (const Value &  other)
     const
 {
-    NIMO_UNUSED_ARG_(other);
-    ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
+    NIMO_UNUSED_ARG_(other);
+    ODL_OBJENTER(); //####
     //ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
     return result;
@@ -449,10 +449,10 @@ nImO::Value::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         result.clear();
@@ -465,9 +465,9 @@ void
 nImO::Value::initialize
     (void)
 {
-    ODL_ENTER(); //####
     CPtr(char)  prefixes{Logical::getInitialCharacters()};
 
+    ODL_ENTER(); //####
     if (nullptr != prefixes)
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
@@ -567,10 +567,10 @@ bool
 nImO::Value::isLegalTerminator
     (const char aChar)
 {
-    ODL_ENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
     bool    result;
 
+    ODL_ENTER(); //####
+    ODL_C1("aChar = ", aChar); //####
     if (isspace(aChar))
     {
         result = true;
@@ -592,10 +592,10 @@ nImO::Value::lessThan
     (const Value &  other)
     const
 {
-    NIMO_UNUSED_ARG_(other);
-    ODL_OBJENTER(); //####
     ComparisonStatus    result(false, false);
 
+    NIMO_UNUSED_ARG_(other);
+    ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
     return result;
@@ -606,10 +606,10 @@ nImO::Value::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         result.clear();
@@ -635,10 +635,10 @@ nImO::Value::operator<<
     (std::ostream & out)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("out = ", &out); //####
     std::ios_base::fmtflags  originalFormat = out.flags();
 
+    ODL_OBJENTER(); //####
+    ODL_P1("out = ", &out); //####
     out << std::hex << "0x" << ReinterpretCast(int64_t, this);
     out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
@@ -678,13 +678,13 @@ nImO::Value::readFromStringBuffer
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
-    ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
     size_t  localIndex = position;
     bool    atEnd;
     int     aChar = inBuffer.getChar(localIndex, atEnd);
 
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     // Skip over whitespace
     for ( ; (! atEnd) && isspace(aChar); )
     {

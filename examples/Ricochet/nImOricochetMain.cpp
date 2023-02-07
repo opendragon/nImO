@@ -87,12 +87,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::PortArgumentDescriptor    firstArg{"port", T_("Port for communication"),
                                                 nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
@@ -101,6 +96,10 @@ main
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
@@ -109,7 +108,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::MiscellaneousContext  ourContext(progName);
+            nImO::MiscellaneousContext  ourContext{progName};
 
 #if 0
             running = true

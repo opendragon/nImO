@@ -36,6 +36,8 @@
 #include "nImOmiscellaneousContext.h"
 #include "nImOnumber.h"
 #include "nImOportArgumentDescriptor.h"
+#include "nImOregistry.h"
+#include "nImOregistryProxy.h"
 #include "nImOserviceContext.h"
 #include "nImOset.h"
 #include "nImOsinkContext.h"

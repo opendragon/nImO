@@ -87,9 +87,9 @@ compareBytes
      CPtr(uint8_t)  rightValue,
      const size_t   rightSize)
 {
-    ODL_ENTER(); //####
     int result;
 
+    ODL_ENTER(); //####
     if (0 == leftSize)
     {
         if (0 == rightSize)
@@ -235,10 +235,10 @@ nImO::Blob::deeplyEqualTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     bool    result = (&other == this);
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (! result)
     {
         CPtr(Blob)  otherPtr{other.asBlob()};
@@ -257,10 +257,10 @@ nImO::Blob::equalTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Blob)  otherPtr{other.asBlob()};
@@ -292,15 +292,15 @@ nImO::Blob::extractValue
      size_t &           position,
      SpArray            parentValue)
 {
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort = (DataKind::StringOrBlobShortLengthValue == (DataKind::StringOrBlobLengthMask & leadByte));
     size_t  numBytes = 0;
 
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
     if (isShort)
@@ -397,9 +397,9 @@ nImO::Blob::getTypeTag
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedStringOrBlobValue;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Blob::getTypeTag
@@ -409,10 +409,10 @@ nImO::Blob::greaterThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -446,10 +446,10 @@ nImO::Blob::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Blob)  otherPtr{other.asBlob()};
@@ -479,10 +479,10 @@ nImO::Blob::lessThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other == this)
     {
         result = false;
@@ -516,10 +516,10 @@ nImO::Blob::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result;
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (&other != this)
     {
         CPtr(Blob)  otherPtr{other.asBlob()};

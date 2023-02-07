@@ -129,10 +129,10 @@ BooleanArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<BooleanArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // BooleanArgumentDescriptor::clone
 
@@ -140,9 +140,9 @@ std::string
 BooleanArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_defaultValue ? "1" : "0"};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BooleanArgumentDescriptor::getDefaultValue
@@ -151,9 +151,9 @@ std::string
 BooleanArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_defaultValue ? "true" : "false"};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BooleanArgumentDescriptor::getPrintableDefaultValue
@@ -162,9 +162,9 @@ std::string
 BooleanArgumentDescriptor::getProcessedValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{_currentValue ? "1" : "0"};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BooleanArgumentDescriptor::getProcessedValue
@@ -214,13 +214,13 @@ SpBaseArgumentDescriptor
 BooleanArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
     {
         bool        okSoFar = true;
@@ -282,9 +282,9 @@ std::string
 BooleanArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::BoolTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -294,10 +294,10 @@ bool
 BooleanArgumentDescriptor::validate
     (const std::string &    value)
 {
-    ODL_OBJENTER(); //####
     bool    boolValue;
     char    firstChar = tolower(value[0]);
 
+    ODL_OBJENTER(); //####
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {
         boolValue = false;

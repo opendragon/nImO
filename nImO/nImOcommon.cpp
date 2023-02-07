@@ -178,11 +178,11 @@ double
 nImO::B2D
     (const NumberAsBytes &  inString)
 {
-    ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
     int64_t inValueCopy = B2I(inString, sizeof(inValueCopy));
     double  result;
 
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
     memcpy(&result, &inValueCopy, sizeof(result));
     ODL_EXIT_D(result); //####
     return result;
@@ -193,13 +193,13 @@ nImO::B2I
     (const NumberAsBytes &  inString,
      const size_t           numBytes)
 {
-    ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
-    ODL_I1("numBytes = ", numBytes); //####
     bool            isNegative = (0 != (0x080 & inString[0]));
     CPtr(uint8_t)   walker{inString};
     int64_t         result = (isNegative ? -1 : 0);
 
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
+    ODL_I1("numBytes = ", numBytes); //####
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
         uint8_t aByte{*walker++};
@@ -214,7 +214,6 @@ bool
 nImO::CanReadFromStandardInput
     (void)
 {
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     pid_t   fg = tcgetpgrp(STDIN_FILENO);
 #else // ! MAC_OR_LINUX_
@@ -222,6 +221,7 @@ nImO::CanReadFromStandardInput
 #endif // ! MAC_OR_LINUX_
     bool    result = false;
 
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     if (-1 == fg)
     {
@@ -251,11 +251,11 @@ nImO::CompareBytes
      CPtr(void)     second,
      const size_t   numBytes)
 {
+    size_t  result = 0;
+
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
     ODL_I1("numBytes = ", numBytes); //####
-    size_t  result = 0;
-
     if (memcmp(first, second, numBytes))
     {
         CPtr(uint8_t)   firstWalker{StaticCast(CPtr(uint8_t), first)};
@@ -283,12 +283,12 @@ std::string
 nImO::ConvertDoubleToString
     (const double   value)
 {
-    ODL_ENTER(); //####
-    ODL_D1("value = ", value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream  holder;
 
+    ODL_ENTER(); //####
+    ODL_D1("value = ", value); //####
     holder << std::defaultfloat << value;
     std::string result{holder.str()};
 
@@ -301,13 +301,13 @@ nImO::ConvertToDouble
     (CPtr(char) startPtr,
      double &   result)
 {
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     double      value = strtod(startPtr, &endPtr);
 
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -327,11 +327,11 @@ nImO::ConvertToDouble
     (const std::string &    aString,
      double &               result)
 {
+    bool    okSoFar = ConvertToDouble(aString.c_str(), result);
+
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
-    bool    okSoFar = ConvertToDouble(aString.c_str(), result);
-
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToDouble
@@ -341,13 +341,13 @@ nImO::ConvertToInt64
     (CPtr(char) startPtr,
      int64_t &  result)
 {
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     int64_t     value = strtoll(startPtr, &endPtr, 10);
 
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -367,11 +367,11 @@ nImO::ConvertToInt64
     (const std::string &    aString,
      int64_t &              result)
 {
+    bool    okSoFar = ConvertToInt64(aString.c_str(), result);
+
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
-    bool    okSoFar = ConvertToInt64(aString.c_str(), result);
-
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToInt64
@@ -381,12 +381,12 @@ nImO::D2B
     (const double       inValue,
      NumberAsBytes &    outString)
 {
-    ODL_ENTER(); //####
-    ODL_D1("inValue = ", inValue); //####
-    ODL_P1("outString = ", &outString); //####
     double  inValueCopy = inValue;
     int64_t inValueAsInt;
 
+    ODL_ENTER(); //####
+    ODL_D1("inValue = ", inValue); //####
+    ODL_P1("outString = ", &outString); //####
     memcpy(&inValueAsInt, &inValueCopy, sizeof(inValueAsInt));
     I2B(inValueAsInt, outString);
     ODL_EXIT(); //####
@@ -488,10 +488,10 @@ std::string
 nImO::GetRandomChannelName
     (CPtr(char) channelRoot)
 {
-    ODL_ENTER(); //####
-    ODL_S1("channelRoot = ", channelRoot); //####
     std::string result;
 
+    ODL_ENTER(); //####
+    ODL_S1("channelRoot = ", channelRoot); //####
     try
     {
         bool                hasLeadingSlash = false;
@@ -563,10 +563,10 @@ std::string
 nImO::GetShortComputerName
     (void)
 {
-    ODL_ENTER(); //####
     std::string result{boost::asio::ip::host_name()};
     size_t      dotPos = result.find('.');
 
+    ODL_ENTER(); //####
     if (std::string::npos != dotPos)
     {
         result.resize(dotPos);
@@ -887,15 +887,6 @@ nImO::ProcessStandardUtilitiesOptions
      const bool             ignoreLogging,
      Ptr(StringVector)      arguments)
 {
-    ODL_ENTER(); //####
-    ODL_I2("argc = ", argc, "year = ", year); //####
-    ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-           "flavour = ", &flavour, "helper = ", &helper); //####
-    ODL_P2("logging = ", &logging, "arguments = ", arguments); //####
-    ODL_S1s("utilityDescription = ", utilityDescription); //####
-    ODL_S1("copyrightHolder = ", copyrightHolder); //####
-    ODL_B3("ignoreConfigFilePath = ", ignoreConfigFilePath, "ignoreFlavours = ", ignoreFlavours, //####
-           "ignoreLogging = ", ignoreLogging); //####
     enum class OptionIndex
     {
         UNKNOWN,
@@ -938,6 +929,15 @@ nImO::ProcessStandardUtilitiesOptions
     std::string                 usageString{"USAGE: "};
     std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
+    ODL_ENTER(); //####
+    ODL_I2("argc = ", argc, "year = ", year); //####
+    ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
+           "flavour = ", &flavour, "helper = ", &helper); //####
+    ODL_P2("logging = ", &logging, "arguments = ", arguments); //####
+    ODL_S1s("utilityDescription = ", utilityDescription); //####
+    ODL_S1("copyrightHolder = ", copyrightHolder); //####
+    ODL_B3("ignoreConfigFilePath = ", ignoreConfigFilePath, "ignoreFlavours = ", ignoreFlavours, //####
+           "ignoreLogging = ", ignoreLogging); //####
     flavour = OutputFlavour::Normal;
     usageString += *argv;
     usageString += " [options]";
@@ -1152,11 +1152,11 @@ nImO::SanitizeString
     (const std::string &    inString,
      const bool             allowDoubleQuotes)
 {
+    std::string outString;
+
     ODL_ENTER(); //####
     ODL_S1s("channelRoot = ", inString); //####
     ODL_B1("allowDoubleQuotes = ", allowDoubleQuotes); //####
-    std::string outString;
-
     try
     {
         for (size_t ii = 0, mm = inString.length(); mm > ii; )

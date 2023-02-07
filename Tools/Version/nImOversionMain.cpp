@@ -113,18 +113,17 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
     nImO::OutputFlavour     flavour;
     bool                    logging = false;
     std::string             configFilePath; // not used
     int                     exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
                                               "Reports the version number of the libraries used", progName, 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, true,

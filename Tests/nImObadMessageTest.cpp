@@ -89,10 +89,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -113,13 +113,13 @@ attemptExtractValueAndCheck
      const size_t           insertedSize,
      const std::string &    expectedFlawString)
 {
+    int result = 1;
+
     ODL_ENTER(); //####
     ODL_P2("stuff = ", &stuff, "insertedContents = ", insertedContents); //####
     ODL_I1("insertedSize = ", insertedSize); //####
     ODL_S1s("expectedFlawString = ", expectedFlawString); //####
     ODL_PACKET("inserted", insertedContents, insertedSize); //####
-    int result = 1;
-
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
     SpValue extractedValue{stuff.getValue()};
@@ -165,6 +165,8 @@ doTestMessageInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong initial tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -172,8 +174,6 @@ doTestMessageInitialEndTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -221,6 +221,8 @@ doTestMessageTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong terminal tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -228,8 +230,6 @@ doTestMessageTerminalStartTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -277,6 +277,8 @@ doTestEmptyMessageWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message with content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -284,8 +286,6 @@ doTestEmptyMessageWithContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -336,6 +336,8 @@ doTestNonEmptyMessageWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty message without content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -343,8 +345,6 @@ doTestNonEmptyMessageWithoutContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -396,6 +396,8 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -403,8 +405,6 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -459,6 +459,8 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -466,8 +468,6 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -522,6 +522,8 @@ doTestNonEmptyMessageWithInvalidContentTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with invalid content tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -529,8 +531,6 @@ doTestNonEmptyMessageWithInvalidContentTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -584,6 +584,8 @@ doTestNonEmptyMessageWithZeroDoubleCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad double count
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -591,8 +593,6 @@ doTestNonEmptyMessageWithZeroDoubleCount
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -648,6 +648,8 @@ doTestNonEmptyMessageWithStringWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with string with invalid length
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -655,8 +657,6 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -713,6 +713,8 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with blob with invalid length
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -720,8 +722,6 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -778,6 +778,8 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with initial end tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -785,8 +787,6 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -846,6 +846,8 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with terminal start tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -853,8 +855,6 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -914,6 +914,8 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty array with content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -921,8 +923,6 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -985,6 +985,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array without content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -992,8 +994,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1058,6 +1058,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array with invalid count
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1065,8 +1067,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1130,6 +1130,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too few values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1137,8 +1139,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1209,6 +1209,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1216,8 +1218,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1291,6 +1291,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many doubles
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1298,8 +1300,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1383,6 +1383,8 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with initial end tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1390,8 +1392,6 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1451,6 +1451,8 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with terminal start tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1458,8 +1460,6 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1519,6 +1519,8 @@ doTestNonEmptyMessageWithEmptyMapWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty map with content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1526,8 +1528,6 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1590,6 +1590,8 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map without content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1597,8 +1599,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1663,6 +1663,8 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map with invalid count
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1670,8 +1672,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1735,6 +1735,8 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too few values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1742,8 +1744,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1820,6 +1820,8 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too many values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1827,8 +1829,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1905,6 +1905,8 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with incomplete pair
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1912,8 +1914,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1987,6 +1987,8 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with initial end tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -1994,8 +1996,6 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2055,6 +2055,8 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with terminal start tag
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2062,8 +2064,6 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2123,6 +2123,8 @@ doTestNonEmptyMessageWithEmptySetWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty set with content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2130,8 +2132,6 @@ doTestNonEmptyMessageWithEmptySetWithContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2194,6 +2194,8 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set without content
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2201,8 +2203,6 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2267,6 +2267,8 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set with invalid count
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2274,8 +2276,6 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2339,6 +2339,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too few values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2346,8 +2348,6 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2418,6 +2418,8 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too many values
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
@@ -2425,8 +2427,6 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2503,16 +2503,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (0 < --argc)
         {

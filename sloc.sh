@@ -3,7 +3,7 @@
 echo ---------------
 echo Main code
 echo ---------------
-sloccount ApplicationSupport Bridge Connect Disconnect examples Info Launch List Monitor Read Tests Version Write nImO
+sloccount examples nImO Registry Tests Tools
 echo ---------------
 echo Subtract the following -
 echo ---------------

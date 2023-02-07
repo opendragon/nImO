@@ -88,10 +88,10 @@ static void
 catchSignal
     (int signal)
 {
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
     std::string message{"Exiting due to signal "};
 
+    ODL_ENTER(); //####
+    ODL_I1("signal = ", signal); //####
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -106,10 +106,10 @@ static std::string
 fixDescriptorString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     std::string result{inString};
 
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     for (std::string::size_type pos = result.find("\\t"); pos != result.npos; pos = result.find("\\t"))
     {
         result.replace(pos, 2, "\t");
@@ -136,14 +136,14 @@ doTestAddressArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -232,14 +232,14 @@ doTestBooleanArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -324,14 +324,14 @@ doTestChannelArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -417,14 +417,14 @@ doTestDoubleArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -513,14 +513,14 @@ doTestFilePathArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -609,14 +609,14 @@ doTestIntegerArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -708,14 +708,14 @@ doTestPortArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -804,14 +804,14 @@ doTestStringArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -884,14 +884,14 @@ doTestStringsArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
+    int result = 1;
+
     NIMO_UNUSED_ARG_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
     ODL_B1("expected = ", expected); //####
     ODL_P1("argv = ", argv); //####
-    int result = 1;
-
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
@@ -984,16 +984,15 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
+    int         result = 1;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    int result = 1;
-
     try
     {
-        nImO::TestContext   ourContext(progName);
+        nImO::TestContext   ourContext{progName};
 
         if (2 < --argc)
         {

@@ -162,10 +162,10 @@ nImO::Array::deeplyEqualTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     bool    result = (&other == this);
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (! result)
     {
         CPtr(Array) otherPtr{other.asArray()};
@@ -200,9 +200,9 @@ nImO::Array::empty
     (void)
     const
 {
-    ODL_ENTER(); //####
     bool    result = inherited2::empty();
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(result); //####
     return result;
 } // nImO::Array::empty
@@ -237,15 +237,15 @@ nImO::Array::extractValue
      size_t &           position,
      SpArray            parentValue)
 {
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
     int     aByte;
 
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
+           parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
     if (isEmpty)
@@ -409,9 +409,9 @@ CPtr(char)
 nImO::Array::getInitialCharacters
     (void)
 {
-    ODL_ENTER(); //####
     static const char   initialChars[]{ kStartArrayChar, kEndOfString };
 
+    ODL_ENTER(); //####
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Array::getInitialCharacters
@@ -420,9 +420,9 @@ CPtr(char)
 nImO::Array::getTerminalCharacters
     (void)
 {
-    ODL_ENTER(); //####
     static const char   terminalChars[]{ kEndArrayChar, kEndOfString };
 
+    ODL_ENTER(); //####
     ODL_EXIT_S(terminalChars); //####
     return terminalChars;
 } // nImO::Array::getTerminalCharacters
@@ -432,9 +432,9 @@ nImO::Array::getTypeTag
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result));
     return result;
 } // nImO::Array::getTypeTag
@@ -444,10 +444,10 @@ nImO::Array::greaterThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     // Note that all the values must be validated.
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -467,10 +467,10 @@ nImO::Array::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     // Note that all the values must be validated.
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -490,10 +490,10 @@ nImO::Array::lessThan
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     // Note that all the values must be validated.
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -513,10 +513,10 @@ nImO::Array::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result(inherited2::begin() != inherited2::end());
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     // Note that all the values must be validated.
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -577,11 +577,11 @@ nImO::Array::printToStringBuffer
      const bool     squished)
     const
 {
+    bool    first = true;
+
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    bool    first = true;
-
     outBuffer.addChar(kStartArrayChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -611,11 +611,11 @@ nImO::Array::printToStringBufferAsJSON
      const bool     squished)
     const
 {
+    bool    first = true;
+
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    bool    first = true;
-
     outBuffer.addChar(kStartArrayChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -648,10 +648,10 @@ nImO::Array::random
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result(inherited2::begin());
     size_t  howMany = size();
 
+    ODL_OBJENTER(); //####
     if (0 < howMany)
     {
         for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
@@ -667,10 +667,10 @@ nImO::Array::iterator
 nImO::Array::random
     (void)
 {
-    ODL_OBJENTER(); //####
     auto    result(inherited2::begin());
     size_t  howMany = size();
 
+    ODL_OBJENTER(); //####
     if (0 < howMany)
     {
         for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
@@ -687,8 +687,6 @@ nImO::Array::readFromStringBuffer
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
-    ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool    atEnd;
     bool    done = false;
     bool    valid = false;
@@ -696,6 +694,8 @@ nImO::Array::readFromStringBuffer
     size_t  localIndex = position;
     int     aChar = inBuffer.getChar(localIndex++, atEnd);
 
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     ODL_P1("result <- ", result.get()); //####
     ODL_I1("localIndex <- ", localIndex); //####
     ODL_C1("aChar <- ", aChar); //####
@@ -762,9 +762,9 @@ nImO::Array::size
     (void)
     const
 {
-    ODL_ENTER(); //####
     size_t  result = inherited2::size();
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(result); //####
     return result;
 } // nImO::Array::size

@@ -87,12 +87,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string progName{*argv};
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
-    ODL_ENTER(); //####
+    std::string                     progName{*argv};
     nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
                                                 nImO::ArgumentMode::Optional, false};
     nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"),
@@ -103,6 +98,10 @@ main
     std::string                     configFilePath;
     int                             exitCode = 0;
 
+    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
+             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
+             kODLoggingOptionWriteToStderr); //####
+    ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
@@ -112,7 +111,7 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::MiscellaneousContext  ourContext(progName);
+            nImO::MiscellaneousContext  ourContext{progName};
 
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number

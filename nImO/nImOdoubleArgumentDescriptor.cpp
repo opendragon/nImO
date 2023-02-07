@@ -142,10 +142,10 @@ DoubleArgumentDescriptor::clone
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     auto    result{std::make_shared<DoubleArgumentDescriptor>(*this)};
 
-    ODL_EXIT_P(result.get());
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(result.get());
     return result;
 } // DoubleArgumentDescriptor::clone
 
@@ -153,9 +153,9 @@ std::string
 DoubleArgumentDescriptor::getDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{nImO::ConvertDoubleToString(_defaultValue)};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // DoubleArgumentDescriptor::getDefaultValue
@@ -164,9 +164,9 @@ std::string
 DoubleArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{getDefaultValue()};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // DoubleArgumentDescriptor::getPrintableDefaultValue
@@ -175,9 +175,9 @@ std::string
 DoubleArgumentDescriptor::getProcessedValue
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{nImO::ConvertDoubleToString(_currentValue)};
 
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // DoubleArgumentDescriptor::getProcessedValue
@@ -221,12 +221,12 @@ SpBaseArgumentDescriptor
 DoubleArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
 
     if (partitionString(inString, ArgumentTypeTag::DoubleTypeTag, 5, name, argMode, inVector))
     {
@@ -326,9 +326,9 @@ std::string
 DoubleArgumentDescriptor::toString
     (void)
 {
-    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::DoubleTypeTag)};
 
+    ODL_OBJENTER(); //####
     result += getParameterSeparator();
     if (_hasMinimumValue)
     {
@@ -348,9 +348,9 @@ bool
 DoubleArgumentDescriptor::validate
     (const std::string &    value)
 {
-    ODL_OBJENTER(); //####
     double  dblValue;
 
+    ODL_OBJENTER(); //####
     if (ConvertToDouble(value, dblValue))
     {
         setValidity(true);

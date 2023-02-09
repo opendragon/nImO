@@ -43,17 +43,6 @@
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
-/*! @file
- @brief The class declaration for the %nImO execution context. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
-
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
@@ -62,6 +51,17 @@
 # include <boost/shared_array.hpp>
 # include <boost/thread.hpp>
 # include <boost/thread/locks.hpp>
+# if defined(__APPLE__)
+#  pragma clang diagnostic pop
+# endif // defined(__APPLE__)
+
+# if defined(__APPLE__)
+#  pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wunknown-pragmas"
+#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+# endif // defined(__APPLE__)
+/*! @file
+ @brief The class declaration for the %nImO execution context. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

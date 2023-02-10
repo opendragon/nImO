@@ -12,10 +12,12 @@ function list_commands() {
     echo "    info       report on a channel"
     echo "    launch     launch an application"
     echo "    list       list channels, applications, services, et cetera"
+    echo "    load       load a set of applications"
     echo "    monitor    report on nImO"
     echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
+    echo "    store      store a set of applications"
     echo "    version    report the version numbers of the libraries"
     echo "    write      write to a channel"
 }
@@ -139,6 +141,13 @@ else
                 nImOlist $*
             fi
             ;;
+        "load")
+            if [[ $# -eq 0 ]]; then
+                usage_help load
+            else
+                nImOloadApps $*
+            fi
+            ;;
         "monitor")
             nImOmonitor $*
             ;;
@@ -161,6 +170,13 @@ else
                 usage_help remove
             else
                 nImOremoveApp $*
+            fi
+            ;;
+        "store")
+            if [[ $# -eq 0 ]]; then
+                usage_help store
+            else
+                nImOstoreApps $*
             fi
             ;;
         "version")

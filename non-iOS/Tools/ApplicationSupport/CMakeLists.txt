@@ -37,6 +37,8 @@
 #--------------------------------------------------------------------------------------------------
 
 add_subdirectory(AddApplication)
+add_subdirectory(LoadApplications)
 add_subdirectory(RemoveApplication)
+add_subdirectory(StoreApplications)
 
 enable_testing()

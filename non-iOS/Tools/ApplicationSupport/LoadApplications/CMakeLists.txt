@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/ApplicationSupport/RemoveApplication/CMakeLists.txt
+#  File:       non-iOS/Tools/ApplicationSupport/LoadApplications/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the RemoveApplication tool.
+#  Contains:   The CMAKE definitions for the LoadApplications tool.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2020 by OpenDragon.
+#  Copyright:  (c) 2023 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2020-02-27
+#  Created:    2023-02-09
 #
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOremoveApp)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/ApplicationSupport/RemoveApplication)
+set(THIS_TARGET nImOloadApps)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/ApplicationSupport/LoadApplications)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOremoveAppMain.cpp
+               ${THIS_SOURCE_DIR}/nImOloadAppsMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

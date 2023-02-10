@@ -62,6 +62,14 @@
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
 		F64B0DAD299268EB000D13C1 /* nimo-config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nimo-config.txt"; path = "non-iOS/nimo-config.txt"; sourceTree = "<group>"; };
+		F65A7B072995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F65A7B092995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F65A7B0B2995DA05009BA794 /* nImOstoreAppsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstoreAppsMain.cpp; sourceTree = "<group>"; };
+		F65A7B0C2995DA05009BA794 /* nImOstoreApps.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOstoreApps.rc.in; sourceTree = "<group>"; };
+		F65A7B0D2995DA05009BA794 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F65A7B0F2995DA05009BA794 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F65A7B102995DA05009BA794 /* nImOloadApps.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOloadApps.rc.in; sourceTree = "<group>"; };
+		F65A7B112995DA05009BA794 /* nImOloadAppsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOloadAppsMain.cpp; sourceTree = "<group>"; };
 		F65C48CA2985612B00430284 /* nImOfanIn.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanIn.rc.in; sourceTree = "<group>"; };
 		F65C48CB2985612B00430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F65C48CC2985612B00430284 /* nImOfanInMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanInMain.cpp; sourceTree = "<group>"; };
@@ -316,6 +324,42 @@
 			name = Echo;
 			sourceTree = "<group>";
 		};
+		F65A7B062995D8B5009BA794 /* LoadApplications */ = {
+			isa = PBXGroup;
+			children = (
+				F65A7B072995D8B5009BA794 /* CMakeLists.txt */,
+			);
+			path = LoadApplications;
+			sourceTree = "<group>";
+		};
+		F65A7B082995D8B5009BA794 /* StoreApplications */ = {
+			isa = PBXGroup;
+			children = (
+				F65A7B092995D8B5009BA794 /* CMakeLists.txt */,
+			);
+			path = StoreApplications;
+			sourceTree = "<group>";
+		};
+		F65A7B0A2995DA05009BA794 /* StoreApplications */ = {
+			isa = PBXGroup;
+			children = (
+				F65A7B0C2995DA05009BA794 /* nImOstoreApps.rc.in */,
+				F65A7B0B2995DA05009BA794 /* nImOstoreAppsMain.cpp */,
+				F65A7B0D2995DA05009BA794 /* resource.h */,
+			);
+			path = StoreApplications;
+			sourceTree = "<group>";
+		};
+		F65A7B0E2995DA05009BA794 /* LoadApplications */ = {
+			isa = PBXGroup;
+			children = (
+				F65A7B102995DA05009BA794 /* nImOloadApps.rc.in */,
+				F65A7B112995DA05009BA794 /* nImOloadAppsMain.cpp */,
+				F65A7B0F2995DA05009BA794 /* resource.h */,
+			);
+			path = LoadApplications;
+			sourceTree = "<group>";
+		};
 		F65C48C82985612B00430284 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,8 +488,10 @@
 			isa = PBXGroup;
 			children = (
 				F65C4A8E2985620100430284 /* AddApplication */,
+				F65A7B062995D8B5009BA794 /* LoadApplications */,
 				F65C4AA92985620100430284 /* CMakeLists.txt */,
 				F65C4AAA2985620100430284 /* RemoveApplication */,
+				F65A7B082995D8B5009BA794 /* StoreApplications */,
 			);
 			path = ApplicationSupport;
 			sourceTree = "<group>";
@@ -583,7 +629,9 @@
 			isa = PBXGroup;
 			children = (
 				F65C4BAB2985636800430284 /* AddApplication */,
+				F65A7B0E2995DA05009BA794 /* LoadApplications */,
 				F65C4BAF2985636800430284 /* RemoveApplication */,
+				F65A7B0A2995DA05009BA794 /* StoreApplications */,
 			);
 			path = ApplicationSupport;
 			sourceTree = "<group>";

@@ -3,7 +3,7 @@
 echo ---------------
 echo Main code
 echo ---------------
-sloccount examples nImO Registry Tests Tools
+sloccount examples Launcher nImO Registry Tests Tools
 echo ---------------
 echo Subtract the following -
 echo ---------------

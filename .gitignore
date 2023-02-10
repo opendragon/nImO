@@ -58,9 +58,15 @@ non-iOS/examples/Simple/Junction/nImOjunction.rc
 non-iOS/examples/Simple/Passthrough/nImOpassthrough
 non-iOS/examples/Simple/Passthrough/nImOpassthrough.dir/
 non-iOS/examples/Simple/Passthrough/nImOpassthrough.rc
+non-iOS/Launcher/nImOlauncher
+non-iOS/Launcher/nImOlauncher.dir/
+non-iOS/Launcher/nImOlauncher.rc
 non-iOS/Tools/ApplicationSupport/AddApplication/nImOaddApp
 non-iOS/Tools/ApplicationSupport/AddApplication/nImOaddApp.dir/
 non-iOS/Tools/ApplicationSupport/AddApplication/nImOaddApp.rc
+non-iOS/Tools/ApplicationSupport/LaunchApplication/nImOlaunchApp
+non-iOS/Tools/ApplicationSupport/LaunchApplication/nImOlaunchApp.dir/
+non-iOS/Tools/ApplicationSupport/LaunchApplication/nImOlaunchApp.rc
 non-iOS/Tools/ApplicationSupport/ListApplications/nImOlistApps
 non-iOS/Tools/ApplicationSupport/ListApplications/nImOlistApps.dir/
 non-iOS/Tools/ApplicationSupport/ListApplications/nImOlistApps.rc

@@ -89,7 +89,7 @@ nImO::ServiceContext::ServiceContext
     //ODL_B1("logging = ", logging); //####
     try
     {
-        if (launchRegistryIfNotActive())
+        if (waitForRegistry())
         {
             // TBD
         }

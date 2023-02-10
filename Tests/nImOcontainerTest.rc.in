@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
             VALUE "FileDescription", "Container Test\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOcont.exe\0"
+            VALUE "InternalName", "nImOcontainerTest.exe\0"
             VALUE "LegalCopyright", "(c) 2016 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOcont.exe\0"
+            VALUE "OriginalFilename", "nImOcontainerTest.exe\0"
             VALUE "ProductName", "Container Test\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

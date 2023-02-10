@@ -69,9 +69,9 @@ BEGIN
 VALUE "CompanyName", "@nImO_COMPANY@\0"
 VALUE "FileDescription", "Echo Service\0"
 VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-VALUE "InternalName", "nImOechs.exe\0"
+VALUE "InternalName", "nImOechoService.exe\0"
 VALUE "LegalCopyright", "(c) 2023 by @nImO_COMPANY@.\0"
-VALUE "OriginalFilename", "nImOechs.exe\0"
+VALUE "OriginalFilename", "nImOechoService.exe\0"
 VALUE "ProductName", "Echo Service\0"
 VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
 END

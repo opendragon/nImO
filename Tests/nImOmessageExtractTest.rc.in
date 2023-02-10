@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
             VALUE "FileDescription", "Message Extract Test\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOmess.exe\0"
+            VALUE "InternalName", "nImOmessageExtractTest.exe\0"
             VALUE "LegalCopyright", "(c) 2016 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOmess.exe\0"
+            VALUE "OriginalFilename", "nImOmessageExtractTest.exe\0"
             VALUE "ProductName", "Message Extract Test\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

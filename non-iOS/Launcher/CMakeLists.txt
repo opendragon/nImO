@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/ApplicationSupport/CMakeLists.txt
+#  File:       non-iOS/Launcher/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The application support tools for the nImO project.
+#  Contains:   The CMAKE definitions for the Registry application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2020 by OpenDragon.
+#  Copyright:  (c) 2023 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,35 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2020-02-27
+#  Created:    2023-02-10
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(AddApplication)
-add_subdirectory(LaunchApplication)
-add_subdirectory(LoadApplications)
-add_subdirectory(RemoveApplication)
-add_subdirectory(StoreApplications)
+include_directories("${nImO_SOURCE_DIR}")
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Launcher)
+
+set(THIS_TARGET nImOlauncher)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOlauncherMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

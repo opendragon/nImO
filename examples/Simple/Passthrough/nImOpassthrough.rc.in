@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
             VALUE "FileDescription", "Passthrough\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOpass.exe\0"
+            VALUE "InternalName", "nImOpassthrough.exe\0"
             VALUE "LegalCopyright", "(c) 2023 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOpass.exe\0"
+            VALUE "OriginalFilename", "nImOpassthrough.exe\0"
             VALUE "ProductName", "PassThrough\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

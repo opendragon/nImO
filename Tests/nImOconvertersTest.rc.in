@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
             VALUE "FileDescription", "Converters Test\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOconv.exe\0"
+            VALUE "InternalName", "nImOconvertersTest.exe\0"
             VALUE "LegalCopyright", "(c) 2018 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOconv.exe\0"
+            VALUE "OriginalFilename", "nImOconvertersTest.exe\0"
             VALUE "ProductName", "Converters Test\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

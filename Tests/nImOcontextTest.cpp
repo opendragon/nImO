@@ -114,17 +114,17 @@ doTestCreateContextWithMDNS
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -179,17 +179,17 @@ doTestCreateFilterContext
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -244,17 +244,17 @@ doTestCreateServiceContext
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -278,17 +278,17 @@ doTestCreateSinkContext
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -312,17 +312,17 @@ doTestCreateSourceContext
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -377,17 +377,17 @@ doTestCreateUtilityContext
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         result = 0;
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -411,7 +411,7 @@ doTestCreateMDNSAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -420,20 +420,20 @@ doTestCreateMDNSAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -457,7 +457,7 @@ doTestCreateMDNSAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -466,20 +466,20 @@ doTestCreateMDNSAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -503,7 +503,7 @@ doTestCreateMDNSAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -512,20 +512,20 @@ doTestCreateMDNSAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -549,7 +549,7 @@ doTestCreateMDNSAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -558,20 +558,20 @@ doTestCreateMDNSAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -595,7 +595,7 @@ doTestCreateMDNSAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -604,20 +604,20 @@ doTestCreateMDNSAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -641,7 +641,7 @@ doTestCreateMDNSAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -650,20 +650,20 @@ doTestCreateMDNSAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -687,7 +687,7 @@ doTestCreateMDNSAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -696,20 +696,20 @@ doTestCreateMDNSAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -733,7 +733,7 @@ doTestCreateMDNSAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -742,20 +742,20 @@ doTestCreateMDNSAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -779,7 +779,7 @@ doTestCreateMDNSAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -788,20 +788,20 @@ doTestCreateMDNSAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -825,7 +825,7 @@ doTestCreateNetworkingAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -834,20 +834,20 @@ doTestCreateNetworkingAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -871,7 +871,7 @@ doTestCreateNetworkingAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -880,20 +880,20 @@ doTestCreateNetworkingAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -917,7 +917,7 @@ doTestCreateNetworkingAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -926,20 +926,20 @@ doTestCreateNetworkingAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -963,7 +963,7 @@ doTestCreateNetworkingAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -972,20 +972,20 @@ doTestCreateNetworkingAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1009,7 +1009,7 @@ doTestCreateNetworkingAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1018,20 +1018,20 @@ doTestCreateNetworkingAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1055,7 +1055,7 @@ doTestCreateNetworkingAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1064,20 +1064,20 @@ doTestCreateNetworkingAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1101,7 +1101,7 @@ doTestCreateNetworkingAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1110,20 +1110,20 @@ doTestCreateNetworkingAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1147,7 +1147,7 @@ doTestCreateNetworkingAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1156,20 +1156,20 @@ doTestCreateNetworkingAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1193,7 +1193,7 @@ doTestCreateNetworkingAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ContextWithNetworking   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1202,20 +1202,20 @@ doTestCreateNetworkingAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1239,7 +1239,7 @@ doTestCreateFilterAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1248,20 +1248,20 @@ doTestCreateFilterAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1285,7 +1285,7 @@ doTestCreateFilterAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1294,20 +1294,20 @@ doTestCreateFilterAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1331,7 +1331,7 @@ doTestCreateFilterAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1340,20 +1340,20 @@ doTestCreateFilterAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1377,7 +1377,7 @@ doTestCreateFilterAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1386,20 +1386,20 @@ doTestCreateFilterAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1423,7 +1423,7 @@ doTestCreateFilterAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1432,20 +1432,20 @@ doTestCreateFilterAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1469,7 +1469,7 @@ doTestCreateFilterAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1478,20 +1478,20 @@ doTestCreateFilterAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1515,7 +1515,7 @@ doTestCreateFilterAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1524,20 +1524,20 @@ doTestCreateFilterAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1561,7 +1561,7 @@ doTestCreateFilterAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1570,20 +1570,20 @@ doTestCreateFilterAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1607,7 +1607,7 @@ doTestCreateFilterAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         FilterContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1616,20 +1616,20 @@ doTestCreateFilterAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1653,7 +1653,7 @@ doTestCreateMiscellaneousAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1662,20 +1662,20 @@ doTestCreateMiscellaneousAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1699,7 +1699,7 @@ doTestCreateMiscellaneousAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1708,20 +1708,20 @@ doTestCreateMiscellaneousAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1745,7 +1745,7 @@ doTestCreateMiscellaneousAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1754,20 +1754,20 @@ doTestCreateMiscellaneousAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1791,7 +1791,7 @@ doTestCreateMiscellaneousAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1800,20 +1800,20 @@ doTestCreateMiscellaneousAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1837,7 +1837,7 @@ doTestCreateMiscellaneousAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1846,20 +1846,20 @@ doTestCreateMiscellaneousAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1883,7 +1883,7 @@ doTestCreateMiscellaneousAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1892,20 +1892,20 @@ doTestCreateMiscellaneousAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1929,7 +1929,7 @@ doTestCreateMiscellaneousAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1938,20 +1938,20 @@ doTestCreateMiscellaneousAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -1975,7 +1975,7 @@ doTestCreateMiscellaneousAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -1984,20 +1984,20 @@ doTestCreateMiscellaneousAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2021,7 +2021,7 @@ doTestCreateMiscellaneousAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         MiscellaneousContext    aContext1("");
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2030,20 +2030,20 @@ doTestCreateMiscellaneousAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2067,7 +2067,7 @@ doTestCreateServiceAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2076,20 +2076,20 @@ doTestCreateServiceAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2113,7 +2113,7 @@ doTestCreateServiceAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2122,20 +2122,20 @@ doTestCreateServiceAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2159,7 +2159,7 @@ doTestCreateServiceAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2168,20 +2168,20 @@ doTestCreateServiceAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2205,7 +2205,7 @@ doTestCreateServiceAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2214,20 +2214,20 @@ doTestCreateServiceAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2251,7 +2251,7 @@ doTestCreateServiceAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2260,20 +2260,20 @@ doTestCreateServiceAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2297,7 +2297,7 @@ doTestCreateServiceAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2306,20 +2306,20 @@ doTestCreateServiceAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2343,7 +2343,7 @@ doTestCreateServiceAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2352,20 +2352,20 @@ doTestCreateServiceAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2389,7 +2389,7 @@ doTestCreateServiceAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2398,20 +2398,20 @@ doTestCreateServiceAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2435,7 +2435,7 @@ doTestCreateServiceAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         ServiceContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2444,20 +2444,20 @@ doTestCreateServiceAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2481,7 +2481,7 @@ doTestCreateSinkAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2490,20 +2490,20 @@ doTestCreateSinkAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2527,7 +2527,7 @@ doTestCreateSinkAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2536,20 +2536,20 @@ doTestCreateSinkAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2573,7 +2573,7 @@ doTestCreateSinkAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2582,20 +2582,20 @@ doTestCreateSinkAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2619,7 +2619,7 @@ doTestCreateSinkAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2628,20 +2628,20 @@ doTestCreateSinkAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2665,7 +2665,7 @@ doTestCreateSinkAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2674,20 +2674,20 @@ doTestCreateSinkAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2711,7 +2711,7 @@ doTestCreateSinkAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2720,20 +2720,20 @@ doTestCreateSinkAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2757,7 +2757,7 @@ doTestCreateSinkAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2766,20 +2766,20 @@ doTestCreateSinkAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2803,7 +2803,7 @@ doTestCreateSinkAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2812,20 +2812,20 @@ doTestCreateSinkAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2849,7 +2849,7 @@ doTestCreateSinkAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SinkContext aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2858,20 +2858,20 @@ doTestCreateSinkAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2895,7 +2895,7 @@ doTestCreateSourceAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2904,20 +2904,20 @@ doTestCreateSourceAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2941,7 +2941,7 @@ doTestCreateSourceAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2950,20 +2950,20 @@ doTestCreateSourceAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -2987,7 +2987,7 @@ doTestCreateSourceAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -2996,20 +2996,20 @@ doTestCreateSourceAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3033,7 +3033,7 @@ doTestCreateSourceAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3042,20 +3042,20 @@ doTestCreateSourceAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3079,7 +3079,7 @@ doTestCreateSourceAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3088,20 +3088,20 @@ doTestCreateSourceAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3125,7 +3125,7 @@ doTestCreateSourceAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3134,20 +3134,20 @@ doTestCreateSourceAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3171,7 +3171,7 @@ doTestCreateSourceAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3180,20 +3180,20 @@ doTestCreateSourceAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3217,7 +3217,7 @@ doTestCreateSourceAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3226,20 +3226,20 @@ doTestCreateSourceAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3263,7 +3263,7 @@ doTestCreateSourceAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         SourceContext   aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3272,20 +3272,20 @@ doTestCreateSourceAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3309,7 +3309,7 @@ doTestCreateTestAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3318,20 +3318,20 @@ doTestCreateTestAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3355,7 +3355,7 @@ doTestCreateTestAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3364,20 +3364,20 @@ doTestCreateTestAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3401,7 +3401,7 @@ doTestCreateTestAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3410,20 +3410,20 @@ doTestCreateTestAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3447,7 +3447,7 @@ doTestCreateTestAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3456,20 +3456,20 @@ doTestCreateTestAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3493,7 +3493,7 @@ doTestCreateTestAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3502,20 +3502,20 @@ doTestCreateTestAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3539,7 +3539,7 @@ doTestCreateTestAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3548,20 +3548,20 @@ doTestCreateTestAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3585,7 +3585,7 @@ doTestCreateTestAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3594,20 +3594,20 @@ doTestCreateTestAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3631,7 +3631,7 @@ doTestCreateTestAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3640,20 +3640,20 @@ doTestCreateTestAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3677,7 +3677,7 @@ doTestCreateTestAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         TestContext   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3686,20 +3686,20 @@ doTestCreateTestAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3723,7 +3723,7 @@ doTestCreateUtilityAndMDNSContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3732,20 +3732,20 @@ doTestCreateUtilityAndMDNSContexts
             ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3769,7 +3769,7 @@ doTestCreateUtilityAndNetworkingContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3778,20 +3778,20 @@ doTestCreateUtilityAndNetworkingContexts
             ContextWithNetworking   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3815,7 +3815,7 @@ doTestCreateUtilityAndFilterContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3824,20 +3824,20 @@ doTestCreateUtilityAndFilterContexts
             FilterContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3861,7 +3861,7 @@ doTestCreateUtilityAndMiscellaneousContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3870,20 +3870,20 @@ doTestCreateUtilityAndMiscellaneousContexts
             MiscellaneousContext    aContext2("");
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3907,7 +3907,7 @@ doTestCreateUtilityAndServiceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3916,20 +3916,20 @@ doTestCreateUtilityAndServiceContexts
             ServiceContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3953,7 +3953,7 @@ doTestCreateUtilityAndSinkContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -3962,20 +3962,20 @@ doTestCreateUtilityAndSinkContexts
             SinkContext aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -3999,7 +3999,7 @@ doTestCreateUtilityAndSourceContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -4008,20 +4008,20 @@ doTestCreateUtilityAndSourceContexts
             SourceContext   aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -4045,7 +4045,7 @@ doTestCreateUtilityAndTestContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -4054,20 +4054,20 @@ doTestCreateUtilityAndTestContexts
             TestContext   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####
@@ -4091,7 +4091,7 @@ doTestCreateUtilityAndUtilityContexts
     ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        BlockRegistryLaunch();
+        DisableWaitForRegistry();
         UtilityContext  aContext1{"", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
@@ -4100,20 +4100,20 @@ doTestCreateUtilityAndUtilityContexts
             UtilityContext  aContext2{"", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
         }
         catch (...)
         {
             // A second Context should throw an exception.
             ODL_LOG("Exception caught"); //####
-            UnblockRegistryLaunch();
+            EnableWaitForRegistry();
             result = 0;
         }
     }
     catch (...)
     {
         ODL_LOG("Exception caught"); //####
-        UnblockRegistryLaunch();
+        EnableWaitForRegistry();
         throw;
     }
     ODL_EXIT_I(result); //####

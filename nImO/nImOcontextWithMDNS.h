@@ -132,22 +132,25 @@ namespace nImO
             /*! @brief Find the Registry if it's running.
              @param[out] address The IP address of the Registry, if found.
              @param[out] port The IP port of the Registry, if found.
+             @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             bool
             findRegistry
                 (std::string &  address,
-                 uint16_t &     port);
+                 uint16_t &     port,
+                 const bool     quietly = false);
 
             /*! @brief Find the Registry if it's running.
+             @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             inline bool
             findRegistry
-                (void)
+                (const bool quietly = false)
             {
                 std::string ignoredAddress;
                 uint16_t    ignoredPort;
 
-                return findRegistry(ignoredAddress, ignoredPort);
+                return findRegistry(ignoredAddress, ignoredPort, quietly);
             }
 
             /*! @brief Send a port announcement via mDNS.
@@ -166,12 +169,6 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Check if the Registry service is running and launch it if it isn't.
-             @return @c true if the Registry was located or launched. */
-            bool
-            launchRegistryIfNotActive
-                (void);
-
             /*! @brief Retract the announcement via mDNS. */
             void
             removeAnnouncement
@@ -180,6 +177,12 @@ namespace nImO
             /*! @brief Stop collecting announcements via mDNS. */
             void
             stopGatheringAnnouncements
+                (void);
+
+            /*! @brief Wait until the Registry is located.
+             @return @c true if the Registry was located. */
+            bool
+            waitForRegistry
                 (void);
 
         private :
@@ -202,10 +205,11 @@ namespace nImO
             executeBrowser
                 (ContextWithMDNS &  owner);
 
-            /*! @brief Collect announcements via mDNS. */
+            /*! @brief Collect announcements via mDNS.
+             @param[in] quietly @c true if reporting a failure is suppressed. */
             void
             gatherAnnouncements
-                (void);
+                (const bool quietly = false);
 
             /*! @brief Create the sockets to be used. */
             void
@@ -261,9 +265,14 @@ namespace nImO
 
     UnaryAndBinaryOperators(ContextWithMDNS::ThreadMode)
 
-    /*! @brief Block the launching of the Registry program - used with the Registry and test programs. */
+    /*! @brief Don't wait for the Registry - used with the Registry and test programs. */
     void
-    BlockRegistryLaunch
+    DisableWaitForRegistry
+        (void);
+
+    /*! @brief Wait for the Registry - used with the test programs. */
+    void
+    EnableWaitForRegistry
         (void);
 
     /*! @brief Convert an IP address to an MDNS string.
@@ -301,11 +310,6 @@ namespace nImO
          const size_t                   capacity,
          const struct sockaddr_in6 &    addr,
          const size_t                   addrLen);
-
-    /*! @brief Unblock the launching of the Registry program - used with the test programs. */
-    void
-    UnblockRegistryLaunch
-        (void);
 
 } // nImO
 

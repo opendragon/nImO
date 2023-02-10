@@ -75,8 +75,8 @@ static bool lHasIpv4 = false;
 /*! @brief @c true if an IPv6 address was found. */
 static bool lHasIpv6 = false;
 
-/*! @brief @c true if the Registry can be launched if not found. */
-static bool lRegistryLaunchAllowed = true;
+/*! @brief @c true if the application should wait for the Registry. */
+static bool lWaitForRegistry = true;
 
 /*! @brief The first IPv4 address found. */
 static struct sockaddr_in   lServiceAddressIpv4;
@@ -1064,12 +1064,13 @@ nImO::ContextWithMDNS::executeBrowser
 bool
 nImO::ContextWithMDNS::findRegistry
     (std::string &  address,
-     uint16_t &     port)
+     uint16_t &     port,
+     const bool     quietly)
 {
     bool    found;
 
     ODL_OBJENTER(); //####
-    gatherAnnouncements();
+    gatherAnnouncements(quietly);
     if (_havePort && _haveAddress)
     {
         address = _registryPreferredAddress;
@@ -1086,7 +1087,7 @@ nImO::ContextWithMDNS::findRegistry
 
 void
 nImO::ContextWithMDNS::gatherAnnouncements
-    (void)
+    (const bool quietly)
 {
     ODL_OBJENTER(); //####
     if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
@@ -1097,6 +1098,8 @@ nImO::ContextWithMDNS::gatherAnnouncements
                             {
                                 executeBrowser(*this);
                             });
+        bool    okSoFar = true;
+
         for (int isock = 0; isock < _numSockets; ++isock)
         {
             _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
@@ -1104,59 +1107,50 @@ nImO::ContextWithMDNS::gatherAnnouncements
             if (_queryId[isock] < 0)
             {
                 report("Failed to send mDNS query: " + std::string(strerror(errno)));
+                okSoFar = false;
             }
         }
         _havePort = false;
         _haveAddress = false;
-        asio::deadline_timer    timeOut(*getService());
+        if (okSoFar)
+        {
+            asio::deadline_timer    timeOut(*getService());
 
-        report("timeout = " + std::to_string(getRegistrySearchTimeout()));
-        timeOut.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
-        timeOut.async_wait([this]
-                           (const system::error_code &  error)
-                           {
-                               if (0 == error.value())
+            report("timeout = " + std::to_string(getRegistrySearchTimeout()));
+            timeOut.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
+            timeOut.async_wait([this, quietly]
+                               (const system::error_code &  error)
                                {
-                                   report("timed out!");
-                                   stopGatheringAnnouncements();
-                               }
-                           });
-        report("waiting...");
-        for ( ; (! lBrowserThreadStop) && ((! _havePort) || (! _haveAddress)); )
-        {
-            thread::yield();
+                                   if (0 == error.value())
+                                   {
+                                       if (! quietly)
+                                       {
+                                           report("timed out!");
+                                       }
+                                       stopGatheringAnnouncements();
+                                   }
+                               });
+            if (! quietly)
+            {
+                report("waiting...");
+            }
+            for ( ; (! lBrowserThreadStop) && ((! _havePort) || (! _haveAddress)); )
+            {
+                thread::yield();
+            }
+            if (_havePort && _haveAddress)
+            {
+                timeOut.cancel();
+                stopGatheringAnnouncements();
+            }
         }
-        if (_havePort && _haveAddress)
+        else
         {
-            timeOut.cancel();
             stopGatheringAnnouncements();
         }
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::gatherAnnouncements
-
-bool
-nImO::ContextWithMDNS::launchRegistryIfNotActive
-    (void)
-{
-    bool    wasFoundOrLaunched;
-
-    ODL_OBJENTER(); //####
-    if (lRegistryLaunchAllowed)
-    {
-        wasFoundOrLaunched = (_havePort && _haveAddress); // set by findRegistry()
-        if (! wasFoundOrLaunched)
-        {
-            //TBD
-        }
-    }
-    else
-    {
-        wasFoundOrLaunched = false;
-    }
-    ODL_OBJEXIT_B(wasFoundOrLaunched); //####
-    return wasFoundOrLaunched;
-} // nImO::ContextWithMDNS::launchRegistryIfNotActive
 
 bool
 nImO::ContextWithMDNS::makePortAnnouncement
@@ -1331,18 +1325,50 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::stopGatheringAnnouncements
 
+bool
+nImO::ContextWithMDNS::waitForRegistry
+    (void)
+{
+    bool    wasFound;
+
+    ODL_OBJENTER(); //####
+    if (lWaitForRegistry)
+    {
+        for ( ; (! _havePort) && (! _haveAddress); )
+        {
+            gatherAnnouncements(true);
+        }
+        wasFound = (_havePort && _haveAddress); // set by findRegistry()
+    }
+    else
+    {
+        wasFound = false;
+    }
+    ODL_OBJEXIT_B(wasFound); //####
+    return wasFound;
+} // nImO::ContextWithMDNS::waitForRegistry
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
 void
-nImO::BlockRegistryLaunch
+nImO::DisableWaitForRegistry
     (void)
 {
     ODL_ENTER(); //####
-    lRegistryLaunchAllowed = false;
+    lWaitForRegistry = false;
     ODL_EXIT(); //####
-} // nImO::BlockRegistryLaunch
+} // nImO::DisableWaitForRegistry
+
+void
+nImO::EnableWaitForRegistry
+(void)
+{
+    ODL_ENTER(); //####
+    lWaitForRegistry = true;
+    ODL_EXIT(); //####
+} // nImO::EnableWaitForRegistry
 
 mDNS::string_t
 nImO::IpAddressToString
@@ -1420,12 +1446,3 @@ nImO::Ipv6AddressToString
     }
     return make_mdns_string(buffer, len);
 } // nImO::Ipv6AddressToString
-
-void
-nImO::UnblockRegistryLaunch
-    (void)
-{
-    ODL_ENTER(); //####
-    lRegistryLaunchAllowed = true;
-    ODL_EXIT(); //####
-} // nImO::UnblockRegistryLaunch

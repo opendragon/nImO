@@ -67,12 +67,12 @@ BEGIN
         BLOCK "100904b0"
         BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
-            VALUE "FileDescription", "FanOut\0"
+            VALUE "FileDescription", "Fan Out\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOfano.exe\0"
+            VALUE "InternalName", "nImOfanOut.exe\0"
             VALUE "LegalCopyright", "(c) 2023 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOfano.exe\0"
-            VALUE "ProductName", "FanOut\0"
+            VALUE "OriginalFilename", "nImOfanOut.exe\0"
+            VALUE "ProductName", "Fan Out\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END
     END

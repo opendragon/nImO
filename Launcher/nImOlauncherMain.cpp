@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOregistryMain.cpp
+//  File:       nImOlauncherMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to provide a central registry for nImO.
+//  Contains:   A utility application to provide remote launch capabilities for nImO.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-24
+//  Created:    2023-02-10
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOregistry.h>
+#include <nImOregistryProxy.h>
 #include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
@@ -48,10 +48,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A service application to register #nImO entities. */
+ @brief A service application to provide remote launch capabilities for #nImO. */
 
 /*! @dir Read
- @brief The set of files that implement the Register application. */
+ @brief The set of files that implement the Launcher application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -106,7 +106,7 @@ catchSignal
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the #nImO Registry.
+/*! @brief The entry point for remote launching for #nImO.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -126,35 +126,29 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
+    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Launcher", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))
     {
         nImO::LoadConfiguration(configFilePath);
         try
         {
-            nImO::DisableWaitForRegistry();
-            nImO::ServiceContext    ourContext{progName, "registry", logging,
-                                                nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
-                                                    nImO::ServiceContext::ThreadMode::LaunchBrowser};
+            std::string             registryAddress;
+            uint16_t                registryPort;
+            nImO::ServiceContext    ourContext{progName, "launcher", logging};
 
             nImO::SetSignalHandlers(catchSignal);
-            if (ourContext.findRegistry(true))
+            if (ourContext.findRegistry(registryAddress, registryPort))
             {
-                ourContext.report("Registry already running.");
+                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+
+                // TBD
             }
             else
             {
-                if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
-                                                    nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
-                {
-                    for ( ; lKeepRunning; )
-                    {
-//TBD
-                    }
-                }
+                ourContext.report("Registry not found.");
+                exitCode = 2;
             }
-            nImO::EnableWaitForRegistry();
         }
         catch (...)
         {

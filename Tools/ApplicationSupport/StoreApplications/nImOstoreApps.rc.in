@@ -69,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
             VALUE "FileDescription", "Store Applications\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOstor.exe\0"
+            VALUE "InternalName", "nImOstoreApps.exe\0"
             VALUE "LegalCopyright", "(c) 2023 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOstor.exe\0"
+            VALUE "OriginalFilename", "nImOstoreApps.exe\0"
             VALUE "ProductName", "Store Applications\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

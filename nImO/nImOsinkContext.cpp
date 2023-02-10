@@ -88,7 +88,7 @@ nImO::SinkContext::SinkContext
     //ODL_B1("logging = ", logging); //####
     try
     {
-        if (launchRegistryIfNotActive())
+        if (waitForRegistry())
         {
             // TBD
         }

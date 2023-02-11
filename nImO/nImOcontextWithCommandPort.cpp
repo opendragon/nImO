@@ -90,6 +90,7 @@ nImO::ContextWithCommandPort::ContextWithCommandPort
     try
     {
         createCommandPort();
+        setCommandPort(_commandPort);
     }
     catch (...)
     {

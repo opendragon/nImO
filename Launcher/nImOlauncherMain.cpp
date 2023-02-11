@@ -87,7 +87,7 @@ catchSignal
     if (SIGINT == signal)
     {
         lKeepRunning = false;
-        //lReceivedCondition.notify_one(); // make sure to exit from the read!!!
+        nImO::InterruptRegistryWait();
     }
     else
 #endif // defined(SIGINT)
@@ -133,11 +133,11 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
+            nImO::SetSignalHandlers(catchSignal);
             std::string             registryAddress;
             uint16_t                registryPort;
             nImO::ServiceContext    ourContext{progName, "launcher", logging};
 
-            nImO::SetSignalHandlers(catchSignal);
             if (ourContext.findRegistry(registryAddress, registryPort))
             {
                 nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
@@ -149,6 +149,7 @@ main
                 ourContext.report("Registry not found.");
                 exitCode = 2;
             }
+            ourContext.report("Exiting.");
         }
         catch (...)
         {

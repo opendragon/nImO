@@ -87,7 +87,7 @@ catchSignal
     if (SIGINT == signal)
     {
         lKeepRunning = false;
-        //lReceivedCondition.notify_one(); // make sure to exit from the read!!!
+        nImO::InterruptRegistryWait();
     }
     else
 #endif // defined(SIGINT)
@@ -133,12 +133,12 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
+            nImO::SetSignalHandlers(catchSignal);
             nImO::DisableWaitForRegistry();
             nImO::ServiceContext    ourContext{progName, "registry", logging,
                                                 nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
                                                     nImO::ServiceContext::ThreadMode::LaunchBrowser};
 
-            nImO::SetSignalHandlers(catchSignal);
             if (ourContext.findRegistry(true))
             {
                 ourContext.report("Registry already running.");
@@ -155,6 +155,7 @@ main
                 }
             }
             nImO::EnableWaitForRegistry();
+            ourContext.report("Exiting.");
         }
         catch (...)
         {

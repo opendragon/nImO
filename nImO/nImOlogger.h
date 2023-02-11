@@ -56,6 +56,9 @@
 namespace nImO
 {
 
+    /*! @brief The key for the commmand port in a log message. */
+    extern const std::string    kCommandPortKey;
+
     /*! @brief The key for the computer name in a log message. */
     extern const std::string    kComputerNameKey;
 
@@ -118,6 +121,12 @@ namespace nImO
             report
                 (const StringVector &   stringsToSend);
 
+            /*! @brief Set the command port for the next message.
+             @param[in] port The command port number. */
+            void
+            setCommandPort
+                (const uint16_t commandPort);
+
         protected :
             // Protected methods.
 
@@ -150,6 +159,9 @@ namespace nImO
 
             /*! @brief The name of the computer. */
             SpString    _computerName;
+
+            /*! @brief The command port for the requesting Context. */
+            SpInteger   _commandPort;
 
     }; // Logger
 

@@ -275,6 +275,11 @@ namespace nImO
     EnableWaitForRegistry
         (void);
 
+    /*! @brief Stop the loop that is waiting for the Registry. */
+    void
+    InterruptRegistryWait
+        (void);
+
     /*! @brief Convert an IP address to an MDNS string.
      @param[in,out] buffer Temporary buffer to use for conversion.
      @param[in] capacity The size of the temporary buffer.

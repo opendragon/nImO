@@ -38,6 +38,7 @@
 
 #include <nImOcontextWithMDNS.h>
 #include <nImOarray.h>
+#include <nImOinteger.h>
 #include <nImOmap.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
@@ -313,11 +314,11 @@ main
         nImO::LoadConfiguration(configFilePath);
         try
         {
+            nImO::SetSignalHandlers(catchSignal);
             uint32_t                    loggingAddress;
             uint16_t                    loggingPort;
             nImO::ContextWithNetworking ourContext{progName, "monitor", logging};
 
-            nImO::SetSignalHandlers(catchSignal);
             ourContext.getLoggingInfo(loggingAddress, loggingPort);
             ReceiveOnLoggingPort    receiver{ourContext.getService(), lKeepRunning, loggingAddress, loggingPort};
 
@@ -396,12 +397,14 @@ main
                     }
                     else
                     {
+                        nImO::SpString  commandPortKey{std::make_shared<nImO::String>(nImO::kCommandPortKey)};
                         nImO::SpString  computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
                         nImO::SpString  tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
                         nImO::SpString  messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
                         // Get the computer name
                         auto            anIterator = asMap->find(computerNameKey);
                         nImO::SpValue   theComputerName;
+                        nImO::SpValue   theCommandPort;
                         nImO::SpValue   theTag;
 
                         if (anIterator == asMap->end())
@@ -411,6 +414,16 @@ main
                         else
                         {
                             theComputerName = anIterator->second;
+                        }
+                        // Get the command port
+                        anIterator = asMap->find(commandPortKey);
+                        if (anIterator == asMap->end())
+                        {
+                            theCommandPort = nullptr;
+                        }
+                        else
+                        {
+                            theCommandPort = anIterator->second;
                         }
                         // Get the tag
                         anIterator = asMap->find(tagKey);
@@ -430,6 +443,7 @@ main
                             CPtr(nImO::Array)   asArray{theMessage->asArray()};
                             std::string         tagText;
                             std::string         computerNameText;
+                            std::string         commandPortText;
 
                             if (nullptr != theTag)
                             {
@@ -449,11 +463,23 @@ main
                                     computerNameText = asString->getValue();
                                 }
                             }
+                            if (nullptr != theCommandPort)
+                            {
+                                CPtr(nImO::Integer) asInteger{theCommandPort->asInteger()};
+
+                                if (nullptr != asInteger)
+                                {
+                                    commandPortText = "-" + std::to_string(asInteger->getIntegerValue());
+                                }
+                            }
+                            std::string prefix{addressString + computerNameText + commandPortText + tagText +
+                                                timeBuffer};
+
                             if (nullptr == asArray)
                             {
                                 CPtr(nImO::String)  asString{theMessage->asString()};
 
-                                std::cout << addressString << computerNameText << tagText << timeBuffer;
+                                std::cout << prefix;
                                 if (nullptr == asString)
                                 {
                                     std::cout << *theMessage;
@@ -471,7 +497,7 @@ main
                                     nImO::SpValue       element{asArray->at(ii)};
                                     CPtr(nImO::String)  asString{element->asString()};
 
-                                    std::cout << addressString << computerNameText << tagText << timeBuffer;
+                                    std::cout << prefix;
                                     if (nullptr == asString)
                                     {
                                         std::cout << *element;

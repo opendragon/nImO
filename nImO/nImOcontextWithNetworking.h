@@ -138,6 +138,12 @@ namespace nImO
                 return _registrySearchTimeout;
             }
 
+            /*! @brief Set the command port for the next message.
+             @param[in] port The command port number. */
+            void
+            setCommandPort
+                (const uint16_t commandPort);
+
         private :
             // Private methods.
 

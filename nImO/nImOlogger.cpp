@@ -38,6 +38,7 @@
 
 #include "nImOlogger.h"
 #include <nImOarray.h>
+#include <nImOinteger.h>
 #include <nImOmap.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
@@ -84,6 +85,8 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+const std::string   nImO::kCommandPortKey{"commandPort"};
+
 const std::string   nImO::kComputerNameKey{"computer"};
 
 const std::string   nImO::kMessageKey{"message"};
@@ -108,7 +111,7 @@ nImO::Logger::Logger
      const uint32_t         logAddress,
      const uint16_t         logPort):
         _address(logAddress), _port(logPort), _endpoint(asio::ip::address_v4(_address), _port),
-        _socket(*service, _endpoint.protocol())
+        _socket(*service, _endpoint.protocol()), _commandPort(nullptr)
 {
     _computerName = std::make_shared<String>(GetShortComputerName());
     _tag = std::make_shared<String>(tag);
@@ -197,6 +200,10 @@ nImO::Logger::report
         messageMap->addValue(std::make_shared<String>(kMessageKey), valueToSend);
         messageMap->addValue(std::make_shared<String>(kComputerNameKey), _computerName);
         messageMap->addValue(std::make_shared<String>(kTagKey), _tag);
+        if (nullptr != _commandPort)
+        {
+            messageMap->addValue(std::make_shared<String>(kCommandPortKey), _commandPort);
+        }
         messageToSend.setValue(messageMap);
         messageToSend.close();
         if (0 < messageToSend.getLength())
@@ -232,6 +239,19 @@ nImO::Logger::report
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::Logger::report
+
+void
+nImO::Logger::setCommandPort
+(const uint16_t commandPort)
+{
+    ODL_OBJENTER(); //####
+    _commandPort.reset();
+    if (0 < commandPort)
+    {
+        _commandPort = std::make_shared<Integer>(commandPort);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::Logger::setCommandPort
 
 #if defined(__APPLE__)
 # pragma mark Global functions

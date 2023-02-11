@@ -318,6 +318,18 @@ nImO::ContextWithNetworking::report
     return okSoFar;
 } // nImO::ContextWithNetworking::report
 
+void
+nImO::ContextWithNetworking::setCommandPort
+    (const uint16_t commandPort)
+{
+    ODL_OBJENTER(); //####
+    if (_loggingEnabled && (nullptr != _logger))
+    {
+        _logger->setCommandPort(commandPort);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ContextWithNetworking::setCommandPort
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

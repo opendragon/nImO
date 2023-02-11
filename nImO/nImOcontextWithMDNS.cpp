@@ -87,8 +87,17 @@ static struct sockaddr_in6  lServiceAddressIpv6;
 /*! @brief Set to @c true to cause the announcer thread to terminate. */
 static std::atomic<bool>    lAnnouncerThreadStop;
 
+/*! @brief Set to @c true when the browser thread has started. */
+static std::atomic<bool>    lBrowserThreadStarted;
+
 /*! @brief Set to @c true to cause the browser thread to terminate. */
 static std::atomic<bool>    lBrowserThreadStop;
+
+/*! @brief Set to @c true when the browser thread has terminated. */
+static std::atomic<bool>    lBrowserThreadStopped;
+
+/*! @brief Set to @c true to cause the loop looking for the Registry to terminate. */
+static std::atomic<bool>    lStopRegistryLoop;
 
 /*! @brief The buffer used to hold an IP address. */
 static char lAddrBuffer[64];
@@ -975,9 +984,10 @@ nImO::ContextWithMDNS::executeBrowser
     timeout.tv_sec = 10;
     timeout.tv_usec = 0;
     owner.report("Browser thread starting.");
+    lBrowserThreadStarted = true;
     for ( ; ; )
     {
-        if (lBrowserThreadStop)
+        if (lBrowserThreadStop || (owner._havePort && owner._haveAddress))
         {
             break;
 
@@ -1057,6 +1067,8 @@ nImO::ContextWithMDNS::executeBrowser
 
         }
     }
+    lBrowserThreadStarted = false;
+    lBrowserThreadStopped = true;
     owner.report("Browser thread terminating.");
     ODL_EXIT(); //####
 } // nImO::ContextWithMDNS::executeBrowser
@@ -1070,7 +1082,10 @@ nImO::ContextWithMDNS::findRegistry
     bool    found;
 
     ODL_OBJENTER(); //####
-    gatherAnnouncements(quietly);
+    if (lWaitForRegistry && ((! _havePort) || (! _haveAddress)))
+    {
+        gatherAnnouncements(quietly);
+    }
     if (_havePort && _haveAddress)
     {
         address = _registryPreferredAddress;
@@ -1092,14 +1107,17 @@ nImO::ContextWithMDNS::gatherAnnouncements
     ODL_OBJENTER(); //####
     if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
     {
+        bool    okSoFar = true;
+
+        lBrowserThreadStopped = false;
         lBrowserThreadStop = false;
+        _havePort = false;
+        _haveAddress = false;
         _pool.create_thread([this]
                             (void)
                             {
                                 executeBrowser(*this);
                             });
-        bool    okSoFar = true;
-
         for (int isock = 0; isock < _numSockets; ++isock)
         {
             _queryId[isock] = mDNS::query_send(_sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
@@ -1110,44 +1128,39 @@ nImO::ContextWithMDNS::gatherAnnouncements
                 okSoFar = false;
             }
         }
-        _havePort = false;
-        _haveAddress = false;
         if (okSoFar)
         {
-            asio::deadline_timer    timeOut(*getService());
+            std::atomic<bool>       timedOut(false);
+            asio::deadline_timer    timeOutTimer(*getService());
 
             report("timeout = " + std::to_string(getRegistrySearchTimeout()));
-            timeOut.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
-            timeOut.async_wait([this, quietly]
-                               (const system::error_code &  error)
-                               {
-                                   if (0 == error.value())
+            timeOutTimer.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
+            timeOutTimer.async_wait([this, quietly, &timedOut]
+                                   (const system::error_code &  error)
                                    {
-                                       if (! quietly)
+                                       if (0 == error.value())
                                        {
-                                           report("timed out!");
+                                           if (! quietly)
+                                           {
+                                               report("timed out!");
+                                           }
+                                           timedOut = true;
                                        }
-                                       stopGatheringAnnouncements();
-                                   }
-                               });
+                                   });
             if (! quietly)
             {
                 report("waiting...");
             }
-            for ( ; (! lBrowserThreadStop) && ((! _havePort) || (! _haveAddress)); )
+            for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {
                 thread::yield();
             }
-            if (_havePort && _haveAddress)
+            if (! timedOut)
             {
-                timeOut.cancel();
-                stopGatheringAnnouncements();
+                timeOutTimer.cancel();
             }
         }
-        else
-        {
-            stopGatheringAnnouncements();
-        }
+        stopGatheringAnnouncements();
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::gatherAnnouncements
@@ -1320,7 +1333,14 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
     ODL_OBJENTER(); //####
     if (ThreadMode::LaunchBrowser == (ThreadMode::LaunchBrowser & _whichThreads))
     {
-        lBrowserThreadStop = true;
+        if (lWaitForRegistry && lBrowserThreadStarted)
+        {
+            lBrowserThreadStop = true;
+            for ( ; ! lBrowserThreadStopped; )
+            {
+                thread::yield();
+            }
+        }
     }
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::stopGatheringAnnouncements
@@ -1334,11 +1354,11 @@ nImO::ContextWithMDNS::waitForRegistry
     ODL_OBJENTER(); //####
     if (lWaitForRegistry)
     {
-        for ( ; (! _havePort) && (! _haveAddress); )
+        for ( ; (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
         {
             gatherAnnouncements(true);
         }
-        wasFound = (_havePort && _haveAddress); // set by findRegistry()
+        wasFound = (_havePort && _haveAddress);
     }
     else
     {
@@ -1369,6 +1389,15 @@ nImO::EnableWaitForRegistry
     lWaitForRegistry = true;
     ODL_EXIT(); //####
 } // nImO::EnableWaitForRegistry
+
+void
+nImO::InterruptRegistryWait
+    (void)
+{
+    ODL_ENTER(); //####
+    lStopRegistryLoop = true;
+    ODL_EXIT(); //####
+} // nImO::InterruptRegistryWait
 
 mDNS::string_t
 nImO::IpAddressToString

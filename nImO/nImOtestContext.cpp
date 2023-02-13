@@ -99,7 +99,6 @@ nImO::TestContext::~TestContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::TestContext::~TestContext
 

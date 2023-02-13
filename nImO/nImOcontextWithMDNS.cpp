@@ -75,6 +75,9 @@ static bool lHasIpv4 = false;
 /*! @brief @c true if an IPv6 address was found. */
 static bool lHasIpv6 = false;
 
+/*! @brief @c true if the application needs to performa a single check for the Registry. */
+static bool lPerformSingleRegistryCheck = false;
+
 /*! @brief @c true if the application should wait for the Registry. */
 static bool lWaitForRegistry = true;
 
@@ -1360,6 +1363,11 @@ nImO::ContextWithMDNS::waitForRegistry
         }
         wasFound = (_havePort && _haveAddress);
     }
+    else if (lPerformSingleRegistryCheck)
+    {
+        gatherAnnouncements(true);
+        wasFound = (_havePort && _haveAddress);
+    }
     else
     {
         wasFound = false;
@@ -1374,10 +1382,11 @@ nImO::ContextWithMDNS::waitForRegistry
 
 void
 nImO::DisableWaitForRegistry
-    (void)
+    (const bool allowOneCheck)
 {
     ODL_ENTER(); //####
     lWaitForRegistry = false;
+    lPerformSingleRegistryCheck = allowOneCheck;
     ODL_EXIT(); //####
 } // nImO::DisableWaitForRegistry
 
@@ -1387,6 +1396,7 @@ nImO::EnableWaitForRegistry
 {
     ODL_ENTER(); //####
     lWaitForRegistry = true;
+    lPerformSingleRegistryCheck = false;
     ODL_EXIT(); //####
 } // nImO::EnableWaitForRegistry
 

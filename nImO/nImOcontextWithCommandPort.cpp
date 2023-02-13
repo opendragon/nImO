@@ -104,7 +104,6 @@ nImO::ContextWithCommandPort::~ContextWithCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     destroyCommandPort();
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithCommandPort::~ContextWithCommandPort

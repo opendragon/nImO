@@ -99,7 +99,6 @@ nImO::MiscellaneousContext::~MiscellaneousContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::MiscellaneousContext::~MiscellaneousContext
 

@@ -265,10 +265,11 @@ namespace nImO
 
     UnaryAndBinaryOperators(ContextWithMDNS::ThreadMode)
 
-    /*! @brief Don't wait for the Registry - used with the Registry and test programs. */
+    /*! @brief Don't wait for the Registry - used with the Registry and test programs.
+     @param[in] allowOneCheck @c true if there a single scan for the Registry is done instead. */
     void
     DisableWaitForRegistry
-        (void);
+        (const bool allowOneCheck = false);
 
     /*! @brief Wait for the Registry - used with the test programs. */
     void

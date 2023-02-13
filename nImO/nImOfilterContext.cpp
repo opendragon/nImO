@@ -105,7 +105,6 @@ nImO::FilterContext::~FilterContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::FilterContext::~FilterContext
 

@@ -89,6 +89,7 @@ nImO::ServiceContext::ServiceContext
     //ODL_B1("logging = ", logging); //####
     try
     {
+        
         if (waitForRegistry())
         {
             // TBD
@@ -106,7 +107,6 @@ nImO::ServiceContext::~ServiceContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::~ServiceContext
 

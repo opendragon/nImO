@@ -141,7 +141,6 @@ nImO::Context::~Context
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     lContextCreated = false;
     ODL_OBJEXIT(); //####
 } // nImO::Context::~Context

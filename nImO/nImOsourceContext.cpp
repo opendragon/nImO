@@ -105,7 +105,6 @@ nImO::SourceContext::~SourceContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     ODL_OBJEXIT(); //####
 } // nImO::SourceContext::~SourceContext
 

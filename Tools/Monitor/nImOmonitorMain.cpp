@@ -472,7 +472,7 @@ main
                                     commandPortText = "-" + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
-                            std::string prefix{addressString + computerNameText + commandPortText + tagText +
+                            std::string prefix{addressString + computerNameText + tagText + commandPortText +
                                                 timeBuffer};
 
                             if (nullptr == asArray)

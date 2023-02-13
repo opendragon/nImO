@@ -105,7 +105,6 @@ nImO::UtilityContext::~UtilityContext
     (void)
 {
     ODL_OBJENTER(); //####
-//    removeAllEntries();
     stopGatheringAnnouncements();
     ODL_OBJEXIT(); //####
 } // nImO::UtilityContext::~UtilityContext

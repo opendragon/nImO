@@ -46,6 +46,10 @@
 		F61A18B3293FB39A0032B156 /* nImOMIMEAndMessagesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOMIMEAndMessagesTest.cpp; path = Tests/nImOMIMEAndMessagesTest.cpp; sourceTree = "<group>"; };
 		F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinvalid.cpp; path = nImO/nImOinvalid.cpp; sourceTree = SOURCE_ROOT; };
 		F61B8C011E6CB58E00606F25 /* nImOinvalid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOinvalid.h; path = nImO/nImOinvalid.h; sourceTree = SOURCE_ROOT; };
+		F61D210C299BA9EA0083424E /* nImOcommutatorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOcommutatorMain.cpp; sourceTree = "<group>"; };
+		F61D210D299BA9EA0083424E /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F61D210E299BA9EA0083424E /* nImOcommutator.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOcommutator.rc.in; sourceTree = "<group>"; };
+		F61D2110299BAA080083424E /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F61D262D2404BB7200C73ACC /* nImOricochetControl.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOricochetControl.rc.in; path = examples/Ricochet/nImOricochetControl.rc.in; sourceTree = "<group>"; };
 		F61D262E2404BBBB00C73ACC /* nImOricochetControlMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetControlMain.cpp; path = examples/Ricochet/nImOricochetControlMain.cpp; sourceTree = "<group>"; };
 		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
@@ -308,6 +312,25 @@
 			name = Registry;
 			sourceTree = "<group>";
 		};
+		F61D210B299BA9EA0083424E /* Commutator */ = {
+			isa = PBXGroup;
+			children = (
+				F61D210E299BA9EA0083424E /* nImOcommutator.rc.in */,
+				F61D210C299BA9EA0083424E /* nImOcommutatorMain.cpp */,
+				F61D210D299BA9EA0083424E /* resource.h */,
+			);
+			name = Commutator;
+			path = examples/Simple/Commutator;
+			sourceTree = "<group>";
+		};
+		F61D210F299BAA080083424E /* Commutator */ = {
+			isa = PBXGroup;
+			children = (
+				F61D2110299BAA080083424E /* CMakeLists.txt */,
+			);
+			path = Commutator;
+			sourceTree = "<group>";
+		};
 		F62DA79E2980160F002882FF /* Echo */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +432,7 @@
 		F65C48D52985614A00430284 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
+				F61D210F299BAA080083424E /* Commutator */,
 				F65C48D62985614A00430284 /* FanIn */,
 				F65C48D82985614A00430284 /* CMakeLists.txt */,
 				F65C48DB2985614A00430284 /* FanOut */,
@@ -725,6 +749,7 @@
 		F68373EA240409500030F969 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				F61D210B299BA9EA0083424E /* Commutator */,
 				F6300DFC29801646002F3960 /* Echo */,
 				F68373EB240409690030F969 /* Ricochet */,
 				F65C48C82985612B00430284 /* Simple */,

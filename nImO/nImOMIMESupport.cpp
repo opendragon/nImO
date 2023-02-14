@@ -101,6 +101,7 @@ static bool
 isValidMIMEChar
     (const char ch)
 {
+    BOOST_STATIC_ASSERT_MSG(0 == (kMaxMIMELine % 4), "MIME line length is not divisible by 4.");
     return (isalnum(ch) || (kPlusChar == ch) || (kSlashChar == ch));
 } // isValidMIMEChar
 

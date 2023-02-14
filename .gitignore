@@ -46,6 +46,9 @@ non-iOS/examples/Ricochet/nImOricochet.rc
 non-iOS/examples/Ricochet/nImOricochetControl
 non-iOS/examples/Ricochet/nImOricochetControl.dir/
 non-iOS/examples/Ricochet/nImOricochetControl.rc
+non-iOS/examples/Simple/Commutator/nImOcommutator
+non-iOS/examples/Simple/Commutator/nImOcommutator.dir/
+non-iOS/examples/Simple/Commutator/nImOcommutator.rc
 non-iOS/examples/Simple/FanIn/nImOfanIn
 non-iOS/examples/Simple/FanIn/nImOfanIn.dir/
 non-iOS/examples/Simple/FanIn/nImOfanIn.rc

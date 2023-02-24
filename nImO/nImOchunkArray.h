@@ -72,7 +72,7 @@ namespace nImO
 
             /*! @brief The constructor.
             @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
-            ChunkArray
+            explicit ChunkArray
                 (const bool padWithNull = false);
 
             /*! @brief The copy constructor.

@@ -77,7 +77,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The Context that is using the command session. */
-            CommandSession
+            explicit CommandSession
                 (ContextWithCommandPort &   owner);
 
             /*! @brief The destructor. */

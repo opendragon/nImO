@@ -137,7 +137,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning context. */
-            RecordHandler
+            explicit RecordHandler
                 (nImO::ContextWithMDNS &    owner) :
                     _owner(owner), _processing(false)
             {

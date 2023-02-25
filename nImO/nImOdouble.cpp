@@ -578,7 +578,7 @@ nImO::Double::writeToMessage
     (Message &  outMessage)
     const
 {
-    NumberAsBytes numBuff;
+    NumberAsBytes   numBuff;
 
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####

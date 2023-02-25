@@ -179,12 +179,13 @@ double
 nImO::B2D
     (const NumberAsBytes &  inString)
 {
-    int64_t inValueCopy = B2I(inString, sizeof(inValueCopy));
-    double  result;
+    boost::endian::big_float64_buf_t    holder;
+    double                              result;
 
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
-    memcpy(&result, &inValueCopy, sizeof(result));
+    memcpy(holder.data(), inString, sizeof(result));
+    result = holder.value();
     ODL_EXIT_D(result); //####
     return result;
 } // nImO::B2D
@@ -194,19 +195,26 @@ nImO::B2I
     (const NumberAsBytes &  inString,
      const size_t           numBytes)
 {
-    bool            isNegative = (0 != (0x080 & inString[0]));
-    CPtr(uint8_t)   walker{inString};
-    int64_t         result = (isNegative ? -1 : 0);
+    bool                            isNegative = (0 != (0x080 & inString[0]));
+    boost::endian::big_int64_buf_t  holder;
+    int64_t                         result;
 
     ODL_ENTER(); //####
     ODL_P1("inString = ", &inString); //####
     ODL_I1("numBytes = ", numBytes); //####
-    for (size_t ii = 0; numBytes > ii; ++ii)
+    if (isNegative)
     {
-        uint8_t aByte{*walker++};
-
-        result = ((result << 8) | aByte);
+        holder = -1;
     }
+    else
+    {
+        holder = 0;
+    }
+    for (size_t ii = (sizeof(result) - numBytes); ii < sizeof(result); ++ii)
+    {
+        holder.data()[ii] = inString[ii + numBytes - sizeof(result)];
+    }
+    result = holder.value();
     ODL_EXIT_I(result); //####
     return result;
 } // nImO::B2I
@@ -382,14 +390,12 @@ nImO::D2B
     (const double       inValue,
      NumberAsBytes &    outString)
 {
-    double  inValueCopy = inValue;
-    int64_t inValueAsInt;
+    boost::endian::big_float64_buf_t    holder{inValue};
 
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
-    memcpy(&inValueAsInt, &inValueCopy, sizeof(inValueAsInt));
-    I2B(inValueAsInt, outString);
+    memcpy(outString, holder.data(), sizeof(inValue));
     ODL_EXIT(); //####
 } // nImO::D2B
 
@@ -581,17 +587,13 @@ nImO::I2B
     (const int64_t      inValue,
      NumberAsBytes &    outString)
 {
-    int64_t workValue = inValue;
-    size_t  length = 0;
+    boost::endian::big_int64_buf_t  holder{inValue};
+    size_t                          length = 0;
 
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
-    for (size_t ii = sizeof(inValue); 0 < ii; --ii)
-    {
-        outString[ii - 1] = (0x0FF & workValue);
-        workValue >>= 8;
-    }
+    memcpy(outString, holder.data(), sizeof(inValue));
     if (0 <= inValue)
     {
         for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
@@ -616,7 +618,7 @@ nImO::I2B
     {
         for (size_t ii = 0; (0 == length) && (sizeof(inValue) > ii); ++ii)
         {
-            if (0xFF != outString[ii])
+            if (0x0FF != outString[ii])
             {
                 length = sizeof(inValue) - ii;
             }

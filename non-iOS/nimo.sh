@@ -53,7 +53,7 @@ function usage_help() {
                 nImOinfo -h
                 ;;
             "launch")
-                nImOlaunch -h
+                nImOlaunchApp -h
                 ;;
             "list")
                 nImOlist -h
@@ -131,7 +131,7 @@ else
             if [[ $# -eq 0 ]]; then
                 usage_help launch
             else
-                nImOlaunch $*
+                nImOlaunchApp $*
             fi
             ;;
         "list")

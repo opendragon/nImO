@@ -58,7 +58,6 @@
 # pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #endif // defined(__APPLE__)
-#include <boost/asio.hpp>
 #include <boost/endian/buffers.hpp>
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -570,7 +569,7 @@ std::string
 nImO::GetShortComputerName
     (void)
 {
-    std::string result{boost::asio::ip::host_name()};
+    std::string result{asio::ip::host_name()};
     size_t      dotPos = result.find('.');
 
     ODL_ENTER(); //####

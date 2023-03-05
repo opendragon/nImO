@@ -119,7 +119,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::OptionalModifiable, "launch"};
+                                                nImO::ArgumentMode::RequiredModifiable, ""};
     nImO::DescriptorVector          argumentList;
     nImO::OutputFlavour             flavour;
     bool                            logging = false;

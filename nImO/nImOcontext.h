@@ -45,7 +45,6 @@
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
 # endif // defined(__APPLE__)
-# include <boost/asio.hpp>
 # include <boost/asio/read_until.hpp>
 # include <boost/bind/bind.hpp>
 # include <boost/shared_array.hpp>

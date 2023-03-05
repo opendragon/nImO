@@ -38,6 +38,7 @@
 
 #include <nImOregistryProxy.h>
 #include <nImOserviceContext.h>
+#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -115,17 +116,20 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
-    int                     exitCode = 0;
+    std::string                     progName{*argv};
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"),
+                                            nImO::ArgumentMode::OptionalModifiable, nImO::GetShortComputerName()};
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+    bool                            logging = false;
+    std::string                     configFilePath;
+    int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Launcher", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))
@@ -142,7 +146,7 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
 
-                // TBD
+                // Tell Registry about this node and wait for launch requests.
             }
             else
             {

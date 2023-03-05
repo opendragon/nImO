@@ -121,10 +121,10 @@ nImO::CommandSession::start
 #if 0
     void start()
     {
-        socket_.async_read_some(boost::asio::buffer(data_, max_length),
+        socket_.async_read_some(asio::buffer(data_, max_length),
                                 boost::bind(&session::handle_read, this,
-                                            boost::asio::placeholders::error,
-                                            boost::asio::placeholders::bytes_transferred));
+                                            asio::placeholders::error,
+                                            asio::placeholders::bytes_transferred));
     }
 
     void handle_read(const system::error_code& error,
@@ -133,9 +133,9 @@ nImO::CommandSession::start
         if (0 == error.value())
         {
             boost::asio::async_write(socket_,
-                                     boost::asio::buffer(data_, bytes_transferred),
+                                     asio::buffer(data_, bytes_transferred),
                                      boost::bind(&session::handle_write, this,
-                                                 boost::asio::placeholders::error));
+                                                 asio::placeholders::error));
         }
         else
         {
@@ -147,10 +147,10 @@ nImO::CommandSession::start
     {
         if (0 == error.value())
         {
-            socket_.async_read_some(boost::asio::buffer(data_, max_length),
+            socket_.async_read_some(asio::buffer(data_, max_length),
                                     boost::bind(&session::handle_read, this,
-                                                boost::asio::placeholders::error,
-                                                boost::asio::placeholders::bytes_transferred));
+                                                asio::placeholders::error,
+                                                asio::placeholders::bytes_transferred));
         }
         else
         {

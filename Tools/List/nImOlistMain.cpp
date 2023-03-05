@@ -83,6 +83,9 @@ enum class Choice
     /*! @brief Return information on the known services. */
     kServ,
 
+    /*! @brief Return information on the known nodes. */
+    kNode,
+
     /*! @brief Return information on the known applications, channels, connections and services. */
     kAll
 
@@ -201,6 +204,7 @@ main
     lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", ChoiceInfo{Choice::kConn, "active connections"}});
     lChoiceMap.insert({"serv", ChoiceInfo{Choice::kServ, "active services"}});
+    lChoiceMap.insert({"node", ChoiceInfo{Choice::kServ, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
     nImO::StringSet choiceSet;
 
@@ -254,6 +258,10 @@ main
                             break;
 
                         case Choice::kServ :
+                            // TBD
+                            break;
+
+                        case Choice::kNode :
                             // TBD
                             break;
 

@@ -116,17 +116,20 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
-    int                     exitCode = 0;
+    std::string                     progName{*argv};
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
+                                                nImO::ArgumentMode::RequiredModifiable, ""};
+    nImO::DescriptorVector          argumentList;
+    nImO::OutputFlavour             flavour;
+    bool                            logging = false;
+    std::string                     configFilePath;
+    int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Add application", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))

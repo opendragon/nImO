@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOregistryProxy.h"
+#include <nImOfilePathArgumentDescriptor.h>
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
@@ -116,20 +117,23 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::RequiredModifiable, ""};
-    nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
-    int                             exitCode = 0;
+    std::string                         progName{*argv};
+    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("Path to application"),
+                                                    nImO::ArgumentMode::RequiredModifiable, "", ""};
+    nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"),
+                                                nImO::ArgumentMode::OptionalModifiable, ""};
+    nImO::DescriptorVector              argumentList;
+    nImO::OutputFlavour                 flavour;
+    bool                                logging = false;
+    std::string                         configFilePath;
+    int                                 exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
+    argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Add application", "", 2020,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))
@@ -138,6 +142,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
+            std::string             nodeName{nImO::GetShortComputerName()};
             nImO::UtilityContext    ourContext{progName, "addApp", logging};
             std::string             registryAddress;
             uint16_t                registryPort;

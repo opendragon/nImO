@@ -10,7 +10,6 @@ function list_commands() {
     echo "    disconnect break the connection between two channels"
     echo "    help       list the available commands"
     echo "    info       report on a channel"
-    echo "    launch     launch an application"
     echo "    list       list channels, applications, services, et cetera"
     echo "    load       load a set of applications"
     echo "    monitor    report on nImO"
@@ -51,9 +50,6 @@ function usage_help() {
                 ;;
             "info")
                 nImOinfo -h
-                ;;
-            "launch")
-                nImOlaunchApp -h
                 ;;
             "list")
                 nImOlist -h
@@ -125,13 +121,6 @@ else
                 usage_help info
             else
                 nImOinfo $*
-            fi
-            ;;
-        "launch")
-            if [[ $# -eq 0 ]]; then
-                usage_help launch
-            else
-                nImOlaunchApp $*
             fi
             ;;
         "list")

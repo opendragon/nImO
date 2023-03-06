@@ -140,13 +140,15 @@ main
             nImO::SetSignalHandlers(catchSignal);
             std::string             registryAddress;
             uint16_t                registryPort;
+            std::string             nodeName{nImO::GetShortComputerName()};
             nImO::ServiceContext    ourContext{progName, "launcher", logging};
 
             if (ourContext.findRegistry(registryAddress, registryPort))
             {
                 nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
 
-                // Tell Registry about this node and wait for launch requests.
+                // Tell Registry about this node and exit if there already is one on this node.
+                // Wait for launch requests.
             }
             else
             {

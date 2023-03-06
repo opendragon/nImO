@@ -138,6 +138,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
+            std::string             nodeName{nImO::GetShortComputerName()};
             nImO::UtilityContext    ourContext{progName, "loadApps", logging};
             std::string             registryAddress;
             uint16_t                registryPort;

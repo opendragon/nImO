@@ -39,6 +39,7 @@
 #if (! defined(nImOregistry_H_))
 # define nImOregistry_H_ /* Header guard */
 
+# include <nImOcontextWithNetworking.h>
 # include <nImOset.h>
 # include "sqlite3.h"
 
@@ -71,16 +72,19 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
+            /*! @brief The constructor.
+             @param[in] owner The context to be used for logging.
+             @param[in] logging @c true if database activity is to be reported. */
             Registry
-                (void);
+                (Ptr(ContextWithNetworking) owner = nullptr,
+                 const bool                 logging = false);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
             Registry
                 (const Registry &   other) = delete;
 
-        /*! @brief The move constructor.
+            /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             Registry
                 (Registry &&	other) = delete;
@@ -111,7 +115,7 @@ namespace nImO
             nodePresent
                 (const std::string &    nodeName);
 
-        /*! @brief Return the number of nodes in the Registry.
+            /*! @brief Return the number of nodes in the Registry.
              @return The number of nodes in the Registry. */
             int
             numNodes
@@ -140,8 +144,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /* @brief A pointer to the database context. */
+            /*! @brief A pointer to the database context. */
             Ptr(sqlite3)    _dbHandle;
+
+            /*! @brief The owning context. */
+            Ptr(ContextWithNetworking) _owner;
 
     }; // Registry
 

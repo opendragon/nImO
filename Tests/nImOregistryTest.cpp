@@ -116,7 +116,7 @@ doTestCreateRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
         if (nullptr == aRegistry)
         {

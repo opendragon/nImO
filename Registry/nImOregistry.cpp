@@ -78,8 +78,32 @@ createTables
     int result = SQLITE_OK;
     
     ODL_ENTER();
+    if (nullptr != dbHandle)
+    {
+        
+    }
     ODL_EXIT_I(result);
+    return result;
 } // createTables
+
+/*! @brief A logging function specific for SQL events.
+ @param[in] data The object to be used for reporting.
+ @param[in] code The status code to be reported.
+ @param[in] message The description of the event. */
+static void
+sqlLogger
+    (Ptr(void)  data,
+     const int  code,
+     CPtr(char) message)
+{
+    NIMO_UNUSED_ARG_(code);
+    Ptr(nImO::ContextWithNetworking)    owner = StaticCast(Ptr(nImO::ContextWithNetworking), data);
+
+    if (nullptr != owner)
+    {
+        owner->report(message);
+    }
+} // sqlLogger
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -90,10 +114,15 @@ createTables
 #endif // defined(__APPLE__)
 
 nImO::Registry::Registry
-    (void) :
-        _dbHandle(nullptr)
+    (Ptr(ContextWithNetworking) owner,
+     const bool                 logging) :
+        _dbHandle(nullptr), _owner(owner)
 {
     ODL_ENTER(); //####
+    if (logging && (nullptr != _owner))
+    {
+        sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner);
+    }
     int result = sqlite3_open_v2("nImO_registry", &_dbHandle,
                                  SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr);
 

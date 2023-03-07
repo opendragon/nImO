@@ -145,12 +145,21 @@ main
             }
             else
             {
-                if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
-                                                    nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
+                auto    theRegistry{make_unique<nImO::Registry>(&ourContext, logging)};
+
+                if (nullptr == theRegistry)
                 {
-                    for ( ; lKeepRunning; )
+                    ourContext.report("Could not create Registry.");
+                }
+                else
+                {
+                    if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
+                                                        nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                     {
-//TBD
+                        for ( ; lKeepRunning; )
+                        {
+    //TBD
+                        }
                     }
                 }
             }

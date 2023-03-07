@@ -165,11 +165,18 @@ nImO::Registry::~Registry
 
 bool
 nImO::Registry::addNode
-    (const std::string &    nodeName)
+    (const std::string &    nodeName,
+     const uint32_t         nodeAddress,
+     const uint16_t         nodePort)
 {
     bool    added = false;
 
     ODL_OBJENTER(); //####
+
+        NIMO_UNUSED_ARG_(nodeName);
+        NIMO_UNUSED_ARG_(nodeAddress);
+        NIMO_UNUSED_ARG_(nodePort);
+
     ODL_OBJEXIT_B(added); //####
     return added;
 } // nImO::Registry::addNode
@@ -193,6 +200,9 @@ nImO::Registry::nodePresent
     bool    found = false;
 
     ODL_OBJENTER(); //####
+
+        NIMO_UNUSED_ARG_(nodeName);
+
     ODL_OBJEXIT_B(found); //####
     return found;
 } // nImO::Registry::nodePresent
@@ -216,6 +226,9 @@ nImO::Registry::removeNode
     bool    removed = false;
 
     ODL_OBJENTER(); //####
+
+            NIMO_UNUSED_ARG_(nodeName);
+
     ODL_OBJEXIT_B(removed); //####
     return removed;
 } // nImO::Registry::removeNode

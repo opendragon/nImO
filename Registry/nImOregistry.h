@@ -96,10 +96,14 @@ namespace nImO
 
             /*! @brief Add a node to the Registry.
              @param[in] nodeName The name of the node to be added.
+             @param[in] nodeAddress The IPv4 address of the node.
+             @param[in] nodePort The command port for the node.
              @return @c true if the node was added and @c false if it was not added. */
             bool
             addNode
-                (const std::string &    nodeName);
+                (const std::string &    nodeName,
+                 const uint32_t         nodeAddress = 0,
+                 const uint16_t         nodePort = 0);
 
             /*! @brief Get the set of nodes in the Registry.
              @return The set of nodes in the Registry. */

@@ -47,9 +47,12 @@ endif()
 
 enable_testing()
 
+include_directories("${nImO_SQLITE_DIR}")
+
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOregistryTest.cpp
                ${THIS_SOURCE_DIR}/../Registry/nImOregistry.cpp
+               ${nImO_SQLITE_DIR}/sqlite3.c
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

@@ -48,10 +48,13 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
+include_directories("${nImO_SQLITE_DIR}")
+
 # Set up our program
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOregistry.cpp
                ${THIS_SOURCE_DIR}/nImOregistryMain.cpp
+               ${nImO_SQLITE_DIR}/sqlite3.c
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

@@ -191,6 +191,8 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 # Find ANTLR4
 find_package(antlr4-runtime REQUIRED)
 
+set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
+
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
                 ${CMAKE_CURRENT_BINARY_DIR}/nImOConfigVersion.cmake @ONLY)

@@ -172,7 +172,16 @@ doTestEmptyRegistryForNodes
         {
             if (0 == aRegistry->numNodes())
             {
-                result = 0;
+                StringSet   nodes = aRegistry->getNodes();
+
+                if (nodes.empty())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (nodes.empty())"); //####
+                }
             }
             else
             {
@@ -229,7 +238,16 @@ doTestAddNodeToRegistry
                 {
                     if (aRegistry->nodePresent("blort"))
                     {
-                        result = 0;
+                        StringSet   nodes = aRegistry->getNodes();
+
+                        if (nodes.end() == nodes.find("blort"))
+                        {
+                            ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
                     }
                     else
                     {
@@ -370,7 +388,23 @@ doTestAddTwoDistinctNodesToRegistry
                 {
                     if (aRegistry->nodePresent("blort") && aRegistry->nodePresent("blurt"))
                     {
-                        result = 0;
+                        StringSet   nodes = aRegistry->getNodes();
+
+                        if (nodes.end() == nodes.find("blort"))
+                        {
+                            ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                        }
+                        else
+                        {
+                            if (nodes.end() == nodes.find("blurt"))
+                            {
+                                ODL_LOG("(nodes.end() == nodes.find(\"blurt\"))"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
                     }
                     else
                     {
@@ -528,7 +562,16 @@ doTestAddTwoIdenticalNodesToRegistry
                 }
                 else
                 {
-                    result = 0;
+                    StringSet   nodes = aRegistry->getNodes();
+
+                    if (nodes.end() == nodes.find("blort"))
+                    {
+                        ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
                 }
             }
             else

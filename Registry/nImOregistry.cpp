@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOregistry.h"
+#include "sqlite3.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -114,6 +115,18 @@ nImO::Registry::addNode
     ODL_OBJEXIT_B(added); //####
     return added;
 } // nImO::Registry::addNode
+
+nImO::StringSet
+nImO::Registry::getNodes
+    (void)
+    const
+{
+    StringSet   result;
+
+    ODL_OBJENTER();
+    ODL_OBJEXIT();
+    return result;
+} // nImO::Registry::getNodes
 
 bool
 nImO::Registry::nodePresent

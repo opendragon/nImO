@@ -39,7 +39,7 @@
 #if (! defined(nImOregistry_H_))
 # define nImOregistry_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOset.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -91,6 +91,13 @@ namespace nImO
             bool
             addNode
                 (const std::string &    nodeName);
+
+            /*! @brief Get the set of nodes in the Registry.
+             @return The set of nodes in the Registry. */
+            StringSet
+            getNodes
+                (void)
+                const;
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.

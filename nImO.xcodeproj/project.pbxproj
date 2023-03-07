@@ -204,6 +204,10 @@
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithNetworking.h; path = nImO/nImOcontextWithNetworking.h; sourceTree = "<group>"; };
 		F6B18566294A892B0091BEE3 /* nImOcontextWithNetworking.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithNetworking.cpp; path = nImO/nImOcontextWithNetworking.cpp; sourceTree = "<group>"; };
+		F6B1E7A429B7B8BE00FDF4D6 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		F6B1E7A529B7B8BE00FDF4D6 /* shell.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = shell.c; sourceTree = "<group>"; };
+		F6B1E7A629B7B8BE00FDF4D6 /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		F6B1E7A729B7B8BE00FDF4D6 /* sqlite3ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		F6B388FA1C77F3E3004B2D42 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = CPack/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		F6B8B9FA1E6D976B0094EF96 /* nImObadMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObadMessageTest.cpp; path = Tests/nImObadMessageTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6B8B9FB1E6D976B0094EF96 /* nImObadMessageTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImObadMessageTest.rc.in; path = Tests/nImObadMessageTest.rc.in; sourceTree = SOURCE_ROOT; };
@@ -782,6 +786,17 @@
 			name = Ricochet;
 			sourceTree = "<group>";
 		};
+		F6B1E7A329B7B8BE00FDF4D6 /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				F6B1E7A429B7B8BE00FDF4D6 /* sqlite3.c */,
+				F6B1E7A529B7B8BE00FDF4D6 /* shell.c */,
+				F6B1E7A629B7B8BE00FDF4D6 /* sqlite3.h */,
+				F6B1E7A729B7B8BE00FDF4D6 /* sqlite3ext.h */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
 		F6B388DF1C77F18B004B2D42 = {
 			isa = PBXGroup;
 			children = (
@@ -797,6 +812,7 @@
 				F6D7AD05224A5D560095AA43 /* non-iOS */,
 				F60B49742104F787009D2CDA /* README.md */,
 				F627506924141ACB00FCF36C /* sloc.sh */,
+				F6B1E7A329B7B8BE00FDF4D6 /* SQLite */,
 				F613D15E288D82FB008712C9 /* Registry */,
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F65C4B9D2985636700430284 /* Tools */,

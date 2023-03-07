@@ -69,18 +69,25 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Create the tables needed in the database.
+ @param[in] owner The object to be used for reporting.
+ @param[in] logging @c true if operations are to be logged.
  @parm[in,out] dbHandle The database handle to use.
  @return The status of the first failing operation or SQLITE 'OK' if all operations succeeded. */
 static int
 createTables
-    (Ptr(sqlite3)   dbHandle)
+    (Ptr(nImO::ContextWithNetworking)   owner,
+     const bool                         logging,
+     Ptr(sqlite3)                       dbHandle)
 {
     int result = SQLITE_OK;
     
     ODL_ENTER();
     if (nullptr != dbHandle)
     {
-        
+        if ((nullptr != owner) && logging)
+        {
+            owner->report("creating node table.");
+        }
     }
     ODL_EXIT_I(result);
     return result;
@@ -128,13 +135,18 @@ nImO::Registry::Registry
 
     if (SQLITE_OK == result)
     {
-        createTables(_dbHandle);
+        createTables(_owner, logging, _dbHandle);
     }
     else
     {
         std::string errorMessage(sqlite3_errstr(result));
+        std::string prefix("Unable to open database: ");
 
-        throw "Unable to open database: " + errorMessage;
+        if ((nullptr != _owner) && logging)
+        {
+            _owner->report(prefix + errorMessage);
+        }
+        throw prefix + errorMessage;
     }
     ODL_EXIT_P(this); //####
 } // nImO::Registry::Registry

@@ -50,6 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOregistry.cpp
                ${THIS_SOURCE_DIR}/nImOregistryMain.cpp
                ${VERS_RESOURCE})
 

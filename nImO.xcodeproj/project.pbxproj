@@ -40,8 +40,9 @@
 		F613D15A288D82D9008712C9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Registry/resource.h; sourceTree = "<group>"; };
 		F613D15B288D82D9008712C9 /* nImOregistry.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOregistry.rc.in; path = Registry/nImOregistry.rc.in; sourceTree = "<group>"; };
 		F613D15C288D82D9008712C9 /* nImOregistryMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryMain.cpp; path = Registry/nImOregistryMain.cpp; sourceTree = "<group>"; };
-		F613D15F288D844E008712C9 /* nImOregistry.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOregistry.rc; path = "non-iOS/Registry/nImOregistry.rc"; sourceTree = "<group>"; };
 		F613D160288D844E008712C9 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Registry/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6155FE929B75D8400DBD8E8 /* nImOregistry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistry.cpp; path = Registry/nImOregistry.cpp; sourceTree = "<group>"; };
+		F6155FEA29B75D8400DBD8E8 /* nImOregistry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistry.h; path = Registry/nImOregistry.h; sourceTree = "<group>"; };
 		F61A18B2293FB39A0032B156 /* nImOMIMEAndMessagesTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOMIMEAndMessagesTest.rc.in; path = Tests/nImOMIMEAndMessagesTest.rc.in; sourceTree = "<group>"; };
 		F61A18B3293FB39A0032B156 /* nImOMIMEAndMessagesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOMIMEAndMessagesTest.cpp; path = Tests/nImOMIMEAndMessagesTest.cpp; sourceTree = "<group>"; };
 		F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinvalid.cpp; path = nImO/nImOinvalid.cpp; sourceTree = SOURCE_ROOT; };
@@ -292,6 +293,8 @@
 		F613D15E288D82FB008712C9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				F6155FE929B75D8400DBD8E8 /* nImOregistry.cpp */,
+				F6155FEA29B75D8400DBD8E8 /* nImOregistry.h */,
 				F613D15B288D82D9008712C9 /* nImOregistry.rc.in */,
 				F613D15C288D82D9008712C9 /* nImOregistryMain.cpp */,
 				F613D15A288D82D9008712C9 /* resource.h */,
@@ -303,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				F613D160288D844E008712C9 /* CMakeLists.txt */,
-				F613D15F288D844E008712C9 /* nImOregistry.rc */,
 			);
 			name = Registry;
 			sourceTree = "<group>";

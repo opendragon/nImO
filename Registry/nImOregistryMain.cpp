@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOregistry.h>
+#include "nImOregistry.h"
 #include <nImOserviceContext.h>
 
 //#include <odlEnable.h>

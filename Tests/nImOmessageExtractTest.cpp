@@ -181,7 +181,6 @@ extractValueAndCheck
                 }
                 else
                 {
-                    ODL_LOG("! (nullptr == asFlaw)"); //####
                     ODL_LOG(asFlaw->getDescription().c_str()); //####
                 }
             }
@@ -219,9 +218,12 @@ doTestExtractEmptyMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
         {
-            ODL_LOG("(nullptr != stuff)"); //####
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
             static const DataKind   bytesToInsert[]
             {
                 // Start of Message
@@ -246,7 +248,6 @@ doTestExtractEmptyMessage
 
                     if (nullptr != asFlaw)
                     {
-                        ODL_LOG("(nullptr != asFlaw)"); //####
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                         stuff->open(true);
                         stuff->close();
@@ -265,14 +266,13 @@ doTestExtractEmptyMessage
                             else
                             {
                                 asFlaw = extractedValue->asFlaw();
-                                if (nullptr != asFlaw)
+                                if (nullptr == asFlaw)
                                 {
-                                    ODL_LOG("(nullptr != asFlaw)"); //####
-                                    ODL_LOG(asFlaw->getDescription().c_str()); //####
+                                    ODL_LOG("! (nullptr != asFlaw)"); //####
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (nullptr != asFlaw)"); //####
+                                    ODL_LOG(asFlaw->getDescription().c_str()); //####
                                 }
                             }
                         }
@@ -284,10 +284,6 @@ doTestExtractEmptyMessage
             {
                 ODL_LOG("! (stuff->readAtEnd())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -327,7 +323,11 @@ doTestExtractLogicalMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForTrue[]
             {
@@ -368,10 +368,6 @@ doTestExtractLogicalMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount, falseValue);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -410,7 +406,11 @@ doTestExtractTinyIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMinus12[]
             {
@@ -471,10 +471,6 @@ doTestExtractTinyIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count, plus12Value);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -513,7 +509,11 @@ doTestExtractSmallIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMinus144[]
             {
@@ -556,10 +556,6 @@ doTestExtractSmallIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count, plus144Value);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -598,7 +594,11 @@ doTestExtractMediumIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMinus1234567[]
             {
@@ -645,10 +645,6 @@ doTestExtractMediumIntegerMessage
                                               plus1234567Value);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -687,7 +683,11 @@ doTestExtractBigIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMinusBigNumber[]
             {
@@ -736,10 +736,6 @@ doTestExtractBigIntegerMessage
                                               plusBigNumberValue);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -778,7 +774,11 @@ doTestExtractEmptyStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForEmptyString[]
             {
@@ -800,10 +800,6 @@ doTestExtractEmptyStringMessage
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount,
                                           emptyStringValue);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -843,7 +839,11 @@ doTestExtractShortStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForShortString[]
             {
@@ -868,10 +868,6 @@ doTestExtractShortStringMessage
 
             result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount,
                                           shortStringValue);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -911,7 +907,11 @@ doTestExtractMediumStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMediumString[]
             {
@@ -956,10 +956,6 @@ doTestExtractMediumStringMessage
             result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount,
                                           mediumStringValue);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -998,7 +994,11 @@ doTestExtractEmptyBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForEmptyBlob[]
             {
@@ -1019,10 +1019,6 @@ doTestExtractEmptyBlobMessage
             Blob                    emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1062,7 +1058,11 @@ doTestExtractSmallBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForSmallBlob[]
             {
@@ -1091,10 +1091,6 @@ doTestExtractSmallBlobMessage
             Blob                    smallBlobValue(actualData, actualDataCount);
 
             result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, smallBlobValue);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1134,7 +1130,11 @@ doTestExtractMediumBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForMediumBlob[]
             {
@@ -1189,10 +1189,6 @@ doTestExtractMediumBlobMessage
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1231,7 +1227,11 @@ doTestExtractSingleDoubleMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForPlus42Point5[]
             {
@@ -1284,10 +1284,6 @@ doTestExtractSingleDoubleMessage
                                               plus42Point5Value);
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1326,7 +1322,11 @@ doTestExtractEmptyArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForEmptyArray[]
             {
@@ -1351,10 +1351,6 @@ doTestExtractEmptyArrayMessage
             Array                   emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1394,7 +1390,11 @@ doTestExtractEmptyMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForEmptyMap[]
             {
@@ -1419,10 +1419,6 @@ doTestExtractEmptyMapMessage
             Map                     emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1462,7 +1458,11 @@ doTestExtractEmptySetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForEmptySet[]
             {
@@ -1487,10 +1487,6 @@ doTestExtractEmptySetMessage
             Set                     emptySet;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1530,7 +1526,11 @@ doTestExtractArrayOneLogicalMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneLogical[]
             {
@@ -1565,10 +1565,6 @@ doTestExtractArrayOneLogicalMessage
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount,
                                           arrayOneLogical);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1608,7 +1604,11 @@ doTestExtractArrayOneIntegerMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneInteger[]
             {
@@ -1643,10 +1643,6 @@ doTestExtractArrayOneIntegerMessage
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount,
                                           arrayOneInteger);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1686,7 +1682,11 @@ doTestExtractArrayOneDoubleMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneDouble[]
             {
@@ -1727,10 +1727,6 @@ doTestExtractArrayOneDoubleMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount,
                                           arrayOneDouble);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1769,7 +1765,11 @@ doTestExtractArrayOneStringMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneString[]
             {
@@ -1805,10 +1805,6 @@ doTestExtractArrayOneStringMessage
             arrayOneString.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount,
                                           arrayOneString);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1848,7 +1844,11 @@ doTestExtractArrayOneBlobMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneBlob[]
             {
@@ -1884,10 +1884,6 @@ doTestExtractArrayOneBlobMessage
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount,
                                           arrayOneBlob);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1927,7 +1923,11 @@ doTestExtractArrayOneArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneArray[]
             {
@@ -1968,10 +1968,6 @@ doTestExtractArrayOneArrayMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount,
                                           arrayOneArray);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2010,7 +2006,11 @@ doTestExtractArrayOneMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneMap[]
             {
@@ -2050,10 +2050,6 @@ doTestExtractArrayOneMapMessage
             arrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap, insertedArrayOneMapCount, arrayOneMap);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2092,7 +2088,11 @@ doTestExtractArrayOneSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneSet[]
             {
@@ -2132,10 +2132,6 @@ doTestExtractArrayOneSetMessage
             arrayOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet, insertedArrayOneSetCount, arrayOneSet);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2174,7 +2170,11 @@ doTestExtractArrayTwoLogicalsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoLogicals[]
             {
@@ -2214,10 +2214,6 @@ doTestExtractArrayTwoLogicalsMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount,
                                           arrayTwoLogicals);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2256,7 +2252,11 @@ doTestExtractArrayTwoIntegersMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoIntegers[]
             {
@@ -2296,10 +2296,6 @@ doTestExtractArrayTwoIntegersMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount,
                                           arrayTwoIntegers);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2338,7 +2334,11 @@ doTestExtractArrayTwoDoublesMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoDoubles[]
             {
@@ -2384,10 +2384,6 @@ doTestExtractArrayTwoDoublesMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount,
                                           arrayTwoDoubles);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2426,7 +2422,11 @@ doTestExtractArrayTwoStringsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoStrings[]
             {
@@ -2468,10 +2468,6 @@ doTestExtractArrayTwoStringsMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount,
                                           arrayTwoStrings);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2510,7 +2506,11 @@ doTestExtractArrayTwoBlobsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoBlobs[]
             {
@@ -2552,10 +2552,6 @@ doTestExtractArrayTwoBlobsMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount,
                                           arrayTwoBlobs);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2594,7 +2590,11 @@ doTestExtractArrayTwoArraysMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoArrays[]
             {
@@ -2644,10 +2644,6 @@ doTestExtractArrayTwoArraysMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount,
                                           arrayTwoArrays);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2686,7 +2682,11 @@ doTestExtractArrayTwoMapsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoMaps[]
             {
@@ -2736,10 +2736,6 @@ doTestExtractArrayTwoMapsMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount,
                                           arrayTwoMaps);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2778,7 +2774,11 @@ doTestExtractArrayTwoSetsMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayTwoSets[]
             {
@@ -2828,10 +2828,6 @@ doTestExtractArrayTwoSetsMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount,
                                           arrayTwoSets);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2870,7 +2866,11 @@ doTestExtractArrayOneArrayOneMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneArrayOneMap[]
             {
@@ -2920,10 +2920,6 @@ doTestExtractArrayOneArrayOneMapMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount,
                                           arrayOneArrayOneMap);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2962,7 +2958,11 @@ doTestExtractArrayOneMapOneSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneMapOneSet[]
             {
@@ -3012,10 +3012,6 @@ doTestExtractArrayOneMapOneSetMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount,
                                           arrayOneMapOneSet);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -3054,7 +3050,11 @@ doTestExtractArrayOneSetOneArrayMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForArrayOneSetOneArray[]
             {
@@ -3104,10 +3104,6 @@ doTestExtractArrayOneSetOneArrayMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount,
                                           arrayOneSetOneArray);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -3146,7 +3142,11 @@ doTestExtractArrayWithManyDoublesMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const size_t     numValues = 43;
             static const DataKind   insertedBytesForArrayManyDoubles[]
@@ -3359,10 +3359,6 @@ doTestExtractArrayWithManyDoublesMessage
             result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount,
                                           arrayManyDoubles);
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -3401,7 +3397,11 @@ doTestExtractLogicalMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForLogicalMap[]
             {
@@ -3438,10 +3438,6 @@ doTestExtractLogicalMapMessage
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap, insertedLogicalMapCount, logicalMap);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3481,7 +3477,11 @@ doTestExtractIntegerMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForIntegerMap[]
             {
@@ -3518,10 +3518,6 @@ doTestExtractIntegerMapMessage
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap, insertedIntegerMapCount, integerMap);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3561,7 +3557,11 @@ doTestExtractStringMapMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForStringMap[]
             {
@@ -3599,10 +3599,6 @@ doTestExtractStringMapMessage
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForStringMap, insertedStringMapCount, stringMap);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3642,7 +3638,11 @@ doTestExtractLogicalSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForLogicalSet[]
             {
@@ -3676,10 +3676,6 @@ doTestExtractLogicalSetMessage
 
             logicalSet.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet, insertedLogicalSetCount, logicalSet);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3719,7 +3715,11 @@ doTestExtractIntegerSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForIntegerSet[]
             {
@@ -3753,10 +3753,6 @@ doTestExtractIntegerSetMessage
 
             integerSet.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet, insertedIntegerSetCount, integerSet);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3796,7 +3792,11 @@ doTestExtractStringSetMessage
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   insertedBytesForStringSet[]
             {
@@ -3831,10 +3831,6 @@ doTestExtractStringSetMessage
 
             stringSet.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForStringSet, insertedStringSetCount, stringSet);
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3874,7 +3870,11 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const size_t kNumValues = 18;
             SpArray             arrayWithIntegers{new Array};
@@ -3910,7 +3910,6 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
 
                     if (nullptr != asFlaw)
                     {
-                        ODL_LOG("(nullptr != asFlaw)"); //####
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                     }
                     else if (stuff->readAtEnd())
@@ -4175,10 +4174,6 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
             {
                 ODL_LOG("! (arrayWithIntegers.size() == ((2 * kNumValues) + 1))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)

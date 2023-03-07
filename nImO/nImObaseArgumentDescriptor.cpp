@@ -679,7 +679,7 @@ nImO::ProcessArguments
 
             if ((nullptr != anArg) && (! anArg->isExtra()))
             {
-                ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
+                ODL_LOG("((nullptr != anArg) && (! anArg->isExtra()))"); //####
                 if (! anArg->validate(parseResult.nonOption(StaticCast(int, ii))))
                 {
                     if (0 < badArgs.length())
@@ -702,7 +702,7 @@ nImO::ProcessArguments
 
         if ((nullptr != anArg) && (! anArg->isExtra()))
         {
-            ODL_LOG("(anArg && (! anArg->isExtra()))"); //####
+            ODL_LOG("((nullptr != anArg) && (! anArg->isExtra()))"); //####
             ODL_I1("arg mode = ", anArg->argumentMode()); //####
             if (! anArg->isOptional())
             {

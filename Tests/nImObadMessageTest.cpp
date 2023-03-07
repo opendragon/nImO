@@ -136,7 +136,6 @@ attemptExtractValueAndCheck
 
         if (nullptr != asFlaw)
         {
-            ODL_LOG("(nullptr != asFlaw)"); //####
             ODL_LOG(asFlaw->getDescription().c_str()); //####
             if (asFlaw->getDescription() == expectedFlawString)
             {
@@ -178,9 +177,13 @@ doTestMessageInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
         {
-            ODL_LOG("(nullptr != stuff)"); //####
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            ODL_LOG("! (nullptr == stuff)"); //####
             static const DataKind   bytesToInsert[]
             {
                 // Start of Message
@@ -191,10 +194,6 @@ doTestMessageInitialEndTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with incorrect start tag @0d/0x0");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -234,7 +233,11 @@ doTestMessageTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -247,10 +250,6 @@ doTestMessageTerminalStartTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -290,7 +289,11 @@ doTestEmptyMessageWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -306,10 +309,6 @@ doTestEmptyMessageWithContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -349,7 +348,11 @@ doTestNonEmptyMessageWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -366,10 +369,6 @@ doTestNonEmptyMessageWithoutContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -409,7 +408,11 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -429,10 +432,6 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -472,7 +471,11 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -492,10 +495,6 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched end Value tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -535,7 +534,11 @@ doTestNonEmptyMessageWithInvalidContentTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -554,10 +557,6 @@ doTestNonEmptyMessageWithInvalidContentTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -597,7 +596,11 @@ doTestNonEmptyMessageWithZeroDoubleCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -618,10 +621,6 @@ doTestNonEmptyMessageWithZeroDoubleCount
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Bad count for Double @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -661,7 +660,11 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -683,10 +686,6 @@ doTestNonEmptyMessageWithStringWithInvalidLength
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4d/0x4");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -726,7 +725,11 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -748,10 +751,6 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4d/0x4");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -791,7 +790,11 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -816,10 +819,6 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -859,7 +858,11 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -884,10 +887,6 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -927,7 +926,11 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -955,10 +958,6 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -998,7 +997,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1028,10 +1031,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1071,7 +1070,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1100,10 +1103,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Array with zero or negative count @4d/0x4");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1143,7 +1142,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1179,10 +1182,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5d/0x5");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1222,7 +1221,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1262,10 +1265,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @5d/0x5");
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1304,7 +1303,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1354,10 +1357,6 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @29d/0x1d");
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1396,7 +1395,11 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1421,10 +1424,6 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1464,7 +1463,11 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1489,10 +1492,6 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1532,7 +1531,11 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1560,10 +1563,6 @@ doTestNonEmptyMessageWithEmptyMapWithContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1603,7 +1602,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1633,10 +1636,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1676,7 +1675,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1705,10 +1708,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Map with zero or negative count @4d/0x4");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1748,7 +1747,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1791,10 +1794,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @7d/0x7");
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1833,7 +1832,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1876,10 +1879,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Map with incorrect end tag @5d/0x5");
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1918,7 +1917,11 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -1958,10 +1961,6 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6d/0x6");
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2000,7 +1999,11 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2025,10 +2028,6 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2068,7 +2067,11 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2093,10 +2096,6 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2136,7 +2135,11 @@ doTestNonEmptyMessageWithEmptySetWithContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2164,10 +2167,6 @@ doTestNonEmptyMessageWithEmptySetWithContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2d/0x2");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2207,7 +2206,11 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2237,10 +2240,6 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2280,7 +2279,11 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2309,10 +2312,6 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Set with zero or negative count @4d/0x4");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2352,7 +2351,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2388,10 +2391,6 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5d/0x5");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2431,7 +2430,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     {
         auto    stuff{make_unique<Message>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const DataKind   bytesToInsert[]
             {
@@ -2470,10 +2473,6 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6d/0x6");
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)

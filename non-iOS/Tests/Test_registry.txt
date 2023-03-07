@@ -49,6 +49,7 @@ enable_testing()
 
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOregistryTest.cpp
+               ${THIS_SOURCE_DIR}/../Registry/nImOregistry.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -57,12 +58,21 @@ target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 fix_dynamic_libs(${THIS_TARGET})
 
-## Test create a ContextWithMDNS
-#add_test(NAME TestCreateContextWithMDNS COMMAND ${THIS_TARGET} 1)
-## Test create a ContextWithNetworking
-#add_test(NAME TestCreateContextWithNetworking COMMAND ${THIS_TARGET} 2)
-## Test create a FilterContext
-#add_test(NAME TestCreateFilterContext COMMAND ${THIS_TARGET} 3)
+## Test create a Registry
+add_test(NAME TestCreateRegistry COMMAND ${THIS_TARGET} 1)
+## Test check empty Registry for nodes
+add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 2)
+## Test add node to Registry
+add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 3)
+## Test remove node from Registry
+add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 4)
+## Test add two distinct nodes to Registry
+add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 5)
+## Test remove added nodes from Registry
+add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 6)
+## Test add two identical nodes to Registry
+add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 7)
+
 
 ### From m+m registry tests:
 ## Test create register service

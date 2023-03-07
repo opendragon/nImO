@@ -90,32 +90,39 @@ catchSignal
     exit(1);
 } // catchSignal
 
-#if 0
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseChannelName
-    (const bool     expected,
-     CPtr(char)   inString)
+doTestCreateRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // create empty Registry
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
         {
             result = 0;
         }
@@ -127,42 +134,43 @@ doTestParseChannelName
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseChannelName
+} // doTestCreateRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 02 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExpectedName
-    (const bool     expected,
-     CPtr(char)   inString,
-     CPtr(char)   expectedString)
+doTestEmptyRegistryForNodes
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // check empty Registry for nodes
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+       if (nullptr == aRegistry)
         {
-            if (expected)
-            {
-                if (parsed->getName() == expectedString)
-                {
-                    result = 0;
-                }
-            }
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
         }
     }
     catch (...)
@@ -172,42 +180,43 @@ doTestParseExpectedName
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseExpectedName
+} // doTestEmptyRegistryForNodes
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 03 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExtractNetwork
-    (const bool     expected,
-     CPtr(char)   inString,
-     CPtr(char)   expectedString)
+doTestAddNodeToRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // add node to Registry
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+       if (nullptr == aRegistry)
         {
-            if (expected)
-            {
-                if (parsed->getNetwork() == expectedString)
-                {
-                    result = 0;
-                }
-            }
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
         }
     }
     catch (...)
@@ -217,42 +226,43 @@ doTestParseExtractNetwork
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseExtractNetwork
+} // doTestAddNodeToRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 04 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExtractNode
-    (const bool     expected,
-     CPtr(char)   inString,
-     CPtr(char)   expectedString)
+doTestRemoveNodeFromRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // remove node from Registry
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+       if (nullptr == aRegistry)
         {
-            if (expected)
-            {
-                if (parsed->getNode() == expectedString)
-                {
-                    result = 0;
-                }
-            }
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
         }
     }
     catch (...)
@@ -262,42 +272,43 @@ doTestParseExtractNode
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseExtractNode
+} // doTestRemoveNodeFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 05 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExtractPath
-    (const bool     expected,
-     CPtr(char)   inString,
-     CPtr(char)   expectedString)
+doTestAddTwoDistinctNodesToRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // add two distinct nodes to Registry
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+       if (nullptr == aRegistry)
         {
-            if (expected)
-            {
-                if (parsed->getPath() == expectedString)
-                {
-                    result = 0;
-                }
-            }
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
         }
     }
     catch (...)
@@ -307,42 +318,43 @@ doTestParseExtractPath
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseExtractPath
+} // doTestAddTwoDistinctNodesToRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 06 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
- @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
- @param[in] inString The string to be used for the test.
- @param[in] expectedString The expected output from the test.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestParseExtractProtocol
-    (const bool     expected,
-     CPtr(char)   inString,
-     CPtr(char)   expectedString)
+doTestRemoveNodesFromRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // remove nodes from Registry
 {
     int result = 1;
 
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
     try
     {
-        std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        auto    aRegistry{make_unique<Registry>};
 
-        if ((nullptr != parsed) == expected)
+       if (nullptr == aRegistry)
         {
-            if (expected)
-            {
-                if (nImO::ChannelName::transportToName(parsed->getTransport()) == expectedString)
-                {
-                    result = 0;
-                }
-            }
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
         }
     }
     catch (...)
@@ -352,8 +364,53 @@ doTestParseExtractProtocol
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestParseExtractProtocol
-#endif//0
+} // doTestRemoveNodesFromRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 07 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoIdenticalNodesToRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // add two identical nodes to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        auto    aRegistry{make_unique<Registry>};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            //TBD
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoIdenticalNodesToRegistry
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -392,44 +449,33 @@ main
                 SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
-//                    case 1 :
-//                        result = doTestParseChannelName(expected, *(argv + 3));
-//                        break;
-//
-//                    case 2 :
-//                        if (3 < argc)
-//                        {
-//                            result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
-//                        }
-//                        break;
-//
-//                    case 3 :
-//                        if (3 < argc)
-//                        {
-//                            result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
-//                        }
-//                        break;
-//
-//                    case 4 :
-//                        if (3 < argc)
-//                        {
-//                            result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
-//                        }
-//                        break;
-//
-//                    case 5 :
-//                        if (3 < argc)
-//                        {
-//                            result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
-//                        }
-//                        break;
-//
-//                    case 6 :
-//                        if (3 < argc)
-//                        {
-//                            result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
-//                        }
-//                        break;
+                    case 1 :
+                        result = doTestCreateRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 2 :
+                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 3 :
+                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 4 :
+                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 5 :
+                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 6 :
+                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 7 :
+                        result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2);
+                        break;
 
                     default :
                         break;

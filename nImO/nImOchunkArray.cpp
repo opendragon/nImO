@@ -116,7 +116,7 @@ nImO::ChunkArray::~ChunkArray
     ODL_OBJENTER(); //####
     if (nullptr != _buffers)
     {
-        ODL_LOG("(_buffers)"); //####
+        ODL_LOG("(nullptr != _buffers)"); //####
         for (size_t ii = 0; _numChunks > ii; ++ii)
         {
             delete _buffers[ii];
@@ -140,7 +140,7 @@ nImO::ChunkArray::appendBytes
     ODL_I1("numBytes = ", numBytes); //####
     if ((nullptr != data) && (0 < numBytes))
     {
-        ODL_LOG("(data && (0 < numBytes))"); //####
+        ODL_LOG("((nullptr != data) && (0 < numBytes))"); //####
         CPtr(uint8_t)   walker{data};
 
         // Invalidate the cache.
@@ -162,14 +162,25 @@ nImO::ChunkArray::appendBytes
                 Ptr(BufferChunk)    prevChunk{lastChunk};
 
                 lastChunk = new BufferChunk(_buffersArePadded);
-                if (nullptr != lastChunk)
+                if (nullptr == lastChunk)
                 {
-                    ODL_LOG("(lastChunk)"); //####
+                    ODL_LOG("(nullptr == lastChunk)"); //####
+                    bytesLeft = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr == lastChunk)"); //####
                     auto    newBuffers = new Ptr(BufferChunk)[_numChunks + 1];
 
-                    if (nullptr != newBuffers)
+                    if (nullptr == newBuffers)
                     {
-                        ODL_LOG("(newBuffers)"); //####
+                        ODL_LOG("(nullptr == newBuffers)"); //####
+                        delete lastChunk;
+                        bytesLeft = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (nullptr == newBuffers)"); //####
                         memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
                         delete[] _buffers;
                         _buffers = newBuffers;
@@ -180,17 +191,6 @@ nImO::ChunkArray::appendBytes
                         walker += available;
                         bytesLeft -= available;
                     }
-                    else
-                    {
-                        ODL_LOG("! (newBuffers)"); //####
-                        delete lastChunk;
-                        bytesLeft = 0;
-                    }
-                }
-                else
-                {
-                    ODL_LOG("! (lastChunk)"); //####
-                    bytesLeft = 0;
                 }
             }
         }
@@ -209,7 +209,7 @@ nImO::ChunkArray::atEnd
     ODL_I1("index = ", index); //####
     if (nullptr != _buffers)
     {
-        ODL_LOG("(_buffers)"); //####
+        ODL_LOG("(nullptr != _buffers)"); //####
         size_t  chunkNumber = (index / BufferChunk::kBufferSize);
         size_t  offset = (index % BufferChunk::kBufferSize);
 
@@ -248,7 +248,7 @@ nImO::ChunkArray::getByte
     ODL_B1("atEnd <- ", atEnd); //####
     if (nullptr != _buffers)
     {
-        ODL_LOG("(_buffers)"); //####
+        ODL_LOG("(nullptr != _buffers)"); //####
         size_t  chunkNumber = (index / BufferChunk::kBufferSize);
         size_t  offset = (index % BufferChunk::kBufferSize);
 
@@ -295,6 +295,7 @@ nImO::ChunkArray::getBytes
 
             if (nullptr != aChunk)
             {
+                ODL_LOG("(nullptr != aChunk)"); //####
                 auto    data{aChunk->getData()};
 
                 for (size_t jj = 0, nn = aChunk->getDataSize(); nn > jj; ++jj)
@@ -318,7 +319,7 @@ nImO::ChunkArray::getLength
     ODL_OBJENTER(); //####
     if (nullptr != _buffers)
     {
-        ODL_LOG("(_buffers)"); //####
+        ODL_LOG("(nullptr != _buffers)"); //####
         Ptr(BufferChunk)    aChunk{_buffers[_numChunks - 1]};
 
         totalLength = ((_numChunks - 1) * BufferChunk::kBufferSize);

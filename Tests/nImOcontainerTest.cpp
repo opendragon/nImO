@@ -231,7 +231,11 @@ doTestEmptyArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -259,10 +263,6 @@ doTestEmptyArrayValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -302,7 +302,11 @@ doTestSingularArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -335,10 +339,6 @@ doTestSingularArrayValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -378,7 +378,11 @@ doTestSmallArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -421,10 +425,6 @@ doTestSmallArrayValue
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -463,7 +463,11 @@ doTestBigArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
@@ -513,10 +517,6 @@ doTestBigArrayValue
                 }
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -555,7 +555,11 @@ doTestEmptyArraySizeFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (0 == stuff->size())
             {
@@ -565,10 +569,6 @@ doTestEmptyArraySizeFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -608,7 +608,11 @@ doTestNonEmptyArraySizeFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -619,10 +623,6 @@ doTestNonEmptyArraySizeFunction
             {
                 ODL_LOG("! (1 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -662,7 +662,11 @@ doTestEmptyArrayEmptyFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->empty())
             {
@@ -672,10 +676,6 @@ doTestEmptyArrayEmptyFunction
             {
                 ODL_LOG("! (stuff->empty())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -715,7 +715,11 @@ doTestNonEmptyArrayEmptyFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -726,10 +730,6 @@ doTestNonEmptyArrayEmptyFunction
             {
                 result = 0;
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -769,7 +769,11 @@ doTestEmptyArrayClearFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -780,10 +784,6 @@ doTestEmptyArrayClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -823,7 +823,11 @@ doTestNonEmptyArrayClearFunction
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Double>(123.45));
             stuff->clear();
@@ -835,10 +839,6 @@ doTestNonEmptyArrayClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -878,7 +878,11 @@ doTestEmptyArrayRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->end() == stuff->random())
             {
@@ -888,10 +892,6 @@ doTestEmptyArrayRandomIterator
             {
                 ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -931,7 +931,11 @@ doTestNonEmptyArrayRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -948,10 +952,6 @@ doTestNonEmptyArrayRandomIterator
 
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -991,7 +991,11 @@ doTestClearingNonEmptyArrayUsingRandomIterator
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             result = 0;
             stuff->addValue(std::make_shared<Double>(123.45));
@@ -1019,10 +1023,6 @@ doTestClearingNonEmptyArrayUsingRandomIterator
                     result = 1;
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1062,7 +1062,11 @@ doTestEmptyMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1090,10 +1094,6 @@ doTestEmptyMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1133,7 +1133,11 @@ doTestSingularLogicalMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1168,10 +1172,6 @@ doTestSingularLogicalMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1211,7 +1211,11 @@ doTestSingularIntegerMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1244,10 +1248,6 @@ doTestSingularIntegerMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1287,7 +1287,11 @@ doTestSingularStringMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1322,10 +1326,6 @@ doTestSingularStringMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1365,7 +1365,11 @@ doTestSmallLogicalMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1403,10 +1407,6 @@ doTestSmallLogicalMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1446,7 +1446,11 @@ doTestSmallIntegerMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1486,10 +1490,6 @@ doTestSmallIntegerMapValue
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1528,7 +1528,11 @@ doTestSmallStringMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -1574,10 +1578,6 @@ doTestSmallStringMapValue
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -1616,7 +1616,11 @@ doTestEmptyMapSizeFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (0 == stuff->size())
             {
@@ -1626,10 +1630,6 @@ doTestEmptyMapSizeFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1669,7 +1669,11 @@ doTestNonEmptyMapSizeFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (1 == stuff->size())
@@ -1680,10 +1684,6 @@ doTestNonEmptyMapSizeFunction
             {
                 ODL_LOG("! (1 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1723,7 +1723,11 @@ doTestEmptyMapEmptyFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->empty())
             {
@@ -1733,10 +1737,6 @@ doTestEmptyMapEmptyFunction
             {
                 ODL_LOG("! (stuff->empty())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1776,7 +1776,11 @@ doTestNonEmptyMapEmptyFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             if (stuff->empty())
@@ -1787,10 +1791,6 @@ doTestNonEmptyMapEmptyFunction
             {
                 result = 0;
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1830,7 +1830,11 @@ doTestEmptyMapClearFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -1841,10 +1845,6 @@ doTestEmptyMapClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1884,7 +1884,11 @@ doTestNonEmptyMapClearFunction
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(123.45));
             stuff->clear();
@@ -1896,10 +1900,6 @@ doTestNonEmptyMapClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1939,7 +1939,11 @@ doTestEmptyMapRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->end() == stuff->random())
             {
@@ -1949,10 +1953,6 @@ doTestEmptyMapRandomIterator
             {
                 ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -1992,7 +1992,11 @@ doTestNonEmptyMapRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
             stuff->addValue(std::make_shared<String>("lima"), std::make_shared<Double>(12.345));
@@ -2008,10 +2012,6 @@ doTestNonEmptyMapRandomIterator
 
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2051,7 +2051,11 @@ doTestClearingNonEmptyMapUsingRandomIterator
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("delta"), std::make_shared<Double>(123.45));
@@ -2078,10 +2082,6 @@ doTestClearingNonEmptyMapUsingRandomIterator
                     result = 1;
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2121,7 +2121,11 @@ doTestEmptySetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2149,10 +2153,6 @@ doTestEmptySetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2192,7 +2192,11 @@ doTestSingularLogicalSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2225,10 +2229,6 @@ doTestSingularLogicalSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2268,7 +2268,11 @@ doTestSingularIntegerSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2301,10 +2305,6 @@ doTestSingularIntegerSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2344,7 +2344,11 @@ doTestSingularStringSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2377,10 +2381,6 @@ doTestSingularStringSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2420,7 +2420,11 @@ doTestSmallLogicalSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2458,10 +2462,6 @@ doTestSmallLogicalSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2501,7 +2501,11 @@ doTestSmallIntegerSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2548,10 +2552,6 @@ doTestSmallIntegerSetValue
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2590,7 +2590,11 @@ doTestSmallStringSetValue
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -2637,10 +2641,6 @@ doTestSmallStringSetValue
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -2679,7 +2679,11 @@ doTestEmptySetSizeFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (0 == stuff->size())
             {
@@ -2689,10 +2693,6 @@ doTestEmptySetSizeFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2732,7 +2732,11 @@ doTestNonEmptySetSizeFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (1 == stuff->size())
@@ -2743,10 +2747,6 @@ doTestNonEmptySetSizeFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2786,7 +2786,11 @@ doTestEmptySetEmptyFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->empty())
             {
@@ -2796,10 +2800,6 @@ doTestEmptySetEmptyFunction
             {
                 ODL_LOG("! (stuff->empty())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2839,7 +2839,11 @@ doTestNonEmptySetEmptyFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true));
             if (stuff->empty())
@@ -2850,10 +2854,6 @@ doTestNonEmptySetEmptyFunction
             {
                 result = 0;
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2893,7 +2893,11 @@ doTestEmptySetClearFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->clear();
             if (0 == stuff->size())
@@ -2904,10 +2908,6 @@ doTestEmptySetClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -2947,7 +2947,11 @@ doTestNonEmptySetClearFunction
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<Logical>(true));
             stuff->clear();
@@ -2959,10 +2963,6 @@ doTestNonEmptySetClearFunction
             {
                 ODL_LOG("! (0 == stuff->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3002,7 +3002,11 @@ doTestEmptySetRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             if (stuff->end() == stuff->random())
             {
@@ -3012,10 +3016,6 @@ doTestEmptySetRandomIterator
             {
                 ODL_LOG("! (stuff->end() == stuff->randomIterator())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3055,7 +3055,11 @@ doTestNonEmptySetRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             stuff->addValue(std::make_shared<String>("gamma"));
             stuff->addValue(std::make_shared<String>("alpha"));
@@ -3073,10 +3077,6 @@ doTestNonEmptySetRandomIterator
 
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3116,7 +3116,11 @@ doTestClearingNonEmptySetUsingRandomIterator
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             result = 0;
             stuff->addValue(std::make_shared<String>("gamma"));
@@ -3145,10 +3149,6 @@ doTestClearingNonEmptySetUsingRandomIterator
                     result = 1;
                 }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3188,7 +3188,11 @@ doTestArrayWithArrayValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3221,10 +3225,6 @@ doTestArrayWithArrayValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3264,7 +3264,11 @@ doTestArrayWithMapValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3297,10 +3301,6 @@ doTestArrayWithMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3340,7 +3340,11 @@ doTestArrayWithSetValue
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3373,10 +3377,6 @@ doTestArrayWithSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3416,7 +3416,11 @@ doTestMapWithArrayValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3451,10 +3455,6 @@ doTestMapWithArrayValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3494,7 +3494,11 @@ doTestMapWithMapValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3529,10 +3533,6 @@ doTestMapWithMapValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3572,7 +3572,11 @@ doTestMapWithSetValue
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3607,10 +3611,6 @@ doTestMapWithSetValue
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3650,7 +3650,11 @@ doTestLogicalMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3688,10 +3692,6 @@ doTestLogicalMapValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3731,7 +3731,11 @@ doTestIntegerMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3767,10 +3771,6 @@ doTestIntegerMapValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3810,7 +3810,11 @@ doTestStringMapValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3848,10 +3852,6 @@ doTestStringMapValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3891,7 +3891,11 @@ doTestLogicalSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -3927,10 +3931,6 @@ doTestLogicalSetValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -3970,7 +3970,11 @@ doTestIntegerSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -4006,10 +4010,6 @@ doTestIntegerSetValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -4049,7 +4049,11 @@ doTestStringSetValueWithIncompatibleKeys
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -4085,10 +4089,6 @@ doTestStringSetValueWithIncompatibleKeys
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -7180,7 +7180,7 @@ doTestArrayIndices
         {
             if (nullptr != stuff.at(0))
             {
-                ODL_LOG("(nullptr != aValue)"); //####
+                ODL_LOG("(nullptr != stuff.at(0))"); //####
                 result = 1;
             }
         }
@@ -7188,7 +7188,7 @@ doTestArrayIndices
         {
             if (nullptr != stuff.at(1))
             {
-                ODL_LOG("nullptr != aValue"); //####
+                ODL_LOG("nullptr != stuff.at(1)"); //####
                 result = 1;
             }
         }
@@ -7876,7 +7876,11 @@ doTestEmptyArrayValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -7904,10 +7908,6 @@ doTestEmptyArrayValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -7947,7 +7947,11 @@ doTestSingularArrayValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -7980,10 +7984,6 @@ doTestSingularArrayValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8023,7 +8023,11 @@ doTestSmallArrayValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8066,10 +8070,6 @@ doTestSmallArrayValueAsJSON
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -8108,7 +8108,11 @@ doTestBigArrayValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
 
@@ -8159,10 +8163,6 @@ doTestBigArrayValueAsJSON
                 }
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -8201,7 +8201,11 @@ doTestEmptyMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8229,10 +8233,6 @@ doTestEmptyMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8272,7 +8272,11 @@ doTestSingularLogicalMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8307,10 +8311,6 @@ doTestSingularLogicalMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8350,7 +8350,11 @@ doTestSingularIntegerMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8383,10 +8387,6 @@ doTestSingularIntegerMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8426,7 +8426,11 @@ doTestSingularStringMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8461,10 +8465,6 @@ doTestSingularStringMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8504,7 +8504,11 @@ doTestSmallLogicalMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8542,10 +8546,6 @@ doTestSmallLogicalMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8585,7 +8585,11 @@ doTestSmallIntegerMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8625,10 +8629,6 @@ doTestSmallIntegerMapValueAsJSON
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -8667,7 +8667,11 @@ doTestSmallStringMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8713,10 +8717,6 @@ doTestSmallStringMapValueAsJSON
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -8755,7 +8755,11 @@ doTestEmptySetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8783,10 +8787,6 @@ doTestEmptySetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8826,7 +8826,11 @@ doTestSingularLogicalSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8859,10 +8863,6 @@ doTestSingularLogicalSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8902,7 +8902,11 @@ doTestSingularIntegerSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -8935,10 +8939,6 @@ doTestSingularIntegerSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -8978,7 +8978,11 @@ doTestSingularStringSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9011,10 +9015,6 @@ doTestSingularStringSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9054,7 +9054,11 @@ doTestSmallLogicalSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9092,10 +9096,6 @@ doTestSmallLogicalSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9135,7 +9135,11 @@ doTestSmallIntegerSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9182,10 +9186,6 @@ doTestSmallIntegerSetValueAsJSON
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -9224,7 +9224,11 @@ doTestSmallStringSetValueAsJSON
     {
         auto    stuff{make_unique<Set>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9271,10 +9275,6 @@ doTestSmallStringSetValueAsJSON
                         "expectedSquishedString))"); //####
             }
         }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
-        }
     }
     catch (...)
     {
@@ -9313,7 +9313,11 @@ doTestArrayWithArrayValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9346,10 +9350,6 @@ doTestArrayWithArrayValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9389,7 +9389,11 @@ doTestArrayWithMapValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9422,10 +9426,6 @@ doTestArrayWithMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9465,7 +9465,11 @@ doTestArrayWithSetValueAsJSON
     {
         auto    stuff{make_unique<Array>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9498,10 +9502,6 @@ doTestArrayWithSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9541,7 +9541,11 @@ doTestMapWithArrayValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9576,10 +9580,6 @@ doTestMapWithArrayValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9619,7 +9619,11 @@ doTestMapWithMapValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9654,10 +9658,6 @@ doTestMapWithMapValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)
@@ -9697,7 +9697,11 @@ doTestMapWithSetValueAsJSON
     {
         auto    stuff{make_unique<Map>()};
 
-        if (nullptr != stuff)
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
         {
             static const char   expectedSquishedString[]
             {
@@ -9732,10 +9736,6 @@ doTestMapWithSetValueAsJSON
                 ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
                         "expectedSquishedString))"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != stuff)"); //####
         }
     }
     catch (...)

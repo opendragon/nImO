@@ -85,6 +85,34 @@ namespace nImO
             ~Registry
                 (void);
 
+            /*! @brief Add a node to the Registry.
+             @param[in] nodeName The name of the node to be added.
+             @return @c true if the node was added and @c false if it was not added. */
+            bool
+            addNode
+                (const std::string &    nodeName);
+
+            /*! @brief Check if a node is in the Registry.
+             @param[in] nodeName The name of the node to be checked.
+             @return @c true if the node was found and @c false if it was not found. */
+            bool
+            nodePresent
+                (const std::string &    nodeName);
+
+        /*! @brief Return the number of nodes in the Registry.
+             @return The number of nodes in the Registry. */
+            int
+            numNodes
+                (void)
+                const;
+
+            /*! @brief Remove a node from the Registry.
+             @param[in] nodeName The name of the node to be removed.
+             @return @c true if the node was removed and @c false if it was not removed. */
+            bool
+            removeNode
+                (const std::string &    nodeName);
+
         protected :
             // Protected methods.
 

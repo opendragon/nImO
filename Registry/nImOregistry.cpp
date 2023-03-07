@@ -104,6 +104,51 @@ nImO::Registry::~Registry
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+bool
+nImO::Registry::addNode
+    (const std::string &    nodeName)
+{
+    bool    added = false;
+
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(added); //####
+    return added;
+} // nImO::Registry::addNode
+
+bool
+nImO::Registry::nodePresent
+    (const std::string &    nodeName)
+{
+    bool    found = false;
+
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(found); //####
+    return found;
+} // nImO::Registry::nodePresent
+
+int
+nImO::Registry::numNodes
+    (void)
+    const
+{
+    int count = -1;
+
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_I(count); //####
+    return count;
+} // nImO::Registry::numNodes
+
+bool
+nImO::Registry::removeNode
+    (const std::string &    nodeName)
+{
+    bool    removed = false;
+
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_B(removed); //####
+    return removed;
+} // nImO::Registry::removeNode
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

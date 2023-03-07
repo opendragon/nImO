@@ -191,33 +191,33 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief Return an enumerated value as its underlying type.
  { From Effective Modern C++. }
- @tparam Type_ The type of value being converted.
- @param[in] enumerator_ The value to be converted.
+ @tparam Type The type of value being converted.
+ @param[in] enumerator The value to be converted.
  @return The input value as its underlying type. */
 template
-    <typename   Type_>
-constexpr typename std::underlying_type<Type_>::type
+    <typename   Type>
+constexpr typename std::underlying_type<Type>::type
 toUType
-    (Type_  enumerator_)
+    (Type  enumerator)
     noexcept
 {
-    return StaticCast(typename std::underlying_type<Type_>::type, enumerator_);
+    return StaticCast(typename std::underlying_type<Type>::type, enumerator);
 }
 
-/*! @brief Return a unique_ptr for a freshly-allocated object.
+/*! @brief Return a ponter for a freshly-allocated object.
  { From Effective Modern C++. }
- @tparam Type_ The type of value being allocated.
- @tparam Types_ The types of arguments for the constructor.
- @param[in] params_ The arguments for the constructor.
- @return A unique_ptr to the newly-allocated object. */
+ @tparam Type The type of value being allocated.
+ @tparam Types The types of arguments for the constructor.
+ @param[in] params The arguments for the constructor.
+ @return A pointer  to the newly-allocated object. */
 template
-    <typename       Type_,
-     typename...    Types_>
-std::unique_ptr<Type_>
+    <typename       Type,
+     typename...    Types>
+std::unique_ptr<Type>
 make_unique
-    (Types_ &&...   params_)
+    (Types &&...   params)
 {
-    return std::unique_ptr<Type_>(new Type_(std::forward<Types_>(params_)...));
+    return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
 }
 
 using namespace boost;

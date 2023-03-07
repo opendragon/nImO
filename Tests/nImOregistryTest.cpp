@@ -162,7 +162,7 @@ doTestEmptyRegistryForNodes
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -170,7 +170,14 @@ doTestEmptyRegistryForNodes
         }
         else
         {
-            //TBD
+            if (0 == aRegistry->numNodes())
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == aRegistry->numNodes())"); //####
+            }
         }
     }
     catch (...)
@@ -208,7 +215,7 @@ doTestAddNodeToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -216,7 +223,28 @@ doTestAddNodeToRegistry
         }
         else
         {
-            //TBD
+            if (aRegistry->addNode("blort"))
+            {
+                if (1 == aRegistry->numNodes())
+                {
+                    if (aRegistry->nodePresent("blort"))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (aRegistry->nodePresent(\"blort\"))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+            }
         }
     }
     catch (...)
@@ -254,7 +282,7 @@ doTestRemoveNodeFromRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -262,7 +290,35 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            //TBD
+            if (aRegistry->addNode("blort"))
+            {
+                if (1 == aRegistry->numNodes())
+                {
+                    if (aRegistry->removeNode("blort"))
+                    {
+                        if (0 == aRegistry->numNodes())
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (0 == aRegistry->numNodes())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+            }
         }
     }
     catch (...)
@@ -300,7 +356,7 @@ doTestAddTwoDistinctNodesToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -308,7 +364,28 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            //TBD
+            if (aRegistry->addNode("blort") && aRegistry->addNode("blurt"))
+            {
+                if (2 == aRegistry->numNodes())
+                {
+                    if (aRegistry->nodePresent("blort") && aRegistry->nodePresent("blurt"))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (aRegistry->nodePresent(\"blort\") && aRegistry->nodePresent(\"blurt\"))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\") && aRegistry->addNode(\"blurt\"))"); //####
+            }
         }
     }
     catch (...)
@@ -346,7 +423,7 @@ doTestRemoveNodesFromRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -354,7 +431,50 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            //TBD
+            if (aRegistry->addNode("blort") && aRegistry->addNode("blurt"))
+            {
+                if (2 == aRegistry->numNodes())
+                {
+                    if (aRegistry->removeNode("blort"))
+                    {
+                        if (1 == aRegistry->numNodes())
+                        {
+                            if (aRegistry->removeNode("blurt"))
+                            {
+                                if (0 == aRegistry->numNodes())
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                        }
+                        result = (0 == aRegistry->numNodes());
+                    }
+                    else
+                    {
+                        ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (2 == aRegistry->numNodes())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\") && aRegistry->addNode(\"blurt\"))"); //####
+            }
         }
     }
     catch (...)
@@ -392,7 +512,7 @@ doTestAddTwoIdenticalNodesToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>};
+        auto    aRegistry{make_unique<Registry>()};
 
        if (nullptr == aRegistry)
         {
@@ -400,7 +520,21 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            //TBD
+            if (aRegistry->addNode("blort"))
+            {
+                if (aRegistry->addNode("blort"))
+                {
+                    ODL_LOG("(aRegistry->addNode(\"blort\"))"); //####
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+            }
         }
     }
     catch (...)

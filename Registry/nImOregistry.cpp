@@ -37,7 +37,6 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOregistry.h"
-#include "sqlite3.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -69,6 +68,19 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Create the tables needed in the database.
+ @parm[in,out] dbHandle The database handle to use.
+ @return The status of the first failing operation or SQLITE 'OK' if all operations succeeded. */
+static int
+createTables
+    (Ptr(sqlite3)   dbHandle)
+{
+    int result = SQLITE_OK;
+    
+    ODL_ENTER();
+    ODL_EXIT_I(result);
+} // createTables
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -78,19 +90,23 @@
 #endif // defined(__APPLE__)
 
 nImO::Registry::Registry
-    (void)
+    (void) :
+        _dbHandle(nullptr)
 {
     ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::Registry::Registry
+    int result = sqlite3_open_v2("nImO_registry", &_dbHandle,
+                                 SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr);
 
-nImO::Registry::Registry
-    (Registry &&    other)
-    noexcept
-{
-    NIMO_UNUSED_ARG_(other)
-    ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
+    if (SQLITE_OK == result)
+    {
+        createTables(_dbHandle);
+    }
+    else
+    {
+        std::string errorMessage(sqlite3_errstr(result));
+
+        throw "Unable to open database: " + errorMessage;
+    }
     ODL_EXIT_P(this); //####
 } // nImO::Registry::Registry
 
@@ -98,6 +114,7 @@ nImO::Registry::~Registry
     (void)
 {
     ODL_OBJENTER(); //####
+    sqlite3_close_v2(_dbHandle);
     ODL_OBJEXIT(); //####
 } // nImO::Registry::~Registry
 

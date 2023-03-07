@@ -40,6 +40,7 @@
 # define nImOregistry_H_ /* Header guard */
 
 # include <nImOset.h>
+# include "sqlite3.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -74,11 +75,15 @@ namespace nImO
             Registry
                 (void);
 
-            /*! @brief The move constructor.
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            Registry
+                (const Registry &   other) = delete;
+
+        /*! @brief The move constructor.
              @param[in] other The object to be moved. */
             Registry
-                (Registry &&	other)
-                noexcept;
+                (Registry &&	other) = delete;
 
             /*! @brief The destructor. */
             virtual
@@ -134,6 +139,9 @@ namespace nImO
 
         private :
             // Private fields.
+
+            /* @brief A pointer to the database context. */
+            Ptr(sqlite3)    _dbHandle;
 
     }; // Registry
 

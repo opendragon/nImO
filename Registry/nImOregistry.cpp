@@ -181,6 +181,25 @@ nImO::Registry::addNode
     return added;
 } // nImO::Registry::addNode
 
+bool
+nImO::Registry::getNodeInformation
+    (const std::string &    nodeName,
+     uint32_t &             nodeAddress,
+     uint16_t &             nodePort)
+    const
+{
+    bool    found = false;
+
+    ODL_OBJENTER(); //####
+
+        NIMO_UNUSED_ARG_(nodeName);
+        NIMO_UNUSED_ARG_(nodeAddress);
+        NIMO_UNUSED_ARG_(nodePort);
+
+    ODL_OBJEXIT_B(found); //####
+    return found;
+} // nImO::Registry::getNodeInformation
+
 nImO::StringSet
 nImO::Registry::getNodes
     (void)

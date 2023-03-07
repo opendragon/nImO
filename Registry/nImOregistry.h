@@ -105,7 +105,19 @@ namespace nImO
                  const uint32_t         nodeAddress = 0,
                  const uint16_t         nodePort = 0);
 
-            /*! @brief Get the set of nodes in the Registry.
+            /*! @brief Get information on the node stored in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @param[out] nodeAddress The IP address of the node.
+             @param[out] nodePort The command port of the node.
+             @return @c true if the node was found in the Registry. */
+            bool
+            getNodeInformation
+                (const std::string &    nodeName,
+                 uint32_t &             nodeAddress,
+                 uint16_t &             nodePort)
+                const;
+
+        /*! @brief Get the set of nodes in the Registry.
              @return The set of nodes in the Registry. */
             StringSet
             getNodes

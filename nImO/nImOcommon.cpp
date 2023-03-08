@@ -41,6 +41,7 @@
 #include <initFile.h>
 #include <initFileObject.h>
 #include <nImObaseArgumentDescriptor.h>
+#include <nImOcontext.h>
 #include <nImOvalue.h>
 #include <fstream>
 
@@ -286,6 +287,24 @@ nImO::CompareBytes
     ODL_EXIT_I(result); //####
     return result;
 } // nImO::CompareBytes
+
+void
+nImO::ConsumeSomeTime
+    (Ptr(Context)   context,
+     const double   factor)
+{
+    ODL_ENTER(); //####
+    ODL_D1("amount = ", amount); //####
+    if (nullptr != context)
+    {
+        boost::asio::deadline_timer timer(*context->getService());
+
+        timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
+        timer.wait();
+    }
+    thread::yield();
+    ODL_EXIT(); //####
+} // nImO::ConsumeSomeTime
 
 std::string
 nImO::ConvertDoubleToString

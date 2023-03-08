@@ -752,6 +752,14 @@ namespace nImO
          CPtr(void)     second,
          const size_t   numBytes);
 
+    /*! @brief Introduce some delay in processing.
+     @param[in] context The active runtime environment.
+     @param[in] amount The fraction of a second to delay. */
+    void
+    ConsumeSomeTime
+        (Ptr(Context)   context,
+         const double   factor = 200.0);
+
     /*! @brief Convert a double value to a string.
      @param[in] value The value to be represented in the string.
      @return The string representation of the value. */

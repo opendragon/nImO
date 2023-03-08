@@ -67,14 +67,18 @@ add_test(NAME TestCreateRegistry COMMAND ${THIS_TARGET} 1)
 add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 2)
 ## Test add node to Registry
 add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 3)
+## Test check node data added to Registry
+add_test(NAME TestNodeDataAddedToRegistry COMMAND ${THIS_TARGET} 4)
 ## Test remove node from Registry
-add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 5)
 ## Test add two distinct nodes to Registry
-add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 5)
+add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 6)
 ## Test remove added nodes from Registry
-add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 6)
+add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 7)
 ## Test add two identical nodes to Registry
-add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 7)
+add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 8)
+
+
 
 
 ### From m+m registry tests:

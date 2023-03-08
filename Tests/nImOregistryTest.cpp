@@ -284,6 +284,79 @@ doTestAddNodeToRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestNodeDataAddedToRegistry
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // add node to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        auto    aRegistry{make_unique<Registry>()};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            uint32_t    randomAddress = StaticCast(uint32_t, rand());
+            uint16_t    randomPort = StaticCast(uint16_t, rand());
+            
+            if (aRegistry->addNode("blort", randomAddress, randomPort))
+            {
+                uint32_t    fetchedAddress;
+                uint16_t    fetchedPort;
+
+                if (aRegistry->getNodeInformation("blort", fetchedAddress, fetchedPort))
+                {
+                    if ((randomAddress == fetchedAddress) && (randomPort == fetchedPort))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! ((randomAddress == fetchedAddress) && (randomPort == fetchedPort))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (aRegistry->getNodeInformation(\"blort\", fetchedAddress, fetchedPort))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeDataAddedToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 05 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestRemoveNodeFromRegistry
     (CPtr(char)     launchPath,
      const int      argc,
@@ -349,7 +422,7 @@ doTestRemoveNodeFromRegistry
 } // doTestRemoveNodeFromRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 06 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -413,7 +486,7 @@ doTestAddTwoDistinctNodesToRegistry
                 }
                 else
                 {
-                    ODL_LOG("! (1 == aRegistry->numNodes())"); //####
+                    ODL_LOG("! (2 == aRegistry->numNodes())"); //####
                 }
             }
             else
@@ -432,7 +505,7 @@ doTestAddTwoDistinctNodesToRegistry
 } // doTestAddTwoDistinctNodesToRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 07 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -493,7 +566,6 @@ doTestRemoveNodesFromRegistry
                         {
                             ODL_LOG("! (1 == aRegistry->numNodes())"); //####
                         }
-                        result = (0 == aRegistry->numNodes());
                     }
                     else
                     {
@@ -521,7 +593,7 @@ doTestRemoveNodesFromRegistry
 } // doTestRemoveNodesFromRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
+# pragma mark *** Test Case 08 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -639,18 +711,22 @@ main
                         break;
 
                     case 4 :
-                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
-                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2);
                         break;
 
                     case 6 :
-                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2);
                         break;
 
                     case 7 :
+                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 8 :
                         result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2);
                         break;
 

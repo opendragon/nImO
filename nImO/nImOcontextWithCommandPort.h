@@ -155,6 +155,26 @@ namespace nImO
 
     }; // ContextWithCommandPort
 
+#if 0
+bool
+ProcessStandardCommandPortOptions(const int                     argc,
+                                      char * *                      argv,
+                                      Utilities::DescriptorVector & argumentDescriptions,
+                                      const YarpString &            serviceDescription,
+                                      const YarpString &            matchingCriteria,
+                                      const int                     year,
+                                      const char *                  copyrightHolder,
+                                      bool &                        goWasSet,
+                                      bool &                        reportEndpoint,
+                                      bool &                        reportOnExit,
+                                      YarpString &                  tag,
+                                      YarpString &                  serviceEndpointName,
+                                      YarpString &                  servicePortNumber,
+                                      AddressTagModifier &          modFlag,
+                                      const OptionsMask             skipOptions,
+                                        YarpStringVector *            arguments);
+#endif//0
+
 } // nImO
 
 #endif // not defined(nImOcontextWithCommandPort_H_)

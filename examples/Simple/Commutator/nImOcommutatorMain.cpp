@@ -134,6 +134,9 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
+#if 0
+    ProcessStandardCommandPortOptions...
+#endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Commutator example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
                                               true))

@@ -63,6 +63,9 @@
 /*! @brief A shortcut for the case-sensitive form of a 'Text' column. */
 #define BINARY_ "COLLATE BINARY"
 
+/*! @brief A shortcut for the case-insensitive form of a 'Text' column. */
+#define NOCASE_ "COLLATE NOCASE"
+
 /*! @brief A shortcut for the standard format for a 'Text' column. */
 #define TEXTNOTNULL_    "Text NOT NULL DEFAULT _"
 
@@ -70,13 +73,13 @@
 # define NODES_T_   "Nodes"
 
 /*! @brief The named parameter for the 'name' column. */
-# define NODENAME_C_    "name"
+# define NODE_NAME_C_    "name"
 
 /*! @brief The named parameter for the 'address' column. */
-# define NODEADDRESS_C_ "address"
+# define NODE_ADDRESS_C_ "address"
 
 /*! @brief The named parameter for the 'port' column. */
-# define NODEPORT_C_    "port"
+# define NODE_PORT_C_    "port"
 
 /*! @brief The name of the index for the 'name' column of the 'Nodes' table. */
 #define NODES_NAME_I_   "Nodes_name_idx"
@@ -114,33 +117,31 @@ struct NodeInsertData
  @param[in] database The database to be modified.
  @param[in,out] resultList The list to be filled in with the values from the column of interest.
  @param[in] sqlStatement The operation to be performed.
- @param[in] columnOfInterest1 The column containing the first value of interest.
- @param[in] columnOfInterest2 The column containing the second value of interest.
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
  @return @c true if the operation was successfully performed and @c false otherwise. */
 static bool
-performSQLstatementWithDoubleColumnResults
+performSQLstatementWithMultipleColumnResults
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
-     nImO::StringVector &               resultColumn1,
-     nImO::StringVector &               resultColumn2,
+     std::vector<nImO::StringVector> &  results,
      CPtr(char)                         sqlStatement,
-     const int                          columnOfInterest1,
-     const int                          columnOfInterest2,
      BindFunction                       doBinds,
      CPtr(void)                         data)
 {
     ODL_ENTER(); //####
     ODL_P2("dbHandle = ", dbHandle, "data = ", data); //####
-    ODL_I2("columnOfInterest1 = ", columnOfInterest1, "columnOfInterest2 = ", //####
-            columnOfInterest2); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     bool okSoFar = true;
 
     try
     {
-        if ((nullptr != dbHandle) && (0 <= columnOfInterest1) && (0 <= columnOfInterest2))
+        if (nullptr == dbHandle)
+        {
+            ODL_LOG("(nullptr == dbHandle)"); //####
+            okSoFar = false;
+        }
+        else
         {
             Ptr(sqlite3_stmt)   prepared = NULL;
             int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
@@ -164,7 +165,6 @@ performSQLstatementWithDoubleColumnResults
                         {
                             sqlRes = sqlite3_step(prepared);
                             ODL_I1("sqlRes <- ", sqlRes); //####
-                            ODL_S1("sqlRes <- ", mapStatusToStringForSQL(sqlRes)); //####
                             if (SQLITE_BUSY == sqlRes)
                             {
                                 nImO::ConsumeSomeTime(owner, 10.0);
@@ -177,29 +177,25 @@ performSQLstatementWithDoubleColumnResults
                             int colCount = sqlite3_column_count(prepared);
 
                             ODL_I1("colCount <- ", colCount); //####
-                            if ((0 < colCount) && (columnOfInterest1 < colCount) && (columnOfInterest2 < colCount))
+                            if (0 < colCount)
                             {
-                                CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, columnOfInterest1));
+                                nImO::StringVector  thisRow;
 
-                                ODL_S1("value <- ", value); //####
-                                if (nullptr == value)
+                                for (int ii = 0; ii < colCount; ++ii)
                                 {
-                                    resultColumn1.push_back("");
+                                    CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii));
+
+                                    ODL_S1("value <- ", value); //####
+                                    if (nullptr == value)
+                                    {
+                                        thisRow.push_back("");
+                                    }
+                                    else
+                                    {
+                                        thisRow.push_back(value);
+                                    }
                                 }
-                                else
-                                {
-                                    resultColumn1.push_back(value);
-                                }
-                                value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, columnOfInterest2));
-                                ODL_S1("value <- ", value); //####
-                                if (nullptr == value)
-                                {
-                                    resultColumn2.push_back("");
-                                }
-                                else
-                                {
-                                    resultColumn2.push_back(value);
-                                }
+                                results.push_back(thisRow);
                             }
                         }
                     }
@@ -217,11 +213,6 @@ performSQLstatementWithDoubleColumnResults
                 okSoFar = false;
             }
         }
-        else
-        {
-            ODL_LOG("! ((nullptr != dbHandle) && (0 <= columnOfInterest1) && (0 <= columnOfInterest2))"); //####
-            okSoFar = false;
-        }
     }
     catch (...)
     {
@@ -230,7 +221,7 @@ performSQLstatementWithDoubleColumnResults
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
-} // performSQLstatementWithDoubleColumnResults
+} // performSQLstatementWithMultipleColumnResults
 
 /*! @brief Perform a simple operation on the database.
  @param[in] dbHandle The database to be modified.
@@ -385,7 +376,6 @@ performSQLstatementWithNoResultsNoArgs
  @param[in] database The database to be modified.
  @param[in,out] resultList The list to be filled in with the values from the column of interest.
  @param[in] sqlStatement The operation to be performed.
- @param[in] columnOfInterest The column containing the value of interest.
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
  @return @c true if the operation was successfully performed and @c false otherwise. */
@@ -395,7 +385,6 @@ performSQLstatementWithSingleColumnResults
      Ptr(sqlite3)                       dbHandle,
      nImO::StringVector &               resultList,
      CPtr(char)                         sqlStatement,
-     const int                          columnOfInterest = 0,
      BindFunction                       doBinds = nullptr,
      CPtr(void)                         data = nullptr)
 {
@@ -408,7 +397,12 @@ performSQLstatementWithSingleColumnResults
     resultList.clear();
     try
     {
-        if ((nullptr != dbHandle) && (0 <= columnOfInterest))
+        if (nullptr == dbHandle)
+        {
+            ODL_LOG("(nullptr == dbHandle)"); //####
+            okSoFar = false;
+        }
+        else
         {
             Ptr(sqlite3_stmt)   prepared = nullptr;
             int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
@@ -444,9 +438,9 @@ performSQLstatementWithSingleColumnResults
                             int colCount = sqlite3_column_count(prepared);
 
                             ODL_I1("colCount <- ", colCount); //####
-                            if ((0 < colCount) && (columnOfInterest < colCount))
+                            if (0 < colCount)
                             {
-                                CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, columnOfInterest));
+                                CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0));
 
                                 ODL_S1("value <- ", value); //####
                                 if (nullptr != value)
@@ -469,11 +463,6 @@ performSQLstatementWithSingleColumnResults
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
                 okSoFar = false;
             }
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != dbHandle) && (0 <= columnOfInterest))"); //####
-            okSoFar = false;
         }
     }
     catch (...)
@@ -587,9 +576,9 @@ createTables
         {
             static CPtr(char)   tableSQL[] =
             {
-                "CREATE TABLE IF NOT EXISTS " NODES_T_ "(" NODENAME_C_ " " TEXTNOTNULL_ " " BINARY_ " PRIMARY KEY ON CONFLICT ABORT,"
-                                                            NODEADDRESS_C_ " INTEGER, " NODEPORT_C_ " INTEGER)",
-                "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODENAME_C_ ")"
+                "CREATE TABLE IF NOT EXISTS " NODES_T_ "(" NODE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ " PRIMARY KEY ON CONFLICT ABORT,"
+                                                            NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_ " INTEGER)",
+                "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")"
             };
             static const size_t numTables = A_SIZE(tableSQL);
 
@@ -638,9 +627,9 @@ setupInsertIntoNodes
 
     try
     {
-        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODENAME_C_);
-        int nodeAddressIndex = sqlite3_bind_parameter_index(statement, "@" NODEADDRESS_C_);
-        int nodePortIndex = sqlite3_bind_parameter_index(statement, "@" NODEPORT_C_);
+        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
+        int nodeAddressIndex = sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_);
+        int nodePortIndex = sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_);
 
         if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex))
         {
@@ -692,7 +681,7 @@ setupSearchNodes
 
     try
     {
-        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODENAME_C_);
+        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
 
         if (0 < nodeNameIndex)
         {
@@ -781,8 +770,8 @@ nImO::Registry::addNode
     if (doBeginTransaction(_owner, _dbHandle))
     {
         NodeInsertData      data{nodeName, nodeAddress, nodePort};
-        static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODENAME_C_ "," NODEADDRESS_C_ "," NODEPORT_C_ ") VALUES(@" NODENAME_C_
-                                                ",@" NODEADDRESS_C_ ",@" NODEPORT_C_ ")";
+        static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ ") VALUES(@" NODE_NAME_C_
+                                                ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ")";
 
         added = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
         doEndTransaction(_owner, _dbHandle, added);
@@ -803,26 +792,35 @@ nImO::Registry::getNodeInformation
     ODL_OBJENTER(); //####
     if (doBeginTransaction(_owner, _dbHandle))
     {
-        bool                okSoFar = true;
-        StringVector        results1;
-        StringVector        results2;
-        static CPtr(char)   searchNodes = "SELECT " NODEADDRESS_C_ "," NODEPORT_C_ " FROM " NODES_T_ " WHERE " NODENAME_C_ "=@" NODENAME_C_;
+        bool                        okSoFar = true;
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchNodes = "SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ " FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@"
+                                                    NODE_NAME_C_;
 
-        okSoFar = performSQLstatementWithDoubleColumnResults(_owner, _dbHandle, results1, results2, searchNodes, 0, 1, setupSearchNodes, &nodeName);
+        okSoFar = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (okSoFar)
         {
-            size_t  pos;
+            if (0 < results.size())
+            {
+                StringVector    values{results[0]};
 
-            found = true;
-            nodeAddress = StaticCast(uint32_t, stoul(results1[0], &pos));
-            if (0 == pos)
-            {
-                found = false;
-            }
-            nodePort = StaticCast(uint16_t, stoul(results2[0], &pos));
-            if (0 == pos)
-            {
-                found = false;
+                if (1 < values.size())
+                {
+                    size_t  pos;
+
+                    found = true;
+                    nodeAddress = StaticCast(uint32_t, stoul(values[0], &pos));
+                    if (0 == pos)
+                    {
+                        found = false;
+                    }
+                    nodePort = StaticCast(uint16_t, stoul(values[1], &pos));
+                    if (0 == pos)
+                    {
+                        found = false;
+                    }
+
+                }
             }
         }
         doEndTransaction(_owner, _dbHandle, okSoFar);
@@ -843,7 +841,7 @@ nImO::Registry::getNodes
     {
         bool                okSoFar = true;
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT " NODENAME_C_ " FROM " NODES_T_;
+        static CPtr(char)   searchNodes = "SELECT " NODE_NAME_C_ " FROM " NODES_T_;
 
         okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (okSoFar)
@@ -870,9 +868,9 @@ nImO::Registry::nodePresent
     {
         bool                okSoFar = true;
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODENAME_C_ "=@" NODENAME_C_;
+        static CPtr(char)   searchNodes = "SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
 
-        okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, 0, setupSearchNodes, &nodeName);
+        okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (okSoFar)
         {
             size_t  pos;
@@ -934,7 +932,7 @@ nImO::Registry::removeNode
 
     if (doBeginTransaction(_owner, _dbHandle))
     {
-        static CPtr(char)   searchNodes = "DELETE FROM " NODES_T_ " WHERE " NODENAME_C_ "=@" NODENAME_C_;
+        static CPtr(char)   searchNodes = "DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
 
         removed = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
         doEndTransaction(_owner, _dbHandle, removed);

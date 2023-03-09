@@ -57,7 +57,7 @@ namespace nImO
 
     // Forward declarations.
 
-    class ContextWithCommandPort;
+    class ServiceContext;
 
     /*! @brief A class to provide binary data with unknown structure. */
     class CommandSession final
@@ -78,7 +78,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The Context that is using the command session. */
             explicit CommandSession
-                (ContextWithCommandPort &   owner);
+                (ServiceContext &   owner);
 
             /*! @brief The destructor. */
             ~CommandSession
@@ -117,7 +117,7 @@ namespace nImO
             asio::ip::tcp::socket   _socket;
 
             /*! @brief The context that created this session. */
-            //ContextWithCommandPort &    _owner;
+            //ServiceContext &    _owner;
 
     }; // CommandSession
 

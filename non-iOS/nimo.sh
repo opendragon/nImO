@@ -54,6 +54,9 @@ function usage_help() {
             "list")
                 nImOlist -h
                 ;;
+            "load")
+                nImOloadApps -h
+                ;;
             "monitor")
                 nImOmonitor -h
                 ;;
@@ -65,6 +68,9 @@ function usage_help() {
                 ;;
             "remove")
                 nImOremoveApp -h
+                ;;
+            "store")
+                nImOstoreApps -h
                 ;;
             "version")
                 nImOversion -h

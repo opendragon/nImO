@@ -136,7 +136,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
 #if 0
-    ProcessStandardCommandPortOptions...
+    ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,

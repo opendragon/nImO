@@ -127,7 +127,7 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
 #if 0
-    ProcessStandardCommandPortOptions...
+    ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,

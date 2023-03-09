@@ -16,7 +16,7 @@
 #include "nImOcomparisonStatus.h"
 #include "nImOcontainer.h"
 #include "nImOcontext.h"
-#include "nImOcontextWithCommandPort.h"
+#include "nImOserviceContext.h"
 #include "nImOcontextWithMDNS.h"
 #include "nImOcontextWithNetworking.h"
 #include "nImOconverters.h"

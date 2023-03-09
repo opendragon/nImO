@@ -88,10 +88,7 @@ nImO::FilterContext::FilterContext
     //ODL_B1("logging = ", logging); //####
     try
     {
-        if (waitForRegistry())
-        {
-            // TBD
-        }
+        // TBD
     }
     catch (...)
     {

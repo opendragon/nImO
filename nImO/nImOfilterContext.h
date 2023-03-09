@@ -39,7 +39,7 @@
 #if (! defined(nImOfilterContext_H_))
 # define nImOfilterContext_H_ /* Header guard */
 
-# include <nImOcontextWithCommandPort.h>
+# include <nImOserviceContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for a 'filter' application. */
-    class FilterContext final : public ContextWithCommandPort
+    class FilterContext final : public ServiceContext
     {
 
         public :
@@ -68,7 +68,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithCommandPort;
+            using inherited = ServiceContext;
 
         public :
             // Public methods.

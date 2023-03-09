@@ -72,7 +72,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp"
             "${THIS_SOURCE_DIR}/nImOcontainer.cpp"
             "${THIS_SOURCE_DIR}/nImOcontext.cpp"
-            "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp"
             "${THIS_SOURCE_DIR}/nImOcontextWithMDNS.cpp"
             "${THIS_SOURCE_DIR}/nImOcontextWithNetworking.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
@@ -151,7 +150,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOconfig.h"
         "${THIS_SOURCE_DIR}/nImOcontainer.h"
         "${THIS_SOURCE_DIR}/nImOcontext.h"
-        "${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.h"
         "${THIS_SOURCE_DIR}/nImOcontextWithMDNS.h"
         "${THIS_SOURCE_DIR}/nImOcontextWithNetworking.h"
         "${THIS_SOURCE_DIR}/nImOconverters.h"
@@ -208,7 +206,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.h
         ${THIS_SOURCE_DIR}/nImOcontainer.cpp ${THIS_SOURCE_DIR}/nImOcontainer.h
         ${THIS_SOURCE_DIR}/nImOcontext.cpp ${THIS_SOURCE_DIR}/nImOcontext.h
-        ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.cpp ${THIS_SOURCE_DIR}/nImOcontextWithCommandPort.h
         ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.cpp ${THIS_SOURCE_DIR}/nImOcontextWithMDNS.h
         ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/nImOcontextWithNetworking.h
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.h

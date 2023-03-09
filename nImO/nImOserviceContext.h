@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'service' execution context.
+//  Contains:   The class declaration for nImO execution contexts that use a command port.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOserviceContext_H_))
-# define nImOserviceContext_H_ /* Header guard */
+#if (! defined(nImOcontextWithCommandPort_H_))
+# define nImOcontextWithCommandPort_H_ /* Header guard */
 
-# include <nImOcontextWithCommandPort.h>
+# include <nImOcontextWithMDNS.h>
+# include <nImOcommandSession.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'service' %nImO execution context. */
+ @brief The class declaration for %nImO execution contexts that use a command port. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for a 'service' application. */
-    class ServiceContext final : public ContextWithCommandPort
+    /*! @brief A class to provide support for an application that uses a command port. */
+    class ServiceContext : public ContextWithMDNS
     {
 
         public :
@@ -68,7 +69,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ContextWithCommandPort;
+            using inherited = ContextWithMDNS;
 
         public :
             // Public methods.
@@ -91,11 +92,45 @@ namespace nImO
             ~ServiceContext
                 (void);
 
+            /*! @brief Remove a session from the set of known sessions.
+             @param[in] aSession The session to remove. */
+            void
+            forgetSession
+                (Ptr(CommandSession)    aSession);
+
+            /*! @brief Returns the port number for the command port.
+             @return The port number of the command port. */
+            inline uint16_t
+            getCommandPort
+                (void)
+                const
+            {
+                return _commandPort;
+            }
+
         protected :
             // Protected methods.
 
         private :
             // Private methods.
+
+            /*! @brief Create the command port to be used. */
+            void
+            createCommandPort
+                (void);
+
+            /*! @brief Destroy the command port. */
+            void
+            destroyCommandPort
+                (void);
+
+            /*! @brief Handle an asynchronous accept request.
+             @param[in] newSession The command session for the request.
+             @param[in] error The error status of the request. */
+            void
+            handleAccept
+                (Ptr(CommandSession)        newSession,
+                 const system::error_code & error);
 
         public :
             // Public fields.
@@ -106,8 +141,41 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The acceptor for command port connections. */
+            asio::ip::tcp::acceptor _acceptor;
+
+            /*! @brief The command port. */
+            uint16_t    _commandPort;
+
+            /*! @brief Set to @c false to stop asynchronous operations. */
+            std::atomic<bool>   _keepGoing;
+
+            /*! @brief The active sessions. */
+            std::set<Ptr(CommandSession)>   _sessions;
+
     }; // ServiceContext
+
+#if 0
+bool
+ProcessStandardServiceOptions
+    (const int                     argc,
+     char * *                      argv,
+     Utilities::DescriptorVector & argumentDescriptions,
+     const YarpString &            serviceDescription,
+     const YarpString &            matchingCriteria,
+     const int                     year,
+     const char *                  copyrightHolder,
+     bool &                        goWasSet,
+     bool &                        reportEndpoint,
+     bool &                        reportOnExit,
+     YarpString &                  tag,
+     YarpString &                  serviceEndpointName,
+     YarpString &                  servicePortNumber,
+     AddressTagModifier &          modFlag,
+     const OptionsMask             skipOptions,
+     YarpStringVector *            arguments);
+#endif//0
 
 } // nImO
 
-#endif // not defined(nImOserviceContext_H_)
+#endif // not defined(nImOcontextWithCommandPort_H_)

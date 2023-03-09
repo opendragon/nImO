@@ -131,7 +131,7 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
 #if 0
-    ProcessStandardCommandPortOptions...
+    ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "FanOut example", "", 2023,
                                               NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,

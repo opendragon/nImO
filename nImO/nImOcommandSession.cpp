@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOcommandSession.h"
-#include "nImOcontextWithCommandPort.h"
+#include "nImOserviceContext.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -78,7 +78,7 @@
 #endif // defined(__APPLE__)
 
 nImO::CommandSession::CommandSession
-    (ContextWithCommandPort &   owner) :
+    (ServiceContext &   owner) :
         _socket(*owner.getService())//, _owner(owner)
 {
     ODL_ENTER(); //####

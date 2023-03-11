@@ -38,7 +38,8 @@
 
 #include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -120,9 +121,7 @@ main
     nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"),
                                                 nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -134,14 +133,13 @@ main
     ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "FanOut example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::FilterContext ourContext{progName, "FanOut", logging};
+            nImO::FilterContext ourContext{progName, "FanOut", optionValues._logging};
             std::string         registryAddress;
             uint16_t            registryPort;
 

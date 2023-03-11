@@ -203,22 +203,39 @@ nImO::ServiceContext::handleAccept
 
 #if 0
 bool
-nImO::ProcessStandardServiceOptions(const int                     argc,
-                                      char * *                      argv,
-                                      Utilities::DescriptorVector & argumentDescriptions,
-                                      const YarpString &            serviceDescription,
-                                      const YarpString &            matchingCriteria,
-                                      const int                     year,
-                                      const char *                  copyrightHolder,
-                                      bool &                        goWasSet,
-                                      bool &                        reportEndpoint,
-                                      bool &                        reportOnExit,
-                                      YarpString &                  tag,
-                                      YarpString &                  serviceEndpointName,
-                                      YarpString &                  servicePortNumber,
-                                      AddressTagModifier &          modFlag,
-                                      const OptionsMask             skipOptions,
-                                      YarpStringVector *            arguments)
+nImO::ProcessStandardUtilitiesOptions
+    (const int              argc,
+     Ptr(Ptr(char))         argv,
+     DescriptorVector &     argumentDescriptions,
+     const std::string &    utilityDescription,
+     const std::string &    utilityExample,
+     const int              year,
+     CPtr(char)             copyrightHolder,
+     StandardOptions &      optionValues,
+     HelpFunction           helper,
+     const OptionsMask      skipOptions,
+     Ptr(StringVector)      arguments)
+#endif//0
+#if 0
+bool
+nImO::ProcessStandardServiceOptions
+    (const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     DescriptorVector &             argumentDescriptions,
+     const std::string &            serviceDescription,
+     //const YarpString &            matchingCriteria,//?
+     const int                      year,
+     CPtr(char)                     copyrightHolder,
+     bool &                         goWasSet,
+     bool &                         reportEndpoint,
+     bool &                         reportOnExit,
+StandardOptions &      optionValues,
+     //YarpString &                  tag,
+     //YarpString &                  serviceEndpointName,
+     //YarpString &                  servicePortNumber,
+     //AddressTagModifier &          modFlag,
+     const OptionsMask              skipOptions,
+     Ptr(StringVector)              arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####

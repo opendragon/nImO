@@ -37,8 +37,9 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOchannelArgumentDescriptor.h>
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
 #include <nImOsourceContext.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -124,9 +125,7 @@ main
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
                                                 nImO::ArgumentMode::OptionalModifiable, "source"};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -139,14 +138,13 @@ main
     ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::SourceContext ourContext{progName, "write", logging, secondArg.getCurrentValue()};
+            nImO::SourceContext ourContext{progName, "write", optionValues._logging, secondArg.getCurrentValue()};
             std::string         registryAddress;
             uint16_t            registryPort;
 

@@ -37,7 +37,9 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOregistry.h"
+
 #include <nImOserviceContext.h>
+#include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -117,9 +119,7 @@ main
 {
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
+    nImO::StandardOptions   optionValues;
     int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -130,15 +130,14 @@ main
     ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Registry", "", 2022,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
             nImO::DisableWaitForRegistry(true);
-            nImO::ServiceContext    ourContext{progName, "registry", logging,
+            nImO::ServiceContext    ourContext{progName, "registry", optionValues._logging,
                                                 nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
                                                     nImO::ServiceContext::ThreadMode::LaunchBrowser};
 
@@ -148,7 +147,7 @@ main
             }
             else
             {
-                auto    theRegistry{make_unique<nImO::Registry>(&ourContext, logging)};
+                auto    theRegistry{make_unique<nImO::Registry>(&ourContext, optionValues._logging)};
 
                 if (nullptr == theRegistry)
                 {

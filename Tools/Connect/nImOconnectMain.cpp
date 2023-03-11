@@ -38,7 +38,8 @@
 
 #include <nImOchannelArgumentDescriptor.h>
 #include <nImOchannelName.h>
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringsArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
@@ -143,9 +144,7 @@ main
                                                 nImO::ArgumentMode::OptionalModifiable, "tcp",
                                                 nImO::ChannelName::transportNames()};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -156,14 +155,13 @@ main
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath,
-                                              helpForConnect, false, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, optionValues, helpForConnect, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::UtilityContext    ourContext{progName, "connect", logging};
+            nImO::UtilityContext    ourContext{progName, "connect", optionValues._logging};
             std::string             registryAddress;
             uint16_t                registryPort;
 

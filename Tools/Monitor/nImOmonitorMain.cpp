@@ -41,6 +41,7 @@
 #include <nImOinteger.h>
 #include <nImOmap.h>
 #include <nImOMIMESupport.h>
+#include <nImOstandardOptions.h>
 #include <nImOstring.h>
 #include <nImOvalue.h>
 
@@ -298,9 +299,7 @@ main
 {
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false; // We will create the logging port used by other applications
-    std::string             configFilePath;
+    nImO::StandardOptions   optionValues;
     int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -308,16 +307,15 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on nImO", "", 2017,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true, true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
             uint32_t                    loggingAddress;
             uint16_t                    loggingPort;
-            nImO::ContextWithNetworking ourContext{progName, "monitor", logging};
+            nImO::ContextWithNetworking ourContext{progName, "monitor", optionValues._logging};
 
             ourContext.getLoggingInfo(loggingAddress, loggingPort);
             ReceiveOnLoggingPort    receiver{ourContext.getService(), lKeepRunning, loggingAddress, loggingPort};

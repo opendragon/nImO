@@ -39,6 +39,7 @@
 #include <nImOarray.h>
 #include <nImObooleanArgumentDescriptor.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -94,10 +95,8 @@ main
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),
                                                 nImO::ArgumentMode::OptionalModifiable, ""};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = true; // We need to have the logging ports set up!
+    nImO::StandardOptions           optionValues(true);
     nImO::StringVector              arguments;
-    std::string                     configFilePath;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -107,13 +106,13 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",
-                                              2022, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr,
-                                              false, true, true, &arguments))
+                                              2022, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                              nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption, &arguments))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::ContextWithNetworking ourContext{progName, "post", logging};
+            nImO::ContextWithNetworking ourContext{progName, "post", optionValues._logging};
             std::string                 header{secondArg.getCurrentValue()};
             bool                        readFromStdin{firstArg.getCurrentValue()};
 

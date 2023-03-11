@@ -528,24 +528,6 @@ namespace nImO
 
     }; // MessageState
 
-    /*! @brief The format for the output from command-line tools. */
-    enum class OutputFlavour
-    {
-        /*! @brief Normal output with no special processing. */
-        Normal,
-
-        /*! @brief Output in JSON format. Tabs and newlines are replaced with spaces. */
-        JSON,
-
-        /*! @brief Output in tab-delimited format. Tabs and newlines are replaced with
-         spaces. */
-        Tabs,
-
-        /*! @brief The output format is unknown. */
-        Unknown
-
-    }; // OutputFlavour
-
     /*! @brief The transport mechanism to use. */
     enum class Transport
     {
@@ -823,13 +805,6 @@ namespace nImO
         (CPtr(void)     address,
          const size_t   numBytes);
 
-    /*! @brief Get a value associated with the provided key in the configuration data.
-     @param[in] key The key took look up in the configuration data.
-     @return The associated value if found, or 'empty'. */
-    boost::optional<InitFile::SpBaseValue>
-    GetConfiguredValue
-        (const std::string &    key);
-
     /*! @brief Generate a random channel name.
      @return A randomly-generated channel name. */
     std::string
@@ -864,12 +839,6 @@ namespace nImO
         (const int64_t      inValue,
          NumberAsBytes &    outString);
 
-    /*! @brief Load configuration data into memory.
-     @param[in] configFilePath The file system path to the configuration file. */
-    void
-    LoadConfiguration
-        (const std::string &    configFilePath);
-
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.
      @return A string description of the signal. */
@@ -889,50 +858,6 @@ namespace nImO
         (std::ostream &         outStream,
          CPtr(char)             heading,
          const std::string &    description);
-
-    /*! @brief Process the standard options for utility executables.
-     The option '-h' / '--help' displays the list of optional parameters and arguments and
-     returns @c false.
-     The option '-i' / '--info' displays the type of the executable and the description of the
-     executable and returns @c false.
-     The option '-j' / '--json' specifies that output is to be in JSON format.
-     The option '-l' / '--logg' specifies that the executable is to be logged.
-     The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
-     The option '-v' / '--vers'displays the version and copyright information and returns
-     @c false.
-     @param[in] argc The number of arguments in 'argv'.
-     @param[in] argv The arguments to be used with the utility.
-     @param[in,out] argumentDescriptions Descriptions of the arguments to the application.
-     @param[in] utilityDescription A description of the utility.
-     @param[in] utilityExample An example of invoking the utility.
-     @param[in] year The copyright year for the calling application.
-     @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
-     @param[out] flavour Set if the -j or -t options are seen.
-     @param[out] logging Set if the -l option is seen.
-     @param[out] configFilePath Set to the path specified with a -c option if provided.
-     @param[in] helper A function to call when -h is requested, to provide more details.
-     @param[in] ignoreConfigFilePath @c true if the config file path option is ignored and @c false otherwise.
-     @param[in] ignoreFlavours @c true if the flavour options are ignored and @c false otherwise.
-     @param[in] ignoreLogging @c true if the logging option is ignored and @c false otherwise.
-     @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
-     @return @c true if the program should continue and @c false if it should leave. */
-    bool
-    ProcessStandardUtilitiesOptions
-        (const int              argc,
-         Ptr(Ptr(char))         argv,
-         DescriptorVector &     argumentDescriptions,
-         const std::string &    utilityDescription,
-         const std::string &    utilityExample,
-         const int              year,
-         CPtr(char)             copyrightHolder,
-         OutputFlavour &        flavour,
-         bool &                 logging,
-         std::string &          configFilePath,
-         HelpFunction           helper = nullptr,
-         const bool             ignoreConfigFilePath = false,
-         const bool             ignoreFlavours = false,
-         const bool             ignoreLogging = false,
-         Ptr(StringVector)      arguments = nullptr);
 
     /*! @brief Standardize the handling of multiple Transport value specifications.
      @param[in] firstTransport A Transport value.

@@ -36,7 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 #include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
@@ -117,9 +118,7 @@ main
 {
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
+    nImO::StandardOptions   optionValues;
     int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -127,14 +126,13 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo client example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true, true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::UtilityContext    ourContext(progName, "EchoClient", logging);
+            nImO::UtilityContext    ourContext(progName, "EchoClient", optionValues._logging);
             std::string             registryAddress;
             uint16_t                registryPort;
 

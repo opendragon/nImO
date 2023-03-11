@@ -36,7 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
@@ -121,9 +122,7 @@ main
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
                                                 nImO::ArgumentMode::OptionalModifiable, "bridge"};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -132,14 +131,13 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr,
-                                              false, true))
+                                              2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::UtilityContext    ourContext{progName, "bridge", logging, firstArg.getCurrentValue()};
+            nImO::UtilityContext    ourContext{progName, "bridge", optionValues._logging, firstArg.getCurrentValue()};
             std::string             registryAddress;
             uint16_t                registryPort;
 

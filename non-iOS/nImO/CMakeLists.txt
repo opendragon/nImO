@@ -97,6 +97,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOset.cpp"
             "${THIS_SOURCE_DIR}/nImOsinkContext.cpp"
             "${THIS_SOURCE_DIR}/nImOsourceContext.cpp"
+            "${THIS_SOURCE_DIR}/nImOstandardOptions.cpp"
             "${THIS_SOURCE_DIR}/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOstringBuffer.cpp"
@@ -175,6 +176,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOset.h"
         "${THIS_SOURCE_DIR}/nImOsinkContext.h"
         "${THIS_SOURCE_DIR}/nImOsourceContext.h"
+        "${THIS_SOURCE_DIR}/nImOstandardOptions.h"
         "${THIS_SOURCE_DIR}/nImOstring.h"
         "${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOstringBuffer.h"
@@ -231,6 +233,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.h
         ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.h
         ${THIS_SOURCE_DIR}/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/nImOsinkContext.h
+        ${THIS_SOURCE_DIR}/nImOstandardOptions.cpp ${THIS_SOURCE_DIR}/nImOstandardOptions.h
         ${THIS_SOURCE_DIR}/nImOstring.cpp ${THIS_SOURCE_DIR}/nImOstring.h
         ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOstringArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/nImOstringBuffer.h

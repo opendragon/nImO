@@ -39,6 +39,7 @@
 #include <nImObooleanArgumentDescriptor.h>
 #include <nImOmiscellaneousContext.h>
 #include <nImOportArgumentDescriptor.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -93,9 +94,7 @@ main
     nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"),
                                                 nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
-    nImO::OutputFlavour             flavour;
-    bool                            logging = false;
-    std::string                     configFilePath;
+    nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -105,10 +104,9 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet control example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true, true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::MiscellaneousContext  ourContext{progName};

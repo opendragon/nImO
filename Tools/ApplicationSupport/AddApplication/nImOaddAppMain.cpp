@@ -36,8 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOregistryProxy.h"
 #include <nImOfilePathArgumentDescriptor.h>
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
@@ -123,9 +124,7 @@ main
     nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"),
                                                 nImO::ArgumentMode::OptionalModifiable, ""};
     nImO::DescriptorVector              argumentList;
-    nImO::OutputFlavour                 flavour;
-    bool                                logging = false;
-    std::string                         configFilePath;
+    nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -135,15 +134,14 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Add application", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
             std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "addApp", logging};
+            nImO::UtilityContext    ourContext{progName, "addApp", optionValues._logging};
             std::string             registryAddress;
             uint16_t                registryPort;
 

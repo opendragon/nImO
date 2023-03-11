@@ -168,6 +168,8 @@
 		F679D6CD2412751F001648DB /* Test_atomic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_atomic.txt; path = "non-iOS/Tests/Test_atomic.txt"; sourceTree = "<group>"; };
 		F679D6CE2412751F001648DB /* Test_container.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_container.txt; path = "non-iOS/Tests/Test_container.txt"; sourceTree = "<group>"; };
 		F679D6CF2412751F001648DB /* Test_parser.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_parser.txt; path = "non-iOS/Tests/Test_parser.txt"; sourceTree = "<group>"; };
+		F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstandardOptions.cpp; path = nImO/nImOstandardOptions.cpp; sourceTree = "<group>"; };
+		F67B359429BCD51E000FC147 /* nImOstandardOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstandardOptions.h; path = nImO/nImOstandardOptions.h; sourceTree = "<group>"; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImObufferChunk.h; path = nImO/nImObufferChunk.h; sourceTree = SOURCE_ROOT; };
 		F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelName.cpp; path = nImO/nImOchannelName.cpp; sourceTree = "<group>"; };
@@ -948,6 +950,8 @@
 				F6737D6228857E42000DD5FC /* nImOsinkContext.h */,
 				F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */,
 				F6737D5F28857E42000DD5FC /* nImOsourceContext.h */,
+				F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */,
+				F67B359429BCD51E000FC147 /* nImOstandardOptions.h */,
 				F6EE0AD91CA2C7F4004748ED /* nImOstring.cpp */,
 				F6EE0ADA1CA2C7F4004748ED /* nImOstring.h */,
 				F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */,

@@ -37,8 +37,10 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOcontextWithNetworking.h"
-#include "initFileAddress.h"
-#include "initFileInteger.h"
+#include "nImOstandardOptions.h"
+
+#include <initFileAddress.h>
+#include <initFileInteger.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

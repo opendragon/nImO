@@ -37,7 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOfilterContext.h>
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
+#include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -117,9 +118,7 @@ main
 {
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
-    nImO::OutputFlavour     flavour;
-    bool                    logging = false;
-    std::string             configFilePath;
+    nImO::StandardOptions   optionValues;
     int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -130,14 +129,13 @@ main
     ProcessStandardServiceOptions...
 #endif//0
     if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Passthrough example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, flavour, logging, configFilePath, nullptr, false,
-                                              true))
+                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
-        nImO::LoadConfiguration(configFilePath);
+        nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::FilterContext ourContext{progName, "Passthrough", logging};
+            nImO::FilterContext ourContext{progName, "Passthrough", optionValues._logging};
             std::string         registryAddress;
             uint16_t            registryPort;
 

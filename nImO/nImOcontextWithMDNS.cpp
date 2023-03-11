@@ -36,8 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithMDNS.h"
-#include "nImOannounceServiceData.h"
+#include <nImOcontextWithMDNS.h>
+
+#include <nImOannounceServiceData.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOflaw.h"
+#include <nImOflaw.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOatom.h"
+#include <nImOatom.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

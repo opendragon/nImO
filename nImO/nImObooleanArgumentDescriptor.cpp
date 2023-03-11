@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImObooleanArgumentDescriptor.h"
+#include <nImObooleanArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

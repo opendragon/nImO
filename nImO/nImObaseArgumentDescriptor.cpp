@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImObaseArgumentDescriptor.h"
+#include <nImObaseArgumentDescriptor.h>
 
 #include <nImOaddressArgumentDescriptor.h>
 #include <nImObooleanArgumentDescriptor.h>

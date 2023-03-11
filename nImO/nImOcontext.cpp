@@ -36,8 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontext.h"
-#include "nImOvalue.h"
+#include <nImOcontext.h>
+
+#include <nImOvalue.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

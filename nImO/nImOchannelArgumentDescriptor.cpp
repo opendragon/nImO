@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOchannelArgumentDescriptor.h"
+#include <nImOchannelArgumentDescriptor.h>
 
 #include <nImOchannelName.h>
 

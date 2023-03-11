@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOchunkArray.h"
+#include <nImOchunkArray.h>
 
 #include <nImObufferChunk.h>
 

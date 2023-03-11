@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOstringBuffer.h"
+#include <nImOstringBuffer.h>
 
 #include <nImOarray.h>
 #include <nImObufferChunk.h>

@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOdouble.h"
+#include <nImOdouble.h>
 
 #include <nImOarray.h>
 #include <nImOinteger.h>

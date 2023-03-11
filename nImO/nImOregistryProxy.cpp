@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

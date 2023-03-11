@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOlogical.h"
+#include <nImOlogical.h>
 
 #include <nImOarray.h>
 #include <nImOmessage.h>

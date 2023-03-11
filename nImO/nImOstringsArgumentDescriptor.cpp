@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOstringsArgumentDescriptor.h"
+#include <nImOstringsArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

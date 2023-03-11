@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImObufferChunk.h"
+#include <nImObufferChunk.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

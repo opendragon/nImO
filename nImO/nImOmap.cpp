@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOmap.h"
+#include <nImOmap.h>
 
 #include <nImOarray.h>
 #include <nImOinteger.h>

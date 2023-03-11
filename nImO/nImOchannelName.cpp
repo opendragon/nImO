@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOchannelName.h"
+#include <nImOchannelName.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -36,8 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcommandSession.h"
-#include "nImOserviceContext.h"
+#include <nImOcommandSession.h>
+
+#include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

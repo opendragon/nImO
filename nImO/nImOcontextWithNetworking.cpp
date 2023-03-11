@@ -36,11 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcontextWithNetworking.h"
-#include "nImOstandardOptions.h"
+#include <nImOcontextWithNetworking.h>
 
 #include <initFileAddress.h>
 #include <initFileInteger.h>
+#include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

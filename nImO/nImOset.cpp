@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOset.h"
+#include <nImOset.h>
 
 #include <nImOarray.h>
 #include <nImOinteger.h>

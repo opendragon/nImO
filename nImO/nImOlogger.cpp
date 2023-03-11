@@ -36,7 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOlogger.h"
+#include <nImOlogger.h>
+
 #include <nImOarray.h>
 #include <nImOinteger.h>
 #include <nImOmap.h>

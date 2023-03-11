@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOmiscellaneousContext.h"
+#include <nImOmiscellaneousContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

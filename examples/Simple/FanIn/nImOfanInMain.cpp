@@ -38,7 +38,7 @@
 
 #include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
-#include "nImOregistryProxy.h"
+#include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>

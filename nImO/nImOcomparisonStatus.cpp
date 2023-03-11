@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcomparisonStatus.h"
+#include <nImOcomparisonStatus.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

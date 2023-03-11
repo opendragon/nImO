@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOmessage.h"
+#include <nImOmessage.h>
 
 #include <nImOarray.h>
 #include <nImObufferChunk.h>

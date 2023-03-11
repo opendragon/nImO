@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOannounceServiceData.h"
+#include <nImOannounceServiceData.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

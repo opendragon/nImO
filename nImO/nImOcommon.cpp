@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOcommon.h"
+#include <nImOcommon.h>
 
 #include <initFile.h>
 #include <initFileObject.h>

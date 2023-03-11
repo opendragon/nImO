@@ -220,9 +220,8 @@ main
     int                             exitCode = 0;
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList,
-                                              "List information about objects in the nImO space", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, helpForList, nImO::kSkipLoggingOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space", "nImOlist node", 2016,
+                                     NIMO_COPYRIGHT_NAME_, optionValues, helpForList, nImO::kSkipLoggingOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

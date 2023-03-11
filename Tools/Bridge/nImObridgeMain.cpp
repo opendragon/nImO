@@ -130,8 +130,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two subnets", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two subnets", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

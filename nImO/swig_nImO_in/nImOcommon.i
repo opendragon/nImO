@@ -40,6 +40,7 @@
 #include "nImOportArgumentDescriptor.h"
 #include "nImOregistryProxy.h"
 #include "nImOserviceContext.h"
+#include "nImOserviceOptions.h"
 #include "nImOset.h"
 #include "nImOsinkContext.h"
 #include "nImOsourceContext.h"

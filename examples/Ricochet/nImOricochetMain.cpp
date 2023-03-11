@@ -100,8 +100,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Ricochet example", "", 2020,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet example", "", 2020, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

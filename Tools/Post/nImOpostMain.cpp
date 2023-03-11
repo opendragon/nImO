@@ -105,9 +105,8 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Write to the log applications", "",
-                                              2022, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                              nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption, &arguments))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications", "nImOpost false \"aMessage\"", 2022,
+                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption, &arguments))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

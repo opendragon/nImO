@@ -38,7 +38,7 @@
 
 #include <nImOregistryProxy.h>
 #include <nImOserviceContext.h>
-#include <nImOstandardOptions.h>
+#include <nImOserviceOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -121,7 +121,7 @@ main
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"),
                                             nImO::ArgumentMode::OptionalModifiable, nImO::GetShortComputerName()};
     nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -129,8 +129,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Launcher", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launcher", "nImLauncher", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

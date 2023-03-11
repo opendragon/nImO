@@ -158,12 +158,13 @@ namespace nImO
         (const std::string &    configFilePath);
 
     /*! @brief Process the standard options for utility executables.
+     The option '-c' / '--conf' specifies an alternative configuration file to use.
      The option '-h' / '--help' displays the list of optional parameters and arguments and
      returns @c false.
      The option '-i' / '--info' displays the type of the executable and the description of the
      executable and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
-     The option '-l' / '--logg' specifies that the executable is to be logged.
+     The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--vers'displays the version and copyright information and returns
      @c false.
@@ -180,7 +181,7 @@ namespace nImO
      @param[in] arguments If non-@c nullptr, returns the arguments for the utility.
      @return @c true if the program should continue and @c false if it should leave. */
     bool
-    ProcessStandardUtilitiesOptions
+    ProcessStandardOptions
         (const int              argc,
          Ptr(Ptr(char))         argv,
          DescriptorVector &     argumentDescriptions,

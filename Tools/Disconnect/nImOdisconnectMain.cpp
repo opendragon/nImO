@@ -133,8 +133,8 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Disconnect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

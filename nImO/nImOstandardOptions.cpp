@@ -151,7 +151,7 @@ nImO::LoadConfiguration
 } // LoadConfiguration
 
 bool
-nImO::ProcessStandardUtilitiesOptions
+nImO::ProcessStandardOptions
     (const int              argc,
      Ptr(Ptr(char))         argv,
      DescriptorVector &     argumentDescriptions,
@@ -171,7 +171,7 @@ nImO::ProcessStandardUtilitiesOptions
         kOptionHELP,
         kOptionINFO,
         kOptionJSON,
-        kOptionLOGG,
+        kOptionLOG,
         kOptionTABS,
         kOptionVERSION
     }; // OptionIndex
@@ -190,8 +190,8 @@ nImO::ProcessStandardUtilitiesOptions
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
                                                 Option_::Arg::None,
                                                 T_("  --json, -j \tGenerate output in JSON format")};
-    Option_::Descriptor         loggDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOGG), 0, "l",
-                                                "logg", Option_::Arg::None, T_("  --logg, -l \tLog application")};
+    Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
+                                                "log", Option_::Arg::None, T_("  --log, -l \tLog application")};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
                                                 Option_::Arg::None,
                                                 T_("  --tabs, -t \tGenerate output in tab-format")};
@@ -225,7 +225,7 @@ nImO::ProcessStandardUtilitiesOptions
     }
     if (0 < utilityExample.length())
     {
-        usageString += "\nExample: " + utilityExample;
+        usageString += "\n\nExample: " + utilityExample;
     }
     if (0 < argList.length())
     {
@@ -263,7 +263,7 @@ nImO::ProcessStandardUtilitiesOptions
     }
     if (0 == (kSkipLoggingOption & optionsToIgnore))
     {
-        memcpy(usageWalker++, &loggDescriptor, sizeof(loggDescriptor));
+        memcpy(usageWalker++, &logDescriptor, sizeof(logDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
@@ -312,7 +312,7 @@ nImO::ProcessStandardUtilitiesOptions
         {
             optionValues._flavour = OutputFlavour::FlavourTabs;
         }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOGG)])
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {
             optionValues._logging = true;
         }
@@ -338,4 +338,4 @@ nImO::ProcessStandardUtilitiesOptions
     }
     ODL_EXIT_B(keepGoing); //####
     return keepGoing;
-} // nImO::ProcessStandardUtilitiesOptions
+} // nImO::ProcessStandardOptions

@@ -94,6 +94,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceContext.cpp"
+            "${THIS_SOURCE_DIR}/nImOserviceOptions.cpp"
             "${THIS_SOURCE_DIR}/nImOset.cpp"
             "${THIS_SOURCE_DIR}/nImOsinkContext.cpp"
             "${THIS_SOURCE_DIR}/nImOsourceContext.cpp"
@@ -173,6 +174,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
         "${THIS_SOURCE_DIR}/nImOserviceContext.h"
+        "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
         "${THIS_SOURCE_DIR}/nImOset.h"
         "${THIS_SOURCE_DIR}/nImOsinkContext.h"
         "${THIS_SOURCE_DIR}/nImOsourceContext.h"
@@ -230,6 +232,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h
         ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.h
+        ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
         ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.h
         ${THIS_SOURCE_DIR}/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/nImOsourceContext.h
         ${THIS_SOURCE_DIR}/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/nImOsinkContext.h

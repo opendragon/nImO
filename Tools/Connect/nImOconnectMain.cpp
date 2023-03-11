@@ -154,8 +154,8 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Connect two channels", "",
-                                              2016, NIMO_COPYRIGHT_NAME_, optionValues, helpForConnect, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, helpForConnect,
+                                     nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

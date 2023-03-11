@@ -131,8 +131,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Report on a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

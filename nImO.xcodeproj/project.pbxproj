@@ -170,6 +170,8 @@
 		F679D6CF2412751F001648DB /* Test_parser.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_parser.txt; path = "non-iOS/Tests/Test_parser.txt"; sourceTree = "<group>"; };
 		F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstandardOptions.cpp; path = nImO/nImOstandardOptions.cpp; sourceTree = "<group>"; };
 		F67B359429BCD51E000FC147 /* nImOstandardOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstandardOptions.h; path = nImO/nImOstandardOptions.h; sourceTree = "<group>"; };
+		F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOserviceOptions.cpp; path = nImO/nImOserviceOptions.cpp; sourceTree = "<group>"; };
+		F67B359629BCF738000FC147 /* nImOserviceOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOserviceOptions.h; path = nImO/nImOserviceOptions.h; sourceTree = "<group>"; };
 		F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/nImObufferChunk.cpp; sourceTree = SOURCE_ROOT; };
 		F68020331CAA0DA500C2374A /* nImObufferChunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImObufferChunk.h; path = nImO/nImObufferChunk.h; sourceTree = SOURCE_ROOT; };
 		F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelName.cpp; path = nImO/nImOchannelName.cpp; sourceTree = "<group>"; };
@@ -944,6 +946,8 @@
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,
 				F6737D5D28857E25000DD5FC /* nImOserviceContext.cpp */,
 				F6737D5B28857E25000DD5FC /* nImOserviceContext.h */,
+				F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */,
+				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
 				F6EE0AD71CA2C7F4004748ED /* nImOset.cpp */,
 				F6EE0AD81CA2C7F4004748ED /* nImOset.h */,
 				F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */,

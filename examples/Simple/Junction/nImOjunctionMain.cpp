@@ -39,7 +39,7 @@
 #include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
 #include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
+#include <nImOserviceOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -123,7 +123,7 @@ main
     nImO::IntegerArgumentDescriptor secondArg{"numOut", T_("Number of output channels"),
                                                 nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -132,11 +132,8 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-#if 0
-    ProcessStandardServiceOptions...
-#endif//0
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Junction example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
+                                    nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

@@ -146,6 +146,9 @@ constexpr int   MAXIMUM_PORT_ALLOWED_ = 65535;
 /*! @brief The smallest IP port that is acceptable. */
 constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
+/*! @brief The character separating argument descriptors. */
+# define ARGUMENT_SEPARATOR_            "\v"
+
 /*! @brief The standard copyright holder name to use for m+m-created executables. */
 # define NIMO_COPYRIGHT_NAME_           "OpenDragon"
 

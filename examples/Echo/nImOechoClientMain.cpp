@@ -125,8 +125,8 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo client example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Echo client example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

@@ -38,8 +38,8 @@
 
 #include <nImOchannelArgumentDescriptor.h>
 #include <nImOregistryProxy.h>
+#include <nImOserviceOptions.h>
 #include <nImOsinkContext.h>
-#include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -126,7 +126,7 @@ main
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
                                                 nImO::ArgumentMode::OptionalModifiable, "sink"};
     nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -135,11 +135,8 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-#if 0
-    ProcessStandardServiceOptions...
-#endif//0
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Read from a channel", "", 2016,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Read from a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
+                                    nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

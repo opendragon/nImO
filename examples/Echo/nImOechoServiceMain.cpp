@@ -38,7 +38,7 @@
 
 #include <nImOregistryProxy.h>
 #include <nImOserviceContext.h>
-#include <nImOstandardOptions.h>
+#include <nImOserviceOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -118,15 +118,15 @@ main
 {
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
-    nImO::StandardOptions   optionValues;
+    nImO::ServiceOptions    optionValues;
     int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    if (nImO::ProcessStandardUtilitiesOptions(argc, argv, argumentList, "Echo service example", "", 2023,
-                                              NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Echo service example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

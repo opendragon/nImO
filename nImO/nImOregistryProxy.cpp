@@ -83,7 +83,7 @@ nImO::RegistryProxy::RegistryProxy
         _context(context), _address(address), _port(port)
 {
     ODL_ENTER(); //####
-    _context.report("Registry found at " + _address + ":" + std::to_string(_port) + ".");
+    _context.report("RegistryProxy found at " + _address + ":" + std::to_string(_port) + ".");
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
 
@@ -97,6 +97,95 @@ nImO::RegistryProxy::~RegistryProxy
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+nImO::RegSuccessOrFailure
+nImO::RegistryProxy::addNode
+    (const std::string &    nodeName,
+     const uint32_t         nodeAddress,
+     const uint16_t         nodePort)
+{
+    NIMO_UNUSED_ARG_(nodeName);
+    NIMO_UNUSED_ARG_(nodeAddress);
+    NIMO_UNUSED_ARG_(nodePort);
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::RegistryProxy::addNode
+
+nImO::RegNodeInfoOrFailure
+nImO::RegistryProxy::getNodeInformation
+    (const std::string &    nodeName)
+    const
+{
+    NIMO_UNUSED_ARG_(nodeName);
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+    NodeInfo            info{false, 0, 0};
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoOrFailure{status, info};
+} // nImO::RegistryProxy::getNodeInformation
+
+nImO::RegStringSetOrFailure
+nImO::RegistryProxy::getNodes
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+    StringSet           strings;
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, strings};
+} // nImO::RegistryProxy::getNodes
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::nodePresent
+    (const std::string &    nodeName)
+{
+    NIMO_UNUSED_ARG_(nodeName);
+    bool    found = false;
+
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, found};
+} // nImO::RegistryProxy::nodePresent
+
+nImO::RegIntOrFailure
+nImO::RegistryProxy::numNodes
+    (void)
+    const
+{
+    int count = -1;
+
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, count};
+} // nImO::RegistryProxy::numNodes
+
+nImO::RegSuccessOrFailure
+nImO::RegistryProxy::removeNode
+    (const std::string &    nodeName)
+{
+    NIMO_UNUSED_ARG_(nodeName);
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::RegistryProxy::removeNode
 
 #if defined(__APPLE__)
 # pragma mark Global functions

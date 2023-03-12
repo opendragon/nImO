@@ -65,38 +65,43 @@ fix_dynamic_libs(${THIS_TARGET})
 add_test(NAME TestCreateRegistry COMMAND ${THIS_TARGET} 1)
 ## Test check empty Registry for nodes
 add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 2)
+## Test check node set with empty Registry
+add_test(NAME TestNodeSetWithEmptyRegistry COMMAND ${THIS_TARGET} 3)
+## Test check find with empty Registry
+add_test(NAME TestFindWithEmptyRegistry COMMAND ${THIS_TARGET} 4)
 ## Test add node to Registry
-add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 3)
+add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 5)
+## Test check count with Registry with one node
+add_test(NAME TestCountWithRegistryWithOneNode COMMAND ${THIS_TARGET} 6)
+## Test check node set with Registry with one node
+add_test(NAME TestNodeSetWithRegistryWithOneNode COMMAND ${THIS_TARGET} 7)
+## Test check find with Registry with one node
+add_test(NAME TestFindWithRegistryWithOneNode COMMAND ${THIS_TARGET} 8)
 ## Test check node data added to Registry
-add_test(NAME TestNodeDataAddedToRegistry COMMAND ${THIS_TARGET} 4)
+add_test(NAME TestNodeDataAddedToRegistry COMMAND ${THIS_TARGET} 9)
 ## Test remove node from Registry
-add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 5)
+add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 10)
+## Test check count with Registry with node removed
+add_test(NAME TestCountWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 11)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 12)
+## Test check find with Registry with node removed
+add_test(NAME TestFindWithRegistryNodeRemoved COMMAND ${THIS_TARGET} 13)
 ## Test add two distinct nodes to Registry
-add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 6)
+add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 14)
+## Test check count with Registry with two nodes
+add_test(NAME TestCountWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 15)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 16)
+## Test check find with Registry with two nodes
+add_test(NAME TestFindWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 17)
 ## Test remove added nodes from Registry
-add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 7)
+add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 18)
+## Test check count with Registry with all nodes removed
+add_test(NAME TestCountWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 19)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 20)
+## Test check find with Registry with all nodes removed
+add_test(NAME TestFindWithRegistryAllNodesRemoved COMMAND ${THIS_TARGET} 21)
 ## Test add two identical nodes to Registry
-add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 8)
-
-
-
-
-### From m+m registry tests:
-## Test create register service
-#add_test(NAME TestCreateRegistryService1 COMMAND ${THIS_TARGET} 13)
-#add_test(NAME TestCreateRegistryService2 COMMAND ${THIS_TARGET} 13 "12350")
-## Test register request, second service
-#add_test(NAME TestRequestRegistryService1 COMMAND ${THIS_TARGET} 14)
-#add_test(NAME TestRequestRegistryService2 COMMAND ${THIS_TARGET} 14 "12351")
-## Test unregister request, second service
-#add_test(NAME TestRequestUnregisterService1 COMMAND ${THIS_TARGET} 15)
-#add_test(NAME TestRequestUnregisterService2 COMMAND ${THIS_TARGET} 15 "12352")
-## Test search for request / service - note the change in arguments
-#add_test(NAME TestRequestSearchService1 COMMAND ${THIS_TARGET} 16 0 "" "FAILED \"An error message\"")
-#add_test(NAME TestRequestSearchService2 COMMAND ${THIS_TARGET} 16 0 "Version: 42" "OK ()")
-#add_test(NAME TestRequestSearchService3 COMMAND ${THIS_TARGET} 16 0 "Details:Echo*" "OK (/_service_/test/requestsearchservice)")
-#add_test(NAME TestRequestSearchService4 COMMAND ${THIS_TARGET} 16 0 "Details:Echo*,Keyword:(requests)" "OK (/_service_/test/requestsearchservice /$ervice)")
-#add_test(NAME TestRequestSearchService5 COMMAND ${THIS_TARGET} 16 0 "Description:*unit\\ tests" "OK (/_service_/test/requestsearchservice)")
-#add_test(NAME TestRequestSearchService6 COMMAND ${THIS_TARGET} 16 1 "Details:Echo*" "OK (Test16)")
-#add_test(NAME TestRequestSearchService7 COMMAND ${THIS_TARGET} 16 1 "Details:Echo*,Keyword:(requests)" "OK (Registry Test16)")
-#add_test(NAME TestRequestSearchService8 COMMAND ${THIS_TARGET} 16 1 "Description:*unit\\ tests" "OK (Test16)")
+add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 22)

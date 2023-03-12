@@ -73,13 +73,13 @@
 # define NODES_T_   "Nodes"
 
 /*! @brief The named parameter for the 'name' column. */
-# define NODE_NAME_C_    "name"
+# define NODE_NAME_C_   "name"
 
 /*! @brief The named parameter for the 'address' column. */
-# define NODE_ADDRESS_C_ "address"
+# define NODE_ADDRESS_C_    "address"
 
 /*! @brief The named parameter for the 'port' column. */
-# define NODE_PORT_C_    "port"
+# define NODE_PORT_C_   "port"
 
 /*! @brief The name of the index for the 'name' column of the 'Nodes' table. */
 #define NODES_NAME_I_   "Nodes_name_idx"
@@ -119,8 +119,8 @@ struct NodeInsertData
  @param[in] sqlStatement The operation to be performed.
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
- @return @c true if the operation was successfully performed and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 performSQLstatementWithMultipleColumnResults
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
@@ -132,21 +132,19 @@ performSQLstatementWithMultipleColumnResults
     ODL_ENTER(); //####
     ODL_P2("dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    bool okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
             Ptr(sqlite3_stmt)   prepared = NULL;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
-                                                           static_cast<int>(strlen(sqlStatement)),
-                                                           &prepared, nullptr);
+            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -155,9 +153,12 @@ performSQLstatementWithMultipleColumnResults
                 {
                     sqlRes = doBinds(prepared, data);
                     ODL_I1("sqlRes <- ", sqlRes); //####
-                    okSoFar = (SQLITE_OK == sqlRes);
+                    if (SQLITE_OK != sqlRes)
+                    {
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                    }
                 }
-                if (okSoFar)
+                if (status.first)
                 {
                     for (sqlRes = SQLITE_ROW; SQLITE_ROW == sqlRes; )
                     {
@@ -202,7 +203,7 @@ performSQLstatementWithMultipleColumnResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        okSoFar = false;
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -210,7 +211,7 @@ performSQLstatementWithMultipleColumnResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                okSoFar = false;
+                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -219,8 +220,8 @@ performSQLstatementWithMultipleColumnResults
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // performSQLstatementWithMultipleColumnResults
 
 /*! @brief Perform a simple operation on the database.
@@ -228,8 +229,8 @@ performSQLstatementWithMultipleColumnResults
  @param[in] sqlStatement The operation to be performed.
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
- @return @c true if the operation was successfully performed and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 performSQLstatementWithNoResults
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
@@ -240,14 +241,14 @@ performSQLstatementWithNoResults
     ODL_ENTER(); //####
     ODL_P2("dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    bool okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -263,9 +264,12 @@ performSQLstatementWithNoResults
                 {
                     sqlRes = doBinds(prepared, data);
                     ODL_I1("sqlRes <- ", sqlRes); //####
-                    okSoFar = (SQLITE_OK == sqlRes);
+                    if (SQLITE_OK != sqlRes)
+                    {
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                    }
                 }
-                if (okSoFar)
+                if (status.first)
                 {
                     do
                     {
@@ -280,7 +284,7 @@ performSQLstatementWithNoResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        okSoFar = false;
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -288,7 +292,7 @@ performSQLstatementWithNoResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && prepared)"); //####
-                okSoFar = false;
+                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -297,16 +301,16 @@ performSQLstatementWithNoResults
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // performSQLstatementWithNoResults
 
 /*! @brief Perform a simple operation on the database.
  @param[in] owner The object to be used for reporting.
  @param[in] dbHandle The database to be modified.
  @param[in] sqlStatement The operation to be performed.
- @return @c true if the operation was successfully performed and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 performSQLstatementWithNoResultsNoArgs
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
@@ -315,51 +319,44 @@ performSQLstatementWithNoResultsNoArgs
     ODL_ENTER(); //####
     ODL_P1("dbHandle = ", dbHandle); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    bool    okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
             Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
-                                                           static_cast<int>(strlen(sqlStatement)),
-                                                           &prepared, nullptr);
+            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
 
             ODL_I1("sqlRes <- ", sqlRes); //####
-            ODL_S1("sqlRes <- ", mapStatusToStringForSQL(sqlRes)); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
             {
-                if (okSoFar)
+                do
                 {
-                    do
+                    sqlRes = sqlite3_step(prepared);
+                    ODL_I1("sqlRes <- ", sqlRes); //####
+                    if (SQLITE_BUSY == sqlRes)
                     {
-                        sqlRes = sqlite3_step(prepared);
-                        ODL_I1("sqlRes <- ", sqlRes); //####
-                        ODL_S1("sqlRes <- ", mapStatusToStringForSQL(sqlRes)); //####
-                        if (SQLITE_BUSY == sqlRes)
-                        {
-                            nImO::ConsumeSomeTime(owner, 10.0);
-                        }
+                        nImO::ConsumeSomeTime(owner, 10.0);
                     }
-                    while (SQLITE_BUSY == sqlRes);
-                    if (SQLITE_DONE != sqlRes)
-                    {
-                        ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        okSoFar = false;
-                    }
+                }
+                while (SQLITE_BUSY == sqlRes);
+                if (SQLITE_DONE != sqlRes)
+                {
+                    ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
+                    status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                 }
                 sqlite3_finalize(prepared);
             }
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                okSoFar = false;
+                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -368,8 +365,8 @@ performSQLstatementWithNoResultsNoArgs
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // performSQLstatementWithNoResultsNoArgs
 
 /*! @brief Perform an operation that can return multiple rows of results.
@@ -378,8 +375,8 @@ performSQLstatementWithNoResultsNoArgs
  @param[in] sqlStatement The operation to be performed.
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
- @return @c true if the operation was successfully performed and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 performSQLstatementWithSingleColumnResults
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
@@ -392,7 +389,7 @@ performSQLstatementWithSingleColumnResults
     ODL_P3("dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
     ODL_I1("columnOfInterest = ", columnOfInterest); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    bool    okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     resultList.clear();
     try
@@ -400,14 +397,12 @@ performSQLstatementWithSingleColumnResults
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
             Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
-                                                           static_cast<int>(strlen(sqlStatement)),
-                                                           &prepared, nullptr);
+            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -416,9 +411,12 @@ performSQLstatementWithSingleColumnResults
                 {
                     sqlRes = doBinds(prepared, data);
                     ODL_I1("sqlRes <- ", sqlRes); //####
-                    okSoFar = (SQLITE_OK == sqlRes);
+                    if (SQLITE_OK != sqlRes)
+                    {
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                    }
                 }
-                if (okSoFar)
+                if (status.first)
                 {
                     for (sqlRes = SQLITE_ROW; SQLITE_ROW == sqlRes; )
                     {
@@ -453,7 +451,7 @@ performSQLstatementWithSingleColumnResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        okSoFar = false;
+                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -461,7 +459,7 @@ performSQLstatementWithSingleColumnResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                okSoFar = false;
+                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -470,36 +468,35 @@ performSQLstatementWithSingleColumnResults
         ODL_LOG("Exception caught"); //####
         throw;
     }
-
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // performSQLstatementWithSingleColumnResults
 
 /*! @brief Start a transaction.
  @param[in] owner The object to be used for reporting.
  @param[in] dbHandle The database to be modified.
- @return @c true if the transaction was initiated and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 doBeginTransaction
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle)
 {
     ODL_ENTER(); //####
     ODL_P1("dbHandle = ", dbHandle); //####
-    bool okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
             static CPtr(char)   beginTransaction = "BEGIN TRANSACTION";
 
-            okSoFar = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, beginTransaction);
+            status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, beginTransaction);
         }
     }
     catch (...)
@@ -507,16 +504,16 @@ doBeginTransaction
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // doBeginTransaction
 
 /*! @brief End a transaction.
  @param[in] owner The object to be used for reporting.
  @param[in] database The database to be modified.
  @param[in] wasOK @c true if the transaction was successful and @c false otherwise.
- @return @c true if the transaction was closed successfully and @c false otherwise. */
-static bool
+ @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+static nImO::RegSuccessOrFailure
 doEndTransaction
     (Ptr(nImO::ContextWithNetworking)   owner,
      Ptr(sqlite3)                       dbHandle,
@@ -525,22 +522,21 @@ doEndTransaction
     ODL_ENTER(); //####
     ODL_P1("dbHandle = ", dbHandle); //####
     ODL_B1("wasOK = ", wasOK); //####
-    bool    okSoFar = true;
+    nImO::RegSuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            okSoFar = false;
+            status = nImO::RegSuccessOrFailure{false, "No open database"};
         }
         else
         {
             static CPtr(char)   abortTransaction = "ROLLBACK TRANSACTION";
             static CPtr(char)   commitTransaction = "END TRANSACTION";
 
-            okSoFar = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, wasOK ? commitTransaction :
-                                                             abortTransaction);
+            status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, wasOK ? commitTransaction : abortTransaction);
         }
     }
     catch (...)
@@ -548,8 +544,8 @@ doEndTransaction
         ODL_LOG("Exception caught"); //####
         throw;
     }
-    ODL_EXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_EXIT(); //####
+    return status;
 } // doEndTransaction
 
 /*! @brief Create the tables needed in the database.
@@ -557,22 +553,28 @@ doEndTransaction
  @param[in] logging @c true if operations are to be logged.
  @parm[in,out] dbHandle The database handle to use.
  @return @c true if all the tables were successfully created. */
-static bool
+static nImO::RegSuccessOrFailure
 createTables
     (Ptr(nImO::ContextWithNetworking)   owner,
      const bool                         logging,
      Ptr(sqlite3)                       dbHandle)
 {
-    bool    okSoFar = true;
-    
+    nImO::RegSuccessOrFailure   status{true, ""};
+
     ODL_ENTER();
-    if (nullptr != dbHandle)
+    if (nullptr == dbHandle)
+    {
+        ODL_LOG("(nullptr == dbHandle)"); //####
+        status = nImO::RegSuccessOrFailure{false, "No open database"};
+    }
+    else
     {
         if ((nullptr != owner) && logging)
         {
             owner->report("creating tables.");
         }
-        if (doBeginTransaction(owner, dbHandle))
+        status = doBeginTransaction(owner, dbHandle);
+        if (status.first)
         {
             static CPtr(char)   tableSQL[] =
             {
@@ -582,15 +584,15 @@ createTables
             };
             static const size_t numTables = A_SIZE(tableSQL);
 
-            for (size_t ii = 0; okSoFar && (ii < numTables); ++ii)
+            for (size_t ii = 0; status.first && (ii < numTables); ++ii)
             {
-                okSoFar = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, tableSQL[ii]);
+                status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, tableSQL[ii]);
             }
-            doEndTransaction(owner, dbHandle, okSoFar);
+            doEndTransaction(owner, dbHandle, status.first);
         }
     }
-    ODL_EXIT_B(okSoFar);
-    return okSoFar;
+    ODL_EXIT();
+    return status;
 } // createTables
 
 /*! @brief A logging function specific for SQL events.
@@ -730,12 +732,23 @@ nImO::Registry::Registry
 
     if (SQLITE_OK == result)
     {
-        createTables(_owner, logging, _dbHandle);
+        nImO::RegSuccessOrFailure   status = createTables(_owner, logging, _dbHandle);
+
+        if (! status.first)
+        {
+            std::string prefix{"Problem creating tables in database: "};
+
+            if ((nullptr != _owner) && logging)
+            {
+                _owner->report(prefix + status.second);
+            }
+            throw prefix + status.second;
+        }
     }
     else
     {
         std::string errorMessage(sqlite3_errstr(result));
-        std::string prefix("Unable to open database: ");
+        std::string prefix{"Unable to open database: "};
 
         if ((nullptr != _owner) && logging)
         {
@@ -758,47 +771,45 @@ nImO::Registry::~Registry
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
+nImO::RegSuccessOrFailure
 nImO::Registry::addNode
     (const std::string &    nodeName,
      const uint32_t         nodeAddress,
      const uint16_t         nodePort)
 {
-    bool    added = false;
-
     ODL_OBJENTER(); //####
-    if (doBeginTransaction(_owner, _dbHandle))
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+
+    if (status.first)
     {
         NodeInsertData      data{nodeName, nodeAddress, nodePort};
         static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ ") VALUES(@" NODE_NAME_C_
                                                 ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ")";
 
-        added = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
-        doEndTransaction(_owner, _dbHandle, added);
+        status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT_B(added); //####
-    return added;
+    ODL_OBJEXIT(); //####
+    return status;
 } // nImO::Registry::addNode
 
-bool
+nImO::RegNodeInfoOrFailure
 nImO::Registry::getNodeInformation
-    (const std::string &    nodeName,
-     uint32_t &             nodeAddress,
-     uint16_t &             nodePort)
+    (const std::string &    nodeName)
     const
 {
-    bool    found = false;
-
     ODL_OBJENTER(); //####
-    if (doBeginTransaction(_owner, _dbHandle))
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    NodeInfo            info{false, 0, 0};
+
+    if (status.first)
     {
-        bool                        okSoFar = true;
         std::vector<StringVector>   results;
         static CPtr(char)           searchNodes = "SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ " FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@"
                                                     NODE_NAME_C_;
 
-        okSoFar = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
-        if (okSoFar)
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        if (status.first)
         {
             if (0 < results.size())
             {
@@ -808,70 +819,71 @@ nImO::Registry::getNodeInformation
                 {
                     size_t  pos;
 
-                    found = true;
-                    nodeAddress = StaticCast(uint32_t, stoul(values[0], &pos));
+                    info._found = true;
+                    info._nodeAddress = StaticCast(uint32_t, stoul(values[0], &pos));
                     if (0 == pos)
                     {
-                        found = false;
+                        info._found = false;
                     }
-                    nodePort = StaticCast(uint16_t, stoul(values[1], &pos));
+                    info._nodePort = StaticCast(uint16_t, stoul(values[1], &pos));
                     if (0 == pos)
                     {
-                        found = false;
+                        info._found = false;
                     }
 
                 }
             }
         }
-        doEndTransaction(_owner, _dbHandle, okSoFar);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT_B(found); //####
-    return found;
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoOrFailure{status, info};
 } // nImO::Registry::getNodeInformation
 
-nImO::StringSet
+nImO::RegStringSetOrFailure
 nImO::Registry::getNodes
     (void)
     const
 {
-    StringSet   result;
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    StringSet           strings;
 
-    ODL_OBJENTER();
-    if (doBeginTransaction(_owner, _dbHandle))
+    if (status.first)
     {
-        bool                okSoFar = true;
         StringVector        results;
         static CPtr(char)   searchNodes = "SELECT " NODE_NAME_C_ " FROM " NODES_T_;
 
-        okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
-        if (okSoFar)
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
+        if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                result.insert(results[ii]);
+                strings.insert(results[ii]);
             }
         }
-        doEndTransaction(_owner, _dbHandle, okSoFar);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT();
-    return result;
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, strings};
 } // nImO::Registry::getNodes
 
-bool
+nImO::RegBoolOrFailure
 nImO::Registry::nodePresent
     (const std::string &    nodeName)
 {
     bool    found = false;
 
     ODL_OBJENTER(); //####
-    if (doBeginTransaction(_owner, _dbHandle))
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+
+    if (status.first)
     {
-        bool                okSoFar = true;
         StringVector        results;
         static CPtr(char)   searchNodes = "SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
 
-        okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
-        if (okSoFar)
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        if (status.first)
         {
             size_t  pos;
             int     count = stoi(results[0], &pos);
@@ -885,13 +897,13 @@ nImO::Registry::nodePresent
                 found = (1 == count);
             }
         }
-        doEndTransaction(_owner, _dbHandle, okSoFar);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT_B(found); //####
-    return found;
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, found};
 } // nImO::Registry::nodePresent
 
-int
+nImO::RegIntOrFailure
 nImO::Registry::numNodes
     (void)
     const
@@ -899,14 +911,15 @@ nImO::Registry::numNodes
     int count = -1;
 
     ODL_OBJENTER(); //####
-    if (doBeginTransaction(_owner, _dbHandle))
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+
+    if (status.first)
     {
-        bool                okSoFar = true;
         StringVector        results;
         static CPtr(char)   countNodes = "SELECT COUNT(*) FROM " NODES_T_;
 
-        okSoFar = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
-        if (okSoFar)
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
+        if (status.first)
         {
             size_t  pos;
 
@@ -916,29 +929,28 @@ nImO::Registry::numNodes
                 count = -1;
             }
         }
-        doEndTransaction(_owner, _dbHandle, okSoFar);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT_I(count); //####
-    return count;
+    ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, count};
 } // nImO::Registry::numNodes
 
-bool
+nImO::RegSuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
 {
-    bool    removed = false;
-
     ODL_OBJENTER(); //####
+    RegSuccessOrFailure   status = doBeginTransaction(_owner, _dbHandle);
 
-    if (doBeginTransaction(_owner, _dbHandle))
+    if (status.first)
     {
         static CPtr(char)   searchNodes = "DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
 
-        removed = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
-        doEndTransaction(_owner, _dbHandle, removed);
+        status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
+        doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT_B(removed); //####
-    return removed;
+    ODL_OBJEXIT(); //####
+    return status;
 } // nImO::Registry::removeNode
 
 #if defined(__APPLE__)

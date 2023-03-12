@@ -40,6 +40,7 @@
 # define nImOregistry_H_ /* Header guard */
 
 # include <nImOcontextWithNetworking.h>
+# include <nImOregistryTypes.h>
 # include <nImOset.h>
 # include "sqlite3.h"
 
@@ -56,6 +57,7 @@
 
 namespace nImO
 {
+
     /*! @brief A class to provide database services. */
     class Registry final
     {
@@ -98,8 +100,8 @@ namespace nImO
              @param[in] nodeName The name of the node to be added.
              @param[in] nodeAddress The IPv4 address of the node.
              @param[in] nodePort The command port for the node.
-             @return @c true if the node was added and @c false if it was not added. */
-            bool
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegSuccessOrFailure
             addNode
                 (const std::string &    nodeName,
                  const uint32_t         nodeAddress = 0,
@@ -109,39 +111,37 @@ namespace nImO
              @param[in] nodeName The name of the node to be located in the Registry.
              @param[out] nodeAddress The IP address of the node.
              @param[out] nodePort The command port of the node.
-             @return @c true if the node was found in the Registry. */
-            bool
+             @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegNodeInfoOrFailure
             getNodeInformation
-                (const std::string &    nodeName,
-                 uint32_t &             nodeAddress,
-                 uint16_t &             nodePort)
+                (const std::string &    nodeName)
                 const;
 
-        /*! @brief Get the set of nodes in the Registry.
-             @return The set of nodes in the Registry. */
-            StringSet
+            /*! @brief Get the set of nodes in the Registry.
+             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegStringSetOrFailure
             getNodes
                 (void)
                 const;
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.
-             @return @c true if the node was found and @c false if it was not found. */
-            bool
+             @return @c true and if the node was found,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
             nodePresent
                 (const std::string &    nodeName);
 
             /*! @brief Return the number of nodes in the Registry.
-             @return The number of nodes in the Registry. */
-            int
+             @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
             numNodes
                 (void)
                 const;
 
             /*! @brief Remove a node from the Registry.
              @param[in] nodeName The name of the node to be removed.
-             @return @c true if the node was removed and @c false if it was not removed. */
-            bool
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegSuccessOrFailure
             removeNode
                 (const std::string &    nodeName);
 

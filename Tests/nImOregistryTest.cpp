@@ -64,6 +64,12 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The first node name for testing. */
+#define NODE_NAME_1 "blort"
+
+/*! @brief The second node name for testing. */
+#define NODE_NAME_2 "blurt"
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -232,17 +238,17 @@ doTestAddNodeToRegistry
         }
         else
         {
-            if (aRegistry->addNode("blort"))
+            if (aRegistry->addNode(NODE_NAME_1))
             {
                 if (1 == aRegistry->numNodes())
                 {
-                    if (aRegistry->nodePresent("blort"))
+                    if (aRegistry->nodePresent(NODE_NAME_1))
                     {
                         StringSet   nodes = aRegistry->getNodes();
 
-                        if (nodes.end() == nodes.find("blort"))
+                        if (nodes.end() == nodes.find(NODE_NAME_1))
                         {
-                            ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
                         }
                         else
                         {
@@ -251,7 +257,7 @@ doTestAddNodeToRegistry
                     }
                     else
                     {
-                        ODL_LOG("! (aRegistry->nodePresent(\"blort\"))"); //####
+                        ODL_LOG("! (aRegistry->nodePresent(NODE_NAME_1))"); //####
                     }
                 }
                 else
@@ -261,7 +267,7 @@ doTestAddNodeToRegistry
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1))"); //####
             }
         }
     }
@@ -311,12 +317,12 @@ doTestNodeDataAddedToRegistry
             uint32_t    randomAddress = StaticCast(uint32_t, rand());
             uint16_t    randomPort = StaticCast(uint16_t, rand());
             
-            if (aRegistry->addNode("blort", randomAddress, randomPort))
+            if (aRegistry->addNode(NODE_NAME_1, randomAddress, randomPort))
             {
                 uint32_t    fetchedAddress;
                 uint16_t    fetchedPort;
 
-                if (aRegistry->getNodeInformation("blort", fetchedAddress, fetchedPort))
+                if (aRegistry->getNodeInformation(NODE_NAME_1, fetchedAddress, fetchedPort))
                 {
                     if ((randomAddress == fetchedAddress) && (randomPort == fetchedPort))
                     {
@@ -329,12 +335,12 @@ doTestNodeDataAddedToRegistry
                 }
                 else
                 {
-                    ODL_LOG("! (aRegistry->getNodeInformation(\"blort\", fetchedAddress, fetchedPort))"); //####
+                    ODL_LOG("! (aRegistry->getNodeInformation(NODE_NAME_1, fetchedAddress, fetchedPort))"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1))"); //####
             }
         }
     }
@@ -381,11 +387,11 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            if (aRegistry->addNode("blort"))
+            if (aRegistry->addNode(NODE_NAME_1))
             {
                 if (1 == aRegistry->numNodes())
                 {
-                    if (aRegistry->removeNode("blort"))
+                    if (aRegistry->removeNode(NODE_NAME_1))
                     {
                         if (0 == aRegistry->numNodes())
                         {
@@ -398,7 +404,7 @@ doTestRemoveNodeFromRegistry
                     }
                     else
                     {
-                        ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                        ODL_LOG("! (1 == aRegistry->removeNode(NODE_NAME_1))"); //####
                     }
                 }
                 else
@@ -408,7 +414,7 @@ doTestRemoveNodeFromRegistry
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1))"); //####
             }
         }
     }
@@ -455,23 +461,23 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            if (aRegistry->addNode("blort") && aRegistry->addNode("blurt"))
+            if (aRegistry->addNode(NODE_NAME_1) && aRegistry->addNode(NODE_NAME_2))
             {
                 if (2 == aRegistry->numNodes())
                 {
-                    if (aRegistry->nodePresent("blort") && aRegistry->nodePresent("blurt"))
+                    if (aRegistry->nodePresent(NODE_NAME_1) && aRegistry->nodePresent(NODE_NAME_2))
                     {
                         StringSet   nodes = aRegistry->getNodes();
 
-                        if (nodes.end() == nodes.find("blort"))
+                        if (nodes.end() == nodes.find(NODE_NAME_1))
                         {
-                            ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
                         }
                         else
                         {
-                            if (nodes.end() == nodes.find("blurt"))
+                            if (nodes.end() == nodes.find(NODE_NAME_2))
                             {
-                                ODL_LOG("(nodes.end() == nodes.find(\"blurt\"))"); //####
+                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_2))"); //####
                             }
                             else
                             {
@@ -481,7 +487,7 @@ doTestAddTwoDistinctNodesToRegistry
                     }
                     else
                     {
-                        ODL_LOG("! (aRegistry->nodePresent(\"blort\") && aRegistry->nodePresent(\"blurt\"))"); //####
+                        ODL_LOG("! (aRegistry->nodePresent(NODE_NAME_1) && aRegistry->nodePresent(NODE_NAME_2))"); //####
                     }
                 }
                 else
@@ -491,7 +497,7 @@ doTestAddTwoDistinctNodesToRegistry
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\") && aRegistry->addNode(\"blurt\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1) && aRegistry->addNode(NODE_NAME_2))"); //####
             }
         }
     }
@@ -538,15 +544,15 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            if (aRegistry->addNode("blort") && aRegistry->addNode("blurt"))
+            if (aRegistry->addNode("blort") && aRegistry->addNode(NODE_NAME_2))
             {
                 if (2 == aRegistry->numNodes())
                 {
-                    if (aRegistry->removeNode("blort"))
+                    if (aRegistry->removeNode(NODE_NAME_1))
                     {
                         if (1 == aRegistry->numNodes())
                         {
-                            if (aRegistry->removeNode("blurt"))
+                            if (aRegistry->removeNode(NODE_NAME_2))
                             {
                                 if (0 == aRegistry->numNodes())
                                 {
@@ -559,7 +565,7 @@ doTestRemoveNodesFromRegistry
                             }
                             else
                             {
-                                ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                                ODL_LOG("! (1 == aRegistry->removeNode(NODE_NAME_1))"); //####
                             }
                         }
                         else
@@ -569,7 +575,7 @@ doTestRemoveNodesFromRegistry
                     }
                     else
                     {
-                        ODL_LOG("! (1 == aRegistry->removeNode(\"blort\"))"); //####
+                        ODL_LOG("! (1 == aRegistry->removeNode(NODE_NAME_1))"); //####
                     }
                 }
                 else
@@ -579,7 +585,7 @@ doTestRemoveNodesFromRegistry
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\") && aRegistry->addNode(\"blurt\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1) && aRegistry->addNode(NODE_NAME_2))"); //####
             }
         }
     }
@@ -626,19 +632,19 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            if (aRegistry->addNode("blort"))
+            if (aRegistry->addNode(NODE_NAME_1))
             {
-                if (aRegistry->addNode("blort"))
+                if (aRegistry->addNode(NODE_NAME_1))
                 {
-                    ODL_LOG("(aRegistry->addNode(\"blort\"))"); //####
+                    ODL_LOG("(aRegistry->addNode(NODE_NAME_1))"); //####
                 }
                 else
                 {
                     StringSet   nodes = aRegistry->getNodes();
 
-                    if (nodes.end() == nodes.find("blort"))
+                    if (nodes.end() == nodes.find(NODE_NAME_1))
                     {
-                        ODL_LOG("(nodes.end() == nodes.find(\"blort\"))"); //####
+                        ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
                     }
                     else
                     {
@@ -648,7 +654,7 @@ doTestAddTwoIdenticalNodesToRegistry
             }
             else
             {
-                ODL_LOG("! (aRegistry->addNode(\"blort\"))"); //####
+                ODL_LOG("! (aRegistry->addNode(NODE_NAME_1))"); //####
             }
         }
     }
@@ -706,9 +712,13 @@ main
                         result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2);
                         break;
 
+// test find
+
                     case 3 :
                         result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2);
                         break;
+
+// test find
 
                     case 4 :
                         result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2);
@@ -718,18 +728,25 @@ main
                         result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2);
                         break;
 
+// test find
+
                     case 6 :
                         result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2);
                         break;
+
+// test find
 
                     case 7 :
                         result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2);
                         break;
 
+// test find
+
                     case 8 :
                         result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2);
                         break;
 
+// test find
                     default :
                         break;
 

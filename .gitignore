@@ -82,6 +82,9 @@ non-iOS/Tools/ApplicationSupport/RemoveApplication/nImOremoveApp.rc
 non-iOS/Tools/ApplicationSupport/StoreApplications/nImOstoreApps
 non-iOS/Tools/ApplicationSupport/StoreApplications/nImOstoreApps.dir/
 non-iOS/Tools/ApplicationSupport/StoreApplications/nImOstoreApps.rc
+non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp
+non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp.dir/
+non-iOS/Tools/ApplicationSupport/UpdateApplication/nImOupdateApp.rc
 non-iOS/Tools/Bridge/nImObridge
 non-iOS/Tools/Bridge/nImObridge.dir/
 non-iOS/Tools/Bridge/nImObridge.rc

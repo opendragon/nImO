@@ -17,6 +17,7 @@ function list_commands() {
     echo "    read       read from a channel"
     echo "    remove     remove an application"
     echo "    store      store a set of applications"
+    echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
     echo "    write      write to a channel"
 }
@@ -71,6 +72,9 @@ function usage_help() {
                 ;;
             "store")
                 nImOstoreApps -h
+                ;;
+            "updte")
+                nImOupdateApp -h
                 ;;
             "version")
                 nImOversion -h
@@ -172,6 +176,13 @@ else
                 usage_help store
             else
                 nImOstoreApps $*
+            fi
+            ;;
+        "update")
+            if [[ $# -eq 0 ]]; then
+                usage_help update
+            else
+                nImOupdateApp $*
             fi
             ;;
         "version")

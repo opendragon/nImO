@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOaddAppMain.cpp
+//  File:       nImOupdateAppMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to add an application to the list of known applications.
+//  Contains:   A tool to update an application in the list of known applications.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-27
+//  Created:    2023-03-12
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -51,10 +51,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to add an application to the list of known applications. */
+ @brief A tool to update an application in the list of known applications. */
 
 /*! @dir Version
- @brief The set of files that implement the AddApplication tool. */
+ @brief The set of files that implement the UpdateApplication tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -133,7 +133,7 @@ main
     ODL_ENTER(); //####
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add application", "nImOaddApp /path-to-application [shortAppName]", 2020,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Update an application", "nImOupdateApp /path-to-application [shortAppName]", 2023,
                                      NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -141,7 +141,7 @@ main
         {
             nImO::SetSignalHandlers(catchSignal);
             std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "addApp", optionValues._logging};
+            nImO::UtilityContext    ourContext{progName, "updateApp", optionValues._logging};
             std::string             registryAddress;
             uint16_t                registryPort;
 

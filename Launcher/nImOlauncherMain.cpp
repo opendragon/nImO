@@ -143,10 +143,41 @@ main
 
             if (ourContext.findRegistry(registryAddress, registryPort))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy     proxy{ourContext, registryAddress, registryPort};
+                nImO::RegBoolOrFailure  statusWithBool = proxy.nodePresent(nodeName);
 
-                // Tell Registry about this node and exit if there already is one on this node.
-                // Wait for launch requests.
+                if (statusWithBool.first.first)
+                {
+                    if (statusWithBool.second)
+                    {
+                        ourContext.report("Launcher already running.");
+                        std::cerr << "Launcher already running." << std::endl;
+                    }
+                    else
+                    {
+                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName);
+
+                        if (status.first)
+                        {
+                            ourContext.report("Waiting for requests.");
+                            //TBD: wait for requests.
+
+                            status = proxy.removeNode(nodeName);
+                            if (! status.first)
+                            {
+                                std::cerr << "Problem with 'removeNode': " << status.second << std::endl;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'addNode': " << status.second << std::endl;
+                        }
+                    }
+                }
+                else
+                {
+                    std::cerr << "Problem with 'nodePresent': " << statusWithBool.first.second << std::endl;
+                }
             }
             else
             {

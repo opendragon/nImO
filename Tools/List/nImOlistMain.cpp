@@ -180,6 +180,84 @@ helpForList
     }
 } // helpForList
 
+/*! @brief Output the known nodes.
+ @param[in] proxy The connection to the Registry.
+ @param[in] options The options to apply. */
+static void
+listNodes
+    (nImO::RegistryProxy &      proxy,
+     nImO::StandardOptions &    options)
+{
+    nImO::RegStringSetOrFailure statusWithStrings = proxy.getNodes();
+
+    if (statusWithStrings.first.first)
+    {
+        nImO::StringSet nodes = statusWithStrings.second;
+
+        if (nodes.empty())
+        {
+            std::cout << "** No nodes **" << std::endl;
+        }
+        else
+        {
+            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+            {
+                std::cout << "{ " << std::endl;
+            }
+            for (auto walker(nodes.begin()); nodes.end() != walker; )
+            {
+                std::string                 nodeName{nImO::SanitizeString(*walker, nImO::OutputFlavour::FlavourJSON == options._flavour)};
+                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
+
+                ++walker;
+                if (statusWithInfo.first.first)
+                {
+                    if (statusWithInfo.second._found)
+                    {
+                        switch (options._flavour)
+                        {
+                            case nImO::OutputFlavour::FlavourNormal :
+                                std::cout << nodeName << ' ' << statusWithInfo.second._nodeAddress << std::endl;
+                                break;
+
+                            case nImO::OutputFlavour::FlavourJSON :
+                                std::cout << CHAR_DOUBLEQUOTE_ << nodeName << T_(CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
+                                            statusWithInfo.second._nodeAddress << CHAR_DOUBLEQUOTE_;
+                                if (nodes.end() != walker)
+                                {
+                                    std::cout << ",";
+                                }
+                                std::cout << std::endl;
+                                break;
+
+                            case nImO::OutputFlavour::FlavourTabs :
+                                std::cout << nodeName << '\t' << statusWithInfo.second._nodeAddress << std::endl;
+                                break;
+
+                            default :
+                                break;
+
+                        }
+                    }
+                }
+                else
+                {
+                    std::cerr << "Problem with 'getNodes': " << statusWithInfo.first.second << std::endl;
+                    break;
+                }
+            }
+            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+            {
+                std::cout << " }" << std::endl;
+            }
+        }
+    }
+    else
+    {
+        std::cerr << "Problem with 'getNodes': " << statusWithStrings.first.second << std::endl;
+    }
+} // listNodes
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -205,7 +283,7 @@ main
     lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", ChoiceInfo{Choice::kConn, "active connections"}});
     lChoiceMap.insert({"serv", ChoiceInfo{Choice::kServ, "active services"}});
-    lChoiceMap.insert({"node", ChoiceInfo{Choice::kServ, "active nodes"}});
+    lChoiceMap.insert({"node", ChoiceInfo{Choice::kNode, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
     nImO::StringSet choiceSet;
 
@@ -259,7 +337,7 @@ main
                             break;
 
                         case Choice::kNode :
-                            // TBD
+                            listNodes(proxy, optionValues);
                             break;
 
                         case Choice::kAll :

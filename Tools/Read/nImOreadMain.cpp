@@ -142,7 +142,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::SinkContext   ourContext{progName, "read", optionValues._logging, secondArg.getCurrentValue()};
+            nImO::SinkContext   ourContext{argc, argv, progName, "read", optionValues._logging, secondArg.getCurrentValue()};
             std::string         registryAddress;
             uint16_t            registryPort;
 

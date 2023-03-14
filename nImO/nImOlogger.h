@@ -87,13 +87,11 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] service The I/O service to attach to.
              @param[in] tag The symbolic name for the current process.
-             @param[in] logAddress The multicast address to use.
-             @param[in] logPort The multicast port to use. */
+             @param[in] logConnection The multicast connection to use. */
             Logger
                 (SPservice              service,
                  const std::string &    tag,
-                 const uint32_t         logAddress,
-                 const uint16_t         logPort);
+                 const Connection &     logConnection);
 
             /*! @brief The destructor. */
             virtual
@@ -142,11 +140,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The multicast address used for logging. */
-            uint32_t    _address;
-
-            /*! @brief The multicast port used for logging. */
-            uint16_t    _port;
+            /*! @brief The multicast connection used for logging. */
+            Connection  _connection;
 
             /*! @brief The endpoint for a multicast transmission. */
             asio::ip::udp::endpoint _endpoint;

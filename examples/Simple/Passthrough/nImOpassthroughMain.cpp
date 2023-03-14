@@ -132,7 +132,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::FilterContext ourContext{progName, "Passthrough", optionValues._logging};
+            nImO::FilterContext ourContext{argc, argv, progName, "Passthrough", optionValues._logging};
             std::string         registryAddress;
             uint16_t            registryPort;
 

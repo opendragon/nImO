@@ -139,7 +139,7 @@ main
             std::string             registryAddress;
             uint16_t                registryPort;
             std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::ServiceContext    ourContext{progName, "launcher", optionValues._logging};
+            nImO::ServiceContext    ourContext{argc, argv, progName, "launcher", optionValues._logging};
 
             if (ourContext.findRegistry(registryAddress, registryPort))
             {

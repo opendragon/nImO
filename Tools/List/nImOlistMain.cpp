@@ -217,12 +217,12 @@ listNodes
                         switch (options._flavour)
                         {
                             case nImO::OutputFlavour::FlavourNormal :
-                                std::cout << nodeName << ' ' << statusWithInfo.second._nodeAddress << std::endl;
+                                std::cout << nodeName << ' ' << statusWithInfo.second._connection._address << std::endl;
                                 break;
 
                             case nImO::OutputFlavour::FlavourJSON :
                                 std::cout << CHAR_DOUBLEQUOTE_ << nodeName << T_(CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                            statusWithInfo.second._nodeAddress << CHAR_DOUBLEQUOTE_;
+                                            statusWithInfo.second._connection._address << CHAR_DOUBLEQUOTE_;
                                 if (nodes.end() != walker)
                                 {
                                     std::cout << ",";
@@ -231,7 +231,7 @@ listNodes
                                 break;
 
                             case nImO::OutputFlavour::FlavourTabs :
-                                std::cout << nodeName << '\t' << statusWithInfo.second._nodeAddress << std::endl;
+                                std::cout << nodeName << '\t' << statusWithInfo.second._connection._address << std::endl;
                                 break;
 
                             default :

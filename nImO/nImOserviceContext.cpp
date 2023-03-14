@@ -37,6 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOserviceContext.h>
+#include <nImOarray.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -77,16 +79,22 @@
 #endif // defined(__APPLE__)
 
 nImO::ServiceContext::ServiceContext
-    (const std::string &    executableName,
+    (const int              argc,
+     Ptr(Ptr(char))         argv,
+     const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
      const ThreadMode       whichThreads,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, whichThreads, nodeName), _acceptor(*getService()), _keepGoing(true)
+        inherited(executableName, tag, logging, whichThreads, nodeName), _acceptor(*getService()), _commandLine(new Array), _keepGoing(true)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
     //ODL_B1("logging = ", logging); //####
+    for (int ii = 0; ii < argc; ++ii)
+    {
+        _commandLine->addValue(std::make_shared<String>(argv[ii]));
+    }
     try
     {
         createCommandPort();

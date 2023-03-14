@@ -141,7 +141,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::SourceContext ourContext{progName, "write", optionValues._logging, secondArg.getCurrentValue()};
+            nImO::SourceContext ourContext{argc, argv, progName, "write", optionValues._logging, secondArg.getCurrentValue()};
             std::string         registryAddress;
             uint16_t            registryPort;
 

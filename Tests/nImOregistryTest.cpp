@@ -666,7 +666,7 @@ doTestNodeDataAddedToRegistry
         {
             uint32_t                    randomAddress = StaticCast(uint32_t, rand());
             uint16_t                    randomPort = StaticCast(uint16_t, rand());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, randomAddress, randomPort);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::Connection(randomAddress, randomPort));
 
             if (status.first)
             {
@@ -676,14 +676,14 @@ doTestNodeDataAddedToRegistry
                 {
                     if (statusWithInfo.second._found)
                     {
-                        if ((randomAddress == statusWithInfo.second._nodeAddress) && (randomPort == statusWithInfo.second._nodePort))
+                        if ((randomAddress == statusWithInfo.second._connection._address) && (randomPort == statusWithInfo.second._connection._port))
                         {
                             result = 0;
                         }
                         else
                         {
-                            ODL_LOG("! ((randomAddress == statusWithInfo.second._nodeAddress) && " //####
-                                    "(randomPort == statusWithInfo.second._nodePort))"); //####
+                            ODL_LOG("! ((randomAddress == statusWithInfo.second._connection._address) && " //####
+                                    "(randomPort == statusWithInfo.second._connection._port))"); //####
                         }
                     }
                     else

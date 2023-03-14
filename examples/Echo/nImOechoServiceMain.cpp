@@ -132,7 +132,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::ServiceContext    ourContext{progName, "EchoService", optionValues._logging};
+            nImO::ServiceContext    ourContext{argc, argv, progName, "EchoService", optionValues._logging};
             std::string             registryAddress;
             uint16_t                registryPort;
 

@@ -64,11 +64,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The address to be used for logging, if none is specified in the configuration file. */
-static uint32_t  kDefaultLogAddress = IPV4_ADDR(239, 17, 12, 1);
-
-/*! @brief The port to be used for logging, if none is specified in the configuration file. */
-static uint16_t kDefaultLogPort = 1954;
+/*! @brief The connection to be used for logging, if none is specified in the configuration file. */
+static nImO::Connection kDefaultLogConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1954};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 static int kDefaultRegistryTimeout = 5;
@@ -104,7 +101,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
      const bool             logging,
      const int              numReservedThreads,
      const std::string &    nodeName) :
-        inherited(executableName, nodeName), _loggingEnabled(logging), _logger(nullptr)
+        inherited(executableName, nodeName), _logConnection(kDefaultLogConnection), _loggingEnabled(logging), _logger(nullptr)
 {
 #if (! MAC_OR_LINUX_)
     WORD    versionWanted = MAKEWORD(1, 1);
@@ -148,23 +145,19 @@ nImO::ContextWithNetworking::ContextWithNetworking
             InitFile::SpBaseValue       actualValue{*retValue};
             Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
 
-            if (nullptr == asAddress)
+            if (nullptr != asAddress)
             {
-                _logAddress = kDefaultLogAddress;
-            }
-            else
-            {
-                _logAddress = asAddress->GetValue();
-                if (239 != (_logAddress >> 24))
+                uint64_t    tempValue = asAddress->GetValue();
+
+                if (239 == (tempValue >> 24))
+                {
+                    _logConnection._address = tempValue;
+                }
+                else
                 {
                     std::cerr << "Invalid address in configuration file; using default address." << std::endl;
-                    _logAddress = kDefaultLogAddress;
                 }
             }
-        }
-        else
-        {
-            _logAddress = kDefaultLogAddress;
         }
         retValue = GetConfiguredValue(kPortKey);
         if (retValue)
@@ -172,33 +165,25 @@ nImO::ContextWithNetworking::ContextWithNetworking
             InitFile::SpBaseValue       actualValue{*retValue};
             Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
 
-            if (nullptr == asInteger)
-            {
-                _logPort = kDefaultLogPort;
-            }
-            else
+            if (nullptr != asInteger)
             {
                 int64_t tempValue = asInteger->GetValue();
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
-                    _logPort = StaticCast(uint16_t, tempValue);
+                    _logConnection._port = StaticCast(uint16_t, tempValue);
                 }
                 else
                 {
-                    _logPort = kDefaultLogPort;
+                    std::cerr << "Invalid port in configuration file; using default port." << std::endl;
                 }
             }
-        }
-        else
-        {
-            _logPort = kDefaultLogPort;
         }
         if (_loggingEnabled)
         {
             std::lock_guard<std::mutex> loggerGuard(_loggerLock);
 
-            _logger = new Logger(getService(), tag, _logAddress, _logPort);
+            _logger = new Logger(getService(), tag, _logConnection);
         }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
@@ -220,7 +205,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    _logPort = kDefaultRegistryTimeout;
+                    _registrySearchTimeout = kDefaultRegistryTimeout;
                 }
             }
         }

@@ -101,12 +101,10 @@ nImO::RegistryProxy::~RegistryProxy
 nImO::RegSuccessOrFailure
 nImO::RegistryProxy::addNode
     (const std::string &    nodeName,
-     const uint32_t         nodeAddress,
-     const uint16_t         nodePort)
+     const Connection &     nodeConnection)
 {
     NIMO_UNUSED_ARG_(nodeName);
-    NIMO_UNUSED_ARG_(nodeAddress);
-    NIMO_UNUSED_ARG_(nodePort);
+    NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
     RegSuccessOrFailure status{false, "not implemented"};
 
@@ -123,7 +121,7 @@ nImO::RegistryProxy::getNodeInformation
     NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
     RegSuccessOrFailure status{false, "not implemented"};
-    NodeInfo            info{false, 0, 0};
+    NodeInfo            info;
 
     //TBD
     ODL_OBJEXIT(); //####

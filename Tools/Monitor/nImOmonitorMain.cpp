@@ -151,18 +151,16 @@ class ReceiveOnLoggingPort final
         /*! @brief The constructor.
          @param[in] service The I/O service to attach to.
          @param[in] runFlag A reference to the flag that is used to stop execution.
-         @param[in] address The IP address to listen on.
-         @param[in] port The port to listen on. */
+         @param[in] lggingConnection The connection to listen on. */
         ReceiveOnLoggingPort
-            (nImO::SPservice        service,
-             std::atomic<bool> &    runFlag,
-             const uint32_t         address,
-             const uint16_t         port) :
+            (nImO::SPservice            service,
+             std::atomic<bool> &        runFlag,
+             const nImO::Connection &   loggingConnection) :
                 _runFlag(runFlag), _socket(*service)
         {
             asio::ip::address_v4    listenAddress{0};
-            asio::ip::address_v4    multicastAddress{address};
-            asio::ip::udp::endpoint listenEndpoint{listenAddress, port};
+            asio::ip::address_v4    multicastAddress{loggingConnection._address};
+            asio::ip::udp::endpoint listenEndpoint{listenAddress, loggingConnection._port};
 
             _socket.open(listenEndpoint.protocol());
             _socket.set_option(asio::ip::udp::socket::reuse_address(true));
@@ -199,8 +197,7 @@ class ReceiveOnLoggingPort final
                                                    if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
                                                    {
                                                        nImO::Message    newMessage;
-                                                       uint32_t         senderAddress =
-                                                                            _senderEndpoint.address().to_v4().to_uint();
+                                                       uint32_t         senderAddress = _senderEndpoint.address().to_v4().to_uint();
 
                                                        newMessage.open(false);
                                                        newMessage.appendBytes(inBytes.data(), inBytes.size());
@@ -313,12 +310,9 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            uint32_t                    loggingAddress;
-            uint16_t                    loggingPort;
             nImO::ContextWithNetworking ourContext{progName, "monitor", optionValues._logging};
-
-            ourContext.getLoggingInfo(loggingAddress, loggingPort);
-            ReceiveOnLoggingPort    receiver{ourContext.getService(), lKeepRunning, loggingAddress, loggingPort};
+            nImO::Connection            loggingConnection{ourContext.getLoggingInfo()};
+            ReceiveOnLoggingPort        receiver{ourContext.getService(), lKeepRunning, loggingConnection};
 
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; lKeepRunning; )

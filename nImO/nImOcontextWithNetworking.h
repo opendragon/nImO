@@ -98,16 +98,13 @@ namespace nImO
                 (void);
 
             /*! @brief Return the address and port to use for logging.
-             @param[out] address The address for logging.
-             @param[out] port The port for logging. */
-            inline void
+             @return The address and port to use for logging.. */
+            inline Connection
             getLoggingInfo
-                (uint32_t & address,
-                 uint16_t & port)
+                (void)
                 const
             {
-                address = _logAddress;
-                port = _logPort;
+                return _logConnection;
             }
 
             /*! @brief Log a message.
@@ -162,11 +159,8 @@ namespace nImO
             /*! @brief A 'dummy' operation to keep the service queue alive. */
             UPwork  _work;
 
-            /*! @brief The multicast address used for logging. */
-            uint32_t    _logAddress;
-
-            /*! @brief The multicast port used for logging. */
-            uint16_t    _logPort;
+            /*! @brief The multicast connection used for logging. */
+            Connection  _logConnection;
 
             /*! @brief @c true if logging has been enabled. */
             bool _loggingEnabled;

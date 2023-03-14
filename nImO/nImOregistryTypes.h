@@ -58,8 +58,7 @@ namespace nImO
     struct NodeInfo
     {
         bool        _found;
-        uint32_t    _nodeAddress;
-        uint16_t    _nodePort;
+        Connection  _connection;
     }; // NodeInfo
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */

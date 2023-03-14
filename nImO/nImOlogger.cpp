@@ -109,9 +109,8 @@ const std::string   nImO::kTagKey{"tag"};
 nImO::Logger::Logger
     (SPservice              service,
      const std::string &    tag,
-     const uint32_t         logAddress,
-     const uint16_t         logPort):
-        _address(logAddress), _port(logPort), _endpoint(asio::ip::address_v4(_address), _port),
+     const Connection &     logConnection):
+        _connection(logConnection), _endpoint(asio::ip::address_v4(_connection._address), _connection._port),
         _socket(*service, _endpoint.protocol()), _commandPort(nullptr)
 {
     _computerName = std::make_shared<String>(GetShortComputerName());

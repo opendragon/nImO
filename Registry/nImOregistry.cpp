@@ -98,11 +98,9 @@ struct NodeInsertData
     /*! @brief The name of this node. */
     std::string _name;
 
-    /*! @brief The IP address of this node. */
-    uint32_t    _address;
+    /*! @brief The command IP address and port for this node.*/
+    nImO::Connection    _connection;
 
-    /*@ @brief The command port for this node.*/
-    uint16_t    _port;
 }; // NodeInsertData
 
 #if defined(__APPLE__)
@@ -637,17 +635,15 @@ setupInsertIntoNodes
         {
             CPtr(NodeInsertData)    nodeData = StaticCast(CPtr(NodeInsertData), stuff);
             std::string             name = nodeData->_name;
-            uint32_t                address = nodeData->_address;
-            uint16_t                port = nodeData->_port;
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
             {
-                result = sqlite3_bind_int(statement, nodeAddressIndex, address);
+                result = sqlite3_bind_int(statement, nodeAddressIndex, nodeData->_connection._address);
             }
             if (SQLITE_OK == result)
             {
-                result = sqlite3_bind_int(statement, nodePortIndex, port);
+                result = sqlite3_bind_int(statement, nodePortIndex, nodeData->_connection._port);
             }
             if (SQLITE_OK != result)
             {
@@ -774,15 +770,14 @@ nImO::Registry::~Registry
 nImO::RegSuccessOrFailure
 nImO::Registry::addNode
     (const std::string &    nodeName,
-     const uint32_t         nodeAddress,
-     const uint16_t         nodePort)
+     const Connection &     nodeConnection)
 {
     ODL_OBJENTER(); //####
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
     if (status.first)
     {
-        NodeInsertData      data{nodeName, nodeAddress, nodePort};
+        NodeInsertData      data{nodeName, nodeConnection};
         static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ ") VALUES(@" NODE_NAME_C_
                                                 ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ")";
 
@@ -800,7 +795,7 @@ nImO::Registry::getNodeInformation
 {
     ODL_OBJENTER(); //####
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
-    NodeInfo            info{false, 0, 0};
+    NodeInfo            info;
 
     if (status.first)
     {
@@ -820,12 +815,12 @@ nImO::Registry::getNodeInformation
                     size_t  pos;
 
                     info._found = true;
-                    info._nodeAddress = StaticCast(uint32_t, stoul(values[0], &pos));
+                    info._connection._address = StaticCast(uint32_t, stoul(values[0], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
                     }
-                    info._nodePort = StaticCast(uint16_t, stoul(values[1], &pos));
+                    info._connection._port = StaticCast(uint16_t, stoul(values[1], &pos));
                     if (0 == pos)
                     {
                         info._found = false;

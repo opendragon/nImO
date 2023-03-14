@@ -133,7 +133,7 @@ main
         {
             nImO::SetSignalHandlers(catchSignal);
             nImO::DisableWaitForRegistry(true);
-            nImO::ServiceContext    ourContext{progName, "registry", optionValues._logging,
+            nImO::ServiceContext    ourContext{argc, argv, progName, "registry", optionValues._logging,
                                                 nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
                                                     nImO::ServiceContext::ThreadMode::LaunchBrowser};
 

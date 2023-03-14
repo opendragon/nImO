@@ -139,7 +139,7 @@ main
         try
         {
             nImO::SetSignalHandlers(catchSignal);
-            nImO::FilterContext ourContext{progName, "Junction", optionValues._logging};
+            nImO::FilterContext ourContext{argc, argv, progName, "Junction", optionValues._logging};
             std::string         registryAddress;
             uint16_t            registryPort;
 

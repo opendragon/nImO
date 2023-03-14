@@ -75,13 +75,17 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] argc The number of arguments in 'argv'.
+             @param[in] argv The command-line arguments provided to the application.
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] whichThreads Which threads, if any, to start.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
-                (const std::string &    executableName,
+                (const int              argc,
+                 Ptr(Ptr(char))         argv,
+                 const std::string &    executableName,
                  const std::string &    tag,
                  const bool             logging,
                  const ThreadMode       whichThreads = ThreadMode::LaunchBrowser,
@@ -97,6 +101,16 @@ namespace nImO
             void
             forgetSession
                 (Ptr(CommandSession)    aSession);
+
+            /*! @brief Return the command-line arguments provided to the application.
+             @return The command-line arguments provided to the application. */
+            inline SpArray
+            getCommandLine
+                (void)
+                const
+            {
+                return _commandLine;
+            }
 
             /*! @brief Returns the port number for the command port.
              @return The port number of the command port. */
@@ -143,6 +157,9 @@ namespace nImO
 
             /*! @brief The acceptor for command port connections. */
             asio::ip::tcp::acceptor _acceptor;
+
+            /*! @brief The command-line provided to the application. */
+            SpArray _commandLine;
 
             /*! @brief The command port. */
             uint16_t    _commandPort;

@@ -77,11 +77,13 @@
 #endif // defined(__APPLE__)
 
 nImO::FilterContext::FilterContext
-    (const std::string &    executableName,
+    (const int              argc,
+     Ptr(Ptr(char))         argv,
+     const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, ThreadMode::LaunchBrowser, nodeName)
+        inherited(argc, argv, executableName, tag, logging, ThreadMode::LaunchBrowser, nodeName)
 {
     ODL_ENTER(); //####
     //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####

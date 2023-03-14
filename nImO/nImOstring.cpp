@@ -219,7 +219,7 @@ nImO::String::extractValue
     (const Message &    theMessage,
      const int          leadByte,
      size_t &           position,
-     nImO::SpArray      parentValue)
+     SpArray            parentValue)
 {
     SpValue result;
     bool    atEnd;

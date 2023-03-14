@@ -545,6 +545,32 @@ namespace nImO
 
     }; // Transport
 
+    /*! @brief A network connection description. */
+    struct Connection
+    {
+        /*! @brief The IP address of the connection.*/
+        uint32_t    _address;
+
+        /*! @brief The port of the connection. */
+        uint16_t    _port;
+
+        /*! @brief The transport mechanism of the connection. */
+        Transport   _transport;
+
+        /*! @brief The constructor.
+         @param[in] address The IP address for the connection.
+         @param[in] port The port for the connection.
+         @param[in] transport The transport mechanism for the connection. */
+        Connection
+            (const uint32_t     address = 0,
+             const uint16_t     port = 0,
+             const Transport    transport = Transport::TCP) :
+                _address(address), _port(port), _transport(transport)
+        {
+        }
+
+    }; // Connection
+
     /*! @brief A pointer to a function that can be invoked when help is requested, to
      provide more detailed information on the arguments to an application.
      @param[in,out] outStream The stream to write to. */

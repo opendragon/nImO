@@ -180,7 +180,7 @@ doTestCreateFilterContext
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext{"", "", false};
+        FilterContext   aContext{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -245,7 +245,7 @@ doTestCreateServiceContext
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext{"", "", false};
+        ServiceContext  aContext{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -279,7 +279,7 @@ doTestCreateSinkContext
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext{"", "", false};
+        SinkContext aContext{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -313,7 +313,7 @@ doTestCreateSourceContext
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext{"", "", false};
+        SourceContext   aContext{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -509,7 +509,7 @@ doTestCreateMDNSAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -601,7 +601,7 @@ doTestCreateMDNSAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -647,7 +647,7 @@ doTestCreateMDNSAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -693,7 +693,7 @@ doTestCreateMDNSAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -923,7 +923,7 @@ doTestCreateNetworkingAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1015,7 +1015,7 @@ doTestCreateNetworkingAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1061,7 +1061,7 @@ doTestCreateNetworkingAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1107,7 +1107,7 @@ doTestCreateNetworkingAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1240,7 +1240,7 @@ doTestCreateFilterAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1286,7 +1286,7 @@ doTestCreateFilterAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1332,12 +1332,12 @@ doTestCreateFilterAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1378,7 +1378,7 @@ doTestCreateFilterAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1424,12 +1424,12 @@ doTestCreateFilterAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1470,12 +1470,12 @@ doTestCreateFilterAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1516,12 +1516,12 @@ doTestCreateFilterAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1562,7 +1562,7 @@ doTestCreateFilterAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1608,7 +1608,7 @@ doTestCreateFilterAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{"", "", false};
+        FilterContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1751,7 +1751,7 @@ doTestCreateMiscellaneousAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1843,7 +1843,7 @@ doTestCreateMiscellaneousAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1889,7 +1889,7 @@ doTestCreateMiscellaneousAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1935,7 +1935,7 @@ doTestCreateMiscellaneousAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2068,7 +2068,7 @@ doTestCreateServiceAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2114,7 +2114,7 @@ doTestCreateServiceAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2160,12 +2160,12 @@ doTestCreateServiceAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2206,7 +2206,7 @@ doTestCreateServiceAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2252,12 +2252,12 @@ doTestCreateServiceAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2298,12 +2298,12 @@ doTestCreateServiceAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2344,12 +2344,12 @@ doTestCreateServiceAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2390,7 +2390,7 @@ doTestCreateServiceAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2436,7 +2436,7 @@ doTestCreateServiceAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{"", "", false};
+        ServiceContext  aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2482,7 +2482,7 @@ doTestCreateSinkAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2528,7 +2528,7 @@ doTestCreateSinkAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2574,12 +2574,12 @@ doTestCreateSinkAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2620,7 +2620,7 @@ doTestCreateSinkAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2666,12 +2666,12 @@ doTestCreateSinkAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2712,12 +2712,12 @@ doTestCreateSinkAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2758,12 +2758,12 @@ doTestCreateSinkAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2804,7 +2804,7 @@ doTestCreateSinkAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2850,7 +2850,7 @@ doTestCreateSinkAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{"", "", false};
+        SinkContext aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2896,7 +2896,7 @@ doTestCreateSourceAndMDNSContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2942,7 +2942,7 @@ doTestCreateSourceAndNetworkingContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2988,12 +2988,12 @@ doTestCreateSourceAndFilterContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3034,7 +3034,7 @@ doTestCreateSourceAndMiscellaneousContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3080,12 +3080,12 @@ doTestCreateSourceAndServiceContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3126,12 +3126,12 @@ doTestCreateSourceAndSinkContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3172,12 +3172,12 @@ doTestCreateSourceAndSourceContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3218,7 +3218,7 @@ doTestCreateSourceAndTestContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3264,7 +3264,7 @@ doTestCreateSourceAndUtilityContexts
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{"", "", false};
+        SourceContext   aContext1{0, nullptr, "", "", false};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3407,7 +3407,7 @@ doTestCreateTestAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3499,7 +3499,7 @@ doTestCreateTestAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3545,7 +3545,7 @@ doTestCreateTestAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3591,7 +3591,7 @@ doTestCreateTestAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3821,7 +3821,7 @@ doTestCreateUtilityAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{"", "", false};
+            FilterContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3913,7 +3913,7 @@ doTestCreateUtilityAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{"", "", false};
+            ServiceContext  aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3959,7 +3959,7 @@ doTestCreateUtilityAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{"", "", false};
+            SinkContext aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4005,7 +4005,7 @@ doTestCreateUtilityAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{"", "", false};
+            SourceContext   aContext2{0, nullptr, "", "", false};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();

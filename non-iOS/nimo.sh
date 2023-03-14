@@ -11,12 +11,15 @@ function list_commands() {
     echo "    help       list the available commands"
     echo "    info       report on a channel"
     echo "    list       list channels, applications, services, et cetera"
-    echo "    load       load a set of applications"
+    echo "    loada      load a set of applications"
+    echo "    loads      load a setup"
     echo "    monitor    report on nImO"
     echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
-    echo "    store      store a set of applications"
+    echo "    shutdown   shutdown all applicationts except active monitors"
+    echo "    storea     store a set of applications"
+    echo "    stores     store a setup"
     echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
     echo "    write      write to a channel"
@@ -55,8 +58,11 @@ function usage_help() {
             "list")
                 nImOlist -h
                 ;;
-            "load")
+            "loada")
                 nImOloadApps -h
+                ;;
+            "loads")
+                nImOloadSetup -h
                 ;;
             "monitor")
                 nImOmonitor -h
@@ -70,8 +76,14 @@ function usage_help() {
             "remove")
                 nImOremoveApp -h
                 ;;
-            "store")
+            "shutdown")
+                nImOshutdown -h
+                ;;
+            "storea")
                 nImOstoreApps -h
+                ;;
+            "stores")
+                nImOstoreSetup -h
                 ;;
             "updte")
                 nImOupdateApp -h
@@ -140,11 +152,18 @@ else
                 nImOlist $*
             fi
             ;;
-        "load")
+        "loada")
             if [[ $# -eq 0 ]]; then
-                usage_help load
+                usage_help loada
             else
                 nImOloadApps $*
+            fi
+            ;;
+        "loads")
+            if [[ $# -eq 0 ]]; then
+                usage_help loads
+            else
+                nImOloadSetup $*
             fi
             ;;
         "monitor")
@@ -171,11 +190,21 @@ else
                 nImOremoveApp $*
             fi
             ;;
-        "store")
+        "shutdown")
+            nImOshutdown $*
+            ;;
+        "storea")
             if [[ $# -eq 0 ]]; then
-                usage_help store
+                usage_help storea
             else
                 nImOstoreApps $*
+            fi
+            ;;
+        "stores")
+            if [[ $# -eq 0 ]]; then
+                usage_help stores
+            else
+                nImOstoreSetup $*
             fi
             ;;
         "update")

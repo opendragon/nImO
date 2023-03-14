@@ -193,6 +193,19 @@
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6866F021CA4145E00849A76 /* nImOcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcontainer.h; path = nImO/nImOcontainer.h; sourceTree = "<group>"; };
+		F692A43929C0E911003711E9 /* nImOshutdownMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOshutdownMain.cpp; sourceTree = "<group>"; };
+		F692A43A29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F692A43B29C0E911003711E9 /* nImOshutdown.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOshutdown.rc.in; sourceTree = "<group>"; };
+		F692A43D29C0E911003711E9 /* nImOloadSetupMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOloadSetupMain.cpp; sourceTree = "<group>"; };
+		F692A43E29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F692A43F29C0E911003711E9 /* nImOloadSetup.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOloadSetup.rc.in; sourceTree = "<group>"; };
+		F692A44129C0E911003711E9 /* nImOstoreSetupMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstoreSetupMain.cpp; sourceTree = "<group>"; };
+		F692A44229C0E911003711E9 /* nImOstoreSetup.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOstoreSetup.rc.in; sourceTree = "<group>"; };
+		F692A44329C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F692A44529C0E954003711E9 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F692A44729C0E954003711E9 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F692A44929C0E954003711E9 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		F692A44B29C0E954003711E9 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F6943A572886C275002117FA /* nImOlogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOlogger.h; path = nImO/nImOlogger.h; sourceTree = "<group>"; };
 		F6943A582886C275002117FA /* nImOlogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogger.cpp; path = nImO/nImOlogger.cpp; sourceTree = "<group>"; };
 		F6991C7F1E5C747A00678450 /* nImOlogical.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogical.cpp; path = nImO/nImOlogical.cpp; sourceTree = "<group>"; };
@@ -505,6 +518,7 @@
 				F65C4A582985620100430284 /* Monitor */,
 				F65C4A732985620100430284 /* Post */,
 				F65C4B012985620200430284 /* Read */,
+				F692A44429C0E954003711E9 /* SetupSupport */,
 				F65C4B352985620200430284 /* Version */,
 				F65C4A3E2985620100430284 /* Write */,
 			);
@@ -633,6 +647,7 @@
 				F65C4BA22985636700430284 /* Monitor */,
 				F65C4BA62985636700430284 /* Post */,
 				F65C4BBB2985636800430284 /* Read */,
+				F692A43729C0E911003711E9 /* SetupSupport */,
 				F65C4BC32985636800430284 /* Version */,
 				F65C4B9E2985636700430284 /* Write */,
 			);
@@ -811,6 +826,81 @@
 				F68373F3240409EB0030F969 /* CMakeLists.txt */,
 			);
 			name = Ricochet;
+			sourceTree = "<group>";
+		};
+		F692A43729C0E911003711E9 /* SetupSupport */ = {
+			isa = PBXGroup;
+			children = (
+				F692A43C29C0E911003711E9 /* LoadSetup */,
+				F692A43829C0E911003711E9 /* Shutdown */,
+				F692A44029C0E911003711E9 /* StoreSetup */,
+			);
+			path = SetupSupport;
+			sourceTree = "<group>";
+		};
+		F692A43829C0E911003711E9 /* Shutdown */ = {
+			isa = PBXGroup;
+			children = (
+				F692A43B29C0E911003711E9 /* nImOshutdown.rc.in */,
+				F692A43929C0E911003711E9 /* nImOshutdownMain.cpp */,
+				F692A43A29C0E911003711E9 /* resource.h */,
+			);
+			path = Shutdown;
+			sourceTree = "<group>";
+		};
+		F692A43C29C0E911003711E9 /* LoadSetup */ = {
+			isa = PBXGroup;
+			children = (
+				F692A43F29C0E911003711E9 /* nImOloadSetup.rc.in */,
+				F692A43D29C0E911003711E9 /* nImOloadSetupMain.cpp */,
+				F692A43E29C0E911003711E9 /* resource.h */,
+			);
+			path = LoadSetup;
+			sourceTree = "<group>";
+		};
+		F692A44029C0E911003711E9 /* StoreSetup */ = {
+			isa = PBXGroup;
+			children = (
+				F692A44229C0E911003711E9 /* nImOstoreSetup.rc.in */,
+				F692A44129C0E911003711E9 /* nImOstoreSetupMain.cpp */,
+				F692A44329C0E911003711E9 /* resource.h */,
+			);
+			path = StoreSetup;
+			sourceTree = "<group>";
+		};
+		F692A44429C0E954003711E9 /* SetupSupport */ = {
+			isa = PBXGroup;
+			children = (
+				F692A44529C0E954003711E9 /* CMakeLists.txt */,
+				F692A44829C0E954003711E9 /* LoadSetup */,
+				F692A44629C0E954003711E9 /* Shutdown */,
+				F692A44A29C0E954003711E9 /* StoreSetup */,
+			);
+			path = SetupSupport;
+			sourceTree = "<group>";
+		};
+		F692A44629C0E954003711E9 /* Shutdown */ = {
+			isa = PBXGroup;
+			children = (
+				F692A44729C0E954003711E9 /* CMakeLists.txt */,
+			);
+			path = Shutdown;
+			sourceTree = "<group>";
+		};
+		F692A44829C0E954003711E9 /* LoadSetup */ = {
+			isa = PBXGroup;
+			children = (
+				F692A44929C0E954003711E9 /* CMakeLists.txt */,
+			);
+			path = LoadSetup;
+			sourceTree = "<group>";
+		};
+		F692A44A29C0E954003711E9 /* StoreSetup */ = {
+			isa = PBXGroup;
+			children = (
+				F692A44B29C0E954003711E9 /* CMakeLists.txt */,
+			);
+			path = StoreSetup;
 			sourceTree = "<group>";
 		};
 		F6B1E7A329B7B8BE00FDF4D6 /* SQLite */ = {

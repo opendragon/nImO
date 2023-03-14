@@ -112,6 +112,15 @@ non-iOS/Tools/Post/nImOpost.rc
 non-iOS/Tools/Read/nImOread
 non-iOS/Tools/Read/nImOread.dir/
 non-iOS/Tools/Read/nImOread.rc
+non-iOS/Tools/SetupSupport/LoadSetup/nImOloadSetup
+non-iOS/Tools/SetupSupport/LoadSetup/nImOloadSetup.dir/
+non-iOS/Tools/SetupSupport/LoadSetup/nImOloadSetup.rc
+non-iOS/Tools/SetupSupport/Shutdown/nImOshutdown
+non-iOS/Tools/SetupSupport/Shutdown/nImOshutdown.dir/
+non-iOS/Tools/SetupSupport/Shutdown/nImOshutdown.rc
+non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup
+non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup.dir/
+non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup.rc
 non-iOS/Registry/nImOregistry
 non-iOS/Registry/nImOregistry.dir/
 non-iOS/Registry/nImOregistry.rc

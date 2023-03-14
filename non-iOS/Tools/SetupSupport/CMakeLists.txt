@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/CMakeLists.txt
+#  File:       non-iOS/Tools/SetupSupport/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The common CMAKE definitions for the nImO project.
+#  Contains:   The application support tools for the nImO project.
 #
 #  Written by: Norman Jaffe
 #
@@ -32,21 +32,12 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2023-01-28
+#  Created:    2023-03-14
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(ApplicationSupport)
-add_subdirectory(Bridge)
-add_subdirectory(Connect)
-add_subdirectory(Disconnect)
-add_subdirectory(Info)
-add_subdirectory(List)
-add_subdirectory(Monitor)
-add_subdirectory(Post)
-add_subdirectory(Read)
-add_subdirectory(SetupSupport)
-add_subdirectory(Version)
-add_subdirectory(Write)
+add_subdirectory(LoadSetup)
+add_subdirectory(Shutdown)
+add_subdirectory(StoreSetup)
 
 enable_testing()

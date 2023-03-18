@@ -13,6 +13,7 @@
 #include "nImOchannelName.h"
 #include "nImOchunkArray.h"
 #include "nImOcommandSession.h"
+#include "nImOcommandTypes.h"
 #include "nImOcommon.h"
 #include "nImOcompareValues.h"
 #include "nImOcomparisonStatus.h"

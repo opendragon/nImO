@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImOcommandTypes.h>
 #include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
 #include <nImOregistryProxy.h>

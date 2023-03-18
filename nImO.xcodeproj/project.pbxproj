@@ -220,6 +220,7 @@
 		F6A4A0581CD236BD005D1AF8 /* nImOmessageInsertTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOmessageInsertTest.rc.in; path = Tests/nImOmessageInsertTest.rc.in; sourceTree = "<group>"; };
 		F6A787751E65BCD000940F97 /* nImOflaw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOflaw.cpp; path = nImO/nImOflaw.cpp; sourceTree = SOURCE_ROOT; };
 		F6A787771E65BDAD00940F97 /* nImOflaw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOflaw.h; path = nImO/nImOflaw.h; sourceTree = SOURCE_ROOT; };
+		F6A8069A29C6005800567C55 /* nImOcommandTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandTypes.h; path = nImO/nImOcommandTypes.h; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithNetworking.h; path = nImO/nImOcontextWithNetworking.h; sourceTree = "<group>"; };
@@ -382,8 +383,8 @@
 		F6491B0C29BE23E500DE5D58 /* UpdateApplication */ = {
 			isa = PBXGroup;
 			children = (
-				F6491B0D29BE23E500DE5D58 /* nImOupdateAppMain.cpp */,
 				F6491B0E29BE23E500DE5D58 /* nImOupdateApp.rc.in */,
+				F6491B0D29BE23E500DE5D58 /* nImOupdateAppMain.cpp */,
 				F6491B0F29BE23E500DE5D58 /* resource.h */,
 			);
 			path = UpdateApplication;
@@ -1005,6 +1006,7 @@
 				F6F238541CD96F290005554A /* nImOchunkArray.h */,
 				F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */,
 				F6BE1C242973491F009828BF /* nImOcommandSession.h */,
+				F6A8069A29C6005800567C55 /* nImOcommandTypes.h */,
 				F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */,
 				F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */,
 				F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */,

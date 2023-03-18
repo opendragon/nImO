@@ -38,6 +38,8 @@
 
 #include <nImOregistryProxy.h>
 
+#include <nImOcommandTypes.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 

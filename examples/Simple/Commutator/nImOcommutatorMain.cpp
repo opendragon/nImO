@@ -36,8 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilterContext.h>
 #include <nImObooleanArgumentDescriptor.h>
+#include <nImOcommandTypes.h>
+#include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>

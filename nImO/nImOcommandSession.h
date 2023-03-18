@@ -117,7 +117,7 @@ namespace nImO
             asio::ip::tcp::socket   _socket;
 
             /*! @brief The context that created this session. */
-            //ServiceContext &    _owner;
+//            ServiceContext &    _owner;
 
     }; // CommandSession
 

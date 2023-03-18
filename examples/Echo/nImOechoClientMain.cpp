@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImOcommandTypes.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 #include <nImOutilityContext.h>

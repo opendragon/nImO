@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOregistryTypes.h
+//  File:       nImO/nImOcommandTypes.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for nImO registries.
+//  Contains:   The type declarations for commands sent to nImO services.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-12
+//  Created:    2023-03-18
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOregistryTypes_H_))
-# define nImOregistryTypes_H_ /* Header guard */
+#if (! defined(nImOcommandTypes_H_))
+# define nImOcommandTypes_H_ /* Header guard */
 
 # include <nImOcommon.h>
 
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for %nImO registries. */
+ @brief The type declarations for commands sent to %nImO services. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,31 +55,48 @@
 namespace nImO
 {
 
-    /*! @brief The data found in the Registry for a node. */
-    struct NodeInfo
+    /*! @brief The command being sent to a service.*/
+    enum class Command : uint8_t
     {
-        /*! @brief @c true if the _connection field is valid. */
-        bool        _found;
+        // General commands
 
-        /*! @brief The command IP address and port that was found.*/
-        Connection  _connection;
-    }; // NodeInfo
+        /*! @brief Do nothing. */
+        NoOpRequest = 0,
 
-    /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<bool, std::string>    RegSuccessOrFailure;
+        /*! @brief Start the service. */
+        StartRequest,
 
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, int> RegIntOrFailure;
+        /*! @brief Stop the service. */
+        StopRequest,
 
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, bool> RegBoolOrFailure;
+        /*! @brief Shut down the service. */
+        ShutDownRequest,
 
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, NodeInfo> RegNodeInfoOrFailure;
+        // Registry commands
 
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, StringSet>   RegStringSetOrFailure;
+        /*! @brief Add a node to the Registry. */
+        AddNodeRequest,
+
+        /*! @brief Get information on a node from the Registry. */
+        GetNodeInformationRequest,
+
+        /*! @brief Get the set of nodes in the Registry. */
+        GetNodesRequest,
+
+        /*! @brief Check if a node is present in the Registry. */
+        NodePresentRequest,
+
+        /*! @brief Get the number of nodes in the Registry. */
+        NumNodesRequest,
+
+        /*! @brief Remove a node from the Registry. */
+        RemoveNodeRequest,
+
+        /*! @brief An unknown command. */
+        UnknownRequest = 255
+
+    }; // Command
 
 } // nImO
 
-#endif // not defined(nImOregistryTypes_H_)
+#endif // not defined(nImOcommandTypes_H_)

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandTypes.h
+//  File:       nImO/nImOregistryCommands.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO services.
+//  Contains:   The type declarations for commands sent to the nImO Registry.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-18
+//  Created:    2023-03-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcommandTypes_H_))
-# define nImOcommandTypes_H_ /* Header guard */
+#if (! defined(nImOregistryCommands_H_))
+# define nImOregistryCommands_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOcommandTypes.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO services. */
+ @brief The type declarations for commands sent to the %nImO Registry. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,15 +55,24 @@
 namespace nImO
 {
 
-// This will be replaced by strings that are mapped to function pointers to handle each request, so that
-// there need not be any restrictions on the format of the requests - they will contain an array with the
-// string and associated data.
-// The base service will have the map and 'derived' services can attach their own, specific, requests and
-// function pointers.
-// 'Derived' services are applications that contain a Service object, which has the request map.
-    /*! @brief The 'shutdown' request. */
-    const std::string   kShutDownCommand = "shutdown";
+    /*! @brief The request to add a node to the Registry. */
+    const std::string   kAddNodeCommand = "addNode";
+
+    /*! @brief The request to get information on a node from the Registry. */
+    const std::string   kGetNodeInformationCommand = "getNodeInformation";
+
+    /*! @brief The request to get the set of nodes in the Registry. */
+    const std::string   kGetNodesCommand = "getNodes";
+
+    /*! @brief The request to check if a node is present in the Registry. */
+    const std::string   kNodePresentCommand = "nodePresent";
+
+    /*! @brief The request to get the number of nodes in the Registry. */
+    const std::string   kNumNodesCommand = "numNodes";
+
+    /*! @brief The request to remove a node from the Registry. */
+    const std::string   kRemoveNodeCommand = "removeNode";
 
 } // nImO
 
-#endif // not defined(nImOcommandTypes_H_)
+#endif // not defined(nImOregistryCommands_H_)

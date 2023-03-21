@@ -38,7 +38,7 @@
 
 #include "nImOregistry.h"
 
-#include <nImOcommandTypes.h>
+#include <nImOregistryCommands.h>
 #include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
 

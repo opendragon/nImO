@@ -165,6 +165,7 @@
 		F6737D6928857E43000DD5FC /* nImOfilterContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOfilterContext.h; path = nImO/nImOfilterContext.h; sourceTree = "<group>"; };
 		F6737D6A28857E43000DD5FC /* nImOutilityContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOutilityContext.h; path = nImO/nImOutilityContext.h; sourceTree = "<group>"; };
 		F6737D6C28857E43000DD5FC /* nImOutilityContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOutilityContext.cpp; path = nImO/nImOutilityContext.cpp; sourceTree = "<group>"; };
+		F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryCommands.h; path = nImO/nImOregistryCommands.h; sourceTree = "<group>"; };
 		F679D6C224126ED8001648DB /* Test_channel.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_channel.txt; path = "non-iOS/Tests/Test_channel.txt"; sourceTree = "<group>"; };
 		F679D6C4241270CE001648DB /* Test_badMessage.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_badMessage.txt; path = "non-iOS/Tests/Test_badMessage.txt"; sourceTree = "<group>"; };
 		F679D6C524127191001648DB /* Test_messageExtract.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_messageExtract.txt; path = "non-iOS/Tests/Test_messageExtract.txt"; sourceTree = "<group>"; };
@@ -1059,6 +1060,7 @@
 				F6EE0AD61CA2C7F4004748ED /* nImOnumber.h */,
 				F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */,
 				F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.h */,
+				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,
 				F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */,

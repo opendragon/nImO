@@ -55,12 +55,6 @@
 namespace nImO
 {
 
-// This will be replaced by strings that are mapped to function pointers to handle each request, so that
-// there need not be any restrictions on the format of the requests - they will contain an array with the
-// string and associated data.
-// The base service will have the map and 'derived' services can attach their own, specific, requests and
-// function pointers.
-// 'Derived' services are applications that contain a Service object, which has the request map.
     /*! @brief The 'shutdown' request. */
     const std::string   kShutDownCommand = "shutdown";
 

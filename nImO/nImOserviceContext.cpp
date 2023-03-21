@@ -124,6 +124,24 @@ nImO::ServiceContext::~ServiceContext
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+bool
+nImO::ServiceContext::addHandler
+    (const std::string &    commandName,
+     Ptr(CommandHandler)    theHandler)
+{
+    bool    okSoFar = false;
+
+    ODL_OBJENTER(); //####
+    if ((nullptr != theHandler) && (0 < commandName.size()))
+    {
+        const auto result = _commandHandlers.insert({commandName, theHandler});
+
+        okSoFar = result.second;
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ServiceContext::addHandler
+
 void
 nImO::ServiceContext::createCommandPort
     (void)
@@ -159,6 +177,27 @@ nImO::ServiceContext::destroyCommandPort
     }
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::destroyCommandPort
+
+Ptr(nImO::CommandHandler)
+nImO::ServiceContext::getHandler
+    (const std::string &    commandName)
+    const
+{
+    Ptr(CommandHandler) handler = nullptr;
+
+    ODL_OBJENTER(); //####
+    if (0 < commandName.size())
+    {
+        auto match = _commandHandlers.find(commandName);
+
+        if (_commandHandlers.end() != match)
+        {
+            handler = match->second;
+        }
+    }
+    ODL_OBJEXIT_P(handler); //####
+    return handler;
+} // nImO::ServiceContext::getHandler
 
 void
 nImO::ServiceContext::handleAccept
@@ -204,6 +243,21 @@ nImO::ServiceContext::handleAccept
     }
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::handleAccept
+
+bool
+nImO::ServiceContext::removeHandler
+    (const std::string &    commandName)
+{
+    bool    okSoFar = false;
+
+    ODL_OBJENTER(); //####
+    if (0 < commandName.size())
+    {
+        okSoFar = (1 == _commandHandlers.erase(commandName));
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ServiceContext::removeHandler
 
 #if defined(__APPLE__)
 # pragma mark Global functions

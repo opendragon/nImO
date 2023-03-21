@@ -55,6 +55,81 @@
 
 namespace nImO
 {
+    /*! @brief A class to provide functors used to process commands. */
+    class CommandHandler
+    {
+
+        public :
+            // Public type definitions.
+
+        protected :
+            // Protected type definitions.
+
+        private :
+            // Private type definitions.
+
+        public :
+            // Public methods.
+
+            /*! @brief The destructor. */
+            virtual
+            ~CommandHandler
+                (void);
+
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            CommandHandler
+                (const CommandHandler &  other) = delete;
+
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            CommandHandler
+                (CommandHandler &&    other) = delete;
+
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            CommandHandler &
+            operator=
+                (const CommandHandler &  other) = delete;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            CommandHandler &
+            operator=
+                (CommandHandler &&  other) = delete;
+
+            /*! @brief Handle the command, returning @c true if successful.
+            @return @c true if the command was handled. */
+            virtual bool
+            operator()
+                (void)
+                const;
+
+        protected :
+            // Protected methods.
+
+            /*! @brief The constructor. */
+            CommandHandler
+                (void)
+            {
+            }
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+    }; // CommandHandler
+
     /*! @brief A class to provide support for an application that uses a command port. */
     class ServiceContext : public ContextWithMDNS
     {
@@ -96,6 +171,15 @@ namespace nImO
             ~ServiceContext
                 (void);
 
+            /*! @brief Add a command handler to the set of handlers.
+             @param[in] commandName The name of the command to be handled.
+             @param[in] theHandler The command handler to be added.
+             @return @c true if the handler was successfully added. */
+            bool
+            addHandler
+                (const std::string &    commandName,
+                 Ptr(CommandHandler)    theHandler);
+
             /*! @brief Remove a session from the set of known sessions.
              @param[in] aSession The session to remove. */
             void
@@ -121,6 +205,21 @@ namespace nImO
             {
                 return _commandPort;
             }
+
+            /*! @brief Retrieve a command handler from the set of handlers.
+             @param[in] commandName The name of the command to be retrieved.
+             @return @c nullptr if the handler was not found else the handler with the provided name. */
+            Ptr(CommandHandler)
+            getHandler
+                (const std::string &    commandName)
+                const;
+
+        /*! @brief Remove a command handler from the set of handlers.
+             @param[in] commandName The name of the command to be removed.
+             @return @c true if the handler was successfully removed. */
+            bool
+            removeHandler
+                (const std::string &    commandName);
 
         protected :
             // Protected methods.
@@ -169,6 +268,9 @@ namespace nImO
 
             /*! @brief The active sessions. */
             std::set<Ptr(CommandSession)>   _sessions;
+
+            /*! @brief The command handlers. */
+            std::map<std::string, Ptr(CommandHandler)>    _commandHandlers;
 
     }; // ServiceContext
 

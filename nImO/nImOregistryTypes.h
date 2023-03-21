@@ -59,7 +59,7 @@ namespace nImO
     struct NodeInfo
     {
         /*! @brief @c true if the _connection field is valid. */
-        bool        _found;
+        bool    _found;
 
         /*! @brief The command IP address and port that was found.*/
         Connection  _connection;

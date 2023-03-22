@@ -86,6 +86,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
             "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
+            "${THIS_SOURCE_DIR}/nImOmainSupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmap.cpp"
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
@@ -167,6 +168,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOinvalid.h"
         "${THIS_SOURCE_DIR}/nImOlogger.h"
         "${THIS_SOURCE_DIR}/nImOlogical.h"
+        "${THIS_SOURCE_DIR}/nImOmainSupport.h"
         "${THIS_SOURCE_DIR}/nImOmap.h"
         "${THIS_SOURCE_DIR}/nImOmessage.h"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
@@ -228,6 +230,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.h
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.h
+        ${THIS_SOURCE_DIR}/nImOmainSupport.cpp ${THIS_SOURCE_DIR}/nImOmainSupport.h
         ${THIS_SOURCE_DIR}/nImOmap.cpp ${THIS_SOURCE_DIR}/nImOmap.h
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.h
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h

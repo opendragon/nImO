@@ -145,6 +145,8 @@
 		F65C4BD22985636800430284 /* nImOconnect.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOconnect.rc.in; sourceTree = "<group>"; };
 		F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithMDNS.h; path = nImO/nImOcontextWithMDNS.h; sourceTree = "<group>"; };
 		F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontextWithMDNS.cpp; path = nImO/nImOcontextWithMDNS.cpp; sourceTree = "<group>"; };
+		F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmainSupport.cpp; path = nImO/nImOmainSupport.cpp; sourceTree = "<group>"; };
+		F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmainSupport.h; path = nImO/nImOmainSupport.h; sourceTree = "<group>"; };
 		F66FA33B1CA9542A000B283D /* nImOstringBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOstringBuffer.h; path = nImO/nImOstringBuffer.h; sourceTree = SOURCE_ROOT; };
 		F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/nImOstringBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
@@ -1048,6 +1050,8 @@
 				F6943A572886C275002117FA /* nImOlogger.h */,
 				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
 				F6991C801E5C747A00678450 /* nImOlogical.h */,
+				F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */,
+				F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */,
 				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
 				F6EE0AD41CA2C7F4004748ED /* nImOmap.h */,
 				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,

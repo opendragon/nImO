@@ -33,6 +33,7 @@
 #include "nImOinvalid.h"
 #include "nImOlogger.h"
 #include "nImOlogical.h"
+#include "nImOmainSupport.h"
 #include "nImOmap.h"
 #include "nImOmessage.h"
 #include "nImOMIMESupport.h"

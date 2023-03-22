@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
@@ -66,9 +67,6 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Set to @c false when a SIGINT occurs. */
-static std::atomic<bool>    lKeepRunning(true);
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -76,33 +74,6 @@ static std::atomic<bool>    lKeepRunning(true);
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-/*! @brief The signal handler to catch requests to stop the application.
- @param[in] signal The signal being handled. */
-static void
-catchSignal
-    (int signal)
-{
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
-#if defined(SIGINT)
-    if (SIGINT == signal)
-    {
-        lKeepRunning = false;
-        nImO::InterruptRegistryWait();
-    }
-    else
-#endif // defined(SIGINT)
-    {
-        std::string message{"Exiting due to signal "};
-
-        message += std::to_string(signal);
-        message += " = ";
-        message += nImO::NameOfSignal(signal);
-        ODL_EXIT_EXIT(1); //####
-        exit(1);
-    }
-} // catchSignal
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -136,7 +107,7 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::SetSignalHandlers(catchSignal);
+            nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::UtilityContext    ourContext{progName, "bridge", optionValues._logging, firstArg.getCurrentValue()};
             std::string             registryAddress;
             uint16_t                registryPort;

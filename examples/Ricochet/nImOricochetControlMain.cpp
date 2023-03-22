@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImObooleanArgumentDescriptor.h>
+#include <nImOmainSupport.h>
 #include <nImOmiscellaneousContext.h>
 #include <nImOportArgumentDescriptor.h>
 #include <nImOstandardOptions.h>
@@ -109,6 +110,7 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::MiscellaneousContext  ourContext{progName};
 
 #if 0

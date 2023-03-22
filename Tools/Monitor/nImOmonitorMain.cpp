@@ -39,6 +39,7 @@
 #include <nImOcontextWithMDNS.h>
 #include <nImOarray.h>
 #include <nImOinteger.h>
+#include <nImOmainSupport.h>
 #include <nImOmap.h>
 #include <nImOMIMESupport.h>
 #include <nImOstandardOptions.h>
@@ -154,9 +155,8 @@ class ReceiveOnLoggingPort final
          @param[in] lggingConnection The connection to listen on. */
         ReceiveOnLoggingPort
             (nImO::SPservice            service,
-             std::atomic<bool> &        runFlag,
              const nImO::Connection &   loggingConnection) :
-                _runFlag(runFlag), _socket(*service)
+                _socket(*service)
         {
             asio::ip::address_v4    listenAddress{0};
             asio::ip::address_v4    multicastAddress{loggingConnection._address};
@@ -181,7 +181,7 @@ class ReceiveOnLoggingPort final
         receiveMessages
             (void)
         {
-            if (_runFlag)
+            if (nImO::gKeepRunning)
             {
                 _socket.async_receive_from(asio::buffer(_data), _senderEndpoint,
                                            [this]
@@ -227,9 +227,6 @@ class ReceiveOnLoggingPort final
     private :
         // Private fields.
 
-        /*! @brief A reference to the 'keep going' flag. */
-        std::atomic<bool> & _runFlag;
-
         /*! @brief The socket for a multicast reception. */
         asio::ip::udp::socket   _socket;
 
@@ -241,9 +238,6 @@ class ReceiveOnLoggingPort final
 
 }; // ReceiveOnLoggingPort
 
-/*! @brief Set to @c false when a SIGINT occurs. */
-static std::atomic<bool>    lKeepRunning(true);
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -251,33 +245,6 @@ static std::atomic<bool>    lKeepRunning(true);
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-/*! @brief The signal handler to catch requests to stop the application.
- @param[in] signal The signal being handled. */
-static void
-catchSignal
-    (int signal)
-{
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
-#if defined(SIGINT)
-    if (SIGINT == signal)
-    {
-        lKeepRunning = false;
-        lReceivedCondition.notify_one(); // make sure to exit from the read!!!
-    }
-    else
-#endif // defined(SIGINT)
-    {
-        std::string message{"Exiting due to signal "};
-
-        message += std::to_string(signal);
-        message += " = ";
-        message += nImO::NameOfSignal(signal);
-        ODL_EXIT_EXIT(1); //####
-        exit(1);
-    }
-} // catchSignal
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -309,13 +276,13 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::SetSignalHandlers(catchSignal);
+            nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking ourContext{progName, "monitor", optionValues._logging};
             nImO::Connection            loggingConnection{ourContext.getLoggingInfo()};
-            ReceiveOnLoggingPort        receiver{ourContext.getService(), lKeepRunning, loggingConnection};
+            ReceiveOnLoggingPort        receiver{ourContext.getService(), loggingConnection};
 
             // Wait for messages until exit requested via Ctrl-C.
-            for ( ; lKeepRunning; )
+            for ( ; nImO::gKeepRunning; )
             {
                 SpReceivedData  nextData;
 
@@ -323,17 +290,17 @@ main
                     // Check for messages.
                     std::unique_lock<std::mutex>    lock(lReceivedLock);
 
-                    while (lKeepRunning && (0 == lReceivedData.size()))
+                    while (nImO::gKeepRunning && (0 == lReceivedData.size()))
                     {
                         lReceivedCondition.wait(lock);
                     }
-                    if (lKeepRunning)
+                    if (nImO::gKeepRunning)
                     {
                         nextData = lReceivedData.front();
                         lReceivedData.pop_front();
                     }
                 }
-                if (lKeepRunning)
+                if (nImO::gKeepRunning)
                 {
                     time_t          rawTime;
                     std::string     nowAsString;

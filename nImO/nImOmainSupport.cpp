@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOremoveAppMain.cpp
+//  File:       nImOmainSupport.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to remove an application from the list of known applications.
+//  Contains:   Support routines and variables for nImO applications.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-27
+//  Created:    2023-03-22
 //
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOmainSupport.h>
-#include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
-#include <nImOstringArgumentDescriptor.h>
-#include <nImOutilityContext.h>
+#include <nImOcontextWithMDNS.h>
+//#include <nImObooleanArgumentDescriptor.h>
+//#include <nImOcommandTypes.h>
+//#include <nImOfilterContext.h>
+//#include <nImOintegerArgumentDescriptor.h>
+//#include <nImOregistryProxy.h>
+//#include <nImOserviceOptions.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -51,10 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to remove an application from the list of known applications. */
-
-/*! @dir Version
- @brief The set of files that implement the RemoveApplication tool. */
+ @brief Support routines and variables for #nImO applications. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -71,6 +71,9 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief Set to @c false when a SIGINT occurs. */
+std::atomic<bool>   nImO::gKeepRunning(true);
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
@@ -79,58 +82,27 @@
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+void
+nImO::CatchSignal
+    (const int  signal)
 {
-    std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::RequiredModifiable, ""};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
-    int                             exitCode = 0;
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application", "nImOremoveApp shortAppName", 2020, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption))
+    ODL_I1("signal = ", signal); //####
+#if defined(SIGINT)
+    if (SIGINT == signal)
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
-        try
-        {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "removeApp", optionValues._logging};
-            std::string             registryAddress;
-            uint16_t                registryPort;
-
-            if (ourContext.findRegistry(registryAddress, registryPort))
-            {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
-
-                // TBD
-            }
-            else
-            {
-                ourContext.report("Registry not found.");
-                exitCode = 2;
-            }
-            ourContext.report("Exiting.");
-        }
-        catch (...)
-        {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
-        }
+        gKeepRunning = false;
+        InterruptRegistryWait();
     }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+    else
+#endif // defined(SIGINT)
+    {
+        std::string message{"Exiting due to signal "};
+
+        message += std::to_string(signal);
+        message += " = ";
+        message += nImO::NameOfSignal(signal);
+        ODL_EXIT_EXIT(1); //####
+        exit(1);
+    }
+} // nImO::CatchSignal

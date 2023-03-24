@@ -39,7 +39,7 @@
 #include <nImOmainSupport.h>
 #include <nImOcontextWithMDNS.h>
 //#include <nImObooleanArgumentDescriptor.h>
-//#include <nImOcommandTypes.h>
+//#include <nImOcommonCommands.h>
 //#include <nImOfilterContext.h>
 //#include <nImOintegerArgumentDescriptor.h>
 //#include <nImOregistryProxy.h>

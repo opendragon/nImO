@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandTypes.h
+//  File:       nImO/nImOcommonCommands.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcommandTypes_H_))
-# define nImOcommandTypes_H_ /* Header guard */
+#if (! defined(nImOcommonCommands_H_))
+# define nImOcommonCommands_H_ /* Header guard */
 
 # include <nImOcommon.h>
 
@@ -56,8 +56,11 @@ namespace nImO
 {
 
     /*! @brief The 'shutdown' request. */
-    const std::string   kShutDownCommand = "shutdown";
+    const std::string   kShutDownRequest = "shutDown!";
+
+    /*! @brief The 'shutdown' response. */
+    const std::string   kShutDownResponse = "shutDown=";
 
 } // nImO
 
-#endif // not defined(nImOcommandTypes_H_)
+#endif // not defined(nImOcommonCommands_H_)

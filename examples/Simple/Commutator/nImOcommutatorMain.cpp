@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImObooleanArgumentDescriptor.h>
-#include <nImOcommandTypes.h>
+#include <nImOcommonCommands.h>
 #include <nImOfilterContext.h>
 #include <nImOintegerArgumentDescriptor.h>
 #include <nImOmainSupport.h>

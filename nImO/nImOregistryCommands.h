@@ -39,7 +39,7 @@
 #if (! defined(nImOregistryCommands_H_))
 # define nImOregistryCommands_H_ /* Header guard */
 
-# include <nImOcommandTypes.h>
+# include <nImOcommonCommands.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,22 +56,40 @@ namespace nImO
 {
 
     /*! @brief The request to add a node to the Registry. */
-    const std::string   kAddNodeCommand = "addNode";
+    const std::string   kAddNodeRequest = "addNode!";
+
+    /*! @brief The 'addNode' response. */
+    const std::string   kAddNodeResponse = "addNode=";
 
     /*! @brief The request to get information on a node from the Registry. */
-    const std::string   kGetNodeInformationCommand = "getNodeInformation";
+    const std::string   kGetNodeInformationRequest = "getNodeInformation?";
+
+    /*! @brief The 'getNodeInformation' response. */
+    const std::string   kGetNodeInformationResponse = "getNodeInformation=";
 
     /*! @brief The request to get the set of nodes in the Registry. */
-    const std::string   kGetNodesCommand = "getNodes";
+    const std::string   kGetNodesRequest = "getNodes?";
+
+    /*! @brief The 'getNodes' response'. */
+    const std::string   kGetNodesResponse = "getNodes=";
 
     /*! @brief The request to check if a node is present in the Registry. */
-    const std::string   kNodePresentCommand = "nodePresent";
+    const std::string   kNodePresentRequest = "nodePresent?";
+
+    /*! @brief The 'nodePresent' reponse. */
+    const std::string   kNodePresentResponse = "nodePresent=";
 
     /*! @brief The request to get the number of nodes in the Registry. */
-    const std::string   kNumNodesCommand = "numNodes";
+    const std::string   kNumNodesRequest = "numNodes?";
+
+    /*! @brief The 'numNodes' response. */
+    const std::string   kNumNodesResponse = "numNodes=";
 
     /*! @brief The request to remove a node from the Registry. */
-    const std::string   kRemoveNodeCommand = "removeNode";
+    const std::string   kRemoveNodeRequest = "removeNode!";
+
+    /*! @brief The 'removeNode' response. */
+    const std::string   kRemoveNodeResponse = "removeNode=";
 
 } // nImO
 

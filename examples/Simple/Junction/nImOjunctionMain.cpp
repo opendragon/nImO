@@ -112,14 +112,16 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::FilterContext ourContext{argc, argv, progName, "Junction", optionValues._logging};
-            std::string         registryAddress;
-            uint16_t            registryPort;
+            nImO::Connection    registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-                // TBD
+                for ( ; nImO::gKeepRunning; )
+                {
+//TBD
+                }
             }
             else
             {

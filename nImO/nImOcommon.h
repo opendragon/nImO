@@ -588,7 +588,7 @@ namespace nImO
         ignore_unused_variable_
             (const Type_ &)
         {
-        } // ignore_unused_variable_
+        }
 
     }; // internal_
 

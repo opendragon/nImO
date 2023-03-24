@@ -109,12 +109,11 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::UtilityContext    ourContext{progName, "bridge", optionValues._logging, firstArg.getCurrentValue()};
-            std::string             registryAddress;
-            uint16_t                registryPort;
+            nImO::Connection        registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                 // TBD
             }

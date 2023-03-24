@@ -90,10 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"),
-                                                nImO::ArgumentMode::Optional, false};
-    nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"),
-                                                nImO::ArgumentMode::Optional, 2020};
+    nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"), nImO::ArgumentMode::Optional, false};
+    nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"), nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -113,6 +111,10 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::MiscellaneousContext  ourContext{progName};
 
+            for ( ; nImO::gKeepRunning; )
+            {
+//TBD
+            }
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number
             //get the list of cluster machines from 'hosts.list'

@@ -743,7 +743,7 @@ queryCallback
     NIMO_UNUSED_ARG_(rClass);
     NIMO_UNUSED_ARG_(nameLength);
     size_t                      workOffset = nameOffset;
-    mDNS::string_t              fromAddrStr = nImO::IpAddressToString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen);
+    mDNS::string_t              fromAddrStr = nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen);
     mDNS::string_t              entryStr = mDNS::mDNSPrivate::string_extract(data, size, workOffset, lEntryBuffer,
                                                                              sizeof(lEntryBuffer));
     Ptr(nImO::RecordHandler)    handlerPtr = ReinterpretCast(Ptr(nImO::RecordHandler), userData);
@@ -789,7 +789,7 @@ queryCallback
             struct sockaddr_in    addr;
 
             mDNS::record_parse_a(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr = nImO::Ipv4AddressToString(lNameBuffer, sizeof(lNameBuffer), addr, sizeof(addr));
+            mDNS::string_t    addrStr = nImO::Ipv4AddressToMdnsString(lNameBuffer, sizeof(lNameBuffer), addr, sizeof(addr));
 
             if (0 < ttl)
             {
@@ -804,7 +804,7 @@ queryCallback
             struct sockaddr_in6    addr;
 
             mDNS::record_parse_aaaa(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr = nImO::Ipv6AddressToString(lNameBuffer, sizeof(lNameBuffer), addr, sizeof(addr));
+            mDNS::string_t    addrStr = nImO::Ipv6AddressToMdnsString(lNameBuffer, sizeof(lNameBuffer), addr, sizeof(addr));
 
             if (0 < ttl)
             {
@@ -1079,8 +1079,7 @@ nImO::ContextWithMDNS::executeBrowser
 
 bool
 nImO::ContextWithMDNS::findRegistry
-    (std::string &  address,
-     uint16_t &     port,
+    (Connection &   connection,
      const bool     quietly)
 {
     bool    found;
@@ -1092,8 +1091,8 @@ nImO::ContextWithMDNS::findRegistry
     }
     if (_havePort && _haveAddress)
     {
-        address = _registryPreferredAddress;
-        port = _registryPort;
+        connection._address = asio::ip::address_v4::from_string(_registryPreferredAddress).to_ulong();
+        connection._port = _registryPort;
         found = true;
     }
     else
@@ -1198,16 +1197,16 @@ nImO::ContextWithMDNS::makePortAnnouncement
                             });
         if (lHasIpv4)
         {
-            mDNS::string_t  addressString{Ipv4AddressToString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv4,
-                                                              sizeof(lServiceAddressIpv4))};
+            mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv4,
+                                                                  sizeof(lServiceAddressIpv4))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);
         }
         else if (lHasIpv6)
         {
-            mDNS::string_t  addressString{Ipv6AddressToString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv6,
-                                                              sizeof(lServiceAddressIpv6))};
+            mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer), lServiceAddressIpv6,
+                                                                  sizeof(lServiceAddressIpv6))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);
@@ -1411,7 +1410,7 @@ nImO::InterruptRegistryWait
 } // nImO::InterruptRegistryWait
 
 mDNS::string_t
-nImO::IpAddressToString
+nImO::IpAddressToMdnsString
     (Ptr(char)                  buffer,
      const size_t               capacity,
      const struct sockaddr &    addr,
@@ -1419,14 +1418,14 @@ nImO::IpAddressToString
 {
     if (AF_INET6 == addr.sa_family)
     {
-        return Ipv6AddressToString(buffer, capacity, ReinterpretCast(const struct sockaddr_in6 &, addr), addrLen);
+        return Ipv6AddressToMdnsString(buffer, capacity, ReinterpretCast(const struct sockaddr_in6 &, addr), addrLen);
 
     }
-    return Ipv4AddressToString(buffer, capacity, ReinterpretCast(const struct sockaddr_in &, addr), addrLen);
-} // nImO::IpAddressToString
+    return Ipv4AddressToMdnsString(buffer, capacity, ReinterpretCast(const struct sockaddr_in &, addr), addrLen);
+} // nImO::IpAddressToMdnsString
 
 mDNS::string_t
-nImO::Ipv4AddressToString
+nImO::Ipv4AddressToMdnsString
     (Ptr(char)                  buffer,
      const size_t               capacity,
      const struct sockaddr_in & addr,
@@ -1454,10 +1453,23 @@ nImO::Ipv4AddressToString
         len = StaticCast(int, capacity) - 1;
     }
     return make_mdns_string(buffer, len);
-} // nImO::Ipv4AddressToString
+} // nImO::Ipv4AddressToMdnsString
+
+std::string
+nImO::Ipv4AddressToStdString
+    (const struct sockaddr_in & addr,
+     const size_t               addrLen)
+{
+    char            addrBuffer[64];
+    mDNS::string_t  mdnsString = nImO::Ipv4AddressToMdnsString(addrBuffer, sizeof(addrBuffer), addr, addrLen);
+    std::string     result{mdns_string_to_std_string(mdnsString)};
+
+    release_mdns_string(mdnsString);
+    return result;
+} // nImO::Ipv4AddressToStdString
 
 mDNS::string_t
-nImO::Ipv6AddressToString
+nImO::Ipv6AddressToMdnsString
     (Ptr(char)                      buffer,
      const size_t                   capacity,
      const struct sockaddr_in6 &    addr,
@@ -1485,4 +1497,4 @@ nImO::Ipv6AddressToString
         len = StaticCast(int, capacity) - 1;
     }
     return make_mdns_string(buffer, len);
-} // nImO::Ipv6AddressToString
+} // nImO::Ipv6AddressToMdnsString

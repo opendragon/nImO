@@ -130,14 +130,12 @@ namespace nImO
                 (void);
 
             /*! @brief Find the Registry if it's running.
-             @param[out] address The IP address of the Registry, if found.
-             @param[out] port The IP port of the Registry, if found.
+             @param[out] connection The IP address and port of the Registry, if found.
              @param[in] quietly @c true if reporting a failure is suppressed.
              @return @c true if the Registry is located. */
             bool
             findRegistry
-                (std::string &  address,
-                 uint16_t &     port,
+                (Connection &   connection,
                  const bool     quietly = false);
 
             /*! @brief Find the Registry if it's running.
@@ -147,10 +145,9 @@ namespace nImO
             findRegistry
                 (const bool quietly = false)
             {
-                std::string ignoredAddress;
-                uint16_t    ignoredPort;
+                Connection  ignoredConnection;
 
-                return findRegistry(ignoredAddress, ignoredPort, quietly);
+                return findRegistry(ignoredConnection, quietly);
             }
 
             /*! @brief Send a port announcement via mDNS.
@@ -287,7 +284,7 @@ namespace nImO
      @param[in] addr The address to convert.
      @param[in] addrLen The size of the address. */
     mDNS::string_t
-    IpAddressToString
+    IpAddressToMdnsString
         (Ptr(char)                  buffer,
          const size_t               capacity,
          const struct sockaddr &    addr,
@@ -299,10 +296,18 @@ namespace nImO
      @param[in] addr The address to convert.
      @param[in] addrLen The size of the address. */
     mDNS::string_t
-    Ipv4AddressToString
+    Ipv4AddressToMdnsString
         (Ptr(char)                  buffer,
          const size_t               capacity,
          const struct sockaddr_in & addr,
+         const size_t               addrLen);
+
+    /*! @brief Convert an IPv4 address to a standard string.
+     @param[in] addr The address to convert.
+     @param[in] addrLen The size of the address. */
+    std::string
+    Ipv4AddressToStdString
+        (const struct sockaddr_in & addr,
          const size_t               addrLen);
 
     /*! @brief Convert an IPv6 address to an MDNS string.
@@ -311,7 +316,7 @@ namespace nImO
      @param[in] addr The address to convert.
      @param[in] addrLen The size of the address. */
     mDNS::string_t
-    Ipv6AddressToString
+    Ipv6AddressToMdnsString
         (Ptr(char)                      buffer,
          const size_t                   capacity,
          const struct sockaddr_in6 &    addr,

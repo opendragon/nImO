@@ -90,8 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::PortArgumentDescriptor    firstArg{"port", T_("Port for communication"),
-                                                nImO::ArgumentMode::Optional, 2020};
+    nImO::PortArgumentDescriptor    firstArg{"port", T_("Port for communication"), nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -110,6 +109,10 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::MiscellaneousContext  ourContext{progName};
 
+            for ( ; nImO::gKeepRunning; )
+            {
+//TBD
+            }
 #if 0
             running = true
             while running

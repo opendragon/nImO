@@ -113,12 +113,11 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::SourceContext ourContext{argc, argv, progName, "write", optionValues._logging, secondArg.getCurrentValue()};
-            std::string         registryAddress;
-            uint16_t            registryPort;
+            nImO::Connection    registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                 // Open a nImO channel to collect messages.
                 // Wait for messages until exit requested via Ctrl-C or a shutdown command is received.

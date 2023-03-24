@@ -108,14 +108,13 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             registryAddress;
-            uint16_t                registryPort;
             std::string             nodeName{nImO::GetShortComputerName()};
             nImO::ServiceContext    ourContext{argc, argv, progName, "launcher", optionValues._logging};
+            nImO::Connection        registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy     proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy     proxy{ourContext, registryConnection};
                 nImO::RegBoolOrFailure  statusWithBool = proxy.nodePresent(nodeName);
 
                 if (statusWithBool.first.first)
@@ -132,8 +131,10 @@ main
                         if (status.first)
                         {
                             ourContext.report("Waiting for requests.");
-                            //TBD: wait for requests.
-
+                            for ( ; nImO::gKeepRunning; )
+                            {
+        //TBD
+                            }
                             status = proxy.removeNode(nodeName);
                             if (! status.first)
                             {

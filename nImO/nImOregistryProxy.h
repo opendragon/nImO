@@ -73,12 +73,10 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] context The application context to use.
-             @param[in] address The IP address of the Registry.
-             @param[in] port The IP port of the Registry. */
+             @param[in] connection The IP address and port of the Registry. */
             RegistryProxy
                 (ContextWithNetworking &    context,
-                 const std::string &        address,
-                 const uint16_t             port);
+                 const Connection &         connection);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -176,11 +174,8 @@ namespace nImO
             /*! @brief The application context to use. */
             ContextWithNetworking & _context;
 
-            /*! @brief The IP address of the Registry. */
-            std::string _address;
-
-            /*! @brief The IP port of the Registry. */
-            uint16_t _port;
+            /*! @brief The IP address and port of the Registry. */
+            Connection  _connection;
 
     }; // RegistryProxy
 

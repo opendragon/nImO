@@ -277,17 +277,16 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::UtilityContext    ourContext{progName, "list", optionValues._logging};
-            std::string             registryAddress;
-            uint16_t                registryPort;
+            nImO::Connection        registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
                 std::string choice{firstArg.getCurrentValue()};
                 auto        match{lChoiceMap.find(choice)};
 
                 if (match != lChoiceMap.end())
                 {
-                    nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                    nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                     switch (match->second._choice)
                     {

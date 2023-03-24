@@ -107,14 +107,16 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string             nodeName{nImO::GetShortComputerName()};
             nImO::UtilityContext    ourContext{progName, "shutdown", optionValues._logging};
-            std::string             registryAddress;
-            uint16_t                registryPort;
+            nImO::Connection        registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                 // TBD
+                // Close all connections.
+                // Send Shutdown command to all nodes.
+                // Send Shutdown command to Registry.
             }
             else
             {

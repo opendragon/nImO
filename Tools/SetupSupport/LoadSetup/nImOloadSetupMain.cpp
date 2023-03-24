@@ -109,14 +109,16 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string             nodeName{nImO::GetShortComputerName()};
             nImO::UtilityContext    ourContext{progName, "loadSetup", optionValues._logging};
-            std::string             registryAddress;
-            uint16_t                registryPort;
+            nImO::Connection        registryConnection;
 
-            if (ourContext.findRegistry(registryAddress, registryPort))
+            if (ourContext.findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryAddress, registryPort};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                 // TBD
+                // Read node list and confirm that all expected nodes have launched and stop if a node is missing.
+                // Send launch commands to each node for the expected running services and stop if a service failed to launch.
+                // Make all expected connections and stop if a connection could not be made.
             }
             else
             {

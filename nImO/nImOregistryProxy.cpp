@@ -38,6 +38,7 @@
 
 #include <nImOregistryProxy.h>
 
+#include <nImOcontextWithMDNS.h>
 #include <nImOregistryCommands.h>
 
 //#include <odlEnable.h>
@@ -80,14 +81,31 @@
 
 nImO::RegistryProxy::RegistryProxy
     (ContextWithNetworking &    context,
-     const std::string &        address,
-     const uint16_t             port) :
-        _context(context), _address(address), _port(port)
+     const Connection &         connection) :
+        _context(context), _connection(connection)
 {
     ODL_ENTER(); //####
-    _context.report("RegistryProxy found at " + _address + ":" + std::to_string(_port) + ".");
+    sockaddr_in sock_addr;
+
+    memset(&sock_addr, 0, sizeof(sock_addr));
+    sock_addr.sin_family = AF_INET;
+    sock_addr.sin_addr.s_addr = htonl(connection._address);
+    std::string regAddrStr = nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr));
+
+    _context.report("Registry found at " + regAddrStr + ":" + std::to_string(_connection._port) + ".");
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
+
+//nImO::RegistryProxy::RegistryProxy
+//    (ContextWithNetworking &    context,
+//     const std::string &        address,
+//     const uint16_t             port) :
+//        _context(context), _address(address), _port(port)
+//{
+//    ODL_ENTER(); //####
+//    _context.report("Registry found at " + _address + ":" + std::to_string(_port) + ".");
+//    ODL_EXIT_P(this); //####
+//} // nImO::RegistryProxy::RegistryProxy
 
 nImO::RegistryProxy::~RegistryProxy
     (void)

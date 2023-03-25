@@ -153,12 +153,14 @@ helpForList
 
 /*! @brief Output the known nodes.
  @param[in] proxy The connection to the Registry.
- @param[in] options The options to apply. */
-static void
+ @param[in] options The options to apply.
+ @return @c true if no errors encountered or @c false if there was a problem. */
+static bool
 listNodes
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options)
 {
+    bool                        okSoFar = true;
     nImO::RegStringSetOrFailure statusWithStrings = proxy.getNodes();
 
     if (statusWithStrings.first.first)
@@ -213,7 +215,8 @@ listNodes
                 }
                 else
                 {
-                    std::cerr << "Problem with 'getNodes': " << statusWithInfo.first.second << std::endl;
+                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
+                    okSoFar = false;
                     break;
                 }
             }
@@ -226,7 +229,9 @@ listNodes
     else
     {
         std::cerr << "Problem with 'getNodes': " << statusWithStrings.first.second << std::endl;
+        okSoFar = false;
     }
+    return okSoFar;
 } // listNodes
 
 #if defined(__APPLE__)
@@ -307,7 +312,10 @@ main
                             break;
 
                         case Choice::kNode :
-                            listNodes(proxy, optionValues);
+                            if (! listNodes(proxy, optionValues))
+                            {
+                                exitCode = 1;
+                            }
                             break;
 
                         case Choice::kAll :

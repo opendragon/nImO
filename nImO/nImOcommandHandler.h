@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandSession.h
+//  File:       nImO/nImOcommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a nImO command session.
+//  Contains:   The class declaration for nImO command handlers.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-01-14
+//  Created:    2023-03-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcommandSession_H_))
-# define nImOcommandSession_H_ /* Header guard */
+#if (! defined(nImOcommandHandler_H_))
+# define nImOcommandHandler_H_ /* Header guard */
 
-# include <nImOcontext.h>
+# include <nImOcontextWithMDNS.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,20 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a %nImO command session. */
+ @brief The class declaration for %nImO command handlers. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-
-    // Forward declarations.
-
-    class ServiceContext;
-
-    /*! @brief A class to provide binary data with unknown structure. */
-    class CommandSession final
+    /*! @brief A class to provide functors used to process commands. */
+    class CommandHandler
     {
 
         public :
@@ -75,31 +70,57 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] owner The Context that is using the command session. */
-            explicit CommandSession
-                (ServiceContext &   owner);
-
             /*! @brief The destructor. */
-            ~CommandSession
+            virtual
+            ~CommandHandler
                 (void);
 
-            /*! @brief Return the socket for this session.
-             @return The session socket. */
-            inline asio::ip::tcp::socket &
-            getSocket
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            CommandHandler
+                (const CommandHandler &  other) = delete;
+
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            CommandHandler
+                (CommandHandler &&    other) = delete;
+
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            CommandHandler &
+            operator=
+                (const CommandHandler &  other) = delete;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            CommandHandler &
+            operator=
+                (CommandHandler &&  other) = delete;
+
+            /*! @brief Handle the command, returning @c true if successful.
+            @return @c true if the command was handled. */
+            virtual bool
+            operator()
                 (void)
-            {
-                return _socket;
-            }
-
-            /*! @brief Initiate the communication. */
-            void
-            start
-                (void);
+                const = 0;
 
         protected :
             // Protected methods.
+
+            /*! @brief The constructor. */
+            CommandHandler
+                (void);
+
+            /*! @brief Send a simple reponse ot the command.
+             @param[in] responseKey The response type.
+             @param[in] wasOK @c true if the command succeeded and @c false otherwise. */
+            void
+            sendResponse
+                (const std::string  responseKey,
+                 const bool         wasOK = false)
+                const;
 
         private :
             // Private methods.
@@ -113,14 +134,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The socket used for command request and response. */
-            asio::ip::tcp::socket   _socket;
-
-            /*! @brief The context that created this session. */
-            ServiceContext &    _owner;
-
-    }; // CommandSession
+    }; // CommandHandler
 
 } // nImO
 
-#endif // not defined(nImOcommandSession_H_)
+#endif // not defined(nImOcommandHandler_H_)

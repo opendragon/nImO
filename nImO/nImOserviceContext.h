@@ -36,11 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontextWithCommandPort_H_))
-# define nImOcontextWithCommandPort_H_ /* Header guard */
+#if (! defined(nImOserviceContext_H_))
+# define nImOserviceContext_H_ /* Header guard */
 
 # include <nImOcontextWithMDNS.h>
-# include <nImOcommandSession.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,80 +54,8 @@
 
 namespace nImO
 {
-    /*! @brief A class to provide functors used to process commands. */
-    class CommandHandler
-    {
-
-        public :
-            // Public type definitions.
-
-        protected :
-            // Protected type definitions.
-
-        private :
-            // Private type definitions.
-
-        public :
-            // Public methods.
-
-            /*! @brief The destructor. */
-            virtual
-            ~CommandHandler
-                (void);
-
-            /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
-            CommandHandler
-                (const CommandHandler &  other) = delete;
-
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            CommandHandler
-                (CommandHandler &&    other) = delete;
-
-            /*! @brief The copy assignment operator.
-             @param[in] other The object to be copied.
-             @return The updated object. */
-            CommandHandler &
-            operator=
-                (const CommandHandler &  other) = delete;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            CommandHandler &
-            operator=
-                (CommandHandler &&  other) = delete;
-
-            /*! @brief Handle the command, returning @c true if successful.
-            @return @c true if the command was handled. */
-            virtual bool
-            operator()
-                (void)
-                const;
-
-        protected :
-            // Protected methods.
-
-            /*! @brief The constructor. */
-            CommandHandler
-                (void)
-            {
-            }
-
-        private :
-            // Private methods.
-
-        public :
-            // Public fields.
-
-        protected :
-            // Protected fields.
-
-        private :
-            // Private fields.
-
-    }; // CommandHandler
+    class CommandHandler;
+    class CommandSession;
 
     /*! @brief A class to provide support for an application that uses a command port. */
     class ServiceContext : public ContextWithMDNS
@@ -245,6 +172,11 @@ namespace nImO
                 (Ptr(CommandSession)        newSession,
                  const system::error_code & error);
 
+            /*! @brief Remvoe all the command handlers. */
+            void
+            removeHandlers
+                (void);
+
         public :
             // Public fields.
 
@@ -276,4 +208,4 @@ namespace nImO
 
 } // nImO
 
-#endif // not defined(nImOcontextWithCommandPort_H_)
+#endif // not defined(nImOserviceContext_H_)

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommonCommands.h
+//  File:       nImO/nImOrequestResponse.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO services.
+//  Contains:   The function declarations for the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-18
+//  Created:    2023-03-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcommonCommands_H_))
-# define nImOcommonCommands_H_ /* Header guard */
+#if (! defined(nImOrequestResponse_H_))
+# define nImOrequestResponse_H_ /* Header guard */
 
 # include <nImOcommon.h>
 
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO services. */
+ @brief The function declarations for the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,12 +55,14 @@
 namespace nImO
 {
 
-    /*! @brief The 'shutdown' request. */
-    const std::string   kShutDownRequest = "shutDown.";
-
-    /*! @brief The 'shutdown' response. */
-    const std::string   kShutDownResponse = "shutDown=";
+    /*! @brief Send a simple request with no expected results.
+     @param[in] connection The connection to be used.
+     @param[in] requestKey The request to be sent. */
+    void
+    SendRequestWithoutResponse
+        (Connection &       connection,
+         const std::string  requestKey);
 
 } // nImO
 
-#endif // not defined(nImOcommonCommands_H_)
+#endif // not defined(nImOrequestResponse_H_)

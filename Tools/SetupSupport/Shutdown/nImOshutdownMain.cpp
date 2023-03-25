@@ -36,9 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <nImOcommonCommands.h>
 #include <nImOfilePathArgumentDescriptor.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
+#include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOutilityContext.h>
@@ -89,34 +91,66 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::StandardOptions   optionValues;
-    int                     exitCode = 0;
+    std::string                     progName{*argv};
+    nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown"),
+                                                nImO::ArgumentMode::OptionalModifiable, ""};
+    nImO::DescriptorVector          argumentList;
+    nImO::StandardOptions           optionValues;
+    int                             exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown", "nImOshutdown", 2023,
+    argumentList.push_back(&firstArg);
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or all nodes", "nImOshutdown", 2023,
                                      NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
             nImO::UtilityContext    ourContext{progName, "shutdown", optionValues._logging};
+            std::string             nodeName{firstArg.getCurrentValue()};
             nImO::Connection        registryConnection;
 
             if (ourContext.findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-                // TBD
-                // Close all connections.
-                // Send Shutdown command to all nodes.
-                // Send Shutdown command to Registry.
+                if (0 < nodeName.length())
+                {
+                    nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
+
+                    if (statusWithInfo.first.first)
+                    {
+                        if (statusWithInfo.second._found)
+                        {
+                            // TBD
+                            // Close all connections for services on the node.
+                            // Send Shutdown command to all services on the node.
+                            //statusWithInfo.second._connection
+                        }
+                        else
+                        {
+                            ourContext.report("Unknown node: '" + nodeName + "'");
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
+                        exitCode = 1;
+                    }
+                }
+                else
+                {
+                    // TBD
+                    // Close all connections.
+                    // Send Shutdown command to all services.
+                    // Send Shutdown command to all nodes.
+                    // Send Shutdown command to Registry.
+                    nImO::SendRequestWithoutResponse(registryConnection, nImO::kShutDownRequest);
+                }
             }
             else
             {

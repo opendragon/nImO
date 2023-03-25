@@ -54,6 +54,10 @@
 
 namespace nImO
 {
+
+    /*! @brief A string that marks the end of a message. */
+    extern const std::string    kMessageSentinel;
+
     /*! @brief The data constituting a Message. */
     class Message final : public ChunkArray
     {

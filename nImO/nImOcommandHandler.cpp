@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandSession.cpp
+//  File:       nImO/nImOcommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a nImO command session.
+//  Contains:   The class definition for nImO command handlers.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,16 +32,29 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-01-14
+//  Created:    2023-03-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcommandSession.h>
+#include <nImOcommandHandler.h>
 
-#include <nImOserviceContext.h>
+#include <nImOarray.h>
+#include <nImOlogical.h>
+#include <nImOmessage.h>
+#include <nImOMIMESupport.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -49,7 +62,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a %nImO command session. */
+ @brief The class definition for %nImO command handlers. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,88 +91,70 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::CommandSession::CommandSession
-    (ServiceContext &   owner) :
-        _socket(*owner.getService()), _owner(owner)
+nImO::CommandHandler::CommandHandler
+    (void)
 {
     ODL_ENTER(); //####
-    try
-    {
-        NIMO_UNUSED_VAR_(_owner);//!!
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
     ODL_EXIT_P(this); //####
-} // nImO::CommandSession::CommandSession
+} // nImO::ServiceContext::ServiceContext
 
-nImO::CommandSession::~CommandSession
-(void)
+nImO::CommandHandler::~CommandHandler
+    (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::CommandSession::~CommandSession
+} // nImO::CommandHandler::~CommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::CommandSession::start
-    (void)
+nImO::CommandHandler::sendResponse
+    (const std::string  responseKey,
+     const bool         wasOK)
+    const
 {
+    Message responseToSend;
+    SpArray responseArray{new Array};
+
     ODL_OBJENTER(); //####
+    responseToSend.open(true);
+    responseArray->addValue(std::make_shared<String>(responseKey));
+    responseArray->addValue(std::make_shared<Logical>(wasOK));
+    responseToSend.setValue(responseArray);
+    responseToSend.close();
+    if (0 < responseToSend.getLength())
+    {
+        auto    asString{responseToSend.getBytes()};
+
+        if (0 < asString.length())
+        {
+            StringVector    outVec;
+
+            EncodeBytesAsMIME(outVec, asString);
+            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + kMessageSentinel));
+
+            // send the encoded message to the requestor
+//            _socket.async_send_to(asio::buffer(*outString), _endpoint,
+//                                  [outString]
+//                                  (const system::error_code NIMO_UNUSED_PARAM_(ec),
+//                                   const std::size_t        NIMO_UNUSED_PARAM_(length))
+//                                  {
+//                                  });
+        }
+        else
+        {
+            ODL_LOG("! (0 < asString.length())"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (0 < responseToSend.getLength())"); //####
+    }
     ODL_OBJEXIT(); //####
-} // nImO::CommandSession::start
+} // nImO::CommandHandler::sendResponse
 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
-
-
-#if 0
-    void start()
-    {
-        socket_.async_read_some(asio::buffer(data_, max_length),
-                                boost::bind(&session::handle_read, this,
-                                            asio::placeholders::error,
-                                            asio::placeholders::bytes_transferred));
-    }
-
-    void handle_read(const system::error_code& error,
-                     size_t bytes_transferred)
-    {
-        if (0 == error.value())
-        {
-            boost::asio::async_write(socket_,
-                                     asio::buffer(data_, bytes_transferred),
-                                     boost::bind(&session::handle_write, this,
-                                                 asio::placeholders::error));
-        }
-        else
-        {
-            delete this;
-        }
-    }
-
-    void handle_write(const system::error_code& error)
-    {
-        if (0 == error.value())
-        {
-            socket_.async_read_some(asio::buffer(data_, max_length),
-                                    boost::bind(&session::handle_read, this,
-                                                asio::placeholders::error,
-                                                asio::placeholders::bytes_transferred));
-        }
-        else
-        {
-            delete this;
-        }
-    }
-
-private:
-    enum { max_length = 1024 };
-    char data_[max_length];
-#endif//0

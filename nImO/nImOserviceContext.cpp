@@ -37,7 +37,12 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOserviceContext.h>
+
 #include <nImOarray.h>
+#include <nImOcommandHandler.h>
+#include <nImOcommandSession.h>
+#include <nImOcommonCommands.h>
+#include <nImOshutdownCommandHandler.h>
 #include <nImOstring.h>
 
 //#include <odlEnable.h>
@@ -99,9 +104,12 @@ nImO::ServiceContext::ServiceContext
     {
         createCommandPort();
         setCommandPort(_commandPort);
-        if (waitForRegistry())
+        if (addHandler(kShutDownRequest, new ShutdownCommandHandler()))
         {
-            // TBD
+            if (waitForRegistry())
+            {
+                // TBD
+            }
         }
     }
     catch (...)
@@ -116,6 +124,7 @@ nImO::ServiceContext::~ServiceContext
     (void)
 {
     ODL_OBJENTER(); //####
+    removeHandlers();
     destroyCommandPort();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::~ServiceContext
@@ -253,11 +262,37 @@ nImO::ServiceContext::removeHandler
     ODL_OBJENTER(); //####
     if (0 < commandName.size())
     {
-        okSoFar = (1 == _commandHandlers.erase(commandName));
+        auto match = _commandHandlers.find(commandName);
+
+        if (_commandHandlers.end() != match)
+        {
+            Ptr(CommandHandler) handler{match->second};
+            
+            okSoFar = (1 == _commandHandlers.erase(commandName));
+            delete handler;
+        }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ServiceContext::removeHandler
+
+void
+nImO::ServiceContext::removeHandlers
+    (void)
+{
+    ODL_OBJENTER(); //####
+    for (auto walker(_commandHandlers.begin()); _commandHandlers.end() != walker; ++walker)
+    {
+        Ptr(CommandHandler) handler{walker->second};
+
+        if (nullptr != handler)
+        {
+            delete handler;
+        }
+    }
+    _commandHandlers.clear();
+    ODL_OBJEXIT(); //####
+} // nImO::ServiceContext::removeHandlers
 
 #if defined(__APPLE__)
 # pragma mark Global functions

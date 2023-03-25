@@ -61,7 +61,6 @@
 		F62DA79A298015E7002882FF /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Echo/resource.h; sourceTree = "<group>"; };
 		F62DA79B298015E7002882FF /* nImOechoService.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOechoService.rc.in; path = examples/Echo/nImOechoService.rc.in; sourceTree = "<group>"; };
 		F62DA79C298015E7002882FF /* nImOechoClientMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOechoClientMain.cpp; path = examples/Echo/nImOechoClientMain.cpp; sourceTree = "<group>"; };
-		F6300DFD29801C66002F3960 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F6351BE929462B1E00A93CA2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Tests/resource.h; sourceTree = "<group>"; };
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
@@ -196,6 +195,13 @@
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F6866F011CA4145E00849A76 /* nImOcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6866F021CA4145E00849A76 /* nImOcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcontainer.h; path = nImO/nImOcontainer.h; sourceTree = "<group>"; };
+		F69004E129CF476700271A73 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/Echo/CMakeLists.txt"; sourceTree = "<group>"; };
+		F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandHandler.cpp; path = nImO/nImOcommandHandler.cpp; sourceTree = "<group>"; };
+		F69004E829CF4E7100271A73 /* nImOcommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandHandler.h; path = nImO/nImOcommandHandler.h; sourceTree = "<group>"; };
+		F69004E929CF521C00271A73 /* nImOshutdownCommandHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOshutdownCommandHandler.cpp; path = nImO/nImOshutdownCommandHandler.cpp; sourceTree = "<group>"; };
+		F69004EA29CF521C00271A73 /* nImOshutdownCommandHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOshutdownCommandHandler.h; path = nImO/nImOshutdownCommandHandler.h; sourceTree = "<group>"; };
+		F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrequestResponse.cpp; path = nImO/nImOrequestResponse.cpp; sourceTree = "<group>"; };
+		F69004EC29CF654300271A73 /* nImOrequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOrequestResponse.h; path = nImO/nImOrequestResponse.h; sourceTree = "<group>"; };
 		F692A43929C0E911003711E9 /* nImOshutdownMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOshutdownMain.cpp; sourceTree = "<group>"; };
 		F692A43A29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F692A43B29C0E911003711E9 /* nImOshutdown.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOshutdown.rc.in; sourceTree = "<group>"; };
@@ -343,8 +349,7 @@
 				F61D210C299BA9EA0083424E /* nImOcommutatorMain.cpp */,
 				F61D210D299BA9EA0083424E /* resource.h */,
 			);
-			name = Commutator;
-			path = examples/Simple/Commutator;
+			path = Commutator;
 			sourceTree = "<group>";
 		};
 		F61D210F299BAA080083424E /* Commutator */ = {
@@ -353,14 +358,6 @@
 				F61D2110299BAA080083424E /* CMakeLists.txt */,
 			);
 			path = Commutator;
-			sourceTree = "<group>";
-		};
-		F62DA79E2980160F002882FF /* Echo */ = {
-			isa = PBXGroup;
-			children = (
-				F6300DFD29801C66002F3960 /* CMakeLists.txt */,
-			);
-			path = Echo;
 			sourceTree = "<group>";
 		};
 		F6300DFC29801646002F3960 /* Echo */ = {
@@ -432,6 +429,7 @@
 		F65C48C82985612B00430284 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
+				F61D210B299BA9EA0083424E /* Commutator */,
 				F65C48C92985612B00430284 /* FanIn */,
 				F65C48D12985612B00430284 /* FanOut */,
 				F60394EF2986C06B004A7F8C /* Junction */,
@@ -793,7 +791,6 @@
 		F68373EA240409500030F969 /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				F61D210B299BA9EA0083424E /* Commutator */,
 				F6300DFC29801646002F3960 /* Echo */,
 				F68373EB240409690030F969 /* Ricochet */,
 				F65C48C82985612B00430284 /* Simple */,
@@ -816,7 +813,7 @@
 		F68373F1240409BE0030F969 /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				F62DA79E2980160F002882FF /* Echo */,
+				F69004E229CF477C00271A73 /* Echo */,
 				F68373F4240409F80030F969 /* CMakeLists.txt */,
 				F68373F2240409D70030F969 /* Ricochet */,
 				F65C48D52985614A00430284 /* Simple */,
@@ -830,6 +827,14 @@
 				F68373F3240409EB0030F969 /* CMakeLists.txt */,
 			);
 			name = Ricochet;
+			sourceTree = "<group>";
+		};
+		F69004E229CF477C00271A73 /* Echo */ = {
+			isa = PBXGroup;
+			children = (
+				F69004E129CF476700271A73 /* CMakeLists.txt */,
+			);
+			name = Echo;
 			sourceTree = "<group>";
 		};
 		F692A43729C0E911003711E9 /* SetupSupport */ = {
@@ -1007,6 +1012,8 @@
 				F6811BD3240FFD9700B09333 /* nImOchannelName.h */,
 				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
 				F6F238541CD96F290005554A /* nImOchunkArray.h */,
+				F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */,
+				F69004E829CF4E7100271A73 /* nImOcommandHandler.h */,
 				F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */,
 				F6BE1C242973491F009828BF /* nImOcommandSession.h */,
 				F6A8069A29C6005800567C55 /* nImOcommonCommands.h */,
@@ -1068,12 +1075,16 @@
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,
 				F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */,
+				F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */,
+				F69004EC29CF654300271A73 /* nImOrequestResponse.h */,
 				F6737D5D28857E25000DD5FC /* nImOserviceContext.cpp */,
 				F6737D5B28857E25000DD5FC /* nImOserviceContext.h */,
 				F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */,
 				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
 				F6EE0AD71CA2C7F4004748ED /* nImOset.cpp */,
 				F6EE0AD81CA2C7F4004748ED /* nImOset.h */,
+				F69004E929CF521C00271A73 /* nImOshutdownCommandHandler.cpp */,
+				F69004EA29CF521C00271A73 /* nImOshutdownCommandHandler.h */,
 				F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */,
 				F6737D6228857E42000DD5FC /* nImOsinkContext.h */,
 				F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */,

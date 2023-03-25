@@ -280,7 +280,7 @@ nImO::EncodeBytesAsMIME
             }
             line += kMIMECharSet[group6[ii]];
         }
-        while (count3s++ < 3)
+        for ( ; count3s++ < 3; )
         {
             if (kMaxMIMELine <= line.length())
             {

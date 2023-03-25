@@ -40,6 +40,7 @@
 
 #include <nImOcontextWithMDNS.h>
 #include <nImOregistryCommands.h>
+#include <nImOrequestResponse.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -95,17 +96,6 @@ nImO::RegistryProxy::RegistryProxy
     _context.report("Registry found at " + regAddrStr + ":" + std::to_string(_connection._port) + ".");
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
-
-//nImO::RegistryProxy::RegistryProxy
-//    (ContextWithNetworking &    context,
-//     const std::string &        address,
-//     const uint16_t             port) :
-//        _context(context), _address(address), _port(port)
-//{
-//    ODL_ENTER(); //####
-//    _context.report("Registry found at " + _address + ":" + std::to_string(_port) + ".");
-//    ODL_EXIT_P(this); //####
-//} // nImO::RegistryProxy::RegistryProxy
 
 nImO::RegistryProxy::~RegistryProxy
     (void)

@@ -290,7 +290,7 @@ main
                     // Check for messages.
                     std::unique_lock<std::mutex>    lock(lReceivedLock);
 
-                    while (nImO::gKeepRunning && (0 == lReceivedData.size()))
+                    for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
                     {
                         lReceivedCondition.wait(lock);
                     }
@@ -302,18 +302,15 @@ main
                 }
                 if (nImO::gKeepRunning)
                 {
-                    time_t          rawTime;
-                    std::string     nowAsString;
-                    CPtr(nImO::Map) asMap{nextData->_receivedMessage->asMap()};
-                    uint32_t        sender{nextData->_receivedAddress};
-                    char            timeBuffer[80];
-                    std::string     addressString;
+                    time_t                  rawTime;
+                    std::string             nowAsString;
+                    CPtr(nImO::Map)         asMap{nextData->_receivedMessage->asMap()};
+                    asio::ip::address_v4    sender{nextData->_receivedAddress};
+                    char                    timeBuffer[80];
+                    std::string             addressString{"[" + sender.to_string() + "]"};
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
-                    addressString = "[" + std::to_string((sender >> 24) & 0x0FF) + "." +
-                                    std::to_string((sender >> 16) & 0x0FF) + "." +
-                                    std::to_string((sender >> 8) & 0x0FF) + "." + std::to_string(sender & 0x0FF) + "]";
                     if (nullptr == asMap)
                     {
                         CPtr(nImO::Array)   asArray{nextData->_receivedMessage->asArray()};

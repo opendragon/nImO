@@ -123,6 +123,7 @@ main
                     {
                         ourContext.report("Launcher already running.");
                         std::cerr << "Launcher already running." << std::endl;
+                        exitCode = 1;
                     }
                     else
                     {
@@ -139,17 +140,20 @@ main
                             if (! status.first)
                             {
                                 std::cerr << "Problem with 'removeNode': " << status.second << std::endl;
+                                exitCode = 1;
                             }
                         }
                         else
                         {
                             std::cerr << "Problem with 'addNode': " << status.second << std::endl;
+                            exitCode = 1;
                         }
                     }
                 }
                 else
                 {
                     std::cerr << "Problem with 'nodePresent': " << statusWithBool.first.second << std::endl;
+                    exitCode = 1;
                 }
             }
             else

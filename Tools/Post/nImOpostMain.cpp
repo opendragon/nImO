@@ -125,7 +125,7 @@ main
                 }
                 std::string inLine;
 
-                while (getline(std::cin, inLine))
+                for ( ; getline(std::cin, inLine); )
                 {
                     stuffToSend.push_back(inLine);
                 }

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandHandler.h
+//  File:       nImO/nImOshutdownCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO command handlers.
+//  Contains:   The class declaration for the nImO shutdown command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcommandHandler_H_))
-# define nImOcommandHandler_H_ /* Header guard */
+#if (! defined(nImOshutdownCommandHandler_H_))
+# define nImOshutdownCommandHandler_H_ /* Header guard */
 
-# include <nImOcontextWithMDNS.h>
+# include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO command handlers. */
+ @brief The class declaration for the %nImO shutdown command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide functors used to process commands. */
-    class CommandHandler
+    /*! @brief A class to provide a handler for the shutdown command. */
+    class ShutdownCommandHandler final : public CommandHandler
     {
 
         public :
@@ -67,23 +67,21 @@ namespace nImO
         private :
             // Private type definitions.
 
+            /*! @brief The class that this class is derived from. */
+            using inherited = CommandHandler;
+
         public :
             // Public methods.
 
+            /*! @brief The constructor.
+             @param[in] owner The owning Context. */
+            ShutdownCommandHandler
+                (ContextWithMDNS &  owner);
+
             /*! @brief The destructor. */
             virtual
-            ~CommandHandler
+            ~ShutdownCommandHandler
                 (void);
-
-            /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
-            CommandHandler
-                (const CommandHandler &  other) = delete;
-
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            CommandHandler
-                (CommandHandler &&    other) = delete;
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
@@ -92,40 +90,11 @@ namespace nImO
             doIt
                 (asio::ip::tcp::socket &    socket,
                  const Array &              arguments)
-                const = 0;
-
-            /*! @brief The copy assignment operator.
-             @param[in] other The object to be copied.
-             @return The updated object. */
-            CommandHandler &
-            operator=
-                (const CommandHandler &  other) = delete;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            CommandHandler &
-            operator=
-                (CommandHandler &&  other) = delete;
+                const
+                override;
 
         protected :
             // Protected methods.
-
-            /*! @brief The constructor.
-             @param[in] owner The owning Context.  */
-            CommandHandler
-                (ContextWithMDNS &  owner);
-
-            /*! @brief Send a simple reponse for the command.
-             @param[in] socket The socket where the response should be sent.
-             @param[in] responseKey The response type.
-             @param[in] wasOK @c true if the command succeeded and @c false otherwise. */
-            void
-            sendResponse
-                (asio::ip::tcp::socket &    socket,
-                 const std::string          responseKey,
-                 const bool                 wasOK = false)
-                const;
 
         private :
             // Private methods.
@@ -136,14 +105,11 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The owning Context. */
-            ContextWithMDNS &   _owner;
-
         private :
             // Private fields.
 
-    }; // CommandHandler
+    }; // ShutdownCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOcommandHandler_H_)
+#endif // not defined(nImOshutdownCommandHandler_H_)

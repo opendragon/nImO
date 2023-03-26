@@ -91,9 +91,9 @@ main
 {
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/out"};
+                                                nImO::ArgumentMode::Required, "/out"};
     nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/in"};
+                                                nImO::ArgumentMode::Required, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -102,6 +102,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,

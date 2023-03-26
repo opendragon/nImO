@@ -91,9 +91,9 @@ main
 {
     std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"),
-                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+                                                nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::IntegerArgumentDescriptor secondArg{"numOut", T_("Number of output channels"),
-                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+                                                nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -102,6 +102,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
@@ -120,6 +121,7 @@ main
 
                 for ( ; nImO::gKeepRunning; )
                 {
+                    thread::yield();
 //TBD
                 }
             }

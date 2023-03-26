@@ -108,11 +108,11 @@ main
 {
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/out"};
+                                                nImO::ArgumentMode::Required, "/out"};
     nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/in"};
+                                                nImO::ArgumentMode::Required, "/in"};
     nImO::StringsArgumentDescriptor thirdArg{"mode", T_("Transport mode"),
-                                                nImO::ArgumentMode::OptionalModifiable, "tcp",
+                                                nImO::ArgumentMode::Optional, "tcp",
                                                 nImO::ChannelName::transportNames()};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
@@ -122,6 +122,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);

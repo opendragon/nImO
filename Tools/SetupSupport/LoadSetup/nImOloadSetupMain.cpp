@@ -90,7 +90,7 @@ main
 {
     std::string                         progName{*argv};
     nImO::FilePathArgumentDescriptor    firstArg{"inFile", T_("File to be read from"),
-                                                    nImO::ArgumentMode::RequiredModifiable, "", ".txt"};
+                                                    nImO::ArgumentMode::Required, "", ".txt"};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
@@ -99,6 +99,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load setup", "nImOloadSetup ourApplicationSet", 2023, NIMO_COPYRIGHT_NAME_,
                                      optionValues, nullptr, nImO::kSkipFlavoursOption))

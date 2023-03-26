@@ -113,11 +113,14 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The socket used for command request and response. */
+            /*! @brief The socket used for request and response. */
             asio::ip::tcp::socket   _socket;
 
             /*! @brief The context that created this session. */
             ServiceContext &    _owner;
+
+            /*! @brief A buffer to hold the received request. */
+            asio::streambuf _buffer;
 
     }; // CommandSession
 

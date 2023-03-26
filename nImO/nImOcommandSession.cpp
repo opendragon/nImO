@@ -38,7 +38,13 @@
 
 #include <nImOcommandSession.h>
 
+#include <nImOarray.h>
+#include <nImOcommandHandler.h>
+#include <nImOmessage.h>
+#include <nImOMIMESupport.h>
 #include <nImOserviceContext.h>
+#include <nImOstring.h>
+#include <nImOvalue.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -69,6 +75,61 @@
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Handle the received request.
+ @param[in,out] owner The owning Context for the session.
+ @param[in,out] socket The TCP/IP socket to use for communication.
+ @param[in] incoming The received request. */
+static void
+processRequest
+    (nImO::ServiceContext &     owner,
+     asio::ip::tcp::socket &    socket,
+     const std::string &        incoming)
+{
+    NIMO_UNUSED_ARG_(owner);
+    NIMO_UNUSED_ARG_(socket);
+    // We need to strip off the Message separator first.
+    std::string         trimmed{incoming.substr(0, incoming.length() - (sizeof(MIME_MESSAGE_TERMINATOR_) - 1))};
+    nImO::ByteVector    rawStuff;
+
+    // Ignore a request that can't be processed...
+    if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
+    {
+        auto    stuff{make_unique<nImO::Message>()};
+
+        if ((nullptr != stuff) && (0 < rawStuff.size()))
+        {
+            stuff->open(false);
+            stuff->appendBytes(rawStuff.data(), rawStuff.size());
+            nImO::SpValue   contents{stuff->getValue()};
+
+            stuff->close();
+            if (stuff->readAtEnd())
+            {
+                if (nullptr != contents)
+                {
+                    CPtr(nImO::Array)   asArray{contents->asArray()};
+
+                    if ((nullptr != asArray) && (0 < asArray->size()))
+                    {
+                        nImO::SpValue       firstElement{(*asArray)[0]};
+                        CPtr(nImO::String)  request{firstElement->asString()};
+
+                        if (nullptr != request)
+                        {
+                            Ptr(nImO::CommandHandler)   handler{owner.getHandler(request->getValue())};
+
+                            if (nullptr != handler)
+                            {
+                                handler->doIt(socket, *asArray);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+} // processRequest
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -111,55 +172,36 @@ nImO::CommandSession::start
     (void)
 {
     ODL_OBJENTER(); //####
+    std::atomic<bool>   keepGoing{true};
+
+#if defined(nImO_ChattyTcpLogging)
+    _owner.report("retrieving request");
+#endif /* defined(nImO_ChattyTcpLogging) */
+    asio::async_read_until(_socket, _buffer, MatchMessageSeparator,
+                            [this, &keepGoing]
+                            (const system::error_code & ec,
+                             const std::size_t          NIMO_UNUSED_PARAM_(size))
+                            {
+                                if (ec)
+                                {
+                                    _owner.report("async_read_until failed");
+                                }
+                                else
+                                {
+#if defined(nImO_ChattyTcpLogging)
+                                    _owner.report("got request");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                    processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())});
+                                }
+                                keepGoing = false;
+                            });
+    for ( ; keepGoing; )
+    {
+        thread::yield();
+    }
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::start
 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
-
-
-#if 0
-    void start()
-    {
-        socket_.async_read_some(asio::buffer(data_, max_length),
-                                boost::bind(&session::handle_read, this,
-                                            asio::placeholders::error,
-                                            asio::placeholders::bytes_transferred));
-    }
-
-    void handle_read(const system::error_code& error,
-                     size_t bytes_transferred)
-    {
-        if (0 == error.value())
-        {
-            boost::asio::async_write(socket_,
-                                     asio::buffer(data_, bytes_transferred),
-                                     boost::bind(&session::handle_write, this,
-                                                 asio::placeholders::error));
-        }
-        else
-        {
-            delete this;
-        }
-    }
-
-    void handle_write(const system::error_code& error)
-    {
-        if (0 == error.value())
-        {
-            socket_.async_read_some(asio::buffer(data_, max_length),
-                                    boost::bind(&session::handle_read, this,
-                                                asio::placeholders::error,
-                                                asio::placeholders::bytes_transferred));
-        }
-        else
-        {
-            delete this;
-        }
-    }
-
-private:
-    enum { max_length = 1024 };
-    char data_[max_length];
-#endif//0

@@ -92,7 +92,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"channel", T_("Channel of interest"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/in"};
+                                                nImO::ArgumentMode::Required, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -101,6 +101,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))

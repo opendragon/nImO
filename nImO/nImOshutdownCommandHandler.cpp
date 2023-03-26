@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOloadAppsMain.cpp
+//  File:       nImO/nImOcommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to load a set of applications.
+//  Contains:   The class definition for the nImO shutdown command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-02-09
+//  Created:    2023-03-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilePathArgumentDescriptor.h>
+#include <nImOshutdownCommandHandler.h>
+
+#include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
-#include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
-#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -51,10 +50,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to load a set of applications. */
-
-/*! @dir Version
- @brief The set of files that implement the LoadApplications tool. */
+ @brief The class definition for the %nImO shutdown command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,61 +72,47 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::ShutdownCommandHandler::ShutdownCommandHandler
+    (ContextWithMDNS &  owner) :
+        inherited(owner)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"inFile", T_("File to be read from"),
-                                                    nImO::ArgumentMode::Required, "", ".txt"};
-    nImO::DescriptorVector              argumentList;
-    nImO::StandardOptions               optionValues;
-    int                                 exitCode = 0;
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load applications", "nImOloadApps ourApplicationSet", 2023, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption))
-    {
-        nImO::LoadConfiguration(optionValues._configFilePath);
-        try
-        {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "loadApps", optionValues._logging};
-            nImO::Connection        registryConnection;
+    ODL_EXIT_P(this); //####
+} // nImO::ShutdownCommandHandler::ShutdownCommandHandler
 
-            if (ourContext.findRegistry(registryConnection))
-            {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+nImO::ShutdownCommandHandler::~ShutdownCommandHandler
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ShutdownCommandHandler::~ShutdownCommandHandler
 
-                // TBD
-            }
-            else
-            {
-                ourContext.report("Registry not found.");
-                exitCode = 2;
-            }
-            ourContext.report("Exiting.");
-        }
-        catch (...)
-        {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
-        }
-    }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+void
+nImO::ShutdownCommandHandler::doIt
+    (asio::ip::tcp::socket &    socket,
+     const Array &              NIMO_UNUSED_PARAM_(arguments))
+    const
+{
+    ODL_OBJENTER(); //####
+    _owner.report("shutdown request received");
+    // Send the response to the requestor.
+    sendResponse(socket, kShutDownResponse, true);
+    // Signal to the application that it should terminate.
+    gKeepRunning = false;
+    ODL_OBJEXIT(); //####
+} // nImO::ShutdownCommandHandler::doIt
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

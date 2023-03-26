@@ -93,9 +93,9 @@ main
 {
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/in"};
+                                                nImO::ArgumentMode::Required, "/in"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::OptionalModifiable, "sink"};
+                                                nImO::ArgumentMode::Optional, "sink"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -104,6 +104,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Read from a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,

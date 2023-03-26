@@ -90,7 +90,7 @@ main
 {
     std::string                         progName{*argv};
     nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("File to be written to"),
-                                                    nImO::ArgumentMode::RequiredModifiable, "", ".txt", true};
+                                                    nImO::ArgumentMode::Required, "", ".txt", true};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
@@ -99,6 +99,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Store applications", "nImOstoreApps ourApplicationSet", 2023, NIMO_COPYRIGHT_NAME_,
                                      optionValues, nullptr, nImO::kSkipFlavoursOption))

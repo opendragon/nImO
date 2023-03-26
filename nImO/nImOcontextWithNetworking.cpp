@@ -249,6 +249,35 @@ nImO::ContextWithNetworking::~ContextWithNetworking
 
 bool
 nImO::ContextWithNetworking::report
+    (CPtr(char) stringToSend)
+    const
+{
+    bool    okSoFar;
+
+    ODL_OBJENTER(); //####
+    if (_loggingEnabled)
+    {
+        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+
+        if (nullptr == _logger)
+        {
+            okSoFar = true;
+        }
+        else
+        {
+            okSoFar = _logger->report(stringToSend);
+        }
+    }
+    else
+    {
+        okSoFar = true; // If we aren't set up for logging, ignore this call.
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ContextWithNetworking::report
+
+bool
+nImO::ContextWithNetworking::report
     (const std::string &    stringToSend)
     const
 {

@@ -104,7 +104,7 @@ nImO::ServiceContext::ServiceContext
     {
         createCommandPort();
         setCommandPort(_commandPort);
-        if (addHandler(kShutDownRequest, new ShutdownCommandHandler()))
+        if (addHandler(kShutDownRequest, new ShutdownCommandHandler(*this)))
         {
             if (waitForRegistry())
             {
@@ -220,6 +220,9 @@ nImO::ServiceContext::handleAccept
     {
         if (_keepGoing)
         {
+#if defined(nImO_ChattyTcpLogging)
+            report("connection request received");
+#endif /* defined(nImO_ChattyTcpLogging) */
             releaseSession = false;
             newSession->start();
             newSession = new CommandSession(*this);

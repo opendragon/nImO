@@ -91,7 +91,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::OptionalModifiable, "bridge"};
+                                                nImO::ArgumentMode::Optional, "bridge"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -100,6 +100,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two subnets", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipFlavoursOption))

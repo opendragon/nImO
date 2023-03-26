@@ -58,6 +58,9 @@ namespace nImO
     /*! @brief A string that marks the end of a message. */
     extern const std::string    kMessageSentinel;
 
+    /*! @brief A shorter name for a useful type. */
+    typedef asio::buffers_iterator<asio::streambuf::const_buffers_type> BufferIterator;
+
     /*! @brief The data constituting a Message. */
     class Message final : public ChunkArray
     {
@@ -225,6 +228,15 @@ namespace nImO
             bool    _headerAdded;
 
     }; // Message
+
+/*! @brief Scan the received characters and indicate then the Message sentinel has appeared.
+ @param[in] begin Where in the buffer to start scanning.
+ @param[in] end Where in the buffer to stop scanning.
+ @return The position past the Message sentinel and @c true if the Message sentinel was found or the position where scanning stopped and @c false. */
+std::pair<BufferIterator, bool>
+MatchMessageSeparator
+    (BufferIterator begin,
+     BufferIterator end);
 
 } // nImO
 

@@ -91,7 +91,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"),
-                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+                                                nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -100,6 +100,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanIn example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipFlavoursOption))
@@ -117,6 +118,7 @@ main
 
                 for ( ; nImO::gKeepRunning; )
                 {
+                    thread::yield();
 //TBD
                 }
             }

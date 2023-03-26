@@ -92,7 +92,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"),
-                                                nImO::ArgumentMode::OptionalModifiable, 1, true, 1, false, 0};
+                                                nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::BooleanArgumentDescriptor secondArg{"random", T_("True if random routing"),
                                                 nImO::ArgumentMode::Optional, false};
     nImO::DescriptorVector          argumentList;
@@ -103,6 +103,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
@@ -121,6 +122,7 @@ main
 
                 for ( ; nImO::gKeepRunning; )
                 {
+                    thread::yield();
 //TBD
                 }
             }

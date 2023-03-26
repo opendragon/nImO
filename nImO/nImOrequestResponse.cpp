@@ -39,6 +39,7 @@
 #include <nImOrequestResponse.h>
 
 #include <nImOarray.h>
+#include <nImOcontextWithMDNS.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
@@ -82,6 +83,45 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Extract the response data and pass it on to a request-specific handler.
+ @param[in] handler The request-specific handler, @c nullptr if not needed.
+ @param[in] incoming The response to be processed. */
+static void
+handleResponse
+    (Ptr(nImO::ResponseHandler) handler,
+     const std::string          incoming)
+{
+    if (nullptr != handler)
+    {
+        // We need to strip off the Message separator first.
+        std::string         trimmed{incoming.substr(0, incoming.length() - (sizeof(MIME_MESSAGE_TERMINATOR_) - 1))};
+        nImO::ByteVector    rawStuff;
+
+        // Ignore a request that can't be processed...
+        if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
+        {
+            auto    stuff{make_unique<nImO::Message>()};
+
+            if ((nullptr != stuff) && (0 < rawStuff.size()))
+            {
+                stuff->open(false);
+                stuff->appendBytes(rawStuff.data(), rawStuff.size());
+                nImO::SpValue   contents{stuff->getValue()};
+
+                stuff->close();
+                if (stuff->readAtEnd())
+                {
+                    if (nullptr != contents)
+                    {
+                        handler->doIt(*contents);
+                    }
+                }
+            }
+        }
+
+    }
+} // handleResponse
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -100,14 +140,14 @@
 
 void
 nImO::SendRequestWithoutResponse
-    (Connection &       connection,
+    (ContextWithMDNS &  context,
+     Connection &       connection,
      const std::string  requestKey)
 {
     Message requestToSend;
     SpArray requestArray{new Array};
 
     ODL_ENTER(); //####
-NIMO_UNUSED_ARG_(connection);//!!
     ODL_OBJENTER(); //####
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
@@ -119,18 +159,73 @@ NIMO_UNUSED_ARG_(connection);//!!
 
         if (0 < asString.length())
         {
-            StringVector    outVec;
+            StringVector        outVec;
+            std::atomic<bool>   keepGoing{true};
 
             EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + kMessageSentinel));
+            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + "\n" + kMessageSentinel));
 
-            // send the encoded message to the requestor
-//            _socket.async_send_to(asio::buffer(*outString), _endpoint,
-//                                  [outString]
-//                                  (const system::error_code NIMO_UNUSED_PARAM_(ec),
-//                                   const std::size_t        NIMO_UNUSED_PARAM_(length))
-//                                  {
-//                                  });
+            // Make a connection to the service whose address is in the connection argument.
+            asio::ip::tcp::socket   socket{*context.getService()};
+            asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
+
+            socket.async_connect(endpoint,
+                                 [&context, &socket, &outString, &keepGoing]
+                                 (const system::error_code &    ec1)
+                                 {
+                                    if (ec1)
+                                    {
+                                        context.report("async_connect failed");
+                                        keepGoing = false;
+                                    }
+                                    else
+                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                        context.report("connection request accepted");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
+                                                          [&socket, &context, &keepGoing]
+                                                          (const system::error_code &   ec2,
+                                                           const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                                                          {
+                                                            if (ec2)
+                                                            {
+                                                                context.report("async_write failed");
+                                                                keepGoing = false;
+                                                            }
+                                                            else
+                                                            {
+#if defined(nImO_ChattyTcpLogging)
+                                                                context.report("command sent");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                                asio::streambuf responseBuffer;
+
+                                        asio::async_read_until(socket, responseBuffer, MatchMessageSeparator,
+                                                                [&context, &responseBuffer, &keepGoing]
+                                                                (const system::error_code & ec,
+                                                                 const std::size_t          NIMO_UNUSED_PARAM_(size))
+                                                                {
+                                                                    if (ec)
+                                                                    {
+                                                                        context.report("async_read_until failed");
+                                                                    }
+                                                                    else
+                                                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                                                        context.report("got response");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                                        // The following does nothing, but shows how to manage responses.
+                                                                        handleResponse(nullptr, std::string{buffers_begin(responseBuffer.data()),                                               buffers_end(responseBuffer.data())});
+                                                                    }
+                                                                    keepGoing = false;
+                                                                });
+                                                            }});
+                                    }});
+            for ( ; keepGoing; )
+            {
+                thread::yield();
+            }
+            socket.close();
         }
         else
         {

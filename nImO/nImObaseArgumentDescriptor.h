@@ -81,17 +81,8 @@ namespace nImO
         /*! @brief The argument is optional. */
         Optional = 0x01,
 
-        /*! @brief The argument is modifiable. */
-        Modifiable = 0x02,
-
         /*! @brief The argument is a password (not displayable). */
-        Password = 0x04,
-
-        /*! @brief The argument is both required and modifiable. */
-        RequiredModifiable = (Required | Modifiable),
-
-        /*! @brief The argument is both optional and modifiable. */
-        OptionalModifiable = (Optional | Modifiable),
+        Password = 0x02,
 
         /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
@@ -100,7 +91,7 @@ namespace nImO
         OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */
-        Mask = (Optional | Modifiable | Password),
+        Mask = (Optional | Password),
 
         /*! @brief The mode of the argument is undefined. */
         Unknown = 0x00FF
@@ -285,16 +276,6 @@ namespace nImO
             isLogical
                 (void)
                 const;
-
-            /*! @brief Return @c true if the argument is modifiable and @c false otherwise.
-             @return @c true if the argument is modifiable and @c false otherwise. */
-            inline bool
-            isModifiable
-                (void)
-                const
-            {
-                return ((ArgumentMode::Unknown != _argMode) && (0 != (toUType(_argMode) & toUType(ArgumentMode::Modifiable))));
-            }
 
             /*! @brief Return @c true if the argument is optional and @c false otherwise.
              @return @c true if the argument is optional and @c false otherwise. */

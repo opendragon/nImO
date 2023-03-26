@@ -98,6 +98,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -128,6 +129,7 @@ main
                     {
                         for ( ; nImO::gKeepRunning; )
                         {
+                            thread::yield();
     //TBD
                         }
                     }

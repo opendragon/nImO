@@ -90,7 +90,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::RequiredModifiable, ""};
+                                                nImO::ArgumentMode::Required, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -99,6 +99,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application", "nImOremoveApp shortAppName", 2020, NIMO_COPYRIGHT_NAME_,
                                      optionValues, nullptr, nImO::kSkipFlavoursOption))

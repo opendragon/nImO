@@ -131,6 +131,25 @@ nImO::Logger::~Logger
 
 bool
 nImO::Logger::report
+    (CPtr(char) stringToSend)
+{
+    bool    okSoFar;
+
+    ODL_OBJENTER(); //####
+    if ((nullptr != stringToSend) && (0 < strlen(stringToSend)))
+    {
+        okSoFar = report(std::make_shared<String>(stringToSend));
+    }
+    else
+    {
+        okSoFar = false;
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::Logger::report
+
+bool
+nImO::Logger::report
     (const std::string &    stringToSend)
 {
     bool    okSoFar;

@@ -325,7 +325,7 @@ namespace nImO
 
             /*! @brief Returns the number of elements in the Array. */
             virtual size_t
-                size
+            size
                 (void)
                 const
                 override;

@@ -888,6 +888,11 @@ namespace nImO
          CPtr(char)             heading,
          const std::string &    description);
 
+    /*! @brief Write out the versions of libraries used, if enabled via the build flag. */
+    void
+    ReportVersions
+        (void);
+
     /*! @brief Standardize the handling of multiple Transport value specifications.
      @param[in] firstTransport A Transport value.
      @param[in] secondTransport Another Transport value.

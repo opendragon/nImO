@@ -255,6 +255,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     lChoiceMap.insert({"apps", ChoiceInfo{Choice::kApps, "available applications"}});
     lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", ChoiceInfo{Choice::kConn, "active connections"}});
@@ -268,7 +269,7 @@ main
         choiceSet.insert(walker.first);
     }
     nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"),
-                                             nImO::ArgumentMode::OptionalModifiable, "all", choiceSet};
+                                             nImO::ArgumentMode::Optional, "all", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;

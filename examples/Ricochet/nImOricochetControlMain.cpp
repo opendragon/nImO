@@ -100,6 +100,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example", "", 2020, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
@@ -113,6 +114,7 @@ main
 
             for ( ; nImO::gKeepRunning; )
             {
+                thread::yield();
 //TBD
             }
 #if 0

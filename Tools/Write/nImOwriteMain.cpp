@@ -92,9 +92,9 @@ main
 {
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
-                                                nImO::ArgumentMode::RequiredModifiable, "/out"};
+                                                nImO::ArgumentMode::Required, "/out"};
     nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::OptionalModifiable, "source"};
+                                                nImO::ArgumentMode::Optional, "source"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -103,6 +103,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
@@ -123,6 +124,7 @@ main
                 // Wait for messages until exit requested via Ctrl-C or a shutdown command is received.
                 for ( ; nImO::gKeepRunning; )
                 {
+                    thread::yield();
                     // TBD
                 }
                 std::cout << "saw Ctrl-C" << std::endl;

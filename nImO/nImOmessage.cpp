@@ -42,6 +42,7 @@
 #include <nImObufferChunk.h>
 #include <nImOinvalid.h>
 #include <nImOlogical.h>
+#include <nImOMIMESupport.h>
 #include <nImOvalue.h>
 
 //#include <odlEnable.h>
@@ -96,7 +97,7 @@ static const DataKind   kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessag
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kMessageSentinel{"$$$"};
+const std::string   nImO::kMessageSentinel{MIME_MESSAGE_TERMINATOR_};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -470,3 +471,22 @@ nImO::Message::setValue
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::pair<BufferIterator, bool>
+nImO::MatchMessageSeparator
+    (BufferIterator begin,
+     BufferIterator end)
+{
+    BufferIterator  ii = begin;
+
+    for ( ; ii != end; )
+    {
+        std::string checker{ii++, end};
+
+        if (checker == MIME_MESSAGE_TERMINATOR_)
+        {
+            return std::make_pair(ii, true);
+        }
+    }
+    return std::make_pair(ii, false);
+} // nImO::MatchMessageSeparator

@@ -270,6 +270,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO", "nImOmonitor", 2017, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
     {
@@ -286,12 +287,14 @@ main
             {
                 SpReceivedData  nextData;
 
+                thread::yield();
                 {
                     // Check for messages.
                     std::unique_lock<std::mutex>    lock(lReceivedLock);
 
                     for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
                     {
+                        thread::yield();
                         lReceivedCondition.wait(lock);
                     }
                     if (nImO::gKeepRunning)

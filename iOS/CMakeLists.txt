@@ -68,43 +68,24 @@ cmake_policy(SET CMP0042 OLD)
 
 option(nImO_ChattyStart "Report the version numbers when launching an executable")
 
-option(nImO_DoExplicitCheckForOK "Check OK responses for validity")
+#       option(nImO_ChattyTcpLogging "Log the TCP/IP operations")
+#mark_as_advanced(nImO_ChattyTcpLogging)
 
-#option(nImO_DoExplicitClose "Perform an explicit CloseChannel() prior to freeing a channel")
+#       option(nImO_DoExplicitClose "Perform an explicit CloseChannel() prior to freeing a channel")
 #mark_as_advanced(nImO_DoExplicitClose)
 
-#option(nImO_DoExplicitDisconnect "Perform an explicit disconnect prior to closing a channel")
+#       option(nImO_DoExplicitDisconnect "Perform an explicit disconnect prior to closing a channel")
 #mark_as_advanced(nImO_DoExplicitDisconnect)
 
-#option(nImO_DontUseTimeouts "Allow operations to take arbitrary lengths of time")
+#       option(nImO_DontUseTimeouts "Allow operations to take arbitrary lengths of time")
 #mark_as_advanced(nImO_DontUseTimeouts)
 
-#option(nImO_LogIncludesYarpTrace "Include YARP trace when logging")
+#       option(nImO_MetricsInitiallyOn "Collect channel measurement data by default")
 
-#option(nImO_MetricsInitiallyOn "Collect channel measurement data by default")
+#       option(nImO_ReportOnConnections "Report on connections")
 
-#option(nImO_ReportContactDetails
-#        "Report details of the contacts during operations that might change them")
-#mark_as_advanced(nImO_ReportContactDetails)
-
-#option(nImO_ReportOnConnections "Report on connections")
-
-#option(nImO_ServicesLogToStandardError "Services send logging output to stderr" ON)
-
-#option(nImO_StallOnSendProblem "A send failure goes to a tight loop")
-#mark_as_advanced(nImO_StallOnSendProblem)
-
-#option(nImO_UseCustomStringBuffer "Use a custom string buffer for large string output" ON)
-#mark_as_advanced(nImO_UseCustomStringBuffer)
-
-#option(nImO_UseDiskDatabase "Use a disk-based database, rather than in-memory")
+#       option(nImO_UseDiskDatabase "Use a disk-based database, rather than in-memory")
 #mark_as_advanced(nImO_UseDiskDatabase)
-
-#option(nImO_UseTestDatabase "Use a test database, in /tmp, rather than a random disk location")
-#mark_as_advanced(nImO_UseTestDatabase)
-
-#option(nImO_UseTimeoutsInRetryLoops "Use timeouts in retry loops")
-#mark_as_advanced(nImO_UseTimeoutsInRetryLoops)
 
 #option(nImO_DO_SWIG "Build the SWIG files" OFF)
 

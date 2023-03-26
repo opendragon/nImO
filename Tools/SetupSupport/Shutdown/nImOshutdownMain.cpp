@@ -93,7 +93,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown"),
-                                                nImO::ArgumentMode::OptionalModifiable, ""};
+                                                nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -102,6 +102,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or all nodes", "nImOshutdown", 2023,
                                      NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
@@ -149,7 +150,7 @@ main
                     // Send Shutdown command to all services.
                     // Send Shutdown command to all nodes.
                     // Send Shutdown command to Registry.
-                    nImO::SendRequestWithoutResponse(registryConnection, nImO::kShutDownRequest);
+                    nImO::SendRequestWithoutResponse(ourContext, registryConnection, nImO::kShutDownRequest);
                 }
             }
             else

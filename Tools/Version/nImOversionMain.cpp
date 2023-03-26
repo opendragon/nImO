@@ -44,14 +44,14 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-# if MAC_OR_LINUX_
-#  pragma GCC diagnostic push
-#  pragma GCC diagnostic ignored "-Wunused-function"
-# endif // MAC_OR_LINUX_
-# include <mdns.hpp>
-# if MAC_OR_LINUX_
-#  pragma GCC diagnostic pop
-# endif // MAC_OR_LINUX_
+#if MAC_OR_LINUX_
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wunused-function"
+#endif // MAC_OR_LINUX_
+#include <mdns.hpp>
+#if MAC_OR_LINUX_
+# pragma GCC diagnostic pop
+#endif // MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

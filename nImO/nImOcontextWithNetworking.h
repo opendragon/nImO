@@ -112,6 +112,14 @@ namespace nImO
              @return @c true if the message was successfully logged. */
             bool
             report
+                (CPtr(char) stringToSend)
+                const;
+
+            /*! @brief Log a message.
+             @param[in] stringToSend The message to be logged.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
                 (const std::string &    stringToSend)
                 const;
 

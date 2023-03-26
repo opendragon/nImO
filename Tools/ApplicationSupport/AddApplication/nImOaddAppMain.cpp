@@ -91,9 +91,9 @@ main
 {
     std::string                         progName{*argv};
     nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("Path to application"),
-                                                    nImO::ArgumentMode::RequiredModifiable, "", ""};
+                                                    nImO::ArgumentMode::Required, "", ""};
     nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::OptionalModifiable, ""};
+                                                nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
@@ -102,6 +102,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add application", "nImOaddApp /path-to-application [shortAppName]", 2020,

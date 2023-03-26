@@ -38,12 +38,15 @@
 
 #include <nImOcommon.h>
 
+#include <boost/version.hpp>
 #include <initFile.h>
+#include <initFileConfig.h>
 #include <initFileObject.h>
 #include <nImObaseArgumentDescriptor.h>
 #include <nImOcontext.h>
 #include <nImOvalue.h>
 #include <fstream>
+#include <regex>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -63,6 +66,15 @@
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
+
+#if MAC_OR_LINUX_
+# pragma GCC diagnostic push
+# pragma GCC diagnostic ignored "-Wunused-function"
+#endif // MAC_OR_LINUX_
+#include <mdns.hpp>
+#if MAC_OR_LINUX_
+# pragma GCC diagnostic pop
+#endif // MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -287,7 +299,7 @@ nImO::ConsumeSomeTime
     ODL_D1("amount = ", amount); //####
     if (nullptr != context)
     {
-        boost::asio::deadline_timer timer(*context->getService());
+        asio::deadline_timer    timer(*context->getService());
 
         timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
         timer.wait();
@@ -818,6 +830,20 @@ nImO::OutputDescription
 
     outStream << indent << piece.c_str() << std::endl;
 } // nImO::OutputDescription
+
+void
+nImO::ReportVersions
+    (void)
+{
+#if defined(nImO_ChattyStart)
+    std::string source{BOOST_LIB_VERSION};
+    std::regex  exp{"_"};
+
+    std::cout << "nImO Version: " << nImO::SanitizeString(nImO_VERSION_, true) << ", ODL Version: " << nImO::SanitizeString(ODL_VERSION_, true) <<
+                ", mdns_plusplus Version: " << nImO::SanitizeString(mdns_plusplus_VERSION_, true) << ", Boost Version: " <<
+                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << std::endl;
+#endif /* defined(nImO_ChattyStart) */
+} // nImO::ReportVersions
 
 nImO::Transport
 nImO::ResolveTransport

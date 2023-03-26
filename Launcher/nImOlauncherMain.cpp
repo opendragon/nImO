@@ -91,7 +91,7 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"),
-                                            nImO::ArgumentMode::OptionalModifiable, nImO::GetShortComputerName()};
+                                            nImO::ArgumentMode::Optional, nImO::GetShortComputerName()};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -100,6 +100,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launcher", "nImLauncher", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipFlavoursOption))
@@ -134,6 +135,7 @@ main
                             ourContext.report("Waiting for requests.");
                             for ( ; nImO::gKeepRunning; )
                             {
+                                thread::yield();
         //TBD
                             }
                             status = proxy.removeNode(nodeName);

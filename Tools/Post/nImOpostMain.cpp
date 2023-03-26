@@ -91,9 +91,9 @@ main
 {
     std::string                     progName{*argv};
     nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"),
-                                                nImO::ArgumentMode::OptionalModifiable, false};
+                                                nImO::ArgumentMode::Optional, false};
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"),
-                                                nImO::ArgumentMode::OptionalModifiable, ""};
+                                                nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues(true);
     nImO::StringVector              arguments;
@@ -103,6 +103,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications", "nImOpost false \"aMessage\"", 2022,

@@ -55,12 +55,89 @@
 namespace nImO
 {
 
+    class ContextWithMDNS;
+
+    /*! @brief A class to provide functors used to process responses. */
+    class ResponseHandler
+    {
+
+        public :
+            // Public type definitions.
+
+        protected :
+            // Protected type definitions.
+
+        private :
+            // Private type definitions.
+
+        public :
+            // Public methods.
+
+            /*! @brief The destructor. */
+            virtual
+            ~ResponseHandler
+                (void);
+
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            ResponseHandler
+                (const ResponseHandler &  other) = delete;
+
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ResponseHandler
+                (ResponseHandler &&    other) = delete;
+
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            virtual void
+            doIt
+                (const Value &  stuff)
+                const = 0;
+
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            ResponseHandler &
+            operator=
+                (const ResponseHandler &    other) = delete;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            ResponseHandler &
+            operator=
+                (ResponseHandler && other) = delete;
+
+        protected :
+            // Protected methods.
+
+            /*! @brief The constructor.  */
+            ResponseHandler
+                (void);
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+    }; // ResponseHandler
+
     /*! @brief Send a simple request with no expected results.
+     @param[in] context The context in which the request is being made.
      @param[in] connection The connection to be used.
      @param[in] requestKey The request to be sent. */
     void
     SendRequestWithoutResponse
-        (Connection &       connection,
+        (ContextWithMDNS &  context,
+         Connection &       connection,
          const std::string  requestKey);
 
 } // nImO

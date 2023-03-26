@@ -92,7 +92,8 @@
 #endif // defined(__APPLE__)
 
 nImO::CommandHandler::CommandHandler
-    (void)
+    (ContextWithMDNS &  owner) :
+        _owner(owner)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -111,8 +112,9 @@ nImO::CommandHandler::~CommandHandler
 
 void
 nImO::CommandHandler::sendResponse
-    (const std::string  responseKey,
-     const bool         wasOK)
+    (asio::ip::tcp::socket &    socket,
+     const std::string          responseKey,
+     const bool                 wasOK)
     const
 {
     Message responseToSend;
@@ -130,18 +132,38 @@ nImO::CommandHandler::sendResponse
 
         if (0 < asString.length())
         {
-            StringVector    outVec;
+            std::atomic<bool>   keepGoing{true};
+            StringVector        outVec;
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + kMessageSentinel));
 
-            // send the encoded message to the requestor
-//            _socket.async_send_to(asio::buffer(*outString), _endpoint,
-//                                  [outString]
-//                                  (const system::error_code NIMO_UNUSED_PARAM_(ec),
-//                                   const std::size_t        NIMO_UNUSED_PARAM_(length))
-//                                  {
-//                                  });
+            // send the encoded message to the requestor.
+#if defined(nImO_ChattyTcpLogging)
+            _owner.report("sending response");
+#endif /* defined(nImO_ChattyTcpLogging) */
+            asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
+                              [this, &keepGoing]
+                              (const system::error_code &   ec,
+                               const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                              {
+                                if (ec)
+                                {
+                                    _owner.report("async_write failed");
+                                    keepGoing = false;
+                                }
+                                else
+                                {
+#if defined(nImO_ChattyTcpLogging)
+                                    _owner.report("command sent");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                    keepGoing = false;
+                                }
+                              });
+            for ( ; keepGoing; )
+            {
+                thread::yield();
+            }
         }
         else
         {

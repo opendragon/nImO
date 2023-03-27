@@ -102,6 +102,9 @@ namespace nImO
         /*! @brief The address tag modifier  set by a command-line option. */
         AddressTagModifier  _modFlag;
 
+        /*! @brief The node name set by a command-line option. */
+        std::string _node;
+
         /*! @brief The constructor. */
         ServiceOptions
             (void) :

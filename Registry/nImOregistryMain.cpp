@@ -99,7 +99,10 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues,
+                                    nImO::kSkipArgsOption | nImO::kSkipChannelOption | nImO::kSkipEndpointOption | nImO::kSkipFlavoursOption |
+                                    nImO::kSkipGoOption | nImO::kSkipInfoOption | nImO::kSkipModOption | nImO::kSkipNodeOption |
+                                    nImO::kSkipPortOption | nImO::kSkipTagOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

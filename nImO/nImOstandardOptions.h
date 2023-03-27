@@ -89,14 +89,17 @@ namespace nImO
         /*! @brief Skip the 'mod' option. */
         kSkipModOption          = 0x0100,
 
+        /*! @brief Skip the 'node' option. */
+        kSkipNodeOption         = 0x0200,
+
         /*! @brief Skip the 'port' option. */
-        kSkipPortOption         = 0x0200,
+        kSkipPortOption         = 0x0400,
 
         /*! @brief Skip the 'report' option. */
-        kSkipReportOption       = 0x0400,
+        kSkipReportOption       = 0x0800,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x0800,
+        kSkipTagOption          = 0x1000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF

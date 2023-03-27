@@ -121,6 +121,7 @@ nImO::ProcessServiceOptions
         kOptionINFO,
         kOptionLOG,
         kOptionMOD,
+        kOptionNODE,
         kOptionPORT,
         kOptionREPORT,
         kOptionTAG,
@@ -161,9 +162,12 @@ nImO::ProcessServiceOptions
                                         T_("  --log, -l \tLog application")};
     Option_::Descriptor modDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMOD), 0, "m", "mod", Option_::Arg::Required,
                                         T_("  --mod, -m \tUse the IP address as a modifier for the tag")};
+    Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
+                                        T_("  --node, -n \tSpecify a non-default node name to be used")};
     Option_::Descriptor portDescriptor{StaticCast(unsigned int, OptionIndex::kOptionPORT), 0, "p", "port", Option_::Arg::Required,
                                         T_("  --port, -p \tSpecify a non-default port to be used")};
-    Option_::Descriptor reportDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREPORT), 0, "r", "report", Option_::Arg::None, reportPartText.c_str()};
+    Option_::Descriptor reportDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREPORT), 0, "r", "report", Option_::Arg::None,
+                                            reportPartText.c_str()};
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "vers", Option_::Arg::None,
                                             T_("  --vers, -v \tPrint version information and exit")};
@@ -171,7 +175,7 @@ nImO::ProcessServiceOptions
     int                 argcWork = argc;
     Ptr(Ptr(char))      argvWork = argv;
     std::string         usageString("USAGE: ");
-    std::string         argList(ArgumentsToArgString(argumentDescriptions));
+    std::string         argList{ArgumentsToArgString(argumentDescriptions)};
 
     if (nullptr != arguments)
     {
@@ -232,6 +236,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipNodeOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipPortOption))
     {
         ++descriptorCount;
@@ -286,6 +294,10 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &modDescriptor, sizeof(modDescriptor));
     }
+    if (0 == (skipOptions & kSkipNodeOption))
+    {
+        memcpy(usageWalker++, &nodeDescriptor, sizeof(nodeDescriptor));
+    }
     if (0 == (skipOptions & kSkipPortOption))
     {
         memcpy(usageWalker++, &portDescriptor, sizeof(portDescriptor));
@@ -321,9 +333,7 @@ nImO::ProcessServiceOptions
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
     {
-        std::string nImOversionString(SanitizeString(nImO_VERSION_, true));
-
-        std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " << copyrightHolder << "." << std::endl;
+        std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " << copyrightHolder << "." << std::endl;
         keepGoing = false;
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionARGS)])
@@ -423,6 +433,15 @@ nImO::ProcessServiceOptions
             }
             std::cout << "m";
         }
+        if (0 == (skipOptions & kSkipNodeOption))
+        {
+            if (needTab)
+            {
+                std::cout << "\t";
+                needTab = false;
+            }
+            std::cout << "n";
+        }
         if (0 == (skipOptions & kSkipPortOption))
         {
             if (needTab)
@@ -517,6 +536,10 @@ nImO::ProcessServiceOptions
         if ((0 == (kSkipConfigFileOption & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
         {
             optionValues._configFilePath = configOption->arg;
+        }
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNODE)])
+        {
+            optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionENDPOINT)])
         {

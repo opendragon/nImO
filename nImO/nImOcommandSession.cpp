@@ -104,30 +104,51 @@ processRequest
             nImO::SpValue   contents{stuff->getValue()};
 
             stuff->close();
-            if (stuff->readAtEnd())
+            if (stuff->readAtEnd() && (nullptr != contents))
             {
-                if (nullptr != contents)
+                CPtr(nImO::Array)   asArray{contents->asArray()};
+
+                if ((nullptr != asArray) && (0 < asArray->size()))
                 {
-                    CPtr(nImO::Array)   asArray{contents->asArray()};
+//                    nImO::SpValue       firstElement{(*asArray)[0]};
+                    CPtr(nImO::String)  request{(*asArray)[0]->asString()};
 
-                    if ((nullptr != asArray) && (0 < asArray->size()))
+                    if (nullptr != request)
                     {
-                        nImO::SpValue       firstElement{(*asArray)[0]};
-                        CPtr(nImO::String)  request{firstElement->asString()};
+                        Ptr(nImO::CommandHandler)   handler{owner.getHandler(request->getValue())};
 
-                        if (nullptr != request)
+                        if (nullptr != handler)
                         {
-                            Ptr(nImO::CommandHandler)   handler{owner.getHandler(request->getValue())};
-
-                            if (nullptr != handler)
-                            {
-                                handler->doIt(socket, *asArray);
-                            }
+                            handler->doIt(socket, *asArray);
+                        }
+                        else
+                        {
+                            ODL_LOG("! (nullptr != handler)"); //####
                         }
                     }
+                    else
+                    {
+                        ODL_LOG("! (nullptr != request)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((nullptr != asArray) && (0 < asArray->size()))"); //####
                 }
             }
+            else
+            {
+                ODL_LOG("! (stuff->readAtEnd() && (nullptr != contents))"); //####
+            }
         }
+        else
+        {
+            ODL_LOG("! ((nullptr != stuff) && (0 < rawStuff.size()))"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
     }
 } // processRequest
 

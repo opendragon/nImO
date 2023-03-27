@@ -150,7 +150,7 @@ main
                     // Send Shutdown command to all services.
                     // Send Shutdown command to all nodes.
                     // Send Shutdown command to Registry.
-                    nImO::SendRequestWithoutResponse(ourContext, registryConnection, nImO::kShutDownRequest);
+                    nImO::SendRequestWithoutResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }
             }
             else

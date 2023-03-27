@@ -238,6 +238,10 @@ MatchMessageSeparator
     (BufferIterator begin,
      BufferIterator end);
 
+std::shared_ptr<std::string>
+PackageMessage
+    (StringVector & outVec);
+
 } // nImO
 
 #endif // not defined(nImOmessage_H_)

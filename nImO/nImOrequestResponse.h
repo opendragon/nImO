@@ -92,7 +92,7 @@ namespace nImO
              @param[in] stuff The data included in the response. */
             virtual void
             doIt
-                (const Value &  stuff)
+                (const Array &  stuff)
                 const = 0;
 
             /*! @brief The copy assignment operator.
@@ -112,9 +112,13 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief The constructor.  */
+            /*! @brief The constructor.
+             @param[in] responseKey The expected response key. */
             ResponseHandler
-                (void);
+                (const std::string  responseKey) :
+                    _responseKey(responseKey)
+            {
+            }
 
         private :
             // Private methods.
@@ -125,6 +129,9 @@ namespace nImO
         protected :
             // Protected fields.
 
+            /*! @brief The expected key in the response. */
+            std::string _responseKey;
+
         private :
             // Private fields.
 
@@ -133,12 +140,14 @@ namespace nImO
     /*! @brief Send a simple request with no expected results.
      @param[in] context The context in which the request is being made.
      @param[in] connection The connection to be used.
-     @param[in] requestKey The request to be sent. */
+     @param[in] requestKey The request to be sent.
+     @param[in] responseKey The expected response, which will have no data. */
     void
     SendRequestWithoutResponse
         (ContextWithMDNS &  context,
          Connection &       connection,
-         const std::string  requestKey);
+         const std::string  requestKey,
+         const std::string  responseKey);
 
 } // nImO
 

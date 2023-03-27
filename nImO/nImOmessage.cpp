@@ -52,6 +52,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -490,3 +499,10 @@ nImO::MatchMessageSeparator
     }
     return std::make_pair(ii, false);
 } // nImO::MatchMessageSeparator
+
+std::shared_ptr<std::string>
+nImO::PackageMessage
+    (StringVector & outVec)
+{
+    return std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + "\n" + kMessageSentinel);
+} // nImO::PackageMessage

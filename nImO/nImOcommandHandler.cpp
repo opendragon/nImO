@@ -49,15 +49,6 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
-# pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#endif // defined(__APPLE__)
-#include <boost/algorithm/string/join.hpp>
-#if defined(__APPLE__)
-# pragma clang diagnostic pop
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -136,7 +127,7 @@ nImO::CommandHandler::sendResponse
             StringVector        outVec;
 
             EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + kMessageSentinel));
+            auto    outString{nImO::PackageMessage(outVec)};
 
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpLogging)

@@ -85,11 +85,13 @@
 
 /*! @brief Extract the response data and pass it on to a request-specific handler.
  @param[in] handler The request-specific handler, @c nullptr if not needed.
- @param[in] incoming The response to be processed. */
+ @param[in] incoming The response to be processed.
+ @param[in] expectedKey The expected reponse key. */
 static void
 handleResponse
     (Ptr(nImO::ResponseHandler) handler,
-     const std::string          incoming)
+     const std::string          incoming,
+     const std::string          expectedKey)
 {
     if (nullptr != handler)
     {
@@ -106,19 +108,42 @@ handleResponse
             {
                 stuff->open(false);
                 stuff->appendBytes(rawStuff.data(), rawStuff.size());
-                nImO::SpValue   contents{stuff->getValue()};
+                nImO::SpValue       contents{stuff->getValue()};
+                CPtr(nImO::Array)   asArray{contents->asArray()};
 
                 stuff->close();
-                if (stuff->readAtEnd())
+                if (stuff->readAtEnd() && (nullptr != asArray) && (0 < asArray->size()))
                 {
-                    if (nullptr != contents)
+                    //nImO::SpValue       firstElement{(*asArray)[0]};
+                    CPtr(nImO::String)  response{(*asArray)[0]->asString()};
+
+                    if ((nullptr != response) && (expectedKey == response->getValue()))
                     {
-                        handler->doIt(*contents);
+                        handler->doIt(*asArray);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (expectedKey == (*asArray)[0])"); //####
                     }
                 }
+                else
+                {
+                    ODL_LOG("! (stuff->readAtEnd() && (nullptr != asArray) && (0 < asArray->size()))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((nullptr != stuff) && (0 < rawStuff.size()))"); //####
             }
         }
-
+        else
+        {
+            ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (nullptr != handler)"); //####
     }
 } // handleResponse
 
@@ -142,7 +167,8 @@ void
 nImO::SendRequestWithoutResponse
     (ContextWithMDNS &  context,
      Connection &       connection,
-     const std::string  requestKey)
+     const std::string  requestKey,
+     const std::string  responseKey)
 {
     Message requestToSend;
     SpArray requestArray{new Array};
@@ -163,14 +189,14 @@ nImO::SendRequestWithoutResponse
             std::atomic<bool>   keepGoing{true};
 
             EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + "\n" + kMessageSentinel));
+            auto    outString{nImO::PackageMessage(outVec)};
 
             // Make a connection to the service whose address is in the connection argument.
             asio::ip::tcp::socket   socket{*context.getService()};
             asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
 
             socket.async_connect(endpoint,
-                                 [&context, &socket, &outString, &keepGoing]
+                                 [&context, &socket, &outString, &keepGoing, &responseKey]
                                  (const system::error_code &    ec1)
                                  {
                                     if (ec1)
@@ -184,7 +210,7 @@ nImO::SendRequestWithoutResponse
                                         context.report("connection request accepted");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                                                          [&socket, &context, &keepGoing]
+                                                          [&socket, &context, &keepGoing, &responseKey]
                                                           (const system::error_code &   ec2,
                                                            const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                                                           {
@@ -201,7 +227,7 @@ nImO::SendRequestWithoutResponse
                                                                 asio::streambuf responseBuffer;
 
                                         asio::async_read_until(socket, responseBuffer, MatchMessageSeparator,
-                                                                [&context, &responseBuffer, &keepGoing]
+                                                                [&context, &responseBuffer, &keepGoing, &responseKey]
                                                                 (const system::error_code & ec,
                                                                  const std::size_t          NIMO_UNUSED_PARAM_(size))
                                                                 {
@@ -214,8 +240,8 @@ nImO::SendRequestWithoutResponse
 #if defined(nImO_ChattyTcpLogging)
                                                                         context.report("got response");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                        // The following does nothing, but shows how to manage responses.
-                                                                        handleResponse(nullptr, std::string{buffers_begin(responseBuffer.data()),                                               buffers_end(responseBuffer.data())});
+                                                                        handleResponse(nullptr, std::string{buffers_begin(responseBuffer.data()),                                               buffers_end(responseBuffer.data())},
+                                                                                       responseKey);
                                                                     }
                                                                     keepGoing = false;
                                                                 });

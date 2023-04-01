@@ -15,6 +15,7 @@ CTestTestfile.cmake
 Doxygen_output
 Makefile
 Testing
+copies
 _CPack_Packages
 cmake_install.cmake
 dumpHexOfFloat

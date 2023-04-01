@@ -89,8 +89,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("File to be written to"),
-                                                    nImO::ArgumentMode::Required, "", ".txt", true};
+    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("File to be written to"), nImO::ArgumentMode::Required, "", ".txt", true};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
@@ -108,11 +107,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "storeApps", optionValues._logging};
-            nImO::Connection        registryConnection;
+            std::string                     nodeName{nImO::GetShortComputerName()};
+            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "storeApps", optionValues._logging}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -120,10 +119,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

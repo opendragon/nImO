@@ -1,0 +1,104 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_registryContext.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2023 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2023-04-01
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOregistryContextTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+enable_testing()
+
+include_directories("${nImO_SQLITE_DIR}")
+
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOregistryContextTest.cpp
+               ${THIS_SOURCE_DIR}/../Registry/nImOregistryContext.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+## Test create a RegistryContext
+add_test(NAME TestCreateRegistryContext COMMAND ${THIS_TARGET} 1)
+## Test a RegistryContext is a ServiceContext
+add_test(NAME TestKindOfContextForRegistryContext COMMAND ${THIS_TARGET} 2)
+
+## Test create RegistryContext and ContextWithMDNS
+add_test(NAME TestCreateRegistryAndMDNSContexts COMMAND ${THIS_TARGET} 20)
+## Test create RegistryContext and ContextWithNetworking
+add_test(NAME TestCreateRegistryAndNetworkingContexts COMMAND ${THIS_TARGET} 21)
+## Test create RegistryContext and FilterContext
+add_test(NAME TestCreateRegistryAndFilterContexts COMMAND ${THIS_TARGET} 22)
+## Test create RegistryContext and MiscellaneousContext
+add_test(NAME TestCreateRegistryAndMiscellaneousContexts COMMAND ${THIS_TARGET} 23)
+## Test create RegistryContext and RegistryContext
+add_test(NAME TestCreateRegistryAndRegistryContexts COMMAND ${THIS_TARGET} 24)
+## Test create RegistryContext and ServiceContext
+add_test(NAME TestCreateRegistryAndServiceContexts COMMAND ${THIS_TARGET} 25)
+## Test create RegistryContext and SinkContext
+add_test(NAME TestCreateRegistryAndSinkContexts COMMAND ${THIS_TARGET} 26)
+## Test create RegistryContext and SourceContext
+add_test(NAME TestCreateRegistryAndSourceContexts COMMAND ${THIS_TARGET} 27)
+## Test create RegistryContext and TestContext
+add_test(NAME TestCreateRegistryAndTestContexts COMMAND ${THIS_TARGET} 28)
+## Test create RegistryContext and UtilityContext
+add_test(NAME TestCreateRegistryAndUtilityContexts COMMAND ${THIS_TARGET} 29)
+
+## Test create ContextWithMDNS and RegistryContext
+add_test(NAME TestCreateMDNSAndRegistryContexts COMMAND ${THIS_TARGET} 40)
+## Test create ContextWithNetworking and RegistryContext
+add_test(NAME TestCreateNetworkingAndRegistryContexts COMMAND ${THIS_TARGET} 41)
+## Test create FilterContext and RegistryContext
+add_test(NAME TestCreateFilterAndRegistryContexts COMMAND ${THIS_TARGET} 42)
+## Test create MiscellaneousContext and RegistryContext
+add_test(NAME TestCreateMiscellaneousAndRegistryContexts COMMAND ${THIS_TARGET} 43)
+## Test create SinkContext and RegistryContext
+add_test(NAME TestCreateSinkAndRegistryContexts COMMAND ${THIS_TARGET} 44)
+## Test create SourceContext and RegistryContext
+add_test(NAME TestCreateSourceAndRegistryContexts COMMAND ${THIS_TARGET} 45)
+## Test create TestContext and RegistryContext
+add_test(NAME TestCreateTestAndRegistryContexts COMMAND ${THIS_TARGET} 46)
+## Test create UtilityContext and RegistryContext
+add_test(NAME TestCreateUtilityAndRegistryContexts COMMAND ${THIS_TARGET} 47)

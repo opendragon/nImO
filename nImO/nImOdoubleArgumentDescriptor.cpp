@@ -39,7 +39,7 @@
 
 #include <nImOdoubleArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -95,8 +95,8 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_D3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, //####
-           "maximumValue = ", maximumValue); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_D3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, "maximumValue = ", maximumValue); //####
     ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
@@ -225,9 +225,9 @@ DoubleArgumentDescriptor::parseArgString
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
+
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-
     if (partitionString(inString, ArgumentTypeTag::DoubleTypeTag, 5, name, argMode, inVector))
     {
         bool        okSoFar = true;
@@ -351,6 +351,7 @@ DoubleArgumentDescriptor::validate
     double  dblValue;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     if (ConvertToDouble(value, dblValue))
     {
         setValidity(true);

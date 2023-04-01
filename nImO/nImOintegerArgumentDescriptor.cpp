@@ -39,7 +39,7 @@
 
 #include <nImOintegerArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -95,8 +95,8 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, //####
-            "maximumValue = ", maximumValue); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    ODL_I3("defaultValue = ", defaultValue, "minimumValue = ", minimumValue, "maximumValue = ", maximumValue); //####
     ODL_B2("hasMinimumValue = ", hasMinimumValue, "hasMaximumValue = ", hasMaximumValue); //####
     ODL_EXIT_P(this); //####
 } // IntegerArgumentDescriptor::IntegerArgumentDescriptor
@@ -162,7 +162,7 @@ IntegerArgumentDescriptor::getDefaultValue
 
 std::string
 IntegerArgumentDescriptor::getPrintableDefaultValue
-(void)
+    (void)
 {
     std::string result{getDefaultValue()};
 
@@ -351,6 +351,7 @@ IntegerArgumentDescriptor::validate
     int64_t intValue;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     if (ConvertToInt64(value, intValue))
     {
         setValidity(true);

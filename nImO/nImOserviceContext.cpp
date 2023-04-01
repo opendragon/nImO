@@ -45,7 +45,7 @@
 #include <nImOshutdownCommandHandler.h>
 #include <nImOstring.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -89,13 +89,13 @@ nImO::ServiceContext::ServiceContext
      const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
-     const ThreadMode       whichThreads,
+     const bool             startBrowser,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, whichThreads, nodeName), _acceptor(*getService()), _commandLine(new Array), _keepGoing(true)
+        inherited(executableName, tag, logging, startBrowser, nodeName), _acceptor(*getService()), _commandLine(new Array), _keepGoing(true)
 {
     ODL_ENTER(); //####
-    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    //ODL_B1("logging = ", logging); //####
+    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_B2("logging = ", logging, "startBrowser = ", startBrowser); //####
     for (int ii = 0; ii < argc; ++ii)
     {
         _commandLine->addValue(std::make_shared<String>(argv[ii]));
@@ -103,14 +103,6 @@ nImO::ServiceContext::ServiceContext
     try
     {
         createCommandPort();
-        setCommandPort(_commandPort);
-        if (addHandler(kShutDownRequest, new ShutdownCommandHandler(*this)))
-        {
-            if (waitForRegistry())
-            {
-                // TBD
-            }
-        }
     }
     catch (...)
     {
@@ -141,6 +133,8 @@ nImO::ServiceContext::addHandler
     bool    okSoFar = false;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("commandName = ", commandName); //####
+    ODL_P1("theHandler = ", theHandler); //####
     if ((nullptr != theHandler) && (0 < commandName.size()))
     {
         const auto result = _commandHandlers.insert({commandName, theHandler});
@@ -152,6 +146,60 @@ nImO::ServiceContext::addHandler
 } // nImO::ServiceContext::addHandler
 
 void
+nImO::ServiceContext::addStandardHandlers
+    (SpContextWithNetworking    context)
+{
+    Ptr(ServiceContext) actualContext = context->asServiceContext();
+
+    ODL_ENTER(); //####
+    ODL_P1("context = ", context.get()); //####
+    if (nullptr != actualContext)
+    {
+        bool    goAhead = true;
+
+        if (! actualContext->addHandler(kShutDownRequest, new ShutdownCommandHandler(context)))
+        {
+            goAhead = false;
+        }
+        if (goAhead)
+        {
+            Ptr(CommandSession) newSession = new CommandSession(context);
+
+            actualContext->_acceptor.async_accept(*newSession->getSocket(),
+                                                   [actualContext, newSession]
+                                                   (const boost::system::error_code  ec)
+                                                   {
+                                                        actualContext->handleAccept(newSession, ec);
+                                                   });
+            if (actualContext->waitForRegistry())
+            {
+                // TBD
+            }
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::ServiceContext::addStandardHandlers
+
+Ptr(nImO::ServiceContext)
+nImO::ServiceContext::asServiceContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::ServiceContext::asServiceContext
+
+CPtr(nImO::ServiceContext)
+nImO::ServiceContext::asServiceContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::ServiceContext::asServiceContext
+
+void
 nImO::ServiceContext::createCommandPort
     (void)
 {
@@ -159,30 +207,31 @@ nImO::ServiceContext::createCommandPort
     _acceptor.open(asio::ip::tcp::v4());
     _acceptor.listen();
     _commandPort = _acceptor.local_endpoint().port();
-    Ptr(CommandSession) newSession = new CommandSession(*this);
-
-    _acceptor.async_accept(newSession->getSocket(),
-                           [this, newSession]
-                           (const boost::system::error_code  ec)
-                           {
-                               handleAccept(newSession, ec);
-                           });
+    setCommandPort(_commandPort);
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::createCommandPort
 
 void
 nImO::ServiceContext::destroyCommandPort
-(void)
+    (void)
 {
     ODL_OBJENTER(); //####
     _keepGoing = false;
-    _acceptor.cancel();
+    //_acceptor.cancel();
     _acceptor.close();
     for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
     {
         Ptr(CommandSession) aSession = *walker;
 
-        aSession->getSocket().cancel();
+#if defined(nImO_ChattyTcpLogging)
+        report("closing a session");
+#endif /* defined(nImO_ChattyTcpLogging) */
+        ODL_I1("at line ", __LINE__);//!!
+        aSession->getSocket()->close();
+        ODL_I1("at line ", __LINE__);//!!
+        //delete aSession;
+        //aSession->getSocket().cancel();
+        //aSession->getSocket().close();
     }
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::destroyCommandPort
@@ -195,6 +244,7 @@ nImO::ServiceContext::getHandler
     Ptr(CommandHandler) handler = nullptr;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("commandName = ", commandName); //####
     if (0 < commandName.size())
     {
         auto match = _commandHandlers.find(commandName);
@@ -216,22 +266,43 @@ nImO::ServiceContext::handleAccept
     bool    releaseSession;
 
     ODL_OBJENTER(); //####
-    if (0 == error.value())
+    ODL_P1("newSession = ", newSession); //####
+    ODL_I1("error = ", error.value()); //####
+    if (error)
     {
+        ODL_I1("at line ", __LINE__);//!!
+        if (asio::error::operation_aborted == error)
+        {
+            ODL_I1("at line ", __LINE__);//!!
+#if defined(nImO_ChattyTcpLogging)
+            report("accept operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+            ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+        }
+        else
+        {
+            report("async_accept failed");
+        }
+        releaseSession = true;
+    }
+    else
+    {
+        ODL_I1("at line ", __LINE__);//!!
         if (_keepGoing)
         {
 #if defined(nImO_ChattyTcpLogging)
             report("connection request received");
 #endif /* defined(nImO_ChattyTcpLogging) */
             releaseSession = false;
-            newSession->start();
-            newSession = new CommandSession(*this);
             _sessions.insert(newSession);
-            _acceptor.async_accept(newSession->getSocket(),
+            newSession->start();
+            newSession = new CommandSession(newSession->getContext());
+            _acceptor.async_accept(*newSession->getSocket(),
                                    [this, newSession]
                                    (const system::error_code  ec)
                                    {
-                                       handleAccept(newSession, ec);
+                                        ODL_I1("at line ", __LINE__);//!!
+                                        handleAccept(newSession, ec);
                                    });
         }
         else
@@ -239,20 +310,22 @@ nImO::ServiceContext::handleAccept
             releaseSession = true;
         }
     }
-    else
-    {
-        releaseSession = true;
-    }
     if (releaseSession)
     {
+        ODL_I1("at line ", __LINE__);//!!
         auto    found(_sessions.find(newSession));
 
+        ODL_I1("at line ", __LINE__);//!!
         if (_sessions.end() != found)
         {
+            ODL_I1("at line ", __LINE__);//!!
             _sessions.erase(found);
-            delete newSession;
+            ODL_I1("at line ", __LINE__);//!!
         }
+        ODL_I1("at line ", __LINE__);//!!
+        delete newSession;
     }
+    ODL_I1("at line ", __LINE__);//!!
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::handleAccept
 
@@ -263,6 +336,7 @@ nImO::ServiceContext::removeHandler
     bool    okSoFar = false;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("commandName = ", commandName); //####
     if (0 < commandName.size())
     {
         auto match = _commandHandlers.find(commandName);

@@ -268,8 +268,7 @@ main
     {
         choiceSet.insert(walker.first);
     }
-    nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"),
-                                             nImO::ArgumentMode::Optional, "all", choiceSet};
+    nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"), nImO::ArgumentMode::Optional, "all", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -282,10 +281,10 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::UtilityContext    ourContext{progName, "list", optionValues._logging};
-            nImO::Connection        registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "list", optionValues._logging}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 std::string choice{firstArg.getCurrentValue()};
                 auto        match{lChoiceMap.find(choice)};
@@ -328,10 +327,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

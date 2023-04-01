@@ -128,7 +128,7 @@ void
 nImO::Set::addEntries
     (const Set &    other)
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     if ((other._keyKind == _keyKind) || (Enumerable::Unknown == _keyKind))
     {
@@ -137,7 +137,7 @@ nImO::Set::addEntries
             addValue(walker);
         }
     }
-    ODL_EXIT(); //####
+    ODL_OBJEXIT(); //####
 } // nImO::Set::addEntries
 
 nImO::Set::InsertResult
@@ -147,7 +147,7 @@ nImO::Set::addValue
     InsertResult    result;
 
     ODL_OBJENTER(); //####
-    ODL_P1("val = ", &val); //####
+    ODL_P1("val = ", val.get()); //####
     if (nullptr == val)
     {
         result = { inherited2::end(), false };
@@ -286,8 +286,7 @@ nImO::Set::extractValue
     int     aByte;
 
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####

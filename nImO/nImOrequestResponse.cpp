@@ -40,11 +40,13 @@
 
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOmainSupport.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
+#include <nImOutilityContext.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -93,6 +95,9 @@ handleResponse
      const std::string          incoming,
      const std::string          expectedKey)
 {
+    ODL_ENTER(); //####
+    ODL_P1("handler = ", handler); //####
+    ODL_S2s("incoming = ", incoming, "expectedKey = ", expectedKey); //####
     if (nullptr != handler)
     {
         // We need to strip off the Message separator first.
@@ -119,7 +124,9 @@ handleResponse
 
                     if ((nullptr != response) && (expectedKey == response->getValue()))
                     {
+                        ODL_I1("at line ", __LINE__);//!!
                         handler->doIt(*asArray);
+                        ODL_I1("at line ", __LINE__);//!!
                     }
                     else
                     {
@@ -145,6 +152,7 @@ handleResponse
     {
         ODL_LOG("! (nullptr != handler)"); //####
     }
+    ODL_EXIT(); //####
 } // handleResponse
 
 #if defined(__APPLE__)
@@ -165,16 +173,17 @@ handleResponse
 
 void
 nImO::SendRequestWithoutResponse
-    (ContextWithMDNS &  context,
-     Connection &       connection,
-     const std::string  requestKey,
-     const std::string  responseKey)
+    (SpContextWithNetworking    context,
+     Connection &               connection,
+     const std::string          requestKey,
+     const std::string          responseKey)
 {
     Message requestToSend;
     SpArray requestArray{new Array};
 
     ODL_ENTER(); //####
-    ODL_OBJENTER(); //####
+    ODL_P2("context = ", context.get(), "connection = ", &connection); //####
+    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
     requestToSend.setValue(requestArray);
@@ -192,66 +201,104 @@ nImO::SendRequestWithoutResponse
             auto    outString{nImO::PackageMessage(outVec)};
 
             // Make a connection to the service whose address is in the connection argument.
-            asio::ip::tcp::socket   socket{*context.getService()};
+            asio::ip::tcp::socket   socket{*context->asUtilityContext()->getService()};
             asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
 
             socket.async_connect(endpoint,
-                                 [&context, &socket, &outString, &keepGoing, &responseKey]
+                                 [context, &socket, &outString, &keepGoing, &responseKey]
                                  (const system::error_code &    ec1)
                                  {
                                     if (ec1)
                                     {
-                                        context.report("async_connect failed");
+                                        if (asio::error::operation_aborted == ec1)
+                                        {
+#if defined(nImO_ChattyTcpLogging)
+                                            context->report("connect operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                            ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+                                        }
+                                        else
+                                        {
+                                            context->report("async_connect failed");
+                                        }
                                         keepGoing = false;
                                     }
                                     else
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        context.report("connection request accepted");
+                                        context->report("connection request accepted");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                                                          [&socket, &context, &keepGoing, &responseKey]
+                                                          [&socket, context, &keepGoing, &responseKey]
                                                           (const system::error_code &   ec2,
                                                            const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                                                           {
                                                             if (ec2)
                                                             {
-                                                                context.report("async_write failed");
+                                                                if (asio::error::operation_aborted == ec2)
+                                                                {
+#if defined(nImO_ChattyTcpLogging)
+                                                                    context->report("write operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                                    ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+                                                                }
+                                                                else
+                                                                {
+                                                                    context->report("async_write failed");
+                                                                }
                                                                 keepGoing = false;
                                                             }
                                                             else
                                                             {
 #if defined(nImO_ChattyTcpLogging)
-                                                                context.report("command sent");
+                                                                context->report("command sent");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                asio::streambuf responseBuffer;
+                                                                asio::streambuf rB;
 
-                                        asio::async_read_until(socket, responseBuffer, MatchMessageSeparator,
-                                                                [&context, &responseBuffer, &keepGoing, &responseKey]
-                                                                (const system::error_code & ec,
-                                                                 const std::size_t          NIMO_UNUSED_PARAM_(size))
-                                                                {
-                                                                    if (ec)
-                                                                    {
-                                                                        context.report("async_read_until failed");
-                                                                    }
-                                                                    else
-                                                                    {
+                                                                asio::async_read_until(socket, rB, MatchMessageSeparator,
+                                                                                        [context, &rB, &keepGoing, &responseKey]
+                                                                                        (const system::error_code & ec,
+                                                                                         const std::size_t          NIMO_UNUSED_PARAM_(size))
+                                                                                        {
+                                                                                            if (ec)
+                                                                                            {
+                                                                                                if (asio::error::operation_aborted == ec)
+                                                                                                {
 #if defined(nImO_ChattyTcpLogging)
-                                                                        context.report("got response");
+                                                                                                    context->report("read_until operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                        handleResponse(nullptr, std::string{buffers_begin(responseBuffer.data()),                                               buffers_end(responseBuffer.data())},
-                                                                                       responseKey);
-                                                                    }
-                                                                    keepGoing = false;
-                                                                });
-                                                            }});
-                                    }});
-            for ( ; keepGoing; )
+                                                                                                    ODL_LOG("(asio::error::operation_aborted " //####
+                                                                                                            "== ec)"); //####
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    context->report("async_read_until failed");
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                std::string handleThis{buffers_begin(rB.data()),                                       buffers_end(rB.data())};
+
+#if defined(nImO_ChattyTcpLogging)
+                                                                                                context->report("got response");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                                                                ODL_I1("at line ", __LINE__);//!!
+                                                                                                handleResponse(nullptr, handleThis, responseKey);
+                                                                                                ODL_I1("at line ", __LINE__);//!!
+                                                                                            }
+                                                                                            keepGoing = false;
+                                                                                        });
+                                                                }
+                                                            });
+                                    }
+                                });
+            for ( ; keepGoing && gKeepRunning; )
             {
                 thread::yield();
             }
+            ODL_I1("at line ", __LINE__);//!!
             socket.close();
+            ODL_I1("at line ", __LINE__);//!!
         }
         else
         {
@@ -262,6 +309,5 @@ nImO::SendRequestWithoutResponse
     {
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
     }
-    ODL_OBJEXIT(); //####
     ODL_EXIT(); //####
 } // nImO::SendRequestWithoutResponse

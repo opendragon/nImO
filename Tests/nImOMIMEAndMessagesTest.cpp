@@ -118,7 +118,7 @@ setValueAndCheck
      const size_t       expectedSize)
 {
     ODL_ENTER(); //####
-    ODL_P3("stuff = ", &stuff, "aValue = ", aValue, "expectedContents = ", expectedContents); //####
+    ODL_P3("stuff = ", &stuff, "aValue = ", aValue.get(), "expectedContents = ", expectedContents); //####
     ODL_I1("expectedSize = ", expectedSize); //####
     stuff.open(true);
     stuff.setValue(aValue);

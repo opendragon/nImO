@@ -38,7 +38,7 @@
 
 #include <nImOannounceServiceData.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -82,6 +82,7 @@ nImO::AnnounceServiceData::AnnounceServiceData
         _addressIpv4(addressIpv4), _addressIpv6(addressIpv6), _serviceNameBuffer(nullptr)
 {
     ODL_ENTER(); //####
+    ODL_P2("addressIpv4 = ", &addressIpv4, "addressIpv6 = ", &addressIpv6); //####
     ODL_EXIT_P(this); //####
 } // nImO::AnnounceServiceData::AnnounceServiceData
 
@@ -125,6 +126,9 @@ nImO::AnnounceServiceData::setServiceData
     size_t  serviceNameLength = serviceName.length();
     size_t  hostNameLength = hostName.length();
 
+    ODL_OBJENTER(); //####
+    ODL_I1("port = ", port); //####
+    ODL_S4s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey, "hostAddress = ", hostAddress); //####
     if ((0 < serviceNameLength) && (0 < hostNameLength))
     {
         _port = port;
@@ -192,6 +196,7 @@ nImO::AnnounceServiceData::setServiceData
     {
         okSoFar = false;
     }
+    ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::AnnounceServiceData::setServiceName
 

@@ -39,7 +39,7 @@
 #if (! defined(nImOrequestResponse_H_))
 # define nImOrequestResponse_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOcontextWithNetworking.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -114,7 +114,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
-            ResponseHandler
+            inline ResponseHandler
                 (const std::string  responseKey) :
                     _responseKey(responseKey)
             {
@@ -144,10 +144,10 @@ namespace nImO
      @param[in] responseKey The expected response, which will have no data. */
     void
     SendRequestWithoutResponse
-        (ContextWithMDNS &  context,
-         Connection &       connection,
-         const std::string  requestKey,
-         const std::string  responseKey);
+        (SpContextWithNetworking    context,
+         Connection &               connection,
+         const std::string          requestKey,
+         const std::string          responseKey);
 
 } // nImO
 

@@ -90,8 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"),
-                                            nImO::ArgumentMode::Optional, nImO::GetShortComputerName()};
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"), nImO::ArgumentMode::Optional, nImO::GetShortComputerName()};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -102,18 +101,19 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launcher", "nImLauncher", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launcher", "nImOlauncher", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::ServiceContext    ourContext{argc, argv, progName, "launcher", optionValues._logging};
-            nImO::Connection        registryConnection;
+            std::string                     nodeName{nImO::GetShortComputerName()};
+            nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "launcher", optionValues._logging, true}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy     proxy{ourContext, registryConnection};
                 nImO::RegBoolOrFailure  statusWithBool = proxy.nodePresent(nodeName);
@@ -122,7 +122,7 @@ main
                 {
                     if (statusWithBool.second)
                     {
-                        ourContext.report("Launcher already running.");
+                        ourContext->report("Launcher already running.");
                         std::cerr << "Launcher already running." << std::endl;
                         exitCode = 1;
                     }
@@ -132,7 +132,7 @@ main
 
                         if (status.first)
                         {
-                            ourContext.report("Waiting for requests.");
+                            ourContext->report("Waiting for requests.");
                             for ( ; nImO::gKeepRunning; )
                             {
                                 thread::yield();
@@ -160,10 +160,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

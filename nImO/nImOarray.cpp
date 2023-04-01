@@ -212,10 +212,10 @@ nImO::Array::equalTo
     (const Value &  other)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     // Note that all the values must be validated.
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
@@ -243,8 +243,7 @@ nImO::Array::extractValue
     int     aByte;
 
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####

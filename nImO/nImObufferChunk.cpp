@@ -82,8 +82,7 @@ const size_t nImO::BufferChunk::kBufferSize = 1000;
 
 nImO::BufferChunk::BufferChunk
     (const bool addPadding) :
-        _buffer(new uint8_t[kBufferSize + (addPadding ? 1 : 0)]), _bufferEnd(nullptr),
-        _write(nullptr), _padded(addPadding)
+        _buffer(new uint8_t[kBufferSize + (addPadding ? 1 : 0)]), _bufferEnd(nullptr), _write(nullptr), _padded(addPadding)
 {
     ODL_ENTER(); //####
     ODL_B1("addPadding = ", addPadding); //####

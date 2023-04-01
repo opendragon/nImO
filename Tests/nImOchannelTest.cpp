@@ -108,7 +108,7 @@ doTestParseChannelName
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    ODL_S1("inString = ", inString); //####
     try
     {
         std::string     failed;

@@ -106,8 +106,9 @@ nImO::Value::Value
     (Value &&   other)
     noexcept
 {
-    NIMO_UNUSED_ARG_(other)
+    NIMO_UNUSED_ARG_(other);
     ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Value::Value
 
@@ -265,6 +266,7 @@ nImO::Value::deeplyEqualTo
     const
 {
     ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_OBJEXIT_B(&other == this); //####
     return (&other == this);
 } // nImO::Value::deeplyEqualTo
@@ -439,7 +441,7 @@ nImO::Value::greaterThan
 
     NIMO_UNUSED_ARG_(other);
     ODL_OBJENTER(); //####
-    //ODL_P1("other = ", &other); //####
+    ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
     return result;
 } // nImO::Value::greaterThan

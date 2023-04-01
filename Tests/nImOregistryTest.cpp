@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "../Registry/nImOregistry.h"
-#include <nImOtestContext.h>
+#include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -83,7 +83,7 @@ using namespace nImO;
 [[noreturn]]
 static void
 catchSignal
-    (int signal)
+    (const int  signal)
 {
     std::string message{"Exiting due to signal "};
 
@@ -107,9 +107,10 @@ catchSignal
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCreateRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // create empty Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // create empty Registry
 {
     int result = 1;
 
@@ -122,7 +123,7 @@ doTestCreateRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
         if (nullptr == aRegistry)
         {
@@ -153,9 +154,10 @@ doTestCreateRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestEmptyRegistryForNodes
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // check empty Registry for nodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
 {
     int result = 1;
 
@@ -168,7 +170,7 @@ doTestEmptyRegistryForNodes
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -215,9 +217,10 @@ doTestEmptyRegistryForNodes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithEmptyRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // check empty Registry for nodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
 {
     int result = 1;
 
@@ -230,7 +233,7 @@ doTestNodeSetWithEmptyRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -279,9 +282,10 @@ doTestNodeSetWithEmptyRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindWithEmptyRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // check empty Registry for nodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
 {
     int result = 1;
 
@@ -294,7 +298,7 @@ doTestFindWithEmptyRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -356,9 +360,10 @@ doTestFindWithEmptyRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddNodeToRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add node to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
 {
     int result = 1;
 
@@ -371,7 +376,7 @@ doTestAddNodeToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -411,9 +416,10 @@ doTestAddNodeToRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountWithRegistryWithOneNode
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add node to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
 {
     int result = 1;
 
@@ -426,7 +432,7 @@ doTestCountWithRegistryWithOneNode
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -482,9 +488,10 @@ doTestCountWithRegistryWithOneNode
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithOneNode
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add node to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
 {
     int result = 1;
 
@@ -497,7 +504,7 @@ doTestNodeSetWithRegistryWithOneNode
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -555,9 +562,10 @@ doTestNodeSetWithRegistryWithOneNode
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindWithRegistryWithOneNode
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add node to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
 {
     int result = 1;
 
@@ -570,7 +578,7 @@ doTestFindWithRegistryWithOneNode
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -641,9 +649,10 @@ doTestFindWithRegistryWithOneNode
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeDataAddedToRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add node to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
 {
     int result = 1;
 
@@ -656,7 +665,7 @@ doTestNodeDataAddedToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -722,9 +731,10 @@ doTestNodeDataAddedToRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveNodeFromRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove node from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove node from Registry
 {
     int result = 1;
 
@@ -737,7 +747,7 @@ doTestRemoveNodeFromRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -785,9 +795,10 @@ doTestRemoveNodeFromRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountWithRegistryWithNodeRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove node from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove node from Registry
 {
     int result = 1;
 
@@ -800,7 +811,7 @@ doTestCountWithRegistryWithNodeRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -864,9 +875,10 @@ doTestCountWithRegistryWithNodeRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithNodeRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove node from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove node from Registry
 {
     int result = 1;
 
@@ -879,7 +891,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -945,9 +957,10 @@ doTestNodeSetWithRegistryWithNodeRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindWithRegistryNodeRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove node from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove node from Registry
 {
     int result = 1;
 
@@ -960,7 +973,7 @@ doTestFindWithRegistryNodeRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1024,9 +1037,10 @@ doTestFindWithRegistryNodeRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoDistinctNodesToRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add two distinct nodes to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1039,7 +1053,7 @@ doTestAddTwoDistinctNodesToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1087,9 +1101,10 @@ doTestAddTwoDistinctNodesToRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountWithRegistryWithTwoNodes
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add two distinct nodes to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1102,7 +1117,7 @@ doTestCountWithRegistryWithTwoNodes
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1166,9 +1181,10 @@ doTestCountWithRegistryWithTwoNodes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestNodeSetWithRegistryWithTwoNodes
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add two distinct nodes to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1181,7 +1197,7 @@ doTestNodeSetWithRegistryWithTwoNodes
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1254,9 +1270,10 @@ doTestNodeSetWithRegistryWithTwoNodes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindWithRegistryWithTwoNodes
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add two distinct nodes to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1269,7 +1286,7 @@ doTestFindWithRegistryWithTwoNodes
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1348,9 +1365,10 @@ doTestFindWithRegistryWithTwoNodes
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestRemoveNodesFromRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove nodes from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1363,7 +1381,7 @@ doTestRemoveNodesFromRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1427,9 +1445,10 @@ doTestRemoveNodesFromRegistry
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestCountWithRegistryWithAllNodesRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove nodes from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1442,7 +1461,7 @@ doTestCountWithRegistryWithAllNodesRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1522,9 +1541,10 @@ doTestCountWithRegistryWithAllNodesRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestTestNodeSetWithRegistryWithAllNodesRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove nodes from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1537,7 +1557,7 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1619,9 +1639,10 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestFindWithRegistryAllNodesRemoved
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // remove nodes from Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1634,7 +1655,7 @@ doTestFindWithRegistryAllNodesRemoved
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1729,9 +1750,10 @@ doTestFindWithRegistryAllNodesRemoved
  @return @c 0 on success and @c 1 on failure. */
 static int
 doTestAddTwoIdenticalNodesToRegistry
-    (CPtr(char)     launchPath,
-     const int      argc,
-     Ptr(Ptr(char)) argv) // add two identical nodes to Registry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two identical nodes to Registry
 {
     int result = 1;
 
@@ -1744,7 +1766,7 @@ doTestAddTwoIdenticalNodesToRegistry
     //ODL_P1("argv = ", argv); //####
     try
     {
-        auto    aRegistry{make_unique<Registry>()};
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
        if (nullptr == aRegistry)
         {
@@ -1826,7 +1848,8 @@ main
     nImO::ReportVersions();
     try
     {
-        nImO::TestContext   ourContext{progName};
+        nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "", false,
+                                                                            nImO::ContextWithMDNS::ThreadMode::LaunchNeither}};
 
         if (0 < --argc)
         {
@@ -1838,91 +1861,91 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestCreateRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestCreateRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 2 :
-                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2);
+                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 3 :
-                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
                         
                     case 4 :
-                        result = doTestFindWithEmptyRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestFindWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 5 :
-                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 6 :
-                        result = doTestCountWithRegistryWithOneNode(*argv, argc - 1, argv + 2);
+                        result = doTestCountWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 7 :
-                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2);
+                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 8 :
-                        result = doTestFindWithRegistryWithOneNode(*argv, argc - 1, argv + 2);
+                        result = doTestFindWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 9 :
-                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 10 :
-                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 11 :
-                        result = doTestCountWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestCountWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 12 :
-                        result = doTestNodeSetWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestNodeSetWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 13 :
-                        result = doTestFindWithRegistryNodeRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestFindWithRegistryNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 14 :
-                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 15 :
-                        result = doTestCountWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2);
+                        result = doTestCountWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 16 :
-                        result = doTestNodeSetWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2);
+                        result = doTestNodeSetWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 17 :
-                        result = doTestFindWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2);
+                        result = doTestFindWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 18 :
-                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 19 :
-                        result = doTestCountWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestCountWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 20 :
-                        result = doTestTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 21 :
-                        result = doTestFindWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2);
+                        result = doTestFindWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     case 22 :
-                        result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2);
+                        result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     default :

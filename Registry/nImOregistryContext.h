@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOfilterContext.h
+//  File:       nImO/nImOregistryContext.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'filter' execution context.
+//  Contains:   The class declaration for the nImO 'registry' execution context.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2023-04-01
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOfilterContext_H_))
-# define nImOfilterContext_H_ /* Header guard */
+#if (! defined(nImOregistryContext_H_))
+# define nImOregistryContext_H_ /* Header guard */
 
 # include <nImOserviceContext.h>
 
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'filter' %nImO execution context. */
+ @brief The class declaration for the 'utility' %nImO execution context. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for a 'filter' application. */
-    class FilterContext final : public ServiceContext
+    /*! @brief A class to provide support for the 'registry' application. */
+    class RegistryContext final : public ServiceContext
     {
 
         public :
@@ -77,20 +77,36 @@ namespace nImO
              @param[in] argc The number of arguments in 'argv'.
              @param[in] argv The command-line arguments provided to the application.
              @param[in] executable The name of the executing program.
-             @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
-             @param[in] nodeName The @nImO-visible name of the executing program. */
-            FilterContext
+             @param[in] startAnnnouncer @c true if the announcer thread is to be started. */
+            RegistryContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
                  const std::string &    executableName,
-                 const std::string &    tag = "",
                  const bool             logging = false,
-                 const std::string &    nodeName = "");
+                 const bool             startAnnouncer = false);
 
             /*! @brief The destructor. */
             virtual
-            ~FilterContext
+            ~RegistryContext
+                (void);
+
+            /*! @brief Send a port announcement via mDNS.
+             @param[in] port The port number being announced.
+             @param[in] serviceName The mDNS service name.
+             @param[in] hostName The name of the computer.
+             @param[in] dataKey The key for the instance-specific data.
+             @return @c true if the announcement was constructed and sent. */
+            bool
+            makePortAnnouncement
+                (const uint16_t         port,
+                 const std::string &    serviceName,
+                 const std::string &    hostName,
+                 const std::string &    dataKey);
+
+            /*! @brief Retract the announcement via mDNS. */
+            void
+            removeAnnouncement
                 (void);
 
         protected :
@@ -98,6 +114,12 @@ namespace nImO
 
         private :
             // Private methods.
+
+            /*! @brief The announcer thread function.
+             @param[in,out] owner The owning object for the thread. */
+            static void
+            executeAnnouncer
+                (RegistryContext &  owner);
 
         public :
             // Public fields.
@@ -108,8 +130,17 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // FilterContext
+            /*! @brief The thread which executes the announcer code. */
+            Ptr(boost::thread)  _announcerThread;
+
+            /*! @brief Data to be used with the announcer thread. */
+            Ptr(AnnounceServiceData)    _announceData;
+
+            /*! @brief @c true if the announcer thread is to be launched. */
+            bool  _startAnnouncer;
+
+    }; // RegistryContext
 
 } // nImO
 
-#endif // not defined(nImOfilterContext_H_)
+#endif // not defined(nImOregistryContext_H_)

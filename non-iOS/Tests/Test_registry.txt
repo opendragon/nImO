@@ -52,6 +52,7 @@ include_directories("${nImO_SQLITE_DIR}")
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOregistryTest.cpp
                ${THIS_SOURCE_DIR}/../Registry/nImOregistry.cpp
+               ${THIS_SOURCE_DIR}/../Registry/nImOregistryContext.cpp
                ${nImO_SQLITE_DIR}/sqlite3.c
                ${VERS_RESOURCE})
 

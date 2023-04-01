@@ -61,6 +61,9 @@ namespace nImO
     /*! @brief The 'shutdown' response. */
     const std::string   kShutDownResponse = "shutDown=";
 
+    /*! @brief A place-holder response for a bad command. */
+    const std::string   kBadResponse = "BAD!!!";
+
 } // nImO
 
 #endif // not defined(nImOcommonCommands_H_)

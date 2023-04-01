@@ -38,7 +38,7 @@
 
 #include <nImOinvalid.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -90,11 +90,11 @@ nImO::Invalid::Invalid
      const int64_t          position) :
         inherited(), _description(description)
 {
+    std::stringstream   restOfDescription;
+
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
     ODL_I1("position = ", position); //####
-    std::stringstream   restOfDescription;
-
     restOfDescription << " @" << position << "d/0x" << std::hex << position;
     _description += restOfDescription.str();
     ODL_EXIT_P(this); //####
@@ -106,6 +106,7 @@ nImO::Invalid::Invalid
         inherited(std::move(other)), _description(other._description)
 {
     ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     other._description = "";
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid

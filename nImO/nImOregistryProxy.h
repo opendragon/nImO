@@ -75,7 +75,7 @@ namespace nImO
              @param[in] context The application context to use.
              @param[in] connection The IP address and port of the Registry. */
             RegistryProxy
-                (ContextWithNetworking &    context,
+                (SpContextWithNetworking    context,
                  const Connection &         connection);
 
             /*! @brief The copy constructor.
@@ -172,7 +172,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The application context to use. */
-            ContextWithNetworking & _context;
+            SpContextWithNetworking _context;
 
             /*! @brief The IP address and port of the Registry. */
             Connection  _connection;

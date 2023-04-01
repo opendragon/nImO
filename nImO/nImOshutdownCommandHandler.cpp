@@ -41,7 +41,7 @@
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -80,10 +80,11 @@
 #endif // defined(__APPLE__)
 
 nImO::ShutdownCommandHandler::ShutdownCommandHandler
-    (ContextWithMDNS &  owner) :
+    (SpContextWithNetworking    owner) :
         inherited(owner)
 {
     ODL_ENTER(); //####
+    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::ShutdownCommandHandler::ShutdownCommandHandler
 
@@ -98,19 +99,23 @@ nImO::ShutdownCommandHandler::~ShutdownCommandHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::ShutdownCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
-     const Array &              NIMO_UNUSED_PARAM_(arguments))
+     const Array &              arguments)
     const
 {
+    NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
-    _owner.report("shutdown request received");
+    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    _owner->report("shutdown request received");
     // Send the response to the requestor.
-    sendResponse(socket, kShutDownResponse, true);
+    bool    okSoFar = sendSimpleResponse(socket, kShutDownResponse, true);
+
     // Signal to the application that it should terminate.
     gKeepRunning = false;
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::ShutdownCommandHandler::doIt
 
 #if defined(__APPLE__)

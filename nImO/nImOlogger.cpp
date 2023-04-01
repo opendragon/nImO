@@ -136,6 +136,7 @@ nImO::Logger::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_S1("stringToSend = ", stringToSend); //####
     if ((nullptr != stringToSend) && (0 < strlen(stringToSend)))
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
@@ -155,6 +156,7 @@ nImO::Logger::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("stringToSend = ", stringToSend); //####
     if (0 < stringToSend.length())
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
@@ -174,6 +176,7 @@ nImO::Logger::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_P1("stringsToSend = ", &stringsToSend); //####
     if (1 <= stringsToSend.size())
     {
         if (1 < stringsToSend.size())
@@ -206,6 +209,7 @@ nImO::Logger::report
     bool    okSoFar = false;
 
     ODL_OBJENTER(); //####
+    ODL_P1("valueToSend = ",valueToSend.get()); //####
     if (nullptr == valueToSend)
     {
         ODL_LOG("(nullptr == valueToSend)"); //####
@@ -261,9 +265,10 @@ nImO::Logger::report
 
 void
 nImO::Logger::setCommandPort
-(const uint16_t commandPort)
+    (const uint16_t commandPort)
 {
     ODL_OBJENTER(); //####
+    ODL_I1("commandPort = ", commandPort); //####
     _commandPort.reset();
     if (0 < commandPort)
     {

@@ -80,14 +80,29 @@ namespace nImO
              @param[in] nodeName The @nImO-visible name of the executing program. */
             UtilityContext
                 (const std::string &    executableName,
-                 const std::string &    tag,
-                 const bool             logging,
+                 const std::string &    tag = "",
+                 const bool             logging = false,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
             virtual
             ~UtilityContext
                 (void);
+
+            /*! @brief Is this a UtilityContext?
+             @return @c this. */
+            virtual Ptr(UtilityContext)
+            asUtilityContext
+                (void)
+                override;
+
+            /*! @brief Is this a UtilityContext?
+             @return @c this. */
+            virtual CPtr(UtilityContext)
+            asUtilityContext
+                (void)
+                const
+                override;
 
         protected :
             // Protected methods.

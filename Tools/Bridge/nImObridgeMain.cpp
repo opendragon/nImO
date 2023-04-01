@@ -90,8 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::Optional, "bridge"};
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, "bridge"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -109,10 +108,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::UtilityContext    ourContext{progName, "bridge", optionValues._logging, firstArg.getCurrentValue()};
-            nImO::Connection        registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "bridge", optionValues._logging,
+                                                                                firstArg.getCurrentValue()}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -120,10 +120,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

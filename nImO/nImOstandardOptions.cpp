@@ -43,7 +43,7 @@
 #include <initFileObject.h>
 #include <nImObaseArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -96,6 +96,7 @@ nImO::GetConfiguredValue
     boost::optional<InitFile::SpBaseValue>  retVal;
 
     ODL_ENTER(); //####
+    ODL_S1s("key = ", key); //####
     if ((0 < key.length()) && (nullptr != lConfigurationValues))
     {
         Ptr(InitFile::ObjectValue)  asObjectValue{lConfigurationValues->AsObject()};
@@ -121,6 +122,7 @@ nImO::LoadConfiguration
     std::string workingPath;
 
     ODL_ENTER(); //####
+    ODL_S1s("configFilePath = ", configFilePath); //####
     if (0 < configFilePath.length())
     {
         workingPath = configFilePath;
@@ -207,10 +209,10 @@ nImO::ProcessStandardOptions
     std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
     ODL_ENTER(); //####
-    ODL_I2("argc = ", argc, "year = ", year); //####
-    ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-           "helper = ", &helper, "arguments = ", arguments); //####
-    ODL_S1s("utilityDescription = ", utilityDescription); //####
+    ODL_I3("argc = ", argc, "year = ", year, "optionsToIgnore = ", StaticCast(int64_t, optionsToIgnore)); //####
+    ODL_P3("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues); //####
+    ODL_P1("arguments = ", arguments); //####
+    ODL_S2s("utilityDescription = ", utilityDescription, "utilityExample = ", utilityExample); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
     usageString += *argv;
     usageString += " [options]";

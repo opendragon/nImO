@@ -91,10 +91,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"),
-                                                nImO::ArgumentMode::Required, "/out"};
-    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::Optional, "source"};
+    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"), nImO::ArgumentMode::Required, "/out"};
+    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, "source"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -113,10 +111,12 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::SourceContext ourContext{argc, argv, progName, "write", optionValues._logging, secondArg.getCurrentValue()};
-            nImO::Connection    registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Write", optionValues._logging,
+                                                                                secondArg.getCurrentValue()}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -131,10 +131,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

@@ -39,12 +39,14 @@
 #include <nImOcommandHandler.h>
 
 #include <nImOarray.h>
+#include <nImOcommonCommands.h>
 #include <nImOlogical.h>
+#include <nImOmainSupport.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -83,12 +85,13 @@
 #endif // defined(__APPLE__)
 
 nImO::CommandHandler::CommandHandler
-    (ContextWithMDNS &  owner) :
+    (SpContextWithNetworking    owner) :
         _owner(owner)
 {
     ODL_ENTER(); //####
+    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ServiceContext::ServiceContext
+} // nImO::CommandHandler::CommandHandler
 
 nImO::CommandHandler::~CommandHandler
     (void)
@@ -101,17 +104,38 @@ nImO::CommandHandler::~CommandHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::CommandHandler::sendResponse
+bool
+nImO::CommandHandler::sendSimpleResponse
     (asio::ip::tcp::socket &    socket,
      const std::string          responseKey,
      const bool                 wasOK)
     const
 {
+    bool    okSoFar = sendSimpleResponseWithContext(_owner, socket, responseKey, wasOK);
+
+    ODL_OBJENTER(); //####
+    ODL_P1("socket = ", &socket); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_B1("wasOK = ", wasOK); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::CommandHandler::sendSimpleResponse
+
+bool
+nImO::CommandHandler::sendSimpleResponseWithContext
+    (SpContextWithNetworking    context,
+     asio::ip::tcp::socket &    socket,
+     const std::string          responseKey,
+     const bool                 wasOK)
+{
+    bool    okSoFar = false;
     Message responseToSend;
     SpArray responseArray{new Array};
 
-    ODL_OBJENTER(); //####
+    ODL_ENTER(); //####
+    ODL_P2("context = ", context.get(), "socket = ", &socket); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_B1("wasOK = ", wasOK); //####
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
     responseArray->addValue(std::make_shared<Logical>(wasOK));
@@ -130,30 +154,43 @@ nImO::CommandHandler::sendResponse
             auto    outString{nImO::PackageMessage(outVec)};
 
             // send the encoded message to the requestor.
-#if defined(nImO_ChattyTcpLogging)
-            _owner.report("sending response");
-#endif /* defined(nImO_ChattyTcpLogging) */
-            asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                              [this, &keepGoing]
-                              (const system::error_code &   ec,
-                               const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
-                              {
-                                if (ec)
-                                {
-                                    _owner.report("async_write failed");
-                                    keepGoing = false;
-                                }
-                                else
-                                {
-#if defined(nImO_ChattyTcpLogging)
-                                    _owner.report("command sent");
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                    keepGoing = false;
-                                }
-                              });
-            for ( ; keepGoing; )
             {
-                thread::yield();
+#if defined(nImO_ChattyTcpLogging)
+                context->report("sending response");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
+                                  [context, &keepGoing, &okSoFar]
+                                  (const system::error_code &   ec,
+                                   const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                                  {
+                                    if (ec)
+                                    {
+                                        if (asio::error::operation_aborted == ec)
+                                        {
+#if defined(nImO_ChattyTcpLogging)
+                                            context->report("write operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                            ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+                                        }
+                                        else
+                                        {
+                                            context->report("async_write failed");
+                                        }
+                                        keepGoing = false;
+                                    }
+                                    else
+                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                        context->report("response sent");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        okSoFar = true;
+                                        keepGoing = false;
+                                    }
+                                  });
+                for ( ; keepGoing && gKeepRunning; )
+                {
+                    thread::yield();
+                }
             }
         }
         else
@@ -165,9 +202,21 @@ nImO::CommandHandler::sendResponse
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
     }
-    ODL_OBJEXIT(); //####
-} // nImO::CommandHandler::sendResponse
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::CommandHandler::sendSimpleResponseWithContext
 
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+void
+nImO::CommandHandler::SendBadResponse
+    (SpContextWithNetworking    context,
+     SPsocketTCP                socket)
+{
+    ODL_ENTER(); //####
+    ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
+    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, false);
+    ODL_EXIT(); //####
+} // nImO::CommandHandler::SendBadResponse

@@ -105,10 +105,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ServiceContext    ourContext{argc, argv, progName, "EchoService", optionValues._logging};
-            nImO::Connection        registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "EchoService", optionValues._logging, true}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -120,7 +121,7 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
 #if 0
@@ -153,7 +154,7 @@ main
             // }
             // exit
 #endif //0
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

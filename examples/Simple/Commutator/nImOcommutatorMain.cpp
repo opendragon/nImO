@@ -91,10 +91,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"),
-                                                nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::BooleanArgumentDescriptor secondArg{"random", T_("True if random routing"),
-                                                nImO::ArgumentMode::Optional, false};
+    nImO::IntegerArgumentDescriptor firstArg{"numOut", T_("Number of output channels"), nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
+    nImO::BooleanArgumentDescriptor secondArg{"random", T_("True if random routing"), nImO::ArgumentMode::Optional, false};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -113,10 +111,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::FilterContext ourContext{argc, argv, progName, "FanOut", optionValues._logging};
-            nImO::Connection    registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "FanOut", optionValues._logging}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -128,10 +127,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

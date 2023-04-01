@@ -37,13 +37,14 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOregistry.h"
+#include "nImOregistryContext.h"
 
 #include <nImOmainSupport.h>
 #include <nImOregistryCommands.h>
 #include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -109,37 +110,39 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::DisableWaitForRegistry(true);
-            nImO::ServiceContext    ourContext{argc, argv, progName, "registry", optionValues._logging,
-                                                nImO::ServiceContext::ThreadMode::LaunchAnnouncer |
-                                                    nImO::ServiceContext::ThreadMode::LaunchBrowser};
+            nImO::SpContextWithNetworking   ourContext{new nImO::RegistryContext{argc, argv, progName, optionValues._logging}};
 
-            if (ourContext.findRegistry(true))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(true))
             {
-                ourContext.report("Registry already running.");
+                ourContext->report("Registry already running.");
             }
             else
             {
-                auto    theRegistry{make_unique<nImO::Registry>(&ourContext, optionValues._logging)};
+                std::unique_ptr<nImO::Registry> theRegistry{new nImO::Registry{ourContext, optionValues._logging}};
 
                 if (nullptr == theRegistry)
                 {
-                    ourContext.report("Could not create Registry.");
+                    ourContext->report("Could not create Registry.");
                 }
                 else
                 {
-                    if (ourContext.makePortAnnouncement(ourContext.getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
-                                                        nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
+                    Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
+
+                    if (asRegistryContext->makePortAnnouncement(ourContext->asServiceContext()->getCommandPort(),
+                                                                NIMO_REGISTRY_SERVICE_NAME, nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                     {
                         for ( ; nImO::gKeepRunning; )
                         {
                             thread::yield();
     //TBD
                         }
+                        asRegistryContext->removeAnnouncement();
                     }
                 }
             }
             nImO::EnableWaitForRegistry();
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

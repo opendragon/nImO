@@ -188,7 +188,7 @@ class ReceiveOnLoggingPort final
                                            (const system::error_code    ec,
                                             const std::size_t           length)
                                            {
-                                               if (0 == ec.value())
+                                               if (! ec)
                                                {
                                                    nImO::ByteVector inBytes;
                                                    std::string      receivedAsString(_data.data(), length);

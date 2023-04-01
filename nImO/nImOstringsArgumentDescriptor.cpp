@@ -39,7 +39,7 @@
 
 #include <nImOstringsArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -89,8 +89,8 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue), _allowedValues(allowedValues)
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
-            defaultValue); //####
+    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
@@ -151,7 +151,7 @@ StringsArgumentDescriptor::getDefaultValue
 
 std::string
 StringsArgumentDescriptor::getPrintableDefaultValue
-(void)
+    (void)
 {
     std::string result{"\""};
 
@@ -315,6 +315,7 @@ StringsArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     setValidity(_allowedValues.find(value) != _allowedValues.end());
     ODL_B1("_valid <- ", isValid()); //####
     if (isValid())

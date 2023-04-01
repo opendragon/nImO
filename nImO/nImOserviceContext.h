@@ -82,15 +82,15 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
-             @param[in] whichThreads Which threads, if any, to start.
+             @param[in] startBrowser @c true if the browser thread is to be started.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ServiceContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
                  const std::string &    executableName,
-                 const std::string &    tag,
-                 const bool             logging,
-                 const ThreadMode       whichThreads = ThreadMode::LaunchBrowser,
+                 const std::string &    tag = "",
+                 const bool             logging = false,
+                 const bool             startBrowser = false,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
@@ -106,6 +106,27 @@ namespace nImO
             addHandler
                 (const std::string &    commandName,
                  Ptr(CommandHandler)    theHandler);
+
+            /*! @brief Add the standard command handlers for a ServiceContext.
+             @param[in] context The Context to be updated. */
+            static void
+            addStandardHandlers
+                (SpContextWithNetworking    context);
+
+            /*! @brief Is this a ServiceContext?
+             @return @c this. */
+            virtual Ptr(ServiceContext)
+            asServiceContext
+                (void)
+                override;
+
+            /*! @brief Is this a ServiceContext?
+             @return @c this. */
+            virtual CPtr(ServiceContext)
+            asServiceContext
+                (void)
+                const
+                override;
 
             /*! @brief Remove a session from the set of known sessions.
              @param[in] aSession The session to remove. */

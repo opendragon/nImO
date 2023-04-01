@@ -42,7 +42,7 @@
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -81,19 +81,20 @@
 #endif // defined(__APPLE__)
 
 nImO::RegistryProxy::RegistryProxy
-    (ContextWithNetworking &    context,
+    (SpContextWithNetworking    context,
      const Connection &         connection) :
         _context(context), _connection(connection)
 {
-    ODL_ENTER(); //####
     sockaddr_in sock_addr;
 
+    ODL_ENTER(); //####
+    ODL_P2("context = ", &context, "connection = ", &connection); //####
     memset(&sock_addr, 0, sizeof(sock_addr));
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_addr.s_addr = htonl(connection._address);
     std::string regAddrStr = nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr));
 
-    _context.report("Registry found at " + regAddrStr + ":" + std::to_string(_connection._port) + ".");
+    _context->report("Registry found at " + regAddrStr + ":" + std::to_string(_connection._port) + ".");
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
 
@@ -116,6 +117,8 @@ nImO::RegistryProxy::addNode
     NIMO_UNUSED_ARG_(nodeName);
     NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_P1("nodeConnection = ", &nodeConnection); //####
     RegSuccessOrFailure status{false, "not implemented"};
 
     //TBD
@@ -130,6 +133,7 @@ nImO::RegistryProxy::getNodeInformation
 {
     NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     RegSuccessOrFailure status{false, "not implemented"};
     NodeInfo            info;
 
@@ -156,10 +160,11 @@ nImO::RegBoolOrFailure
 nImO::RegistryProxy::nodePresent
     (const std::string &    nodeName)
 {
-    NIMO_UNUSED_ARG_(nodeName);
     bool    found = false;
 
+    NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     RegSuccessOrFailure status{false, "not implemented"};
 
     //TBD
@@ -188,6 +193,7 @@ nImO::RegistryProxy::removeNode
 {
     NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     RegSuccessOrFailure status{false, "not implemented"};
 
     //TBD

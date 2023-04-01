@@ -38,7 +38,7 @@
 
 #include <nImOutilityContext.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -81,11 +81,11 @@ nImO::UtilityContext::UtilityContext
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, ThreadMode::LaunchBrowser, nodeName)
+        inherited(executableName, tag, logging, true, nodeName)
 {
     ODL_ENTER(); //####
-    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    //ODL_B1("logging = ", logging); //####
+    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_B1("logging = ", logging); //####
     try
     {
         if (waitForRegistry())
@@ -105,13 +105,31 @@ nImO::UtilityContext::~UtilityContext
     (void)
 {
     ODL_OBJENTER(); //####
-    stopGatheringAnnouncements();
     ODL_OBJEXIT(); //####
 } // nImO::UtilityContext::~UtilityContext
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+Ptr(nImO::UtilityContext)
+nImO::UtilityContext::asUtilityContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::UtilityContext::asUtilityContext
+
+CPtr(nImO::UtilityContext)
+nImO::UtilityContext::asUtilityContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::UtilityContext::asUtilityContext
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -43,7 +43,7 @@
 //#include <initFileObject.h>
 #include <nImObaseArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -103,11 +103,9 @@ nImO::ProcessServiceOptions
      Ptr(StringVector)      arguments)
 {
     ODL_ENTER(); //####
-    ODL_I2("argc = ", argc, "year = ", year); //####
-    ODL_P3("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, //####
-           "arguments = ", arguments); //####
-    ODL_S2s("serviceDescription = ", serviceDescription, "matchingCriteria = ", //####
-            matchingCriteria); //####
+    ODL_I3("argc = ", argc, "year = ", year, "skipOptions = ", StaticCast(int64_t, skipOptions)); //####
+    ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
+    ODL_S2s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
     enum class OptionIndex
     {

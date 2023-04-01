@@ -75,10 +75,10 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The context to be used for logging.
+             @param[in] owner The Context to be used for logging.
              @param[in] logging @c true if database activity is to be reported. */
             Registry
-                (Ptr(ContextWithNetworking) owner = nullptr,
+                (SpContextWithNetworking    owner,
                  const bool                 logging = false);
 
             /*! @brief The copy constructor.
@@ -161,8 +161,8 @@ namespace nImO
             /*! @brief A pointer to the database context. */
             Ptr(sqlite3)    _dbHandle;
 
-            /*! @brief The owning context. */
-            Ptr(ContextWithNetworking) _owner;
+            /*! @brief The owning Context. */
+            SpContextWithNetworking _owner;
 
     }; // Registry
 

@@ -76,6 +76,21 @@ add_test(NAME TestCreateTestContext COMMAND ${THIS_TARGET} 8)
 ## Test create a UtilityContext
 add_test(NAME TestCreateUtilityContext COMMAND ${THIS_TARGET} 9)
 
+## Test a ContextWithNetworking is neither a ServiceContext nor a UtilityContext
+add_test(NAME TestKindOfContextForContextWithNetworking COMMAND ${THIS_TARGET} 20)
+## Test a ContextWithMDNS is neither a ServiceContext nor a UtilityContext
+add_test(NAME TestKindOfContextForContextWithMDNS COMMAND ${THIS_TARGET} 21)
+## Test a ServiceContext is not a UtilityContext
+add_test(NAME TestKindOfContextForServiceContext COMMAND ${THIS_TARGET} 22)
+## Test a UtilityContext ia not a ServiceContext
+add_test(NAME TestKindOfContextForUtilityContext COMMAND ${THIS_TARGET} 23)
+## Test a FilterContext is a ServiceContext
+add_test(NAME TestKindOfContextForFilterContext COMMAND ${THIS_TARGET} 24)
+## Test a SinkContext is a ServiceContext
+add_test(NAME TestKindOfContextForSinkContext COMMAND ${THIS_TARGET} 25)
+## Test a SourceContext is a ServiceContext
+add_test(NAME TestKindOfContextForSourceContext COMMAND ${THIS_TARGET} 26)
+
 ## Test create ContextWithMDNS and ContextWithMDNS
 add_test(NAME TestCreateMDNSAndMDNSContexts COMMAND ${THIS_TARGET} 100)
 ## Test create ContextWithMDNS and ContextWithNetworking

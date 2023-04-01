@@ -40,7 +40,7 @@
 
 #include <nImOvalue.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -87,7 +87,7 @@ nImO::Context::Context
         _executableName(executableName), _nodeName(nodeName), _service(new asio::io_service)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####
     if (lContextCreated)
     {
         throw "Too many contexts.";

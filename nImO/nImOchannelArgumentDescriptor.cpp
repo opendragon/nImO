@@ -41,7 +41,7 @@
 
 #include <nImOchannelName.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -90,8 +90,8 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
         inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
-            defaultValue); //####
+    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
@@ -163,7 +163,7 @@ ChannelArgumentDescriptor::getPrintableDefaultValue
 
 std::string
 ChannelArgumentDescriptor::getProcessedValue
-(void)
+    (void)
 {
     std::string result;
 
@@ -180,12 +180,15 @@ ChannelArgumentDescriptor &
 ChannelArgumentDescriptor::operator=
     (const ChannelArgumentDescriptor &   other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         ChannelArgumentDescriptor   temp(other);
 
         swap(temp);
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // ChannelArgumentDescriptor::operator=
 
@@ -287,6 +290,7 @@ ChannelArgumentDescriptor::validate
     SpChannelName   trialValue{ChannelName::parse(value, failReason)};
 
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     setValidity(nullptr != trialValue);
     ODL_B1("_valid <- ", isValid()); //####
     if (isValid())

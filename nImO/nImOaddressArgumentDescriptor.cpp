@@ -39,7 +39,7 @@
 
 #include <nImOaddressArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -91,6 +91,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
             defaultValue); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_P1("addrBuff = ", addrBuff); //####
     if (SELF_ADDRESS_NAME_ == inherited::getDefaultValue())
     {
@@ -238,6 +239,7 @@ AddressArgumentDescriptor::validate
     std::string testValue;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     if (SELF_ADDRESS_NAME_ == value)
     {
         testValue = SELF_ADDRESS_IPADDR_;

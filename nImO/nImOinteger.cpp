@@ -228,8 +228,7 @@ nImO::Integer::extractValue
     int64_t     holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
 
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     if (IntStatus::Successful == numStatus)
     {
@@ -365,7 +364,7 @@ nImO::Integer::greaterThanOrEqual
 
 nImO::ComparisonStatus
 nImO::Integer::lessThan
-    (const Value &    other)
+    (const Value &  other)
     const
 {
     ComparisonStatus    result;

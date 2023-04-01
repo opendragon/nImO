@@ -60,6 +60,10 @@
 
 namespace nImO
 {
+
+    class ServiceContext;
+    class UtilityContext;
+
     /*! @brief A class to provide support for an application that uses networking. */
     class ContextWithNetworking : public Context
     {
@@ -87,8 +91,8 @@ namespace nImO
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithNetworking
                 (const std::string &    executableName,
-                 const std::string &    tag,
-                 const bool             logging,
+                 const std::string &    tag = "",
+                 const bool             logging = false,
                  const int              numReservedThreads = 0,
                  const std::string &    nodeName = "");
 
@@ -96,6 +100,32 @@ namespace nImO
             virtual
             ~ContextWithNetworking
                 (void);
+
+            /*! @brief Is this a ServiceContext?
+             @return @c nullptr. */
+            virtual Ptr(ServiceContext)
+            asServiceContext
+                (void);
+
+            /*! @brief Is this a ServiceContext?
+             @return @c nullptr. */
+            virtual CPtr(ServiceContext)
+            asServiceContext
+                (void)
+                const;
+
+            /*! @brief Is this a UtilityContext?
+             @return @c nullptr. */
+            virtual Ptr(UtilityContext)
+            asUtilityContext
+                (void);
+
+            /*! @brief Is this a UtilityContext?
+             @return @c nullptr. */
+            virtual CPtr(UtilityContext)
+            asUtilityContext
+                (void)
+                const;
 
             /*! @brief Return the address and port to use for logging.
              @return The address and port to use for logging.. */
@@ -188,6 +218,9 @@ namespace nImO
 # endif // not MAC_OR_LINUX_
 
     }; // ContextWithNetworking
+
+    /*! @brief A holder for a shared pointer to a Flaw. */
+    using SpContextWithNetworking = std::shared_ptr<ContextWithNetworking>;
 
 } // nImO
 

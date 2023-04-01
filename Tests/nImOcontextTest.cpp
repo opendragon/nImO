@@ -110,12 +110,10 @@ doTestCreateContextWithMDNS
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext{""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -144,11 +142,9 @@ doTestCreateContextWithNetworking
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
-        ContextWithNetworking   aContext{"", "", false};
+        ContextWithNetworking   aContext{""};
 
         NIMO_UNUSED_VAR_(aContext);
         result = 0;
@@ -175,12 +171,10 @@ doTestCreateFilterContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext{0, nullptr, "", "", false};
+        FilterContext   aContext{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -209,8 +203,6 @@ doTestCreateMiscellaneousContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         MiscellaneousContext    aContext("");
@@ -240,12 +232,10 @@ doTestCreateServiceContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext{0, nullptr, "", "", false};
+        ServiceContext  aContext{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -274,12 +264,10 @@ doTestCreateSinkContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext{0, nullptr, "", "", false};
+        SinkContext aContext{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -308,12 +296,10 @@ doTestCreateSourceContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext{0, nullptr, "", "", false};
+        SourceContext   aContext{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -342,8 +328,6 @@ doTestCreateTestContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         TestContext   aContext{""};
@@ -373,12 +357,10 @@ doTestCreateUtilityContext
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext{"", "", false};
+        UtilityContext  aContext{""};
 
         NIMO_UNUSED_VAR_(aContext);
         EnableWaitForRegistry();
@@ -395,6 +377,258 @@ doTestCreateUtilityContext
 } // doTestCreateUtilityContext
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 20 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForContextWithNetworking
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        ContextWithNetworking   aContext{""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr == asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForContextWithNetworking
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 21 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForContextWithMDNS
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        ContextWithMDNS         aContext{""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr == asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForContextWithMDNS
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 22 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForServiceContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        ServiceContext          aContext{0, nullptr, ""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr != asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForServiceContext
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 23 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForUtilityContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        UtilityContext          aContext{""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr == asService) && (nullptr != asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForUtilityContext
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 24 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForFilterContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        FilterContext           aContext{0, nullptr, ""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr != asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForFilterContext
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 25 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForSinkContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        SinkContext             aContext{0, nullptr, ""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr != asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForSinkContext
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 26 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForSourceContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        SourceContext           aContext{0, nullptr, ""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr != asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForSourceContext
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -407,17 +641,15 @@ doTestCreateMDNSAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -453,17 +685,15 @@ doTestCreateMDNSAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -499,17 +729,15 @@ doTestCreateMDNSAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -545,12 +773,10 @@ doTestCreateMDNSAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -591,17 +817,15 @@ doTestCreateMDNSAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -637,17 +861,15 @@ doTestCreateMDNSAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -683,17 +905,15 @@ doTestCreateMDNSAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -729,12 +949,10 @@ doTestCreateMDNSAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -775,17 +993,15 @@ doTestCreateMDNSAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS aContext1{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+        ContextWithMDNS aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -821,17 +1037,15 @@ doTestCreateNetworkingAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -867,17 +1081,15 @@ doTestCreateNetworkingAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -913,17 +1125,15 @@ doTestCreateNetworkingAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -959,12 +1169,10 @@ doTestCreateNetworkingAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1005,17 +1213,15 @@ doTestCreateNetworkingAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1051,17 +1257,15 @@ doTestCreateNetworkingAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1097,17 +1301,15 @@ doTestCreateNetworkingAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1143,12 +1345,10 @@ doTestCreateNetworkingAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1189,17 +1389,15 @@ doTestCreateNetworkingAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithNetworking   aContext1{"", "", false};
+        ContextWithNetworking   aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1235,17 +1433,15 @@ doTestCreateFilterAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1281,17 +1477,15 @@ doTestCreateFilterAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1327,17 +1521,15 @@ doTestCreateFilterAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1373,12 +1565,10 @@ doTestCreateFilterAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1419,17 +1609,15 @@ doTestCreateFilterAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1465,17 +1653,15 @@ doTestCreateFilterAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1511,17 +1697,15 @@ doTestCreateFilterAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1557,12 +1741,10 @@ doTestCreateFilterAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -1603,17 +1785,15 @@ doTestCreateFilterAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext   aContext1{0, nullptr, "", "", false};
+        FilterContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1649,8 +1829,6 @@ doTestCreateMiscellaneousAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1659,7 +1837,7 @@ doTestCreateMiscellaneousAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1695,8 +1873,6 @@ doTestCreateMiscellaneousAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1705,7 +1881,7 @@ doTestCreateMiscellaneousAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1741,8 +1917,6 @@ doTestCreateMiscellaneousAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1751,7 +1925,7 @@ doTestCreateMiscellaneousAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1787,8 +1961,6 @@ doTestCreateMiscellaneousAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1833,8 +2005,6 @@ doTestCreateMiscellaneousAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1843,7 +2013,7 @@ doTestCreateMiscellaneousAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1879,8 +2049,6 @@ doTestCreateMiscellaneousAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1889,7 +2057,7 @@ doTestCreateMiscellaneousAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1925,8 +2093,6 @@ doTestCreateMiscellaneousAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -1935,7 +2101,7 @@ doTestCreateMiscellaneousAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -1971,8 +2137,6 @@ doTestCreateMiscellaneousAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -2017,8 +2181,6 @@ doTestCreateMiscellaneousAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -2027,7 +2189,7 @@ doTestCreateMiscellaneousAndUtilityContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2063,17 +2225,15 @@ doTestCreateServiceAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2109,17 +2269,15 @@ doTestCreateServiceAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2155,17 +2313,15 @@ doTestCreateServiceAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2201,12 +2357,10 @@ doTestCreateServiceAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2247,17 +2401,15 @@ doTestCreateServiceAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2293,17 +2445,15 @@ doTestCreateServiceAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2339,17 +2489,15 @@ doTestCreateServiceAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2385,12 +2533,10 @@ doTestCreateServiceAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2431,17 +2577,15 @@ doTestCreateServiceAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext  aContext1{0, nullptr, "", "", false};
+        ServiceContext  aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2477,17 +2621,15 @@ doTestCreateSinkAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2523,17 +2665,15 @@ doTestCreateSinkAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2569,17 +2709,15 @@ doTestCreateSinkAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2615,12 +2753,10 @@ doTestCreateSinkAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2661,17 +2797,15 @@ doTestCreateSinkAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2707,17 +2841,15 @@ doTestCreateSinkAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2753,17 +2885,15 @@ doTestCreateSinkAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2799,12 +2929,10 @@ doTestCreateSinkAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -2845,17 +2973,15 @@ doTestCreateSinkAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext aContext1{0, nullptr, "", "", false};
+        SinkContext aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2891,17 +3017,15 @@ doTestCreateSourceAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2937,17 +3061,15 @@ doTestCreateSourceAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -2983,17 +3105,15 @@ doTestCreateSourceAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3029,12 +3149,10 @@ doTestCreateSourceAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3075,17 +3193,15 @@ doTestCreateSourceAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3121,17 +3237,15 @@ doTestCreateSourceAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3167,17 +3281,15 @@ doTestCreateSourceAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3213,12 +3325,10 @@ doTestCreateSourceAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3259,17 +3369,15 @@ doTestCreateSourceAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext   aContext1{0, nullptr, "", "", false};
+        SourceContext   aContext1{0, nullptr, ""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3305,8 +3413,6 @@ doTestCreateTestAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3315,7 +3421,7 @@ doTestCreateTestAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3351,8 +3457,6 @@ doTestCreateTestAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3361,7 +3465,7 @@ doTestCreateTestAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3397,8 +3501,6 @@ doTestCreateTestAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3407,7 +3509,7 @@ doTestCreateTestAndFilterContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3443,8 +3545,6 @@ doTestCreateTestAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3489,8 +3589,6 @@ doTestCreateTestAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3499,7 +3597,7 @@ doTestCreateTestAndServiceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3535,8 +3633,6 @@ doTestCreateTestAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3545,7 +3641,7 @@ doTestCreateTestAndSinkContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3581,8 +3677,6 @@ doTestCreateTestAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3591,7 +3685,7 @@ doTestCreateTestAndSourceContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3627,8 +3721,6 @@ doTestCreateTestAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3673,8 +3765,6 @@ doTestCreateTestAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3683,7 +3773,7 @@ doTestCreateTestAndUtilityContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3719,8 +3809,6 @@ doTestCreateUtilityAndMDNSContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3729,7 +3817,7 @@ doTestCreateUtilityAndMDNSContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithMDNS aContext2{"", "", false, ContextWithMDNS::ThreadMode::LaunchNeither};
+            ContextWithMDNS aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3765,8 +3853,6 @@ doTestCreateUtilityAndNetworkingContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
@@ -3775,7 +3861,7 @@ doTestCreateUtilityAndNetworkingContexts
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ContextWithNetworking   aContext2{"", "", false};
+            ContextWithNetworking   aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3811,17 +3897,15 @@ doTestCreateUtilityAndFilterContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            FilterContext   aContext2{0, nullptr, "", "", false};
+            FilterContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3857,12 +3941,10 @@ doTestCreateUtilityAndMiscellaneousContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -3903,17 +3985,15 @@ doTestCreateUtilityAndServiceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            ServiceContext  aContext2{0, nullptr, "", "", false};
+            ServiceContext  aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3949,17 +4029,15 @@ doTestCreateUtilityAndSinkContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SinkContext aContext2{0, nullptr, "", "", false};
+            SinkContext aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -3995,17 +4073,15 @@ doTestCreateUtilityAndSourceContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            SourceContext   aContext2{0, nullptr, "", "", false};
+            SourceContext   aContext2{0, nullptr, ""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4041,12 +4117,10 @@ doTestCreateUtilityAndTestContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
@@ -4087,17 +4161,15 @@ doTestCreateUtilityAndUtilityContexts
     int result = 1;
 
     ODL_ENTER(); //####
-    ODL_B1("expected = ", expected); //####
-    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext  aContext1{"", "", false};
+        UtilityContext  aContext1{""};
 
         NIMO_UNUSED_VAR_(aContext1);
         try
         {
-            UtilityContext  aContext2{"", "", false};
+            UtilityContext  aContext2{""};
 
             NIMO_UNUSED_VAR_(aContext2);
             EnableWaitForRegistry();
@@ -4152,7 +4224,6 @@ main
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
                 SetSignalHandlers(catchSignal);
-                ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
                     case 1 :
@@ -4189,6 +4260,34 @@ main
 
                     case 9 :
                         result = doTestCreateUtilityContext();
+                        break;
+
+                    case 20 :
+                        result = doTestKindOfContextForContextWithNetworking();
+                        break;
+
+                    case 21 :
+                        result = doTestKindOfContextForContextWithMDNS();
+                        break;
+
+                    case 22 :
+                        result = doTestKindOfContextForServiceContext();
+                        break;
+
+                    case 23 :
+                        result = doTestKindOfContextForUtilityContext();
+                        break;
+
+                    case 24 :
+                        result = doTestKindOfContextForFilterContext();
+                        break;
+
+                    case 25 :
+                        result = doTestKindOfContextForSinkContext();
+                        break;
+
+                    case 26 :
+                        result = doTestKindOfContextForSourceContext();
                         break;
 
                     case 100 :

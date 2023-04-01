@@ -39,7 +39,7 @@
 
 #include <nImObooleanArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -89,6 +89,7 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_B1("defaultValue = ", defaultValue); //####
     ODL_EXIT_P(this); //####
 } // BooleanArgumentDescriptor::BooleanArgumentDescriptor
@@ -183,12 +184,15 @@ BooleanArgumentDescriptor &
 BooleanArgumentDescriptor::operator=
     (const BooleanArgumentDescriptor &   other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         BooleanArgumentDescriptor   temp(other);
 
         swap(temp);
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // BooleanArgumentDescriptor::operator=
 
@@ -298,6 +302,7 @@ BooleanArgumentDescriptor::validate
     char    firstChar = tolower(value[0]);
 
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     if (('0' == firstChar) || ('f' == firstChar) || ('n' == firstChar))
     {
         boolValue = false;

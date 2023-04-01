@@ -38,7 +38,7 @@
 
 #include <nImOchannel.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -87,7 +87,7 @@ nImO::Channel::Channel
     (Channel && other)
     noexcept
 {
-    NIMO_UNUSED_ARG_(other)
+    NIMO_UNUSED_ARG_(other);
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####

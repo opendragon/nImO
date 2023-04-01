@@ -40,7 +40,7 @@
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
-#include <nImOsinkContext.h>
+#include <nImOsourceContext.h>
 #include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -92,10 +92,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"),
-                                                nImO::ArgumentMode::Required, "/in"};
-    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::Optional, "sink"};
+    nImO::ChannelArgumentDescriptor firstArg{"input", T_("Channel to read from"), nImO::ArgumentMode::Required, "/in"};
+    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, "sink"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -114,10 +112,12 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::SinkContext   ourContext{argc, argv, progName, "read", optionValues._logging, secondArg.getCurrentValue()};
-            nImO::Connection    registryConnection;
+            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Read", optionValues._logging,
+                                                                                secondArg.getCurrentValue()}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            nImO::ServiceContext::addStandardHandlers(ourContext);
+            if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -125,10 +125,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

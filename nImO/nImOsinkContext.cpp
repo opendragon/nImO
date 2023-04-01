@@ -38,7 +38,7 @@
 
 #include <nImOsinkContext.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -83,11 +83,11 @@ nImO::SinkContext::SinkContext
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(argc, argv, executableName, tag, logging, ThreadMode::LaunchBrowser, nodeName)
+        inherited(argc, argv, executableName, tag, logging, true, nodeName)
 {
     ODL_ENTER(); //####
-    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    //ODL_B1("logging = ", logging); //####
+    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_B1("logging = ", logging); //####
     try
     {
         // TBD

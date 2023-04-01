@@ -39,7 +39,7 @@
 
 #include <nImOfilePathArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if MAC_OR_LINUX_
@@ -93,7 +93,7 @@ checkFilePath
 
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####
-    ODL_B1("forOutput = ", forOutput); //####
+    ODL_B2("forOutput = ", forOutput, "emptyIsOK = ", emptyIsOK); //####
     if (forOutput)
     {
         std::string dirPath{thePath};
@@ -162,8 +162,8 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
         _useRandomPath(useRandomPath)
 {
     ODL_ENTER(); //####
-    ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", //####
-            pathPrefix, "pathSuffix = ", pathSuffix); //####
+    ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", pathPrefix, "pathSuffix = ", pathSuffix); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_B2("forOutput = ", forOutput, "useRandomPath = ", useRandomPath); //####
     getDefaultValue();
     ODL_EXIT_P(this); //####
@@ -255,6 +255,7 @@ FilePathArgumentDescriptor::isForFiles
     const
 {
     ODL_OBJENTER(); //####
+    ODL_P1("isForOutput = ", &isForOutput); //####
     isForOutput = _forOutput;
     ODL_OBJEXIT_B(true); //####
     return true;
@@ -264,12 +265,15 @@ FilePathArgumentDescriptor &
 FilePathArgumentDescriptor::operator=
     (const FilePathArgumentDescriptor & other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         FilePathArgumentDescriptor  temp(other);
 
         swap(temp);
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // FilePathArgumentDescriptor::operator=
 
@@ -404,6 +408,7 @@ FilePathArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     setValidity(checkFilePath(value.c_str(), _forOutput, false));
     ODL_B1("_valid <- ", isValid()); //####
     if (isValid())

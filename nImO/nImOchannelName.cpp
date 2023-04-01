@@ -38,7 +38,7 @@
 
 #include <nImOchannelName.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -402,6 +402,7 @@ nImO::ChannelName::transportToName
     std::string result;
 
     ODL_ENTER(); //####
+    ODL_I1("aValue = ", StaticCast(int64_t, aValue)); //####
     switch (aValue)
     {
         case Transport::TCP :

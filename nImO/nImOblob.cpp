@@ -90,6 +90,8 @@ compareBytes
     int result;
 
     ODL_ENTER(); //####
+    ODL_P2("leftValue = ", leftValue, "rightValue = ", rightValue); //####
+    ODL_I2("leftSize = ", leftSize, "rightSize = ", rightSize); //####
     if (0 == leftSize)
     {
         if (0 == rightSize)
@@ -298,8 +300,7 @@ nImO::Blob::extractValue
     size_t  numBytes = 0;
 
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####

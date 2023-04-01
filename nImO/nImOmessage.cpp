@@ -138,6 +138,7 @@ nImO::Message::Message
         _readPosition(other._readPosition), _state(other._state), _headerAdded(other._headerAdded)
 {
     ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
     other._cachedTransmissionString = "";
@@ -255,6 +256,7 @@ nImO::Message::getValue
     SpValue result;
 
     ODL_OBJENTER(); //####
+    ODL_B1("allowClosed = ", allowClosed); //####
     if ((MessageState::OpenForReading == _state) || (allowClosed && (MessageState::Closed == _state)))
     {
         ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####
@@ -452,7 +454,7 @@ nImO::Message::setValue
     (SpValue    theValue)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("theValue = ", theValue); //####
+    ODL_P1("theValue = ", theValue.get()); //####
     reset();
     if (MessageState::OpenForWriting == _state)
     {

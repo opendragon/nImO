@@ -152,7 +152,7 @@ localCatcher
 {
     NIMO_UNUSED_ARG_(signal);
     ODL_ENTER(); //####
-    //ODL_I1("signal = ", signal); //####
+    ODL_I1("signal = ", signal); //####
 #if 0
     if (lLogger)
     {
@@ -296,7 +296,8 @@ nImO::ConsumeSomeTime
      const double   factor)
 {
     ODL_ENTER(); //####
-    ODL_D1("amount = ", amount); //####
+    ODL_P1("context = ", context); //####
+    ODL_D1("factor = ", factor); //####
     if (nullptr != context)
     {
         asio::deadline_timer    timer(*context->getService());
@@ -929,7 +930,7 @@ nImO::SanitizeString
     std::string outString;
 
     ODL_ENTER(); //####
-    ODL_S1s("channelRoot = ", inString); //####
+    ODL_S1s("inString = ", inString); //####
     ODL_B1("allowDoubleQuotes = ", allowDoubleQuotes); //####
     try
     {

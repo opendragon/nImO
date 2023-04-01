@@ -39,7 +39,7 @@
 
 #include <nImOextraArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -261,6 +261,7 @@ ExtraArgumentDescriptor::validate
 {
     NIMO_UNUSED_ARG_(value);
     ODL_OBJENTER(); //####
+    ODL_S1s("value = ", value); //####
     //ODL_P1("value = ", &value); //####
     setValidity(true);
     ODL_B1("_valid <- ", isValid()); //####

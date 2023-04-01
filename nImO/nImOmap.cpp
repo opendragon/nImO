@@ -306,8 +306,7 @@ nImO::Map::extractValue
     int     aByte;
 
     ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", //####
-           parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
@@ -538,7 +537,7 @@ nImO::Map::getTypeTag
 {
     DataKind    result = DataKind::OtherMessageExpectedOtherValue;
 
-    ODL_OBJENTER();
+    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Map::getTypeTag
@@ -974,8 +973,8 @@ nImO::Map::readFromStringBuffer
 
 size_t
 nImO::Map::size
-(void)
-const
+    (void)
+    const
 {
     size_t  result = inherited2::size();
 

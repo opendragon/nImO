@@ -50,7 +50,7 @@
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOstringsArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -101,6 +101,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
+    ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_EXIT_P(this); //####
 } // BaseArgumentDescriptor::BaseArgumentDescriptor
 
@@ -179,6 +180,7 @@ BaseArgumentDescriptor::isForFiles
     const
 {
     ODL_OBJENTER(); //####
+    ODL_P1("isForOutput = ", &isForOutput); //####
     isForOutput = false;
     ODL_OBJEXIT_B(false); //####
     return false;
@@ -198,6 +200,8 @@ BaseArgumentDescriptor &
 BaseArgumentDescriptor::operator=
     (const BaseArgumentDescriptor &   other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         _argDescription = other._argDescription;
@@ -205,6 +209,7 @@ BaseArgumentDescriptor::operator=
         _argName = other._argName;
         _valid = other._valid;
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // BaseArgumentDescriptor::operator=
 
@@ -244,9 +249,9 @@ BaseArgumentDescriptor::partitionString
 
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue,//####
-           "indexOfListValue = ", indexOfListValue); //####
-    ODL_P1("result = ", &result); //####
+    ODL_C1("expectedTag = ", expectedTag); //####
+    ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue, "indexOfListValue = ", indexOfListValue); //####
+    ODL_P3("name = ", &name, "argMode = ", &argMode, "result = ", &result); //####
     // We need to split the input into fields.
     result.clear();
     for (size_t fieldNumber = 0; 0 < workingCopy.length(); ++fieldNumber)
@@ -354,10 +359,10 @@ BaseArgumentDescriptor::prefixFields
     (const ArgumentTypeTag  tagForField)
     const
 {
-    ODL_OBJENTER(); //####
-    ODL_S1s("tagForField = ", tagForField); //####
     std::string result{_argName};
 
+    ODL_OBJENTER(); //####
+    ODL_C1("tagForField = ", tagForField); //####
     result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator +
                std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
@@ -453,6 +458,7 @@ nImO::ArgumentsToDescriptionArray
 
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
+    ODL_I1("minSpace = ", minSpace); //####
     // Determine the width of the 'name' column.
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
@@ -522,6 +528,7 @@ nImO::CombineArguments
      const std::string &        sep)
 {
     ODL_ENTER(); //####
+    ODL_P1("arguments = ", &arguments); //####
     ODL_S1s("sep = ", sep); //####
     std::string result;
 
@@ -549,6 +556,7 @@ nImO::ConvertStringToArgument
     SpBaseArgumentDescriptor result;
 
     ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     result = AddressArgumentDescriptor::parseArgString(inString);
     if (! result)
     {
@@ -626,8 +634,7 @@ nImO::ProcessArguments
     size_t numToCheck = (std::min)(numArgs, numValues);
 
     ODL_ENTER(); //####
-    ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", //####
-           &badArgs); //####
+    ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", &badArgs); //####
     ODL_I3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
     badArgs = "";

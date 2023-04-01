@@ -39,7 +39,7 @@
 
 #include <nImOportArgumentDescriptor.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -92,7 +92,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
-    ODL_I1("defaultValue = ", defaultValue); //####
+    ODL_I2("argMode = ", StaticCast(int64_t, argMode), "defaultValue = ", defaultValue); //####
     ODL_B1("isSystemPort = ", isSystemPort); //####
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
@@ -144,12 +144,15 @@ PortArgumentDescriptor &
 PortArgumentDescriptor::operator=
     (const PortArgumentDescriptor & other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         PortArgumentDescriptor  temp(other);
 
         swap(temp);
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // PortArgumentDescriptor::operator=
 

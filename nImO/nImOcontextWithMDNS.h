@@ -80,22 +80,8 @@ namespace nImO
         public :
             // Public type definitions.
 
-            /*! @brief Which threads to launch. */
-            enum class ThreadMode : uint8_t
-            {
-                /*! @brief Neither thread is to be launched. */
-                LaunchNeither = 0x00,
-
-                /*! @brief The announcer thread is to be launched. */
-                LaunchAnnouncer = 0x01,
-
-                /*! @brief The browser thread is to be launched. */
-                LaunchBrowser = 0x02,
-
-                /*! @brief The browser thread is to be launched. */
-                LaunchBoth = (LaunchAnnouncer | LaunchBrowser)
-
-            }; // ThreadMode
+            /*! @brief The size of the MDNS I/O buffer. */
+            static const size_t kBufferCapacity = 2048;
 
         protected :
             // Protected type definitions.
@@ -115,13 +101,13 @@ namespace nImO
              @param[in] executable The name of the executing program.
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
-             @param[in] whichThreads Which threads, if any, to start.
+             @param[in] startBrowser @c true if the browser thread is to be started.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithMDNS
                 (const std::string &    executableName,
-                 const std::string &    tag,
-                 const bool             logging,
-                 const ThreadMode       whichThreads,
+                 const std::string &    tag = "",
+                 const bool             logging = false,
+                 const bool             startBrowser = false,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
@@ -150,31 +136,8 @@ namespace nImO
                 return findRegistry(ignoredConnection, quietly);
             }
 
-            /*! @brief Send a port announcement via mDNS.
-             @param[in] port The port number being announced.
-             @param[in] serviceName The mDNS service name.
-             @param[in] hostName The name of the computer.
-             @param[in] dataKey The key for the instance-specific data.
-             @return @c true if the announcement was constructed and sent. */
-            bool
-            makePortAnnouncement
-                (const uint16_t         port,
-                 const std::string &    serviceName,
-                 const std::string &    hostName,
-                 const std::string &    dataKey);
-
         protected :
             // Protected methods.
-
-            /*! @brief Retract the announcement via mDNS. */
-            void
-            removeAnnouncement
-                (void);
-
-            /*! @brief Stop collecting announcements via mDNS. */
-            void
-            stopGatheringAnnouncements
-                (void);
 
             /*! @brief Wait until the Registry is located.
              @return @c true if the Registry was located. */
@@ -189,12 +152,6 @@ namespace nImO
             void
             closeSockets
                 (void);
-
-            /*! @brief The announcer thread function.
-             @param[in,out] owner The owning object for the thread. */
-            static void
-            executeAnnouncer
-                (ContextWithMDNS &  owner);
 
             /*! @brief The browset thread function.
              @param[in,out] owner The owning object for the thread. */
@@ -213,11 +170,40 @@ namespace nImO
             openSockets
                 (void);
 
+            /*! @brief Stop collecting announcements via mDNS. */
+            void
+            stopGatheringAnnouncements
+                (void);
+
         public :
             // Public fields.
 
+            /*! @brief The buffer used to record the name from a mDNS request. */
+            static char gNameBuffer[256];
+
+            /*! @brief The first IPv4 address found. */
+            static struct sockaddr_in   gServiceAddressIpv4;
+
+            /*@ @brief The first IPv6 address found. */
+            static struct sockaddr_in6  gServiceAddressIpv6;
+
+            /*! @brief @c true if an IPv4 address was found. */
+            static bool gHasIpv4;
+
+            /*! @brief @c true if an IPv6 address was found. */
+            static bool gHasIpv6;
+
         protected :
             // Protected fields.
+
+            /*! @brief The number of sockets in use. */
+            int _numSockets;
+
+            /*! @brief The sockets to use. */
+            int _sockets[8];
+
+            /*! @brief The buffer to be used for MDNS I/O operations. */
+            Ptr(char)   _buffer;
 
         private :
             // Private fields.
@@ -228,20 +214,8 @@ namespace nImO
             /*! @brief The active query identifiers. */
             int _queryId[8];
 
-            /*! @brief The sockets to use. */
-            int _sockets[8];
-
-            /*! @brief The number of sockets in use. */
-            int _numSockets;
-
-            /*! @brief Which threads are to be launched. */
-            ThreadMode  _whichThreads;
-
-            /*! @brief Data to be used with the announcer thread. */
-            Ptr(AnnounceServiceData)    _announceData;
-
-            /*! @brief The buffer to be used for MDNS I/O operations. */
-            Ptr(char)   _buffer;
+            /*! @brief @c true if the browser thread is to be launched. */
+            bool  _startBrowser;
 
             /*! @brief The identifying tag for the Registry process. */
             std::string _registryTag;
@@ -258,9 +232,10 @@ namespace nImO
             /*! @brief Set to @c true when the Registry has reported its port. */
             std::atomic<bool>   _havePort;
 
-    }; // ContextWithMDNS
+            /*! @brief The thread which executes the browser code. */
+            Ptr(boost::thread)  _browserThread;
 
-    UnaryAndBinaryOperators(ContextWithMDNS::ThreadMode)
+    }; // ContextWithMDNS
 
     /*! @brief Don't wait for the Registry - used with the Registry and test programs.
      @param[in] allowOneCheck @c true if there a single scan for the Registry is done instead. */

@@ -120,18 +120,18 @@ struct NodeInsertData
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 performSQLstatementWithMultipleColumnResults
-    (Ptr(nImO::ContextWithNetworking)   owner,
+    (nImO::SpContextWithNetworking      owner,
      Ptr(sqlite3)                       dbHandle,
      std::vector<nImO::StringVector> &  results,
      CPtr(char)                         sqlStatement,
      BindFunction                       doBinds,
      CPtr(void)                         data)
 {
-    ODL_ENTER(); //####
-    ODL_P2("dbHandle = ", dbHandle, "data = ", data); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
+    ODL_S1("sqlStatement = ", sqlStatement); //####
     try
     {
         if (nullptr == dbHandle)
@@ -166,7 +166,7 @@ performSQLstatementWithMultipleColumnResults
                             ODL_I1("sqlRes <- ", sqlRes); //####
                             if (SQLITE_BUSY == sqlRes)
                             {
-                                nImO::ConsumeSomeTime(owner, 10.0);
+                                nImO::ConsumeSomeTime(owner.get(), 10.0);
                             }
                         }
                         while (SQLITE_BUSY == sqlRes);
@@ -230,17 +230,17 @@ performSQLstatementWithMultipleColumnResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 performSQLstatementWithNoResults
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     Ptr(sqlite3)                       dbHandle,
-     CPtr(char)                         sqlStatement,
-     BindFunction                       doBinds,
-     CPtr(void)                         data)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle,
+     CPtr(char)                     sqlStatement,
+     BindFunction                   doBinds,
+     CPtr(void)                     data)
 {
-    ODL_ENTER(); //####
-    ODL_P2("dbHandle = ", dbHandle, "data = ", data); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
+    ODL_S1("sqlStatement = ", sqlStatement); //####
     try
     {
         if (nullptr == dbHandle)
@@ -251,9 +251,7 @@ performSQLstatementWithNoResults
         else
         {
             Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement,
-                                                           static_cast<int>(strlen(sqlStatement)),
-                                                           &prepared, nullptr);
+            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -275,7 +273,7 @@ performSQLstatementWithNoResults
                         ODL_I1("sqlRes <- ", sqlRes); //####
                         if (SQLITE_BUSY == sqlRes)
                         {
-                            nImO::ConsumeSomeTime(owner, 10.0);
+                            nImO::ConsumeSomeTime(owner.get(), 10.0);
                         }
                     }
                     while (SQLITE_BUSY == sqlRes);
@@ -310,15 +308,15 @@ performSQLstatementWithNoResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 performSQLstatementWithNoResultsNoArgs
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     Ptr(sqlite3)                       dbHandle,
-     CPtr(char)                         sqlStatement)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle,
+     CPtr(char)                     sqlStatement)
 {
-    ODL_ENTER(); //####
-    ODL_P1("dbHandle = ", dbHandle); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
+    ODL_S1("sqlStatement = ", sqlStatement); //####
     try
     {
         if (nullptr == dbHandle)
@@ -340,7 +338,7 @@ performSQLstatementWithNoResultsNoArgs
                     ODL_I1("sqlRes <- ", sqlRes); //####
                     if (SQLITE_BUSY == sqlRes)
                     {
-                        nImO::ConsumeSomeTime(owner, 10.0);
+                        nImO::ConsumeSomeTime(owner.get(), 10.0);
                     }
                 }
                 while (SQLITE_BUSY == sqlRes);
@@ -376,19 +374,18 @@ performSQLstatementWithNoResultsNoArgs
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 performSQLstatementWithSingleColumnResults
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     Ptr(sqlite3)                       dbHandle,
-     nImO::StringVector &               resultList,
-     CPtr(char)                         sqlStatement,
-     BindFunction                       doBinds = nullptr,
-     CPtr(void)                         data = nullptr)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle,
+     nImO::StringVector &           resultList,
+     CPtr(char)                     sqlStatement,
+     BindFunction                   doBinds = nullptr,
+     CPtr(void)                     data = nullptr)
 {
-    ODL_ENTER(); //####
-    ODL_P3("dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
-    ODL_I1("columnOfInterest = ", columnOfInterest); //####
-    ODL_S1("sqlStatement = ", sqlStatement); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
+    ODL_S1("sqlStatement = ", sqlStatement); //####
     resultList.clear();
     try
     {
@@ -424,7 +421,7 @@ performSQLstatementWithSingleColumnResults
                             ODL_I1("sqlRes <- ", sqlRes); //####
                             if (SQLITE_BUSY == sqlRes)
                             {
-                                nImO::ConsumeSomeTime(owner, 10.0);
+                                nImO::ConsumeSomeTime(owner.get(), 10.0);
                             }
                         }
                         while (SQLITE_BUSY == sqlRes);
@@ -476,13 +473,13 @@ performSQLstatementWithSingleColumnResults
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 doBeginTransaction
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     Ptr(sqlite3)                       dbHandle)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle)
 {
-    ODL_ENTER(); //####
-    ODL_P1("dbHandle = ", dbHandle); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     try
     {
         if (nullptr == dbHandle)
@@ -513,15 +510,15 @@ doBeginTransaction
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::RegSuccessOrFailure
 doEndTransaction
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     Ptr(sqlite3)                       dbHandle,
-     const bool                         wasOK)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle,
+     const bool                     wasOK)
 {
-    ODL_ENTER(); //####
-    ODL_P1("dbHandle = ", dbHandle); //####
-    ODL_B1("wasOK = ", wasOK); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
+    ODL_B1("wasOK = ", wasOK); //####
     try
     {
         if (nullptr == dbHandle)
@@ -553,13 +550,15 @@ doEndTransaction
  @return @c true if all the tables were successfully created. */
 static nImO::RegSuccessOrFailure
 createTables
-    (Ptr(nImO::ContextWithNetworking)   owner,
-     const bool                         logging,
-     Ptr(sqlite3)                       dbHandle)
+    (nImO::SpContextWithNetworking  owner,
+     const bool                     logging,
+     Ptr(sqlite3)                   dbHandle)
 {
     nImO::RegSuccessOrFailure   status{true, ""};
 
-    ODL_ENTER();
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
+    ODL_B1("logging = ", logging); //####
     if (nullptr == dbHandle)
     {
         ODL_LOG("(nullptr == dbHandle)"); //####
@@ -567,7 +566,7 @@ createTables
     }
     else
     {
-        if ((nullptr != owner) && logging)
+        if (owner && logging)
         {
             owner->report("creating tables.");
         }
@@ -589,7 +588,7 @@ createTables
             doEndTransaction(owner, dbHandle, status.first);
         }
     }
-    ODL_EXIT();
+    ODL_EXIT(); //####
     return status;
 } // createTables
 
@@ -621,10 +620,10 @@ setupInsertIntoNodes
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     int result = SQLITE_MISUSE;
 
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
         int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
@@ -673,10 +672,10 @@ setupSearchNodes
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    ODL_ENTER(); //####
-    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     int result = SQLITE_MISUSE;
 
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
         int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
@@ -714,14 +713,16 @@ setupSearchNodes
 #endif // defined(__APPLE__)
 
 nImO::Registry::Registry
-    (Ptr(ContextWithNetworking) owner,
+    (SpContextWithNetworking    owner,
      const bool                 logging) :
         _dbHandle(nullptr), _owner(owner)
 {
     ODL_ENTER(); //####
-    if (logging && (nullptr != _owner))
+    ODL_P1("owner = ", owner.get()); //####
+    ODL_B1("logging = ", logging); //####
+    if (logging && _owner)
     {
-        sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner);
+        sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner.get());
     }
     int result = sqlite3_open_v2("nImO_registry", &_dbHandle,
                                  SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr);
@@ -734,7 +735,7 @@ nImO::Registry::Registry
         {
             std::string prefix{"Problem creating tables in database: "};
 
-            if ((nullptr != _owner) && logging)
+            if (_owner && logging)
             {
                 _owner->report(prefix + status.second);
             }
@@ -746,7 +747,7 @@ nImO::Registry::Registry
         std::string errorMessage(sqlite3_errstr(result));
         std::string prefix{"Unable to open database: "};
 
-        if ((nullptr != _owner) && logging)
+        if (_owner && logging)
         {
             _owner->report(prefix + errorMessage);
         }
@@ -772,9 +773,11 @@ nImO::Registry::addNode
     (const std::string &    nodeName,
      const Connection &     nodeConnection)
 {
-    ODL_OBJENTER(); //####
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_P1("nodeConnection = ", &nodeConnection); //####
     if (status.first)
     {
         NodeInsertData      data{nodeName, nodeConnection};
@@ -793,10 +796,11 @@ nImO::Registry::getNodeInformation
     (const std::string &    nodeName)
     const
 {
-    ODL_OBJENTER(); //####
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
     NodeInfo            info;
 
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     if (status.first)
     {
         std::vector<StringVector>   results;
@@ -840,10 +844,10 @@ nImO::Registry::getNodes
     (void)
     const
 {
-    ODL_OBJENTER(); //####
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
     StringSet           strings;
 
+    ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
@@ -867,11 +871,11 @@ nImO::RegBoolOrFailure
 nImO::Registry::nodePresent
     (const std::string &    nodeName)
 {
-    bool    found = false;
-
-    ODL_OBJENTER(); //####
+    bool                found = false;
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     if (status.first)
     {
         StringVector        results;
@@ -903,11 +907,10 @@ nImO::Registry::numNodes
     (void)
     const
 {
-    int count = -1;
-
-    ODL_OBJENTER(); //####
+    int                 count = -1;
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
+    ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
@@ -934,9 +937,10 @@ nImO::RegSuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
 {
-    ODL_OBJENTER(); //####
     RegSuccessOrFailure   status = doBeginTransaction(_owner, _dbHandle);
 
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     if (status.first)
     {
         static CPtr(char)   searchNodes = "DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;

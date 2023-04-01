@@ -222,8 +222,7 @@ nImO::Logical::extractValue
 
     NIMO_UNUSED_ARG_(theMessage);
     ODL_ENTER(); //####
-    //ODL_P1("theMessage = ", &theMessage);
-    ODL_P2("position = ", &position, "parentValue = ", parentValue.get()); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
@@ -243,6 +242,7 @@ nImO::Logical::getCanonicalRepresentation
     const std::string & result = (aValue ? kCanonicalTrue : kCanonicalFalse);
 
     ODL_ENTER(); //####
+    ODL_B1("aValue = ", aValue); //####
     ODL_EXIT_P(&result); //####
     return result;
 } // nImO::Logical::getCanonicalRepresentation

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		F6004B0829D8852700F07D3B /* nImOregistryContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryContext.cpp; path = Registry/nImOregistryContext.cpp; sourceTree = "<group>"; };
+		F6004B0929D8852700F07D3B /* nImOregistryContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryContext.h; path = Registry/nImOregistryContext.h; sourceTree = "<group>"; };
+		F6004B0A29D8AD5D00F07D3B /* Test_registryContext.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_registryContext.txt; path = "non-iOS/Tests/Test_registryContext.txt"; sourceTree = "<group>"; };
+		F6004B0B29D8ADD800F07D3B /* nImOregistryContextTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryContextTest.cpp; path = Tests/nImOregistryContextTest.cpp; sourceTree = "<group>"; };
+		F6004B0C29D8AE9700F07D3B /* nImOregistryContextTest.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOregistryContextTest.rc.in; path = Tests/nImOregistryContextTest.rc.in; sourceTree = "<group>"; };
 		F60394F02986C06B004A7F8C /* nImOjunctionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOjunctionMain.cpp; sourceTree = "<group>"; };
 		F60394F12986C06B004A7F8C /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F60394F22986C06B004A7F8C /* nImOjunction.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOjunction.rc.in; sourceTree = "<group>"; };
@@ -325,6 +330,8 @@
 		F613D15E288D82FB008712C9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				F6004B0829D8852700F07D3B /* nImOregistryContext.cpp */,
+				F6004B0929D8852700F07D3B /* nImOregistryContext.h */,
 				F6155FE929B75D8400DBD8E8 /* nImOregistry.cpp */,
 				F6155FEA29B75D8400DBD8E8 /* nImOregistry.h */,
 				F613D15B288D82D9008712C9 /* nImOregistry.rc.in */,
@@ -970,6 +977,8 @@
 				F61A18B2293FB39A0032B156 /* nImOMIMEAndMessagesTest.rc.in */,
 				F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */,
 				F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */,
+				F6004B0B29D8ADD800F07D3B /* nImOregistryContextTest.cpp */,
+				F6004B0C29D8AE9700F07D3B /* nImOregistryContextTest.rc.in */,
 				F6F0F3A329828DA100E8A1CE /* nImOregistryTest.cpp */,
 				F6F0F3A429828DA100E8A1CE /* nImOregistryTest.rc.in */,
 				F6351BE929462B1E00A93CA2 /* resource.h */,
@@ -1153,6 +1162,7 @@
 				F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */,
 				F679D6CF2412751F001648DB /* Test_parser.txt */,
 				F6F0F3A229828D7200E8A1CE /* Test_registry.txt */,
+				F6004B0A29D8AD5D00F07D3B /* Test_registryContext.txt */,
 			);
 			name = Tests;
 			sourceTree = "<group>";

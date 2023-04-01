@@ -84,8 +84,8 @@ namespace nImO
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
                  const std::string &    executableName,
-                 const std::string &    tag,
-                 const bool             logging,
+                 const std::string &    tag = "",
+                 const bool             logging = false,
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */

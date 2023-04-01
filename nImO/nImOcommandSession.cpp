@@ -40,13 +40,14 @@
 
 #include <nImOarray.h>
 #include <nImOcommandHandler.h>
+#include <nImOmainSupport.h>
 #include <nImOmessage.h>
 #include <nImOMIMESupport.h>
 #include <nImOserviceContext.h>
 #include <nImOstring.h>
 #include <nImOvalue.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -79,19 +80,22 @@
 /*! @brief Handle the received request.
  @param[in,out] owner The owning Context for the session.
  @param[in,out] socket The TCP/IP socket to use for communication.
- @param[in] incoming The received request. */
-static void
+ @param[in] incoming The received request.
+ @return @c true if the request was responded to. */
+static bool
 processRequest
-    (nImO::ServiceContext &     owner,
-     asio::ip::tcp::socket &    socket,
-     const std::string &        incoming)
+    (nImO::SpContextWithNetworking  owner,
+     nImO::SPsocketTCP              socket,
+     const std::string &            incoming)
 {
-    NIMO_UNUSED_ARG_(owner);
-    NIMO_UNUSED_ARG_(socket);
     // We need to strip off the Message separator first.
+    bool                okSoFar = false;
     std::string         trimmed{incoming.substr(0, incoming.length() - (sizeof(MIME_MESSAGE_TERMINATOR_) - 1))};
     nImO::ByteVector    rawStuff;
 
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
+    ODL_S1s("incoming = ", incoming); //####
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
     {
@@ -110,25 +114,24 @@ processRequest
 
                 if ((nullptr != asArray) && (0 < asArray->size()))
                 {
-//                    nImO::SpValue       firstElement{(*asArray)[0]};
                     CPtr(nImO::String)  request{(*asArray)[0]->asString()};
 
-                    if (nullptr != request)
+                    if (nullptr == request)
                     {
-                        Ptr(nImO::CommandHandler)   handler{owner.getHandler(request->getValue())};
-
-                        if (nullptr != handler)
-                        {
-                            handler->doIt(socket, *asArray);
-                        }
-                        else
-                        {
-                            ODL_LOG("! (nullptr != handler)"); //####
-                        }
+                        ODL_LOG("(nullptr == request)"); //####
                     }
                     else
                     {
-                        ODL_LOG("! (nullptr != request)"); //####
+                        Ptr(nImO::CommandHandler)   handler{owner->asServiceContext()->getHandler(request->getValue())};
+
+                        if (nullptr == handler)
+                        {
+                            ODL_LOG("(nullptr == handler)"); //####
+                        }
+                        else
+                        {
+                            okSoFar = handler->doIt(*socket.get(), *asArray);
+                        }
                     }
                 }
                 else
@@ -150,6 +153,8 @@ processRequest
     {
         ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
     }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
 } // processRequest
 
 #if defined(__APPLE__)
@@ -161,13 +166,14 @@ processRequest
 #endif // defined(__APPLE__)
 
 nImO::CommandSession::CommandSession
-    (ServiceContext &   owner) :
-        _socket(*owner.getService()), _owner(owner)
+    (SpContextWithNetworking    owner) :
+        _owner(owner)
 {
     ODL_ENTER(); //####
+    ODL_P1("owner = ", owner.get()); //####
     try
     {
-        NIMO_UNUSED_VAR_(_owner);//!!
+        _socket.reset(new asio::ip::tcp::socket(*_owner->getService()));
     }
     catch (...)
     {
@@ -178,9 +184,11 @@ nImO::CommandSession::CommandSession
 } // nImO::CommandSession::CommandSession
 
 nImO::CommandSession::~CommandSession
-(void)
+    (void)
 {
     ODL_OBJENTER(); //####
+//    _socket.reset();
+//    _socket->close();
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::~CommandSession
 
@@ -192,31 +200,44 @@ void
 nImO::CommandSession::start
     (void)
 {
-    ODL_OBJENTER(); //####
     std::atomic<bool>   keepGoing{true};
 
+    ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpLogging)
-    _owner.report("retrieving request");
+    _owner->report("retrieving request");
 #endif /* defined(nImO_ChattyTcpLogging) */
-    asio::async_read_until(_socket, _buffer, MatchMessageSeparator,
+    asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                             [this, &keepGoing]
                             (const system::error_code & ec,
                              const std::size_t          NIMO_UNUSED_PARAM_(size))
                             {
                                 if (ec)
                                 {
-                                    _owner.report("async_read_until failed");
+                                    if (asio::error::operation_aborted == ec)
+                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                        _owner->report("read_until operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+                                    }
+                                    else
+                                    {
+                                        _owner->report("async_read_until failed");
+                                    }
                                 }
                                 else
                                 {
 #if defined(nImO_ChattyTcpLogging)
-                                    _owner.report("got request");
+                                    _owner->report("got request");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                    processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())});
+                                    if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())}))
+                                    {
+                                        CommandHandler::SendBadResponse(_owner, _socket);
+                                    }
                                 }
                                 keepGoing = false;
                             });
-    for ( ; keepGoing; )
+    for ( ; keepGoing && gKeepRunning; )
     {
         thread::yield();
     }

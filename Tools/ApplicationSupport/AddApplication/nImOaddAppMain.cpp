@@ -90,10 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("Path to application"),
-                                                    nImO::ArgumentMode::Required, "", ""};
-    nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"),
-                                                nImO::ArgumentMode::Optional, ""};
+    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("Path to application"), nImO::ArgumentMode::Required, "", ""};
+    nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode = 0;
@@ -112,11 +110,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string             nodeName{nImO::GetShortComputerName()};
-            nImO::UtilityContext    ourContext{progName, "addApp", optionValues._logging};
-            nImO::Connection        registryConnection;
+            std::string                     nodeName{nImO::GetShortComputerName()};
+            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "addApp", optionValues._logging}};
+            nImO::Connection                registryConnection;
 
-            if (ourContext.findRegistry(registryConnection))
+            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
@@ -124,10 +122,10 @@ main
             }
             else
             {
-                ourContext.report("Registry not found.");
+                ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext.report("Exiting.");
+            ourContext->report("Exiting.");
         }
         catch (...)
         {

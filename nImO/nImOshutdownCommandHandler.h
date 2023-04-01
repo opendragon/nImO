@@ -76,7 +76,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
             ShutdownCommandHandler
-                (ContextWithMDNS &  owner);
+                (SpContextWithNetworking    owner);
 
             /*! @brief The destructor. */
             virtual
@@ -85,8 +85,9 @@ namespace nImO
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received. */
-            virtual void
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            virtual bool
             doIt
                 (asio::ip::tcp::socket &    socket,
                  const Array &              arguments)

@@ -179,7 +179,7 @@ namespace nImO
             /*! @brief Return a chunk.
             @param[in] index The index of a chunk.
             @return The selected chunk. */
-            inline BufferChunk *
+            inline Ptr(BufferChunk)
             getBufferChunk
                 (const size_t   index)
                 const

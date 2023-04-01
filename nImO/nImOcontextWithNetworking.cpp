@@ -42,7 +42,7 @@
 #include <initFileInteger.h>
 #include <nImOstandardOptions.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -109,8 +109,9 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
 #if (! MAC_OR_LINUX_)
     ODL_ENTER(); //####
-    //ODL_S3s("progName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    //ODL_B1("logging = ", logging); //####
+    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_B1("logging = ", logging); //####
+    ODL_I1("numReservedThreads = ", numReservedThreads); //####
     if (0 != WSAStartup(versionWanted, &_wsaData))
     {
         std::cerr << "Failed to initialize WinSock" << std::endl;
@@ -131,11 +132,16 @@ nImO::ContextWithNetworking::ContextWithNetworking
         _work.reset(new asio::io_service::work(*getService()));
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
-            _pool.create_thread([this]
-                                (void)
-                                {
-                                    getService()->run();
-                                });
+            Ptr(boost::thread)  aThread = new boost::thread([this]
+                                                            (void)
+                                                            {
+                                                                ODL_LOG("service thread started"); //####
+                                                                getService()->run();
+                                                                ODL_LOG("service thread ended"); //####
+                                                            });
+
+            ODL_P1("service thread = ", aThread); //####
+            _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.
         boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kAddressKey);
@@ -226,26 +232,71 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     (void)
 {
     ODL_OBJENTER(); //####
+    ODL_I1("at line ", __LINE__);//!!
     {
+        ODL_I1("at line ", __LINE__);//!!
         std::lock_guard<std::mutex> loggerGuard(_loggerLock);
 
+        ODL_I1("at line ", __LINE__);//!!
         if (nullptr != _logger)
         {
+            ODL_I1("at line ", __LINE__);//!!
             delete _logger;
             _logger = nullptr;
         }
     }
+    ODL_I1("at line ", __LINE__);//!!
     _work.reset(nullptr);
+    ODL_I1("at line ", __LINE__);//!!
     _pool.join_all();
 #if (! MAC_OR_LINUX_)
     WSACleanup();
 #endif // not MAC_OR_LINUX_
+    ODL_I1("at line ", __LINE__);//!!
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithNetworking::~ContextWithNetworking
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+Ptr(nImO::ServiceContext)
+nImO::ContextWithNetworking::asServiceContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asServiceContext
+
+CPtr(nImO::ServiceContext)
+nImO::ContextWithNetworking::asServiceContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asServiceContext
+
+Ptr(nImO::UtilityContext)
+nImO::ContextWithNetworking::asUtilityContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asUtilityContext
+
+CPtr(nImO::UtilityContext)
+nImO::ContextWithNetworking::asUtilityContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asUtilityContext
 
 bool
 nImO::ContextWithNetworking::report
@@ -255,6 +306,7 @@ nImO::ContextWithNetworking::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_S1("stringToSend = ", stringToSend); //####
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard(_loggerLock);
@@ -284,6 +336,7 @@ nImO::ContextWithNetworking::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_S1s("stringToSend = ", stringToSend); //####
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard(_loggerLock);
@@ -313,6 +366,7 @@ nImO::ContextWithNetworking::report
     bool    okSoFar;
 
     ODL_OBJENTER(); //####
+    ODL_P1("stringsToSend = ", &stringsToSend); //####
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard(_loggerLock);
@@ -339,6 +393,7 @@ nImO::ContextWithNetworking::setCommandPort
     (const uint16_t commandPort)
 {
     ODL_OBJENTER(); //####
+    ODL_I1("commandPort = ", commandPort); //####
     if (_loggingEnabled && (nullptr != _logger))
     {
         _logger->setCommandPort(commandPort);

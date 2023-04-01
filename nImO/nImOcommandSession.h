@@ -39,7 +39,7 @@
 #if (! defined(nImOcommandSession_H_))
 # define nImOcommandSession_H_ /* Header guard */
 
-# include <nImOcontext.h>
+# include <nImOcontextWithNetworking.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,8 +56,6 @@ namespace nImO
 {
 
     // Forward declarations.
-
-    class ServiceContext;
 
     /*! @brief A class to provide binary data with unknown structure. */
     class CommandSession final
@@ -78,17 +76,28 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The Context that is using the command session. */
             explicit CommandSession
-                (ServiceContext &   owner);
+                (SpContextWithNetworking    owner);
 
             /*! @brief The destructor. */
             ~CommandSession
                 (void);
 
+            /*! @brief Return the Context for this session.
+             @return The session Context. */
+            inline SpContextWithNetworking
+            getContext
+                (void)
+                const
+            {
+                return _owner;
+            }
+
             /*! @brief Return the socket for this session.
              @return The session socket. */
-            inline asio::ip::tcp::socket &
+            inline SPsocketTCP
             getSocket
                 (void)
+                const
             {
                 return _socket;
             }
@@ -114,10 +123,11 @@ namespace nImO
             // Private fields.
 
             /*! @brief The socket used for request and response. */
-            asio::ip::tcp::socket   _socket;
+            //asio::ip::tcp::socket   _socket;
+            SPsocketTCP _socket;
 
             /*! @brief The context that created this session. */
-            ServiceContext &    _owner;
+            SpContextWithNetworking _owner;
 
             /*! @brief A buffer to hold the received request. */
             asio::streambuf _buffer;

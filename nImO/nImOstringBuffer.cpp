@@ -47,7 +47,6 @@
 #include <odlInclude.h>
 
 #include <inttypes.h>
-//#include <stdio.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -137,6 +136,7 @@ nImO::StringBuffer::StringBuffer
         inherited(std::move(other))
 {
     ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 

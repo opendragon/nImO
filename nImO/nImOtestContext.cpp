@@ -38,7 +38,7 @@
 
 #include <nImOtestContext.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -82,7 +82,7 @@ nImO::TestContext::TestContext
         inherited(executableName, nodeName)
 {
     ODL_ENTER(); //####
-    //ODL_S2s("progName = ", executableName, "nodeName = ", nodeName); //####
+    ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####
     try
     {
 

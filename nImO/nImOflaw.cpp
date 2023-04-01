@@ -90,6 +90,7 @@ nImO::Flaw::Flaw
         inherited(std::move(other))
 {
     ODL_ENTER(); //####
+    ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
 } // nImO::Flaw::Flaw
 

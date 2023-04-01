@@ -87,8 +87,9 @@ namespace nImO
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received. */
-            virtual void
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            virtual bool
             doIt
                 (asio::ip::tcp::socket &    socket,
                  const Array &              arguments)
@@ -108,20 +109,29 @@ namespace nImO
             operator=
                 (CommandHandler &&  other) = delete;
 
+            /*! @brief Send a response to satisfy the requesters pending read.
+             @parm[in] context The context for the responder.
+             @param[in,out] socket The TCP/IP socket to use for communication. */
+            static void
+            SendBadResponse
+                (SpContextWithNetworking    context,
+                 SPsocketTCP                socket);
+
         protected :
             // Protected methods.
 
             /*! @brief The constructor.
              @param[in] owner The owning Context.  */
             CommandHandler
-                (ContextWithMDNS &  owner);
+                (SpContextWithNetworking    owner);
 
             /*! @brief Send a simple reponse for the command.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
-             @param[in] wasOK @c true if the command succeeded and @c false otherwise. */
-            void
-            sendResponse
+             @param[in] wasOK @c true if the command succeeded and @c false otherwise.
+             @return @c true if a response was sent. */
+            bool
+            sendSimpleResponse
                 (asio::ip::tcp::socket &    socket,
                  const std::string          responseKey,
                  const bool                 wasOK = false)
@@ -130,6 +140,19 @@ namespace nImO
         private :
             // Private methods.
 
+            /*! @brief Send a simple reponse for the command.
+             @param[in] context The context for the responder.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] responseKey The response type.
+             @param[in] wasOK @c true if the command succeeded and @c false otherwise.
+             @return @c true if a response was sent. */
+            static bool
+            sendSimpleResponseWithContext
+                (SpContextWithNetworking    context,
+                 asio::ip::tcp::socket &    socket,
+                 const std::string          responseKey,
+                 const bool                 wasOK);
+
         public :
             // Public fields.
 
@@ -137,7 +160,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            ContextWithMDNS &   _owner;
+            SpContextWithNetworking _owner;
 
         private :
             // Private fields.

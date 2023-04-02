@@ -143,7 +143,7 @@ namespace nImO
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data. */
     void
-    SendRequestWithoutResponse
+    SendRequestWithEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
          const std::string          requestKey,

@@ -322,17 +322,20 @@ nImO::ProcessServiceOptions
     {
         ODL_LOG("(parse.error())"); //####
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
              (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
     {
         Option_::printUsage(std::cout, usage, HELP_LINE_LENGTH_);
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
     {
         std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " << copyrightHolder << "." << std::endl;
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionARGS)])
     {
@@ -351,6 +354,7 @@ nImO::ProcessServiceOptions
         }
         std::cout << std::endl;
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINFO)])
     {
@@ -473,6 +477,7 @@ nImO::ProcessServiceOptions
         }
         std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << std::endl;
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
@@ -556,6 +561,7 @@ nImO::ProcessServiceOptions
                 {
                     std::cout << "Bad port number." << std::endl;
                     keepGoing = false;
+                    ODL_B1("keepGoing <- ", keepGoing); //!!
                 }
             }
         }
@@ -579,6 +585,7 @@ nImO::ProcessServiceOptions
     {
         std::cout << "One or more invalid or missing arguments (" << badArgs << ")." << std::endl;
         keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //!!
     }
     delete[] options;
     delete[] buffer;

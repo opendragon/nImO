@@ -108,6 +108,7 @@ main
             nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "EchoService", optionValues._logging, true}};
             nImO::Connection                registryConnection;
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {

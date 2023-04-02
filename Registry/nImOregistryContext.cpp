@@ -376,12 +376,9 @@ nImO::RegistryContext::~RegistryContext
     (void)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("at line ", __LINE__);//!!
     removeAnnouncement();
-    ODL_I1("at line ", __LINE__);//!!
     if (nullptr != _announceData)
     {
-        ODL_I1("at line ", __LINE__);//!!
         delete _announceData;
         _announceData = nullptr;
     }
@@ -494,7 +491,9 @@ nImO::RegistryContext::makePortAnnouncement
         std::string hostAddress;
 
         lAnnouncerThreadStop = false;
+        ODL_B1("lAnnouncerThreadStop <- ", lAnnouncerThreadStop); //!!
         _announceData = new AnnounceServiceData(gServiceAddressIpv4, gServiceAddressIpv6);
+        ODL_P1("_announceData <- ", _announceData); //!!!
         _announcerThread = new boost::thread([this]
                                                 (void)
                                                 {
@@ -525,6 +524,7 @@ nImO::RegistryContext::makePortAnnouncement
             hostAddress = SELF_ADDRESS_IPADDR_;
         }
         okSoFar = _announceData->setServiceData(port, serviceName, hostName, dataKey, hostAddress);
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (okSoFar)
         {
             // Send an announcement on startup of service
@@ -556,6 +556,7 @@ nImO::RegistryContext::makePortAnnouncement
     else
     {
         okSoFar = false;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -566,14 +567,11 @@ nImO::RegistryContext::removeAnnouncement
     (void)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("at line ", __LINE__);//!!
     if (_startAnnouncer)
     {
-        ODL_I1("at line ", __LINE__);//!!
         if (nullptr != _announceData)
         {
-            ODL_I1("at line ", __LINE__);//!!
-                                         // Send a goodbye on end of service
+            // Send a goodbye on end of service
             mDNS::record_t    additional[kNumTxtRecords + 3];
             size_t            additionalCount = 0;
 
@@ -601,10 +599,9 @@ nImO::RegistryContext::removeAnnouncement
         if (nullptr != _announcerThread)
         {
             lAnnouncerThreadStop = true;
-            ODL_I1("at line ", __LINE__);//!!
+            ODL_B1("lAnnouncerThreadStop <- ", lAnnouncerThreadStop); //!!
             _announcerThread->join();
             _announcerThread = nullptr;
-            ODL_I1("at line ", __LINE__);//!!
         }
     }
     ODL_OBJEXIT(); //####

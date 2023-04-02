@@ -316,6 +316,7 @@ nImO::Blob::extractValue
         NumberAsBytes   holder;
         bool            okSoFar = true;
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
             int aByte = theMessage.getByte(position, atEnd);
@@ -324,6 +325,7 @@ nImO::Blob::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
@@ -343,6 +345,7 @@ nImO::Blob::extractValue
         UpAuint8_t  holder{new uint8_t[numBytes]};
         bool        okSoFar = (nullptr != holder);
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
             int aByte = theMessage.getByte(position, atEnd);
@@ -352,6 +355,7 @@ nImO::Blob::extractValue
                 ODL_LOG("(atEnd)"); //####
                 result.reset();
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {

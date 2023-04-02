@@ -191,6 +191,7 @@ AddressArgumentDescriptor::parseArgString
         std::string     description{inVector[1]};
         struct in_addr  addrBuff;
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (defaultString == SELF_ADDRESS_NAME_)
         {
             defaultString = SELF_ADDRESS_IPADDR_;
@@ -200,6 +201,7 @@ AddressArgumentDescriptor::parseArgString
 #else // ! MAC_OR_LINUX_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
 #endif // ! MAC_OR_LINUX_
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (okSoFar)
         {
             result.reset(new AddressArgumentDescriptor(name, description, argMode, defaultString));

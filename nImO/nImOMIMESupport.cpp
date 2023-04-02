@@ -126,6 +126,7 @@ nImO::DecodeMIMEToBytes
     size_t      newSize = 0;
     std::string line;
 
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     outBytes.clear();
     // First, validate the row sizes.
     for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
@@ -138,6 +139,7 @@ nImO::DecodeMIMEToBytes
         else
         {
             okSoFar = false;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
     }
     if (okSoFar)
@@ -178,6 +180,7 @@ nImO::DecodeMIMEToBytes
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar && (count4s > 0))

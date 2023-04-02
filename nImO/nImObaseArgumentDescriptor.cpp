@@ -252,6 +252,7 @@ BaseArgumentDescriptor::partitionString
     ODL_C1("expectedTag = ", expectedTag); //####
     ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue, "indexOfListValue = ", indexOfListValue); //####
     ODL_P3("name = ", &name, "argMode = ", &argMode, "result = ", &result); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     // We need to split the input into fields.
     result.clear();
     for (size_t fieldNumber = 0; 0 < workingCopy.length(); ++fieldNumber)
@@ -281,6 +282,7 @@ BaseArgumentDescriptor::partitionString
                     {
                         workingCopy = workingCopy.substr(1);
                         okSoFar = true;
+                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                     }
                     else
                     {
@@ -326,6 +328,7 @@ BaseArgumentDescriptor::partitionString
         }
     }
     okSoFar &= (result.size() > indexOfDefaultValue);
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (okSoFar)
     {
         std::string typeTag(result[1]);
@@ -335,11 +338,13 @@ BaseArgumentDescriptor::partitionString
         if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
         {
             okSoFar = false;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar)
         {
             argMode = ModeFromString(modeString);
             okSoFar = (ArgumentMode::Unknown != argMode);
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         else
         {

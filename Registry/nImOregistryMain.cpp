@@ -44,7 +44,7 @@
 #include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -110,8 +110,9 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::DisableWaitForRegistry(true);
-            nImO::SpContextWithNetworking   ourContext{new nImO::RegistryContext{argc, argv, progName, optionValues._logging}};
+            nImO::SpContextWithNetworking   ourContext{new nImO::RegistryContext{argc, argv, progName, optionValues._logging, true}};
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (ourContext->asServiceContext()->findRegistry(true))
             {
@@ -121,6 +122,7 @@ main
             {
                 std::unique_ptr<nImO::Registry> theRegistry{new nImO::Registry{ourContext, optionValues._logging}};
 
+                ODL_P1("theRegistry <- ", theRegistry.get()); //!!!
                 if (nullptr == theRegistry)
                 {
                     ourContext->report("Could not create Registry.");

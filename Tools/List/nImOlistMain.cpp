@@ -163,6 +163,7 @@ listNodes
     bool                        okSoFar = true;
     nImO::RegStringSetOrFailure statusWithStrings = proxy.getNodes();
 
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (statusWithStrings.first.first)
     {
         nImO::StringSet nodes = statusWithStrings.second;
@@ -217,6 +218,7 @@ listNodes
                 {
                     std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
                     okSoFar = false;
+                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                     break;
                 }
             }
@@ -230,6 +232,7 @@ listNodes
     {
         std::cerr << "Problem with 'getNodes': " << statusWithStrings.first.second << std::endl;
         okSoFar = false;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     return okSoFar;
 } // listNodes
@@ -284,6 +287,7 @@ main
             nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "list", optionValues._logging}};
             nImO::Connection                registryConnection;
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 std::string choice{firstArg.getCurrentValue()};

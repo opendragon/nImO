@@ -114,6 +114,7 @@ main
             std::string                     nodeName{firstArg.getCurrentValue()};
             nImO::Connection                registryConnection;
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
@@ -149,7 +150,7 @@ main
                     // Send Shutdown command to all services.
                     // Send Shutdown command to all nodes.
                     // Send Shutdown command to Registry.
-                    nImO::SendRequestWithoutResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
+                    nImO::SendRequestWithEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }
             }
             else

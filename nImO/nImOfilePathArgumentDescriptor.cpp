@@ -108,10 +108,12 @@ checkFilePath
 #else // ! MAC_OR_LINUX_
                 okSoFar = (0 == _access("..", 2));
 #endif // ! MAC_OR_LINUX_
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
                 okSoFar = emptyIsOK;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         else
@@ -122,6 +124,7 @@ checkFilePath
 #else // ! MAC_OR_LINUX_
             okSoFar = (0 == _access(dirPath.c_str(), 2));
 #endif // ! MAC_OR_LINUX_
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
     }
     else if (0 < strlen(thePath))
@@ -132,10 +135,12 @@ checkFilePath
 #else // ! MAC_OR_LINUX_
         okSoFar = (0 == _access(thePath, 4));
 #endif // ! MAC_OR_LINUX_
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     else
     {
         okSoFar = emptyIsOK;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -321,6 +326,7 @@ FilePathArgumentDescriptor::parseArgString
         std::string defaultString{inVector[3]};
         std::string description{inVector[4]};
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if ("o" == direction)
         {
             forOutput = true;
@@ -328,6 +334,7 @@ FilePathArgumentDescriptor::parseArgString
         else if ("i" != direction)
         {
             okSoFar = false;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar)
         {
@@ -338,6 +345,7 @@ FilePathArgumentDescriptor::parseArgString
             else if ("0" != randomFlag)
             {
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar)
@@ -351,6 +359,7 @@ FilePathArgumentDescriptor::parseArgString
             tempString += suffixValue;
             okSoFar = checkFilePath(tempString.c_str(), forOutput,
                                     0 == (toUType(argMode) & toUType(ArgumentMode::Optional)));
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar)
         {

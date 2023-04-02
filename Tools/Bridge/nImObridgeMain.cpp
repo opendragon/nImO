@@ -112,6 +112,7 @@ main
                                                                                 firstArg.getCurrentValue()}};
             nImO::Connection                registryConnection;
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};

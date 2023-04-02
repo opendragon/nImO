@@ -150,6 +150,8 @@ namespace nImO
                     _owner._havePort = false;
                     _owner._haveAddress = false;
                     _processing = false;
+                    ODL_B3("_owner._havePort <- ", _owner._havePort, "_owner._haveAddress <- ", _owner._haveAddress,//!!
+                           "_processing <- ", _processing); //!!!
                 }
             }
 
@@ -208,15 +210,19 @@ namespace nImO
                         _owner._havePort = false;
                         _owner._haveAddress = false;
                         _processing = true;
+                        ODL_B3("_owner._havePort <- ", _owner._havePort, "_owner._haveAddress <- ", _owner._haveAddress,//!!
+                               "_processing <- ", _processing); //!!!
                     }
                     else
                     {
                         _processing = false;
+                        ODL_B1("_processing <- ", _processing); //!!!
                     }
                 }
                 else
                 {
                     _processing = false;
+                    ODL_B1("_processing <- ", _processing); //!!!
                 }
             }
 
@@ -231,6 +237,7 @@ namespace nImO
                     _owner.report("SRV Data");
                     _owner._registryPort = port;
                     _owner._havePort = true;
+                    ODL_B1("_owner._havePort <- ", _owner._havePort); //!!!
                 }
             }
 
@@ -251,6 +258,7 @@ namespace nImO
                         _owner.report("TXT Data");
                         _owner._registryPreferredAddress = mdns_string_to_std_string(valueData);
                         _owner._haveAddress = true;
+                        ODL_B1("_owner._haveAddress <- ", _owner._haveAddress); //!!!
                     }
                 }
             }
@@ -645,6 +653,7 @@ nImO::ContextWithMDNS::executeBrowser
     timeout.tv_usec = 0;
     owner.report("Browser thread starting.");
     lBrowserThreadStarted = true;
+    ODL_B1("lBrowserThreadStarted <- ", lBrowserThreadStarted); //!!!
     for ( ; ; )
     {
         if (lBrowserThreadStop || (owner._havePort && owner._haveAddress))
@@ -702,6 +711,7 @@ nImO::ContextWithMDNS::executeBrowser
             if (owner._requestNewScan)
             {
                 owner._requestNewScan = false;
+                ODL_B1("owner._requestNewScan <- ", owner._requestNewScan); //!!!
                 owner.report("Sending mDNS query: " + std::string(NIMO_REGISTRY_SERVICE_NAME));
                 for (int isock = 0; isock < owner._numSockets; ++isock)
                 {
@@ -728,6 +738,7 @@ nImO::ContextWithMDNS::executeBrowser
     }
     lBrowserThreadStarted = false;
     lBrowserThreadStopped = true;
+    ODL_B2("lBrowserThreadStarted <- ", lBrowserThreadStarted, "lBrowserThreadStopped <- ", lBrowserThreadStopped); //!!!
     owner.report("Browser thread terminating.");
     ODL_EXIT(); //####
 } // nImO::ContextWithMDNS::executeBrowser
@@ -771,10 +782,13 @@ nImO::ContextWithMDNS::gatherAnnouncements
     {
         bool    okSoFar = true;
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         lBrowserThreadStopped = false;
         lBrowserThreadStop = false;
+        ODL_B2("lBrowserThreadStopped <- ", lBrowserThreadStopped, "lBrowserThreadStop <- ", lBrowserThreadStop); //!!!
         _havePort = false;
         _haveAddress = false;
+        ODL_B2("_havePort <- ", _havePort, "_haveAddress <- ", _haveAddress); //!!!
         _browserThread = new boost::thread([this]
                                             (void)
                                             {
@@ -792,6 +806,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             {
                 report("Failed to send mDNS query: " + std::string(strerror(errno)));
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar)
@@ -877,8 +892,8 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
     ODL_I1("at line ", __LINE__);//!!
     if (_startBrowser && (nullptr != _browserThread))
     {
-        ODL_I1("at line ", __LINE__);//!!
         lBrowserThreadStop = true;
+        ODL_B1("lBrowserThreadStop <- ", lBrowserThreadStop); //!!!
         if (lWaitForRegistry && lBrowserThreadStarted && (! lBrowserThreadStopped))
         {
             ODL_I1("at line ", __LINE__);//!!
@@ -933,12 +948,10 @@ nImO::DisableWaitForRegistry
     (const bool allowOneCheck)
 {
     ODL_ENTER(); //####
-    ODL_I1("at line ", __LINE__);//!!
     ODL_B1("allowOneCheck = ", allowOneCheck); //####
     lWaitForRegistry = false;
-    ODL_I1("at line ", __LINE__);//!!
     lPerformSingleRegistryCheck = allowOneCheck;
-    ODL_I1("at line ", __LINE__);//!!
+    ODL_B2("lWaitForRegistry <- ", lWaitForRegistry, "lPerformSingleRegistryCheck <- ", lPerformSingleRegistryCheck); //####
     ODL_EXIT(); //####
 } // nImO::DisableWaitForRegistry
 
@@ -949,6 +962,7 @@ nImO::EnableWaitForRegistry
     ODL_ENTER(); //####
     lWaitForRegistry = true;
     lPerformSingleRegistryCheck = false;
+    ODL_B2("lWaitForRegistry <- ", lWaitForRegistry, "lPerformSingleRegistryCheck <- ", lPerformSingleRegistryCheck); //####
     ODL_EXIT(); //####
 } // nImO::EnableWaitForRegistry
 
@@ -958,6 +972,7 @@ nImO::InterruptRegistryWait
 {
     ODL_ENTER(); //####
     lStopRegistryLoop = true;
+    ODL_B1("lStopRegistryLoop <- ", lStopRegistryLoop); //!!!
     ODL_EXIT(); //####
 } // nImO::InterruptRegistryWait
 

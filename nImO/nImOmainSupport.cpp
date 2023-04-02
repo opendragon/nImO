@@ -92,6 +92,7 @@ nImO::CatchSignal
     if (SIGINT == signal)
     {
         gKeepRunning = false;
+        ODL_B1("gKeepRunning <- ", gKeepRunning); //!!
         InterruptRegistryWait();
     }
     else

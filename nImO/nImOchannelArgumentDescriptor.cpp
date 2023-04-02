@@ -232,10 +232,12 @@ ChannelArgumentDescriptor::parseArgString
         if (ChannelName::parse(defaultString, failReason))
         {
             okSoFar = true;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         else
         {
             okSoFar = false;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar)
         {

@@ -232,6 +232,7 @@ BooleanArgumentDescriptor::parseArgString
         std::string defaultString{inVector[0]};
         std::string description{inVector[1]};
 
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (0 < defaultString.length())
         {
             if ('1' == defaultString[0])
@@ -245,11 +246,13 @@ BooleanArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         else
         {
             okSoFar = false;
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar)
         {

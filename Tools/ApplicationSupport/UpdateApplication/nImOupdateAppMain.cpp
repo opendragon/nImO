@@ -114,6 +114,7 @@ main
             nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "updateApp", optionValues._logging}};
             nImO::Connection                registryConnection;
 
+            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};

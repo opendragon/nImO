@@ -347,6 +347,7 @@ nImO::Value::extractInt64FromMessage
             bool            atEnd;
             bool            okSoFar = true;
 
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
             for (size_t ii = 0; okSoFar && (size > ii); ++ii)
             {
                 int aByte = theMessage.getByte(position, atEnd);
@@ -357,6 +358,7 @@ nImO::Value::extractInt64FromMessage
                     status = IntStatus::Incomplete;
                     ODL_I1("status <- ", toUType(status)); //####
                     okSoFar = false;
+                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                 }
                 else
                 {

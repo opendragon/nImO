@@ -172,7 +172,7 @@ handleResponse
 #endif // defined(__APPLE__)
 
 void
-nImO::SendRequestWithoutResponse
+nImO::SendRequestWithEmptyResponse
     (SpContextWithNetworking    context,
      Connection &               connection,
      const std::string          requestKey,
@@ -184,6 +184,7 @@ nImO::SendRequestWithoutResponse
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "connection = ", &connection); //####
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
+    ODL_P1("requestArray <- ", requestArray.get()); //!!!
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
     requestToSend.setValue(requestArray);
@@ -222,6 +223,7 @@ nImO::SendRequestWithoutResponse
                                             context->report("async_connect failed");
                                         }
                                         keepGoing = false;
+                                        ODL_B1("keepGoing <- ", keepGoing); //!!
                                     }
                                     else
                                     {
@@ -247,6 +249,7 @@ nImO::SendRequestWithoutResponse
                                                                     context->report("async_write failed");
                                                                 }
                                                                 keepGoing = false;
+                                                                ODL_B1("keepGoing <- ", keepGoing); //!!
                                                             }
                                                             else
                                                             {
@@ -287,6 +290,7 @@ nImO::SendRequestWithoutResponse
                                                                                                 ODL_I1("at line ", __LINE__);//!!
                                                                                             }
                                                                                             keepGoing = false;
+                                                                                            ODL_B1("keepGoing <- ", keepGoing); //!!
                                                                                         });
                                                                 }
                                                             });
@@ -310,4 +314,4 @@ nImO::SendRequestWithoutResponse
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
     }
     ODL_EXIT(); //####
-} // nImO::SendRequestWithoutResponse
+} // nImO::SendRequestWithEmptyResponse

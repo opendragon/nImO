@@ -343,10 +343,12 @@ nImO::ConvertToDouble
         result = value;
         ODL_D1("result <- ", result); //####
         okSoFar = true;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     else
     {
         okSoFar = false;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -362,6 +364,7 @@ nImO::ConvertToDouble
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToDouble
@@ -383,10 +386,12 @@ nImO::ConvertToInt64
         result = value;
         ODL_I1("result <- ", result); //####
         okSoFar = true;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     else
     {
         okSoFar = false;
+        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -402,6 +407,7 @@ nImO::ConvertToInt64
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToInt64

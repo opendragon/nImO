@@ -380,6 +380,7 @@ nImO::Map::extractValue
                     {
                         bool    okSoFar = true;
 
+                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, aMap->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
@@ -390,6 +391,7 @@ nImO::Map::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {
@@ -400,12 +402,14 @@ nImO::Map::extractValue
                                     ODL_LOG("(nullptr == aValue)"); //####
                                     result.reset(new Invalid("Null key Value read", position));
                                     okSoFar = false;
+                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                                 else if (keyValue->asFlaw())
                                 {
                                     ODL_LOG("(keyValue->asFlaw())"); //####
                                     result = keyValue;
                                     okSoFar = false;
+                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                                 else
                                 {
@@ -418,6 +422,7 @@ nImO::Map::extractValue
                                         ODL_LOG("(atEnd)"); //####
                                         result.reset();
                                         okSoFar = false;
+                                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                                     }
                                     else
                                     {
@@ -428,12 +433,14 @@ nImO::Map::extractValue
                                             ODL_LOG("(nullptr == aValue)"); //####
                                             result.reset(new Invalid("Null value Value read", position));
                                             okSoFar = false;
+                                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                                         }
                                         else if (vValue->asFlaw())
                                         {
                                             ODL_LOG("(vValue->asFlaw())"); //####
                                             result = vValue;
                                             okSoFar = false;
+                                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                                         }
                                         else
                                         {
@@ -454,6 +461,7 @@ nImO::Map::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {
@@ -473,6 +481,7 @@ nImO::Map::extractValue
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result.reset(new Invalid("Non-empty Map with incorrect end tag", position));
                                     okSoFar = false;
+                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                             }
                         }

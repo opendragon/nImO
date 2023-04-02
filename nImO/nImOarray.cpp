@@ -309,6 +309,7 @@ nImO::Array::extractValue
                     {
                         bool    okSoFar = true;
 
+                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, anArray->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
@@ -319,6 +320,7 @@ nImO::Array::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {
@@ -332,12 +334,14 @@ nImO::Array::extractValue
                                     ODL_LOG("(nullptr == aValue)"); //####
                                     result.reset(new Invalid("Null Value read", position));
                                     okSoFar = false;
+                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                                 else if (aValue->asFlaw())
                                 {
                                     ODL_LOG("(aValue->asFlaw())"); //####
                                     result = aValue;
                                     okSoFar = false;
+                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                             }
                         }
@@ -351,6 +355,7 @@ nImO::Array::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {

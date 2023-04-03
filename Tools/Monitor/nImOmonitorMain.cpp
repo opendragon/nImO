@@ -287,14 +287,14 @@ main
             {
                 SpReceivedData  nextData;
 
-                thread::yield();
+                this_thread::yield();
                 {
                     // Check for messages.
                     std::unique_lock<std::mutex>    lock(lReceivedLock);
 
                     for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
                     {
-                        thread::yield();
+                        this_thread::yield();
                         lReceivedCondition.wait(lock);
                     }
                     if (nImO::gKeepRunning)

@@ -136,7 +136,7 @@ main
                     {
                         for ( ; nImO::gKeepRunning; )
                         {
-                            thread::yield();
+                            this_thread::yield();
     //TBD
                         }
                         asRegistryContext->removeAnnouncement();
@@ -144,7 +144,7 @@ main
                 }
             }
             nImO::EnableWaitForRegistry();
-            ourContext->report("Exiting.");
+            ourContext->report("exiting.");
         }
         catch (...)
         {

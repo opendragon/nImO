@@ -112,7 +112,7 @@ main
 
             for ( ; nImO::gKeepRunning; )
             {
-                thread::yield();
+                this_thread::yield();
 //TBD
             }
 #if 0

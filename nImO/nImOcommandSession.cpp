@@ -47,7 +47,7 @@
 #include <nImOstring.h>
 #include <nImOvalue.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -189,8 +189,6 @@ nImO::CommandSession::~CommandSession
     (void)
 {
     ODL_OBJENTER(); //####
-//    _socket.reset();
-//    _socket->close();
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::~CommandSession
 
@@ -242,7 +240,12 @@ nImO::CommandSession::start
                             });
     for ( ; keepGoing && gKeepRunning; )
     {
-        thread::yield();
+        this_thread::yield();
+    }
+    if (gPendingStop)
+    {
+        gKeepRunning = false;
+        ODL_B1("gKeepRunning <- ", gKeepRunning); //!!
     }
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::start

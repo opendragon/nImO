@@ -156,7 +156,7 @@ localCatcher
 #if 0
     if (lLogger)
     {
-        std::string message{"Exiting due to signal "};
+        std::string message{"exiting due to signal "};
 
         message += std::to_string(signal);
         message += " = ";
@@ -305,7 +305,7 @@ nImO::ConsumeSomeTime
         timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
         timer.wait();
     }
-    thread::yield();
+    this_thread::yield();
     ODL_EXIT(); //####
 } // nImO::ConsumeSomeTime
 

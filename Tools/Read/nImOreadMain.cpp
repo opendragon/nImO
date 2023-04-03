@@ -129,7 +129,7 @@ main
                 ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext->report("Exiting.");
+            ourContext->report("exiting.");
         }
         catch (...)
         {

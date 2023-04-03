@@ -41,7 +41,7 @@
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -114,8 +114,8 @@ nImO::ShutdownCommandHandler::doIt
 
     ODL_B1("okSoFar <- ", okSoFar); //!!!
     // Signal to the application that it should terminate.
-    gKeepRunning = false;
-    ODL_B1("gKeepRunning <- ", gKeepRunning); //!!
+    gPendingStop = true;
+    ODL_B1("gPendingStop <- ", gPendingStop); //!!
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ShutdownCommandHandler::doIt

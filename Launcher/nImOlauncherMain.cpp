@@ -136,7 +136,7 @@ main
                             ourContext->report("Waiting for requests.");
                             for ( ; nImO::gKeepRunning; )
                             {
-                                thread::yield();
+                                this_thread::yield();
         //TBD
                             }
                             status = proxy.removeNode(nodeName);
@@ -164,7 +164,7 @@ main
                 ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext->report("Exiting.");
+            ourContext->report("exiting.");
         }
         catch (...)
         {

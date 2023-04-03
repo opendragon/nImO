@@ -115,7 +115,7 @@ main
 
                 for ( ; nImO::gKeepRunning; )
                 {
-                    thread::yield();
+                    this_thread::yield();
 //TBD
                 }
             }
@@ -150,7 +150,7 @@ main
 //            }
 //            exit
 #endif//0
-            ourContext->report("Exiting.");
+            ourContext->report("exiting.");
         }
         catch (...)
         {

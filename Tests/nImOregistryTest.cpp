@@ -85,7 +85,7 @@ static void
 catchSignal
     (const int  signal)
 {
-    std::string message{"Exiting due to signal "};
+    std::string message{"exiting due to signal "};
 
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
@@ -1848,8 +1848,7 @@ main
     nImO::ReportVersions();
     try
     {
-        nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "", false,
-                                                                            nImO::ContextWithMDNS::ThreadMode::LaunchNeither}};
+        nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName}};
 
         if (0 < --argc)
         {

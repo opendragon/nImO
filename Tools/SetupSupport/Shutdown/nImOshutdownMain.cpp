@@ -45,7 +45,7 @@
 #include <nImOstringArgumentDescriptor.h>
 #include <nImOutilityContext.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -150,15 +150,20 @@ main
                     // Send Shutdown command to all services.
                     // Send Shutdown command to all nodes.
                     // Send Shutdown command to Registry.
+                    ODL_I1("at line ", __LINE__);//!!
                     nImO::SendRequestWithEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
+                    ODL_I1("at line ", __LINE__);//!!
                 }
+                ODL_I1("at line ", __LINE__);//!!
             }
             else
             {
                 ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext->report("Exiting.");
+            ODL_I1("at line ", __LINE__);//!!
+            ourContext->report("exiting.");
+            ODL_I1("at line ", __LINE__);//!!
         }
         catch (...)
         {

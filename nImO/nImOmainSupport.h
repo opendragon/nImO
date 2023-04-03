@@ -64,6 +64,9 @@ namespace nImO
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic<bool>    gKeepRunning;
 
+    /*! @brief Set to @c true when there's a pending shutdown request. */
+    extern std::atomic<bool>    gPendingStop;
+
 } // nImO
 
 #endif // not defined(nImOmainSupport_H_)

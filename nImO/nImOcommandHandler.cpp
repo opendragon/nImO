@@ -46,7 +46,7 @@
 #include <nImOMIMESupport.h>
 #include <nImOstring.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -193,7 +193,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                   });
                 for ( ; keepGoing && gKeepRunning; )
                 {
-                    thread::yield();
+                    this_thread::yield();
                 }
             }
         }

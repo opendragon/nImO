@@ -42,7 +42,7 @@
 #include <initFileInteger.h>
 #include <nImOstandardOptions.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -136,9 +136,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             Ptr(boost::thread)  aThread = new boost::thread([this]
                                                             (void)
                                                             {
-                                                                ODL_LOG("service thread started"); //####
                                                                 getService()->run();
-                                                                ODL_LOG("service thread ended"); //####
                                                             });
 
             ODL_P1("service thread = ", aThread); //####

@@ -40,7 +40,7 @@
 
 #include <nImOannounceServiceData.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -399,7 +399,7 @@ nImO::RegistryContext::executeAnnouncer
     ODL_P1("owner = ", &owner); //####
     timeout.tv_sec = 2;
     timeout.tv_usec = 0;
-    owner.report("Announcer thread starting.");
+    owner.report("announcer thread starting.");
     for ( ; ; )
     {
         if (lAnnouncerThreadStop)
@@ -464,7 +464,7 @@ nImO::RegistryContext::executeAnnouncer
             }
         }
     }
-    owner.report("Announcer thread terminating.");
+    owner.report("announcer thread terminating.");
     ODL_EXIT(); //####
 } // nImO::RegistryContext::executeAnnouncer
 

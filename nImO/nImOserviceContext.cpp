@@ -45,7 +45,7 @@
 #include <nImOshutdownCommandHandler.h>
 #include <nImOstring.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -224,22 +224,24 @@ nImO::ServiceContext::destroyCommandPort
     ODL_OBJENTER(); //####
     _keepGoing = false;
     ODL_B1("_keepGoing <- ", _keepGoing); //!!
-    //_acceptor.cancel();
     _acceptor.close();
     for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
     {
         Ptr(CommandSession) aSession = *walker;
+        SPsocketTCP         sessionSocket = aSession->getSocket();
 
 #if defined(nImO_ChattyTcpLogging)
         report("closing a session");
 #endif /* defined(nImO_ChattyTcpLogging) */
+        if (sessionSocket)
+        {
+            ODL_I1("at line ", __LINE__);//!!
+            sessionSocket->close();
+        }
         ODL_I1("at line ", __LINE__);//!!
-        aSession->getSocket()->close();
-        ODL_I1("at line ", __LINE__);//!!
-        //delete aSession;
-        //aSession->getSocket().cancel();
-        //aSession->getSocket().close();
+        delete aSession;
     }
+    _sessions.clear();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::destroyCommandPort
 

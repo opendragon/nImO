@@ -45,7 +45,7 @@
 //#include <nImOregistryProxy.h>
 //#include <nImOserviceOptions.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -71,8 +71,9 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief Set to @c false when a SIGINT occurs. */
 std::atomic<bool>   nImO::gKeepRunning(true);
+
+std::atomic<bool>   nImO::gPendingStop;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -98,7 +99,7 @@ nImO::CatchSignal
     else
 #endif // defined(SIGINT)
     {
-        std::string message{"Exiting due to signal "};
+        std::string message{"exiting due to signal "};
 
         message += std::to_string(signal);
         message += " = ";

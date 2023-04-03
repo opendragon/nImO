@@ -46,7 +46,7 @@
 #include <nImOstring.h>
 #include <nImOutilityContext.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -256,10 +256,10 @@ nImO::SendRequestWithEmptyResponse
 #if defined(nImO_ChattyTcpLogging)
                                                                 context->report("command sent");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                asio::streambuf rB;
+                                                                std::shared_ptr<asio::streambuf>    rB{new asio::streambuf};
 
-                                                                asio::async_read_until(socket, rB, MatchMessageSeparator,
-                                                                                        [context, &rB, &keepGoing, &responseKey]
+                                                                asio::async_read_until(socket, *rB, MatchMessageSeparator,
+                                                                                        [context, rB, &keepGoing, &responseKey]
                                                                                         (const system::error_code & ec,
                                                                                          const std::size_t          NIMO_UNUSED_PARAM_(size))
                                                                                         {
@@ -280,7 +280,7 @@ nImO::SendRequestWithEmptyResponse
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                                std::string handleThis{buffers_begin(rB.data()),                                       buffers_end(rB.data())};
+                                                                                                std::string handleThis{buffers_begin(rB->data()),                                       buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpLogging)
                                                                                                 context->report("got response");
@@ -298,10 +298,10 @@ nImO::SendRequestWithEmptyResponse
                                 });
             for ( ; keepGoing && gKeepRunning; )
             {
-                thread::yield();
+                this_thread::yield();
             }
             ODL_I1("at line ", __LINE__);//!!
-            socket.close();
+            socket.shutdown(asio::ip::tcp::socket::shutdown_both);
             ODL_I1("at line ", __LINE__);//!!
         }
         else

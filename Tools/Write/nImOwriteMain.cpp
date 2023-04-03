@@ -125,7 +125,7 @@ main
                 // Wait for messages until exit requested via Ctrl-C or a shutdown command is received.
                 for ( ; nImO::gKeepRunning; )
                 {
-                    thread::yield();
+                    this_thread::yield();
                     // TBD
                 }
                 std::cout << "saw Ctrl-C" << std::endl;
@@ -135,7 +135,7 @@ main
                 ourContext->report("Registry not found.");
                 exitCode = 2;
             }
-            ourContext->report("Exiting.");
+            ourContext->report("exiting.");
         }
         catch (...)
         {

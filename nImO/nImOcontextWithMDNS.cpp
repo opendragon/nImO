@@ -40,7 +40,7 @@
 
 //#include <nImOannounceServiceData.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if MAC_OR_LINUX_
@@ -651,7 +651,7 @@ nImO::ContextWithMDNS::executeBrowser
     ODL_P1("owner = ", &owner); //####
     timeout.tv_sec = 10;
     timeout.tv_usec = 0;
-    owner.report("Browser thread starting.");
+    owner.report("browser thread starting.");
     lBrowserThreadStarted = true;
     ODL_B1("lBrowserThreadStarted <- ", lBrowserThreadStarted); //!!!
     for ( ; ; )
@@ -739,7 +739,7 @@ nImO::ContextWithMDNS::executeBrowser
     lBrowserThreadStarted = false;
     lBrowserThreadStopped = true;
     ODL_B2("lBrowserThreadStarted <- ", lBrowserThreadStarted, "lBrowserThreadStopped <- ", lBrowserThreadStopped); //!!!
-    owner.report("Browser thread terminating.");
+    owner.report("browser thread terminating.");
     ODL_EXIT(); //####
 } // nImO::ContextWithMDNS::executeBrowser
 
@@ -834,7 +834,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             }
             for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {
-                thread::yield();
+                this_thread::yield();
             }
             if (! timedOut)
             {
@@ -899,7 +899,7 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
             ODL_I1("at line ", __LINE__);//!!
             for ( ; ! lBrowserThreadStopped; )
             {
-                thread::yield();
+                this_thread::yield();
             }
             ODL_I1("at line ", __LINE__);//!!
         }

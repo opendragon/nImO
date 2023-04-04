@@ -60,7 +60,7 @@
 /*! @file
  @brief A utility application to continuously report information on #nImO. */
 
-/*! @dir Info
+/*! @dir Monitor
  @brief The set of files that implement the Monitor application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

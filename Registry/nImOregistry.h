@@ -166,6 +166,9 @@ namespace nImO
 
     }; // Registry
 
+    /*! @brief A holder for a shared pointer to a Registry. */
+    using SpRegistry = std::shared_ptr<Registry>;
+
 } // nImO
 
 #endif // not defined(nImOregistry_H_)

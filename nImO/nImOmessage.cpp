@@ -460,10 +460,9 @@ nImO::Message::setValue
     {
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
         std::lock_guard<std::mutex> guard(_lock);
-
-        DataKind    typeTag = theValue->getTypeTag();
-        DataKind    headerByte = (DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
-        DataKind    trailerByte = (DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
+        DataKind                    typeTag = theValue->getTypeTag();
+        DataKind                    headerByte = (DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
+        DataKind                    trailerByte = (DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;
@@ -508,3 +507,10 @@ nImO::PackageMessage
 {
     return std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + "\n" + kMessageSentinel);
 } // nImO::PackageMessage
+
+std::string
+nImO::UnpackageMessage
+    (const std::string &    inString)
+{
+    return inString.substr(0, inString.length() - (kMessageSentinel.length() + 1));
+}

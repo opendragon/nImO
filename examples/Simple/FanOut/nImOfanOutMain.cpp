@@ -54,7 +54,7 @@
 /*! @file
  @brief An example application to demonstrate using the nImO library in a program. */
 
-/*! @dir Version
+/*! @dir FanOut
  @brief The set of files that implement the FanOut application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

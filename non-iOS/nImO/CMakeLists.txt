@@ -54,6 +54,7 @@ endif()
 
 add_library(${THIS_TARGET}
             "${DO_SHARED}"
+            "${THIS_SOURCE_DIR}/nImOaddNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp"
             "${THIS_SOURCE_DIR}/nImOarray.cpp"
@@ -92,10 +93,13 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
+            "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
+            "${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOrequestResponse.cpp"
+            "${THIS_SOURCE_DIR}/nImOresponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceContext.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceOptions.cpp"
             "${THIS_SOURCE_DIR}/nImOset.cpp"
@@ -137,6 +141,7 @@ install(TARGETS ${THIS_TARGET}
         COMPONENT libraries)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/nImOaddNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOannounceServiceData.h"
         "${THIS_SOURCE_DIR}/nImOarray.h"
@@ -177,12 +182,15 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOmessage.h"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h"
+        "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOnumber.h"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
         "${THIS_SOURCE_DIR}/nImOregistryTypes.h"
+        "${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOrequestResponse.h"
+        "${THIS_SOURCE_DIR}/nImOresponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOserviceContext.h"
         "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
         "${THIS_SOURCE_DIR}/nImOset.h"
@@ -203,6 +211,7 @@ install(FILES
 
 if(nImO_DO_SWIG)
     set(nImO_SWIG_SOURCES ${THIS_SOURCE_DIR}/swig_nImO_in/nImOcommon.i
+        ${THIS_SOURCE_DIR}/nImOaddNodeResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOaddNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOaddressArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp ${THIS_SOURCE_DIR}/nImOannounceServiceData.h
         ${THIS_SOURCE_DIR}/nImOarray.cpp ${THIS_SOURCE_DIR}/nImOarray.h
@@ -242,12 +251,15 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.h
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h
+        ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h
         ${THIS_SOURCE_DIR}/nImOregistryTypes.h
+        ${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOrequestResponse.cpp ${THIS_SOURCE_DIR}/nImOrequestResponse.h
+        ${THIS_SOURCE_DIR}/nImOresponseHandler.cpp ${THIS_SOURCE_DIR}/nImOresponseHandler.h
         ${THIS_SOURCE_DIR}/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/nImOserviceContext.h
         ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
         ${THIS_SOURCE_DIR}/nImOset.cpp ${THIS_SOURCE_DIR}/nImOset.h

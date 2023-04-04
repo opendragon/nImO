@@ -127,6 +127,7 @@ nImO::DecodeMIMEToBytes
     std::string line;
 
     ODL_B1("okSoFar <- ", okSoFar); //!!!
+    ODL_I3("count4s <- ", count4s, "numRows <- ", numRows, "newSize <- ", newSize); //!!!
     outBytes.clear();
     // First, validate the row sizes.
     for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
@@ -135,6 +136,7 @@ nImO::DecodeMIMEToBytes
         if (0 == (line.length() % 4))
         {
             newSize += ((line.length() / 4) * 3);
+            ODL_I1("newSize <- ", newSize); //!!!
         }
         else
         {
@@ -155,6 +157,7 @@ nImO::DecodeMIMEToBytes
 
             if (kEqualsChar == ch)
             {
+                ODL_I1("count4s at equals = ", count4s); //!!!
                 break;
 
             }
@@ -163,18 +166,20 @@ nImO::DecodeMIMEToBytes
                 group6[count4s] = ch;
                 if (4 == ++count4s)
                 {
+                    ODL_I1("count4s <- ", count4s); //!!!
                     for (size_t kk = 0; kk < 4; ++kk)
                     {
                         group6[kk] = strchr(kMIMECharSet, group6[kk]) - kMIMECharSet;
                     }
-                    group8[0] = (group6[0] << 2) + ((group6[1] & 0x30) >> 4);
-                    group8[1] = ((group6[1] & 0xf) << 4) + ((group6[2] & 0x3c) >> 2);
-                    group8[2] = ((group6[2] & 0x3) << 6) + group6[3];
+                    group8[0] = (group6[0] << 2) + ((group6[1] & 0x0030) >> 4);
+                    group8[1] = ((group6[1] & 0x000f) << 4) + ((group6[2] & 0x003c) >> 2);
+                    group8[2] = ((group6[2] & 0x0003) << 6) + group6[3];
                     for (size_t kk = 0; kk < 3; ++kk)
                     {
                         outBytes.push_back(group8[kk]);
                     }
                     count4s = 0;
+                    ODL_I1("count4s <- ", count4s); //!!!
                 }
             }
             else
@@ -185,6 +190,7 @@ nImO::DecodeMIMEToBytes
         }
         if (okSoFar && (count4s > 0))
         {
+            ODL_I1("count4s = ", count4s); //!!!
             for (size_t jj = count4s; jj < 4; ++jj)
             {
                 group6[jj] = kEndOfString;
@@ -202,9 +208,9 @@ nImO::DecodeMIMEToBytes
                     group6[jj] = offset - kMIMECharSet;
                 }
             }
-            group8[0] = (group6[0] << 2) + ((group6[1] & 0x30) >> 4);
-            group8[1] = ((group6[1] & 0xf) << 4) + ((group6[2] & 0x3c) >> 2);
-            group8[2] = ((group6[2] & 0x3) << 6) + group6[3];
+            group8[0] = (group6[0] << 2) + ((group6[1] & 0x0030) >> 4);
+            group8[1] = ((group6[1] & 0x000f) << 4) + ((group6[2] & 0x003c) >> 2);
+            group8[2] = ((group6[2] & 0x0003) << 6) + group6[3];
             for (size_t jj = 0; jj < (count4s - 1); ++jj)
             {
                 outBytes.push_back(group8[jj]);
@@ -231,27 +237,31 @@ nImO::EncodeBytesAsMIME
      CPtr(void)     inBytes,
      const size_t   numBytes)
 {
+    ODL_I1("numBytes = ", numBytes); //!!!
     CPtr(uint8_t)   rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
     uint8_t         group8[3];
     uint8_t         group6[4];
     size_t          count3s = 0;
     std::string     line;
 
+    ODL_I1("count3s <- ", count3s); //!!!
     outValue.clear();
     // Calculate the number of rows.
     size_t  numQuads = ((numBytes + 2) / 3);
     size_t  numRows = (((4 * numQuads) + kMaxMIMELine - 1) / kMaxMIMELine);
 
+    ODL_I2("numQuads <- ", numQuads, "numRows <- ", numRows); //!!!
     outValue.reserve(numRows);
     for (size_t ii = 0; ii < numBytes; ++ii)
     {
         group8[count3s++] = rawBytes[ii];
+        ODL_I1("count3s <- ", count3s); //!!!
         if (3 == count3s)
         {
-            group6[0] = ((group8[0] & 0xfc) >> 2);
-            group6[1] = ((group8[0] & 0x03) << 4) + ((group8[1] & 0xf0) >> 4);
-            group6[2] = ((group8[1] & 0x0f) << 2) + ((group8[2] & 0xc0) >> 6);
-            group6[3] = (group8[2] & 0x3f);
+            group6[0] = ((group8[0] & 0x00fc) >> 2);
+            group6[1] = ((group8[0] & 0x0003) << 4) + ((group8[1] & 0x00f0) >> 4);
+            group6[2] = ((group8[1] & 0x000f) << 2) + ((group8[2] & 0x00c0) >> 6);
+            group6[3] = (group8[2] & 0x003f);
             for (size_t jj = 0; jj < 4; ++jj)
             {
                 if (kMaxMIMELine <= line.length())
@@ -262,18 +272,20 @@ nImO::EncodeBytesAsMIME
                 line += kMIMECharSet[group6[jj]];
             }
             count3s = 0;
+            ODL_I1("count3s <- ", count3s); //!!!
         }
     }
     if (0 < count3s)
     {
+        ODL_I1("count3s = ", count3s); //!!!
         for (size_t ii = count3s; ii < 3; ++ii)
         {
             group8[ii] = kEndOfString;
         }
-        group6[0] = ((group8[0] & 0xfc) >> 2);
-        group6[1] = ((group8[0] & 0x03) << 4) + ((group8[1] & 0xf0) >> 4);
-        group6[2] = ((group8[1] & 0x0f) << 2) + ((group8[2] & 0xc0) >> 6);
-        group6[3] = (group8[2] & 0x3f);
+        group6[0] = ((group8[0] & 0x00fc) >> 2);
+        group6[1] = ((group8[0] & 0x0003) << 4) + ((group8[1] & 0x00f0) >> 4);
+        group6[2] = ((group8[1] & 0x000f) << 2) + ((group8[2] & 0x00c0) >> 6);
+        group6[3] = (group8[2] & 0x003f);
         for (size_t ii = 0; ii < (count3s + 1); ++ii)
         {
             if (kMaxMIMELine <= line.length())
@@ -283,18 +295,23 @@ nImO::EncodeBytesAsMIME
             }
             line += kMIMECharSet[group6[ii]];
         }
+        ODL_S1s("line <- ", line);//!!
         for ( ; count3s++ < 3; )
         {
+            ODL_I1("count3s <- ", count3s); //!!!
             if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
                 line = "";
             }
             line += kEqualsChar;
+            ODL_LOG("adding equals"); //!!!
         }
+        ODL_S1s("line <- ", line);//!!
     }
     if (0 < line.length())
     {
+        ODL_S1s("line <- ", line);//!!
         outValue.push_back(line);
     }
 } // nImO::EncodeBytesAsMIME

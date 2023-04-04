@@ -40,6 +40,7 @@
 # define nImOrequestResponse_H_ /* Header guard */
 
 # include <nImOcontextWithNetworking.h>
+# include <nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,97 +56,58 @@
 namespace nImO
 {
 
-    class ContextWithMDNS;
+    /*! @brief Send a simple request with arguments and no expected results.
+     @param[in] context The context in which the request is being made.
+     @param[in] connection The connection to be used.
+     @param[in] handler The function to process the response.
+     @param[in] requestKey The request to be sent.
+     @param[in] responseKey The expected response, which will have no data. */
+    void
+    SendRequestWithArgumentsAndEmptyResponse
+        (SpContextWithNetworking    context,
+         Connection &               connection,
+         Ptr(Array)                 arguments,
+         const std::string          requestKey,
+         const std::string          responseKey);
 
-    /*! @brief A class to provide functors used to process responses. */
-    class ResponseHandler
-    {
+    /*! @brief Send a simple request with expected results and arguments.
+     @param[in] context The context in which the request is being made.
+     @param[in] connection The connection to be used.
+     @param[in] handler The function to process the response.
+     @param[in] requestKey The request to be sent.
+     @param[in] responseKey The expected response, which will have no data. */
+    void
+    SendRequestWithArgumentsAndNonEmptyResponse
+        (SpContextWithNetworking    context,
+         Connection &               connection,
+         Ptr(ResponseHandler)       handler,
+         Ptr(Array)                 arguments,
+         const std::string          requestKey,
+         const std::string          responseKey);
 
-        public :
-            // Public type definitions.
-
-        protected :
-            // Protected type definitions.
-
-        private :
-            // Private type definitions.
-
-        public :
-            // Public methods.
-
-            /*! @brief The destructor. */
-            virtual
-            ~ResponseHandler
-                (void);
-
-            /*! @brief The copy constructor.
-            @param[in] other The object to be copied. */
-            ResponseHandler
-                (const ResponseHandler &  other) = delete;
-
-            /*! @brief The move constructor.
-            @param[in] other The object to be moved. */
-            ResponseHandler
-                (ResponseHandler &&    other) = delete;
-
-            /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response. */
-            virtual void
-            doIt
-                (const Array &  stuff)
-                const = 0;
-
-            /*! @brief The copy assignment operator.
-             @param[in] other The object to be copied.
-             @return The updated object. */
-            ResponseHandler &
-            operator=
-                (const ResponseHandler &    other) = delete;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            ResponseHandler &
-            operator=
-                (ResponseHandler && other) = delete;
-
-        protected :
-            // Protected methods.
-
-            /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
-            inline ResponseHandler
-                (const std::string  responseKey) :
-                    _responseKey(responseKey)
-            {
-            }
-
-        private :
-            // Private methods.
-
-        public :
-            // Public fields.
-
-        protected :
-            // Protected fields.
-
-            /*! @brief The expected key in the response. */
-            std::string _responseKey;
-
-        private :
-            // Private fields.
-
-    }; // ResponseHandler
-
-    /*! @brief Send a simple request with no expected results.
+    /*! @brief Send a simple request with no expected results and no arguments.
      @param[in] context The context in which the request is being made.
      @param[in] connection The connection to be used.
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data. */
     void
-    SendRequestWithEmptyResponse
+    SendRequestWithNoArgumentsAndEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
+         const std::string          requestKey,
+         const std::string          responseKey);
+
+    /*! @brief Send a simple request with expected results and no arguments.
+     @param[in] context The context in which the request is being made.
+     @param[in] connection The connection to be used.
+     @param[in] handler The function to process the response.
+     @param[in] requestKey The request to be sent.
+     @param[in] responseKey The expected response, which will have no data. */
+    void
+    SendRequestWithNoArgumentsAndNonEmptyResponse
+        (SpContextWithNetworking    context,
+         Connection &               connection,
+         Ptr(ResponseHandler)       handler,
          const std::string          requestKey,
          const std::string          responseKey);
 

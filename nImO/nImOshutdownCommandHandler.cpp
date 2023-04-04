@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcommandHandler.cpp
+//  File:       nImO/nImOshutdownCommandHandler.cpp
 //
 //  Project:    nImO
 //

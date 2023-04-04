@@ -1,5 +1,6 @@
 %module nImO
 %{
+#include "nImOaddNodeResponseHandler.h"
 #include "nImOaddressArgumentDescriptor.h"
 #include "nImOannounceServiceData.h"
 #include "nImOarray.h"
@@ -40,12 +41,15 @@
 #include "nImOmessage.h"
 #include "nImOMIMESupport.h"
 #include "nImOmiscellaneousContext.h"
+#include "nImOnodePresentResponseHandler.h"
 #include "nImOnumber.h"
 #include "nImOportArgumentDescriptor.h"
 #include "nImOregistryCommands.h"
 #include "nImOregistryProxy.h"
 #include "nImOregistryTypes.h"
+#include "nImOremoveNodeResponseHandler.h"
 #include "nImOrequestResponse.h"
+#include "nImOresponseHandler.h"
 #include "nImOserviceContext.h"
 #include "nImOserviceOptions.h"
 #include "nImOset.h"

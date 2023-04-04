@@ -54,7 +54,7 @@
 /*! @file
  @brief A tool to update an application in the list of known applications. */
 
-/*! @dir Version
+/*! @dir UpdateApplication
  @brief The set of files that implement the UpdateApplication tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

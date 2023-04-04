@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOloadAppsMain.cpp
+//  File:       nImO/nImOresponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to load a set of applications.
+//  Contains:   The function definitions for the functors used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,18 +32,31 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-02-09
+//  Created:    2023-04-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilePathArgumentDescriptor.h>
-#include <nImOmainSupport.h>
-#include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
-#include <nImOutilityContext.h>
+#include <nImOresponseHandler.h>
+
+//#include <nImOarray.h>
+//#include <nImOcontextWithMDNS.h>
+//#include <nImOmainSupport.h>
+//#include <nImOmessage.h>
+//#include <nImOMIMESupport.h>
+//#include <nImOstring.h>
+//#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -51,10 +64,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to load a set of applications. */
-
-/*! @dir LoadApplications
- @brief The set of files that implement the LoadApplications tool. */
+ @brief The function definitions for the functors used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,61 +86,31 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::ResponseHandler::ResponseHandler
+    (void)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"inFile", T_("File to be read from"), nImO::ArgumentMode::Required, "", ".txt"};
-    nImO::DescriptorVector              argumentList;
-    nImO::StandardOptions               optionValues;
-    int                                 exitCode = 0;
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load applications", "nImOloadApps ourApplicationSet", 2023, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption))
-    {
-        nImO::LoadConfiguration(optionValues._configFilePath);
-        try
-        {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::GetShortComputerName()};
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "loadApps", optionValues._logging}};
-            nImO::Connection                registryConnection;
+    ODL_EXIT_P(this); //####
+} // nImO::ResponseHandler::ResponseHandler
 
-            ODL_P1("ourContext <- ", ourContext.get()); //!!!
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
-            {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+nImO::ResponseHandler::~ResponseHandler
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::ResponseHandler::~ResponseHandler
 
-                // TBD
-            }
-            else
-            {
-                ourContext->report("Registry not found.");
-                exitCode = 2;
-            }
-            ourContext->report("exiting.");
-        }
-        catch (...)
-        {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
-        }
-    }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

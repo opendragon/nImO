@@ -53,7 +53,7 @@
 /*! @file
  @brief A tool to write the set of loaded applications to a file. */
 
-/*! @dir Version
+/*! @dir StoreApplications
  @brief The set of files that implement the StoreApplications tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

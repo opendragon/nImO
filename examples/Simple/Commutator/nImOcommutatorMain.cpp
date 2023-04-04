@@ -55,7 +55,7 @@
 /*! @file
  @brief An example application to demonstrate using the nImO library in a program. */
 
-/*! @dir Version
+/*! @dir Commutator
  @brief The set of files that implement the Commutator application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

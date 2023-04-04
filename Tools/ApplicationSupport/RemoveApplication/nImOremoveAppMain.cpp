@@ -53,7 +53,7 @@
 /*! @file
  @brief A tool to remove an application from the list of known applications. */
 
-/*! @dir Version
+/*! @dir RemoveApplication
  @brief The set of files that implement the RemoveApplication tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

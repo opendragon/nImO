@@ -53,7 +53,7 @@
 /*! @file
  @brief An example application to demonstrate using the nImO library in a program. */
 
-/*! @dir Version
+/*! @dir Echo
  @brief The set of files that implement the EchoClient application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

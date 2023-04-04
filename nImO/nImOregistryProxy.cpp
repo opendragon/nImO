@@ -38,9 +38,15 @@
 
 #include <nImOregistryProxy.h>
 
+#include <nImOaddNodeResponseHandler.h>
+#include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOlogical.h>
+#include <nImOnodePresentResponseHandler.h>
 #include <nImOregistryCommands.h>
+#include <nImOremoveNodeResponseHandler.h>
 #include <nImOrequestResponse.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -114,16 +120,18 @@ nImO::RegistryProxy::addNode
     (const std::string &    nodeName,
      const Connection &     nodeConnection)
 {
-    NIMO_UNUSED_ARG_(nodeName);
     NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
-    RegSuccessOrFailure status{false, "not implemented"};
+    SpArray                                 argArray{new Array};
+    std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
 
-    //TBD
+    argArray->addValue(std::make_shared<String>(nodeName));
+    //TBD - add connection!
+    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddNodeRequest, kAddNodeResponse);
     ODL_OBJEXIT(); //####
-    return status;
+    return RegSuccessOrFailure{handler->result(), "already registered"};
 } // nImO::RegistryProxy::addNode
 
 nImO::RegNodeInfoOrFailure
@@ -160,16 +168,15 @@ nImO::RegBoolOrFailure
 nImO::RegistryProxy::nodePresent
     (const std::string &    nodeName)
 {
-    bool    found = false;
-
-    NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{false, "not implemented"};
+    SpArray                                     argArray{new Array};
+    std::unique_ptr<NodePresentResponseHandler> handler{new NodePresentResponseHandler};
 
-    //TBD
+    argArray->addValue(std::make_shared<String>(nodeName));
+    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kNodePresentRequest, kNodePresentResponse);
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, found};
+    return RegBoolOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
 } // nImO::RegistryProxy::nodePresent
 
 nImO::RegIntOrFailure
@@ -191,14 +198,15 @@ nImO::RegSuccessOrFailure
 nImO::RegistryProxy::removeNode
     (const std::string &    nodeName)
 {
-    NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{false, "not implemented"};
+    SpArray                                     argArray{new Array};
+    std::unique_ptr<RemoveNodeResponseHandler> handler{new RemoveNodeResponseHandler};
 
-    //TBD
+    argArray->addValue(std::make_shared<String>(nodeName));
+    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kRemoveNodeRequest, kRemoveNodeResponse);
     ODL_OBJEXIT(); //####
-    return status;
+    return RegSuccessOrFailure{handler->result(), "already removed"};
 } // nImO::RegistryProxy::removeNode
 
 #if defined(__APPLE__)

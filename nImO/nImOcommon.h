@@ -292,6 +292,7 @@ namespace nImO
     class Context;
     class Flaw;
     class Integer;
+    class Logical;
     class Map;
     class Message;
     class Set;
@@ -643,6 +644,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a Flaw. */
     using SpInteger = std::shared_ptr<Integer>;
+
+    /*! @brief A holder for a shared pointer to a Flaw. */
+    using SpLogical = std::shared_ptr<Logical>;
 
     /*! @brief A holder for a shared pointer to a Map. */
     using SpMap = std::shared_ptr<Map>;

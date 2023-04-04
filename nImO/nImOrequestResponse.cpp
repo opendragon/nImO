@@ -101,9 +101,10 @@ handleResponse
     if (nullptr != handler)
     {
         // We need to strip off the Message separator first.
-        std::string         trimmed{incoming.substr(0, incoming.length() - (sizeof(MIME_MESSAGE_TERMINATOR_) - 1))};
+        std::string         trimmed{nImO::UnpackageMessage(incoming)};
         nImO::ByteVector    rawStuff;
 
+        ODL_S1s("trimmed <- ", trimmed); //!!!
         // Ignore a request that can't be processed...
         if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
         {
@@ -113,29 +114,36 @@ handleResponse
             {
                 stuff->open(false);
                 stuff->appendBytes(rawStuff.data(), rawStuff.size());
-                nImO::SpValue       contents{stuff->getValue()};
-                CPtr(nImO::Array)   asArray{contents->asArray()};
+                nImO::SpValue   contents{stuff->getValue()};
 
                 stuff->close();
-                if (stuff->readAtEnd() && (nullptr != asArray) && (0 < asArray->size()))
+                if (stuff->readAtEnd() && (nullptr != contents))
                 {
-                    //nImO::SpValue       firstElement{(*asArray)[0]};
-                    CPtr(nImO::String)  response{(*asArray)[0]->asString()};
+                    CPtr(nImO::Array)   asArray{contents->asArray()};
 
-                    if ((nullptr != response) && (expectedKey == response->getValue()))
+                    if ((nullptr != asArray) && (0 < asArray->size()))
                     {
-                        ODL_I1("at line ", __LINE__);//!!
-                        handler->doIt(*asArray);
-                        ODL_I1("at line ", __LINE__);//!!
+                        CPtr(nImO::String)  response{(*asArray)[0]->asString()};
+
+                        if ((nullptr != response) && (expectedKey == response->getValue()))
+                        {
+                            ODL_I1("at line ", __LINE__);//!!
+                            handler->doIt(*asArray);
+                            ODL_I1("at line ", __LINE__);//!!
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((nullptr != response) && (expectedKey == response->getValue()))"); //####
+                        }
                     }
                     else
                     {
-                        ODL_LOG("! (expectedKey == (*asArray)[0])"); //####
+                        ODL_LOG("! ((nullptr != asArray) && (0 < asArray->size()))"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (stuff->readAtEnd() && (nullptr != asArray) && (0 < asArray->size()))"); //####
+                    ODL_LOG("! (stuff->readAtEnd() && (nullptr != contents))"); //####
                 }
             }
             else
@@ -172,9 +180,26 @@ handleResponse
 #endif // defined(__APPLE__)
 
 void
-nImO::SendRequestWithEmptyResponse
+nImO::SendRequestWithArgumentsAndEmptyResponse
     (SpContextWithNetworking    context,
      Connection &               connection,
+     Ptr(Array)                 arguments,
+     const std::string          requestKey,
+     const std::string          responseKey)
+{
+    ODL_ENTER(); //####
+    ODL_P3("context = ", context.get(), "connection = ", &connection, "arguments = ", arguments); //####
+    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
+    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, arguments, requestKey, responseKey);
+    ODL_EXIT(); //####
+} // nImO::SendRequestWithArgumentsAndEmptyResponse
+
+void
+nImO::SendRequestWithArgumentsAndNonEmptyResponse
+    (SpContextWithNetworking    context,
+     Connection &               connection,
+     Ptr(ResponseHandler)       handler,
+     Ptr(Array)                 arguments,
      const std::string          requestKey,
      const std::string          responseKey)
 {
@@ -182,11 +207,14 @@ nImO::SendRequestWithEmptyResponse
     SpArray requestArray{new Array};
 
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "connection = ", &connection); //####
+    ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
-    ODL_P1("requestArray <- ", requestArray.get()); //!!!
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
+    if (nullptr != arguments)
+    {
+        requestArray->addEntries(*arguments);
+    }
     requestToSend.setValue(requestArray);
     requestToSend.close();
     if (0 < requestToSend.getLength())
@@ -201,12 +229,13 @@ nImO::SendRequestWithEmptyResponse
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
+            ODL_S1("outString <- ", outString->c_str());//!!!
             // Make a connection to the service whose address is in the connection argument.
-            asio::ip::tcp::socket   socket{*context->asUtilityContext()->getService()};
+            asio::ip::tcp::socket   socket{*context->getService()};
             asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
 
             socket.async_connect(endpoint,
-                                 [context, &socket, &outString, &keepGoing, &responseKey]
+                                 [context, handler, &socket, &outString, &keepGoing, &responseKey]
                                  (const system::error_code &    ec1)
                                  {
                                     if (ec1)
@@ -231,7 +260,7 @@ nImO::SendRequestWithEmptyResponse
                                         context->report("connection request accepted");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                                                          [&socket, context, &keepGoing, &responseKey]
+                                                          [&socket, context, handler, &keepGoing, &responseKey]
                                                           (const system::error_code &   ec2,
                                                            const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                                                           {
@@ -259,7 +288,7 @@ nImO::SendRequestWithEmptyResponse
                                                                 std::shared_ptr<asio::streambuf>    rB{new asio::streambuf};
 
                                                                 asio::async_read_until(socket, *rB, MatchMessageSeparator,
-                                                                                        [context, rB, &keepGoing, &responseKey]
+                                                                                        [context, rB, handler, &keepGoing, &responseKey]
                                                                                         (const system::error_code & ec,
                                                                                          const std::size_t          NIMO_UNUSED_PARAM_(size))
                                                                                         {
@@ -280,13 +309,13 @@ nImO::SendRequestWithEmptyResponse
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                                std::string handleThis{buffers_begin(rB->data()),                                       buffers_end(rB->data())};
+                                                                                                std::string handleThis{buffers_begin(rB->data()),                                                   buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpLogging)
                                                                                                 context->report("got response");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                                                 ODL_I1("at line ", __LINE__);//!!
-                                                                                                handleResponse(nullptr, handleThis, responseKey);
+                                                                                                handleResponse(handler, handleThis, responseKey);
                                                                                                 ODL_I1("at line ", __LINE__);//!!
                                                                                             }
                                                                                             keepGoing = false;
@@ -300,9 +329,7 @@ nImO::SendRequestWithEmptyResponse
             {
                 this_thread::yield();
             }
-            ODL_I1("at line ", __LINE__);//!!
             socket.shutdown(asio::ip::tcp::socket::shutdown_both);
-            ODL_I1("at line ", __LINE__);//!!
         }
         else
         {
@@ -314,4 +341,33 @@ nImO::SendRequestWithEmptyResponse
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
     }
     ODL_EXIT(); //####
-} // nImO::SendRequestWithEmptyResponse
+} // nImO::SendRequestWithArgumentsAndNonEmptyResponse
+
+void
+nImO::SendRequestWithNoArgumentsAndEmptyResponse
+    (SpContextWithNetworking    context,
+     Connection &               connection,
+     const std::string          requestKey,
+     const std::string          responseKey)
+{
+    ODL_ENTER(); //####
+    ODL_P2("context = ", context.get(), "connection = ", &connection); //####
+    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
+    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, nullptr, requestKey, responseKey);
+    ODL_EXIT(); //####
+} // nImO::SendRequestWithNoArgumentsAndEmptyResponse
+
+void
+nImO::SendRequestWithNoArgumentsAndNonEmptyResponse
+    (SpContextWithNetworking    context,
+     Connection &               connection,
+     Ptr(ResponseHandler)       handler,
+     const std::string          requestKey,
+     const std::string          responseKey)
+{
+    ODL_ENTER(); //####
+    ODL_P3("context = ", context.get(), "connection = ", &connection, "handler = ", handler); //####
+    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
+    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, handler, nullptr, requestKey, responseKey);
+    ODL_EXIT(); //####
+} // nImO::SendRequestWithNoArgumentsAndNonEmptyResponse

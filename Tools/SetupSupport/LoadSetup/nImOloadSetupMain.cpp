@@ -53,7 +53,7 @@
 /*! @file
  @brief A tool to load a previously configured set of applications. */
 
-/*! @dir Version
+/*! @dir LoadSetup
  @brief The set of files that implement the LoadSetup tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

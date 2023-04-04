@@ -229,18 +229,28 @@ namespace nImO
 
     }; // Message
 
-/*! @brief Scan the received characters and indicate then the Message sentinel has appeared.
- @param[in] begin Where in the buffer to start scanning.
- @param[in] end Where in the buffer to stop scanning.
- @return The position past the Message sentinel and @c true if the Message sentinel was found or the position where scanning stopped and @c false. */
-std::pair<BufferIterator, bool>
-MatchMessageSeparator
-    (BufferIterator begin,
-     BufferIterator end);
+    /*! @brief Scan the received characters and indicate then the Message sentinel has appeared.
+     @param[in] begin Where in the buffer to start scanning.
+     @param[in] end Where in the buffer to stop scanning.
+     @return The position past the Message sentinel and @c true if the Message sentinel was found or the position where scanning stopped and @c false. */
+    std::pair<BufferIterator, bool>
+    MatchMessageSeparator
+        (BufferIterator begin,
+         BufferIterator end);
 
-std::shared_ptr<std::string>
-PackageMessage
-    (StringVector & outVec);
+    /*! @brief Append the message sentinel to encoded data.
+     @param[in] outVec The data to be packaged.
+     @return The data with the sentinel appended. */
+    std::shared_ptr<std::string>
+    PackageMessage
+        (StringVector & outVec);
+
+    /*! @brief Remove the message sentinel from encoded data.
+     @param[in] inString The data with the attached sentinel.
+     @return The data with the sentinel removed. */
+    std::string
+    UnpackageMessage
+        (const std::string &    inString);
 
 } // nImO
 

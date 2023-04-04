@@ -54,7 +54,7 @@
 /*! @file
  @brief A service application to provide remote launch capabilities for #nImO. */
 
-/*! @dir Read
+/*! @dir Launcher
  @brief The set of files that implement the Launcher application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -133,12 +133,13 @@ main
 
                         if (status.first)
                         {
-                            ourContext->report("Waiting for requests.");
+                            ourContext->report("waiting for requests.");
                             for ( ; nImO::gKeepRunning; )
                             {
                                 this_thread::yield();
         //TBD
                             }
+                            nImO::gKeepRunning = true; // So that the call to 'removeNode' wont' fail...
                             status = proxy.removeNode(nodeName);
                             if (! status.first)
                             {

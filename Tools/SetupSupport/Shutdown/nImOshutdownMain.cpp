@@ -56,7 +56,7 @@
 /*! @file
  @brief A tool to shutdown all active #nImO applications except copies of nImOmonitor.. */
 
-/*! @dir Version
+/*! @dir Shutdown
  @brief The set of files that implement the Shutdown tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -151,7 +151,7 @@ main
                     // Send Shutdown command to all nodes.
                     // Send Shutdown command to Registry.
                     ODL_I1("at line ", __LINE__);//!!
-                    nImO::SendRequestWithEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
+                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                     ODL_I1("at line ", __LINE__);//!!
                 }
                 ODL_I1("at line ", __LINE__);//!!

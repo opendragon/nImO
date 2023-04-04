@@ -53,7 +53,7 @@
 /*! @file
  @brief A utility application to write to the log applications. */
 
-/*! @dir List
+/*! @dir Post
  @brief The set of files that implement the Post application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop

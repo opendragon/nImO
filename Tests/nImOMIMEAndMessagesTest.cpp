@@ -75,6 +75,9 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The number of tests of MIME sets. */
+static const int    kMaxMIMETests = 100;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -264,6 +267,438 @@ extractValueAndCheck
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestMIMEBytesMod3Is0
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 0
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3);
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            outValue.clear();
+            DecodeMIMEToBytes(inOutValue, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is0
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 002 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEBytesMod3Is1
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 1
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3) + 1;
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            outValue.clear();
+            DecodeMIMEToBytes(inOutValue, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is1
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 003 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEBytesMod3Is2
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 2
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3) + 2;
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            outValue.clear();
+            DecodeMIMEToBytes(inOutValue, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is2
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 004 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEBytesMod3Is0Packaged
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 0
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3);
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            auto    inOutString{PackageMessage(inOutValue)};
+
+            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
+            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+
+            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
+            outValue.clear();
+            DecodeMIMEToBytes(inOutTrimmed, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is0Packaged
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 005 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEBytesMod3Is1Packaged
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 1
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3) + 1;
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            auto    inOutString{PackageMessage(inOutValue)};
+
+            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
+            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+
+            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
+            outValue.clear();
+            DecodeMIMEToBytes(inOutTrimmed, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is1Packaged
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 006 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEBytesMod3Is2Packaged
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv) // mod = 2
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        StringVector    inOutValue;
+        ByteVector      inValue;
+        ByteVector      outValue;
+
+        for (int ii = 0; ii < kMaxMIMETests; ++ii)
+        {
+            int mm = (ii * 3) + 2;
+
+            inValue.clear();
+            inValue.reserve(mm);
+            for (int jj = 0; jj < mm; ++jj)
+            {
+                inValue.push_back(rand() % 0x00FF);
+            }
+            inOutValue.clear();
+            EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
+            auto    inOutString{PackageMessage(inOutValue)};
+
+            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
+            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+
+            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
+            outValue.clear();
+            DecodeMIMEToBytes(inOutTrimmed, outValue);
+            if (inValue.size() == outValue.size())
+            {
+                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                {
+                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    result = 1;
+                    break;
+                }
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (inValue.size() == outValue.size())"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEBytesMod3Is2Packaged
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 100 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestMIMEInsertEmptyMessage
     (CPtr(char)     launchPath,
      const int      argc,
@@ -339,7 +774,7 @@ doTestMIMEInsertEmptyMessage
 } // doTestMIMEInsertEmptyMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 002 ***
+# pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -434,7 +869,7 @@ doTestMIMEExtractEmptyMessage
 } // doTestMIMEExtractEmptyMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 003 ***
+# pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -491,7 +926,7 @@ doTestMIMEInsertLogicalMessage
 } // doTestMIMEInsertLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 004 ***
+# pragma mark *** Test Case 103 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -548,7 +983,7 @@ doTestMIMEExtractLogicalMessage
 } // doTestMIMEExtractLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 005 ***
+# pragma mark *** Test Case 104 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -612,7 +1047,7 @@ doTestMIMEInsertTinyIntegerMessage
 } // doTestMIMEInsertTinyIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 006 ***
+# pragma mark *** Test Case 105 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -676,7 +1111,7 @@ doTestMIMEExtractTinyIntegerMessage
 } // doTestMIMEExtractTinyIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 007 ***
+# pragma mark *** Test Case 106 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -733,7 +1168,7 @@ doTestMIMEInsertSmallIntegerMessage
 } // doTestMIMEInsertSmallIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 008 ***
+# pragma mark *** Test Case 107 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -790,7 +1225,7 @@ doTestMIMEExtractSmallIntegerMessage
 } // doTestMIMEExtractSmallIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 009 ***
+# pragma mark *** Test Case 108 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -849,7 +1284,7 @@ doTestMIMEInsertMediumIntegerMessage
 } // doTestMIMEInsertMediumIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 010 ***
+# pragma mark *** Test Case 109 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -908,7 +1343,7 @@ doTestMIMEExtractMediumIntegerMessage
 } // doTestMIMEExtractMediumIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 011 ***
+# pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -967,7 +1402,7 @@ doTestMIMEInsertBigIntegerMessage
 } // doTestMIMEInsertBigIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 012 ***
+# pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1026,7 +1461,7 @@ doTestMIMEExtractBigIntegerMessage
 } // doTestMIMEExtractBigIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 013 ***
+# pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1076,7 +1511,7 @@ doTestMIMEInsertEmptyStringMessage
 } // doTestMIMEInsertEmptyStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 014 ***
+# pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1127,7 +1562,7 @@ doTestMIMEExtractEmptyStringMessage
 } // doTestMIMEExtractEmptyStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 015 ***
+# pragma mark *** Test Case 114 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1178,7 +1613,7 @@ doTestMIMEInsertShortStringMessage
 } // doTestMIMEInsertShortStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 016 ***
+# pragma mark *** Test Case 115 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1229,7 +1664,7 @@ doTestMIMEExtractShortStringMessage
 } // doTestMIMEExtractShortStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 017 ***
+# pragma mark *** Test Case 116 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1281,7 +1716,7 @@ doTestMIMEInsertMediumStringMessage
 } // doTestMIMEInsertMediumStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 018 ***
+# pragma mark *** Test Case 117 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1333,7 +1768,7 @@ doTestMIMEExtractMediumStringMessage
 } // doTestMIMEExtractMediumStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 019 ***
+# pragma mark *** Test Case 118 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1383,7 +1818,7 @@ doTestMIMEInsertEmptyBlobMessage
 } // doTestMIMEInsertEmptyBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 020 ***
+# pragma mark *** Test Case 119 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1433,7 +1868,7 @@ doTestMIMEExtractEmptyBlobMessage
 } // doTestMIMEExtractEmptyBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 021 ***
+# pragma mark *** Test Case 120 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1488,7 +1923,7 @@ doTestMIMEInsertSmallBlobMessage
 } // doTestMIMEInsertSmallBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 022 ***
+# pragma mark *** Test Case 121 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1543,7 +1978,7 @@ doTestMIMEExtractSmallBlobMessage
 } // doTestMIMEExtractSmallBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 023 ***
+# pragma mark *** Test Case 122 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1605,7 +2040,7 @@ doTestMIMEInsertMediumBlobMessage
 } // doTestMIMEInsertMediumBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 024 ***
+# pragma mark *** Test Case 123 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1668,7 +2103,7 @@ doTestMIMEExtractMediumBlobMessage
 } // doTestMIMEExtractMediumBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 025 ***
+# pragma mark *** Test Case 124 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1727,7 +2162,7 @@ doTestMIMEInsertSingleDoubleMessage
 } // doTestMIMEInsertSingleDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 026 ***
+# pragma mark *** Test Case 125 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1786,7 +2221,7 @@ doTestMIMEExtractSingleDoubleMessage
 } // doTestMIMEExtractSingleDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 100 ***
+# pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1836,7 +2271,7 @@ doTestMIMEInsertEmptyArrayMessage
 } // doTestMIMEInsertEmptyArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 101 ***
+# pragma mark *** Test Case 201 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1886,7 +2321,7 @@ doTestMIMEExtractEmptyArrayMessage
 } // doTestMIMEExtractEmptyArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 102 ***
+# pragma mark *** Test Case 202 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1936,7 +2371,7 @@ doTestMIMEInsertEmptyMapMessage
 } // doTestMIMEInsertEmptyMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 103 ***
+# pragma mark *** Test Case 203 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1986,7 +2421,7 @@ doTestMIMEExtractEmptyMapMessage
 } // doTestMIMEExtractEmptyMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 104 ***
+# pragma mark *** Test Case 204 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2036,7 +2471,7 @@ doTestMIMEInsertEmptySetMessage
 } // doTestMIMEInsertEmptySetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 105 ***
+# pragma mark *** Test Case 205 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2086,7 +2521,7 @@ doTestMIMEExtractEmptySetMessage
 } // doTestMIMEExtractEmptySetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 200 ***
+# pragma mark *** Test Case 300 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2138,7 +2573,7 @@ doTestMIMEInsertArrayOneLogicalMessage
 } // doTestMIMEInsertArrayOneLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 201 ***
+# pragma mark *** Test Case 301 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2190,7 +2625,7 @@ doTestMIMEExtractArrayOneLogicalMessage
 } // doTestMIMEExtractArrayOneLogicalMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 202 ***
+# pragma mark *** Test Case 302 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2242,7 +2677,7 @@ doTestMIMEInsertArrayOneIntegerMessage
 } // doTestMIMEInsertArrayOneIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 203 ***
+# pragma mark *** Test Case 303 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2294,7 +2729,7 @@ doTestMIMEExtractArrayOneIntegerMessage
 } // doTestMIMEExtractArrayOneIntegerMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 204 ***
+# pragma mark *** Test Case 304 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2346,7 +2781,7 @@ doTestMIMEInsertArrayOneDoubleMessage
 } // doTestMIMEInsertArrayOneDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 205 ***
+# pragma mark *** Test Case 305 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2398,7 +2833,7 @@ doTestMIMEExtractArrayOneDoubleMessage
 } // doTestMIMEExtractArrayOneDoubleMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 206 ***
+# pragma mark *** Test Case 306 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2450,7 +2885,7 @@ doTestMIMEInsertArrayOneStringMessage
 } // doTestMIMEInsertArrayOneStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 207 ***
+# pragma mark *** Test Case 307 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2502,7 +2937,7 @@ doTestMIMEExtractArrayOneStringMessage
 } // doTestMIMEExtractArrayOneStringMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 208 ***
+# pragma mark *** Test Case 308 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2553,7 +2988,7 @@ doTestMIMEInsertArrayOneBlobMessage
 } // doTestMIMEInsertArrayOneBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 209 ***
+# pragma mark *** Test Case 309 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2605,7 +3040,7 @@ doTestMIMEExtractArrayOneBlobMessage
 } // doTestMIMEExtractArrayOneBlobMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 210 ***
+# pragma mark *** Test Case 310 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2657,7 +3092,7 @@ doTestMIMEInsertArrayOneArrayMessage
 } // doTestMIMEInsertArrayOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 211 ***
+# pragma mark *** Test Case 311 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2709,7 +3144,7 @@ doTestMIMEExtractArrayOneArrayMessage
 } // doTestMIMEExtractArrayOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 212 ***
+# pragma mark *** Test Case 312 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2760,7 +3195,7 @@ doTestMIMEInsertArrayOneMapMessage
 } // doTestMIMEInsertArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 213 ***
+# pragma mark *** Test Case 313 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2811,7 +3246,7 @@ doTestMIMEExtractArrayOneMapMessage
 } // doTestMIMEExtractArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 214 ***
+# pragma mark *** Test Case 314 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2862,7 +3297,7 @@ doTestMIMEInsertArrayOneSetMessage
 } // doTestMIMEInsertArrayOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 215 ***
+# pragma mark *** Test Case 315 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2913,7 +3348,7 @@ doTestMIMEExtractArrayOneSetMessage
 } // doTestMIMEExtractArrayOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 300 ***
+# pragma mark *** Test Case 400 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2966,7 +3401,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 } // doTestMIMEInsertArrayTwoLogicalsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 301 ***
+# pragma mark *** Test Case 401 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3019,7 +3454,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
 } // doTestMIMEExtractArrayTwoLogicalsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 302 ***
+# pragma mark *** Test Case 402 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3072,7 +3507,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
 } // doTestMIMEInsertArrayTwoIntegersMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 303 ***
+# pragma mark *** Test Case 403 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3125,7 +3560,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
 } // doTestMIMEExtractArrayTwoIntegersMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 304 ***
+# pragma mark *** Test Case 404 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3178,7 +3613,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
 } // doTestMIMEInsertArrayTwoDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 305 ***
+# pragma mark *** Test Case 405 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3231,7 +3666,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
 } // doTestMIMEExtractArrayTwoDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 306 ***
+# pragma mark *** Test Case 406 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3284,7 +3719,7 @@ doTestMIMEInsertArrayTwoStringsMessage
 } // doTestMIMEInsertArrayTwoStringsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 307 ***
+# pragma mark *** Test Case 407 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3337,7 +3772,7 @@ doTestMIMEExtractArrayTwoStringsMessage
 } // doTestMIMEExtractArrayTwoStringsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 308 ***
+# pragma mark *** Test Case 408 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3390,7 +3825,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
 } // doTestMIMEInsertArrayTwoBlobsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 309 ***
+# pragma mark *** Test Case 409 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3443,7 +3878,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
 } // doTestMIMEExtractArrayTwoBlobsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 310 ***
+# pragma mark *** Test Case 410 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3496,7 +3931,7 @@ doTestMIMEInsertArrayTwoArraysMessage
 } // doTestMIMEInsertArrayTwoArraysMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 311 ***
+# pragma mark *** Test Case 411 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3549,7 +3984,7 @@ doTestMIMEExtractArrayTwoArraysMessage
 } // doTestMIMEExtractArrayTwoArraysMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 312 ***
+# pragma mark *** Test Case 412 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3601,7 +4036,7 @@ doTestMIMEInsertArrayTwoMapsMessage
 } // doTestMIMEInsertArrayTwoMapsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 313 ***
+# pragma mark *** Test Case 413 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3654,7 +4089,7 @@ doTestMIMEExtractArrayTwoMapsMessage
 } // doTestMIMEExtractArrayTwoMapsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 314 ***
+# pragma mark *** Test Case 414 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3706,7 +4141,7 @@ doTestMIMEInsertArrayTwoSetsMessage
 } // doTestMIMEInsertArrayTwoSetsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 315 ***
+# pragma mark *** Test Case 415 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3759,7 +4194,7 @@ doTestMIMEExtractArrayTwoSetsMessage
 } // doTestMIMEExtractArrayTwoSetsMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 316 ***
+# pragma mark *** Test Case 416 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3812,7 +4247,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 } // doTestMIMEInsertArrayOneArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 317 ***
+# pragma mark *** Test Case 417 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3865,7 +4300,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
 } // doTestMIMEExtractArrayOneArrayOneMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 318 ***
+# pragma mark *** Test Case 418 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3918,7 +4353,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 } // doTestMIMEInsertArrayOneMapOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 319 ***
+# pragma mark *** Test Case 419 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -3971,7 +4406,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
 } // doTestMIMEExtractArrayOneMapOneSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 320 ***
+# pragma mark *** Test Case 420 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4024,7 +4459,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 } // doTestMIMEInsertArrayOneSetOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 321 ***
+# pragma mark *** Test Case 421 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4077,7 +4512,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
 } // doTestMIMEExtractArrayOneSetOneArrayMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 322 ***
+# pragma mark *** Test Case 422 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4140,7 +4575,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
 } // doTestMIMEInsertArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 323 ***
+# pragma mark *** Test Case 423 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4203,7 +4638,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
 } // doTestMIMEExtractArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 400 ***
+# pragma mark *** Test Case 500 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4254,7 +4689,7 @@ doTestMIMEInsertLogicalMapMessage
 } // doTestMIMEInsertLogicalMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 401 ***
+# pragma mark *** Test Case 501 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4305,7 +4740,7 @@ doTestMIMEExtractLogicalMapMessage
 } // doTestMIMEExtractLogicalMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 402 ***
+# pragma mark *** Test Case 502 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4356,7 +4791,7 @@ doTestMIMEInsertIntegerMapMessage
 } // doTestMIMEInsertIntegerMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 403 ***
+# pragma mark *** Test Case 503 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4407,7 +4842,7 @@ doTestMIMEExtractIntegerMapMessage
 } // doTestMIMEExtractIntegerMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 404 ***
+# pragma mark *** Test Case 504 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4458,7 +4893,7 @@ doTestMIMEInsertStringMapMessage
 } // doTestMIMEInsertStringMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 405 ***
+# pragma mark *** Test Case 505 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4509,7 +4944,7 @@ doTestMIMEExtractStringMapMessage
 } // doTestMIMEExtractStringMapMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 406 ***
+# pragma mark *** Test Case 506 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4560,7 +4995,7 @@ doTestMIMEInsertLogicalSetMessage
 } // doTestMIMEInsertLogicalSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 407 ***
+# pragma mark *** Test Case 507 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4611,7 +5046,7 @@ doTestMIMEExtractLogicalSetMessage
 } // doTestMIMEExtractLogicalSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 408 ***
+# pragma mark *** Test Case 508 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4662,7 +5097,7 @@ doTestMIMEInsertIntegerSetMessage
 } // doTestMIMEInsertIntegerSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 409 ***
+# pragma mark *** Test Case 509 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4713,7 +5148,7 @@ doTestMIMEExtractIntegerSetMessage
 } // doTestMIMEExtractIntegerSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 410 ***
+# pragma mark *** Test Case 510 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4764,7 +5199,7 @@ doTestMIMEInsertStringSetMessage
 } // doTestMIMEInsertStringSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 411 ***
+# pragma mark *** Test Case 511 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4815,7 +5250,7 @@ doTestMIMEExtractStringSetMessage
 } // doTestMIMEExtractStringSetMessage
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 500 ***
+# pragma mark *** Test Case 600 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4906,7 +5341,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
 } // doTestMIMEExtractArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 501 ***
+# pragma mark *** Test Case 601 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -4997,7 +5432,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
 } // doTestMIMEExtractArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 600 ***
+# pragma mark *** Test Case 700 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5045,7 +5480,7 @@ TestMEMExtractWithBadNumberOfCharacters
 } // doTestMIMEExtractArrayWithRangeOfIntegers
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 601 ***
+# pragma mark *** Test Case 701 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -5131,354 +5566,378 @@ main
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestMIMEInsertEmptyMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is0(*argv, argc - 1, argv + 2);
                         break;
 
                     case 2 :
-                        result = doTestMIMEExtractEmptyMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is1(*argv, argc - 1, argv + 2);
                         break;
 
                     case 3 :
-                        result = doTestMIMEInsertLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is2(*argv, argc - 1, argv + 2);
                         break;
 
                     case 4 :
-                        result = doTestMIMEExtractLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is0Packaged(*argv, argc - 1, argv + 2);
                         break;
 
                     case 5 :
-                        result = doTestMIMEInsertTinyIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is1Packaged(*argv, argc - 1, argv + 2);
                         break;
 
                     case 6 :
-                        result = doTestMIMEExtractTinyIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 7 :
-                        result = doTestMIMEInsertSmallIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 8 :
-                        result = doTestMIMEExtractSmallIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 9 :
-                        result = doTestMIMEInsertMediumIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 10 :
-                        result = doTestMIMEExtractMediumIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 11 :
-                        result = doTestMIMEInsertBigIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 12 :
-                        result = doTestMIMEExtractBigIntegerMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 13 :
-                        result = doTestMIMEInsertEmptyStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 14 :
-                        result = doTestMIMEExtractEmptyStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 15 :
-                        result = doTestMIMEInsertShortStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 16 :
-                        result = doTestMIMEExtractShortStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 17 :
-                        result = doTestMIMEInsertMediumStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 18 :
-                        result = doTestMIMEExtractMediumStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 19 :
-                        result = doTestMIMEInsertEmptyBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 20 :
-                        result = doTestMIMEExtractEmptyBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 21 :
-                        result = doTestMIMEInsertSmallBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 22 :
-                        result = doTestMIMEExtractSmallBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 23 :
-                        result = doTestMIMEInsertMediumBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 24 :
-                        result = doTestMIMEExtractMediumBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 25 :
-                        result = doTestMIMEInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 26 :
-                        result = doTestMIMEExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEBytesMod3Is2Packaged(*argv, argc - 1, argv + 2);
                         break;
 
                     case 100 :
-                        result = doTestMIMEInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 101 :
-                        result = doTestMIMEExtractEmptyArrayMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 102 :
-                        result = doTestMIMEInsertEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 103 :
-                        result = doTestMIMEExtractEmptyMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 104 :
-                        result = doTestMIMEInsertEmptySetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertTinyIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 105 :
-                        result = doTestMIMEExtractEmptySetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractTinyIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 106 :
+                        result = doTestMIMEInsertSmallIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 107 :
+                        result = doTestMIMEExtractSmallIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 108 :
+                        result = doTestMIMEInsertMediumIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 109 :
+                        result = doTestMIMEExtractMediumIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 110 :
+                        result = doTestMIMEInsertBigIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 111 :
+                        result = doTestMIMEExtractBigIntegerMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 112 :
+                        result = doTestMIMEInsertEmptyStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 113 :
+                        result = doTestMIMEExtractEmptyStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 114 :
+                        result = doTestMIMEInsertShortStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 115 :
+                        result = doTestMIMEExtractShortStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 116 :
+                        result = doTestMIMEInsertMediumStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 117 :
+                        result = doTestMIMEExtractMediumStringMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 118 :
+                        result = doTestMIMEInsertEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 119 :
+                        result = doTestMIMEExtractEmptyBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 120 :
+                        result = doTestMIMEInsertSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 121 :
+                        result = doTestMIMEExtractSmallBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 122 :
+                        result = doTestMIMEInsertMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 123 :
+                        result = doTestMIMEExtractMediumBlobMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 124 :
+                        result = doTestMIMEInsertSingleDoubleMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 125 :
+                        result = doTestMIMEExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 200 :
-                        result = doTestMIMEInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 201 :
-                        result = doTestMIMEExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 202 :
-                        result = doTestMIMEInsertArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptyMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 203 :
-                        result = doTestMIMEExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptyMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 204 :
-                        result = doTestMIMEInsertArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 205 :
-                        result = doTestMIMEExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 206 :
-                        result = doTestMIMEInsertArrayOneStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 207 :
-                        result = doTestMIMEExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 208 :
-                        result = doTestMIMEInsertArrayOneBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 209 :
-                        result = doTestMIMEExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 210 :
-                        result = doTestMIMEInsertArrayOneArrayMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 211 :
-                        result = doTestMIMEExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 212 :
-                        result = doTestMIMEInsertArrayOneMapMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 213 :
-                        result = doTestMIMEExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 214 :
-                        result = doTestMIMEInsertArrayOneSetMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 215 :
-                        result = doTestMIMEExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractEmptySetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 300 :
-                        result = doTestMIMEInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 301 :
-                        result = doTestMIMEExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneLogicalMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 302 :
-                        result = doTestMIMEInsertArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 303 :
-                        result = doTestMIMEExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneIntegerMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 304 :
-                        result = doTestMIMEInsertArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 305 :
-                        result = doTestMIMEExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 306 :
-                        result = doTestMIMEInsertArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 307 :
-                        result = doTestMIMEExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneStringMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 308 :
-                        result = doTestMIMEInsertArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 309 :
-                        result = doTestMIMEExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneBlobMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 310 :
-                        result = doTestMIMEInsertArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 311 :
-                        result = doTestMIMEExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneArrayMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 312 :
-                        result = doTestMIMEInsertArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 313 :
-                        result = doTestMIMEExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 314 :
-                        result = doTestMIMEInsertArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 315 :
-                        result = doTestMIMEExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 316 :
-                        result = doTestMIMEInsertArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 317 :
-                        result = doTestMIMEExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 318 :
-                        result = doTestMIMEInsertArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 319 :
-                        result = doTestMIMEExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 320 :
-                        result = doTestMIMEInsertArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 321 :
-                        result = doTestMIMEExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 322 :
-                        result = doTestMIMEInsertArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
-                        break;
-
-                    case 323 :
-                        result = doTestMIMEExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 400 :
-                        result = doTestMIMEInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 401 :
-                        result = doTestMIMEExtractLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoLogicalsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 402 :
-                        result = doTestMIMEInsertIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 403 :
-                        result = doTestMIMEExtractIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoIntegersMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 404 :
-                        result = doTestMIMEInsertStringMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 405 :
-                        result = doTestMIMEExtractStringMapMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 406 :
-                        result = doTestMIMEInsertLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 407 :
-                        result = doTestMIMEExtractLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoStringsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 408 :
-                        result = doTestMIMEInsertIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 409 :
-                        result = doTestMIMEExtractIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoBlobsMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 410 :
-                        result = doTestMIMEInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 411 :
-                        result = doTestMIMEExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractArrayTwoArraysMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 412 :
+                        result = doTestMIMEInsertArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 413 :
+                        result = doTestMIMEExtractArrayTwoMapsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 414 :
+                        result = doTestMIMEInsertArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 415 :
+                        result = doTestMIMEExtractArrayTwoSetsMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 416 :
+                        result = doTestMIMEInsertArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 417 :
+                        result = doTestMIMEExtractArrayOneArrayOneMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 418 :
+                        result = doTestMIMEInsertArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 419 :
+                        result = doTestMIMEExtractArrayOneMapOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 420 :
+                        result = doTestMIMEInsertArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 421 :
+                        result = doTestMIMEExtractArrayOneSetOneArrayMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 422 :
+                        result = doTestMIMEInsertArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 423 :
+                        result = doTestMIMEExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 500 :
-                        result = doTestMIMEInsertArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 501 :
-                        result = doTestMIMEExtractArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractLogicalMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 502 :
+                        result = doTestMIMEInsertIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 503 :
+                        result = doTestMIMEExtractIntegerMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 504 :
+                        result = doTestMIMEInsertStringMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 505 :
+                        result = doTestMIMEExtractStringMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 506 :
+                        result = doTestMIMEInsertLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 507 :
+                        result = doTestMIMEExtractLogicalSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 508 :
+                        result = doTestMIMEInsertIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 509 :
+                        result = doTestMIMEExtractIntegerSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 510 :
+                        result = doTestMIMEInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 511 :
+                        result = doTestMIMEExtractStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 600 :
-                        result = TestMEMExtractWithBadNumberOfCharacters(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
                         break;
 
                     case 601 :
+                        result = doTestMIMEExtractArrayWithRangeOfIntegers(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 700 :
+                        result = TestMEMExtractWithBadNumberOfCharacters(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 701 :
                         result = TestMEMExtractWithBadCharacters(*argv, argc - 1, argv + 2);
                         break;
 

@@ -118,6 +118,12 @@ namespace nImO
             ~Array
                 (void);
 
+            /*! @brief Add the entries from another Array.
+              @param[in] other The object to be copied from. */
+            Array &
+            addEntries
+                (const Array &  other);
+
             /*! @brief Add a Value to the end of the Array.
              @param[in] newElement The Value to be added.
              @return The updated Array. */
@@ -353,12 +359,6 @@ namespace nImO
 
         private :
             // Private methods.
-
-            /*! @brief Add the entries from another Array.
-              @param[in] other The object to be copied from. */
-            Array &
-            addEntries
-                (const Array &  other);
 
             /*! @brief Extracts Value objects from a Message.
              Note that the parentValue argument is normally @c nullptr, and is used for handling

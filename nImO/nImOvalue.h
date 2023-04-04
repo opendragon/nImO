@@ -59,8 +59,6 @@ namespace nImO
     class Blob;
     class Container;
     class Double;
-    class Integer;
-    class Logical;
     class Number;
 
     /*! @brief The status of a conversion operation from a numeric string to an int64_t value. */

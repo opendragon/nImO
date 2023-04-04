@@ -90,13 +90,14 @@ processRequest
 {
     // We need to strip off the Message separator first.
     bool                okSoFar = false;
-    std::string         trimmed{incoming.substr(0, incoming.length() - (sizeof(MIME_MESSAGE_TERMINATOR_) - 1))};
+    std::string         trimmed{nImO::UnpackageMessage(incoming)};
     nImO::ByteVector    rawStuff;
 
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
     ODL_S1s("incoming = ", incoming); //####
     ODL_B1("okSoFar <- ", okSoFar); //!!!
+    ODL_S1s("trimmed <- ", trimmed); //!!!
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
     {

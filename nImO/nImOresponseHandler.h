@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOcontext.h
+//  File:       nImO/nImOresponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO execution context.
+//  Contains:   The function declarations for the functors used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,27 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2023-04-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOcontext_H_))
-# define nImOcontext_H_ /* Header guard */
+#if (! defined(nImOresponseHandler_H_))
+# define nImOresponseHandler_H_ /* Header guard */
 
-# include <nImOcommon.h>
-
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wdeprecated-declarations"
-# endif // defined(__APPLE__)
-# include <boost/asio/read_until.hpp>
-# include <boost/bind/bind.hpp>
-# include <boost/shared_array.hpp>
-# include <boost/thread.hpp>
-# include <boost/thread/locks.hpp>
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+# include <nImOarray.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -60,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO execution context. */
+ @brief The function declarations for the functors used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -68,21 +55,8 @@
 namespace nImO
 {
 
-    /*! @brief A holder for a shared pointer to an Asio service . */
-    //typedef std::shared_ptr<asio::io_service>       SPservice;
-    using SPservice = std::shared_ptr<asio::io_service>;
-
-    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
-    using SPsocketTCP = std::shared_ptr<asio::ip::tcp::socket>;
-
-    /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
-    using SPsocketUDP = std::shared_ptr<asio::ip::udp::socket>;
-
-    /*! @brief A holder for a unique pointer to an Asio 'work' placeholder. */
-    using UPwork = std::unique_ptr<asio::io_service::work>;
-
-    /*! @brief A class to provide binary data with unknown structure. */
-    class Context
+    /*! @brief A class to provide functors used to process responses. */
+    class ResponseHandler
     {
 
         public :
@@ -97,55 +71,48 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The copy constructor.
-             @param[in] other The object to be copied. */
-            Context
-                (const Context &  other) = delete;
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            Context
-                (Context &&  other)
-                noexcept = delete;
-
             /*! @brief The destructor. */
             virtual
-            ~Context
+            ~ResponseHandler
                 (void);
 
-            /*! @brief Return the I/O service.
-             @return The I/O service. */
-            inline SPservice
-            getService
-                (void)
-            {
-                return _service;
-            }
+            /*! @brief The copy constructor.
+            @param[in] other The object to be copied. */
+            ResponseHandler
+                (const ResponseHandler &  other) = delete;
+
+            /*! @brief The move constructor.
+            @param[in] other The object to be moved. */
+            ResponseHandler
+                (ResponseHandler &&    other) = delete;
+
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            virtual void
+            doIt
+                (const Array &  stuff) = 0;
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            Context &
+            ResponseHandler &
             operator=
-                (const Context &  other) = delete;
+                (const ResponseHandler &    other) = delete;
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            Context &
+            ResponseHandler &
             operator=
-                (Context &&  other)
-                noexcept = delete;
+                (ResponseHandler && other) = delete;
 
         protected :
             // Protected methods.
 
             /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
-            Context
-                (const std::string &    executableName,
-                 const std::string &    nodeName = "");
+             @param[in] responseKey The expected response key. */
+            ResponseHandler
+                (void);
 
         private :
             // Private methods.
@@ -156,20 +123,11 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The name of the executing program. */
-            std::string _executableName;
-
-            /*! @brief The @nImO-visible name of the executing program. */
-            std::string _nodeName;
-
         private :
             // Private fields.
 
-            /*! @brief The service object to be used for asynchronous operations. */
-            SPservice   _service;
-
-    }; // Context
+    }; // ResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOcontext_H_)
+#endif // not defined(nImOresponseHandler_H_)

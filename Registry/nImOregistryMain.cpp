@@ -36,8 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include "nImOaddNodeCommandHandler.h"
+#include "nImOnodePresentCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
+#include "nImOremoveNodeCommandHandler.h"
 
 #include <nImOmainSupport.h>
 #include <nImOregistryCommands.h>
@@ -55,7 +58,7 @@
 /*! @file
  @brief A service application to register #nImO entities. */
 
-/*! @dir Read
+/*! @dir Registry
  @brief The set of files that implement the Register application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
@@ -120,7 +123,7 @@ main
             }
             else
             {
-                std::unique_ptr<nImO::Registry> theRegistry{new nImO::Registry{ourContext, optionValues._logging}};
+                nImO::SpRegistry    theRegistry{new nImO::Registry{ourContext, optionValues._logging}};
 
                 ODL_P1("theRegistry <- ", theRegistry.get()); //!!!
                 if (nullptr == theRegistry)
@@ -131,8 +134,11 @@ main
                 {
                     Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
-                    if (asRegistryContext->makePortAnnouncement(ourContext->asServiceContext()->getCommandPort(),
-                                                                NIMO_REGISTRY_SERVICE_NAME, nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
+                    asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kRemoveNodeRequest, new nImO::RemoveNodeCommandHandler(ourContext, theRegistry));
+                    if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
+                                                                nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                     {
                         for ( ; nImO::gKeepRunning; )
                         {

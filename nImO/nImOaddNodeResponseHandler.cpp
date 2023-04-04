@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOaddAppMain.cpp
+//  File:       nImO/nImOaddNodeResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to add an application to the list of known applications.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,16 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-27
+//  Created:    2023-04-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilePathArgumentDescriptor.h>
-#include <nImOmainSupport.h>
-#include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
-#include <nImOstringArgumentDescriptor.h>
-#include <nImOutilityContext.h>
+#include <nImOaddNodeResponseHandler.h>
+
+#include <nImOlogical.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -52,10 +49,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to add an application to the list of known applications. */
-
-/*! @dir AddApplication
- @brief The set of files that implement the AddApplication tool. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -77,63 +71,51 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::AddNodeResponseHandler::AddNodeResponseHandler
+    (void) :
+        inherited(), _result(false)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("Path to application"), nImO::ArgumentMode::Required, "", ""};
-    nImO::StringArgumentDescriptor      secondArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, ""};
-    nImO::DescriptorVector              argumentList;
-    nImO::StandardOptions               optionValues;
-    int                                 exitCode = 0;
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add application", "nImOaddApp /path-to-application [shortAppName]", 2020,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    ODL_EXIT_P(this); //####
+} // nImO::AddNodeResponseHandler::AddNodeResponseHandler
+
+nImO::AddNodeResponseHandler::~AddNodeResponseHandler
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::AddNodeResponseHandler::~AddNodeResponseHandler
+
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+void
+nImO::AddNodeResponseHandler::doIt
+    (const nImO::Array &    stuff)
+{
+    ODL_OBJENTER(); //####
+    ODL_I1("stuff.size() = ", stuff.size()); //!!!
+    if (1 < stuff.size())
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
-        try
-        {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::GetShortComputerName()};
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "addApp", optionValues._logging}};
-            nImO::Connection                registryConnection;
+        nImO::SpValue       element{stuff[1]};
+        CPtr(nImO::Logical) asLogical{element->asLogical()};
 
-            ODL_P1("ourContext <- ", ourContext.get()); //!!!
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
-            {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-
-                // TBD
-            }
-            else
-            {
-                ourContext->report("Registry not found.");
-                exitCode = 2;
-            }
-            ourContext->report("exiting.");
-        }
-        catch (...)
+        if (nullptr != asLogical)
         {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
+            _result = asLogical->getValue();
         }
     }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+    ODL_OBJEXIT(); //####
+} // nImO::AddNodeResponseHandler::doIt
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

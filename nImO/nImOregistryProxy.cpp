@@ -41,6 +41,7 @@
 #include <nImOaddNodeResponseHandler.h>
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOinteger.h>
 #include <nImOlogical.h>
 #include <nImOnodePresentResponseHandler.h>
 #include <nImOregistryCommands.h>
@@ -126,9 +127,13 @@ nImO::RegistryProxy::addNode
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     SpArray                                 argArray{new Array};
     std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
+    SpArray                                 connArray{new Array};
 
     argArray->addValue(std::make_shared<String>(nodeName));
-    //TBD - add connection!
+    connArray->addValue(std::make_shared<Integer>(nodeConnection._address));
+    connArray->addValue(std::make_shared<Integer>(nodeConnection._port));
+    connArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, nodeConnection._transport)));
+    argArray->addValue(connArray);
     SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddNodeRequest, kAddNodeResponse);
     ODL_OBJEXIT(); //####
     return RegSuccessOrFailure{handler->result(), "already registered"};

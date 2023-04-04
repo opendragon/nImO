@@ -39,6 +39,7 @@
 #include "nImOaddNodeCommandHandler.h"
 
 #include <nImOarray.h>
+#include <nImOinteger.h>
 #include <nImOregistryCommands.h>
 #include <nImOregistryTypes.h>
 #include <nImOstring.h>
@@ -114,18 +115,40 @@ nImO::AddNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     ODL_B1("okSoFar <- ", okSoFar); //!!
     _owner->report("add node request received");
-    if (1 < arguments.size())
+    if (2 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        SpValue         element1{arguments[1]};
+        SpValue         element2{arguments[2]};
+        CPtr(String)    nameString{element1->asString()};
+        CPtr(Array)     connArray{element2->asArray()};
+        Connection      theConnection;
 
-        ODL_P1("asString = ", asString); //!!
-
-//TBD - add connection!
-
-        if (nullptr != asString)
+        ODL_P2("nameString = ", nameString, "connArray = ", connArray); //!!
+        if (2 < connArray->size())
         {
-            RegSuccessOrFailure status{_registry->addNode(asString->getValue())};
+            SpValue         connElem1{(*connArray)[0]};
+            CPtr(Integer)   addressValue{connElem1->asInteger()};
+            SpValue         connElem2{(*connArray)[1]};
+            CPtr(Integer)   portValue{connElem2->asInteger()};
+            SpValue         connElem3{(*connArray)[2]};
+            CPtr(Integer)   transportValue{connElem3->asInteger()};
+
+            if (nullptr != addressValue)
+            {
+                theConnection._address = addressValue->getIntegerValue();
+            }
+            if (nullptr != portValue)
+            {
+                theConnection._port = portValue->getIntegerValue();
+            }
+            if (nullptr != transportValue)
+            {
+                theConnection._transport = StaticCast(Transport, transportValue->getIntegerValue());
+            }
+        }
+        if ((nullptr != nameString) && (nullptr != connArray))
+        {
+            RegSuccessOrFailure status{_registry->addNode(nameString->getValue(), theConnection)};
 
             if (status.first)
             {
@@ -136,6 +159,10 @@ nImO::AddNodeCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithBool.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! ((nullptr != nameString) && (nullptr != connArray))");
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####

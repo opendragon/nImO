@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOaddNodeCommandHandler.cpp
+//  File:       nImO/nImOnumNodesCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'add node' command handler.
+//  Contains:   The class definition for the nImO 'num nodes' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOaddNodeCommandHandler.h"
+#include "nImOnumNodesCommandHandler.h"
 
 #include <nImOarray.h>
 #include <nImOinteger.h>
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'add node' command handler. */
+ @brief The class definition for the %nImO 'num nodes' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::AddNodeCommandHandler::AddNodeCommandHandler
+nImO::NumNodesCommandHandler::NumNodesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner), _registry(theRegistry)
@@ -90,84 +90,51 @@ nImO::AddNodeCommandHandler::AddNodeCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::AddNodeCommandHandler::AddNodeCommandHandler
+} // nImO::NumNodesCommandHandler::NumNodesCommandHandler
 
-nImO::AddNodeCommandHandler::~AddNodeCommandHandler
+nImO::NumNodesCommandHandler::~NumNodesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::AddNodeCommandHandler::~AddNodeCommandHandler
+} // nImO::NumNodesCommandHandler::~NumNodesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::AddNodeCommandHandler::doIt
+nImO::NumNodesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
 {
     bool    okSoFar = false;
 
+    NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     ODL_B1("okSoFar <- ", okSoFar); //!!
-    _owner->report("add node request received");
-    if (2 < arguments.size())
+    _owner->report("num nodes request received");
+    if (0 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    nameString{element1->asString()};
-        CPtr(Array)     connArray{element2->asArray()};
-        Connection      theConnection;
+        RegIntOrFailure    statusWithInt{_registry->numNodes()};
 
-        ODL_P2("nameString = ", nameString, "connArray = ", connArray); //!!
-        if (2 < connArray->size())
+        if (statusWithInt.first.first)
         {
-            SpValue         connElem1{(*connArray)[0]};
-            CPtr(Integer)   addressValue{connElem1->asInteger()};
-            SpValue         connElem2{(*connArray)[1]};
-            CPtr(Integer)   portValue{connElem2->asInteger()};
-            SpValue         connElem3{(*connArray)[2]};
-            CPtr(Integer)   transportValue{connElem3->asInteger()};
+            SpInteger   count{new Integer{statusWithInt.second}};
 
-            if (nullptr != addressValue)
-            {
-                theConnection._address = addressValue->getIntegerValue();
-            }
-            if (nullptr != portValue)
-            {
-                theConnection._port = portValue->getIntegerValue();
-            }
-            if (nullptr != transportValue)
-            {
-                theConnection._transport = StaticCast(Transport, transportValue->getIntegerValue());
-            }
-        }
-        if ((nullptr != nameString) && (nullptr != connArray))
-        {
-            RegSuccessOrFailure status{_registry->addNode(nameString->getValue(), theConnection)};
-
-            if (status.first)
-            {
-                okSoFar = sendSimpleResponse(socket, kAddNodeResponse, true);
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
-            }
-            else
-            {
-                ODL_LOG("! (statusWithBool.first)"); //####
-            }
+            okSoFar = sendComplexResponse(socket, kNumNodesResponse, count);
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         else
         {
-            ODL_LOG("! ((nullptr != nameString) && (nullptr != connArray))");
+            ODL_LOG("! (statusWithInt.first.first)"); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::AddNodeCommandHandler::doIt
+} // nImO::NumNodesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

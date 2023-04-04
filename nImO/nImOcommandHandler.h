@@ -125,6 +125,18 @@ namespace nImO
             CommandHandler
                 (SpContextWithNetworking    owner);
 
+            /*! @brief Send a complex reponse for the command.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] responseKey The response type.
+             @param[in] contents The data for the response..
+             @return @c true if a response was sent. */
+            bool
+            sendComplexResponse
+                (asio::ip::tcp::socket &    socket,
+                 const std::string          responseKey,
+                 SpValue                    contents)
+                const;
+
             /*! @brief Send a simple reponse for the command.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
@@ -139,6 +151,19 @@ namespace nImO
 
         private :
             // Private methods.
+
+            /*! @brief Send a simple reponse for the command.
+             @param[in] context The context for the responder.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] responseKey The response type.
+             @param[in] contents The data for the response..
+             @return @c true if a response was sent. */
+            static bool
+            sendComplexResponseWithContext
+                (SpContextWithNetworking    context,
+                 asio::ip::tcp::socket &    socket,
+                 const std::string          responseKey,
+                 SpValue                    contents);
 
             /*! @brief Send a simple reponse for the command.
              @param[in] context The context for the responder.

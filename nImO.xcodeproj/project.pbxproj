@@ -58,6 +58,10 @@
 		F61D2110299BAA080083424E /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F61D262D2404BB7200C73ACC /* nImOricochetControl.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOricochetControl.rc.in; path = examples/Ricochet/nImOricochetControl.rc.in; sourceTree = "<group>"; };
 		F61D262E2404BBBB00C73ACC /* nImOricochetControlMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetControlMain.cpp; path = examples/Ricochet/nImOricochetControlMain.cpp; sourceTree = "<group>"; };
+		F6263BF229DCBA940034A9F9 /* nImOnumNodesCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOnumNodesCommandHandler.h; path = Registry/nImOnumNodesCommandHandler.h; sourceTree = "<group>"; };
+		F6263BF329DCBA940034A9F9 /* nImOnumNodesCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnumNodesCommandHandler.cpp; path = Registry/nImOnumNodesCommandHandler.cpp; sourceTree = "<group>"; };
+		F6263BF429DCBEA70034A9F9 /* nImOnumNodesResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOnumNodesResponseHandler.h; path = nImO/nImOnumNodesResponseHandler.h; sourceTree = "<group>"; };
+		F6263BF529DCBEA70034A9F9 /* nImOnumNodesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnumNodesResponseHandler.cpp; path = nImO/nImOnumNodesResponseHandler.cpp; sourceTree = "<group>"; };
 		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
 		F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringsArgumentDescriptor.cpp; path = nImO/nImOstringsArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOstringsArgumentDescriptor.h; path = nImO/nImOstringsArgumentDescriptor.h; sourceTree = "<group>"; };
@@ -348,6 +352,8 @@
 				F67E989329DC7BC400893EDC /* nImOaddNodeCommandHandler.h */,
 				F6E67E2B29DB746100FD7012 /* nImOnodePresentCommandHandler.cpp */,
 				F6E67E2A29DB746100FD7012 /* nImOnodePresentCommandHandler.h */,
+				F6263BF329DCBA940034A9F9 /* nImOnumNodesCommandHandler.cpp */,
+				F6263BF229DCBA940034A9F9 /* nImOnumNodesCommandHandler.h */,
 				F6004B0829D8852700F07D3B /* nImOregistryContext.cpp */,
 				F6004B0929D8852700F07D3B /* nImOregistryContext.h */,
 				F6155FE929B75D8400DBD8E8 /* nImOregistry.cpp */,
@@ -385,6 +391,127 @@
 				F61D2110299BAA080083424E /* CMakeLists.txt */,
 			);
 			path = Commutator;
+			sourceTree = "<group>";
+		};
+		F6263BF629DCC4040034A9F9 /* Response Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				F634701B29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.cpp */,
+				F634701C29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.h */,
+				F634702029DCA192008FCEA2 /* nImOnodePresentResponseHandler.cpp */,
+				F634701F29DCA192008FCEA2 /* nImOnodePresentResponseHandler.h */,
+				F6263BF529DCBEA70034A9F9 /* nImOnumNodesResponseHandler.cpp */,
+				F6263BF429DCBEA70034A9F9 /* nImOnumNodesResponseHandler.h */,
+				F634702129DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.cpp */,
+				F634702229DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.h */,
+			);
+			name = "Response Handlers";
+			sourceTree = "<group>";
+		};
+		F6263BF729DCC4380034A9F9 /* Argument Descriptors */ = {
+			isa = PBXGroup;
+			children = (
+				F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */,
+				F60F864B1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.h */,
+				F60F864C1CA4B24C004D35AB /* nImObaseArgumentDescriptor.cpp */,
+				F60F864D1CA4B24C004D35AB /* nImObaseArgumentDescriptor.h */,
+				F60F864E1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.cpp */,
+				F60F864F1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.h */,
+				F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */,
+				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.h */,
+				F60F86521CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.cpp */,
+				F60F86531CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.h */,
+				F60F86541CA4B24C004D35AB /* nImOextraArgumentDescriptor.cpp */,
+				F60F86551CA4B24C004D35AB /* nImOextraArgumentDescriptor.h */,
+				F60F86561CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.cpp */,
+				F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.h */,
+				F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */,
+				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.h */,
+				F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */,
+				F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.h */,
+				F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */,
+				F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.h */,
+				F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */,
+				F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.h */,
+			);
+			name = "Argument Descriptors";
+			sourceTree = "<group>";
+		};
+		F6263BF829DCC4890034A9F9 /* Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				F6737D5C28857E25000DD5FC /* nImOcontext.cpp */,
+				F6737D5E28857E25000DD5FC /* nImOcontext.h */,
+				F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */,
+				F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.h */,
+				F6B18566294A892B0091BEE3 /* nImOcontextWithNetworking.cpp */,
+				F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.h */,
+				F6737D6828857E43000DD5FC /* nImOfilterContext.cpp */,
+				F6737D6928857E43000DD5FC /* nImOfilterContext.h */,
+				F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */,
+				F6737D6328857E42000DD5FC /* nImOmiscellaneousContext.h */,
+				F6737D5D28857E25000DD5FC /* nImOserviceContext.cpp */,
+				F6737D5B28857E25000DD5FC /* nImOserviceContext.h */,
+				F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */,
+				F6737D6228857E42000DD5FC /* nImOsinkContext.h */,
+				F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */,
+				F6737D5F28857E42000DD5FC /* nImOsourceContext.h */,
+				F6737D6028857E42000DD5FC /* nImOtestContext.cpp */,
+				F6737D6428857E42000DD5FC /* nImOtestContext.h */,
+				F6737D6C28857E43000DD5FC /* nImOutilityContext.cpp */,
+				F6737D6A28857E43000DD5FC /* nImOutilityContext.h */,
+			);
+			name = Contexts;
+			sourceTree = "<group>";
+		};
+		F6263BF929DCC5B30034A9F9 /* Container Types */ = {
+			isa = PBXGroup;
+			children = (
+				F6EE0AC11CA2C7F4004748ED /* nImOarray.cpp */,
+				F6EE0AC21CA2C7F4004748ED /* nImOarray.h */,
+				F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */,
+				F68020331CAA0DA500C2374A /* nImObufferChunk.h */,
+				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
+				F6F238541CD96F290005554A /* nImOchunkArray.h */,
+				F6866F011CA4145E00849A76 /* nImOcontainer.cpp */,
+				F6866F021CA4145E00849A76 /* nImOcontainer.h */,
+				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
+				F6EE0AD41CA2C7F4004748ED /* nImOmap.h */,
+				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,
+				F6A3C2251CCD3C7900CA5C76 /* nImOmessage.h */,
+				F6EE0AD71CA2C7F4004748ED /* nImOset.cpp */,
+				F6EE0AD81CA2C7F4004748ED /* nImOset.h */,
+				F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */,
+				F66FA33B1CA9542A000B283D /* nImOstringBuffer.h */,
+			);
+			name = "Container Types";
+			sourceTree = "<group>";
+		};
+		F6263BFA29DCC5E00034A9F9 /* Basic Types */ = {
+			isa = PBXGroup;
+			children = (
+				F6EE0AC31CA2C7F4004748ED /* nImOatom.cpp */,
+				F6EE0AC41CA2C7F4004748ED /* nImOatom.h */,
+				F6EE0AC51CA2C7F4004748ED /* nImOblob.cpp */,
+				F6EE0AC61CA2C7F4004748ED /* nImOblob.h */,
+				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,
+				F6C1462B1CD18D830045C291 /* nImOdouble.h */,
+				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
+				F6A787771E65BDAD00940F97 /* nImOflaw.h */,
+				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
+				F6C146291CD18D830045C291 /* nImOinteger.h */,
+				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,
+				F61B8C011E6CB58E00606F25 /* nImOinvalid.h */,
+				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
+				F6991C801E5C747A00678450 /* nImOlogical.h */,
+				F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */,
+				F6EE0AD61CA2C7F4004748ED /* nImOnumber.h */,
+				F6EE0AD91CA2C7F4004748ED /* nImOstring.cpp */,
+				F6EE0ADA1CA2C7F4004748ED /* nImOstring.h */,
+				F6EE0ADB1CA2C7F4004748ED /* nImOvalue.cpp */,
+				F6EE0ADC1CA2C7F4004748ED /* nImOvalue.h */,
+			);
+			name = "Basic Types";
 			sourceTree = "<group>";
 		};
 		F6300DFC29801646002F3960 /* Echo */ = {
@@ -1017,32 +1144,17 @@
 		F6B388F21C77F2E0004B2D42 /* nImO */ = {
 			isa = PBXGroup;
 			children = (
-				F634701B29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.cpp */,
-				F634701C29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.h */,
-				F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */,
-				F60F864B1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.h */,
+				F6263BF729DCC4380034A9F9 /* Argument Descriptors */,
+				F6263BFA29DCC5E00034A9F9 /* Basic Types */,
+				F6263BF929DCC5B30034A9F9 /* Container Types */,
+				F6263BF829DCC4890034A9F9 /* Contexts */,
+				F6263BF629DCC4040034A9F9 /* Response Handlers */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
 				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
-				F6EE0AC11CA2C7F4004748ED /* nImOarray.cpp */,
-				F6EE0AC21CA2C7F4004748ED /* nImOarray.h */,
-				F6EE0AC31CA2C7F4004748ED /* nImOatom.cpp */,
-				F6EE0AC41CA2C7F4004748ED /* nImOatom.h */,
-				F60F864C1CA4B24C004D35AB /* nImObaseArgumentDescriptor.cpp */,
-				F60F864D1CA4B24C004D35AB /* nImObaseArgumentDescriptor.h */,
-				F6EE0AC51CA2C7F4004748ED /* nImOblob.cpp */,
-				F6EE0AC61CA2C7F4004748ED /* nImOblob.h */,
-				F60F864E1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.cpp */,
-				F60F864F1CA4B24C004D35AB /* nImObooleanArgumentDescriptor.h */,
-				F68020321CAA0DA500C2374A /* nImObufferChunk.cpp */,
-				F68020331CAA0DA500C2374A /* nImObufferChunk.h */,
 				F6EE0ACD1CA2C7F4004748ED /* nImOchannel.cpp */,
 				F6EE0ACE1CA2C7F4004748ED /* nImOchannel.h */,
-				F60F86501CA4B24C004D35AB /* nImOchannelArgumentDescriptor.cpp */,
-				F60F86511CA4B24C004D35AB /* nImOchannelArgumentDescriptor.h */,
 				F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */,
 				F6811BD3240FFD9700B09333 /* nImOchannelName.h */,
-				F6F238531CD96F290005554A /* nImOchunkArray.cpp */,
-				F6F238541CD96F290005554A /* nImOchunkArray.h */,
 				F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */,
 				F69004E829CF4E7100271A73 /* nImOcommandHandler.h */,
 				F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */,
@@ -1056,92 +1168,28 @@
 				F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */,
 				F6EE0ACB1CA2C7F4004748ED /* nImOconfig.h */,
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.h.in */,
-				F6866F011CA4145E00849A76 /* nImOcontainer.cpp */,
-				F6866F021CA4145E00849A76 /* nImOcontainer.h */,
-				F6737D5C28857E25000DD5FC /* nImOcontext.cpp */,
-				F6737D5E28857E25000DD5FC /* nImOcontext.h */,
-				F660586F2885FEAB008F8A09 /* nImOcontextWithMDNS.cpp */,
-				F660586E2885FE7F008F8A09 /* nImOcontextWithMDNS.h */,
-				F6B18566294A892B0091BEE3 /* nImOcontextWithNetworking.cpp */,
-				F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.h */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.h */,
-				F6C1462C1CD18D830045C291 /* nImOdouble.cpp */,
-				F6C1462B1CD18D830045C291 /* nImOdouble.h */,
-				F60F86521CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.cpp */,
-				F60F86531CA4B24C004D35AB /* nImOdoubleArgumentDescriptor.h */,
-				F60F86541CA4B24C004D35AB /* nImOextraArgumentDescriptor.cpp */,
-				F60F86551CA4B24C004D35AB /* nImOextraArgumentDescriptor.h */,
-				F60F86561CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.cpp */,
-				F60F86571CA4B24C004D35AB /* nImOfilePathArgumentDescriptor.h */,
-				F6737D6828857E43000DD5FC /* nImOfilterContext.cpp */,
-				F6737D6928857E43000DD5FC /* nImOfilterContext.h */,
-				F6A787751E65BCD000940F97 /* nImOflaw.cpp */,
-				F6A787771E65BDAD00940F97 /* nImOflaw.h */,
-				F6C1462A1CD18D830045C291 /* nImOinteger.cpp */,
-				F6C146291CD18D830045C291 /* nImOinteger.h */,
-				F60F86581CA4B24C004D35AB /* nImOintegerArgumentDescriptor.cpp */,
-				F60F86591CA4B24C004D35AB /* nImOintegerArgumentDescriptor.h */,
-				F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */,
-				F61B8C011E6CB58E00606F25 /* nImOinvalid.h */,
 				F6943A582886C275002117FA /* nImOlogger.cpp */,
 				F6943A572886C275002117FA /* nImOlogger.h */,
-				F6991C7F1E5C747A00678450 /* nImOlogical.cpp */,
-				F6991C801E5C747A00678450 /* nImOlogical.h */,
 				F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */,
 				F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */,
-				F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */,
-				F6EE0AD41CA2C7F4004748ED /* nImOmap.h */,
-				F6A3C2241CCD3C7900CA5C76 /* nImOmessage.cpp */,
-				F6A3C2251CCD3C7900CA5C76 /* nImOmessage.h */,
 				F699CCA12945026100B471C6 /* nImOMIMESupport.cpp */,
 				F699CCA22945026100B471C6 /* nImOMIMESupport.h */,
-				F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */,
-				F6737D6328857E42000DD5FC /* nImOmiscellaneousContext.h */,
-				F634702029DCA192008FCEA2 /* nImOnodePresentResponseHandler.cpp */,
-				F634701F29DCA192008FCEA2 /* nImOnodePresentResponseHandler.h */,
-				F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */,
-				F6EE0AD61CA2C7F4004748ED /* nImOnumber.h */,
-				F60F865A1CA4B24C004D35AB /* nImOportArgumentDescriptor.cpp */,
-				F60F865B1CA4B24C004D35AB /* nImOportArgumentDescriptor.h */,
 				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,
 				F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */,
-				F634702129DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.cpp */,
-				F634702229DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.h */,
 				F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */,
 				F69004EC29CF654300271A73 /* nImOrequestResponse.h */,
 				F634701E29DC9CA8008FCEA2 /* nImOresponseHandler.cpp */,
 				F634701D29DC9CA8008FCEA2 /* nImOresponseHandler.h */,
-				F6737D5D28857E25000DD5FC /* nImOserviceContext.cpp */,
-				F6737D5B28857E25000DD5FC /* nImOserviceContext.h */,
 				F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */,
 				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
-				F6EE0AD71CA2C7F4004748ED /* nImOset.cpp */,
-				F6EE0AD81CA2C7F4004748ED /* nImOset.h */,
 				F69004E929CF521C00271A73 /* nImOshutdownCommandHandler.cpp */,
 				F69004EA29CF521C00271A73 /* nImOshutdownCommandHandler.h */,
-				F6737D6728857E43000DD5FC /* nImOsinkContext.cpp */,
-				F6737D6228857E42000DD5FC /* nImOsinkContext.h */,
-				F6737D6628857E43000DD5FC /* nImOsourceContext.cpp */,
-				F6737D5F28857E42000DD5FC /* nImOsourceContext.h */,
 				F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */,
 				F67B359429BCD51E000FC147 /* nImOstandardOptions.h */,
-				F6EE0AD91CA2C7F4004748ED /* nImOstring.cpp */,
-				F6EE0ADA1CA2C7F4004748ED /* nImOstring.h */,
-				F60F865C1CA4B24C004D35AB /* nImOstringArgumentDescriptor.cpp */,
-				F60F865D1CA4B24C004D35AB /* nImOstringArgumentDescriptor.h */,
-				F66FA33C1CA95475000B283D /* nImOstringBuffer.cpp */,
-				F66FA33B1CA9542A000B283D /* nImOstringBuffer.h */,
-				F627506A2414592800FCF36C /* nImOstringsArgumentDescriptor.cpp */,
-				F627506B2414592800FCF36C /* nImOstringsArgumentDescriptor.h */,
-				F6737D6028857E42000DD5FC /* nImOtestContext.cpp */,
-				F6737D6428857E42000DD5FC /* nImOtestContext.h */,
-				F6737D6C28857E43000DD5FC /* nImOutilityContext.cpp */,
-				F6737D6A28857E43000DD5FC /* nImOutilityContext.h */,
-				F6EE0ADB1CA2C7F4004748ED /* nImOvalue.cpp */,
-				F6EE0ADC1CA2C7F4004748ED /* nImOvalue.h */,
 				F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */,
 				F6EE0ADE1CA2C7F4004748ED /* optionparser.hpp */,
 				F6EE0A9D1CA2C425004748ED /* swig */,

@@ -69,7 +69,7 @@ namespace nImO
     typedef std::pair<bool, std::string>    RegSuccessOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, int> RegIntOrFailure;
+    typedef std::pair<RegSuccessOrFailure, int64_t> RegIntOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, bool> RegBoolOrFailure;

@@ -43,6 +43,7 @@
 #include "nImOmiscellaneousContext.h"
 #include "nImOnodePresentResponseHandler.h"
 #include "nImOnumber.h"
+#include "nImOnumNodesResponseHandler.h"
 #include "nImOportArgumentDescriptor.h"
 #include "nImOregistryCommands.h"
 #include "nImOregistryProxy.h"

@@ -105,6 +105,111 @@ nImO::CommandHandler::~CommandHandler
 #endif // defined(__APPLE__)
 
 bool
+nImO::CommandHandler::sendComplexResponse
+    (asio::ip::tcp::socket &    socket,
+     const std::string          responseKey,
+     SpValue                    contents)
+    const
+{
+    bool    okSoFar = sendComplexResponseWithContext(_owner, socket, responseKey, contents);
+
+    ODL_OBJENTER(); //####
+    ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_B1("wasOK = ", wasOK); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::CommandHandler::sendComplexResponse
+
+bool
+nImO::CommandHandler::sendComplexResponseWithContext
+    (SpContextWithNetworking    context,
+     asio::ip::tcp::socket &    socket,
+     const std::string          responseKey,
+     SpValue                    contents)
+{
+    bool    okSoFar = false;
+    Message responseToSend;
+    SpArray responseArray{new Array};
+
+    ODL_ENTER(); //####
+    ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_B1("wasOK = ", wasOK); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!!
+    responseToSend.open(true);
+    responseArray->addValue(std::make_shared<String>(responseKey));
+    responseArray->addValue(contents);
+    responseToSend.setValue(responseArray);
+    responseToSend.close();
+    if (0 < responseToSend.getLength())
+    {
+        auto    asString{responseToSend.getBytes()};
+
+        if (0 < asString.length())
+        {
+            std::atomic<bool>   keepGoing{true};
+            StringVector        outVec;
+
+            EncodeBytesAsMIME(outVec, asString);
+            auto    outString{nImO::PackageMessage(outVec)};
+
+            ODL_S1("outString <- ", outString->c_str());//!!!
+            // send the encoded message to the requestor.
+#if defined(nImO_ChattyTcpLogging)
+            context->report("sending response");
+#endif /* defined(nImO_ChattyTcpLogging) */
+            asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
+                              [context, &keepGoing, &okSoFar]
+                              (const system::error_code &   ec,
+                               const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                              {
+                                if (ec)
+                                {
+                                    if (asio::error::operation_aborted == ec)
+                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                        context->report("write operation cancelled");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+                                    }
+                                    else
+                                    {
+                                        context->report("async_write failed");
+                                    }
+                                    keepGoing = false;
+                                    ODL_B1("keepGoing <- ", keepGoing); //!!
+                                }
+                                else
+                                {
+#if defined(nImO_ChattyTcpLogging)
+                                    context->report("response sent");
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                    okSoFar = true;
+                                    keepGoing = false;
+                                    ODL_B2("okSoFar <- ", okSoFar, "keepGoing <- ", keepGoing); //!!
+                                }
+                              });
+            for ( ; keepGoing && gKeepRunning; )
+            {
+                this_thread::yield();
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < asString.length())"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (0 < responseToSend.getLength())"); //####
+    }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::CommandHandler::sendComplexResponseWithContext
+
+bool
 nImO::CommandHandler::sendSimpleResponse
     (asio::ip::tcp::socket &    socket,
      const std::string          responseKey,

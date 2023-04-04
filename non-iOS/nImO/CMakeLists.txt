@@ -95,6 +95,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
+            "${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.cpp"
@@ -184,6 +185,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h"
         "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOnumber.h"
+        "${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
@@ -253,6 +255,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h
         ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
+        ${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h

@@ -77,10 +77,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context.
-             @param[in] theRegistry The Registry to use when processing a request. */
+             @param[in] theRegistry The Registry to use when processing a request.
+             @param[in] statusConnection Where to report status changes. */
             AddNodeCommandHandler
                 (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry);
+                 SpRegistry                 theRegistry,
+                 const Connection &         statusConnection);
 
             /*! @brief The destructor. */
             virtual
@@ -115,6 +117,9 @@ namespace nImO
 
             /*! @brief The Registry to use when processing a request. */
             SpRegistry  _registry;
+
+            /*! @brief The multicast connection used for status reports. */
+            Connection  _statusConnection;
 
     }; // AddNodeCommandHandler
 

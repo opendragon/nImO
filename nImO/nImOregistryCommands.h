@@ -55,6 +55,12 @@
 namespace nImO
 {
 
+    /*! @brief The prefix for a node added status report. */
+    const std::string   kNodeAddedStatus = "n+";
+
+    /*! @brief The prefix for a node removed status report. */
+    const std::string   kNodeRemovedStatus = "n-";
+
     /*! @brief The request to add a node to the Registry. */
     const std::string   kAddNodeRequest = "addNode!";
 

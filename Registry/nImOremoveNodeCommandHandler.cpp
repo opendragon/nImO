@@ -83,8 +83,9 @@
 
 nImO::RemoveNodeCommandHandler::RemoveNodeCommandHandler
     (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+     SpRegistry                 theRegistry,
+     const Connection &         statusConnection) :
+        inherited(owner), _registry(theRegistry), _statusConnection(statusConnection)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
@@ -122,12 +123,17 @@ nImO::RemoveNodeCommandHandler::doIt
         ODL_P1("asString = ", asString); //!!
         if (nullptr != asString)
         {
-            RegSuccessOrFailure status{_registry->removeNode(asString->getValue())};
+            std::string         nodeName{asString->getValue()};
+            RegSuccessOrFailure status{_registry->removeNode(nodeName)};
 
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, true);
                 ODL_B1("okSoFar <- ", okSoFar); //!!!
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kNodeRemovedStatus + nodeName);
+                }
             }
             else
             {

@@ -84,8 +84,9 @@
 
 nImO::AddNodeCommandHandler::AddNodeCommandHandler
     (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+     SpRegistry                 theRegistry,
+     const Connection &         statusConnection) :
+        inherited(owner), _registry(theRegistry), _statusConnection(statusConnection)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
@@ -148,12 +149,17 @@ nImO::AddNodeCommandHandler::doIt
         }
         if ((nullptr != nameString) && (nullptr != connArray))
         {
-            RegSuccessOrFailure status{_registry->addNode(nameString->getValue(), theConnection)};
+            std::string         nodeName{nameString->getValue()};
+            RegSuccessOrFailure status{_registry->addNode(nodeName, theConnection)};
 
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kAddNodeResponse, true);
                 ODL_B1("okSoFar <- ", okSoFar); //!!!
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + nodeName);
+                }
             }
             else
             {

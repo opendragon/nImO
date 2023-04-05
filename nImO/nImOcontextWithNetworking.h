@@ -137,6 +137,16 @@ namespace nImO
                 return _logConnection;
             }
 
+            /*! @brief Return the address and port to use for logging.
+             @return The address and port to use for logging.. */
+            inline Connection
+            getStatusInfo
+                (void)
+                const
+            {
+                return _statusConnection;
+            }
+
             /*! @brief Log a message.
              @param[in] stringToSend The message to be logged.
              @return @c true if the message was successfully logged. */
@@ -199,6 +209,9 @@ namespace nImO
 
             /*! @brief The multicast connection used for logging. */
             Connection  _logConnection;
+
+            /*! @brief The multicast connection used for status changes. */
+            Connection  _statusConnection;
 
             /*! @brief @c true if logging has been enabled. */
             bool _loggingEnabled;

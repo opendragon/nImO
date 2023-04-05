@@ -149,6 +149,17 @@ namespace nImO
                  const bool                 wasOK = false)
                 const;
 
+            /*! @brief Send a status report.
+             @param[in] context The context for the responder.
+             @param[in] whereToSend The multiport address and port to send the status report to.
+             @param[in] statusChange The status change details. */
+            void
+            sendStatusReport
+                (SpContextWithNetworking    context,
+                 Connection                 whereToSend,
+                 const std::string &        statusChange)
+                const;
+
         private :
             // Private methods.
 

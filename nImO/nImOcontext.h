@@ -69,7 +69,6 @@ namespace nImO
 {
 
     /*! @brief A holder for a shared pointer to an Asio service . */
-    //typedef std::shared_ptr<asio::io_service>       SPservice;
     using SPservice = std::shared_ptr<asio::io_service>;
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */

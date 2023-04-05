@@ -67,17 +67,26 @@
 /*! @brief The connection to be used for logging, if none is specified in the configuration file. */
 static nImO::Connection kDefaultLogConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1954};
 
+/*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
+static nImO::Connection kDefaultStatusConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1955};
+
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 static int kDefaultRegistryTimeout = 5;
 
 /*! @brief The key for the logger address in the configuration file. */
-static std::string  kAddressKey = "logger address";
+static std::string  kLoggerAddressKey = "logger address";
 
 /*! @brief The key for the logger port in the configuration file. */
-static std::string  kPortKey = "logger port";
+static std::string  kLoggerPortKey = "logger port";
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
 static std::string  kRegistryTimeoutKey = "registry search timeout";
+
+/*! @brief The key for the status address in the configuration file. */
+static std::string  kStatusAddressKey = "status address";
+
+/*! @brief The key for the status port in the configuration file. */
+static std::string  kStatusPortKey = "status port";
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -101,7 +110,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
      const bool             logging,
      const int              numReservedThreads,
      const std::string &    nodeName) :
-        inherited(executableName, nodeName), _logConnection(kDefaultLogConnection), _loggingEnabled(logging), _logger(nullptr)
+        inherited(executableName, nodeName), _logConnection(kDefaultLogConnection), _statusConnection(kDefaultStatusConnection),
+        _loggingEnabled(logging), _logger(nullptr)
 {
 #if (! MAC_OR_LINUX_)
     WORD    versionWanted = MAKEWORD(1, 1);
@@ -143,7 +153,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.
-        boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kAddressKey);
+        boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kLoggerAddressKey);
 
         if (retValue)
         {
@@ -164,7 +174,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
             }
         }
-        retValue = GetConfiguredValue(kPortKey);
+        retValue = GetConfiguredValue(kLoggerPortKey);
         if (retValue)
         {
             InitFile::SpBaseValue       actualValue{*retValue};
@@ -177,6 +187,46 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
                     _logConnection._port = StaticCast(uint16_t, tempValue);
+                }
+                else
+                {
+                    std::cerr << "Invalid port in configuration file; using default port." << std::endl;
+                }
+            }
+        }
+        retValue = GetConfiguredValue(kStatusAddressKey);
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
+
+            if (nullptr != asAddress)
+            {
+                uint64_t    tempValue = asAddress->GetValue();
+
+                if (239 == (tempValue >> 24))
+                {
+                    _statusConnection._address = tempValue;
+                }
+                else
+                {
+                    std::cerr << "Invalid address in configuration file; using default address." << std::endl;
+                }
+            }
+        }
+        retValue = GetConfiguredValue(kStatusPortKey);
+        if (retValue)
+        {
+            InitFile::SpBaseValue       actualValue{*retValue};
+            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+
+            if (nullptr != asInteger)
+            {
+                int64_t tempValue = asInteger->GetValue();
+
+                if ((0 < tempValue) && (tempValue <= 0x0FFFF))
+                {
+                    _statusConnection._port = StaticCast(uint16_t, tempValue);
                 }
                 else
                 {

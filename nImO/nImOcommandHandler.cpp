@@ -133,7 +133,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     Message responseToSend;
     SpArray responseArray{new Array};
 
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
@@ -205,7 +205,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
     }
-    ODL_EXIT_B(okSoFar); //####
+    ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendComplexResponseWithContext
 
@@ -238,7 +238,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     Message responseToSend;
     SpArray responseArray{new Array};
 
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
@@ -310,9 +310,30 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
     }
-    ODL_EXIT_B(okSoFar); //####
+    ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendSimpleResponseWithContext
+
+void
+nImO::CommandHandler::sendStatusReport
+    (SpContextWithNetworking    context,
+     Connection                 whereToSend,
+     const std::string &        statusChange)
+    const
+{
+    auto                    statusCopy{std::make_shared<std::string>(statusChange)};
+    asio::ip::udp::endpoint theEndpoint{asio::ip::address_v4(whereToSend._address), whereToSend._port};
+    asio::ip::udp::socket   theSocket{*context->getService(), theEndpoint.protocol()};
+
+    ODL_OBJENTER(); //####
+    theSocket.async_send_to(asio::buffer(*statusCopy), theEndpoint,
+                              [statusCopy]
+                              (const system::error_code NIMO_UNUSED_PARAM_(ec),
+                               const std::size_t        NIMO_UNUSED_PARAM_(length))
+                              {
+                              });
+    ODL_OBJEXIT(); //####
+} // nImO::CommandHandler::sendStatusReport
 
 #if defined(__APPLE__)
 # pragma mark Global functions

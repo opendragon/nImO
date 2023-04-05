@@ -115,6 +115,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::DisableWaitForRegistry(true);
             nImO::SpContextWithNetworking   ourContext{new nImO::RegistryContext{argc, argv, progName, optionValues._logging, true}};
+            nImO::Connection                statusConnection{ourContext->getStatusInfo()};
 
             ODL_P1("ourContext <- ", ourContext.get()); //!!!
             nImO::ServiceContext::addStandardHandlers(ourContext);
@@ -135,10 +136,11 @@ main
                 {
                     Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
-                    asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kRemoveNodeRequest, new nImO::RemoveNodeCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kNumNodesRequest, new nImO::NumNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kRemoveNodeRequest, new nImO::RemoveNodeCommandHandler(ourContext, theRegistry,
+                                                                                                               statusConnection));
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                                 nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                     {

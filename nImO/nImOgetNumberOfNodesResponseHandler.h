@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnumNodesCommandHandler.h
+//  File:       nImO/nImOgetNumberOfNodesResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'num nodes' command handler.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,12 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOnumNodesCommandHandler_H_))
-# define nImOnumNodesCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetNumberOfNodesResponseHandler_H_))
+# define nImOgetNumberOfNodesResponseHandler_H_ /* Header guard */
 
-# include <nImOcommandHandler.h>
-
-# include "nImOregistry.h"
+# include <nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -49,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'num nodes' command handler. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'num nodes' command. */
-    class NumNodesCommandHandler final : public CommandHandler
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class NumNodesResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -70,33 +68,37 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = CommandHandler;
+            using inherited = nImO::ResponseHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context.
-             @param[in] theRegistry The Registry to use when processing a request. */
-            NumNodesCommandHandler
-                (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry);
+             @param[in] responseKey The expected response key. */
+            NumNodesResponseHandler
+                (void);
 
             /*! @brief The destructor. */
             virtual
-            ~NumNodesCommandHandler
+            ~NumNodesResponseHandler
                 (void);
 
-            /*! @brief Handle the command, returning @c true if successful.
-             @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received.
-             @return @c true if a response was sent. */
-            virtual bool
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            virtual void
             doIt
-                (asio::ip::tcp::socket &    socket,
-                 const Array &              arguments)
-                const
+                (const nImO::Array &    stuff)
                 override;
+
+            /*! @brief Return the received value.
+             @return The received value. */
+            int64_t
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
         protected :
             // Protected methods.
@@ -113,11 +115,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The Registry to use when processing a request. */
-            SpRegistry  _registry;
+            /*! @brief The received value. */
+            int64_t    _result;
 
-    }; // NumNodesCommandHandler
+    }; // NumNodesResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOnumNodesCommandHandler_H_)
+#endif // not defined(nImOgetNumberOfNodesResponseHandler_H_)

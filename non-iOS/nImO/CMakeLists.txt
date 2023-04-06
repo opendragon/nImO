@@ -83,9 +83,11 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
             "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
+            "${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/nImOmainSupport.cpp"
@@ -93,9 +95,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOmessage.cpp"
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
-            "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
-            "${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.cpp"
@@ -173,9 +173,11 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOfilterContext.h"
         "${THIS_SOURCE_DIR}/nImOflaw.h"
+        "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOinteger.h"
         "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOinvalid.h"
+        "${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOlogger.h"
         "${THIS_SOURCE_DIR}/nImOlogical.h"
         "${THIS_SOURCE_DIR}/nImOmainSupport.h"
@@ -183,9 +185,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOmessage.h"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h"
-        "${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOnumber.h"
-        "${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
@@ -243,9 +243,11 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.h
+        ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.h
         ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.h
+        ${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.h
         ${THIS_SOURCE_DIR}/nImOmainSupport.cpp ${THIS_SOURCE_DIR}/nImOmainSupport.h
@@ -253,9 +255,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOmessage.cpp ${THIS_SOURCE_DIR}/nImOmessage.h
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h
-        ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOnodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
-        ${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOnumNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h

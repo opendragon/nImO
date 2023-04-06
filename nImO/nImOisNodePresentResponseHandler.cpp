@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnumNodesCommandHandler.cpp
+//  File:       nImO/nImOisNodePresentResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'num nodes' command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,13 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOnumNodesCommandHandler.h"
+#include <nImOisNodePresentResponseHandler.h>
 
-#include <nImOarray.h>
-#include <nImOinteger.h>
-#include <nImOregistryCommands.h>
-#include <nImOregistryTypes.h>
-#include <nImOstring.h>
+#include <nImOlogical.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -53,7 +49,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'num nodes' command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,59 +78,43 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumNodesCommandHandler::NumNodesCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+nImO::NodePresentResponseHandler::NodePresentResponseHandler
+    (void) :
+        inherited(), _result(false)
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumNodesCommandHandler::NumNodesCommandHandler
+} // nImO::NodePresentResponseHandler::NodePresentResponseHandler
 
-nImO::NumNodesCommandHandler::~NumNodesCommandHandler
+nImO::NodePresentResponseHandler::~NodePresentResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumNodesCommandHandler::~NumNodesCommandHandler
+} // nImO::NodePresentResponseHandler::~NodePresentResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::NumNodesCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
-    const
+void
+nImO::NodePresentResponseHandler::doIt
+    (const nImO::Array &    stuff)
 {
-    bool    okSoFar = false;
-
-    NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!
-    _owner->report("num nodes request received");
-    if (0 < arguments.size())
+    ODL_I1("stuff.size() = ", stuff.size()); //!!!
+    if (1 < stuff.size())
     {
-        RegIntOrFailure    statusWithInt{_registry->numNodes()};
+        nImO::SpValue       element{stuff[1]};
+        CPtr(nImO::Logical) asLogical{element->asLogical()};
 
-        if (statusWithInt.first.first)
+        if (nullptr != asLogical)
         {
-            SpInteger   count{new Integer{statusWithInt.second}};
-
-            okSoFar = sendComplexResponse(socket, kNumNodesResponse, count);
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
-        }
-        else
-        {
-            ODL_LOG("! (statusWithInt.first.first)"); //####
+            _result = asLogical->getValue();
         }
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::NumNodesCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::NodePresentResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

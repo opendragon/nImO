@@ -161,7 +161,7 @@ listNodes
      nImO::StandardOptions &    options)
 {
     bool                        okSoFar = true;
-    nImO::RegStringSetOrFailure statusWithStrings = proxy.getNodes();
+    nImO::RegStringSetOrFailure statusWithStrings = proxy.getNamesOfNodes();
 
     ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (statusWithStrings.first.first)
@@ -181,7 +181,7 @@ listNodes
             for (auto walker(nodes.begin()); nodes.end() != walker; )
             {
                 std::string                 nodeName{nImO::SanitizeString(*walker, nImO::OutputFlavour::FlavourJSON == options._flavour)};
-                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
+                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeConnection(nodeName);
 
                 ++walker;
                 if (statusWithInfo.first.first)
@@ -216,7 +216,7 @@ listNodes
                 }
                 else
                 {
-                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
+                    std::cerr << "Problem with 'getNodeConnection': " << statusWithInfo.first.second << std::endl;
                     okSoFar = false;
                     ODL_B1("okSoFar <- ", okSoFar); //!!!
                     break;
@@ -230,7 +230,7 @@ listNodes
     }
     else
     {
-        std::cerr << "Problem with 'getNodes': " << statusWithStrings.first.second << std::endl;
+        std::cerr << "Problem with 'getNamesOfNodes': " << statusWithStrings.first.second << std::endl;
         okSoFar = false;
         ODL_B1("okSoFar <- ", okSoFar); //!!!
     }

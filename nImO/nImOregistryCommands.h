@@ -67,29 +67,29 @@ namespace nImO
     /*! @brief The 'addNode' response. */
     const std::string   kAddNodeResponse = "addNode=";
 
-    /*! @brief The request to get information on a node from the Registry. */
-    const std::string   kGetNodeInformationRequest = "getNodeInformation?";
-
-    /*! @brief The 'getNodeInformation' response. */
-    const std::string   kGetNodeInformationResponse = "getNodeInformation=";
-
     /*! @brief The request to get the set of nodes in the Registry. */
-    const std::string   kGetNodesRequest = "getNodes?";
+    const std::string   kGetNamesOfNodesRequest = "getNamesOfNodes?";
 
-    /*! @brief The 'getNodes' response'. */
-    const std::string   kGetNodesResponse = "getNodes=";
+    /*! @brief The 'getNamesOfNodes' response'. */
+    const std::string   kGetNamesOfNodesResponse = "getNamesOfNodes=";
 
-    /*! @brief The request to check if a node is present in the Registry. */
-    const std::string   kNodePresentRequest = "nodePresent?";
+    /*! @brief The request to get information on a node from the Registry. */
+    const std::string   kGetNodeConnectionRequest = "getNodeConnection?";
 
-    /*! @brief The 'nodePresent' reponse. */
-    const std::string   kNodePresentResponse = "nodePresent=";
+    /*! @brief The 'getNodeConnection' response. */
+    const std::string   kGetNodeConnectionResponse = "getNodeConnection=";
 
     /*! @brief The request to get the number of nodes in the Registry. */
-    const std::string   kNumNodesRequest = "numNodes?";
+    const std::string   kGetNumberOfNodesRequest = "getNumberOfNodes?";
 
-    /*! @brief The 'numNodes' response. */
-    const std::string   kNumNodesResponse = "numNodes=";
+    /*! @brief The 'getNumberOfNodes' response. */
+    const std::string   kGetNumberOfNodesResponse = "getNumberOfNodes=";
+
+    /*! @brief The request to check if a node is present in the Registry. */
+    const std::string   kIsNodePresentRequest = "isNodePresent?";
+
+    /*! @brief The 'isNodePresent' reponse. */
+    const std::string   kIsNodePresentResponse = "isNodePresent=";
 
     /*! @brief The request to remove a node from the Registry. */
     const std::string   kRemoveNodeRequest = "removeNode!";

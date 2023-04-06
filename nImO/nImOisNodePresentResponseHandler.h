@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnodePresentResponseHandler.h
+//  File:       nImO/nImOisNodePresentResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOnodePresentResponseHandler_H_))
-# define nImOnodePresentResponseHandler_H_ /* Header guard */
+#if (! defined(nImOisNodePresentResponseHandler_H_))
+# define nImOisNodePresentResponseHandler_H_ /* Header guard */
 
 # include <nImOresponseHandler.h>
 
@@ -122,4 +122,4 @@ namespace nImO
 
 } // nImO
 
-#endif // not defined(nImOnodePresentResponseHandler_H_)
+#endif // not defined(nImOisNodePresentResponseHandler_H_)

@@ -791,8 +791,36 @@ nImO::Registry::addNode
     return status;
 } // nImO::Registry::addNode
 
+nImO::RegStringSetOrFailure
+nImO::Registry::getNamesOfNodes
+    (void)
+    const
+{
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    StringSet           strings;
+
+    ODL_OBJENTER(); //####
+    if (status.first)
+    {
+        StringVector        results;
+        static CPtr(char)   searchNodes = "SELECT " NODE_NAME_C_ " FROM " NODES_T_;
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                strings.insert(results[ii]);
+            }
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, strings};
+} // nImO::Registry::getNamesOfNodes
+
 nImO::RegNodeInfoOrFailure
-nImO::Registry::getNodeInformation
+nImO::Registry::getNodeConnection
     (const std::string &    nodeName)
     const
 {
@@ -837,38 +865,41 @@ nImO::Registry::getNodeInformation
     }
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
-} // nImO::Registry::getNodeInformation
+} // nImO::Registry::getNodeConnection
 
-nImO::RegStringSetOrFailure
-nImO::Registry::getNodes
+nImO::RegIntOrFailure
+nImO::Registry::getNumberOfNodes
     (void)
     const
 {
+    int                 count = -1;
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
-    StringSet           strings;
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT " NODE_NAME_C_ " FROM " NODES_T_;
+        static CPtr(char)   countNodes = "SELECT COUNT(*) FROM " NODES_T_;
 
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
             {
-                strings.insert(results[ii]);
+                count = -1;
             }
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
-} // nImO::Registry::getNodes
+    return RegIntOrFailure{status, count};
+} // nImO::Registry::getNumberOfNodes
 
 nImO::RegBoolOrFailure
-nImO::Registry::nodePresent
+nImO::Registry::isNodePresent
     (const std::string &    nodeName)
 {
     bool                found = false;
@@ -900,38 +931,7 @@ nImO::Registry::nodePresent
     }
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, found};
-} // nImO::Registry::nodePresent
-
-nImO::RegIntOrFailure
-nImO::Registry::numNodes
-    (void)
-    const
-{
-    int                 count = -1;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
-
-    ODL_OBJENTER(); //####
-    if (status.first)
-    {
-        StringVector        results;
-        static CPtr(char)   countNodes = "SELECT COUNT(*) FROM " NODES_T_;
-
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
-        if (status.first)
-        {
-            size_t  pos;
-
-            count = stoi(results[0], &pos);
-            if (0 == pos)
-            {
-                count = -1;
-            }
-        }
-        doEndTransaction(_owner, _dbHandle, status.first);
-    }
-    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
-} // nImO::Registry::numNodes
+} // nImO::Registry::isNodePresent
 
 nImO::RegSuccessOrFailure
 nImO::Registry::removeNode

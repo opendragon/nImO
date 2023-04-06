@@ -103,20 +103,27 @@ namespace nImO
                 (const std::string &    nodeName,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Get the set of nodes in the Registry.
+             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegStringSetOrFailure
+            getNamesOfNodes
+                (void)
+                const;
+
             /*! @brief Get information on the node stored in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
              @param[out] nodeAddress The IP address of the node.
              @param[out] nodePort The command port of the node.
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoOrFailure
-            getNodeInformation
+            getNodeConnection
                 (const std::string &    nodeName)
                 const;
 
-            /*! @brief Get the set of nodes in the Registry.
-             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegStringSetOrFailure
-            getNodes
+            /*! @brief Return the number of nodes in the Registry.
+             @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
+            getNumberOfNodes
                 (void)
                 const;
 
@@ -124,15 +131,8 @@ namespace nImO
              @param[in] nodeName The name of the node to be checked.
              @return @c true and if the node was found,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegBoolOrFailure
-            nodePresent
+            isNodePresent
                 (const std::string &    nodeName);
-
-            /*! @brief Return the number of nodes in the Registry.
-             @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
-            numNodes
-                (void)
-                const;
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.

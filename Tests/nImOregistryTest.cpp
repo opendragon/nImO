@@ -178,7 +178,7 @@ doTestEmptyRegistryForNodes
         }
         else
         {
-            nImO::RegIntOrFailure   statusWithInt = aRegistry->numNodes();
+            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
 
             if (statusWithInt.first.first)
             {
@@ -241,7 +241,7 @@ doTestNodeSetWithEmptyRegistry
         }
         else
         {
-            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
             if (statusWithStrings.first.first)
             {
@@ -306,7 +306,7 @@ doTestFindWithEmptyRegistry
         }
         else
         {
-            nImO::RegBoolOrFailure  statusWithBool = aRegistry->nodePresent(NODE_NAME_1);
+            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
 
             if (statusWithBool.first.first)
             {
@@ -316,7 +316,7 @@ doTestFindWithEmptyRegistry
                 }
                 else
                 {
-                    statusWithBool = aRegistry->nodePresent(NODE_NAME_2);
+                    statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
@@ -444,7 +444,7 @@ doTestCountWithRegistryWithOneNode
 
             if (status.first)
             {
-                nImO::RegIntOrFailure   statusWithInt = aRegistry->numNodes();
+                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
 
                 if (statusWithInt.first.first)
                 {
@@ -516,7 +516,7 @@ doTestNodeSetWithRegistryWithOneNode
 
             if (status.first)
             {
-                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
                 if (statusWithStrings.first.first)
                 {
@@ -590,13 +590,13 @@ doTestFindWithRegistryWithOneNode
 
             if (status.first)
             {
-                nImO::RegBoolOrFailure  statusWithBool = aRegistry->nodePresent(NODE_NAME_1);
+                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
 
                 if (statusWithBool.first.first)
                 {
                     if (statusWithBool.second)
                     {
-                        statusWithBool = aRegistry->nodePresent(NODE_NAME_2);
+                        statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
@@ -679,7 +679,7 @@ doTestNodeDataAddedToRegistry
 
             if (status.first)
             {
-                nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeInformation(NODE_NAME_1);
+                nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeConnection(NODE_NAME_1);
 
                 if (statusWithInfo.first.first)
                 {
@@ -826,7 +826,7 @@ doTestCountWithRegistryWithNodeRemoved
                 status = aRegistry->removeNode(NODE_NAME_1);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->numNodes();
+                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
 
                     if (statusWithInt.first.first)
                     {
@@ -906,7 +906,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
                 status = aRegistry->removeNode(NODE_NAME_1);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
                     if (statusWithStrings.first.first)
                     {
@@ -988,7 +988,7 @@ doTestFindWithRegistryNodeRemoved
                 status = aRegistry->removeNode(NODE_NAME_1);
                 if (status.first)
                 {
-                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->nodePresent(NODE_NAME_1);
+                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
 
                     if (statusWithBool.first.first)
                     {
@@ -1132,7 +1132,7 @@ doTestCountWithRegistryWithTwoNodes
                 status = aRegistry->addNode(NODE_NAME_2);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->numNodes();
+                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
 
                     if (statusWithInt.first.first)
                     {
@@ -1212,7 +1212,7 @@ doTestNodeSetWithRegistryWithTwoNodes
                 status = aRegistry->addNode(NODE_NAME_2);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
                     if (statusWithStrings.first.first)
                     {
@@ -1301,13 +1301,13 @@ doTestFindWithRegistryWithTwoNodes
                 status = aRegistry->addNode(NODE_NAME_2);
                 if (status.first)
                 {
-                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->nodePresent(NODE_NAME_1);
+                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
 
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
                         {
-                            statusWithBool = aRegistry->nodePresent(NODE_NAME_2);
+                            statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
                             if (statusWithBool.first.first)
                             {
                                 if (statusWithBool.second)
@@ -1482,7 +1482,7 @@ doTestCountWithRegistryWithAllNodesRemoved
                         status = aRegistry->removeNode(NODE_NAME_2);
                         if (status.first)
                         {
-                            nImO::RegIntOrFailure   statusWithInt = aRegistry->numNodes();
+                            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
 
                             if (statusWithInt.first.first)
                             {
@@ -1578,7 +1578,7 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
                         status = aRegistry->removeNode(NODE_NAME_2);
                         if (status.first)
                         {
-                            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+                            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
                             if (statusWithStrings.first.first)
                             {
@@ -1676,7 +1676,7 @@ doTestFindWithRegistryAllNodesRemoved
                         status = aRegistry->removeNode(NODE_NAME_2);
                         if (status.first)
                         {
-                            nImO::RegBoolOrFailure  statusWithBool = aRegistry->nodePresent(NODE_NAME_1);
+                            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
 
                             if (statusWithBool.first.first)
                             {
@@ -1686,7 +1686,7 @@ doTestFindWithRegistryAllNodesRemoved
                                 }
                                 else
                                 {
-                                    statusWithBool = aRegistry->nodePresent(NODE_NAME_2);
+                                    statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
                                     if (statusWithBool.first.first)
                                     {
                                         if (statusWithBool.second)
@@ -1785,7 +1785,7 @@ doTestAddTwoIdenticalNodesToRegistry
                 }
                 else
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNodes();
+                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
                     if (statusWithStrings.first.first)
                     {

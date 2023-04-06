@@ -117,7 +117,7 @@ main
             if (ourContext->asServiceContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy     proxy{ourContext, registryConnection};
-                nImO::RegBoolOrFailure  statusWithBool = proxy.nodePresent(nodeName);
+                nImO::RegBoolOrFailure  statusWithBool = proxy.isNodePresent(nodeName);
 
                 if (statusWithBool.first.first)
                 {
@@ -156,7 +156,7 @@ main
                 }
                 else
                 {
-                    std::cerr << "Problem with 'nodePresent': " << statusWithBool.first.second << std::endl;
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << std::endl;
                     exitCode = 1;
                 }
             }

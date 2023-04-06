@@ -43,7 +43,7 @@
 #include <nImOcontextWithMDNS.h>
 #include <nImOinteger.h>
 #include <nImOlogical.h>
-#include <nImOnodePresentResponseHandler.h>
+#include <nImOisNodePresentResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOremoveNodeResponseHandler.h>
 #include <nImOrequestResponse.h>
@@ -139,8 +139,22 @@ nImO::RegistryProxy::addNode
     return RegSuccessOrFailure{handler->result(), "already registered"};
 } // nImO::RegistryProxy::addNode
 
+nImO::RegStringSetOrFailure
+nImO::RegistryProxy::getNamesOfNodes
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+    StringSet           strings;
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, strings};
+} // nImO::RegistryProxy::getNamesOfNodes
+
 nImO::RegNodeInfoOrFailure
-nImO::RegistryProxy::getNodeInformation
+nImO::RegistryProxy::getNodeConnection
     (const std::string &    nodeName)
     const
 {
@@ -153,39 +167,10 @@ nImO::RegistryProxy::getNodeInformation
     //TBD
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
-} // nImO::RegistryProxy::getNodeInformation
-
-nImO::RegStringSetOrFailure
-nImO::RegistryProxy::getNodes
-    (void)
-    const
-{
-    ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{false, "not implemented"};
-    StringSet           strings;
-
-    //TBD
-    ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
-} // nImO::RegistryProxy::getNodes
-
-nImO::RegBoolOrFailure
-nImO::RegistryProxy::nodePresent
-    (const std::string &    nodeName)
-{
-    ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
-    SpArray                                     argArray{new Array};
-    std::unique_ptr<NodePresentResponseHandler> handler{new NodePresentResponseHandler};
-
-    argArray->addValue(std::make_shared<String>(nodeName));
-    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kNodePresentRequest, kNodePresentResponse);
-    ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
-} // nImO::RegistryProxy::nodePresent
+} // nImO::RegistryProxy::getNodeConnection
 
 nImO::RegIntOrFailure
-nImO::RegistryProxy::numNodes
+nImO::RegistryProxy::getNumberOfNodes
     (void)
     const
 {
@@ -197,7 +182,22 @@ nImO::RegistryProxy::numNodes
     //TBD
     ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, count};
-} // nImO::RegistryProxy::numNodes
+} // nImO::RegistryProxy::getNumberOfNodes
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::isNodePresent
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SpArray                                     argArray{new Array};
+    std::unique_ptr<NodePresentResponseHandler> handler{new NodePresentResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kIsNodePresentRequest, kIsNodePresentResponse);
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
+} // nImO::RegistryProxy::isNodePresent
 
 nImO::RegSuccessOrFailure
 nImO::RegistryProxy::removeNode

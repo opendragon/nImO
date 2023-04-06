@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnodePresentResponseHandler.cpp
+//  File:       nImO/nImOgetNumberOfNodesResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOnodePresentResponseHandler.h>
+#include <nImOgetNumberOfNodesResponseHandler.h>
 
-#include <nImOlogical.h>
+#include <nImOinteger.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -78,27 +78,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentResponseHandler::NodePresentResponseHandler
+nImO::NumNodesResponseHandler::NumNodesResponseHandler
     (void) :
         inherited(), _result(false)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentResponseHandler::NodePresentResponseHandler
+} // nImO::NumNodesResponseHandler::NumNodesResponseHandler
 
-nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+nImO::NumNodesResponseHandler::~NumNodesResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+} // nImO::NumNodesResponseHandler::~NumNodesResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NodePresentResponseHandler::doIt
+nImO::NumNodesResponseHandler::doIt
     (const nImO::Array &    stuff)
 {
     ODL_OBJENTER(); //####
@@ -106,15 +106,15 @@ nImO::NodePresentResponseHandler::doIt
     if (1 < stuff.size())
     {
         nImO::SpValue       element{stuff[1]};
-        CPtr(nImO::Logical) asLogical{element->asLogical()};
+        CPtr(nImO::Integer) asInteger{element->asInteger()};
 
-        if (nullptr != asLogical)
+        if (nullptr != asInteger)
         {
-            _result = asLogical->getValue();
+            _result = asInteger->getIntegerValue();
         }
     }
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::doIt
+} // nImO::NumNodesResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOnodePresentCommandHandler.h
+//  File:       nImO/nImOisNodePresentCommandHandler.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOnodePresentCommandHandler_H_))
-# define nImOnodePresentCommandHandler_H_ /* Header guard */
+#if (! defined(nImOisNodePresentCommandHandler_H_))
+# define nImOisNodePresentCommandHandler_H_ /* Header guard */
 
 # include <nImOcommandHandler.h>
 
@@ -120,4 +120,4 @@ namespace nImO
 
 } // nImO
 
-#endif // not defined(nImOnodePresentCommandHandler_H_)
+#endif // not defined(nImOisNodePresentCommandHandler_H_)

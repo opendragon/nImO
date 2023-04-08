@@ -384,7 +384,7 @@ doTestAddNodeToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -440,7 +440,7 @@ doTestCountWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -512,7 +512,7 @@ doTestNodeSetWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -586,7 +586,7 @@ doTestFindWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -675,24 +675,28 @@ doTestNodeDataAddedToRegistry
         {
             uint32_t                    randomAddress = StaticCast(uint32_t, rand());
             uint16_t                    randomPort = StaticCast(uint16_t, rand());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::Connection(randomAddress, randomPort));
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+                                                                    nImO::Connection(randomAddress, randomPort));
 
             if (status.first)
             {
-                nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeConnection(NODE_NAME_1);
+                nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeInformation(NODE_NAME_1);
 
                 if (statusWithInfo.first.first)
                 {
                     if (statusWithInfo.second._found)
                     {
-                        if ((randomAddress == statusWithInfo.second._connection._address) && (randomPort == statusWithInfo.second._connection._port))
+                        if ((randomAddress == statusWithInfo.second._connection._address) &&
+                            (randomPort == statusWithInfo.second._connection._port) &&
+                            (nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))
                         {
                             result = 0;
                         }
                         else
                         {
                             ODL_LOG("! ((randomAddress == statusWithInfo.second._connection._address) && " //####
-                                    "(randomPort == statusWithInfo.second._connection._port))"); //####
+                                    "(randomPort == statusWithInfo.second._connection._port) && " //####
+                                    "(nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))"); //####
                         }
                     }
                     else
@@ -755,7 +759,7 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -819,7 +823,7 @@ doTestCountWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -899,7 +903,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -981,7 +985,7 @@ doTestFindWithRegistryNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -1061,11 +1065,11 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     result = 0;
@@ -1125,11 +1129,11 @@ doTestCountWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
@@ -1205,11 +1209,11 @@ doTestNodeSetWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
@@ -1294,11 +1298,11 @@ doTestFindWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
@@ -1389,11 +1393,11 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1469,11 +1473,11 @@ doTestCountWithRegistryWithAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1565,11 +1569,11 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1663,11 +1667,11 @@ doTestFindWithRegistryAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2);
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1774,11 +1778,11 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1);
+                status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     ODL_LOG("(status.first)"); //####

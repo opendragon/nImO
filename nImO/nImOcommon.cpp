@@ -138,6 +138,8 @@ const std::string   nImO::kDirectorySeparator{"/"};
 const std::string   nImO::kDirectorySeparator{"\\"};
 #endif // ! MAC_OR_LINUX_
 
+const std::string   nImO::kStatusSeparator{"\t"};
+
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)

@@ -180,21 +180,6 @@ handleResponse
 #endif // defined(__APPLE__)
 
 void
-nImO::SendRequestWithArgumentsAndEmptyResponse
-    (SpContextWithNetworking    context,
-     Connection &               connection,
-     Ptr(Array)                 arguments,
-     const std::string          requestKey,
-     const std::string          responseKey)
-{
-    ODL_ENTER(); //####
-    ODL_P3("context = ", context.get(), "connection = ", &connection, "arguments = ", arguments); //####
-    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
-    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, arguments, requestKey, responseKey);
-    ODL_EXIT(); //####
-} // nImO::SendRequestWithArgumentsAndEmptyResponse
-
-void
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpContextWithNetworking    context,
      Connection &               connection,
@@ -342,32 +327,3 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     }
     ODL_EXIT(); //####
 } // nImO::SendRequestWithArgumentsAndNonEmptyResponse
-
-void
-nImO::SendRequestWithNoArgumentsAndEmptyResponse
-    (SpContextWithNetworking    context,
-     Connection &               connection,
-     const std::string          requestKey,
-     const std::string          responseKey)
-{
-    ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "connection = ", &connection); //####
-    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
-    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, nullptr, requestKey, responseKey);
-    ODL_EXIT(); //####
-} // nImO::SendRequestWithNoArgumentsAndEmptyResponse
-
-void
-nImO::SendRequestWithNoArgumentsAndNonEmptyResponse
-    (SpContextWithNetworking    context,
-     Connection &               connection,
-     Ptr(ResponseHandler)       handler,
-     const std::string          requestKey,
-     const std::string          responseKey)
-{
-    ODL_ENTER(); //####
-    ODL_P3("context = ", context.get(), "connection = ", &connection, "handler = ", handler); //####
-    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
-    SendRequestWithArgumentsAndNonEmptyResponse(context, connection, handler, nullptr, requestKey, responseKey);
-    ODL_EXIT(); //####
-} // nImO::SendRequestWithNoArgumentsAndNonEmptyResponse

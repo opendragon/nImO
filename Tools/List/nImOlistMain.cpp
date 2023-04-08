@@ -181,7 +181,7 @@ listNodes
             for (auto walker(nodes.begin()); nodes.end() != walker; )
             {
                 std::string                 nodeName{nImO::SanitizeString(*walker, nImO::OutputFlavour::FlavourJSON == options._flavour)};
-                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeConnection(nodeName);
+                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
 
                 ++walker;
                 if (statusWithInfo.first.first)
@@ -216,7 +216,7 @@ listNodes
                 }
                 else
                 {
-                    std::cerr << "Problem with 'getNodeConnection': " << statusWithInfo.first.second << std::endl;
+                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
                     okSoFar = false;
                     ODL_B1("okSoFar <- ", okSoFar); //!!!
                     break;

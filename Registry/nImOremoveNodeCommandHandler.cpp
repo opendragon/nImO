@@ -132,7 +132,7 @@ nImO::RemoveNodeCommandHandler::doIt
                 ODL_B1("okSoFar <- ", okSoFar); //!!!
                 if (okSoFar)
                 {
-                    sendStatusReport(_owner, _statusConnection, kNodeRemovedStatus + nodeName);
+                    sendStatusReport(_owner, _statusConnection, kNodeRemovedStatus + kStatusSeparator + nodeName);
                 }
             }
             else

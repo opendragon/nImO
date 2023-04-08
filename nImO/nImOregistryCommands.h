@@ -74,10 +74,10 @@ namespace nImO
     const std::string   kGetNamesOfNodesResponse = "getNamesOfNodes=";
 
     /*! @brief The request to get information on a node from the Registry. */
-    const std::string   kGetNodeConnectionRequest = "getNodeConnection?";
+    const std::string   kGetNodeInformationRequest = "getNodeInformation?";
 
-    /*! @brief The 'getNodeConnection' response. */
-    const std::string   kGetNodeConnectionResponse = "getNodeConnection=";
+    /*! @brief The 'getNodeInformation' response. */
+    const std::string   kGetNodeInformationResponse = "getNodeInformation=";
 
     /*! @brief The request to get the number of nodes in the Registry. */
     const std::string   kGetNumberOfNodesRequest = "getNumberOfNodes?";

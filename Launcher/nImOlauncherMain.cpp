@@ -129,7 +129,7 @@ main
                     }
                     else
                     {
-                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName);
+                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName, nImO::ServiceType::LauncherService);
 
                         if (status.first)
                         {

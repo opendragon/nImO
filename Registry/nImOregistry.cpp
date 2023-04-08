@@ -81,6 +81,9 @@
 /*! @brief The named parameter for the 'port' column. */
 # define NODE_PORT_C_   "port"
 
+/*! @brief The named parameter for the 'serviceType' column. */
+# define NODE_SERVICE_TYPE_C_   "serviceType"
+
 /*! @brief The name of the index for the 'name' column of the 'Nodes' table. */
 #define NODES_NAME_I_   "Nodes_name_idx"
 
@@ -100,6 +103,21 @@ struct NodeInsertData
 
     /*! @brief The command IP address and port for this node.*/
     nImO::Connection    _connection;
+
+    /*! @brief The type of this node. */
+    nImO::ServiceType   _serviceType;
+
+    /*! @brief The constructor.
+     @param[in] name The name of this node.
+     @param[in] connection The command IP address and port for this node.
+     @param[in] serviceType The type of service provided by this node. */
+    inline NodeInsertData
+        (const std::string          name,
+         const nImO::Connection &   connection,
+         const nImO::ServiceType    serviceType) :
+            _name(name), _connection(connection), _serviceType(serviceType)
+    {
+    }
 
 }; // NodeInsertData
 
@@ -576,7 +594,7 @@ createTables
             static CPtr(char)   tableSQL[] =
             {
                 "CREATE TABLE IF NOT EXISTS " NODES_T_ "(" NODE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ " PRIMARY KEY ON CONFLICT ABORT,"
-                                                            NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_ " INTEGER)",
+                                                            NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_ " INTEGER, " NODE_SERVICE_TYPE_C_ " INTEGER)",
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")"
             };
             static const size_t numTables = A_SIZE(tableSQL);
@@ -629,8 +647,9 @@ setupInsertIntoNodes
         int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
         int nodeAddressIndex = sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_);
         int nodePortIndex = sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_);
+        int nodeServiceTypeIndex = sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_);
 
-        if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex))
+        if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex))
         {
             CPtr(NodeInsertData)    nodeData = StaticCast(CPtr(NodeInsertData), stuff);
             std::string             name = nodeData->_name;
@@ -643,6 +662,10 @@ setupInsertIntoNodes
             if (SQLITE_OK == result)
             {
                 result = sqlite3_bind_int(statement, nodePortIndex, nodeData->_connection._port);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_int(statement, nodeServiceTypeIndex, StaticCast(int, nodeData->_serviceType));
             }
             if (SQLITE_OK != result)
             {
@@ -771,18 +794,20 @@ nImO::Registry::~Registry
 nImO::RegSuccessOrFailure
 nImO::Registry::addNode
     (const std::string &    nodeName,
+     const ServiceType      serviceClass,
      const Connection &     nodeConnection)
 {
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
+    ODL_I1("serviceClass = ", StasticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     if (status.first)
     {
-        NodeInsertData      data{nodeName, nodeConnection};
-        static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ ") VALUES(@" NODE_NAME_C_
-                                                ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ")";
+        NodeInsertData      data{nodeName, nodeConnection, serviceClass};
+        static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
+                                                ") VALUES(@" NODE_NAME_C_ ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ",@" NODE_SERVICE_TYPE_C_ ")";
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
@@ -820,7 +845,7 @@ nImO::Registry::getNamesOfNodes
 } // nImO::Registry::getNamesOfNodes
 
 nImO::RegNodeInfoOrFailure
-nImO::Registry::getNodeConnection
+nImO::Registry::getNodeInformation
     (const std::string &    nodeName)
     const
 {
@@ -832,8 +857,8 @@ nImO::Registry::getNodeConnection
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes = "SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ " FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@"
-                                                    NODE_NAME_C_;
+        static CPtr(char)           searchNodes = "SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
+                                                    NODE_NAME_C_ "=@" NODE_NAME_C_;
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (status.first)
@@ -842,7 +867,7 @@ nImO::Registry::getNodeConnection
             {
                 StringVector    values{results[0]};
 
-                if (1 < values.size())
+                if (2 < values.size())
                 {
                     size_t  pos;
 
@@ -857,7 +882,11 @@ nImO::Registry::getNodeConnection
                     {
                         info._found = false;
                     }
-
+                    info._serviceType = StaticCast(ServiceType, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
                 }
             }
         }
@@ -865,7 +894,7 @@ nImO::Registry::getNodeConnection
     }
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
-} // nImO::Registry::getNodeConnection
+} // nImO::Registry::getNodeInformation
 
 nImO::RegIntOrFailure
 nImO::Registry::getNumberOfNodes

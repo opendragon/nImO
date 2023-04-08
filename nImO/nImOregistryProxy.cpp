@@ -119,11 +119,13 @@ nImO::RegistryProxy::~RegistryProxy
 nImO::RegSuccessOrFailure
 nImO::RegistryProxy::addNode
     (const std::string &    nodeName,
+     const ServiceType      serviceType,
      const Connection &     nodeConnection)
 {
     NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
+    ODL_I1("serviceClass = ", StasticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     SpArray                                 argArray{new Array};
     std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
@@ -133,6 +135,7 @@ nImO::RegistryProxy::addNode
     connArray->addValue(std::make_shared<Integer>(nodeConnection._address));
     connArray->addValue(std::make_shared<Integer>(nodeConnection._port));
     connArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, nodeConnection._transport)));
+    connArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, serviceType)));
     argArray->addValue(connArray);
     SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddNodeRequest, kAddNodeResponse);
     ODL_OBJEXIT(); //####
@@ -154,7 +157,7 @@ nImO::RegistryProxy::getNamesOfNodes
 } // nImO::RegistryProxy::getNamesOfNodes
 
 nImO::RegNodeInfoOrFailure
-nImO::RegistryProxy::getNodeConnection
+nImO::RegistryProxy::getNodeInformation
     (const std::string &    nodeName)
     const
 {
@@ -167,7 +170,7 @@ nImO::RegistryProxy::getNodeConnection
     //TBD
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
-} // nImO::RegistryProxy::getNodeConnection
+} // nImO::RegistryProxy::getNodeInformation
 
 nImO::RegIntOrFailure
 nImO::RegistryProxy::getNumberOfNodes

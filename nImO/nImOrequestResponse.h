@@ -56,20 +56,6 @@
 namespace nImO
 {
 
-    /*! @brief Send a simple request with arguments and no expected results.
-     @param[in] context The context in which the request is being made.
-     @param[in] connection The connection to be used.
-     @param[in] handler The function to process the response.
-     @param[in] requestKey The request to be sent.
-     @param[in] responseKey The expected response, which will have no data. */
-    void
-    SendRequestWithArgumentsAndEmptyResponse
-        (SpContextWithNetworking    context,
-         Connection &               connection,
-         Ptr(Array)                 arguments,
-         const std::string          requestKey,
-         const std::string          responseKey);
-
     /*! @brief Send a simple request with expected results and arguments.
      @param[in] context The context in which the request is being made.
      @param[in] connection The connection to be used.
@@ -85,17 +71,37 @@ namespace nImO
          const std::string          requestKey,
          const std::string          responseKey);
 
+    /*! @brief Send a simple request with arguments and no expected results.
+     @param[in] context The context in which the request is being made.
+     @param[in] connection The connection to be used.
+     @param[in] handler The function to process the response.
+     @param[in] requestKey The request to be sent.
+     @param[in] responseKey The expected response, which will have no data. */
+    inline void
+    SendRequestWithArgumentsAndEmptyResponse
+        (SpContextWithNetworking    context,
+         Connection &               connection,
+         Ptr(Array)                 arguments,
+         const std::string          requestKey,
+         const std::string          responseKey)
+    {
+        SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, arguments, requestKey, responseKey);
+    }
+
     /*! @brief Send a simple request with no expected results and no arguments.
      @param[in] context The context in which the request is being made.
      @param[in] connection The connection to be used.
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data. */
-    void
+    inline void
     SendRequestWithNoArgumentsAndEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
          const std::string          requestKey,
-         const std::string          responseKey);
+         const std::string          responseKey)
+    {
+        SendRequestWithArgumentsAndNonEmptyResponse(context, connection, nullptr, nullptr, requestKey, responseKey);
+    }
 
     /*! @brief Send a simple request with expected results and no arguments.
      @param[in] context The context in which the request is being made.
@@ -103,13 +109,16 @@ namespace nImO
      @param[in] handler The function to process the response.
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data. */
-    void
+    inline void
     SendRequestWithNoArgumentsAndNonEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
          Ptr(ResponseHandler)       handler,
          const std::string          requestKey,
-         const std::string          responseKey);
+         const std::string          responseKey)
+    {
+        SendRequestWithArgumentsAndNonEmptyResponse(context, connection, handler, nullptr, requestKey, responseKey);
+    }
 
 } // nImO
 

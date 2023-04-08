@@ -98,11 +98,13 @@ namespace nImO
 
             /*! @brief Add a node to the Registry.
              @param[in] nodeName The name of the node to be added.
+             @param[in] serviceClass The nature of the service corresponding to the node.
              @param[in] nodeConnection The command address and port of the node.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
             RegSuccessOrFailure
             addNode
                 (const std::string &    nodeName,
+                 const ServiceType      serviceClass = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
             /*! @brief Get the set of nodes in the Registry.
@@ -118,7 +120,7 @@ namespace nImO
              @param[out] nodePort The command port of the node.
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoOrFailure
-            getNodeConnection
+            getNodeInformation
                 (const std::string &    nodeName)
                 const;
 

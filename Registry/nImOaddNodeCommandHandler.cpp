@@ -123,9 +123,10 @@ nImO::AddNodeCommandHandler::doIt
         CPtr(String)    nameString{element1->asString()};
         CPtr(Array)     connArray{element2->asArray()};
         Connection      theConnection;
+        ServiceType     theType;
 
         ODL_P2("nameString = ", nameString, "connArray = ", connArray); //!!
-        if (2 < connArray->size())
+        if (3 < connArray->size())
         {
             SpValue         connElem1{(*connArray)[0]};
             CPtr(Integer)   addressValue{connElem1->asInteger()};
@@ -133,6 +134,8 @@ nImO::AddNodeCommandHandler::doIt
             CPtr(Integer)   portValue{connElem2->asInteger()};
             SpValue         connElem3{(*connArray)[2]};
             CPtr(Integer)   transportValue{connElem3->asInteger()};
+            SpValue         connElem4{(*connArray)[3]};
+            CPtr(Integer)   typeValue{connElem4->asInteger()};
 
             if (nullptr != addressValue)
             {
@@ -146,11 +149,15 @@ nImO::AddNodeCommandHandler::doIt
             {
                 theConnection._transport = StaticCast(Transport, transportValue->getIntegerValue());
             }
+            if (nullptr != typeValue)
+            {
+                theType = StaticCast(ServiceType, typeValue->getIntegerValue());
+            }
         }
         if ((nullptr != nameString) && (nullptr != connArray))
         {
             std::string         nodeName{nameString->getValue()};
-            RegSuccessOrFailure status{_registry->addNode(nodeName, theConnection)};
+            RegSuccessOrFailure status{_registry->addNode(nodeName, theType, theConnection)};
 
             if (status.first)
             {
@@ -158,7 +165,7 @@ nImO::AddNodeCommandHandler::doIt
                 ODL_B1("okSoFar <- ", okSoFar); //!!!
                 if (okSoFar)
                 {
-                    sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + nodeName);
+                    sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);
                 }
             }
             else

@@ -121,7 +121,7 @@ main
 
                 if (0 < nodeName.length())
                 {
-                    nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeConnection(nodeName);
+                    nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
 
                     if (statusWithInfo.first.first)
                     {
@@ -139,7 +139,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getNodeConnection': " << statusWithInfo.first.second << std::endl;
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
                         exitCode = 1;
                     }
                 }

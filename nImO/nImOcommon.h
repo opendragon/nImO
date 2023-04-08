@@ -993,6 +993,9 @@ namespace nImO
     /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;
 
+    /*! @brief The status separator string. */
+    extern const std::string    kStatusSeparator;
+
 } // nImO
 
 #endif // not defined(nImOcommon_H_)

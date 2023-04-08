@@ -55,6 +55,25 @@
 namespace nImO
 {
 
+    /*! @brief The kind of service being registered. */
+    enum class ServiceType : uint8_t
+    {
+        /*! @brief A general servic with no special attributes.*/
+        GenericService,
+
+        /*! @brief A launcher service. */
+        LauncherService,
+
+        /*! @brief An I/O service that has both inputs and outputs. */
+        FilterService,
+
+        /*! @brief An I/O service that only has inputs. */
+        InputService,
+
+        /*! @brief An I/O service that only has outputs. */
+        OutputService
+    }; // ServiceType
+
     /*! @brief The data found in the Registry for a node. */
     struct NodeInfo
     {
@@ -63,6 +82,16 @@ namespace nImO
 
         /*! @brief The command IP address and port that was found.*/
         Connection  _connection;
+
+        /*! @brief The nature of the service associated with the node. */
+        ServiceType _serviceType;
+
+        inline NodeInfo
+            (void) :
+                _found(false), _serviceType(ServiceType::GenericService)
+        {
+        }
+
     }; // NodeInfo
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
@@ -79,6 +108,9 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, StringSet>   RegStringSetOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, SpValue>   RegValueOrFailure;
 
 } // nImO
 

@@ -106,3 +106,8 @@ add_test(NAME TestNodeSetWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 
 add_test(NAME TestFindWithRegistryAllNodesRemoved COMMAND ${THIS_TARGET} 21)
 ## Test add two identical nodes to Registry
 add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 22)
+## Test check node information with Registry with one node
+add_test(NAME TestNodeInfoWithRegistryWithOneNode COMMAND ${THIS_TARGET} 23)
+## Test check node information with Registry with one node
+add_test(NAME TestNodeInfoWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 24)
+

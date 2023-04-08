@@ -142,8 +142,8 @@ performSQLstatementWithMultipleColumnResults
      Ptr(sqlite3)                       dbHandle,
      std::vector<nImO::StringVector> &  results,
      CPtr(char)                         sqlStatement,
-     BindFunction                       doBinds,
-     CPtr(void)                         data)
+     BindFunction                       doBinds = nullptr,
+     CPtr(void)                         data = nullptr)
 {
     nImO::RegSuccessOrFailure   status{true, ""};
 
@@ -251,8 +251,8 @@ performSQLstatementWithNoResults
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
      CPtr(char)                     sqlStatement,
-     BindFunction                   doBinds,
-     CPtr(void)                     data)
+     BindFunction                   doBinds = nullptr,
+     CPtr(void)                     data = nullptr)
 {
     nImO::RegSuccessOrFailure   status{true, ""};
 
@@ -816,6 +816,63 @@ nImO::Registry::addNode
     return status;
 } // nImO::Registry::addNode
 
+nImO::RegNodeInfoVectorOrFailure
+nImO::Registry::getInformationForAllNodes
+    (void)
+    const
+{
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    NodeInfoVector      nodeData;
+
+    ODL_OBJENTER(); //####
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchNodes = "SELECT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM "
+                                                    NODES_T_;
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (3 < values.size())
+                {
+                    NodeInfo    info;
+                    size_t      pos;
+
+                    info._found = true;
+                    info._name = values[0];
+                    info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    info._serviceType = StaticCast(ServiceType, stoul(values[3], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    if (info._found)
+                    {
+                        nodeData.push_back(info);
+                    }
+                }
+            }
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoVectorOrFailure{status, nodeData};
+} // nImO::Registry::getInformationForAllNodes
+
 nImO::RegStringSetOrFailure
 nImO::Registry::getNamesOfNodes
     (void)
@@ -867,6 +924,7 @@ nImO::Registry::getNodeInformation
             {
                 StringVector    values{results[0]};
 
+                info._name = nodeName;
                 if (2 < values.size())
                 {
                     size_t  pos;

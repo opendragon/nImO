@@ -83,6 +83,9 @@ namespace nImO
         /*! @brief The command IP address and port that was found.*/
         Connection  _connection;
 
+        /*! @brief The name of the node. */
+        std::string _name;
+        
         /*! @brief The nature of the service associated with the node. */
         ServiceType _serviceType;
 
@@ -93,6 +96,9 @@ namespace nImO
         }
 
     }; // NodeInfo
+
+    /*! @brief Contains a sequence of NodeInfo values. */
+    typedef std::vector<NodeInfo>   NodeInfoVector;
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<bool, std::string>    RegSuccessOrFailure;
@@ -105,6 +111,9 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, NodeInfo> RegNodeInfoOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, NodeInfoVector> RegNodeInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, StringSet>   RegStringSetOrFailure;

@@ -107,6 +107,13 @@ namespace nImO
                  const ServiceType      serviceClass = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Get information for all nodes in the Registry.
+             @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            RegNodeInfoVectorOrFailure
+            getInformationForAllNodes
+                (void)
+                const;
+
             /*! @brief Get the set of nodes in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
             RegStringSetOrFailure

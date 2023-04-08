@@ -686,7 +686,7 @@ doTestNodeDataAddedToRegistry
                 {
                     if (statusWithInfo.second._found)
                     {
-                        if ((randomAddress == statusWithInfo.second._connection._address) &&
+                        if ((statusWithInfo.second._name == NODE_NAME_1) && (randomAddress == statusWithInfo.second._connection._address) &&
                             (randomPort == statusWithInfo.second._connection._port) &&
                             (nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))
                         {
@@ -694,7 +694,8 @@ doTestNodeDataAddedToRegistry
                         }
                         else
                         {
-                            ODL_LOG("! ((randomAddress == statusWithInfo.second._connection._address) && " //####
+                            ODL_LOG("! ((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                    "(randomAddress == statusWithInfo.second._connection._address) && " //####
                                     "(randomPort == statusWithInfo.second._connection._port) && " //####
                                     "(nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))"); //####
                         }
@@ -1826,6 +1827,242 @@ doTestAddTwoIdenticalNodesToRegistry
 } // doTestAddTwoIdenticalNodesToRegistry
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 23 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNodeInfoWithRegistryWithOneNode
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add node to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            uint32_t                    randomAddress = StaticCast(uint32_t, rand());
+            uint16_t                    randomPort = StaticCast(uint16_t, rand());
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+                                                                    nImO::Connection(randomAddress, randomPort));
+
+            if (status.first)
+            {
+                nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+
+                if (statusWithInformation.first.first)
+                {
+                    nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+
+                    if (1 == infoVector.size())
+                    {
+                        nImO::NodeInfo &    firstElem{infoVector[0]};
+
+                        if ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) &&
+                            (randomPort == firstElem._connection._port) && (nImO::ServiceType::FilterService == firstElem._serviceType))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) && " //####
+                                    "(randomPort == firstElem._connection._port) && " //####
+                                    "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
+                        }
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (1 == infoVector.size())"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeInfoWithRegistryWithOneNode
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 24 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNodeInfoWithRegistryWithTwoNodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            uint32_t                    randomAddress1 = StaticCast(uint32_t, rand());
+            uint16_t                    randomPort1 = StaticCast(uint16_t, rand());
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+                                                                    nImO::Connection(randomAddress1, randomPort1));
+
+            if (status.first)
+            {
+                uint32_t    randomAddress2 = StaticCast(uint32_t, rand());
+                uint16_t    randomPort2 = StaticCast(uint16_t, rand());
+
+                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
+                if (status.first)
+                {
+                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+
+                    if (statusWithInformation.first.first)
+                    {
+                        nImO::NodeInfoVector &  infoVector = statusWithInformation.second;
+
+                        if (2 == infoVector.size())
+                        {
+                            nImO::NodeInfo &    firstElem{infoVector[0]};
+                            nImO::NodeInfo &    secondElem{infoVector[1]};
+
+                            if (firstElem._name == NODE_NAME_1)
+                            {
+                                if (secondElem._name == NODE_NAME_2)
+                                {
+                                    if ((randomAddress1 == firstElem._connection._address) && (randomPort1 == firstElem._connection._port) &&
+                                        (nImO::ServiceType::FilterService == firstElem._serviceType) &&
+                                        (randomAddress2 == secondElem._connection._address) && (randomPort2 == secondElem._connection._port) &&
+                                        (nImO::ServiceType::LauncherService == secondElem._serviceType))
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! ((randomAddress1 == firstElem._connection._address) && " //####
+                                                "(randomPort1 == firstElem._connection._port) && " //####
+                                                "(nImO::ServiceType::FilterService == firstElem._serviceType) && " //####
+                                                "(randomAddress2 == secondElem._connection._address) && " //####
+                                                "(randomPort2 == secondElem._connection._port) && " //####
+                                                "(nImO::ServiceType::LauncherService == secondElem._serviceType))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (secondElem._name == NODE_NAME_2)"); //####
+                                }
+                            }
+                            else if (secondElem._name == NODE_NAME_1)
+                            {
+                                if (firstElem._name == NODE_NAME_2)
+                                {
+                                    if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
+                                        (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
+                                        (randomAddress1 == secondElem._connection._address) && (randomPort1 == secondElem._connection._port) &&
+                                        (nImO::ServiceType::FilterService == secondElem._serviceType))
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! ((randomAddress2 == firstElem._connection._address) && " //####
+                                                "(randomPort2 == firstElem._connection._port) && " //####
+                                                "(nImO::ServiceType::LauncherService == firstElem._serviceType) && " //####
+                                                "(randomAddress1 == secondElem._connection._address) && " //####
+                                                "(randomPort1 == secondElem._connection._port) && " //####
+                                                "(nImO::ServiceType::FilterService == secondElem._serviceType))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (firstElem._name == NODE_NAME_2)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (secondElem._name == NODE_NAME_1)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (2 == infoVector.size())"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeInfoWithRegistryWithTwoNodes
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -1949,6 +2186,14 @@ main
 
                     case 22 :
                         result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        break;
+
+                    case 23 :
+                        result = doTestNodeInfoWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
+                        break;
+
+                    case 24 :
+                        result = doTestNodeInfoWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
                         break;
 
                     default :

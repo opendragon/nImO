@@ -67,6 +67,12 @@ namespace nImO
     /*! @brief The 'addNode' response. */
     const std::string   kAddNodeResponse = "addNode=";
 
+    /*! @brief The request to get information on all nodes in the Registry. */
+    const std::string   kGetInformationForAllNodesRequest = "getInformationForAllNodes?";
+
+    /*! @brief The 'getInformationForAllNodes' response. */
+    const std::string   kGetInformationForAllNodesResponse = "getInformationForAllNodes=";
+
     /*! @brief The request to get the set of nodes in the Registry. */
     const std::string   kGetNamesOfNodesRequest = "getNamesOfNodes?";
 

@@ -142,6 +142,21 @@ nImO::RegistryProxy::addNode
     return RegSuccessOrFailure{handler->result(), "already registered"};
 } // nImO::RegistryProxy::addNode
 
+nImO::RegNodeInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllNodes
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status{false, "not implemented"};
+    NodeInfoVector      infoVector;
+
+    //TBD
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoVectorOrFailure{status, infoVector};
+} // nImO::RegistryProxy::getInformationForAllNodes
+
 nImO::RegStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodes
     (void)

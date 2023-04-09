@@ -605,6 +605,10 @@ createTables
             }
             doEndTransaction(owner, dbHandle, status.first);
         }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
     }
     ODL_EXIT(); //####
     return status;
@@ -801,7 +805,7 @@ nImO::Registry::addNode
 
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    ODL_I1("serviceClass = ", StasticCast(int, serviceClass)); //####
+    ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     if (status.first)
     {
@@ -811,6 +815,10 @@ nImO::Registry::addNode
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -864,8 +872,20 @@ nImO::Registry::getInformationForAllNodes
                     {
                         nodeData.push_back(info);
                     }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (3 < values.size())"); //####
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
@@ -894,6 +914,10 @@ nImO::Registry::getNamesOfNodes
             {
                 strings.insert(results[ii]);
             }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
         }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
@@ -946,9 +970,25 @@ nImO::Registry::getNodeInformation
                         info._found = false;
                     }
                 }
+                else
+                {
+                    ODL_LOG("! (2 < values.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (0 < results.size())"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
         doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
@@ -979,9 +1019,17 @@ nImO::Registry::getNumberOfNodes
                 count = -1;
             }
         }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
         doEndTransaction(_owner, _dbHandle, status.first);
     }
-    ODL_OBJEXIT(); //####
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodes
 
@@ -1014,7 +1062,15 @@ nImO::Registry::isNodePresent
                 found = (1 == count);
             }
         }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
         doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, found};
@@ -1034,6 +1090,10 @@ nImO::Registry::removeNode
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
         doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
     return status;

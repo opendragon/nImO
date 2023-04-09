@@ -96,8 +96,7 @@ processRequest
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
     ODL_S1s("incoming = ", incoming); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
-    ODL_S1s("trimmed <- ", trimmed); //!!!
+    ODL_S1s("trimmed <- ", trimmed); //####
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
     {
@@ -133,7 +132,6 @@ processRequest
                         else
                         {
                             okSoFar = handler->doIt(*socket.get(), *asArray);
-                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                         }
                     }
                 }
@@ -237,7 +235,7 @@ nImO::CommandSession::start
                                     }
                                 }
                                 keepGoing = false;
-                                ODL_B1("keepGoing <- ", keepGoing); //!!
+                                ODL_B1("keepGoing <- ", keepGoing); //####
                             });
     for ( ; keepGoing && gKeepRunning; )
     {
@@ -246,7 +244,7 @@ nImO::CommandSession::start
     if (gPendingStop)
     {
         gKeepRunning = false;
-        ODL_B1("gKeepRunning <- ", gKeepRunning); //!!
+        ODL_B1("gKeepRunning <- ", gKeepRunning); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::start

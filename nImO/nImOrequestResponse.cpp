@@ -104,7 +104,7 @@ handleResponse
         std::string         trimmed{nImO::UnpackageMessage(incoming)};
         nImO::ByteVector    rawStuff;
 
-        ODL_S1s("trimmed <- ", trimmed); //!!!
+        ODL_S1s("trimmed <- ", trimmed); //####
         // Ignore a request that can't be processed...
         if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
         {
@@ -127,9 +127,7 @@ handleResponse
 
                         if ((nullptr != response) && (expectedKey == response->getValue()))
                         {
-                            ODL_I1("at line ", __LINE__);//!!
                             handler->doIt(*asArray);
-                            ODL_I1("at line ", __LINE__);//!!
                         }
                         else
                         {
@@ -214,7 +212,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str());//!!!
+            ODL_S1("outString <- ", outString->c_str()); //####
             // Make a connection to the service whose address is in the connection argument.
             asio::ip::tcp::socket   socket{*context->getService()};
             asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
@@ -237,7 +235,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                             context->report("async_connect failed");
                                         }
                                         keepGoing = false;
-                                        ODL_B1("keepGoing <- ", keepGoing); //!!
+                                        ODL_B1("keepGoing <- ", keepGoing); //####
                                     }
                                     else
                                     {
@@ -263,7 +261,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                     context->report("async_write failed");
                                                                 }
                                                                 keepGoing = false;
-                                                                ODL_B1("keepGoing <- ", keepGoing); //!!
+                                                                ODL_B1("keepGoing <- ", keepGoing); //####
                                                             }
                                                             else
                                                             {
@@ -299,12 +297,10 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
 #if defined(nImO_ChattyTcpLogging)
                                                                                                 context->report("got response");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                ODL_I1("at line ", __LINE__);//!!
                                                                                                 handleResponse(handler, handleThis, responseKey);
-                                                                                                ODL_I1("at line ", __LINE__);//!!
                                                                                             }
                                                                                             keepGoing = false;
-                                                                                            ODL_B1("keepGoing <- ", keepGoing); //!!
+                                                                                            ODL_B1("keepGoing <- ", keepGoing); //####
                                                                                         });
                                                                 }
                                                             });

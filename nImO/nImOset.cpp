@@ -360,7 +360,6 @@ nImO::Set::extractValue
                     {
                         bool    okSoFar = true;
 
-                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, aSet->size())); )
                         {
                             aByte = theMessage.getByte(position, atEnd);
@@ -371,7 +370,6 @@ nImO::Set::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
-                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {
@@ -382,14 +380,12 @@ nImO::Set::extractValue
                                     ODL_LOG("(nullptr == aValue)"); //####
                                     result.reset(new Invalid("Null Value read", position));
                                     okSoFar = false;
-                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                                 else if (aValue->asFlaw())
                                 {
                                     ODL_LOG("(aValue->asFlaw())"); //####
                                     result = aValue;
                                     okSoFar = false;
-                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                                 else
                                 {
@@ -408,7 +404,6 @@ nImO::Set::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
-                                ODL_B1("okSoFar <- ", okSoFar); //!!!
                             }
                             else
                             {
@@ -428,7 +423,6 @@ nImO::Set::extractValue
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result.reset(new Invalid("Non-empty Set with incorrect end tag", position));
                                     okSoFar = false;
-                                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                                 }
                             }
                         }

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNamesOfNodesCommandHandler.cpp
+//  File:       nImO/nImOgetInformationForAllNodesCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'names of nodes' command handler.
+//  Contains:   The class definition for the nImO 'information for all nodes' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOgetNamesOfNodesCommandHandler.h"
+#include "nImOgetInformationForAllNodesCommandHandler.h"
 
 #include <nImOarray.h>
 #include <nImOinteger.h>
+#include <nImOlogical.h>
 #include <nImOregistryCommands.h>
 #include <nImOregistryTypes.h>
-#include <nImOset.h>
 #include <nImOstring.h>
 
 //#include <odlEnable.h>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'names of nodes' command handler. */
+ @brief The class definition for the %nImO 'information for all nodes' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
+nImO::InformationForAllNodesCommandHandler::InformationForAllNodesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner), _registry(theRegistry)
@@ -91,21 +91,21 @@ nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
+} // nImO::InformationForAllNodesCommandHandler::InformationForAllNodesCommandHandler
 
-nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
+nImO::InformationForAllNodesCommandHandler::~InformationForAllNodesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
+} // nImO::InformationForAllNodesCommandHandler::~InformationForAllNodesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NamesOfNodesCommandHandler::doIt
+nImO::InformationForAllNodesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,25 +115,35 @@ nImO::NamesOfNodesCommandHandler::doIt
     NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("names of nodes request received");
+    _owner->report("information for all nodes request received");
     if (0 < arguments.size())
     {
-        RegStringSetOrFailure   statusWithSet{_registry->getNamesOfNodes()};
+        RegNodeInfoVectorOrFailure  statusWithInfoVector{_registry->getInformationForAllNodes()};
 
-        if (statusWithSet.first.first)
+        if (statusWithInfoVector.first.first)
         {
-            StringSet & theStrings{statusWithSet.second};
-            SpSet       stringSet{new Set};
+            SpArray             nodeArray{new Array};
+            NodeInfoVector &    theNodes{statusWithInfoVector.second};
 
-            for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
+            for (auto walker = theNodes.begin(); walker != theNodes.end(); ++walker)
             {
-                stringSet->addValue(std::make_shared<String>(*walker));
+                NodeInfo &  theInfo{*walker};
+
+                SpArray     infoArray{new Array};
+
+                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                infoArray->addValue(std::make_shared<String>(theInfo._name));
+                infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._serviceType)));
+                infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
+                infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
+                infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
+                nodeArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetNamesOfNodesResponse, stringSet);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesResponse, nodeArray);
         }
         else
         {
-            ODL_LOG("! (statusWithSet.first.first)"); //####
+            ODL_LOG("! (statusWithInfoVector.first.first)"); //####
         }
     }
     else
@@ -142,7 +152,7 @@ nImO::NamesOfNodesCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NamesOfNodesCommandHandler::doIt
+} // nImO::InformationForAllNodesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

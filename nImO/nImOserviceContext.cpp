@@ -135,13 +135,11 @@ nImO::ServiceContext::addHandler
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
     ODL_P1("theHandler = ", theHandler); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     if ((nullptr != theHandler) && (0 < commandName.size()))
     {
         const auto result = _commandHandlers.insert({commandName, theHandler});
 
         okSoFar = result.second;
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -160,7 +158,7 @@ nImO::ServiceContext::addStandardHandlers
         bool                        goAhead = true;
         Ptr(ShutdownCommandHandler) newHandler{new ShutdownCommandHandler(context)};
 
-        ODL_P1("newHandler <- ", newHandler); //!!!
+        ODL_P1("newHandler <- ", newHandler); //####
         if (! actualContext->addHandler(kShutDownRequest, newHandler))
         {
             delete newHandler;
@@ -170,7 +168,7 @@ nImO::ServiceContext::addStandardHandlers
         {
             Ptr(CommandSession) newSession = new CommandSession(context);
 
-            ODL_P1("newSession <- ", newSession); //!!!
+            ODL_P1("newSession <- ", newSession); //####
             actualContext->_acceptor.async_accept(*newSession->getSocket(),
                                                    [actualContext, newSession]
                                                    (const boost::system::error_code  ec)
@@ -224,7 +222,7 @@ nImO::ServiceContext::destroyCommandPort
 {
     ODL_OBJENTER(); //####
     _keepGoing = false;
-    ODL_B1("_keepGoing <- ", _keepGoing); //!!
+    ODL_B1("_keepGoing <- ", _keepGoing); //####
     _acceptor.close();
     for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
     {
@@ -236,10 +234,8 @@ nImO::ServiceContext::destroyCommandPort
 #endif /* defined(nImO_ChattyTcpLogging) */
         if (sessionSocket)
         {
-            ODL_I1("at line ", __LINE__);//!!
             sessionSocket->close();
         }
-        ODL_I1("at line ", __LINE__);//!!
         delete aSession;
     }
     _sessions.clear();
@@ -294,10 +290,8 @@ nImO::ServiceContext::handleAccept
     ODL_I1("error = ", error.value()); //####
     if (error)
     {
-        ODL_I1("at line ", __LINE__);//!!
         if (asio::error::operation_aborted == error)
         {
-            ODL_I1("at line ", __LINE__);//!!
 #if defined(nImO_ChattyTcpLogging)
             report("accept operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
@@ -311,7 +305,6 @@ nImO::ServiceContext::handleAccept
     }
     else
     {
-        ODL_I1("at line ", __LINE__);//!!
         if (_keepGoing)
         {
 #if defined(nImO_ChattyTcpLogging)
@@ -321,12 +314,11 @@ nImO::ServiceContext::handleAccept
             _sessions.insert(newSession);
             newSession->start();
             newSession = new CommandSession(newSession->getContext());
-            ODL_P1("newSession <- ", newSession); //!!!
+            ODL_P1("newSession <- ", newSession); //####
             _acceptor.async_accept(*newSession->getSocket(),
                                    [this, newSession]
                                    (const system::error_code  ec)
                                    {
-                                        ODL_I1("at line ", __LINE__);//!!
                                         handleAccept(newSession, ec);
                                    });
         }
@@ -337,20 +329,14 @@ nImO::ServiceContext::handleAccept
     }
     if (releaseSession)
     {
-        ODL_I1("at line ", __LINE__);//!!
         auto    found(_sessions.find(newSession));
 
-        ODL_I1("at line ", __LINE__);//!!
         if (_sessions.end() != found)
         {
-            ODL_I1("at line ", __LINE__);//!!
             _sessions.erase(found);
-            ODL_I1("at line ", __LINE__);//!!
         }
-        ODL_I1("at line ", __LINE__);//!!
         delete newSession;
     }
-    ODL_I1("at line ", __LINE__);//!!
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::handleAccept
 
@@ -362,7 +348,6 @@ nImO::ServiceContext::removeHandler
 
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (0 < commandName.size())
     {
         auto match = _commandHandlers.find(commandName);
@@ -372,7 +357,6 @@ nImO::ServiceContext::removeHandler
             Ptr(CommandHandler) handler{match->second};
             
             okSoFar = (1 == _commandHandlers.erase(commandName));
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
             delete handler;
         }
     }

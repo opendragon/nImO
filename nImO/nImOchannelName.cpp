@@ -223,13 +223,11 @@ nImO::ChannelName::parse
     {
         problemDescription = "Empty name";
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     else
     {
         problemDescription = "";
         okSoFar = true;
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     for (size_t ii = 0, mm = input.length(); okSoFar && (ii < mm); ++ii)
     {
@@ -253,7 +251,6 @@ nImO::ChannelName::parse
                     case kStartProtocol :
                         problemDescription = "Missing parts in name";
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         break;
 
                     default :
@@ -265,7 +262,6 @@ nImO::ChannelName::parse
                         {
                             problemDescription = "Illegal character in string";
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                         }
                         break;
 
@@ -278,7 +274,6 @@ nImO::ChannelName::parse
                     case kEndNetwork :
                         problemDescription = "Illegal character in string";
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         break;
 
                     case kStartPath :
@@ -288,7 +283,6 @@ nImO::ChannelName::parse
                     case kStartProtocol :
                         problemDescription = "Missing parts in name";
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         break;
 
                     default :
@@ -300,7 +294,6 @@ nImO::ChannelName::parse
                         {
                             problemDescription = "Illegal character in string";
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                         }
                         break;
 
@@ -313,7 +306,6 @@ nImO::ChannelName::parse
                     case kEndNetwork :
                         problemDescription = "Illegal character in string";
                         okSoFar = false;
-                        ODL_B1("okSoFar <- ", okSoFar); //!!!
                         break;
 
                     case kStartProtocol :
@@ -329,7 +321,6 @@ nImO::ChannelName::parse
                         {
                             problemDescription = "Illegal character in string";
                             okSoFar = false;
-                            ODL_B1("okSoFar <- ", okSoFar); //!!!
                         }
                         break;
 
@@ -345,14 +336,12 @@ nImO::ChannelName::parse
                 {
                     problemDescription = "Illegal character in string";
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                 }
                 break;
 
         }
     }
     okSoFar &= (0 < path.length());
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (okSoFar)
     {
         if (protocolName == transportToName(TransportType::UDP))
@@ -369,7 +358,6 @@ nImO::ChannelName::parse
             {
                 problemDescription = "Invalid protocol";
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
@@ -380,7 +368,6 @@ nImO::ChannelName::parse
         {
             problemDescription = "Invalid protocol";
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
     }
     if (okSoFar)

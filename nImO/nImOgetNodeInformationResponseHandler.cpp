@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-04
+//  Created:    2023-04-09
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -139,12 +139,12 @@ nImO::NodeInformationResponseHandler::doIt
             }
             else
             {
-                ODL_LOG("! (5 < asArray->size())"); //####
+                ODL_LOG("! (5 < infoArray->size())"); //####
             }
         }
         else
         {
-            ODL_LOG("! (nullptr != asArray)"); //####
+            ODL_LOG("! (nullptr != infoArray)"); //####
         }
     }
     else

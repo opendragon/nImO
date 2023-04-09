@@ -88,7 +88,7 @@ nImO::Context::Context
 {
     ODL_ENTER(); //####
     ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####
-    ODL_P1("_service <- ", _service.get()); //!!!
+    ODL_P1("_service <- ", _service.get()); //####
     if (lContextCreated)
     {
         throw "Too many contexts.";

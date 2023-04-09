@@ -83,6 +83,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp"
@@ -175,6 +176,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOfilterContext.h"
         "${THIS_SOURCE_DIR}/nImOflaw.h"
+        "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h"
@@ -247,6 +249,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.h
+        ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h

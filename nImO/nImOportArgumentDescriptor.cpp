@@ -193,7 +193,6 @@ PortArgumentDescriptor::parseArgString
         std::string defaultString{inVector[1]};
         std::string description{inVector[2]};
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if ("s" == portClass)
         {
             isSystemPort = true;
@@ -201,7 +200,6 @@ PortArgumentDescriptor::parseArgString
         else if ("r" != portClass)
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar && (0 < defaultString.length()))
         {
@@ -214,7 +212,6 @@ PortArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar)

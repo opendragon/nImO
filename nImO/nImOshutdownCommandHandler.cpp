@@ -112,10 +112,9 @@ nImO::ShutdownCommandHandler::doIt
     // Send the response to the requestor.
     bool    okSoFar = sendSimpleResponse(socket, kShutDownResponse, true);
 
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     // Signal to the application that it should terminate.
     gPendingStop = true;
-    ODL_B1("gPendingStop <- ", gPendingStop); //!!
+    ODL_B1("gPendingStop <- ", gPendingStop); //####
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ShutdownCommandHandler::doIt

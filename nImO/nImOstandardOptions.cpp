@@ -280,7 +280,7 @@ nImO::ProcessStandardOptions
     if (parse.error())
     {
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //!!
+        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
              (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
@@ -291,7 +291,7 @@ nImO::ProcessStandardOptions
             helper(std::cout);
         }
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //!!
+        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
     {
@@ -300,13 +300,13 @@ nImO::ProcessStandardOptions
         std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
                     copyrightHolder << "." << std::endl;
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //!!
+        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINFO)])
     {
         std::cout << "Utility\t" << utilityDescription << std::endl;
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //!!
+        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
@@ -341,7 +341,7 @@ nImO::ProcessStandardOptions
     {
         std::cout << "One or more invalid or missing arguments (" << badArgs << ")." << std::endl;
         keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //!!
+        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     ODL_EXIT_B(keepGoing); //####
     return keepGoing;

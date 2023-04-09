@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to report the visible nImO channels.
+//  Contains:   A utility application to report the visible nImO objects.
 //
 //  Written by: Norman Jaffe
 //
@@ -51,7 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to report the visible #nImO channels. */
+ @brief A utility application to report the visible #nImO objects. */
 
 /*! @dir List
  @brief The set of files that implement the List application. */
@@ -160,13 +160,12 @@ listNodes
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options)
 {
-    bool                        okSoFar = true;
-    nImO::RegStringSetOrFailure statusWithStrings = proxy.getNamesOfNodes();
+    bool                                okSoFar = true;
+    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodes();
 
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
-    if (statusWithStrings.first.first)
+    if (statusWithAllNodes.first.first)
     {
-        nImO::StringSet nodes = statusWithStrings.second;
+        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
 
         if (nodes.empty())
         {
@@ -196,54 +195,41 @@ listNodes
             {
                 std::cout << "{ " << std::endl;
             }
-            for (auto walker(nodes.begin()); nodes.end() != walker; )
+            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
             {
-                std::string                 nodeName{nImO::SanitizeString(*walker, nImO::OutputFlavour::FlavourJSON == options._flavour)};
-                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
+                auto    theInfo{*walker};
 
-                ++walker;
-                if (statusWithInfo.first.first)
+                if (theInfo._found)
                 {
-                    nImO::NodeInfo &    theInfo = statusWithInfo.second;
+                    std::string             nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::FlavourJSON == options._flavour)};
+                    asio::ip::address_v4    address{theInfo._connection._address};
 
-                    if (theInfo._found)
+                    switch (options._flavour)
                     {
-                        asio::ip::address_v4    address{theInfo._connection._address};
+                        case nImO::OutputFlavour::FlavourNormal :
+                            std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port << std::endl;
+                            break;
 
-                        switch (options._flavour)
-                        {
-                            case nImO::OutputFlavour::FlavourNormal :
-                                std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port << std::endl;
-                                break;
+                        case nImO::OutputFlavour::FlavourJSON :
+                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                        address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
+                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ " }";
+                            if (nodes.end() != walker)
+                            {
+                                std::cout << ",";
+                            }
+                            std::cout << std::endl;
+                            break;
 
-                            case nImO::OutputFlavour::FlavourJSON :
-                                std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
-                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                            address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
-                                            CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ " }";
-                                if (nodes.end() != walker)
-                                {
-                                    std::cout << ",";
-                                }
-                                std::cout << std::endl;
-                                break;
+                        case nImO::OutputFlavour::FlavourTabs :
+                            std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port << std::endl;
+                            break;
 
-                            case nImO::OutputFlavour::FlavourTabs :
-                                std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port << std::endl;
-                                break;
+                        default :
+                            break;
 
-                            default :
-                                break;
-
-                        }
                     }
-                }
-                else
-                {
-                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
-                    okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //!!!
-                    break;
                 }
             }
             if (nImO::OutputFlavour::FlavourJSON == options._flavour)
@@ -254,9 +240,8 @@ listNodes
     }
     else
     {
-        std::cerr << "Problem with 'getNamesOfNodes': " << statusWithStrings.first.second << std::endl;
+        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << std::endl;
         okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
     }
     return okSoFar;
 } // listNodes

@@ -41,6 +41,7 @@
 #include <nImOaddNodeResponseHandler.h>
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOgetInformationForAllNodesResponseHandler.h>
 #include <nImOgetNamesOfNodesResponseHandler.h>
 #include <nImOgetNodeInformationResponseHandler.h>
 #include <nImOgetNumberOfNodesResponseHandler.h>
@@ -128,7 +129,7 @@ nImO::RegistryProxy::addNode
     NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    ODL_I1("serviceClass = ", StasticCast(int, serviceClass)); //####
+    ODL_I1("serviceType = ", StaticCast(int, serviceType)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     SpArray                                 argArray{new Array};
     std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
@@ -150,13 +151,12 @@ nImO::RegistryProxy::getInformationForAllNodes
     (void)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{false, "not implemented"};
-    NodeInfoVector      infoVector;
+    std::unique_ptr<InformationForAllNodesResponseHandler>  handler{new InformationForAllNodesResponseHandler};
 
-    //TBD
+    SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetInformationForAllNodesRequest,
+                                                  kGetInformationForAllNodesResponse);
     ODL_OBJEXIT(); //####
-    return RegNodeInfoVectorOrFailure{status, infoVector};
+    return RegNodeInfoVectorOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllNodes
 
 nImO::RegStringSetOrFailure

@@ -140,7 +140,7 @@ nImO::NodeInformationCommandHandler::doIt
             }
             else
             {
-                ODL_LOG("! (statusWithBool.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
         else

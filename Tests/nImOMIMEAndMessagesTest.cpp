@@ -506,12 +506,9 @@ doTestMIMEBytesMod3Is0Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto    inOutString{PackageMessage(inOutValue)};
-
-            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
+            auto        inOutString{PackageMessage(inOutValue)};
             std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
-            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())
@@ -581,12 +578,9 @@ doTestMIMEBytesMod3Is1Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto    inOutString{PackageMessage(inOutValue)};
-
-            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
+            auto        inOutString{PackageMessage(inOutValue)};
             std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
-            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())
@@ -658,10 +652,8 @@ doTestMIMEBytesMod3Is2Packaged
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
             auto    inOutString{PackageMessage(inOutValue)};
 
-            ODL_S1("inOutString <- ", inOutString->c_str());//!!!
             std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
-            ODL_S1s("inOutTrimmed <- ", inOutTrimmed);//!!!
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())

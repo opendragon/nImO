@@ -126,7 +126,6 @@ nImO::CommandHandler::sendComplexResponse
     ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendComplexResponse
@@ -146,7 +145,6 @@ nImO::CommandHandler::sendComplexResponseWithContext
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
     responseArray->addValue(contents);
@@ -164,7 +162,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str());//!!!
+            ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpLogging)
             context->report("sending response");
@@ -188,7 +186,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                         context->report("async_write failed");
                                     }
                                     keepGoing = false;
-                                    ODL_B1("keepGoing <- ", keepGoing); //!!
+                                    ODL_B1("keepGoing <- ", keepGoing); //####
                                 }
                                 else
                                 {
@@ -197,7 +195,6 @@ nImO::CommandHandler::sendComplexResponseWithContext
 #endif /* defined(nImO_ChattyTcpLogging) */
                                     okSoFar = true;
                                     keepGoing = false;
-                                    ODL_B2("okSoFar <- ", okSoFar, "keepGoing <- ", keepGoing); //!!
                                 }
                               });
             for ( ; keepGoing && gKeepRunning; )
@@ -231,7 +228,6 @@ nImO::CommandHandler::sendSimpleResponse
     ODL_P1("socket = ", &socket); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendSimpleResponse
@@ -251,7 +247,6 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
     ODL_S1s("responseKey = ", responseKey); //####
     ODL_B1("wasOK = ", wasOK); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
     responseArray->addValue(std::make_shared<Logical>(wasOK));
@@ -269,7 +264,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
-            ODL_S1("outString <- ", outString->c_str());//!!!
+            ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpLogging)
             context->report("sending response");
@@ -293,7 +288,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                         context->report("async_write failed");
                                     }
                                     keepGoing = false;
-                                    ODL_B1("keepGoing <- ", keepGoing); //!!
+                                    ODL_B1("keepGoing <- ", keepGoing); //####
                                 }
                                 else
                                 {
@@ -302,7 +297,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 #endif /* defined(nImO_ChattyTcpLogging) */
                                     okSoFar = true;
                                     keepGoing = false;
-                                    ODL_B2("okSoFar <- ", okSoFar, "keepGoing <- ", keepGoing); //!!
+                                    ODL_B1("keepGoing <- ", keepGoing); //####
                                 }
                               });
             for ( ; keepGoing && gKeepRunning; )

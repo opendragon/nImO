@@ -243,7 +243,6 @@ nImO::String::extractValue
         NumberAsBytes   holder;
         bool            okSoFar = true;
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
             int aByte = theMessage.getByte(position, atEnd);
@@ -252,7 +251,6 @@ nImO::String::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
@@ -272,7 +270,6 @@ nImO::String::extractValue
         std::unique_ptr<char[]> holder{new char[numBytes + 1]};
         bool                    okSoFar = (nullptr != holder);
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
             int aByte = theMessage.getByte(position, atEnd);
@@ -282,7 +279,6 @@ nImO::String::extractValue
                 ODL_LOG("(atEnd)"); //####
                 result.reset();
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {

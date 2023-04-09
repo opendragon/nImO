@@ -31,6 +31,7 @@
 #include "nImOfilePathArgumentDescriptor.h"
 #include "nImOfilterContext.h"
 #include "nImOflaw.h"
+#include "nImOgetInformationForAllNodesResponseHandler.h"
 #include "nImOgetNamesOfNodesResponseHandler.h"
 #include "nImOgetNodeInformationResponseHandler.h"
 #include "nImOgetNumberOfNodesResponseHandler.h"

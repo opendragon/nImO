@@ -244,7 +244,6 @@ nImO::Double::extractValue
         NumberAsBytes   holder;
         bool            okSoFar = true;
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
             int aByte = theMessage.getByte(position, atEnd);
@@ -253,7 +252,6 @@ nImO::Double::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
@@ -277,7 +275,6 @@ nImO::Double::extractValue
         bool            okSoFar = ((1 == howMany) || (nullptr != parentValue));
         NumberAsBytes   holder;
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (! okSoFar)
         {
             result.reset(new Invalid("Bad count for Double", position));
@@ -293,7 +290,6 @@ nImO::Double::extractValue
                     ODL_LOG("(atEnd)"); //####
                     result.reset();
                     okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //!!!
                 }
                 else
                 {

@@ -145,10 +145,62 @@ main
                 }
                 else
                 {
-                    // TBD
-                    // Send Shutdown command to all launchers.
-                    // Close all connections.
-                    // Send Shutdown command to all other nodes.
+                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodes();
+
+                    if (statusWithAllNodes.first.first)
+                    {
+                        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
+
+                        // Send Shutdown command to all launchers.
+                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        {
+                            auto    theInfo{*walker};
+
+                            if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
+                            {
+                                ourContext->report("stopping " + theInfo._name);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                 nImO::kShutDownResponse);
+                                // Give the service time to inform the Registry.
+                                nImO::ConsumeSomeTime(ourContext.get(), 20);
+                            }
+                            else
+                            {
+                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
+                            }
+                        }
+
+
+                        // TBD: Close all connections.
+
+
+                        // Send Shutdown command to all other nodes.
+                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        {
+                            auto    theInfo{*walker};
+
+                            if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
+                            {
+                                ourContext->report("stopping " + theInfo._name);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                 nImO::kShutDownResponse);
+                                // Give the service time to inform the Registry.
+                                nImO::ConsumeSomeTime(ourContext.get(), 20);
+                            }
+                            else
+                            {
+                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
+                            }
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << std::endl;
+                        exitCode = 1;
+                    }
+                    // Give the Registry time to handle pending requests.
+                    nImO::ConsumeSomeTime(ourContext.get(), 20);
+                    ourContext->report("stopping Registry");
                     // Send Shutdown command to Registry.
                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }
@@ -169,102 +221,3 @@ main
     ODL_EXIT_I(exitCode); //####
     return exitCode;
 } // main
-
-#if 0
-{
-    bool                        okSoFar = true;
-    nImO::RegStringSetOrFailure statusWithStrings = proxy.getNamesOfNodes();
-
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
-    if (statusWithStrings.first.first)
-    {
-        nImO::StringSet nodes = statusWithStrings.second;
-
-        if (nodes.empty())
-        {
-            switch (options._flavour)
-            {
-
-                case nImO::OutputFlavour::FlavourNormal :
-                    std::cout << "** No nodes **" << std::endl;
-                    break;
-
-                case nImO::OutputFlavour::FlavourJSON :
-                    std::cout << "{ }" << std::endl;
-                    break;
-
-                case nImO::OutputFlavour::FlavourTabs :
-                    std::cout << "** No nodes **" << std::endl;
-                    break;
-
-                default :
-                    break;
-
-            }
-        }
-        else
-        {
-            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
-            {
-                std::cout << "{ " << std::endl;
-            }
-            for (auto walker(nodes.begin()); nodes.end() != walker; )
-            {
-                std::string                 nodeName{nImO::SanitizeString(*walker, nImO::OutputFlavour::FlavourJSON == options._flavour)};
-                nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
-
-                ++walker;
-                if (statusWithInfo.first.first)
-                {
-                    if (statusWithInfo.second._found)
-                    {
-                        switch (options._flavour)
-                        {
-                            case nImO::OutputFlavour::FlavourNormal :
-                                std::cout << nodeName << ' ' << statusWithInfo.second._connection._address << std::endl;
-                                break;
-
-                            case nImO::OutputFlavour::FlavourJSON :
-                                std::cout << CHAR_DOUBLEQUOTE_ << nodeName << T_(CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                            statusWithInfo.second._connection._address << CHAR_DOUBLEQUOTE_;
-                                if (nodes.end() != walker)
-                                {
-                                    std::cout << ",";
-                                }
-                                std::cout << std::endl;
-                                break;
-
-                            case nImO::OutputFlavour::FlavourTabs :
-                                std::cout << nodeName << '\t' << statusWithInfo.second._connection._address << std::endl;
-                                break;
-
-                            default :
-                                break;
-
-                        }
-                    }
-                }
-                else
-                {
-                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << std::endl;
-                    okSoFar = false;
-                    ODL_B1("okSoFar <- ", okSoFar); //!!!
-                    break;
-                }
-            }
-            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
-            {
-                std::cout << " }" << std::endl;
-            }
-        }
-    }
-    else
-    {
-        std::cerr << "Problem with 'getNamesOfNodes': " << statusWithStrings.first.second << std::endl;
-        okSoFar = false;
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
-    }
-    return okSoFar;
-}
-#endif//0
-

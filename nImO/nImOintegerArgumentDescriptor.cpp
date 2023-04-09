@@ -239,7 +239,6 @@ IntegerArgumentDescriptor::parseArgString
         std::string defaultString{inVector[2]};
         std::string description{inVector[3]};
 
-        ODL_B1("okSoFar <- ", okSoFar); //!!!
         if (0 < defaultString.length())
         {
             int64_t intValue;
@@ -251,13 +250,11 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         else
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         if (okSoFar && (0 < minValString.length()))
         {
@@ -270,7 +267,6 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar && (0 < maxValString.length()))
@@ -284,7 +280,6 @@ IntegerArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar)

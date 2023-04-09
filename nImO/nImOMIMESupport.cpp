@@ -126,8 +126,6 @@ nImO::DecodeMIMEToBytes
     size_t      newSize = 0;
     std::string line;
 
-    ODL_B1("okSoFar <- ", okSoFar); //!!!
-    ODL_I3("count4s <- ", count4s, "numRows <- ", numRows, "newSize <- ", newSize); //!!!
     outBytes.clear();
     // First, validate the row sizes.
     for (size_t ii = 0; okSoFar && (ii < numRows); ++ii)
@@ -136,12 +134,10 @@ nImO::DecodeMIMEToBytes
         if (0 == (line.length() % 4))
         {
             newSize += ((line.length() / 4) * 3);
-            ODL_I1("newSize <- ", newSize); //!!!
         }
         else
         {
             okSoFar = false;
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
     }
     if (okSoFar)
@@ -157,7 +153,6 @@ nImO::DecodeMIMEToBytes
 
             if (kEqualsChar == ch)
             {
-                ODL_I1("count4s at equals = ", count4s); //!!!
                 break;
 
             }
@@ -166,7 +161,6 @@ nImO::DecodeMIMEToBytes
                 group6[count4s] = ch;
                 if (4 == ++count4s)
                 {
-                    ODL_I1("count4s <- ", count4s); //!!!
                     for (size_t kk = 0; kk < 4; ++kk)
                     {
                         group6[kk] = strchr(kMIMECharSet, group6[kk]) - kMIMECharSet;
@@ -179,18 +173,15 @@ nImO::DecodeMIMEToBytes
                         outBytes.push_back(group8[kk]);
                     }
                     count4s = 0;
-                    ODL_I1("count4s <- ", count4s); //!!!
                 }
             }
             else
             {
                 okSoFar = false;
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
         }
         if (okSoFar && (count4s > 0))
         {
-            ODL_I1("count4s = ", count4s); //!!!
             for (size_t jj = count4s; jj < 4; ++jj)
             {
                 group6[jj] = kEndOfString;
@@ -237,25 +228,21 @@ nImO::EncodeBytesAsMIME
      CPtr(void)     inBytes,
      const size_t   numBytes)
 {
-    ODL_I1("numBytes = ", numBytes); //!!!
     CPtr(uint8_t)   rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
     uint8_t         group8[3];
     uint8_t         group6[4];
     size_t          count3s = 0;
     std::string     line;
 
-    ODL_I1("count3s <- ", count3s); //!!!
     outValue.clear();
     // Calculate the number of rows.
     size_t  numQuads = ((numBytes + 2) / 3);
     size_t  numRows = (((4 * numQuads) + kMaxMIMELine - 1) / kMaxMIMELine);
 
-    ODL_I2("numQuads <- ", numQuads, "numRows <- ", numRows); //!!!
     outValue.reserve(numRows);
     for (size_t ii = 0; ii < numBytes; ++ii)
     {
         group8[count3s++] = rawBytes[ii];
-        ODL_I1("count3s <- ", count3s); //!!!
         if (3 == count3s)
         {
             group6[0] = ((group8[0] & 0x00fc) >> 2);
@@ -272,12 +259,10 @@ nImO::EncodeBytesAsMIME
                 line += kMIMECharSet[group6[jj]];
             }
             count3s = 0;
-            ODL_I1("count3s <- ", count3s); //!!!
         }
     }
     if (0 < count3s)
     {
-        ODL_I1("count3s = ", count3s); //!!!
         for (size_t ii = count3s; ii < 3; ++ii)
         {
             group8[ii] = kEndOfString;
@@ -295,23 +280,18 @@ nImO::EncodeBytesAsMIME
             }
             line += kMIMECharSet[group6[ii]];
         }
-        ODL_S1s("line <- ", line);//!!
         for ( ; count3s++ < 3; )
         {
-            ODL_I1("count3s <- ", count3s); //!!!
             if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
                 line = "";
             }
             line += kEqualsChar;
-            ODL_LOG("adding equals"); //!!!
         }
-        ODL_S1s("line <- ", line);//!!
     }
     if (0 < line.length())
     {
-        ODL_S1s("line <- ", line);//!!
         outValue.push_back(line);
     }
 } // nImO::EncodeBytesAsMIME

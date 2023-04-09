@@ -134,7 +134,7 @@ nImO::RemoveNodeCommandHandler::doIt
             }
             else
             {
-                ODL_LOG("! (statusWithBool.first)"); //####
+                ODL_LOG("! (status.first)"); //####
             }
         }
         else

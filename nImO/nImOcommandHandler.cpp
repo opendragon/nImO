@@ -51,6 +51,15 @@
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunknown-pragmas"
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
@@ -321,18 +330,43 @@ nImO::CommandHandler::sendStatusReport
      const std::string &        statusChange)
     const
 {
-    auto                    statusCopy{std::make_shared<std::string>(statusChange)};
     asio::ip::udp::endpoint theEndpoint{asio::ip::address_v4(whereToSend._address), whereToSend._port};
     asio::ip::udp::socket   theSocket{*context->getService(), theEndpoint.protocol()};
+    Message                 messageToSend;
+    auto                    statusCopy{std::make_shared<String>(statusChange)};
 
     ODL_OBJENTER(); //####
-    theSocket.async_send_to(asio::buffer(*statusCopy), theEndpoint,
-                              [statusCopy]
-                              (const system::error_code NIMO_UNUSED_PARAM_(ec),
-                               const std::size_t        NIMO_UNUSED_PARAM_(length))
-                              {
-                              });
-    ODL_OBJEXIT(); //####
+    messageToSend.open(true);
+    messageToSend.setValue(statusCopy);
+    messageToSend.close();
+    if (0 < messageToSend.getLength())
+    {
+        auto    asString{messageToSend.getBytes()};
+
+        if (0 < asString.length())
+        {
+            StringVector    outVec;
+
+            EncodeBytesAsMIME(outVec, asString);
+            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
+
+            // send the encoded message to the logging ports
+            theSocket.async_send_to(asio::buffer(*outString), theEndpoint,
+                                      [outString]
+                                      (const system::error_code NIMO_UNUSED_PARAM_(ec),
+                                       const std::size_t        NIMO_UNUSED_PARAM_(length))
+                                      {
+                                      });
+        }
+        else
+        {
+            ODL_LOG("! (0 < asString.length())"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (0 < messageToSend.getLength())"); //####
+    }
 } // nImO::CommandHandler::sendStatusReport
 
 #if defined(__APPLE__)

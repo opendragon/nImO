@@ -109,8 +109,8 @@ namespace nImO
             }
 
             /*! @brief Return @c true if the two statuses are equal.
-                @param[in] other The status to be compared with.
-                @return @c true if the two statuses are comparable and equal. */
+             @param[in] other The status to be compared with.
+             @return @c true if the two statuses are comparable and equal. */
             inline bool
             operator==
                 (const ComparisonStatus &   other)
@@ -120,8 +120,8 @@ namespace nImO
             }
 
             /*! @brief Return @c false if the two statuses are equal.
-                @param[in] other The status to be compared with.
-                @return @c false if the two statuses are comparable and equal and @c true otherwise. */
+             @param[in] other The status to be compared with.
+             @return @c false if the two statuses are comparable and equal and @c true otherwise. */
             inline bool
             operator!=
                 (const ComparisonStatus &   other)

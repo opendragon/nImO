@@ -562,12 +562,34 @@ namespace nImO
          @param[in] address The IP address for the connection.
          @param[in] port The port for the connection.
          @param[in] transport The transport mechanism for the connection. */
-        Connection
+        inline Connection
             (const uint32_t     address = 0,
              const uint16_t     port = 0,
              const Transport    transport = Transport::TCP) :
                 _address(address), _port(port), _transport(transport)
         {
+        }
+
+        /*! @brief Return @c true if the two Connections are equal.
+         @param[in] other The Connnection to be compared with.
+         @return @c true if the two Connections are comparable and equal. */
+        inline bool
+        operator==
+            (const Connection & other)
+            const
+        {
+            return ((_address == other._address) && (_port == other._port) && (_transport == other._transport));
+        }
+
+        /*! @brief Return @c false if the two Connections are equal.
+         @param[in] other The Connnection to be compared with.
+         @return @c false if the two Connections are comparable and equal. */
+        inline bool
+        operator!=
+            (const Connection & other)
+            const
+        {
+            return ((_address != other._address) || (_port != other._port) || (_transport != other._transport));
         }
 
     }; // Connection

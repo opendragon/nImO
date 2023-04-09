@@ -92,7 +92,7 @@ struct ReceivedData final
         /*! @brief The constructor.
          @param[in] receivedMessage The message from the sender.
          @param[in] receivedAddress The send IP address. */
-        ReceivedData
+        inline ReceivedData
             (nImO::SpValue  receivedMessage,
              const uint32_t receivedAddress) :
                 _receivedMessage(receivedMessage), _receivedAddress(receivedAddress)
@@ -134,8 +134,8 @@ static std::mutex lReceivedLock;
 /*! @brief Used to indicate that lReceivedValues is ready to use. */
 static std::condition_variable    lReceivedCondition;
 
-/*! @brief A class to handle receiving messages from the logging multicast group. */
-class ReceiveOnLoggingPort final
+/*! @brief A class to handle receiving messages from the logging or status multicast group. */
+class ReceiveOnMessagePort final
 {
     public :
         // Public type definitions.
@@ -152,15 +152,15 @@ class ReceiveOnLoggingPort final
         /*! @brief The constructor.
          @param[in] service The I/O service to attach to.
          @param[in] runFlag A reference to the flag that is used to stop execution.
-         @param[in] loggingConnection The connection to listen on. */
-        ReceiveOnLoggingPort
+         @param[in] theConnection The connection to listen on. */
+        inline ReceiveOnMessagePort
             (nImO::SPservice            service,
-             const nImO::Connection &   loggingConnection) :
+             const nImO::Connection &   theConnection) :
                 _socket(*service)
         {
             asio::ip::address_v4    listenAddress{0};
-            asio::ip::address_v4    multicastAddress{loggingConnection._address};
-            asio::ip::udp::endpoint listenEndpoint{listenAddress, loggingConnection._port};
+            asio::ip::address_v4    multicastAddress{theConnection._address};
+            asio::ip::udp::endpoint listenEndpoint{listenAddress, theConnection._port};
 
             _socket.open(listenEndpoint.protocol());
             _socket.set_option(asio::ip::udp::socket::reuse_address(true));
@@ -177,7 +177,7 @@ class ReceiveOnLoggingPort final
         // Private methods.
 
         /*! @brief Receive a message. */
-        void
+        inline void
         receiveMessages
             (void)
         {
@@ -236,114 +236,7 @@ class ReceiveOnLoggingPort final
         /*! @brief A buffer for the raw message data. */
         std::array<char, 2048>  _data;
 
-}; // ReceiveOnLoggingPort
-
-/*! @brief A class to handle receiving messages from the status multicast group. */
-class ReceiveOnStatusPort final
-{
-    public :
-        // Public type definitions.
-
-    protected :
-        // Protected type definitions.
-
-    private :
-        // Private type definitions.
-
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-         @param[in] service The I/O service to attach to.
-         @param[in] runFlag A reference to the flag that is used to stop execution.
-         @param[in] statusConnection The connection to listen on. */
-        ReceiveOnStatusPort
-            (nImO::SPservice            service,
-             const nImO::Connection &   statusConnection) :
-                _socket(*service)
-        {
-            asio::ip::address_v4    listenAddress{0};
-            asio::ip::address_v4    multicastAddress{statusConnection._address};
-            asio::ip::udp::endpoint listenEndpoint{listenAddress, statusConnection._port};
-
-            _socket.open(listenEndpoint.protocol());
-            _socket.set_option(asio::ip::udp::socket::reuse_address(true));
-            _socket.bind(listenEndpoint);
-            // Join the multicast group.
-            _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
-            receiveMessages();
-        }
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-        /*! @brief Receive a message. */
-        void
-        receiveMessages
-            (void)
-        {
-            if (nImO::gKeepRunning)
-            {
-                _socket.async_receive_from(asio::buffer(_data), _senderEndpoint,
-                                           [this]
-                                           (const system::error_code    ec,
-                                            const std::size_t           length)
-                                           {
-                                               if (! ec)
-                                               {
-                                                std::string     receivedAsString(_data.data(), length);
-
-                                                // Note that the status message is a simple text string with particular data present.
-                                                // It is not a Message, so we need to make one in order to process it with our main loop.
-                                                auto        newMessage{std::make_shared<nImO::Message>()};
-                                                uint32_t    senderAddress = _senderEndpoint.address().to_v4().to_uint();
-
-                                                ODL_I1("at line ", __LINE__); //!!
-                                                newMessage->open(true);
-                                                ODL_I1("at line ", __LINE__); //!!
-                                                newMessage->setValue(std::make_shared<nImO::String>("status='" + receivedAsString + "'"));
-                                                ODL_I1("at line ", __LINE__); //!!
-                                                newMessage->close();
-                                                ODL_I1("at line ", __LINE__); //!!
-                                                SpReceivedData   newData{std::make_shared<ReceivedData>(newMessage->getValue(true), senderAddress)};
-                                                ODL_I1("at line ", __LINE__); //!!
-
-                                                {
-                                                    std::lock_guard<std::mutex>  lock(lReceivedLock);
-
-                                                    lReceivedData.push_back(newData);
-                                                }
-                                                   ODL_I1("at line ", __LINE__); //!!
-                                                lReceivedCondition.notify_one();
-                                                   ODL_I1("at line ", __LINE__); //!!
-                                                receiveMessages();
-                                               }
-                                           });
-            }
-        }
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-        /*! @brief The socket for a multicast reception. */
-        asio::ip::udp::socket   _socket;
-
-        /*! @brief The sender's endpoint. */
-        asio::ip::udp::endpoint _senderEndpoint;
-
-        /*! @brief A buffer for the raw message data. */
-        std::array<char, 2048>  _data;
-
-}; // ReceiveOnStatusPort
+}; // ReceiveOnMessagePort
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -385,12 +278,16 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking ourContext{progName, "monitor", optionValues._logging};
-            nImO::Connection            loggingConnection{ourContext.getLoggingInfo()};
-            nImO::Connection            statusConnection{ourContext.getStatusInfo()};
-            ReceiveOnLoggingPort        logReceiver{ourContext.getService(), loggingConnection};
-            ReceiveOnStatusPort         statusReceiver{ourContext.getService(), statusConnection};
+            nImO::ContextWithNetworking             ourContext{progName, "monitor", optionValues._logging};
+            nImO::Connection                        loggingConnection{ourContext.getLoggingInfo()};
+            nImO::Connection                        statusConnection{ourContext.getStatusInfo()};
+            std::shared_ptr<ReceiveOnMessagePort>   logReceiver{new ReceiveOnMessagePort{ourContext.getService(), loggingConnection}};
+            std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
+            if (loggingConnection != statusConnection)
+            {
+                statusReceiver.reset(new ReceiveOnMessagePort{ourContext.getService(), statusConnection});
+            }
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )
             {
@@ -408,20 +305,15 @@ main
                     }
                     if (nImO::gKeepRunning)
                     {
-                        ODL_I1("at line ", __LINE__); //!!
                         nextData = lReceivedData.front();
-                        ODL_P1("nextData = ", nextData.get()); //!!
                         lReceivedData.pop_front();
-                        ODL_I1("at line ", __LINE__); //!!
                     }
                 }
                 if (nImO::gKeepRunning)
                 {
-                    ODL_LOG("(nImO::gKeepRunning)"); //!!
                     time_t                  rawTime;
                     std::string             nowAsString;
                     CPtr(nImO::Map)         asMap{nextData->_receivedMessage->asMap()};
-                    ODL_P1("asMap = ", asMap); //!!
                     asio::ip::address_v4    sender{nextData->_receivedAddress};
                     char                    timeBuffer[80];
                     std::string             addressString{"[" + sender.to_string() + "]"};
@@ -430,31 +322,26 @@ main
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
                     if (nullptr == asMap)
                     {
-                        ODL_LOG("(nullptr == asMap)"); //!!
                         CPtr(nImO::Array)   asArray{nextData->_receivedMessage->asArray()};
 
-                        // 'old' style
+                        // 'old' style or a status message
                         if (nullptr == asArray)
                         {
-                            ODL_LOG("(nullptr == asArray)"); //!!
                             CPtr(nImO::String)  asString{nextData->_receivedMessage->asString()};
 
                             std::cout << addressString << timeBuffer;
                             if (nullptr == asString)
                             {
-                                ODL_LOG("(nullptr == asString)"); //!!
                                 std::cout << *nextData->_receivedMessage;
                             }
                             else
                             {
-                                ODL_LOG("! (nullptr == asString)"); //!!
                                 std::cout << asString->getValue();
                             }
                             std::cout << std::endl;
                         }
                         else
                         {
-                            ODL_LOG("! (nullptr == asMap)"); //!!
                             for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
                             {
                                 nImO::SpValue       element{asArray->at(ii)};
@@ -475,7 +362,6 @@ main
                     }
                     else
                     {
-                        ODL_LOG("! (nullptr == asMap)"); //!!
                         nImO::SpString  commandPortKey{std::make_shared<nImO::String>(nImO::kCommandPortKey)};
                         nImO::SpString  computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
                         nImO::SpString  tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};

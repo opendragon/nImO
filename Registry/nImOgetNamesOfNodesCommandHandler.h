@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNumberOfNodesCommandHandler.h
+//  File:       nImO/nImOgetNamesOfNodesCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'number of nodes' command handler.
+//  Contains:   The class declaration for the nImO 'names of nodes' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-04
+//  Created:    2023-04-09
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNumberOfNodesCommandHandler_H_))
-# define nImOgetNumberOfNodesCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetNamesOfNodesCommandHandler_H_))
+# define nImOgetNamesOfNodesCommandHandler_H_ /* Header guard */
 
 # include <nImOcommandHandler.h>
 
@@ -49,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'number of nodes' command handler. */
+ @brief The class declaration for the %nImO 'names of nodes' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'number of nodes' command. */
-    class NumberOfNodesCommandHandler final : public CommandHandler
+    /*! @brief A class to provide a handler for the 'num nodes' command. */
+    class NamesOfNodesCommandHandler final : public CommandHandler
     {
 
         public :
@@ -78,13 +78,13 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
-            NumberOfNodesCommandHandler
+            NamesOfNodesCommandHandler
                 (SpContextWithNetworking    owner,
                  SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~NumberOfNodesCommandHandler
+            ~NamesOfNodesCommandHandler
                 (void);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -116,8 +116,8 @@ namespace nImO
             /*! @brief The Registry to use when processing a request. */
             SpRegistry  _registry;
 
-    }; // NumberOfNodesCommandHandler
+    }; // NamesOfNodesCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNumberOfNodesCommandHandler_H_)
+#endif // not defined(nImOgetNamesOfNodesCommandHandler_H_)

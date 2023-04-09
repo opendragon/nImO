@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOisNodePresentResponseHandler.cpp
+//  File:       nImO/nImOgetNamesOfNodesResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOisNodePresentResponseHandler.h>
+#include <nImOgetNamesOfNodesResponseHandler.h>
 
-#include <nImOlogical.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -78,43 +78,49 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentResponseHandler::NodePresentResponseHandler
+nImO::NamesOfNodesResponseHandler::NamesOfNodesResponseHandler
     (void) :
-        inherited(), _result(false)
+        inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentResponseHandler::NodePresentResponseHandler
+} // nImO::NamesOfNodesResponseHandler::NamesOfNodesResponseHandler
 
-nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+nImO::NamesOfNodesResponseHandler::~NamesOfNodesResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+} // nImO::NamesOfNodesResponseHandler::~NamesOfNodesResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NodePresentResponseHandler::doIt
+nImO::NamesOfNodesResponseHandler::doIt
     (const nImO::Array &    stuff)
 {
     ODL_OBJENTER(); //####
     ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
-        SpValue       element{stuff[1]};
-        CPtr(Logical) asLogical{element->asLogical()};
+        SpValue     element{stuff[1]};
+        CPtr(Set)   asSet{element->asSet()};
 
-        if (nullptr != asLogical)
+        if (nullptr != asSet)
         {
-            _result = asLogical->getValue();
+            if (Enumerable::String == asSet->getKeyKind())
+            {
+                for (auto walker = asSet->begin(); walker != asSet->end(); ++walker)
+                {
+                    _result.insert((*walker)->asString()->getValue());
+                }
+            }
         }
     }
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::doIt
+} // nImO::NamesOfNodesResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

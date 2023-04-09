@@ -41,6 +41,8 @@
 #include <nImOaddNodeResponseHandler.h>
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOgetNamesOfNodesResponseHandler.h>
+#include <nImOgetNumberOfNodesResponseHandler.h>
 #include <nImOinteger.h>
 #include <nImOlogical.h>
 #include <nImOisNodePresentResponseHandler.h>
@@ -145,7 +147,6 @@ nImO::RegistryProxy::addNode
 nImO::RegNodeInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllNodes
     (void)
-    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
@@ -160,21 +161,18 @@ nImO::RegistryProxy::getInformationForAllNodes
 nImO::RegStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodes
     (void)
-    const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{false, "not implemented"};
-    StringSet           strings;
+    std::unique_ptr<NamesOfNodesResponseHandler>    handler{new NamesOfNodesResponseHandler};
 
-    //TBD
+    SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetNamesOfNodesRequest, kGetNamesOfNodesResponse);
     ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
+    return RegStringSetOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
 } // nImO::RegistryProxy::getNamesOfNodes
 
 nImO::RegNodeInfoOrFailure
 nImO::RegistryProxy::getNodeInformation
     (const std::string &    nodeName)
-    const
 {
     NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
@@ -190,16 +188,13 @@ nImO::RegistryProxy::getNodeInformation
 nImO::RegIntOrFailure
 nImO::RegistryProxy::getNumberOfNodes
     (void)
-    const
 {
-    int count = -1;
-
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{false, "not implemented"};
+    std::unique_ptr<NumberOfNodesResponseHandler>   handler{new NumberOfNodesResponseHandler};
 
-    //TBD
+    SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetNumberOfNodesRequest, kGetNumberOfNodesResponse);
     ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return RegIntOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
 } // nImO::RegistryProxy::getNumberOfNodes
 
 nImO::RegBoolOrFailure

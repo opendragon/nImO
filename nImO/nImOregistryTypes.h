@@ -89,6 +89,7 @@ namespace nImO
         /*! @brief The nature of the service associated with the node. */
         ServiceType _serviceType;
 
+        /*! @brief The constructor. */
         inline NodeInfo
             (void) :
                 _found(false), _serviceType(ServiceType::GenericService)

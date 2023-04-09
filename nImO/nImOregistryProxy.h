@@ -109,15 +109,13 @@ namespace nImO
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoVectorOrFailure
             getInformationForAllNodes
-                (void)
-                const;
+                (void);
 
             /*! @brief Get the set of nodes in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
             RegStringSetOrFailure
             getNamesOfNodes
-                (void)
-                const;
+                (void);
 
             /*! @brief Get information on the node stored in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
@@ -126,15 +124,13 @@ namespace nImO
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoOrFailure
             getNodeInformation
-                (const std::string &    nodeName)
-                const;
+                (const std::string &    nodeName);
 
             /*! @brief Return the number of nodes in the Registry.
              @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
             RegIntOrFailure
             getNumberOfNodes
-                (void)
-                const;
+                (void);
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.

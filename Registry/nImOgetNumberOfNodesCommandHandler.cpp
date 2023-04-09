@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'num nodes' command handler.
+//  Contains:   The class definition for the nImO 'number of nodes' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'num nodes' command handler. */
+ @brief The class definition for the %nImO 'number of nodes' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumNodesCommandHandler::NumNodesCommandHandler
+nImO::NumberOfNodesCommandHandler::NumberOfNodesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner), _registry(theRegistry)
@@ -90,21 +90,21 @@ nImO::NumNodesCommandHandler::NumNodesCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumNodesCommandHandler::NumNodesCommandHandler
+} // nImO::NumberOfNodesCommandHandler::NumberOfNodesCommandHandler
 
-nImO::NumNodesCommandHandler::~NumNodesCommandHandler
+nImO::NumberOfNodesCommandHandler::~NumberOfNodesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumNodesCommandHandler::~NumNodesCommandHandler
+} // nImO::NumberOfNodesCommandHandler::~NumberOfNodesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NumNodesCommandHandler::doIt
+nImO::NumberOfNodesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::NumNodesCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     ODL_B1("okSoFar <- ", okSoFar); //!!
-    _owner->report("num nodes request received");
+    _owner->report("number of nodes request received");
     if (0 < arguments.size())
     {
         RegIntOrFailure    statusWithInt{_registry->getNumberOfNodes()};
@@ -134,7 +134,7 @@ nImO::NumNodesCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NumNodesCommandHandler::doIt
+} // nImO::NumberOfNodesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

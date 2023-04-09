@@ -78,35 +78,35 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumNodesResponseHandler::NumNodesResponseHandler
+nImO::NumberOfNodesResponseHandler::NumberOfNodesResponseHandler
     (void) :
-        inherited(), _result(false)
+        inherited(), _result(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumNodesResponseHandler::NumNodesResponseHandler
+} // nImO::NumberOfNodesResponseHandler::NumberOfNodesResponseHandler
 
-nImO::NumNodesResponseHandler::~NumNodesResponseHandler
+nImO::NumberOfNodesResponseHandler::~NumberOfNodesResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumNodesResponseHandler::~NumNodesResponseHandler
+} // nImO::NumberOfNodesResponseHandler::~NumberOfNodesResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NumNodesResponseHandler::doIt
+nImO::NumberOfNodesResponseHandler::doIt
     (const nImO::Array &    stuff)
 {
     ODL_OBJENTER(); //####
     ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
-        nImO::SpValue       element{stuff[1]};
-        CPtr(nImO::Integer) asInteger{element->asInteger()};
+        SpValue       element{stuff[1]};
+        CPtr(Integer) asInteger{element->asInteger()};
 
         if (nullptr != asInteger)
         {
@@ -114,7 +114,7 @@ nImO::NumNodesResponseHandler::doIt
         }
     }
     ODL_OBJEXIT(); //####
-} // nImO::NumNodesResponseHandler::doIt
+} // nImO::NumberOfNodesResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

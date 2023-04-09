@@ -38,6 +38,7 @@
 
 #include "nImOaddNodeCommandHandler.h"
 #include "nImOisNodePresentCommandHandler.h"
+#include "nImOgetNamesOfNodesCommandHandler.h"
 #include "nImOgetNumberOfNodesCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
@@ -138,7 +139,8 @@ main
 
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kIsNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest, new nImO::RemoveNodeCommandHandler(ourContext, theRegistry,
                                                                                                                statusConnection));
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,

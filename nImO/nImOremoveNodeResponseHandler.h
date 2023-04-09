@@ -92,7 +92,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            bool
+            inline bool
             result
                 (void)
                 const

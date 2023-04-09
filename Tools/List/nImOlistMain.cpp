@@ -170,7 +170,25 @@ listNodes
 
         if (nodes.empty())
         {
-            std::cout << "** No nodes **" << std::endl;
+            switch (options._flavour)
+            {
+
+                case nImO::OutputFlavour::FlavourNormal :
+                    std::cout << "** No nodes **" << std::endl;
+                    break;
+
+                case nImO::OutputFlavour::FlavourJSON :
+                    std::cout << "{ }" << std::endl;
+                    break;
+
+                case nImO::OutputFlavour::FlavourTabs :
+                    std::cout << "** No nodes **" << std::endl;
+                    break;
+
+                default :
+                    break;
+
+            }
         }
         else
         {

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOisNodePresentResponseHandler.cpp
+//  File:       nImO/nImOgetNamesOfNodesCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
+//  Contains:   The class definition for the nImO 'names of nodes' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-04
+//  Created:    2023-04-09
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOisNodePresentResponseHandler.h>
+#include "nImOgetNamesOfNodesCommandHandler.h"
 
-#include <nImOlogical.h>
+#include <nImOarray.h>
+#include <nImOinteger.h>
+#include <nImOregistryCommands.h>
+#include <nImOregistryTypes.h>
+#include <nImOset.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -49,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a functor used with the %nImO request/response mechanism. */
+ @brief The class definition for the %nImO 'names of nodes' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,43 +83,64 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentResponseHandler::NodePresentResponseHandler
-    (void) :
-        inherited(), _result(false)
+nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
+    (SpContextWithNetworking    owner,
+     SpRegistry                 theRegistry) :
+        inherited(owner), _registry(theRegistry)
 {
     ODL_ENTER(); //####
+    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentResponseHandler::NodePresentResponseHandler
+} // nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
 
-nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::~NodePresentResponseHandler
+} // nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
-nImO::NodePresentResponseHandler::doIt
-    (const nImO::Array &    stuff)
+bool
+nImO::NamesOfNodesCommandHandler::doIt
+    (asio::ip::tcp::socket &    socket,
+     const Array &              arguments)
+    const
 {
-    ODL_OBJENTER(); //####
-    ODL_I1("stuff.size() = ", stuff.size()); //!!!
-    if (1 < stuff.size())
-    {
-        SpValue       element{stuff[1]};
-        CPtr(Logical) asLogical{element->asLogical()};
+    bool    okSoFar = false;
 
-        if (nullptr != asLogical)
+    NIMO_UNUSED_ARG_(arguments);
+    ODL_OBJENTER(); //####
+    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    ODL_B1("okSoFar <- ", okSoFar); //!!
+    _owner->report("names of nodes request received");
+    if (0 < arguments.size())
+    {
+        RegStringSetOrFailure   statusWithSet{_registry->getNamesOfNodes()};
+
+        if (statusWithSet.first.first)
         {
-            _result = asLogical->getValue();
+            StringSet & theStrings{statusWithSet.second};
+            SpSet       stringSet{new Set};
+
+            for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
+            {
+                stringSet->addValue(std::make_shared<String>(*walker));
+            }
+            okSoFar = sendComplexResponse(socket, kGetNamesOfNodesResponse, stringSet);
+            ODL_B1("okSoFar <- ", okSoFar); //!!!
+        }
+        else
+        {
+            ODL_LOG("! (statusWithInt.first.first)"); //####
         }
     }
-    ODL_OBJEXIT(); //####
-} // nImO::NodePresentResponseHandler::doIt
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::NamesOfNodesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

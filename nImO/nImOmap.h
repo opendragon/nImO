@@ -233,6 +233,16 @@ namespace nImO
             getInitialCharacters
                 (void);
 
+            /*! @brief Return the kind of key used with the Map.
+             @return The kind of key used with the Map.*/
+            inline Enumerable
+            getKeyKind
+                (void)
+                const
+            {
+                return _keyKind;
+            }
+
             /*! @brief Return the characters that can appear as the end of a Map.
              @return The characters that can appear as the end of a Map. */
             static CPtr(char)

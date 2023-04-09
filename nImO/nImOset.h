@@ -228,6 +228,16 @@ namespace nImO
             getInitialCharacters
                 (void);
 
+            /*! @brief Return the kind of key used with the Set.
+             @return The kind of key used with the Set.*/
+            inline Enumerable
+            getKeyKind
+                (void)
+                const
+            {
+                return _keyKind;
+            }
+
             /*! @brief Return the characters that can appear as the end of a Set.
              @return The characters that can appear as the end of a Set. */
             static CPtr(char)

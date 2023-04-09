@@ -105,8 +105,8 @@ nImO::RemoveNodeResponseHandler::doIt
     ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
-        nImO::SpValue       element{stuff[1]};
-        CPtr(nImO::Logical) asLogical{element->asLogical()};
+        SpValue       element{stuff[1]};
+        CPtr(Logical) asLogical{element->asLogical()};
 
         if (nullptr != asLogical)
         {

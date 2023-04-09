@@ -90,7 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"), nImO::ArgumentMode::Optional, nImO::GetShortComputerName()};
+    std::string                     defaultName{"<short computer name>"};
+    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"), nImO::ArgumentMode::Optional, defaultName};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode = 0;
@@ -108,13 +109,17 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::GetShortComputerName()};
+            std::string                     nodeName{firstArg.getCurrentValue()};
             nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "launcher", optionValues._logging, true}};
             nImO::Connection                registryConnection;
+            Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
-            ODL_P1("ourContext <- ", ourContext.get()); //!!!
+            if (defaultName == nodeName)
+            {
+                nodeName = nImO::GetShortComputerName();
+            }
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (ourContext->asServiceContext()->findRegistry(registryConnection))
+            if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy     proxy{ourContext, registryConnection};
                 nImO::RegBoolOrFailure  statusWithBool = proxy.isNodePresent(nodeName);
@@ -129,7 +134,8 @@ main
                     }
                     else
                     {
-                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName, nImO::ServiceType::LauncherService);
+                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName, nImO::ServiceType::LauncherService,
+                                                                           asServiceContext->getCommandConnection());
 
                         if (status.first)
                         {

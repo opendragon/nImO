@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNamesOfNodesCommandHandler.cpp
+//  File:       nImO/nImOgetNodeInformationResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'names of nodes' command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,17 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-09
+//  Created:    2023-04-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOgetNamesOfNodesCommandHandler.h"
+#include <nImOgetNodeInformationResponseHandler.h>
 
-#include <nImOarray.h>
 #include <nImOinteger.h>
-#include <nImOregistryCommands.h>
-#include <nImOregistryTypes.h>
-#include <nImOset.h>
+#include <nImOlogical.h>
 #include <nImOstring.h>
 
 //#include <odlEnable.h>
@@ -54,7 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'names of nodes' command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,66 +80,79 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+nImO::NodeInformationResponseHandler::NodeInformationResponseHandler
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NamesOfNodesCommandHandler::NamesOfNodesCommandHandler
+} // nImO::NodeInformationResponseHandler::NodeInformationResponseHandler
 
-nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
+nImO::NodeInformationResponseHandler::~NodeInformationResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfNodesCommandHandler::~NamesOfNodesCommandHandler
+} // nImO::NodeInformationResponseHandler::~NodeInformationResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::NamesOfNodesCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
-    const
+void
+nImO::NodeInformationResponseHandler::doIt
+    (const Array &  stuff)
 {
-    bool    okSoFar = false;
-
-    NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("names of nodes request received");
-    if (0 < arguments.size())
+    _result._found = false;
+    if (1 < stuff.size())
     {
-        RegStringSetOrFailure   statusWithSet{_registry->getNamesOfNodes()};
+        SpValue     element{stuff[1]};
+        CPtr(Array) infoArray{element->asArray()};
 
-        if (statusWithSet.first.first)
+        if (nullptr != infoArray)
         {
-            StringSet & theStrings{statusWithSet.second};
-            SpSet       stringSet{new Set};
-
-            for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
+            if (5 < infoArray->size())
             {
-                stringSet->addValue(std::make_shared<String>(*walker));
+                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
+                CPtr(String)    namePtr{(*infoArray)[1]->asString()};
+                CPtr(Integer)   serviceTypePtr{(*infoArray)[2]->asInteger()};
+                CPtr(Integer)   addressPtr{(*infoArray)[3]->asInteger()};
+                CPtr(Integer)   portPtr{(*infoArray)[4]->asInteger()};
+                CPtr(Integer)   transportPtr{(*infoArray)[5]->asInteger()};
+
+                if ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) &&
+                    (nullptr != portPtr) && (nullptr != transportPtr))
+                {
+                    _result._found = foundPtr->getValue();
+                    _result._name = namePtr->getValue();
+                    _result._serviceType = StaticCast(ServiceType, serviceTypePtr->getIntegerValue());
+                    _result._connection._address = addressPtr->getIntegerValue();
+                    _result._connection._port = portPtr->getIntegerValue();
+                    _result._connection._transport = StaticCast(TransportType, transportPtr->getIntegerValue());
+                }
+                else
+                {
+                    ODL_LOG("! ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) && " //####
+                            "(nullptr != portPtr) && (nullptr != transportPtr))"); //####
+                }
             }
-            okSoFar = sendComplexResponse(socket, kGetNamesOfNodesResponse, stringSet);
+            else
+            {
+                ODL_LOG("! (5 < asArray->size())"); //####
+            }
         }
         else
         {
-            ODL_LOG("! (statusWithInt.first.first)"); //####
+            ODL_LOG("! (nullptr != asArray)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (0 < arguments.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::NamesOfNodesCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::NodeInformationResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

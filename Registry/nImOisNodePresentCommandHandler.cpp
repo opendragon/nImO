@@ -113,14 +113,12 @@ nImO::NodePresentCommandHandler::doIt
     NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!
     _owner->report("node present request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        ODL_P1("asString = ", asString); //!!
         if (nullptr != asString)
         {
             RegBoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
@@ -128,13 +126,20 @@ nImO::NodePresentCommandHandler::doIt
             if (statusWithBool.first.first)
             {
                 okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, statusWithBool.second);
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
             }
             else
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (nullptr != asString)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

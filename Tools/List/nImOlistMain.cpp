@@ -204,17 +204,23 @@ listNodes
                 ++walker;
                 if (statusWithInfo.first.first)
                 {
-                    if (statusWithInfo.second._found)
+                    nImO::NodeInfo &    theInfo = statusWithInfo.second;
+
+                    if (theInfo._found)
                     {
+                        asio::ip::address_v4    address{theInfo._connection._address};
+
                         switch (options._flavour)
                         {
                             case nImO::OutputFlavour::FlavourNormal :
-                                std::cout << nodeName << ' ' << statusWithInfo.second._connection._address << std::endl;
+                                std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port << std::endl;
                                 break;
 
                             case nImO::OutputFlavour::FlavourJSON :
-                                std::cout << CHAR_DOUBLEQUOTE_ << nodeName << T_(CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                            statusWithInfo.second._connection._address << CHAR_DOUBLEQUOTE_;
+                                std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
+                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                            address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
+                                            CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ " }";
                                 if (nodes.end() != walker)
                                 {
                                     std::cout << ",";
@@ -223,7 +229,7 @@ listNodes
                                 break;
 
                             case nImO::OutputFlavour::FlavourTabs :
-                                std::cout << nodeName << '\t' << statusWithInfo.second._connection._address << std::endl;
+                                std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port << std::endl;
                                 break;
 
                             default :
@@ -305,7 +311,6 @@ main
             nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "list", optionValues._logging}};
             nImO::Connection                registryConnection;
 
-            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 std::string choice{firstArg.getCurrentValue()};

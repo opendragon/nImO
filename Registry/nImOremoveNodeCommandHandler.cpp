@@ -113,14 +113,12 @@ nImO::RemoveNodeCommandHandler::doIt
 
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!
     _owner->report("remove node request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        ODL_P1("asString = ", asString); //!!
         if (nullptr != asString)
         {
             std::string         nodeName{asString->getValue()};
@@ -129,7 +127,6 @@ nImO::RemoveNodeCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, true);
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kNodeRemovedStatus + kStatusSeparator + nodeName);
@@ -140,6 +137,14 @@ nImO::RemoveNodeCommandHandler::doIt
                 ODL_LOG("! (statusWithBool.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (nullptr != asString)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

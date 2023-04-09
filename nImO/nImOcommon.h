@@ -533,7 +533,7 @@ namespace nImO
     }; // MessageState
 
     /*! @brief The transport mechanism to use. */
-    enum class Transport
+    enum class TransportType : uint8_t
     {
         /*! @brief Use TCP for the transport mechanism. */
         TCP,
@@ -544,7 +544,7 @@ namespace nImO
         /*! @brief The transport mechanism is unknown. */
         Unknown
 
-    }; // Transport
+    }; // TransportType
 
     /*! @brief A network connection description. */
     struct Connection
@@ -556,16 +556,16 @@ namespace nImO
         uint16_t    _port;
 
         /*! @brief The transport mechanism of the connection. */
-        Transport   _transport;
+        TransportType   _transport;
 
         /*! @brief The constructor.
          @param[in] address The IP address for the connection.
          @param[in] port The port for the connection.
          @param[in] transport The transport mechanism for the connection. */
         inline Connection
-            (const uint32_t     address = 0,
-             const uint16_t     port = 0,
-             const Transport    transport = Transport::TCP) :
+            (const uint32_t         address = 0,
+             const uint16_t         port = 0,
+             const TransportType    transport = TransportType::TCP) :
                 _address(address), _port(port), _transport(transport)
         {
         }
@@ -919,25 +919,25 @@ namespace nImO
     ReportVersions
         (void);
 
-    /*! @brief Standardize the handling of multiple Transport value specifications.
-     @param[in] firstTransport A Transport value.
-     @param[in] secondTransport Another Transport value.
-     @param[in] defaultTransport The Transport value to use if nothing else is resolveable.
-     @return The Transport value to be used. */
-    Transport
+    /*! @brief Standardize the handling of multiple TransportType value specifications.
+     @param[in] firstTransport A TransportType value.
+     @param[in] secondTransport Another TransportType value.
+     @param[in] defaultTransport The TransportType value to use if nothing else is resolveable.
+     @return The TransportType value to be used. */
+    TransportType
     ResolveTransport
-        (const Transport    firstTransport,
-         const Transport    secondTransport,
-         const Transport    defaultTransport = Transport::Unknown);
+        (const TransportType    firstTransport,
+         const TransportType    secondTransport,
+         const TransportType    defaultTransport = TransportType::Unknown);
 
-    /*! @brief Standardize the handling of Transport value specifications.
-     @param[in] firstTransport A Transport value.
-     @param[in] defaultTransport The Transport value to use if nothing else is resolveable.
-     @return The Transport value to be used. */
-    Transport
+    /*! @brief Standardize the handling of TransportType value specifications.
+     @param[in] firstTransport A TransportType value.
+     @param[in] defaultTransport The TransportType value to use if nothing else is resolveable.
+     @return The TransportType value to be used. */
+    TransportType
     ResolveTransport
-        (const Transport    firstTransport,
-         const Transport    defaultTransport = Transport::Unknown);
+        (const TransportType    firstTransport,
+         const TransportType    defaultTransport = TransportType::Unknown);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.

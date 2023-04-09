@@ -39,6 +39,7 @@
 #include "nImOaddNodeCommandHandler.h"
 #include "nImOisNodePresentCommandHandler.h"
 #include "nImOgetNamesOfNodesCommandHandler.h"
+#include "nImOgetNodeInformationCommandHandler.h"
 #include "nImOgetNumberOfNodesCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
@@ -118,7 +119,6 @@ main
             nImO::SpContextWithNetworking   ourContext{new nImO::RegistryContext{argc, argv, progName, optionValues._logging, true}};
             nImO::Connection                statusConnection{ourContext->getStatusInfo()};
 
-            ODL_P1("ourContext <- ", ourContext.get()); //!!!
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (ourContext->asServiceContext()->findRegistry(true))
             {
@@ -140,6 +140,7 @@ main
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kIsNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNodeInformationRequest, new nImO::NodeInformationCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest, new nImO::RemoveNodeCommandHandler(ourContext, theRegistry,
                                                                                                                statusConnection));

@@ -144,6 +144,23 @@ namespace nImO
                 return _commandLine;
             }
 
+            /*! @brief Returns the address for the command port.
+             @return The address of the command port. */
+            inline uint32_t
+            getCommandAddress
+                (void)
+                const
+            {
+                return _commandAddress;
+            }
+
+            /*! @brief Returns a Connection that specifies the command port.
+             @return A Connection with the command port details. */
+            Connection
+            getCommandConnection
+                (void)
+                const;
+
             /*! @brief Returns the port number for the command port.
              @return The port number of the command port. */
             inline uint16_t
@@ -212,6 +229,9 @@ namespace nImO
 
             /*! @brief The command-line provided to the application. */
             SpArray _commandLine;
+
+            /*! @brief The command address. */
+            uint32_t    _commandAddress;
 
             /*! @brief The command port. */
             uint16_t    _commandPort;

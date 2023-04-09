@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNamesOfNodesResponseHandler.h
+//  File:       nImO/nImOgetNodeInformationResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -36,11 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNamesOfNodesResponseHandler_H_))
-# define nImOgetNamesOfNodesResponseHandler_H_ /* Header guard */
+#if (! defined(nImOgetNodeInformationResponseHandler_H_))
+# define nImOgetNodeInformationResponseHandler_H_ /* Header guard */
 
 # include <nImOresponseHandler.h>
-# include <nImOset.h>
+
+# include <nImOregistryTypes.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class NamesOfNodesResponseHandler final : public ResponseHandler
+    class NodeInformationResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -76,12 +77,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
-            NamesOfNodesResponseHandler
+            NodeInformationResponseHandler
                 (void);
 
             /*! @brief The destructor. */
             virtual
-            ~NamesOfNodesResponseHandler
+            ~NodeInformationResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -93,7 +94,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            StringSet
+            NodeInfo
             result
                 (void)
                 const
@@ -117,10 +118,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            StringSet   _result;
+            NodeInfo    _result;
 
-    }; // NamesOfNodesResponseHandler
+    }; // NodeInformationResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNamesOfNodesResponseHandler_H_)
+#endif // not defined(nImOgetNodeInformationResponseHandler_H_)

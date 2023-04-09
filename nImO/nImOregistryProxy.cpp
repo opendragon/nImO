@@ -42,6 +42,7 @@
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
 #include <nImOgetNamesOfNodesResponseHandler.h>
+#include <nImOgetNodeInformationResponseHandler.h>
 #include <nImOgetNumberOfNodesResponseHandler.h>
 #include <nImOinteger.h>
 #include <nImOlogical.h>
@@ -177,12 +178,14 @@ nImO::RegistryProxy::getNodeInformation
     NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{false, "not implemented"};
-    NodeInfo            info;
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<NodeInformationResponseHandler> handler{new NodeInformationResponseHandler};
 
-    //TBD
+    argArray->addValue(std::make_shared<String>(nodeName));
+    SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kGetNodeInformationRequest,
+                                                kGetNodeInformationResponse);
     ODL_OBJEXIT(); //####
-    return RegNodeInfoOrFailure{status, info};
+    return RegNodeInfoOrFailure{RegSuccessOrFailure{true, ""}, handler->result()};
 } // nImO::RegistryProxy::getNodeInformation
 
 nImO::RegIntOrFailure

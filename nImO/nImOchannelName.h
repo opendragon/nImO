@@ -125,7 +125,7 @@ namespace nImO
 
             /*! @brief Return the transport mechanism for the channel.
             @return The transport mechanism for the channel. */
-            inline Transport
+            inline TransportType
             getTransport
                 (void)
                 const
@@ -142,18 +142,18 @@ namespace nImO
                 (const std::string &    input,
                  std::string &          problemDescription);
 
-            /*! @brief Returns the set of names for Transport values.
-            @return The standard names for the Transport values. */
+            /*! @brief Returns the set of names for TransportType values.
+            @return The standard names for the TransportType values. */
             static StringSet
             transportNames
                 (void);
 
-            /*! @brief Returns the name corresponding to a Transport value.
-            @param[in] aValue The Transport value to be converted.
-            @return The standard name for the Transport value. */
+            /*! @brief Returns the name corresponding to a TransportType value.
+            @param[in] aValue The TransportType value to be converted.
+            @return The standard name for the TransportType value. */
             static std::string
             transportToName
-                (const Transport    aValue);
+                (const TransportType    aValue);
 
         protected :
             // Protected methods.
@@ -184,7 +184,7 @@ namespace nImO
             std::string _path;
 
             /*! @brief The associated transport mechanism. */
-            Transport   _transport;
+            TransportType   _transport;
 
     }; // ChannelName
 

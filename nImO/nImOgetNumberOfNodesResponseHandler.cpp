@@ -99,10 +99,9 @@ nImO::NumberOfNodesResponseHandler::~NumberOfNodesResponseHandler
 
 void
 nImO::NumberOfNodesResponseHandler::doIt
-    (const nImO::Array &    stuff)
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -112,6 +111,14 @@ nImO::NumberOfNodesResponseHandler::doIt
         {
             _result = asInteger->getIntegerValue();
         }
+        else
+        {
+            ODL_LOG("! (nullptr != asInteger)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::NumberOfNodesResponseHandler::doIt

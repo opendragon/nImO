@@ -114,7 +114,6 @@ nImO::AddNodeCommandHandler::doIt
 
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!
     _owner->report("add node request received");
     if (2 < arguments.size())
     {
@@ -125,7 +124,6 @@ nImO::AddNodeCommandHandler::doIt
         Connection      theConnection;
         ServiceType     theType;
 
-        ODL_P2("nameString = ", nameString, "connArray = ", connArray); //!!
         if (3 < connArray->size())
         {
             SpValue         connElem1{(*connArray)[0]};
@@ -147,7 +145,7 @@ nImO::AddNodeCommandHandler::doIt
             }
             if (nullptr != transportValue)
             {
-                theConnection._transport = StaticCast(Transport, transportValue->getIntegerValue());
+                theConnection._transport = StaticCast(TransportType, transportValue->getIntegerValue());
             }
             if (nullptr != typeValue)
             {
@@ -162,7 +160,6 @@ nImO::AddNodeCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kAddNodeResponse, true);
-                ODL_B1("okSoFar <- ", okSoFar); //!!!
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);
@@ -175,8 +172,12 @@ nImO::AddNodeCommandHandler::doIt
         }
         else
         {
-            ODL_LOG("! ((nullptr != nameString) && (nullptr != connArray))");
+            ODL_LOG("! ((nullptr != nameString) && (nullptr != connArray))"); //####
         }
+    }
+    else
+    {
+        ODL_LOG("! (2 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

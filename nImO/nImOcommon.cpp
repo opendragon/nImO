@@ -854,22 +854,22 @@ nImO::ReportVersions
 #endif /* defined(nImO_ChattyStart) */
 } // nImO::ReportVersions
 
-nImO::Transport
+nImO::TransportType
 nImO::ResolveTransport
-    (const Transport    firstTransport,
-     const Transport    secondTransport,
-     const Transport    defaultTransport)
+    (const TransportType    firstTransport,
+     const TransportType    secondTransport,
+     const TransportType    defaultTransport)
 {
-    Transport   result;
+    TransportType   result;
 
     switch (firstTransport)
     {
-        case Transport::TCP :
+        case TransportType::TCP :
             result = firstTransport;
             break;
 
-        case Transport::UDP :
-            if (Transport::TCP == secondTransport)
+        case TransportType::UDP :
+            if (TransportType::TCP == secondTransport)
             {
                 result = secondTransport;
             }
@@ -880,11 +880,11 @@ nImO::ResolveTransport
             break;
 
         default:
-            if (Transport::Unknown == secondTransport)
+            if (TransportType::Unknown == secondTransport)
             {
-                if (Transport::Unknown == defaultTransport)
+                if (TransportType::Unknown == defaultTransport)
                 {
-                    result = Transport::TCP;
+                    result = TransportType::TCP;
                 }
                 else
                 {
@@ -901,24 +901,24 @@ nImO::ResolveTransport
     return result;
 } /* ResolveTransport */
 
-nImO::Transport
+nImO::TransportType
 nImO::ResolveTransport
-    (const Transport    firstTransport,
-     const Transport    defaultTransport)
+    (const TransportType    firstTransport,
+     const TransportType    defaultTransport)
 {
-    Transport   result;
+    TransportType   result;
 
     switch (firstTransport)
     {
-        case Transport::TCP :
-        case Transport::UDP :
+        case TransportType::TCP :
+        case TransportType::UDP :
             result = firstTransport;
             break;
 
         default:
-            if (Transport::Unknown == defaultTransport)
+            if (TransportType::Unknown == defaultTransport)
             {
-                result = Transport::TCP;
+                result = TransportType::TCP;
             }
             else
             {

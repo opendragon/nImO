@@ -130,7 +130,7 @@ checkChar
 
 nImO::ChannelName::ChannelName
     (void) :
-        _transport(Transport::Unknown)
+        _transport(TransportType::Unknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -153,7 +153,7 @@ nImO::ChannelName::ChannelName
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     other._network = other._node = other._path = "";
-    other._transport = Transport::Unknown;
+    other._transport = TransportType::Unknown;
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
@@ -187,7 +187,7 @@ nImO::ChannelName::getName
     }
     result += kStartPath;
     result += _path;
-    if (Transport::Unknown != _transport)
+    if (TransportType::Unknown != _transport)
     {
         result += kStartProtocol;
         result += transportToName(_transport);
@@ -217,7 +217,7 @@ nImO::ChannelName::parse
     std::string     nodeName;
     std::string     path;
     std::string     protocolName;
-    Transport       protocol;
+    TransportType   protocol;
 
     if (0 == input.length())
     {
@@ -355,13 +355,13 @@ nImO::ChannelName::parse
     ODL_B1("okSoFar <- ", okSoFar); //!!!
     if (okSoFar)
     {
-        if (protocolName == transportToName(Transport::UDP))
+        if (protocolName == transportToName(TransportType::UDP))
         {
-            protocol = Transport::UDP;
+            protocol = TransportType::UDP;
         }
-        else if (protocolName == transportToName(Transport::TCP))
+        else if (protocolName == transportToName(TransportType::TCP))
         {
-            protocol = Transport::TCP;
+            protocol = TransportType::TCP;
         }
         else if (protocolName == "")
         {
@@ -373,7 +373,7 @@ nImO::ChannelName::parse
             }
             else
             {
-                protocol = Transport::Unknown;
+                protocol = TransportType::Unknown;
             }
         }
         else
@@ -410,7 +410,7 @@ nImO::ChannelName::transportNames
 
 std::string
 nImO::ChannelName::transportToName
-    (const Transport    aValue)
+    (const TransportType    aValue)
 {
     std::string result;
 
@@ -418,15 +418,15 @@ nImO::ChannelName::transportToName
     ODL_I1("aValue = ", StaticCast(int64_t, aValue)); //####
     switch (aValue)
     {
-        case Transport::TCP :
+        case TransportType::TCP :
             result = kProtocolTcpName;
             break;
 
-        case Transport::UDP :
+        case TransportType::UDP :
             result = kProtocolUdpName;
             break;
 
-        case Transport::Unknown :
+        case TransportType::Unknown :
             result = kProtocolUnknownName;
             break;
 

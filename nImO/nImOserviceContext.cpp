@@ -212,6 +212,7 @@ nImO::ServiceContext::createCommandPort
     ODL_OBJENTER(); //####
     _acceptor.open(asio::ip::tcp::v4());
     _acceptor.listen();
+    _commandAddress = ntohl(gServiceAddressIpv4.sin_addr.s_addr);
     _commandPort = _acceptor.local_endpoint().port();
     setCommandPort(_commandPort);
     ODL_OBJEXIT(); //####
@@ -244,6 +245,20 @@ nImO::ServiceContext::destroyCommandPort
     _sessions.clear();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::destroyCommandPort
+
+/*! @brief Returns a Connection that specifies the command port.
+ @return A Connection with the command port details. */
+nImO::Connection
+nImO::ServiceContext::getCommandConnection
+    (void)
+    const
+{
+    Connection  serviceConnection{getCommandAddress(), getCommandPort()};
+    ODL_OBJENTER(); //####
+
+    ODL_OBJEXIT(); //####
+    return serviceConnection;
+} // nImO::ServiceContext::getCommandConnection
 
 Ptr(nImO::CommandHandler)
 nImO::ServiceContext::getHandler

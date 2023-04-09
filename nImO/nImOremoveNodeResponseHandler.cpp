@@ -99,10 +99,9 @@ nImO::RemoveNodeResponseHandler::~RemoveNodeResponseHandler
 
 void
 nImO::RemoveNodeResponseHandler::doIt
-    (const nImO::Array &    stuff)
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -112,6 +111,14 @@ nImO::RemoveNodeResponseHandler::doIt
         {
             _result = asLogical->getValue();
         }
+        else
+        {
+            ODL_LOG("! (nullptr != asLogical)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::RemoveNodeResponseHandler::doIt

@@ -52,6 +52,10 @@
 		F618D86129E2FBEB00F171F4 /* nImOgetNamesOfNodesCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNamesOfNodesCommandHandler.cpp; path = Registry/nImOgetNamesOfNodesCommandHandler.cpp; sourceTree = "<group>"; };
 		F618D86229E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNamesOfNodesResponseHandler.cpp; path = nImO/nImOgetNamesOfNodesResponseHandler.cpp; sourceTree = "<group>"; };
 		F618D86329E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNamesOfNodesResponseHandler.h; path = nImO/nImOgetNamesOfNodesResponseHandler.h; sourceTree = "<group>"; };
+		F618D86429E3183400F171F4 /* nImOgetNodeInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNodeInformationCommandHandler.h; path = Registry/nImOgetNodeInformationCommandHandler.h; sourceTree = "<group>"; };
+		F618D86529E3183400F171F4 /* nImOgetNodeInformationCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNodeInformationCommandHandler.cpp; path = Registry/nImOgetNodeInformationCommandHandler.cpp; sourceTree = "<group>"; };
+		F618D86629E3256300F171F4 /* nImOgetNodeInformationResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNodeInformationResponseHandler.h; path = nImO/nImOgetNodeInformationResponseHandler.h; sourceTree = "<group>"; };
+		F618D86729E3256300F171F4 /* nImOgetNodeInformationResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNodeInformationResponseHandler.cpp; path = nImO/nImOgetNodeInformationResponseHandler.cpp; sourceTree = "<group>"; };
 		F61A18B2293FB39A0032B156 /* nImOMIMEAndMessagesTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOMIMEAndMessagesTest.rc.in; path = Tests/nImOMIMEAndMessagesTest.rc.in; sourceTree = "<group>"; };
 		F61A18B3293FB39A0032B156 /* nImOMIMEAndMessagesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOMIMEAndMessagesTest.cpp; path = Tests/nImOMIMEAndMessagesTest.cpp; sourceTree = "<group>"; };
 		F61B8C001E6CB58E00606F25 /* nImOinvalid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinvalid.cpp; path = nImO/nImOinvalid.cpp; sourceTree = SOURCE_ROOT; };
@@ -356,6 +360,8 @@
 				F67E989329DC7BC400893EDC /* nImOaddNodeCommandHandler.h */,
 				F618D86129E2FBEB00F171F4 /* nImOgetNamesOfNodesCommandHandler.cpp */,
 				F618D86029E2FBEB00F171F4 /* nImOgetNamesOfNodesCommandHandler.h */,
+				F618D86529E3183400F171F4 /* nImOgetNodeInformationCommandHandler.cpp */,
+				F618D86429E3183400F171F4 /* nImOgetNodeInformationCommandHandler.h */,
 				F6263BF329DCBA940034A9F9 /* nImOgetNumberOfNodesCommandHandler.cpp */,
 				F6263BF229DCBA940034A9F9 /* nImOgetNumberOfNodesCommandHandler.h */,
 				F6E67E2B29DB746100FD7012 /* nImOisNodePresentCommandHandler.cpp */,
@@ -406,6 +412,8 @@
 				F634701C29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.h */,
 				F618D86229E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.cpp */,
 				F618D86329E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.h */,
+				F618D86729E3256300F171F4 /* nImOgetNodeInformationResponseHandler.cpp */,
+				F618D86629E3256300F171F4 /* nImOgetNodeInformationResponseHandler.h */,
 				F6263BF529DCBEA70034A9F9 /* nImOgetNumberOfNodesResponseHandler.cpp */,
 				F6263BF429DCBEA70034A9F9 /* nImOgetNumberOfNodesResponseHandler.h */,
 				F634702029DCA192008FCEA2 /* nImOisNodePresentResponseHandler.cpp */,

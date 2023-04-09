@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-04
+//  Created:    2023-04-09
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -99,10 +99,9 @@ nImO::NamesOfNodesResponseHandler::~NamesOfNodesResponseHandler
 
 void
 nImO::NamesOfNodesResponseHandler::doIt
-    (const nImO::Array &    stuff)
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_I1("stuff.size() = ", stuff.size()); //!!!
     if (1 < stuff.size())
     {
         SpValue     element{stuff[1]};
@@ -117,7 +116,19 @@ nImO::NamesOfNodesResponseHandler::doIt
                     _result.insert((*walker)->asString()->getValue());
                 }
             }
+            else
+            {
+                ODL_LOG("! (Enumerable::String == asSet->getKeyKind())"); //####
+            }
         }
+        else
+        {
+            ODL_LOG("! (nullptr != asSet)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::NamesOfNodesResponseHandler::doIt

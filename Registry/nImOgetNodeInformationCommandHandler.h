@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNamesOfNodesResponseHandler.h
+//  File:       nImO/nImOgetNodeInformationCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
+//  Contains:   The class declaration for the nImO 'node information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,11 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNamesOfNodesResponseHandler_H_))
-# define nImOgetNamesOfNodesResponseHandler_H_ /* Header guard */
+#if (! defined(nImOgetNodeInformationCommandHandler_H_))
+# define nImOgetNodeInformationCommandHandler_H_ /* Header guard */
 
-# include <nImOresponseHandler.h>
-# include <nImOset.h>
+# include <nImOcommandHandler.h>
+
+# include "nImOregistry.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a functor used with the %nImO request/response mechanism. */
+ @brief The class declaration for the %nImO 'node information' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class NamesOfNodesResponseHandler final : public ResponseHandler
+    /*! @brief A class to provide a handler for the 'node present' command. */
+    class NodeInformationCommandHandler final : public CommandHandler
     {
 
         public :
@@ -69,37 +70,33 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = nImO::ResponseHandler;
+            using inherited = CommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
-            NamesOfNodesResponseHandler
-                (void);
+             @param[in] owner The owning Context.
+             @param[in] theRegistry The Registry to use when processing a request. */
+            NodeInformationCommandHandler
+                (SpContextWithNetworking    owner,
+                 SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~NamesOfNodesResponseHandler
+            ~NodeInformationCommandHandler
                 (void);
 
-            /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response. */
-            virtual void
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            virtual bool
             doIt
-                (const nImO::Array &    stuff)
-                override;
-
-            /*! @brief Return the received value.
-             @return The received value. */
-            StringSet
-            result
-                (void)
+                (asio::ip::tcp::socket &    socket,
+                 const Array &              arguments)
                 const
-            {
-                return _result;
-            }
+                override;
 
         protected :
             // Protected methods.
@@ -116,11 +113,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The received value. */
-            StringSet   _result;
+            /*! @brief The Registry to use when processing a request. */
+            SpRegistry  _registry;
 
-    }; // NamesOfNodesResponseHandler
+    }; // NodeInformationCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNamesOfNodesResponseHandler_H_)
+#endif // not defined(nImOgetNodeInformationCommandHandler_H_)

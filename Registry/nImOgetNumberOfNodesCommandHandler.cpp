@@ -114,7 +114,6 @@ nImO::NumberOfNodesCommandHandler::doIt
     NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    ODL_B1("okSoFar <- ", okSoFar); //!!
     _owner->report("number of nodes request received");
     if (0 < arguments.size())
     {
@@ -125,12 +124,15 @@ nImO::NumberOfNodesCommandHandler::doIt
             SpInteger   count{new Integer{statusWithInt.second}};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfNodesResponse, count);
-            ODL_B1("okSoFar <- ", okSoFar); //!!!
         }
         else
         {
             ODL_LOG("! (statusWithInt.first.first)"); //####
         }
+    }
+    else
+    {
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

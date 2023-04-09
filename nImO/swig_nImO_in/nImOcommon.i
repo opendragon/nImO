@@ -32,6 +32,7 @@
 #include "nImOfilterContext.h"
 #include "nImOflaw.h"
 #include "nImOgetNamesOfNodesResponseHandler.h"
+#include "nImOgetNodeInformationResponseHandler.h"
 #include "nImOgetNumberOfNodesResponseHandler.h"
 #include "nImOinteger.h"
 #include "nImOintegerArgumentDescriptor.h"

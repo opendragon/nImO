@@ -89,34 +89,36 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    std::string                     defaultName{"<short computer name>"};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Node name"), nImO::ArgumentMode::Optional, defaultName};
-    nImO::DescriptorVector          argumentList;
-    nImO::ServiceOptions            optionValues;
-    int                             exitCode = 0;
+    std::string             progName{*argv};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
+    int                     exitCode = 0;
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launcher", "nImOlauncher", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipFlavoursOption))
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
+                                    nImO::kSkipArgsOption | nImO::kSkipChannelOption | nImO::kSkipEndpointOption | nImO::kSkipFlavoursOption |
+                                    nImO::kSkipGoOption | nImO::kSkipInfoOption | nImO::kSkipPortOption | nImO::kSkipReportOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{firstArg.getCurrentValue()};
+            std::string                     nodeName;
             nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "launcher", optionValues._logging, true}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
-            if (defaultName == nodeName)
+            if (0 < optionValues._node.length())
             {
-                nodeName = nImO::GetShortComputerName();
+                nodeName = optionValues._node;
+            }
+            else
+            {
+                nodeName = nImO::GetShortComputerName() + "-launcher";
             }
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))

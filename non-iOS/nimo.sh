@@ -17,7 +17,7 @@ function list_commands() {
     echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
-    echo "    shutdown   shutdown all applicationts except active monitors"
+    echo "    shutdown   shutdown one or all applications except active monitors"
     echo "    storea     store a set of applications"
     echo "    stores     store a setup"
     echo "    update     update an application"

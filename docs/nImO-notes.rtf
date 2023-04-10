@@ -82,7 +82,6 @@ Context <- ContextWithNetworking, MiscellaneousContext, TestContext\
 The Registry should behave like the m+m registry combined with the Yarp search mechanism.\
 When a ContextWithMDNS is constructed, it will locate the Registry via mDNS, unless 'told not to'.\
 //Locating an application will require determining the path to the running executable or some form of configuration file\'85 https://stackoverflow.com/questions/1528298/get-path-of-executable\
-MIME-encode all fields in the Registry database to avoid problems with SQL injection or special characters?\
 \
 A RegistryProxy is used to formulate requests and handle responses from a Registry service; a Registry service owns a Registry and responds to the requests.\
 This will allow unit testing of a Registry, since it will not require a command port.\

@@ -111,18 +111,65 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
+            std::string                     nodeName;
             nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "FanOut", optionValues._logging}};
             nImO::Connection                registryConnection;
+            Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
+            if (0 < optionValues._node.length())
+            {
+                nodeName = optionValues._node;
+            }
+            else
+            {
+                nodeName = nImO::GetShortComputerName() + "-commutator";
+            }
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (ourContext->asServiceContext()->findRegistry(registryConnection))
+            if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
+                nImO::RegBoolOrFailure  statusWithBool = proxy.isNodePresent(nodeName);
 
-                for ( ; nImO::gKeepRunning; )
+                if (statusWithBool.first.first)
                 {
-                    this_thread::yield();
-//TBD
+                    if (statusWithBool.second)
+                    {
+                        ourContext->report(nodeName + " already running.");
+                        std::cerr << nodeName << " already running." << std::endl;
+                        exitCode = 1;
+                    }
+                    else
+                    {
+                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName, nImO::ServiceType::FilterService,
+                                                                           asServiceContext->getCommandConnection());
+
+                        if (status.first)
+                        {
+                            ourContext->report("waiting for requests.");
+                            for ( ; nImO::gKeepRunning; )
+                            {
+                                this_thread::yield();
+        //TBD
+                            }
+                            nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                            status = proxy.removeNode(nodeName);
+                            if (! status.first)
+                            {
+                                std::cerr << "Problem with 'removeNode': " << status.second << std::endl;
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'addNode': " << status.second << std::endl;
+                            exitCode = 1;
+                        }
+                    }
+                }
+                else
+                {
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << std::endl;
+                    exitCode = 1;
                 }
             }
             else

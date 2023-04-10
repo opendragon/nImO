@@ -130,8 +130,8 @@ main
                 {
                     if (statusWithBool.second)
                     {
-                        ourContext->report("Launcher already running.");
-                        std::cerr << "Launcher already running." << std::endl;
+                        ourContext->report(nodeName + " already running.");
+                        std::cerr << nodeName << " already running." << std::endl;
                         exitCode = 1;
                     }
                     else
@@ -147,7 +147,7 @@ main
                                 this_thread::yield();
         //TBD
                             }
-                            nImO::gKeepRunning = true; // So that the call to 'removeNode' wont' fail...
+                            nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                             status = proxy.removeNode(nodeName);
                             if (! status.first)
                             {

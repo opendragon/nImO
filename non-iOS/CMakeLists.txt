@@ -65,6 +65,10 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+
 # Make some flags to control the build flags visibilities
 mark_as_advanced(CLEAR BUILD_SHARED_LIBS)
 mark_as_advanced(SET CMAKE_INSTALL_RPATH)
@@ -81,14 +85,6 @@ else()
     set(LINUX OFF)
     set(UNKNOWN_CPU OFF)
 endif()
-
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(APPLE)
     set(E_PATH "@executable_path")

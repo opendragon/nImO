@@ -20,6 +20,8 @@
 		F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOannounceServiceData.h; path = nImO/nImOannounceServiceData.h; sourceTree = "<group>"; };
 		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F60C376E29E74A4A0059FEF2 /* nImOinputOutputContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinputOutputContext.h; path = nImO/nImOinputOutputContext.h; sourceTree = "<group>"; };
+		F60C376F29E74A4A0059FEF2 /* nImOinputOutputContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinputOutputContext.cpp; path = nImO/nImOinputOutputContext.cpp; sourceTree = "<group>"; };
 		F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOregistryProxy.h; path = nImO/nImOregistryProxy.h; sourceTree = "<group>"; };
 		F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryProxy.cpp; path = nImO/nImOregistryProxy.cpp; sourceTree = "<group>"; };
 		F60F864A1CA4B24C004D35AB /* nImOaddressArgumentDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddressArgumentDescriptor.cpp; path = nImO/nImOaddressArgumentDescriptor.cpp; sourceTree = "<group>"; };
@@ -472,6 +474,8 @@
 				F6B18565294A880D0091BEE3 /* nImOcontextWithNetworking.h */,
 				F6737D6828857E43000DD5FC /* nImOfilterContext.cpp */,
 				F6737D6928857E43000DD5FC /* nImOfilterContext.h */,
+				F60C376F29E74A4A0059FEF2 /* nImOinputOutputContext.cpp */,
+				F60C376E29E74A4A0059FEF2 /* nImOinputOutputContext.h */,
 				F6737D6528857E42000DD5FC /* nImOmiscellaneousContext.cpp */,
 				F6737D6328857E42000DD5FC /* nImOmiscellaneousContext.h */,
 				F6737D5D28857E25000DD5FC /* nImOserviceContext.cpp */,

@@ -35,6 +35,7 @@
 #include "nImOgetNamesOfNodesResponseHandler.h"
 #include "nImOgetNodeInformationResponseHandler.h"
 #include "nImOgetNumberOfNodesResponseHandler.h"
+#include "nImOinputOutputContext.h"
 #include "nImOinteger.h"
 #include "nImOintegerArgumentDescriptor.h"
 #include "nImOinvalid.h"

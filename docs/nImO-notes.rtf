@@ -74,7 +74,8 @@ context-free: nImOversion\
 nImOaddApp should get the 'launch parameters' for an application and post them to the registry, while nImOremoveApp should clear them from the registry,\
 nImOlauncher reports its node name and its command port and IP address to the registry when starting and deletes the node name from the registry on exit.\
 \
-ServiceContext <- FilterContext, SinkContext, SourceContext\
+InputOutputContext <- FilterContext, SinkContext, SourceContext\
+ServiceContext <- InputOutputContext, RegistryContext\
 ContextWithMDNS <- ServiceContext, UtilityContext\
 ContextWithNetworking <- ContextWithMDNS\
 Context <- ContextWithNetworking, MiscellaneousContext, TestContext\

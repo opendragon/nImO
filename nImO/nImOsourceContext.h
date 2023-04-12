@@ -39,7 +39,7 @@
 #if (! defined(nImOsourceContext_H_))
 # define nImOsourceContext_H_ /* Header guard */
 
-# include <nImOserviceContext.h>
+# include <nImOinputOutputContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide support for a 'source' application. */
-    class SourceContext final : public ServiceContext
+    class SourceContext final : public InputOutputContext
     {
 
         public :
@@ -68,7 +68,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ServiceContext;
+            using inherited = InputOutputContext;
 
         public :
             // Public methods.

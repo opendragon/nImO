@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOsinkContext.h
+//  File:       nImO/nImOinputOutputContext.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'sink' execution context.
+//  Contains:   The class declaration for the nImO 'inputOutput' execution context.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2023-04-12
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOsinkContext_H_))
-# define nImOsinkContext_H_ /* Header guard */
+#if (! defined(nImOinputOutputContext_H_))
+# define nImOinputOutputContext_H_ /* Header guard */
 
-# include <nImOinputOutputContext.h>
+# include <nImOserviceContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'sink' %nImO execution context. */
+ @brief The class declaration for the 'inputOutput' %nImO execution context. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for a 'sink' application. */
-    class SinkContext final : public InputOutputContext
+    /*! @brief A class to provide support for an 'inputOutput' application. */
+    class InputOutputContext : public ServiceContext
     {
 
         public :
@@ -68,10 +68,18 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = InputOutputContext;
+            using inherited = ServiceContext;
 
         public :
             // Public methods.
+
+            /*! @brief The destructor. */
+            virtual
+            ~InputOutputContext
+                (void);
+
+        protected :
+            // Protected methods.
 
             /*! @brief The constructor.
              @param[in] argc The number of arguments in 'argv'.
@@ -80,21 +88,13 @@ namespace nImO
              @param[in] tag The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
-            SinkContext
+            InputOutputContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
                  const std::string &    executableName,
                  const std::string &    tag = "",
                  const bool             logging = false,
                  const std::string &    nodeName = "");
-
-            /*! @brief The destructor. */
-            virtual
-            ~SinkContext
-                (void);
-
-        protected :
-            // Protected methods.
 
         private :
             // Private methods.
@@ -108,8 +108,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // SinkContext
+    }; // InputOutputContext
 
 } // nImO
 
-#endif // not defined(nImOsinkContext_H_)
+#endif // not defined(nImOinputOutputContext_H_)

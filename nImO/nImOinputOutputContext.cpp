@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOfilterContext.cpp
+//  File:       nImO/nImOinputOutputContext.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'filter' execution context.
+//  Contains:   The class definition for the nImO 'inputOutput' execution context.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2022 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2022-07-05
+//  Created:    2023-04-12
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilterContext.h>
+#include <nImOinputOutputContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the 'filter' %nImO execution context. */
+ @brief The class definition for the 'inputOutput' %nImO execution context. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,14 +76,14 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::FilterContext::FilterContext
+nImO::InputOutputContext::InputOutputContext
     (const int              argc,
      Ptr(Ptr(char))         argv,
      const std::string &    executableName,
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(argc, argv, executableName, tag, logging, nodeName)
+        inherited(argc, argv, executableName, tag, logging, true, nodeName)
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
@@ -98,14 +98,14 @@ nImO::FilterContext::FilterContext
         throw;
     }
     ODL_EXIT_P(this); //####
-} // nImO::FilterContext::FilterContext
+} // nImO::InputOutputContext::InputOutputContext
 
-nImO::FilterContext::~FilterContext
+nImO::InputOutputContext::~InputOutputContext
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::FilterContext::~FilterContext
+} // nImO::InputOutputContext::~InputOutputContext
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

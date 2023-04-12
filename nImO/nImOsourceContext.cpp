@@ -83,7 +83,7 @@ nImO::SourceContext::SourceContext
      const std::string &    tag,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(argc, argv, executableName, tag, logging, true, nodeName)
+        inherited(argc, argv, executableName, tag, logging, nodeName)
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####

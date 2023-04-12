@@ -293,13 +293,13 @@ nImO::ServiceContext::handleAccept
         if (asio::error::operation_aborted == error)
         {
 #if defined(nImO_ChattyTcpLogging)
-            report("accept operation cancelled");
+            report("async_accept() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
             ODL_LOG("(asio::error::operation_aborted == ec)"); //####
         }
         else
         {
-            report("async_accept failed");
+            report("async_accept() failed");
         }
         releaseSession = true;
     }

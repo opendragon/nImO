@@ -128,24 +128,28 @@ namespace nImO
             /*! @brief Send a complex reponse for the command.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
+             @param[in] responseText The description of the response.
              @param[in] contents The data for the response..
              @return @c true if a response was sent. */
             bool
             sendComplexResponse
                 (asio::ip::tcp::socket &    socket,
                  const std::string          responseKey,
+                 const std::string          responseText,
                  SpValue                    contents)
                 const;
 
             /*! @brief Send a simple reponse for the command.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
+             @param[in] responseText The description of the response.
              @param[in] wasOK @c true if the command succeeded and @c false otherwise.
              @return @c true if a response was sent. */
             bool
             sendSimpleResponse
                 (asio::ip::tcp::socket &    socket,
                  const std::string          responseKey,
+                 const std::string          responseText,
                  const bool                 wasOK = false)
                 const;
 
@@ -167,6 +171,7 @@ namespace nImO
              @param[in] context The context for the responder.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
+             @param[in] responseText The description of the response.
              @param[in] contents The data for the response..
              @return @c true if a response was sent. */
             static bool
@@ -174,12 +179,14 @@ namespace nImO
                 (SpContextWithNetworking    context,
                  asio::ip::tcp::socket &    socket,
                  const std::string          responseKey,
+                 const std::string          responseText,
                  SpValue                    contents);
 
             /*! @brief Send a simple reponse for the command.
              @param[in] context The context for the responder.
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
+             @param[in] responseText The description of the response.
              @param[in] wasOK @c true if the command succeeded and @c false otherwise.
              @return @c true if a response was sent. */
             static bool
@@ -187,6 +194,7 @@ namespace nImO
                 (SpContextWithNetworking    context,
                  asio::ip::tcp::socket &    socket,
                  const std::string          responseKey,
+                 const std::string          responseText,
                  const bool                 wasOK);
 
         public :

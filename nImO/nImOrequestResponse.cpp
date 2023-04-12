@@ -177,7 +177,7 @@ handleResponse
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-void
+nImO::RegSuccessOrFailure
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpContextWithNetworking    context,
      Connection &               connection,
@@ -186,8 +186,9 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
      const std::string          requestKey,
      const std::string          responseKey)
 {
-    Message requestToSend;
-    SpArray requestArray{new Array};
+    Message             requestToSend;
+    SpArray             requestArray{new Array};
+    RegSuccessOrFailure status{true, ""};
 
     ODL_ENTER(); //####
     ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
@@ -218,7 +219,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
             asio::ip::tcp::endpoint endpoint{asio::ip::make_address_v4(connection._address), connection._port};
 
             socket.async_connect(endpoint,
-                                 [context, handler, &socket, &outString, &keepGoing, &responseKey]
+                                 [context, handler, &socket, &outString, &keepGoing, &responseKey, &status]
                                  (const system::error_code &    ec1)
                                  {
                                     if (ec1)
@@ -226,13 +227,14 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         if (asio::error::operation_aborted == ec1)
                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                            context->report("connect operation cancelled");
+                                            context->report("async_connect() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                             ODL_LOG("(asio::error::operation_aborted == ec)"); //####
                                         }
                                         else
                                         {
-                                            context->report("async_connect failed");
+                                            context->report("async_connect() failed");
+                                            status = std::make_pair(false, "async_connect() failed");
                                         }
                                         keepGoing = false;
                                         ODL_B1("keepGoing <- ", keepGoing); //####
@@ -243,7 +245,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         context->report("connection request accepted");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                                                          [&socket, context, handler, &keepGoing, &responseKey]
+                                                          [&socket, context, handler, &keepGoing, &responseKey, &status]
                                                           (const system::error_code &   ec2,
                                                            const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                                                           {
@@ -252,13 +254,14 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                 if (asio::error::operation_aborted == ec2)
                                                                 {
 #if defined(nImO_ChattyTcpLogging)
-                                                                    context->report("write operation cancelled");
+                                                                    context->report("async_write() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                     ODL_LOG("(asio::error::operation_aborted == ec)"); //####
                                                                 }
                                                                 else
                                                                 {
-                                                                    context->report("async_write failed");
+                                                                    context->report("async_write() failed");
+                                                                    status = std::make_pair(false, "async_write() failed");
                                                                 }
                                                                 keepGoing = false;
                                                                 ODL_B1("keepGoing <- ", keepGoing); //####
@@ -271,7 +274,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                 std::shared_ptr<asio::streambuf>    rB{new asio::streambuf};
 
                                                                 asio::async_read_until(socket, *rB, MatchMessageSeparator,
-                                                                                        [context, rB, handler, &keepGoing, &responseKey]
+                                                                                        [context, rB, handler, &keepGoing, &responseKey, &status]
                                                                                         (const system::error_code & ec,
                                                                                          const std::size_t          NIMO_UNUSED_PARAM_(size))
                                                                                         {
@@ -280,14 +283,18 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                 if (asio::error::operation_aborted == ec)
                                                                                                 {
 #if defined(nImO_ChattyTcpLogging)
-                                                                                                    context->report("read_until operation cancelled");
+                                                                                                    context->report("read_until() operation "
+                                                                                                                    "cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                                                     ODL_LOG("(asio::error::operation_aborted " //####
                                                                                                             "== ec)"); //####
                                                                                                 }
                                                                                                 else
                                                                                                 {
-                                                                                                    context->report("async_read_until failed");
+                                                                                                    context->report("async_read_until() failed");
+                                                                                                    status = std::make_pair(false,
+                                                                                                                            "async_read_until() "
+                                                                                                                            "failed");
                                                                                                 }
                                                                                             }
                                                                                             else
@@ -315,11 +322,14 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         else
         {
             ODL_LOG("! (0 < asString.length())"); //####
+            status = std::make_pair(false, "0 >= asString.length()");
         }
     }
     else
     {
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
+        status = std::make_pair(false, "0 >= requestToSend.getLength()");
     }
     ODL_EXIT(); //####
+    return status;
 } // nImO::SendRequestWithArgumentsAndNonEmptyResponse

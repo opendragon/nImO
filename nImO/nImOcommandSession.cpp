@@ -215,13 +215,13 @@ nImO::CommandSession::start
                                     if (asio::error::operation_aborted == ec)
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        _owner->report("read_until operation cancelled");
+                                        _owner->report("async_read_until() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         ODL_LOG("(asio::error::operation_aborted == ec)"); //####
                                     }
                                     else
                                     {
-                                        _owner->report("async_read_until failed");
+                                        _owner->report("async_read_until() failed");
                                     }
                                 }
                                 else

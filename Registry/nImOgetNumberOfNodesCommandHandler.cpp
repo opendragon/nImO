@@ -123,7 +123,7 @@ nImO::NumberOfNodesCommandHandler::doIt
         {
             SpInteger   count{new Integer{statusWithInt.second}};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfNodesResponse, count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfNodesResponse, "number of nodes", count);
         }
         else
         {

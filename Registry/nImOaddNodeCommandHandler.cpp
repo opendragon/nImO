@@ -159,7 +159,7 @@ nImO::AddNodeCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddNodeResponse, true);
+                okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node", true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);

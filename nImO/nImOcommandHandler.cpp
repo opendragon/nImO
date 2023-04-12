@@ -117,14 +117,15 @@ bool
 nImO::CommandHandler::sendComplexResponse
     (asio::ip::tcp::socket &    socket,
      const std::string          responseKey,
+     const std::string          responseText,
      SpValue                    contents)
     const
 {
-    bool    okSoFar = sendComplexResponseWithContext(_owner, socket, responseKey, contents);
+    bool    okSoFar = sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents);
 
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -135,6 +136,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     (SpContextWithNetworking    context,
      asio::ip::tcp::socket &    socket,
      const std::string          responseKey,
+     const std::string          responseText,
      SpValue                    contents)
 {
     bool    okSoFar = false;
@@ -143,7 +145,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
 
     ODL_OBJENTER(); //####
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
@@ -168,7 +170,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             context->report("sending response");
 #endif /* defined(nImO_ChattyTcpLogging) */
             asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                              [context, &keepGoing, &okSoFar]
+                              [context, &keepGoing, &okSoFar, responseText]
                               (const system::error_code &   ec,
                                const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                               {
@@ -177,22 +179,20 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                     if (asio::error::operation_aborted == ec)
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        context->report("write operation cancelled");
+                                        context->report("async_write() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         ODL_LOG("(asio::error::operation_aborted == ec)"); //####
                                     }
                                     else
                                     {
-                                        context->report("async_write failed");
+                                        context->report("async_write() failed");
                                     }
                                     keepGoing = false;
                                     ODL_B1("keepGoing <- ", keepGoing); //####
                                 }
                                 else
                                 {
-#if defined(nImO_ChattyTcpLogging)
-                                    context->report("response sent");
-#endif /* defined(nImO_ChattyTcpLogging) */
+                                    context->report(responseText + " response sent");
                                     okSoFar = true;
                                     keepGoing = false;
                                 }
@@ -219,14 +219,15 @@ bool
 nImO::CommandHandler::sendSimpleResponse
     (asio::ip::tcp::socket &    socket,
      const std::string          responseKey,
+     const std::string          responseText,
      const bool                 wasOK)
     const
 {
-    bool    okSoFar = sendSimpleResponseWithContext(_owner, socket, responseKey, wasOK);
+    bool    okSoFar = sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK);
 
     ODL_OBJENTER(); //####
     ODL_P1("socket = ", &socket); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -237,6 +238,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     (SpContextWithNetworking    context,
      asio::ip::tcp::socket &    socket,
      const std::string          responseKey,
+     const std::string          responseText,
      const bool                 wasOK)
 {
     bool    okSoFar = false;
@@ -245,7 +247,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 
     ODL_OBJENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
-    ODL_S1s("responseKey = ", responseKey); //####
+    ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
@@ -270,7 +272,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             context->report("sending response");
 #endif /* defined(nImO_ChattyTcpLogging) */
             asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
-                              [context, &keepGoing, &okSoFar]
+                              [context, &keepGoing, &okSoFar, responseText]
                               (const system::error_code &   ec,
                                const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
                               {
@@ -279,22 +281,20 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                     if (asio::error::operation_aborted == ec)
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        context->report("write operation cancelled");
+                                        context->report("async_write() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         ODL_LOG("(asio::error::operation_aborted == ec)"); //####
                                     }
                                     else
                                     {
-                                        context->report("async_write failed");
+                                        context->report("async_write() failed");
                                     }
                                     keepGoing = false;
                                     ODL_B1("keepGoing <- ", keepGoing); //####
                                 }
                                 else
                                 {
-#if defined(nImO_ChattyTcpLogging)
-                                    context->report("response sent");
-#endif /* defined(nImO_ChattyTcpLogging) */
+                                    context->report(responseText + " response sent");
                                     okSoFar = true;
                                     keepGoing = false;
                                     ODL_B1("keepGoing <- ", keepGoing); //####
@@ -375,6 +375,6 @@ nImO::CommandHandler::SendBadResponse
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
-    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, false);
+    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown", false);
     ODL_EXIT(); //####
 } // nImO::CommandHandler::SendBadResponse

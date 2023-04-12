@@ -125,7 +125,7 @@ nImO::NodePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "node present", statusWithBool.second);
             }
             else
             {

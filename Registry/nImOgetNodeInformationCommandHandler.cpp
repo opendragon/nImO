@@ -136,7 +136,7 @@ nImO::NodeInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
-                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "node information", infoArray);
             }
             else
             {

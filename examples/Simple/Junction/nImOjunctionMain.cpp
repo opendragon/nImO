@@ -139,28 +139,44 @@ main
                     }
                     else
                     {
-                        nImO::RegSuccessOrFailure   status = proxy.addNode(nodeName, nImO::ServiceType::FilterService,
-                                                                           asServiceContext->getCommandConnection());
-
-                        if (status.first)
+                        statusWithBool = proxy.addNode(nodeName, nImO::ServiceType::FilterService, asServiceContext->getCommandConnection());
+                        if (statusWithBool.first.first)
                         {
-                            ourContext->report("waiting for requests.");
-                            for ( ; nImO::gKeepRunning; )
+                            if (statusWithBool.second)
                             {
-                                this_thread::yield();
-        //TBD
+                                ourContext->report("waiting for requests.");
+                                for ( ; nImO::gKeepRunning; )
+                                {
+                                    this_thread::yield();
+            //TBD
+                                }
+                                nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                statusWithBool = proxy.removeNode(nodeName);
+                                if (statusWithBool.first.first)
+                                {
+                                    if (! statusWithBool.second)
+                                    {
+                                        ourContext->report(nodeName + " already unregistered.");
+                                        std::cerr << nodeName << " already unregistered." << std::endl;
+                                        exitCode = 1;
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << std::endl;
+                                    exitCode = 1;
+                                }
                             }
-                            nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                            status = proxy.removeNode(nodeName);
-                            if (! status.first)
+                            else
                             {
-                                std::cerr << "Problem with 'removeNode': " << status.second << std::endl;
+                                ourContext->report(nodeName + " already registered.");
+                                std::cerr << nodeName << " already registered." << std::endl;
                                 exitCode = 1;
                             }
                         }
                         else
                         {
-                            std::cerr << "Problem with 'addNode': " << status.second << std::endl;
+                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << std::endl;
                             exitCode = 1;
                         }
                     }

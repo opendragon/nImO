@@ -94,6 +94,12 @@
 		F634702229DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveNodeResponseHandler.h; path = nImO/nImOremoveNodeResponseHandler.h; sourceTree = "<group>"; };
 		F6351BE929462B1E00A93CA2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Tests/resource.h; sourceTree = "<group>"; };
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
+		F635925F29E9559D009B0147 /* nImOoutPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOoutPort.h; path = nImO/nImOoutPort.h; sourceTree = "<group>"; };
+		F635926029E9559D009B0147 /* nImOinOutPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinOutPort.h; path = nImO/nImOinOutPort.h; sourceTree = "<group>"; };
+		F635926129E9559D009B0147 /* nImOinPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinPort.h; path = nImO/nImOinPort.h; sourceTree = "<group>"; };
+		F635926229E9559D009B0147 /* nImOinOutPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinOutPort.cpp; path = nImO/nImOinOutPort.cpp; sourceTree = "<group>"; };
+		F635926329E9559D009B0147 /* nImOinPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinPort.cpp; path = nImO/nImOinPort.cpp; sourceTree = "<group>"; };
+		F635926429E9559D009B0147 /* nImOoutPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOoutPort.cpp; path = nImO/nImOoutPort.cpp; sourceTree = "<group>"; };
 		F645437C240302A7007F03E0 /* nImOcomparisonStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcomparisonStatus.h; path = nImO/nImOcomparisonStatus.h; sourceTree = "<group>"; };
 		F645437D2403030B007F03E0 /* nImOcomparisonStatus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcomparisonStatus.cpp; path = nImO/nImOcomparisonStatus.cpp; sourceTree = "<group>"; };
 		F6491B0B29BE236200DE5D58 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -1198,12 +1204,18 @@
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.h.in */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.h */,
+				F635926229E9559D009B0147 /* nImOinOutPort.cpp */,
+				F635926029E9559D009B0147 /* nImOinOutPort.h */,
+				F635926329E9559D009B0147 /* nImOinPort.cpp */,
+				F635926129E9559D009B0147 /* nImOinPort.h */,
 				F6943A582886C275002117FA /* nImOlogger.cpp */,
 				F6943A572886C275002117FA /* nImOlogger.h */,
 				F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */,
 				F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */,
 				F699CCA12945026100B471C6 /* nImOMIMESupport.cpp */,
 				F699CCA22945026100B471C6 /* nImOMIMESupport.h */,
+				F635926429E9559D009B0147 /* nImOoutPort.cpp */,
+				F635925F29E9559D009B0147 /* nImOoutPort.h */,
 				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,

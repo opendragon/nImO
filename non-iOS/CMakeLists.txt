@@ -108,6 +108,10 @@ elseif(LINUX)
 elseif(UNIX)
     set(CMAKE_CXX_FLAGS "-Wall -Wextra" CACHE STRING "Fixes linking error for nImO" FORCE)
     set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
+    set(CMAKE_INSTALL_RPATH
+"${E_PATH}/../lib;${E_PATH}/../nImO;${E_PATH}/../odl;${E_PATH}/../if;${E_PATH}/../../nImO;${E_PATH}/../../odl;${E_PATH}/../../if;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/../odl/lib;${CMAKE_INSTALL_PREFIX}/../if/lib"
+        CACHE STRING "Fixes rpath" FORCE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON CACHE BOOL "Make sure to use rpath")
 else()
     if(NOT ("${CMAKE_EXE_LINKER_FLAGS}" MATCHES ".*NODEFAULTLIB:libcmt.*"))
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt" CACHE STRING
@@ -264,6 +268,9 @@ if(APPLE)
         add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                             ${IF_LIBRARY_ROOT} "@rpath/${IF_LIBRARY_ROOT}" ${target})
 
+    endfunction()
+elseif(UNIX)
+    function(fix_dynamic_libs target)
     endfunction()
 else()
 # Do nothing

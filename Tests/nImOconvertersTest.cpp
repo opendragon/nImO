@@ -267,7 +267,7 @@ doTestDoubleSize
     //ODL_P1("argv = ", argv); //####
     try
     {
-        double  value = ((rand() % 10000) * 0.1);
+        double  value = ((nImO::RandomUnsigned() % 10000) * 0.1);
         size_t  expectedLength = sizeof(double);
         int64_t calcLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
 
@@ -389,7 +389,7 @@ doTestDoubleConversion
     {
         for (int ii = 0; ii < kNumDoubleTests; ++ii)
         {
-            double  value = ((rand() % 10000) * 0.1);
+            double  value = ((nImO::RandomUnsigned() % 10000) * 0.1);
             size_t  expectedLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
             uint8_t buffer[kBufferSize];
             size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);

@@ -295,7 +295,7 @@ doTestMIMEBytesMod3Is0
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
@@ -364,7 +364,7 @@ doTestMIMEBytesMod3Is1
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
@@ -433,7 +433,7 @@ doTestMIMEBytesMod3Is2
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
@@ -502,7 +502,7 @@ doTestMIMEBytesMod3Is0Packaged
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
@@ -574,7 +574,7 @@ doTestMIMEBytesMod3Is1Packaged
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
@@ -646,7 +646,7 @@ doTestMIMEBytesMod3Is2Packaged
             inValue.reserve(mm);
             for (int jj = 0; jj < mm; ++jj)
             {
-                inValue.push_back(rand() % 0x00FF);
+                inValue.push_back(nImO::RandomUnsigned() % 0x00FF);
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());

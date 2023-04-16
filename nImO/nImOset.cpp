@@ -745,7 +745,7 @@ nImO::Set::random
     ODL_OBJENTER(); //####
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
         {
             ++result;
         }
@@ -764,7 +764,7 @@ nImO::Set::random
     ODL_OBJENTER(); //####
     if (0 < howMany)
     {
-        for (size_t ii = 0, keyNumber = (rand() % howMany); ii < keyNumber; ++ii)
+        for (size_t ii = 0, keyNumber = (nImO::RandomUnsigned() % howMany); ii < keyNumber; ++ii)
         {
             ++result;
         }

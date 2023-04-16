@@ -46,6 +46,7 @@
 #include <nImOcontext.h>
 #include <nImOvalue.h>
 #include <fstream>
+#include <random>
 #include <regex>
 
 //#include <odlEnable.h>
@@ -97,11 +98,17 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief @c true once the random number generator is seeded. */
-static bool lRandomSeeded = false;
-
+///*! @brief @c true once the random number generator is seeded. */
+//static bool lRandomSeeded = false;
+//
 /*! @brief The maximum integer that we wish to use for generated random values. */
 static const int    kMaxRandom = 123456789;
+
+/*! @brief Seed for random number generator. */
+static std::random_device   lRd;
+
+/*! @brief Mersenne Twister random number engine. */
+static std::mt19937         lMt(lRd());
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -501,7 +508,6 @@ nImO::GetRandomChannelName
     {
         bool                hasLeadingSlash = false;
         CPtr(char)          stringToUse;
-        int                 randNumb = (rand() % kMaxRandom);
         std::stringstream   buff;
 
         if (channelRoot)
@@ -520,7 +526,7 @@ nImO::GetRandomChannelName
         {
             buff << "/" ;
         }
-        buff << stringToUse << std::hex << randNumb;
+        buff << stringToUse << std::hex << (nImO::RandomUnsigned() % kMaxRandom);
         result = buff.str();
     }
     catch (...)
@@ -543,22 +549,11 @@ std::string
 nImO::GetRandomHexString
     (void)
 {
-    int                 randNumb;
     std::string         result;
     std::stringstream   buff;
 
     ODL_ENTER(); //####
-    if (! lRandomSeeded)
-    {
-#if defined(__APPLE__)
-        sranddev();
-#else // not defined(__APPLE__)
-        srand(StaticCast(unsigned int, time(nullptr)));
-#endif // not defined(__APPLE__)
-        lRandomSeeded = true;
-    }
-    randNumb = (rand() % 10000);
-    buff << std::hex << randNumb;
+    buff << std::hex << (nImO::RandomUnsigned() % 10000);
     result = buff.str();
     ODL_EXIT_s(result); //####
     return result;
@@ -833,6 +828,15 @@ nImO::OutputDescription
 
     outStream << indent << piece.c_str() << std::endl;
 } // nImO::OutputDescription
+
+uint32_t
+nImO::RandomUnsigned
+    (void)
+{
+    std::uniform_int_distribution<> dist(0, RAND_MAX);
+
+    return dist(lMt);
+} // nImO::RandomUnsigned
 
 void
 nImO::ReportVersions

@@ -673,8 +673,8 @@ doTestNodeDataAddedToRegistry
         }
         else
         {
-            uint32_t                    randomAddress = StaticCast(uint32_t, rand());
-            uint16_t                    randomPort = StaticCast(uint16_t, rand());
+            uint32_t                    randomAddress = nImO::RandomUnsigned();
+            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
             nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress, randomPort));
 
@@ -1861,8 +1861,8 @@ doTestNodeInfoWithRegistryWithOneNode
         }
         else
         {
-            uint32_t                    randomAddress = StaticCast(uint32_t, rand());
-            uint16_t                    randomPort = StaticCast(uint16_t, rand());
+            uint32_t                    randomAddress = nImO::RandomUnsigned();
+            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
             nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress, randomPort));
 
@@ -1951,15 +1951,15 @@ doTestNodeInfoWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t                    randomAddress1 = StaticCast(uint32_t, rand());
-            uint16_t                    randomPort1 = StaticCast(uint16_t, rand());
+            uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
+            uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
             nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress1, randomPort1));
 
             if (status.first)
             {
-                uint32_t    randomAddress2 = StaticCast(uint32_t, rand());
-                uint16_t    randomPort2 = StaticCast(uint16_t, rand());
+                uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
+                uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
                 status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
                 if (status.first)

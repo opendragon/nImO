@@ -760,10 +760,14 @@ namespace nImO
     /*! @brief A holder for a weak pointer to a Value. */
     using WpValue = std::weak_ptr<Value>;
 
+    /*! @brief A pointer to a handler for interrupt signals. */
+    using SignalFunction = void (*)
+       (void);
+
     /*! @brief A pointer to a handler for system signals.
      @param[in] theSignal The signal of interest. */
     using SignalHandler = void (*)
-       (int theSignal);
+       (const int theSignal);
 
     /*! @brief A sequence of strings. */
     using StringVector = std::vector<std::string>;

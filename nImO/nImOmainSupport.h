@@ -61,6 +61,12 @@ namespace nImO
     CatchSignal
         (const int  signal);
 
+    /*! @brief Set the function to be invoked when an interrupt signal is received.
+     @param[in] sigFunction The function to be invoked. */
+    void
+    SetSpecialBreakFunction
+        (SignalFunction sigFunction);
+
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic<bool>    gKeepRunning;
 

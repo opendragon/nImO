@@ -67,6 +67,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+static nImO::SignalFunction  lSpecialSignalFunction = nullptr;
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -95,6 +97,10 @@ nImO::CatchSignal
         gKeepRunning = false;
         ODL_B1("gKeepRunning <- ", gKeepRunning); //####
         InterruptRegistryWait();
+        if (nullptr != lSpecialSignalFunction)
+        {
+            lSpecialSignalFunction();
+        }
     }
     else
 #endif // defined(SIGINT)
@@ -108,3 +114,12 @@ nImO::CatchSignal
         exit(1);
     }
 } // nImO::CatchSignal
+
+void
+nImO::SetSpecialBreakFunction
+    (SignalFunction sigFunction)
+{
+    ODL_ENTER(); //####
+    lSpecialSignalFunction = sigFunction;
+    ODL_EXIT(); //####
+} // nImO::SetSpecialBreakFunction

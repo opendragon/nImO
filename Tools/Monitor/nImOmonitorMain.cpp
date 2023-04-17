@@ -246,6 +246,16 @@ class ReceiveOnMessagePort final
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Simulate a received message so that the received-message-loop can exit. */
+static void
+doConditionNotify
+    (void)
+{
+    ODL_ENTER(); //####
+    lReceivedCondition.notify_one();
+    ODL_EXIT(); //####
+} // doConditionNotify
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -277,6 +287,7 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
+            nImO::SetSpecialBreakFunction(doConditionNotify);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking             ourContext{progName, "monitor", optionValues._logging};
             nImO::Connection                        loggingConnection{ourContext.getLoggingInfo()};

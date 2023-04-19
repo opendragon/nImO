@@ -238,6 +238,12 @@ else()
     set(OTHER_LIBS "")
 endif()
 
+if(UNIX)
+    set(DL_LIB "dl")
+else()
+    set(DL_LIB "")
+endif()
+
 if(WIN32)
     set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.lib)
 elseif(APPLE)
@@ -251,7 +257,7 @@ else()
 endif()
 
 set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
-    ${ANTLR4_RUNTIME} Threads::Threads)
+    ${ANTLR4_RUNTIME} Threads::Threads ${DL_LIB})
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)

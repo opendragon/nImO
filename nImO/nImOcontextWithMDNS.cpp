@@ -38,8 +38,6 @@
 
 #include <nImOcontextWithMDNS.h>
 
-//#include <nImOannounceServiceData.h>
-
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -331,38 +329,41 @@ getLocalAddresses
 
     for (Ptr(struct ifaddrs) address = addresses; nullptr != address; address = address->ifa_next)
     {
-        if (AF_INET == address->ifa_addr->sa_family)
+        if (nullptr != address->ifa_addr)
         {
-            struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr);
-
-            if (IPV4_ADDR(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
+            if (AF_INET == address->ifa_addr->sa_family)
             {
-                if (firstIpv4)
+                struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr);
+
+                if (IPV4_ADDR(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
                 {
-                    nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
-                    firstIpv4 = false;
+                    if (firstIpv4)
+                    {
+                        nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
+                        firstIpv4 = false;
+                    }
+                    nImO::ContextWithMDNS::gHasIpv4 = true;
                 }
-                nImO::ContextWithMDNS::gHasIpv4 = true;
             }
-        }
-        else if (AF_INET6 == address->ifa_addr->sa_family)
-        {
-            struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr);
-            static const uint8_t    localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
-                                                    0, 0, 0, 0, 0, 0, 0, 1 };
-            static const uint8_t    localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
-                                                          0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
-
-            if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
-                (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
-                (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+            else if (AF_INET6 == address->ifa_addr->sa_family)
             {
-                if (firstIpv6)
+                struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr);
+                static const uint8_t    localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
+                                                        0, 0, 0, 0, 0, 0, 0, 1 };
+                static const uint8_t    localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
+                                                              0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+                if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
+                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
                 {
-                    nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
-                    firstIpv6 = false;
+                    if (firstIpv6)
+                    {
+                        nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                        firstIpv6 = false;
+                    }
+                    nImO::ContextWithMDNS::gHasIpv6 = true;
                 }
-                nImO::ContextWithMDNS::gHasIpv6 = true;
             }
         }
     }
@@ -409,39 +410,42 @@ getLocalAddresses
         for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast = adapter->FirstUnicastAddress; nullptr != unicast;
              unicast = unicast->Next)
         {
-            if (AF_INET == unicast->Address.lpSockaddr->sa_family)
+            if (nullptr != unicast->Address.lpSockaddr)
             {
-                struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr);
-
-                if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
-                    (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
+                if (AF_INET == unicast->Address.lpSockaddr->sa_family)
                 {
-                    if (firstIpv4)
+                    struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr);
+
+                    if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
+                        (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
                     {
-                        nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
-                        firstIpv4 = false;
+                        if (firstIpv4)
+                        {
+                            nImO::ContextWithMDNS::gServiceAddressIpv4 = saddr;
+                            firstIpv4 = false;
+                        }
+                        nImO::ContextWithMDNS::gHasIpv4 = true;
                     }
-                    nImO::ContextWithMDNS::gHasIpv4 = true;
                 }
-            }
-            else if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
-            {
-                struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr);
-                static const uchar      localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
-                                                        0, 0, 0, 0, 0, 0, 0, 1 };
-                static const uchar      localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
-                                                              0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
-
-                if ((NldsPreferred == unicast->DadState) &&
-                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
-                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+                else if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
                 {
-                    if (firstIpv6)
+                    struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr);
+                    static const uchar      localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
+                                                            0, 0, 0, 0, 0, 0, 0, 1 };
+                    static const uchar      localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
+                                                                  0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+                    if ((NldsPreferred == unicast->DadState) &&
+                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
                     {
-                        nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
-                        firstIpv6 = false;
+                        if (firstIpv6)
+                        {
+                            nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                            firstIpv6 = false;
+                        }
+                        nImO::ContextWithMDNS::gHasIpv6 = true;
                     }
-                    nImO::ContextWithMDNS::gHasIpv6 = true;
                 }
             }
         }

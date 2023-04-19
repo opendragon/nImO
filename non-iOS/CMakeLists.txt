@@ -238,7 +238,7 @@ else()
     set(OTHER_LIBS "")
 endif()
 
-if(UNIX)
+if(LINUX)
     set(DL_LIB "dl")
 else()
     set(DL_LIB "")

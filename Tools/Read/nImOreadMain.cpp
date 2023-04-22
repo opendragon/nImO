@@ -142,11 +142,7 @@ main
                     }
                     else
                     {
-                        std::string execPath{boost::dll::program_location().string()};
-                        std::string currentDir{boost::filesystem::current_path().string()};
-                        std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
-
-                        statusWithBool = proxy.addNode(nodeName, execPath, currentDir, commandLine, nImO::ServiceType::OutputService,
+                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::OutputService,
                                                        asServiceContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {

@@ -124,17 +124,18 @@ nImO::RegistryProxy::~RegistryProxy
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::addNode
     (const std::string &    nodeName,
-     const std::string &    execPath,
-     const std::string &    launchDirectory,
-     const std::string &    commandLine,
+     const int              argc,
+     Ptr(Ptr(char))         argv,
      const ServiceType      serviceType,
      const Connection &     nodeConnection)
 {
-    NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
-    ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
-    ODL_I1("serviceType = ", StaticCast(int, serviceType)); //####
-    ODL_P1("nodeConnection = ", &nodeConnection); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_I2("argc = ", argc, "serviceType = ", StaticCast(int, serviceType)); //####
+    ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
+    std::string                             execPath{boost::dll::program_location().string()};
+    std::string                             launchDirectory{boost::filesystem::current_path().string()};
+    std::string                             commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
     SpArray                                 argArray{new Array};
     std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
     SpArray                                 connArray{new Array};
@@ -153,6 +154,7 @@ nImO::RegistryProxy::addNode
 
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, handler->result()};
+
 } // nImO::RegistryProxy::addNode
 
 nImO::RegNodeInfoVectorOrFailure

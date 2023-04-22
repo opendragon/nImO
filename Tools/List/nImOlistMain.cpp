@@ -177,7 +177,7 @@ listNodes
                     break;
 
                 case nImO::OutputFlavour::FlavourJSON :
-                    std::cout << "{ }" << std::endl;
+                    std::cout << "[ ]" << std::endl;
                     break;
 
                 case nImO::OutputFlavour::FlavourTabs :
@@ -193,9 +193,9 @@ listNodes
         {
             if (nImO::OutputFlavour::FlavourJSON == options._flavour)
             {
-                std::cout << "{ " << std::endl;
+                std::cout << "[ " << std::endl;
             }
-            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+            for (auto walker = nodes.begin(); walker != nodes.end(); )
             {
                 auto    theInfo{*walker};
 
@@ -270,6 +270,7 @@ listNodes
                             okSoFar = false;
                         }
                     }
+                    ++walker;
                     if (nImO::OutputFlavour::FlavourJSON == options._flavour)
                     {
                         if (nodes.end() != walker)
@@ -279,10 +280,14 @@ listNodes
                     }
                     std::cout << std::endl;
                 }
+                else
+                {
+                    ++walker;
+                }
             }
             if (nImO::OutputFlavour::FlavourJSON == options._flavour)
             {
-                std::cout << " }" << std::endl;
+                std::cout << " ]" << std::endl;
             }
         }
     }

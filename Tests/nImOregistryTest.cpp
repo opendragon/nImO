@@ -110,13 +110,19 @@ doTestCreateRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // create empty Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // create empty Registry
 {
     int result = 1;
 
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -157,13 +163,19 @@ doTestEmptyRegistryForNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
 {
     int result = 1;
 
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -220,13 +232,19 @@ doTestNodeSetWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
 {
     int result = 1;
 
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -285,13 +303,19 @@ doTestFindWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // check empty Registry for nodes
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
 {
     int result = 1;
 
     NIMO_UNUSED_ARG_(launchPath);
     NIMO_UNUSED_ARG_(argc);
     NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -363,7 +387,10 @@ doTestAddNodeToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -384,7 +411,8 @@ doTestAddNodeToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -419,7 +447,10 @@ doTestCountWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -440,7 +471,8 @@ doTestCountWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -491,7 +523,10 @@ doTestNodeSetWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -512,7 +547,8 @@ doTestNodeSetWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -565,7 +601,10 @@ doTestFindWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -586,7 +625,8 @@ doTestFindWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -652,7 +692,10 @@ doTestNodeDataAddedToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -675,7 +718,7 @@ doTestNodeDataAddedToRegistry
         {
             uint32_t                    randomAddress = nImO::RandomUnsigned();
             uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress, randomPort));
 
             if (status.first)
@@ -739,7 +782,10 @@ doTestRemoveNodeFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove node from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove node from Registry
 {
     int result = 1;
 
@@ -760,7 +806,8 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -803,7 +850,10 @@ doTestCountWithRegistryWithNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove node from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove node from Registry
 {
     int result = 1;
 
@@ -824,7 +874,8 @@ doTestCountWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -883,7 +934,10 @@ doTestNodeSetWithRegistryWithNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove node from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove node from Registry
 {
     int result = 1;
 
@@ -904,7 +958,8 @@ doTestNodeSetWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -965,7 +1020,10 @@ doTestFindWithRegistryNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove node from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove node from Registry
 {
     int result = 1;
 
@@ -986,7 +1044,8 @@ doTestFindWithRegistryNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
@@ -1045,7 +1104,10 @@ doTestAddTwoDistinctNodesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1066,11 +1128,12 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     result = 0;
@@ -1109,7 +1172,10 @@ doTestCountWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1130,11 +1196,12 @@ doTestCountWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
@@ -1189,7 +1256,10 @@ doTestNodeSetWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1210,11 +1280,12 @@ doTestNodeSetWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
@@ -1278,7 +1349,10 @@ doTestFindWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1299,11 +1373,12 @@ doTestFindWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
@@ -1373,7 +1448,10 @@ doTestRemoveNodesFromRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove nodes from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1394,11 +1472,12 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1453,7 +1532,10 @@ doTestCountWithRegistryWithAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove nodes from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1474,11 +1556,12 @@ doTestCountWithRegistryWithAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1549,7 +1632,10 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove nodes from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1570,11 +1656,12 @@ doTestTestNodeSetWithRegistryWithAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1647,7 +1734,10 @@ doTestFindWithRegistryAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // remove nodes from Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
 {
     int result = 1;
 
@@ -1668,11 +1758,12 @@ doTestFindWithRegistryAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     status = aRegistry->removeNode(NODE_NAME_1);
@@ -1758,7 +1849,10 @@ doTestAddTwoIdenticalNodesToRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two identical nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two identical nodes to Registry
 {
     int result = 1;
 
@@ -1779,11 +1873,12 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                    nImO::ServiceType::GenericService);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     ODL_LOG("(status.first)"); //####
@@ -1836,11 +1931,85 @@ doTestAddTwoIdenticalNodesToRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestNodeInfoWithRegistryWithNoNodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+
+            if (statusWithInformation.first.first)
+            {
+                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+
+                if (0 == infoVector.size())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == infoVector.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInformation.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeInfoWithRegistryWithNoNodes
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 24 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestNodeInfoWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add node to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
 {
     int result = 1;
 
@@ -1863,7 +2032,7 @@ doTestNodeInfoWithRegistryWithOneNode
         {
             uint32_t                    randomAddress = nImO::RandomUnsigned();
             uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress, randomPort));
 
             if (status.first)
@@ -1889,7 +2058,6 @@ doTestNodeInfoWithRegistryWithOneNode
                                     "(randomPort == firstElem._connection._port) && " //####
                                     "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
                         }
-                        result = 0;
                     }
                     else
                     {
@@ -1917,7 +2085,7 @@ doTestNodeInfoWithRegistryWithOneNode
 } // doTestNodeInfoWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 24 ***
+# pragma mark *** Test Case 25 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1930,7 +2098,10 @@ doTestNodeInfoWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context) // add two distinct nodes to Registry
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
 {
     int result = 1;
 
@@ -1953,7 +2124,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
         {
             uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
             uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, nImO::ServiceType::FilterService,
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                                     nImO::Connection(randomAddress1, randomPort1));
 
             if (status.first)
@@ -1961,7 +2132,8 @@ doTestNodeInfoWithRegistryWithTwoNodes
                 uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
                 uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
-                status = aRegistry->addNode(NODE_NAME_2, nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
+                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
+                                            nImO::Connection(randomAddress2, randomPort2));
                 if (status.first)
                 {
                     nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
@@ -2063,6 +2235,293 @@ doTestNodeInfoWithRegistryWithTwoNodes
 } // doTestNodeInfoWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 26 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestLaunchDetailsWithRegistryWithNoNodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+
+            if (statusWithDetails.first.first)
+            {
+                nImO::LaunchDetails details{statusWithDetails.second};
+
+                if (! details._found)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (! details._found)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithDetails.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLaunchDetailsWithRegistryWithNoNodes
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 27 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestLaunchDetailsWithRegistryWithOneNode
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add node to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            uint32_t                    randomAddress = nImO::RandomUnsigned();
+            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                                    nImO::Connection(randomAddress, randomPort));
+
+            if (status.first)
+            {
+                nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+
+                if (statusWithDetails.first.first)
+                {
+                    nImO::LaunchDetails details{statusWithDetails.second};
+
+                    if (details._found)
+                    {
+                        if ((execPath == details._execPath) && (currentDir == details._launchDirectory) && (commandLine == details._commandLine))
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((execPath == details._execPath) && (currentDir == details._launchDirectory) && " //####
+                                    "(commandLine == details._commandLine))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (details._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (statusWithDetails.first.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLaunchDetailsWithRegistryWithOneNode
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 28 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestLaunchDetailsWithRegistryWithTwoNodes
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // add two distinct nodes to Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
+            uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
+            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                                    nImO::Connection(randomAddress1, randomPort1));
+
+            if (status.first)
+            {
+                uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
+                uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
+
+                status = aRegistry->addNode(NODE_NAME_2, "!" + execPath, "?" + currentDir, "^" + commandLine, nImO::ServiceType::LauncherService,
+                                            nImO::Connection(randomAddress2, randomPort2));
+                if (status.first)
+                {
+                    nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+
+                    if (statusWithDetails.first.first)
+                    {
+                        nImO::LaunchDetails details1{statusWithDetails.second};
+
+                        if (details1._found)
+                        {
+                            if ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) &&
+                                (commandLine == details1._commandLine))
+                            {
+                                statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_2);
+                                if (statusWithDetails.first.first)
+                                {
+                                    nImO::LaunchDetails details2{statusWithDetails.second};
+
+                                    if (details2._found)
+                                    {
+                                        if ((("!" + execPath) == details2._execPath) && (("?" + currentDir) == details2._launchDirectory) &&
+                                            (("^" + commandLine) == details2._commandLine))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (((\"!\" + execPath) == details2._execPath) && " //####
+                                                    "((\"?\" + currentDir) == details2._launchDirectory) && " //####
+                                                    "((\"^\" + commandLine) == details2._commandLine))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (details2._found)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithDetails.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) && " //####
+                                        "(commandLine == details1._commandLine))"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (details1._found)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithDetails.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestLaunchDetailsWithRegistryWithTwoNodes
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -2097,103 +2556,125 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
+                std::string execPath{boost::dll::program_location().string()};
+                std::string currentDir{boost::filesystem::current_path().string()};
+                std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+
                 SetSignalHandlers(catchSignal);
                 switch (selector)
                 {
                     case 1 :
-                        result = doTestCreateRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestCreateRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 2 :
-                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 3 :
-                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
                         
                     case 4 :
-                        result = doTestFindWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestFindWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 5 :
-                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 6 :
-                        result = doTestCountWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestCountWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 7 :
-                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 8 :
-                        result = doTestFindWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestFindWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 9 :
-                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 10 :
-                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 11 :
-                        result = doTestCountWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestCountWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 12 :
-                        result = doTestNodeSetWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeSetWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 13 :
-                        result = doTestFindWithRegistryNodeRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestFindWithRegistryNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 14 :
-                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 15 :
-                        result = doTestCountWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestCountWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 16 :
-                        result = doTestNodeSetWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeSetWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 17 :
-                        result = doTestFindWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestFindWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 18 :
-                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 19 :
-                        result = doTestCountWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestCountWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 20 :
-                        result = doTestTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                  commandLine);
                         break;
 
                     case 21 :
-                        result = doTestFindWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestFindWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 22 :
-                        result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 23 :
-                        result = doTestNodeInfoWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeInfoWithRegistryWithNoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 24 :
-                        result = doTestNodeInfoWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext);
+                        result = doTestNodeInfoWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 25 :
+                        result = doTestNodeInfoWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 26 :
+                        result = doTestLaunchDetailsWithRegistryWithNoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 27 :
+                        result = doTestLaunchDetailsWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 28 :
+                        result = doTestLaunchDetailsWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                             commandLine);
                         break;
 
                     default :

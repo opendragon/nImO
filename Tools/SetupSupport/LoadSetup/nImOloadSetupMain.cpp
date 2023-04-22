@@ -101,7 +101,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load setup", "nImOloadSetup ourApplicationSet", 2023, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption))
+                                     optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

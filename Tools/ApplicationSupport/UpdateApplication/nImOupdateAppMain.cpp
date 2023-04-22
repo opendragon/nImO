@@ -104,7 +104,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Update an application", "nImOupdateApp /path-to-application [shortAppName]", 2023,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

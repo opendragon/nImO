@@ -103,6 +103,7 @@ nImO::ProcessServiceOptions
         kOptionARGS,
         kOptionCHANNEL,
         kOptionCONFIG,
+        kOptionDETAIL,
         kOptionENDPOINT,
         kOptionGO,
         kOptionHELP,
@@ -140,6 +141,8 @@ nImO::ProcessServiceOptions
                                             T_("  --channel, -d \tReport the actual endpoint name")};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             T_("  --config, -c <path> \tSpecify path to configuration file")};
+    Option_::Descriptor         detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "x",
+                                                "detail", Option_::Arg::None, T_("  --detail, -x \tDisplay more details")};
     Option_::Descriptor endpointDescriptor{StaticCast(unsigned int, OptionIndex::kOptionENDPOINT), 0, "e", "endpoint", Option_::Arg::Required,
                                             T_("  --endpoint, -e \tSpecify an alternative endpoint name to be used")};
     Option_::Descriptor goDescriptor{StaticCast(unsigned int, OptionIndex::kOptionGO), 0, "g", "go", Option_::Arg::None, goPartText.c_str()};
@@ -204,6 +207,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipDetailOption))
+    {
+        ++descriptorCount;
+    }
     if (0 == (skipOptions & kSkipEndpointOption))
     {
         ++descriptorCount;
@@ -260,6 +267,10 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipConfigFileOption))
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
+    }
+    if (0 == (skipOptions & kSkipDetailOption))
+    {
+        memcpy(usageWalker++, &detailDescriptor, sizeof(detailDescriptor));
     }
     if (0 == (skipOptions & kSkipEndpointOption))
     {
@@ -379,6 +390,15 @@ nImO::ProcessServiceOptions
                 needTab = false;
             }
             std::cout << "d";
+        }
+        if (0 == (skipOptions & kSkipDetailOption))
+        {
+            if (needTab)
+            {
+                std::cout << "\t";
+                needTab = false;
+            }
+            std::cout << "x";
         }
         if (0 == (skipOptions & kSkipEndpointOption))
         {
@@ -523,6 +543,10 @@ nImO::ProcessServiceOptions
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {
             optionValues._logging = true;
+        }
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDETAIL)])
+        {
+            optionValues._detailed = true;
         }
         Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
 

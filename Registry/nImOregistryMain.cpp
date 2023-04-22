@@ -38,6 +38,7 @@
 
 #include "nImOaddNodeCommandHandler.h"
 #include "nImOgetInformationForAllNodesCommandHandler.h"
+#include "nImOgetLaunchDetailsCommandHandler.h"
 #include "nImOgetNamesOfNodesCommandHandler.h"
 #include "nImOgetNodeInformationCommandHandler.h"
 #include "nImOgetNumberOfNodesCommandHandler.h"
@@ -110,7 +111,7 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipChannelOption | nImO::kSkipEndpointOption | nImO::kSkipFlavoursOption |
                                     nImO::kSkipGoOption | nImO::kSkipInfoOption | nImO::kSkipModOption | nImO::kSkipNodeOption |
-                                    nImO::kSkipPortOption | nImO::kSkipTagOption))
+                                    nImO::kSkipPortOption | nImO::kSkipTagOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -141,6 +142,7 @@ main
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
                                                   new nImO::InformationForAllNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest, new nImO::LaunchDetailsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest, new nImO::NodeInformationCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));

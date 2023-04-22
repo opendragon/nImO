@@ -122,7 +122,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used", "nImOversion -t", 2016,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipLoggingOption))
+                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipLoggingOption |
+                                     nImO::kSkipDetailOption))
     {
         std::string ifVersionString;
         std::string mdnsVersionString;

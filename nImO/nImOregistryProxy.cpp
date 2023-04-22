@@ -42,6 +42,7 @@
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
 #include <nImOgetInformationForAllNodesResponseHandler.h>
+#include <nImOgetLaunchDetailsResponseHandler.h>
 #include <nImOgetNamesOfNodesResponseHandler.h>
 #include <nImOgetNodeInformationResponseHandler.h>
 #include <nImOgetNumberOfNodesResponseHandler.h>
@@ -123,12 +124,15 @@ nImO::RegistryProxy::~RegistryProxy
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::addNode
     (const std::string &    nodeName,
+     const std::string &    execPath,
+     const std::string &    launchDirectory,
+     const std::string &    commandLine,
      const ServiceType      serviceType,
      const Connection &     nodeConnection)
 {
     NIMO_UNUSED_ARG_(nodeConnection);
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
     ODL_I1("serviceType = ", StaticCast(int, serviceType)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     SpArray                                 argArray{new Array};
@@ -136,6 +140,9 @@ nImO::RegistryProxy::addNode
     SpArray                                 connArray{new Array};
 
     argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(execPath));
+    argArray->addValue(std::make_shared<String>(launchDirectory));
+    argArray->addValue(std::make_shared<String>(commandLine));
     connArray->addValue(std::make_shared<Integer>(nodeConnection._address));
     connArray->addValue(std::make_shared<Integer>(nodeConnection._port));
     connArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, nodeConnection._transport)));
@@ -162,6 +169,23 @@ nImO::RegistryProxy::getInformationForAllNodes
     ODL_OBJEXIT(); //####
     return RegNodeInfoVectorOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllNodes
+
+nImO::RegLaunchDetailsOrFailure
+nImO::RegistryProxy::getLaunchDetails
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<LaunchDetailsResponseHandler>   handler{new LaunchDetailsResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetLaunchDetailsRequest, kGetLaunchDetailsResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegLaunchDetailsOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getLaunchDetails
 
 nImO::RegStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodes

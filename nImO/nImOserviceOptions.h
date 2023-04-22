@@ -132,8 +132,9 @@ namespace nImO
     The option '-r' / '--report' indicates that the service metrics are to be reported on exit.
     The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the
     channel, if the name was not specified. It is also applied to the service name as a suffix.
-    The option '-v' / '--vers'displays the version and copyright information and returns
+    The option '-v' / '--vers' displays the version and copyright information and returns
     @c false.
+    The option '-x' / '--detail' increases the amount of detail presented.
     @param[in] argc The number of arguments in 'argv'.
     @param[in] argv The arguments to be used with the service.
     @param[in] argumentDescriptions Descriptions of the arguments to the service.

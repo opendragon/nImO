@@ -305,6 +305,10 @@
 		F6D7AD16224A5EA00095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Tests/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD1A224A5F060095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/nImO/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD1C224A5F3D0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = iOS/nImO/CMakeLists.txt; sourceTree = "<group>"; };
+		F6E2D5EC29F45AD90023B644 /* nImOgetLaunchDetailsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetLaunchDetailsCommandHandler.h; path = Registry/nImOgetLaunchDetailsCommandHandler.h; sourceTree = "<group>"; };
+		F6E2D5ED29F45AD90023B644 /* nImOgetLaunchDetailsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetLaunchDetailsCommandHandler.cpp; path = Registry/nImOgetLaunchDetailsCommandHandler.cpp; sourceTree = "<group>"; };
+		F6E2D5EE29F45F2E0023B644 /* nImOgetLaunchDetailsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetLaunchDetailsResponseHandler.cpp; path = nImO/nImOgetLaunchDetailsResponseHandler.cpp; sourceTree = "<group>"; };
+		F6E2D5EF29F45F2E0023B644 /* nImOgetLaunchDetailsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetLaunchDetailsResponseHandler.h; path = nImO/nImOgetLaunchDetailsResponseHandler.h; sourceTree = "<group>"; };
 		F6E67E2A29DB746100FD7012 /* nImOisNodePresentCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOisNodePresentCommandHandler.h; path = Registry/nImOisNodePresentCommandHandler.h; sourceTree = "<group>"; };
 		F6E67E2B29DB746100FD7012 /* nImOisNodePresentCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOisNodePresentCommandHandler.cpp; path = Registry/nImOisNodePresentCommandHandler.cpp; sourceTree = "<group>"; };
 		F6EC3D22299651C9006C36D1 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 				F67E989329DC7BC400893EDC /* nImOaddNodeCommandHandler.h */,
 				F618D86929E3463B00F171F4 /* nImOgetInformationForAllNodesCommandHandler.cpp */,
 				F618D86829E3463A00F171F4 /* nImOgetInformationForAllNodesCommandHandler.h */,
+				F6E2D5ED29F45AD90023B644 /* nImOgetLaunchDetailsCommandHandler.cpp */,
+				F6E2D5EC29F45AD90023B644 /* nImOgetLaunchDetailsCommandHandler.h */,
 				F618D86129E2FBEB00F171F4 /* nImOgetNamesOfNodesCommandHandler.cpp */,
 				F618D86029E2FBEB00F171F4 /* nImOgetNamesOfNodesCommandHandler.h */,
 				F618D86529E3183400F171F4 /* nImOgetNodeInformationCommandHandler.cpp */,
@@ -426,6 +432,8 @@
 				F634701C29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.h */,
 				F618D86B29E349EB00F171F4 /* nImOgetInformationForAllNodesResponseHandler.cpp */,
 				F618D86A29E349EB00F171F4 /* nImOgetInformationForAllNodesResponseHandler.h */,
+				F6E2D5EE29F45F2E0023B644 /* nImOgetLaunchDetailsResponseHandler.cpp */,
+				F6E2D5EF29F45F2E0023B644 /* nImOgetLaunchDetailsResponseHandler.h */,
 				F618D86229E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.cpp */,
 				F618D86329E3005100F171F4 /* nImOgetNamesOfNodesResponseHandler.h */,
 				F618D86729E3256300F171F4 /* nImOgetNodeInformationResponseHandler.cpp */,

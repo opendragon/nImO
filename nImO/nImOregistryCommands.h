@@ -73,6 +73,12 @@ namespace nImO
     /*! @brief The 'getInformationForAllNodes' response. */
     const std::string   kGetInformationForAllNodesResponse = "getInformationForAllNodes=";
 
+    /*! @brief The request to get information on all nodes in the Registry. */
+    const std::string   kGetLaunchDetailsRequest = "getLaunchDetails?";
+
+    /*! @brief The 'getInformationForAllNodes' response. */
+    const std::string   kGetLaunchDetailsResponse = "getLaunchDetails=";
+
     /*! @brief The request to get the set of nodes in the Registry. */
     const std::string   kGetNamesOfNodesRequest = "getNamesOfNodes?";
 

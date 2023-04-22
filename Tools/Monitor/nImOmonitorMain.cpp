@@ -282,7 +282,7 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO", "nImOmonitor", 2017, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

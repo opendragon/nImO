@@ -43,45 +43,46 @@
 # include <initFileBase.h>
 
 // Make sure that a couple of critical macros are defined!
-# if (! defined(TRUE))
-#  define TRUE  1
-# endif // not defined(TRUE)
-# if (! defined(FALSE))
-#  define FALSE 0
-# endif // not defined(FALSE)
+# if (! defined(TRUE_))
+#  define TRUE_  1
+# endif // not defined(TRUE_)
+# if (! defined(FALSE_))
+#  define FALSE_ 0
+# endif // not defined(FALSE_)
 
 # undef BSD_
 # if defined(__FreeBSD__)
-#  define BSD_    TRUE
+#  define BSD_    TRUE_
 # elif defined(__NetBSD__)
-#  define BSD_    TRUE
+#  define BSD_    TRUE_
 # elif defined(__OpenBSD__)
-#  define BSD_    TRUE
+#  define BSD_    TRUE_
 # elif defined(__bsdi__)
-#  define BSD_    TRUE
+#  define BSD_    TRUE_
 # elif defined(__Dragonfly__)
-#  define BSD_    TRUE
+#  define BSD_    TRUE_
 # else // ! defined(__Dragonfly__)
-#  define BSD_    FALSE
+#  define BSD_    FALSE_
 # endif // ! defined(__Dragonfly__)
 
 # if (! defined(LINUX_))
-/*! @brief @c TRUE if Linux, FALSE otherwise. */
+/*! @brief @c TRUE_ if Linux, FALSE_ otherwise. */
 #  if defined(__linux__)
-#   define LINUX_ TRUE
+#   define LINUX_ TRUE_
 #  else // not defined(__linux__)
-#   define LINUX_ FALSE
+#   define LINUX_ FALSE_
 #  endif // not defined(__linux__)
 # endif // not defined(LINUX_)
+
 # if (! defined(MAC_OR_LINUX_))
-/* TRUE if non-Windows, FALSE if Windows. */
+/* TRUE_ if non-Windows, FALSE_ if Windows. */
 #  if defined(__APPLE__)
-#   define MAC_OR_LINUX_ TRUE
-#  elif defined(__linux__)
-#   define MAC_OR_LINUX_ TRUE
-#  else // not defined(__linux__)
+#   define MAC_OR_LINUX_ TRUE_
+#  elif LINUX_
+#   define MAC_OR_LINUX_ TRUE_
+#  else // not LINUX_
 #   define MAC_OR_LINUX_ BSD_
-#  endif // not defined(__linux__)
+#  endif // not LINUX_
 # endif // not defined(MAC_OR_LINUX_)
 
 # if defined(__APPLE__)
@@ -148,10 +149,6 @@
 /*! @brief The default name for the root part of a channel name. */
 # define DEFAULT_CHANNEL_ROOT_          "channel_"
 
-# if (! defined(FALSE))
-#  define FALSE 0
-# endif // not defined(FALSE)
-
 /*! @brief The line length for command-line help output. */
 constexpr size_t    HELP_LINE_LENGTH_ = 250;
 
@@ -184,10 +181,6 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 
 /*! @brief A simple macro to hold the pieces of a string together. */
 # define T_(xx_)                        xx_
-
-# if (! defined(TRUE))
-#  define TRUE 1
-# endif // not defined(TRUE)
 
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
@@ -912,6 +905,15 @@ namespace nImO
     I2B
         (const int64_t      inValue,
          NumberAsBytes &    outString);
+
+    /*! @brief Construct a tab-delimited string from the command-line.
+     @param[in] numArgs The number of arguments.
+     @param[in] args The arguments.
+     @return A tab-delimited string containing the arguments. */
+    std::string
+    MakeStringFromComandLine
+        (const int      numArgs,
+         Ptr(Ptr(char)) args);
 
     /*! @brief Return the name of a signal.
      @param[in] theSignal The signal of interest.

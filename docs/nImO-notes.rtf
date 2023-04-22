@@ -2,7 +2,7 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww25340\viewh23780\viewkind0
+\margl1440\margr1440\vieww25360\viewh24160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?; nImO processes report their endpoints via a registry entry\
@@ -38,17 +38,18 @@ n) Destroy context/RAII\
 \f1\b \cf0 Node names:\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name should come from the host name.\
+\f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name comes from the host name and service name or is directly provided.\
+The default node name is <computer short name>-<service name>.\
+The node name is modified by a tag number, so it will be <node>-<tag #> to allow multiple copies of a service on a machine.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f1\b \cf0 Port names:
 \f0\b0 \
-[NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; no NodeName implies the same machine; (physical) ports are assigned by the system; no Protocol implies TCP\
-\
-Minimal port = /arbitrary-path; maximal port = network:node/arbitrary-path#protocol\
-\
+NodeName/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; (physical) ports are assigned by the system; no Protocol implies TCP\
 IP addresses and physical ports are not part of either Port or Node names; neither is the 'direction' of the port\
+\
+Minimal port = node/arbitrary-path; maximal port = network:node/arbitrary-path#protocol\
 \
 ServiceContext objects set up a command port; the destructor closes the command port.\
 ContextWithMDNS objects start an mDNS scan/post thread; the destructor stops the mDNS scan/post thread.\
@@ -59,9 +60,10 @@ Test and Miscellaneous contexts won't need a command port; Source, Sink, Filter 
 Source, Sink and Filter contexts will have one or more data ports.\
 The non-registry applications use the command port of the registry to get and set information.\
 \
-nImObridge, nImOconnect, nImOdisconnect, nImOlauncher and nImOregistry should post to the 'logging' ports\
+nImObridge, nImOconnect, nImOdisconnect, nImOlauncher and nImOregistry should be able to post to the 'logging' ports\
 \
-mDNS contexts: \'97 an intermediate context class\
+mDNS contexts: <an intermediate context class>\
+Input/Output contexts: <an intermediate context class>\
 Networking contexts: nImOmonitor, nImOpost\
 Utility contexts: nImOaddApp, nImOloadApps, nImOremoveApp, nImOstoreApps, nImObridge, nImOconnect, nImOdisconnect, nImOinfo, nImOlist, nImOechoClient\
 Filter contexts: nImOfanIn, nImOfanOut, nImOpassthrough\

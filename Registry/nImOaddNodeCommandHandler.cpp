@@ -115,12 +115,18 @@ nImO::AddNodeCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     _owner->report("add node request received");
-    if (2 < arguments.size())
+    if (5 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
+        SpValue         element3{arguments[3]};
+        SpValue         element4{arguments[4]};
+        SpValue         element5{arguments[5]};
         CPtr(String)    nameString{element1->asString()};
-        CPtr(Array)     connArray{element2->asArray()};
+        CPtr(String)    execPathString{element2->asString()};
+        CPtr(String)    launchDirectoryString{element3->asString()};
+        CPtr(String)    commandLineString{element4->asString()};
+        CPtr(Array)     connArray{element5->asArray()};
         Connection      theConnection;
         ServiceType     theType;
 
@@ -152,10 +158,14 @@ nImO::AddNodeCommandHandler::doIt
                 theType = StaticCast(ServiceType, typeValue->getIntegerValue());
             }
         }
-        if ((nullptr != nameString) && (nullptr != connArray))
+        if ((nullptr != nameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) && (nullptr != commandLineString) &&
+            (nullptr != connArray))
         {
             std::string         nodeName{nameString->getValue()};
-            RegSuccessOrFailure status{_registry->addNode(nodeName, theType, theConnection)};
+            std::string         execPath{execPathString->getValue()};
+            std::string         launchDirectory{launchDirectoryString->getValue()};
+            std::string         commandLine{commandLineString->getValue()};
+            RegSuccessOrFailure status{_registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection)};
 
             if (status.first)
             {
@@ -172,7 +182,8 @@ nImO::AddNodeCommandHandler::doIt
         }
         else
         {
-            ODL_LOG("! ((nullptr != nameString) && (nullptr != connArray))"); //####
+            ODL_LOG("! ((nullptr != nameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) && " //####
+                    "(nullptr != commandLineString) && (nullptr != connArray))"); //####
         }
     }
     else

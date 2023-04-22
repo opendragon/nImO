@@ -54,6 +54,7 @@ include_directories("${nImO_SQLITE_DIR}")
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOaddNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOgetNodeInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesCommandHandler.cpp

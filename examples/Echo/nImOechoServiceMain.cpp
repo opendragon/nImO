@@ -99,7 +99,7 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Echo service example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+                                     nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -134,7 +134,12 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, nImO::ServiceType::GenericService, asServiceContext->getCommandConnection());
+                        std::string execPath{boost::dll::program_location().string()};
+                        std::string currentDir{boost::filesystem::current_path().string()};
+                        std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+
+                        statusWithBool = proxy.addNode(nodeName, execPath, currentDir, commandLine, nImO::ServiceType::GenericService,
+                                                       asServiceContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

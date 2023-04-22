@@ -71,35 +71,38 @@ namespace nImO
         /*! @brief Skip the 'configFile' option. */
         kSkipConfigFileOption   = 0x0004,
 
+        /*! @brief Skip the 'detail' option. */
+        kSkipDetailOption       = 0x0008,
+
         /*! @brief Skip the 'endpoint' option. */
-        kSkipEndpointOption     = 0x0008,
+        kSkipEndpointOption     = 0x0010,
 
         /*! @brief Skip the 'flavours' option. */
-        kSkipFlavoursOption     = 0x0010,
+        kSkipFlavoursOption     = 0x0020,
 
         /*! @brief Skip the 'go' / 'autostart' option. */
-        kSkipGoOption           = 0x0020,
+        kSkipGoOption           = 0x0040,
 
         /*! @brief Skip the 'info' option. */
-        kSkipInfoOption         = 0x0040,
+        kSkipInfoOption         = 0x0080,
 
         /*! @brief Skip the 'logging' option. */
-        kSkipLoggingOption      = 0x0080,
+        kSkipLoggingOption      = 0x0100,
 
         /*! @brief Skip the 'mod' option. */
-        kSkipModOption          = 0x0100,
+        kSkipModOption          = 0x0200,
 
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x0200,
+        kSkipNodeOption         = 0x0400,
 
         /*! @brief Skip the 'port' option. */
-        kSkipPortOption         = 0x0400,
+        kSkipPortOption         = 0x0800,
 
         /*! @brief Skip the 'report' option. */
-        kSkipReportOption       = 0x0800,
+        kSkipReportOption       = 0x1000,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x1000,
+        kSkipTagOption          = 0x2000,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
@@ -131,8 +134,11 @@ namespace nImO
         /*! @brief The flavour set by a command-line option. */
         OutputFlavour   _flavour;
 
+        /*! @brief @c true is a command-line option requested more details. */
+        bool    _detailed;
+
         /*! @brief @c true if a command-line option enabled logging. */
-        bool            _logging;
+        bool    _logging;
 
         /*! @brief The configuration file path set by a command-line option. */
         std::string     _configFilePath;
@@ -141,7 +147,7 @@ namespace nImO
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _flavour(OutputFlavour::FlavourNormal), _logging(loggingOnByDefault)
+                _flavour(OutputFlavour::FlavourNormal), _detailed(false), _logging(loggingOnByDefault)
         {
         }
 
@@ -169,8 +175,9 @@ namespace nImO
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
-     The option '-v' / '--vers'displays the version and copyright information and returns
+     The option '-v' / '--vers' displays the version and copyright information and returns
      @c false.
+     The option '-x' / '--detail' increases the amount of detail presented.
      @param[in] argc The number of arguments in 'argv'.
      @param[in] argv The arguments to be used with the utility.
      @param[in,out] argumentDescriptions Descriptions of the arguments to the application.

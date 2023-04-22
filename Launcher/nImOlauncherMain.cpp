@@ -101,7 +101,8 @@ main
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipChannelOption | nImO::kSkipEndpointOption | nImO::kSkipFlavoursOption |
-                                    nImO::kSkipGoOption | nImO::kSkipInfoOption | nImO::kSkipPortOption | nImO::kSkipReportOption))
+                                    nImO::kSkipGoOption | nImO::kSkipInfoOption | nImO::kSkipPortOption | nImO::kSkipReportOption |
+                                    nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -136,7 +137,12 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, nImO::ServiceType::LauncherService, asServiceContext->getCommandConnection());
+                        std::string execPath{boost::dll::program_location().string()};
+                        std::string currentDir{boost::filesystem::current_path().string()};
+                        std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+
+                        statusWithBool = proxy.addNode(nodeName, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
+                                                       asServiceContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

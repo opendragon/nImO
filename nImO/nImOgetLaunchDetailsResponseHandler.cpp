@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOremoveAppMain.cpp
+//  File:       nImO/nImOgetLaunchDetailsResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to remove an application from the list of known applications.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2020 by OpenDragon.
+//  Copyright:  (c) 2023 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2020-02-27
+//  Created:    2023-04-22
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOmainSupport.h>
-#include <nImOregistryProxy.h>
-#include <nImOstandardOptions.h>
-#include <nImOstringArgumentDescriptor.h>
-#include <nImOutilityContext.h>
+#include <nImOgetLaunchDetailsResponseHandler.h>
+
+#include <nImOinteger.h>
+#include <nImOlogical.h>
+#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -51,10 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to remove an application from the list of known applications. */
-
-/*! @dir RemoveApplication
- @brief The set of files that implement the RemoveApplication tool. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -76,60 +73,82 @@
 #endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
-# pragma mark Global functions
+# pragma mark Class methods
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the tool.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used with the application.
- @return @c 0. */
-int
-main
-    (int            argc,
-     Ptr(Ptr(char)) argv)
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::LaunchDetailsResponseHandler::LaunchDetailsResponseHandler
+    (void) :
+        inherited()
 {
-    std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"), nImO::ArgumentMode::Required, ""};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
-    int                             exitCode = 0;
-
-    ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
-             kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
-             kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application", "nImOremoveApp shortAppName", 2020, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+    ODL_EXIT_P(this); //####
+} // nImO::LaunchDetailsResponseHandler::LaunchDetailsResponseHandler
+
+nImO::LaunchDetailsResponseHandler::~LaunchDetailsResponseHandler
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::LaunchDetailsResponseHandler::~LaunchDetailsResponseHandler
+
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
+
+void
+nImO::LaunchDetailsResponseHandler::doIt
+    (const Array &  stuff)
+{
+    ODL_OBJENTER(); //####
+    _result._found = false;
+    if (1 < stuff.size())
     {
-        nImO::LoadConfiguration(optionValues._configFilePath);
-        try
+        SpValue     element{stuff[1]};
+        CPtr(Array) detailsArray{element->asArray()};
+
+        if (nullptr != detailsArray)
         {
-            nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::GetShortComputerName()};
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "removeApp", optionValues._logging}};
-            nImO::Connection                registryConnection;
-
-            if (ourContext->asUtilityContext()->findRegistry(registryConnection))
+            if (3 < detailsArray->size())
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                CPtr(Logical)   foundPtr{(*detailsArray)[0]->asLogical()};
+                CPtr(String)    execPathPtr{(*detailsArray)[1]->asString()};
+                CPtr(String)    launchDirectoryPtr{(*detailsArray)[2]->asString()};
+                CPtr(String)    commandLinePtr{(*detailsArray)[3]->asString()};
 
-                // TBD
+                if ((nullptr != foundPtr) && (nullptr != execPathPtr) && (nullptr != launchDirectoryPtr) && (nullptr != commandLinePtr))
+                {
+                    _result._found = foundPtr->getValue();
+                    _result._execPath = execPathPtr->getValue();
+                    _result._launchDirectory = launchDirectoryPtr->getValue();
+                    _result._commandLine = commandLinePtr->getValue();
+                }
+                else
+                {
+                    ODL_LOG("! ((nullptr != foundPtr) && (nullptr != execPathPtr) && (nullptr != launchDirectoryPtr) && " //####
+                            "(nullptr != commandLinePtr))"); //####
+                }
             }
             else
             {
-                ourContext->report("Registry not found.");
-                exitCode = 2;
+                ODL_LOG("! (5 < detailsArray->size())"); //####
             }
-            ourContext->report("exiting.");
         }
-        catch (...)
+        else
         {
-            ODL_LOG("Exception caught"); //####
-            exitCode = -1;
+            ODL_LOG("! (nullptr != detailsArray)"); //####
         }
     }
-    ODL_EXIT_I(exitCode); //####
-    return exitCode;
-} // main
+    else
+    {
+        ODL_LOG("! (1 < stuff.size())"); //####
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::LaunchDetailsResponseHandler::doIt
+
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

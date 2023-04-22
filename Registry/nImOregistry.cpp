@@ -84,6 +84,15 @@
 /*! @brief The named parameter for the 'serviceType' column. */
 # define NODE_SERVICE_TYPE_C_   "serviceType"
 
+/*! @brief The named parameter for the 'execPath' column. */
+# define NODE_EXEC_PATH_C_  "execPath"
+
+/*! @brief The named parameter for the 'launchDirectory' column. */
+# define NODE_LAUNCH_DIRECTORY_C_   "launchDirectory"
+
+/*! @brief The named parameter for the 'commandLine' column. */
+# define NODE_COMMAND_LINE_C_   "commandLine"
+
 /*! @brief The name of the index for the 'name' column of the 'Nodes' table. */
 #define NODES_NAME_I_   "Nodes_name_idx"
 
@@ -107,15 +116,28 @@ struct NodeInsertData
     /*! @brief The type of this node. */
     nImO::ServiceType   _serviceType;
 
+    /*! @brief The path to the executable for this node. */
+    std::string _execPath;
+
+    /*! @brief The directory where this node was launched. */
+    std::string _launchDirectory;
+
+    /*! @brief The command line that was used to launch this node. */
+    std::string _commandLine;
+
     /*! @brief The constructor.
      @param[in] name The name of this node.
      @param[in] connection The command IP address and port for this node.
      @param[in] serviceType The type of service provided by this node. */
     inline NodeInsertData
-        (const std::string          name,
+        (const std::string &        name,
          const nImO::Connection &   connection,
-         const nImO::ServiceType    serviceType) :
-            _name(name), _connection(connection), _serviceType(serviceType)
+         const nImO::ServiceType    serviceType,
+         const std::string &        execPath,
+         const std::string &        launchDirectory,
+         const std::string &        commandLine) :
+            _name(name), _connection(connection), _serviceType(serviceType), _execPath(execPath), _launchDirectory(launchDirectory),
+            _commandLine(commandLine)
     {
     }
 
@@ -594,7 +616,9 @@ createTables
             static CPtr(char)   tableSQL[] =
             {
                 "CREATE TABLE IF NOT EXISTS " NODES_T_ "(" NODE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ " PRIMARY KEY ON CONFLICT ABORT,"
-                                                            NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_ " INTEGER, " NODE_SERVICE_TYPE_C_ " INTEGER)",
+                                                            NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_ " INTEGER, " NODE_SERVICE_TYPE_C_ " INTEGER,"
+                                                            NODE_EXEC_PATH_C_ " " TEXTNOTNULL_ " " BINARY_ ", " NODE_LAUNCH_DIRECTORY_C_ " "
+                                                            TEXTNOTNULL_ " " BINARY_ ", " NODE_COMMAND_LINE_C_ " " TEXTNOTNULL_ " " BINARY_ ")",
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")"
             };
             static const size_t numTables = A_SIZE(tableSQL);
@@ -652,11 +676,18 @@ setupInsertIntoNodes
         int nodeAddressIndex = sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_);
         int nodePortIndex = sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_);
         int nodeServiceTypeIndex = sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_);
+        int nodeExecPathIndex = sqlite3_bind_parameter_index(statement, "@" NODE_EXEC_PATH_C_);
+        int nodeLaunchDirectoryIndex = sqlite3_bind_parameter_index(statement, "@" NODE_LAUNCH_DIRECTORY_C_);
+        int nodeCommandLineIndex = sqlite3_bind_parameter_index(statement, "@" NODE_COMMAND_LINE_C_);
 
-        if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex))
+        if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex) && (0 < nodeExecPathIndex) &&
+            (0 < nodeLaunchDirectoryIndex) && (0 < nodeCommandLineIndex))
         {
             CPtr(NodeInsertData)    nodeData = StaticCast(CPtr(NodeInsertData), stuff);
             std::string             name = nodeData->_name;
+            std::string             execPath = nodeData->_execPath;
+            std::string             launchDirectory = nodeData->_launchDirectory;
+            std::string             commandLine = nodeData->_commandLine;
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -671,6 +702,20 @@ setupInsertIntoNodes
             {
                 result = sqlite3_bind_int(statement, nodeServiceTypeIndex, StaticCast(int, nodeData->_serviceType));
             }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, nodeExecPathIndex, execPath.c_str(), StaticCast(int, execPath.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, nodeLaunchDirectoryIndex, launchDirectory.c_str(), StaticCast(int, launchDirectory.length()),
+                                           SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, nodeCommandLineIndex, commandLine.c_str(), StaticCast(int, commandLine.length()),
+                                           SQLITE_TRANSIENT);
+            }
             if (SQLITE_OK != result)
             {
                 ODL_S1("error description: ", sqlite3_errstr(result)); //####
@@ -678,7 +723,8 @@ setupInsertIntoNodes
         }
         else
         {
-            ODL_LOG("! ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex))"); //####
+            ODL_LOG("! ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex) && " //####
+                    "(0 < nodeExecPathIndex) && (0 < nodeLaunchDirectoryIndex) && (0 < nodeCommandLineIndex))"); //####
         }
     }
     catch (...)
@@ -798,20 +844,25 @@ nImO::Registry::~Registry
 nImO::RegSuccessOrFailure
 nImO::Registry::addNode
     (const std::string &    nodeName,
+     const std::string &    execPath,
+     const std::string &    launchDirectory,
+     const std::string &    commandLine,
      const ServiceType      serviceClass,
      const Connection &     nodeConnection)
 {
     RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
 
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
     ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
     if (status.first)
     {
-        NodeInsertData      data{nodeName, nodeConnection, serviceClass};
+        NodeInsertData      data{nodeName, nodeConnection, serviceClass, execPath, launchDirectory, commandLine};
         static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
-                                                ") VALUES(@" NODE_NAME_C_ ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ",@" NODE_SERVICE_TYPE_C_ ")";
+                                                "," NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ ") VALUES(@" NODE_NAME_C_
+                                                ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ",@" NODE_SERVICE_TYPE_C_ ",@" NODE_EXEC_PATH_C_ ",@"
+                                                NODE_LAUNCH_DIRECTORY_C_ ",@" NODE_COMMAND_LINE_C_ ")";
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
@@ -892,6 +943,60 @@ nImO::Registry::getInformationForAllNodes
     ODL_OBJEXIT(); //####
     return RegNodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodes
+
+nImO::RegLaunchDetailsOrFailure
+nImO::Registry::getLaunchDetails
+    (const std::string &    nodeName)
+    const
+{
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    LaunchDetails       details;
+
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchNodes = "SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM " NODES_T_
+                                                    " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        if (status.first)
+        {
+            if (0 < results.size())
+            {
+                StringVector    values{results[0]};
+
+                if (2 < values.size())
+                {
+                    details._found = true;
+                    details._execPath = values[0];
+                    details._launchDirectory = values[1];
+                    details._commandLine = values[2];
+                }
+                else
+                {
+                    ODL_LOG("! (2 < values.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (0 < results.size())"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT(); //####
+    return RegLaunchDetailsOrFailure{status, details};
+} // nImO::Registry::getLaunchDetails
 
 nImO::RegStringSetOrFailure
 nImO::Registry::getNamesOfNodes

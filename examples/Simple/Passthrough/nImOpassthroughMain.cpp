@@ -99,7 +99,7 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Passthrough example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipFlavoursOption))
+                                    nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -121,7 +121,7 @@ main
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                nImO::RegistryProxy     proxy{ourContext, registryConnection};
                 nImO::RegBoolOrFailure  statusWithBool = proxy.isNodePresent(nodeName);
 
                 if (statusWithBool.first.first)
@@ -134,7 +134,12 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, nImO::ServiceType::FilterService, asServiceContext->getCommandConnection());
+                        std::string execPath{boost::dll::program_location().string()};
+                        std::string currentDir{boost::filesystem::current_path().string()};
+                        std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+
+                        statusWithBool = proxy.addNode(nodeName, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                       asServiceContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

@@ -207,29 +207,77 @@ listNodes
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::FlavourNormal :
-                            std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port << std::endl;
+                            std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port;
                             break;
 
                         case nImO::OutputFlavour::FlavourJSON :
                             std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
-                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ " }";
-                            if (nodes.end() != walker)
+                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_;
+                            if (! options._detailed)
                             {
-                                std::cout << ",";
+                                std::cout << " }";
                             }
-                            std::cout << std::endl;
                             break;
 
                         case nImO::OutputFlavour::FlavourTabs :
-                            std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port << std::endl;
+                            std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port;
                             break;
 
                         default :
                             break;
 
                     }
+                    if (options._detailed)
+                    {
+                        nImO::RegLaunchDetailsOrFailure statusWithDetails = proxy.getLaunchDetails(theInfo._name);
+
+                        if (statusWithDetails.first.first)
+                        {
+                            nImO::LaunchDetails &   details = statusWithDetails.second;
+
+
+                            switch (options._flavour)
+                            {
+                                case nImO::OutputFlavour::FlavourNormal :
+                                    std::cout << ' ' << details._execPath << ' ' << details._launchDirectory << ' ' << details._commandLine;
+                                    break;
+
+                                case nImO::OutputFlavour::FlavourJSON :
+                                    std::cout << ", " CHAR_DOUBLEQUOTE_ "execPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                    nImO::SanitizeString(details._execPath, true) << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "launchDirectory"
+                                    CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nImO::SanitizeString(details._launchDirectory, true) <<
+                                    CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "commandLine" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                    nImO::SanitizeString(details._commandLine, true) << CHAR_DOUBLEQUOTE_ " }";
+                                    break;
+
+                                case nImO::OutputFlavour::FlavourTabs :
+                                    std::cout << '\t' << details._execPath << '\t' << details._launchDirectory << '\t' << details._commandLine;
+                                    break;
+
+                                default :
+                                    break;
+
+                            }
+
+
+
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << std::endl;
+                            okSoFar = false;
+                        }
+                    }
+                    if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+                    {
+                        if (nodes.end() != walker)
+                        {
+                            std::cout << ",";
+                        }
+                    }
+                    std::cout << std::endl;
                 }
             }
             if (nImO::OutputFlavour::FlavourJSON == options._flavour)

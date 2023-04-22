@@ -98,12 +98,18 @@ namespace nImO
 
             /*! @brief Add a node to the Registry.
              @param[in] nodeName The name of the node to be added.
+             @param[in] execPath The path to the executable for the node.
+             @param[in] launchDirectory The path to the current directory when the executable for the node is launched.
+             @param[in] commandLine The command line arguments passed to the executable for the node.
              @param[in] serviceClass The nature of the service corresponding to the node.
              @param[in] nodeConnection The command address and port of the node.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
             RegSuccessOrFailure
             addNode
                 (const std::string &    nodeName,
+                 const std::string &    execPath,
+                 const std::string &    launchDirectory,
+                 const std::string &    commandLine,
                  const ServiceType      serviceClass = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
@@ -112,6 +118,14 @@ namespace nImO
             RegNodeInfoVectorOrFailure
             getInformationForAllNodes
                 (void)
+                const;
+
+            /*! @brief Get information on how the node was launched.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
+            RegLaunchDetailsOrFailure
+            getLaunchDetails
+                (const std::string &    nodeName)
                 const;
 
             /*! @brief Get the set of nodes in the Registry.
@@ -123,9 +137,7 @@ namespace nImO
 
             /*! @brief Get information on the node stored in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
-             @param[out] nodeAddress The IP address of the node.
-             @param[out] nodePort The command port of the node.
-             @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
+             @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
             RegNodeInfoOrFailure
             getNodeInformation
                 (const std::string &    nodeName)

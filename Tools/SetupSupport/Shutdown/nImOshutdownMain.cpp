@@ -126,9 +126,17 @@ main
                     {
                         if (statusWithInfo.second._found)
                         {
-                            // TBD
                             // Close all connections for services on the node.
+                            if (optionValues._detailed)
+                            {
+                                ourContext->report("closing all connections to " + nodeName);
+                            }
+                            // TBD
                             // Send Shutdown command to the node.
+                            if (optionValues._detailed)
+                            {
+                                ourContext->report("sending shutdown request to " + nodeName);
+                            }
                             nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                                                                              nImO::kShutDownResponse);
                         }
@@ -158,7 +166,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
                             {
-                                ourContext->report("stopping " + theInfo._name);
+                                ourContext->report("sending shutdown request to " + nodeName);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -172,8 +180,10 @@ main
 
 
                         // TBD: Close all connections.
-
-
+                        if (optionValues._detailed)
+                        {
+                            ourContext->report("closing all connections");
+                        }
                         // Send Shutdown command to all other nodes.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
                         {
@@ -181,7 +191,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
                             {
-                                ourContext->report("stopping " + theInfo._name);
+                                ourContext->report("sending shutdown request to " + nodeName);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -200,7 +210,7 @@ main
                     }
                     // Give the Registry time to handle pending requests.
                     nImO::ConsumeSomeTime(ourContext.get(), 20);
-                    ourContext->report("stopping Registry");
+                    ourContext->report("sending shutdown request to Registry");
                     // Send Shutdown command to Registry.
                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }

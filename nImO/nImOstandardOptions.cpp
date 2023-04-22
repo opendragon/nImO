@@ -170,6 +170,7 @@ nImO::ProcessStandardOptions
     {
         kOptionUNKNOWN,
         kOptionCONFIG,
+        kOptionDETAIL,
         kOptionHELP,
         kOptionINFO,
         kOptionJSON,
@@ -184,6 +185,8 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                     Option_::Arg::Optional,
                                                     T_("  --config, -c <path> \tSpecify path to configuration file")};
+    Option_::Descriptor         detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "x",
+                                                "detail", Option_::Arg::None, T_("  --detail, -x \tDisplay more details")};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help",
                                                 Option_::Arg::None, T_("  --help, -h  \tPrint usage and exit")};
     Option_::Descriptor         infoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINFO), 0, "i", "info",
@@ -201,7 +204,7 @@ nImO::ProcessStandardOptions
                                                     "vers", Option_::Arg::None,
                                                     T_("  --vers, -v \tPrint version information and exit")};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[9]; // first, config, help, info, json, logg, tabs, version, last
+    Option_::Descriptor         usage[10]; // first, config, detail, help, info, json, logg, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
@@ -255,6 +258,10 @@ nImO::ProcessStandardOptions
     if (0 == (kSkipConfigFileOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
+    }
+    if (0 == (kSkipDetailOption & optionsToIgnore))
+    {
+        memcpy(usageWalker++, &detailDescriptor, sizeof(detailDescriptor));
     }
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
     memcpy(usageWalker++, &infoDescriptor, sizeof(infoDescriptor));
@@ -317,6 +324,10 @@ nImO::ProcessStandardOptions
         else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
         {
             optionValues._flavour = OutputFlavour::FlavourTabs;
+        }
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDETAIL)])
+        {
+            optionValues._detailed = true;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {

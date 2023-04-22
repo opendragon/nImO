@@ -74,10 +74,34 @@ namespace nImO
         OutputService
     }; // ServiceType
 
+    /*! @brief The launch information for a node. */
+    struct LaunchDetails
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found;
+
+        /*! @brief The path to the executable for the node. */
+        std::string _execPath;
+
+        /*! @brief The path to the directory where the executable for the node was launched. */
+        std::string _launchDirectory;
+
+        /*! @brief The command line used to launch the executable for the node. */
+        std::string _commandLine;
+
+        /*! @brief The constructor. */
+        inline LaunchDetails
+            (void) :
+                _found(false)
+        {
+        }
+
+    }; // LaunchDetails
+
     /*! @brief The data found in the Registry for a node. */
     struct NodeInfo
     {
-        /*! @brief @c true if the _connection field is valid. */
+        /*! @brief @c true if the data is valid. */
         bool    _found;
 
         /*! @brief The command IP address and port that was found.*/
@@ -109,6 +133,9 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, bool> RegBoolOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, LaunchDetails> RegLaunchDetailsOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, NodeInfo> RegNodeInfoOrFailure;

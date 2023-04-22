@@ -104,7 +104,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipFlavoursOption))
+                                    nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -139,7 +139,12 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, nImO::ServiceType::FilterService, asServiceContext->getCommandConnection());
+                        std::string execPath{boost::dll::program_location().string()};
+                        std::string currentDir{boost::filesystem::current_path().string()};
+                        std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+
+                        statusWithBool = proxy.addNode(nodeName, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                       asServiceContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

@@ -631,6 +631,29 @@ nImO::I2B
     return length;
 } // nImO::I2B
 
+std::string
+nImO::MakeStringFromComandLine
+    (const int      numArgs,
+     Ptr(Ptr(char)) args)
+{
+    std::string result;
+
+    ODL_ENTER(); //####
+    ODL_I1("numArgs = ", numArgs); //####
+    ODL_P1("args = ", args); //####
+    if (0 < numArgs)
+    {
+        result = args[0];
+        for (int ii = 1; ii < numArgs; ++ii)
+        {
+            result += "\t";
+            result += args[ii];
+        }
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::MakeStringFromCommandLine
+
 CPtr(char)
 nImO::NameOfSignal
     (const int  theSignal)

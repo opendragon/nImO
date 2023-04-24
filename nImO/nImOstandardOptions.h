@@ -151,15 +151,12 @@ namespace nImO
     /*! @brief Process the standard options for utility executables.
      The option '-c' / '--conf' specifies an alternative configuration file to use.
      The option '-d' / '--detail' increases the amount of detail presented.
-     The option '-h' / '--help' displays the list of optional parameters and arguments and
-     returns @c false.
-     The option '-i' / '--info' displays the type of the executable and the description of the
-     executable and returns @c false.
+     The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
+     The option '-i' / '--info' displays the type of the executable and the description of the executable and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
-     The option '-v' / '--vers' displays the version and copyright information and returns
-     @c false.
+     The option '-v' / '--vers' displays the version and copyright information and returns @c false.
      @param[in] argc The number of arguments in 'argv'.
      @param[in] argv The arguments to be used with the utility.
      @param[in,out] argumentDescriptions Descriptions of the arguments to the application.

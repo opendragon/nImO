@@ -80,21 +80,16 @@ namespace nImO
     The option '-c' / '--conf' specifies an alternative configuration file to use.
     The option '-d' / '--detail' increases the amount of detail presented.
     The option '-e' / '--endpoint' specifies the endpoint name to be used.
-    The option '-h' / '--help' displays the list of optional parameters and arguments and
-    returns @c false.
-    The option '-i' / '--info' displays the type of the executable, the available options and
-    the description of the executable and returns @c false.
+    The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
+    The option '-i' / '--info' displays the type of the executable, the available options and the description of the executable and returns @c false.
     The option '-l' / '--log' specifies that the executable is to be logged.
-    The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the
-    channel, if the name was not specified. It is also applied to the service name as a suffix.
-    The option '-v' / '--vers' displays the version and copyright information and returns
-    @c false.
+    The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the service.
+    The option '-v' / '--vers' displays the version and copyright information and returns @c false.
     @param[in] argc The number of arguments in 'argv'.
     @param[in] argv The arguments to be used with the service.
     @param[in] argumentDescriptions Descriptions of the arguments to the service.
     @param[in] serviceDescription A description of the service.
-    @param[in] matchingCriteria The criteria used to locate the service that the service
-    requires to be running.
+    @param[in] matchingCriteria The criteria used to locate the service that the service requires to be running.
     @param[in] year The copyright year for the calling application.
     @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
     @param[out] optionValues Values set by command-line options.

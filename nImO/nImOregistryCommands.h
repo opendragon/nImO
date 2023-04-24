@@ -55,17 +55,51 @@
 namespace nImO
 {
 
+    // Status reports
+
+    /*! @brief The prefix for a channel added status report. */
+    const std::string   kChannelAddedStatus = "c+";
+
+    /*! @brief The prefix for a channel connected status report. */
+    const std::string   kChannelConnectedStatus = "c*";
+
+    /*! @brief The prefix for a channel connected status report. */
+    const std::string   kChannelDisconnectedStatus = "c/";
+
+    /*! @brief The prefix for a channel removed status report. */
+    const std::string   kChannelRemovedStatus = "c-";
+
     /*! @brief The prefix for a node added status report. */
     const std::string   kNodeAddedStatus = "n+";
 
     /*! @brief The prefix for a node removed status report. */
     const std::string   kNodeRemovedStatus = "n-";
 
+    // Requests and responses
+
+    /*! @brief The request to add a channel to the Registry. */
+    const std::string   kAddChannelRequest = "addChannel!";
+
+    /*! @brief The 'addChannel' response. */
+    const std::string   kAddChannelResponse = "addChannel=";
+
     /*! @brief The request to add a node to the Registry. */
     const std::string   kAddNodeRequest = "addNode!";
 
     /*! @brief The 'addNode' response. */
     const std::string   kAddNodeResponse = "addNode=";
+
+    /*! @brief The request to connect two channels to the Registry. */
+    const std::string   kConnectChannelsRequest = "connectChannels!";
+
+    /*! @brief The 'connectChannels' response. */
+    const std::string   kConnectChannelsResponse = "connectChannels=";
+
+    /*! @brief The request to break the connection between two channels to the Registry. */
+    const std::string   kDisconnectChannelsRequest = "disconnectChannels!";
+
+    /*! @brief The 'disConnectChannels' response. */
+    const std::string   kDisconnectChannelsResponse = "disconnectChannels=";
 
     /*! @brief The request to get information on all nodes in the Registry. */
     const std::string   kGetInformationForAllNodesRequest = "getInformationForAllNodes?";
@@ -102,6 +136,12 @@ namespace nImO
 
     /*! @brief The 'isNodePresent' reponse. */
     const std::string   kIsNodePresentResponse = "isNodePresent=";
+
+    /*! @brief The request to remove a channel from the Registry. */
+    const std::string   kRemoveChannelRequest = "removeChannel!";
+
+    /*! @brief The 'removeChannel' response. */
+    const std::string   kRemoveChannelResponse = "removeChannel=";
 
     /*! @brief The request to remove a node from the Registry. */
     const std::string   kRemoveNodeRequest = "removeNode!";

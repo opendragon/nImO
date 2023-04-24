@@ -101,18 +101,12 @@ nImO::ProcessServiceOptions
     {
         kOptionUNKNOWN,
         kOptionARGS,
-        kOptionCHANNEL,
         kOptionCONFIG,
         kOptionDETAIL,
-        kOptionENDPOINT,
-        kOptionGO,
         kOptionHELP,
         kOptionINFO,
         kOptionLOG,
-        kOptionMOD,
         kOptionNODE,
-        kOptionPORT,
-        kOptionREPORT,
         kOptionTAG,
         kOptionVERSION
     }; // OptionIndex
@@ -137,28 +131,17 @@ nImO::ProcessServiceOptions
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         T_("  --args, -a \tReport the argument formats")};
-    Option_::Descriptor channelDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCHANNEL), 0, "d", "channel", Option_::Arg::None,
-                                            T_("  --channel, -d \tReport the actual endpoint name")};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             T_("  --config, -c <path> \tSpecify path to configuration file")};
-    Option_::Descriptor         detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "x",
-                                                "detail", Option_::Arg::None, T_("  --detail, -x \tDisplay more details")};
-    Option_::Descriptor endpointDescriptor{StaticCast(unsigned int, OptionIndex::kOptionENDPOINT), 0, "e", "endpoint", Option_::Arg::Required,
-                                            T_("  --endpoint, -e \tSpecify an alternative endpoint name to be used")};
-    Option_::Descriptor goDescriptor{StaticCast(unsigned int, OptionIndex::kOptionGO), 0, "g", "go", Option_::Arg::None, goPartText.c_str()};
+    Option_::Descriptor detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "d",
+                                                "detail", Option_::Arg::None, T_("  --detail, -d \tDisplay more details")};
     Option_::Descriptor helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help", Option_::Arg::None,
                                         T_("  --help, -h \tPrint usage and exit")};
     Option_::Descriptor infoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINFO), 0, "i", "info", Option_::Arg::None, infoPartText.c_str()};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
                                         T_("  --log, -l \tLog application")};
-    Option_::Descriptor modDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMOD), 0, "m", "mod", Option_::Arg::Required,
-                                        T_("  --mod, -m \tUse the IP address as a modifier for the tag")};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
                                         T_("  --node, -n \tSpecify a non-default node name to be used")};
-    Option_::Descriptor portDescriptor{StaticCast(unsigned int, OptionIndex::kOptionPORT), 0, "p", "port", Option_::Arg::Required,
-                                        T_("  --port, -p \tSpecify a non-default port to be used")};
-    Option_::Descriptor reportDescriptor{StaticCast(unsigned int, OptionIndex::kOptionREPORT), 0, "r", "report", Option_::Arg::None,
-                                            reportPartText.c_str()};
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "vers", Option_::Arg::None,
                                             T_("  --vers, -v \tPrint version information and exit")};
@@ -199,23 +182,11 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
-    if (0 == (skipOptions & kSkipChannelOption))
-    {
-        ++descriptorCount;
-    }
     if (0 == (skipOptions & kSkipConfigFileOption))
     {
         ++descriptorCount;
     }
     if (0 == (skipOptions & kSkipDetailOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipEndpointOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipGoOption))
     {
         ++descriptorCount;
     }
@@ -227,19 +198,7 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
-    if (0 == (skipOptions & kSkipModOption))
-    {
-        ++descriptorCount;
-    }
     if (0 == (skipOptions & kSkipNodeOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipPortOption))
-    {
-        ++descriptorCount;
-    }
-    if (0 == (skipOptions & kSkipReportOption))
     {
         ++descriptorCount;
     }
@@ -260,10 +219,6 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &argsDescriptor, sizeof(argsDescriptor));
     }
-    if (0 == (skipOptions & kSkipChannelOption))
-    {
-        memcpy(usageWalker++, &channelDescriptor, sizeof(channelDescriptor));
-    }
     if (0 == (skipOptions & kSkipConfigFileOption))
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
@@ -271,14 +226,6 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipDetailOption))
     {
         memcpy(usageWalker++, &detailDescriptor, sizeof(detailDescriptor));
-    }
-    if (0 == (skipOptions & kSkipEndpointOption))
-    {
-        memcpy(usageWalker++, &endpointDescriptor, sizeof(endpointDescriptor));
-    }
-    if (0 == (skipOptions & kSkipGoOption))
-    {
-        memcpy(usageWalker++, &goDescriptor, sizeof(goDescriptor));
     }
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
     if (0 == (skipOptions & kSkipInfoOption))
@@ -289,21 +236,9 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &logDescriptor, sizeof(logDescriptor));
     }
-    if (0 == (skipOptions & kSkipModOption))
-    {
-        memcpy(usageWalker++, &modDescriptor, sizeof(modDescriptor));
-    }
     if (0 == (skipOptions & kSkipNodeOption))
     {
         memcpy(usageWalker++, &nodeDescriptor, sizeof(nodeDescriptor));
-    }
-    if (0 == (skipOptions & kSkipPortOption))
-    {
-        memcpy(usageWalker++, &portDescriptor, sizeof(portDescriptor));
-    }
-    if (0 == (skipOptions & kSkipReportOption))
-    {
-        memcpy(usageWalker++, &reportDescriptor, sizeof(reportDescriptor));
     }
     if (0 == (skipOptions & kSkipTagOption))
     {
@@ -382,15 +317,6 @@ nImO::ProcessServiceOptions
             }
             std::cout << "c";
         }
-        if (0 == (skipOptions & kSkipChannelOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "d";
-        }
         if (0 == (skipOptions & kSkipDetailOption))
         {
             if (needTab)
@@ -398,25 +324,7 @@ nImO::ProcessServiceOptions
                 std::cout << "\t";
                 needTab = false;
             }
-            std::cout << "x";
-        }
-        if (0 == (skipOptions & kSkipEndpointOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "e";
-        }
-        if (0 == (skipOptions & kSkipGoOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "g";
+            std::cout << "d";
         }
         if (0 == (skipOptions & kSkipInfoOption))
         {
@@ -436,15 +344,6 @@ nImO::ProcessServiceOptions
             }
             std::cout << "l";
         }
-        if (0 == (skipOptions & kSkipModOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "m";
-        }
         if (0 == (skipOptions & kSkipNodeOption))
         {
             if (needTab)
@@ -453,24 +352,6 @@ nImO::ProcessServiceOptions
                 needTab = false;
             }
             std::cout << "n";
-        }
-        if (0 == (skipOptions & kSkipPortOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "p";
-        }
-        if (0 == (skipOptions & kSkipReportOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "r";
         }
         if (0 == (skipOptions & kSkipTagOption))
         {
@@ -491,55 +372,6 @@ nImO::ProcessServiceOptions
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionGO)])
-        {
-            optionValues._goWasSet = true;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionCHANNEL)])
-        {
-            optionValues._reportEndpoint = true;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionMOD)])
-        {
-            std::string modArg = options[StaticCast(size_t, OptionIndex::kOptionMOD)].arg;
-
-            if (0 < modArg.length())
-            {
-                CPtr(char)  startPtr = modArg.c_str();
-                Ptr(char)   endPtr;
-                int         numBytes = static_cast<int>(strtol(startPtr, &endPtr, 10));
-
-                if ((startPtr != endPtr) && ('\0' == *endPtr))
-                {
-                    switch (numBytes)
-                    {
-                        case 0 :
-                            optionValues._modFlag = kModificationNone;
-                            break;
-
-                        case 1 :
-                            optionValues._modFlag = kModificationBottomByte;
-                            break;
-
-                        case 2 :
-                            optionValues._modFlag = kModificationBottomTwoBytes;
-                            break;
-
-                        case 3 :
-                            optionValues._modFlag = kModificationBottomThreeBytes;
-                            break;
-
-                        case 4 :
-                            optionValues._modFlag = kModificationAllBytes;
-                            break;
-
-                        default :
-                            break;
-
-                    }
-                }
-            }
-        }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {
             optionValues._logging = true;
@@ -558,34 +390,9 @@ nImO::ProcessServiceOptions
         {
             optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
         }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionENDPOINT)])
-        {
-            optionValues._serviceEndpointName = options[StaticCast(size_t, OptionIndex::kOptionENDPOINT)].arg;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionPORT)])
-        {
-            optionValues._servicePortNumber = options[StaticCast(size_t, OptionIndex::kOptionPORT)].arg;
-            if (0 < optionValues._servicePortNumber.length())
-            {
-                CPtr(char)  startPtr = optionValues._servicePortNumber.c_str();
-                Ptr(char)   endPtr;
-                int         aPort = StaticCast(int, strtol(startPtr, &endPtr, 10));
-
-                if ((startPtr == endPtr) || ('\0' != *endPtr) || (! ValidPortNumber(aPort)))
-                {
-                    std::cout << "Bad port number." << std::endl;
-                    keepGoing = false;
-                    ODL_B1("keepGoing <- ", keepGoing); //####
-                }
-            }
-        }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
         {
             optionValues._tag = options[StaticCast(size_t, OptionIndex::kOptionTAG)].arg;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionREPORT)])
-        {
-            optionValues._reportOnExit = true;
         }
         if (nullptr != arguments)
         {

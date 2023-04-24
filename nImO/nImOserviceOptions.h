@@ -55,52 +55,14 @@
 namespace nImO
 {
 
-    /*! @brief The modification values to be used with the service channel tag. */
-    enum AddressTagModifier
-    {
-        /*! @brief Apply no modification. */
-        kModificationNone,
-
-        /*! @brief Use the LSB of the IP address as a modifier. */
-        kModificationBottomByte,
-
-        /*! @brief Use the low byte pair of the IP address as a modifier. */
-        kModificationBottomTwoBytes,
-
-        /*! @brief Use all but the MSB of the IP address as a modifier. */
-        kModificationBottomThreeBytes,
-
-        /*! @brief Use all the bytes of the IP address as a modifier. */
-        kModificationAllBytes
-
-    }; // AddressTagModifier
-
     /*! @brief Convenience structure for standard options. */
     struct ServiceOptions : StandardOptions
     {
         /*! @brief The struct that this struct is derived from. */
         using inherited = StandardOptions;
 
-        /*! @brief The command-line option 'g' was present. */
-        bool    _goWasSet;
-
-        /*! @brief @c true if the command-line option 'd' was present. */
-        bool    _reportEndpoint;
-
-        /*! @brief @c true if the command-line option 'r' was present. */
-        bool    _reportOnExit;
-
         /*! @brief The address tag set by a command-line option. */
         std::string _tag;
-
-        /*! @brief The service endpoint name set by a command-line option. */
-        std::string _serviceEndpointName;
-
-        /*! @brief The service port number set by a command-line option. */
-        std::string _servicePortNumber;
-
-        /*! @brief The address tag modifier  set by a command-line option. */
-        AddressTagModifier  _modFlag;
 
         /*! @brief The node name set by a command-line option. */
         std::string _node;
@@ -108,7 +70,7 @@ namespace nImO
         /*! @brief The constructor. */
         ServiceOptions
             (void) :
-                inherited(), _modFlag(kModificationNone)
+                inherited()
         {
         }
 
@@ -116,25 +78,17 @@ namespace nImO
 
     /*! @brief Process the standard options for service executables.
     The option '-c' / '--conf' specifies an alternative configuration file to use.
-    The option '-d' / '--channel' displays the endpoint name after applying all other
-    options and returns @c false.
+    The option '-d' / '--detail' increases the amount of detail presented.
     The option '-e' / '--endpoint' specifies the endpoint name to be used.
-    The option '-g' / '--go' indicates that the service is to be started immediately.
     The option '-h' / '--help' displays the list of optional parameters and arguments and
     returns @c false.
     The option '-i' / '--info' displays the type of the executable, the available options and
     the description of the executable and returns @c false.
     The option '-l' / '--log' specifies that the executable is to be logged.
-    The option '-m' / '--mod' specifies that the IP address will be used to modify the tag,
-    if present, or to replace the tag. The argument is the number of bytes of the IP address to
-    use, starting from the LSB.
-    The option '-p' / '--port' specifies the port number to be used.
-    The option '-r' / '--report' indicates that the service metrics are to be reported on exit.
     The option '-t' / '--tag' specifies the tag modifier, which is applied to the name of the
     channel, if the name was not specified. It is also applied to the service name as a suffix.
     The option '-v' / '--vers' displays the version and copyright information and returns
     @c false.
-    The option '-x' / '--detail' increases the amount of detail presented.
     @param[in] argc The number of arguments in 'argv'.
     @param[in] argv The arguments to be used with the service.
     @param[in] argumentDescriptions Descriptions of the arguments to the service.

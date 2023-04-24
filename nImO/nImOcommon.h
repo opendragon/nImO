@@ -543,14 +543,17 @@ namespace nImO
     /*! @brief The transport mechanism to use. */
     enum class TransportType : uint8_t
     {
+        /*! @brief The transport mechanism is unknown. */
+        kUnknown =  0x00,
+
         /*! @brief Use TCP for the transport mechanism. */
-        TCP,
+        kTCP =      0x01,
 
         /*! @brief Use UDP for the transport mechanism. */
-        UDP,
+        kUDP =      0x02,
 
-        /*! @brief The transport mechanism is unknown. */
-        Unknown
+        /*! @brief Any transport mechanism is allowed. */
+        kAny =      0x7F
 
     }; // TransportType
 
@@ -573,7 +576,7 @@ namespace nImO
         inline Connection
             (const uint32_t         address = 0,
              const uint16_t         port = 0,
-             const TransportType    transport = TransportType::TCP) :
+             const TransportType    transport = TransportType::kTCP) :
                 _address(address), _port(port), _transport(transport)
         {
         }
@@ -955,7 +958,7 @@ namespace nImO
     ResolveTransport
         (const TransportType    firstTransport,
          const TransportType    secondTransport,
-         const TransportType    defaultTransport = TransportType::Unknown);
+         const TransportType    defaultTransport = TransportType::kUnknown);
 
     /*! @brief Standardize the handling of TransportType value specifications.
      @param[in] firstTransport A TransportType value.
@@ -964,7 +967,7 @@ namespace nImO
     TransportType
     ResolveTransport
         (const TransportType    firstTransport,
-         const TransportType    defaultTransport = TransportType::Unknown);
+         const TransportType    defaultTransport = TransportType::kUnknown);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.
@@ -980,16 +983,6 @@ namespace nImO
     void
     SetSignalHandlers
         (SignalHandler  theHandler);
-
-    /*! @brief Set up the signal-handling behaviour so that this thread will catch our signal. */
-    void
-    SetUpCatcher
-        (void);
-
-    /*! @brief Restore the normal signal-handling behaviour. */
-    void
-    ShutDownCatcher
-        (void);
 
     /*! @brief Checks a network port number for validity.
      @param[in] aPort The port number to be checked.

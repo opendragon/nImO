@@ -151,37 +151,6 @@ const std::string   nImO::kStatusSeparator{"\t"};
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-#if MAC_OR_LINUX_
-/*! @brief The signal handler to catch requests to stop the service.
- @param[in] signal The signal being handled. */
-[[noreturn]]
-static void
-localCatcher
-    (int    signal)
-{
-    NIMO_UNUSED_ARG_(signal);
-    ODL_ENTER(); //####
-    ODL_I1("signal = ", signal); //####
-#if 0
-    if (lLogger)
-    {
-        std::string message{"exiting due to signal "};
-
-        message += std::to_string(signal);
-        message += " = ";
-        message += NameOfSignal(signal);
-# if USE_YARP_FATAL_NOT_FAIL_
-        lLogger->error("%s", message.c_str());
-# else // ! USE_YARP_FATAL_NOT_FAIL_
-        lLogger->error(message.c_str());
-# endif // ! USE_YARP_FATAL_NOT_FAIL_
-    }
-#endif//0
-    ODL_EXIT_EXIT(1); //####
-    exit(1);
-} // localCatcher
-#endif // MAC_OR_LINUX_
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -885,12 +854,23 @@ nImO::ResolveTransport
 
     switch (firstTransport)
     {
-        case TransportType::TCP :
+        case TransportType::kAny :
+            if ((TransportType::kUDP == secondTransport) || (TransportType::kTCP == secondTransport))
+            {
+                result = secondTransport;
+            }
+            else
+            {
+                result = defaultTransport;
+            }
+            break;
+
+        case TransportType::kTCP :
             result = firstTransport;
             break;
 
-        case TransportType::UDP :
-            if (TransportType::TCP == secondTransport)
+        case TransportType::kUDP :
+            if (TransportType::kTCP == secondTransport)
             {
                 result = secondTransport;
             }
@@ -900,12 +880,12 @@ nImO::ResolveTransport
             }
             break;
 
-        default:
-            if (TransportType::Unknown == secondTransport)
+        case TransportType::kUnknown :
+            if ((TransportType::kUnknown == secondTransport) || (TransportType::kAny == secondTransport))
             {
-                if (TransportType::Unknown == defaultTransport)
+                if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
                 {
-                    result = TransportType::TCP;
+                    result = TransportType::kTCP;
                 }
                 else
                 {
@@ -931,15 +911,16 @@ nImO::ResolveTransport
 
     switch (firstTransport)
     {
-        case TransportType::TCP :
-        case TransportType::UDP :
+        case TransportType::kTCP :
+        case TransportType::kUDP :
             result = firstTransport;
             break;
 
-        default:
-            if (TransportType::Unknown == defaultTransport)
+        case TransportType::kAny :
+        case TransportType::kUnknown :
+            if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
             {
-                result = TransportType::TCP;
+                result = TransportType::kTCP;
             }
             else
             {
@@ -1043,74 +1024,26 @@ nImO::SetSignalHandlers
     pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
 #else // ! MAC_OR_LINUX_
 # if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
-    //yarp::os::signal(SIGABRT, theHandler);
-    signal(SIGABRT, theHandler); //windows doesn't like the yarp signals for some reason
+    signal(SIGABRT, theHandler);
 # endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGHUP) && (SIGHUP != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGHUP, theHandler);
+    signal(SIGHUP, theHandler);
 # endif // defined(SIGHUP) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGINT) && (SIGINT != STANDARD_SIGNAL_TO_USE_))
-    //yarp::os::signal(SIGINT, theHandler);
-    signal(SIGINT, theHandler); //windows doesn't like the yarp signals for some reason
+    signal(SIGINT, theHandler);
 # endif // defined(SIGINT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGQUIT) && (SIGQUIT != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGQUIT, theHandler);
+    signal(SIGQUIT, theHandler);
 # endif // defined(SIGQUIT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGUSR1) && (SIGUSR1 != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGUSR1, theHandler);
+    signal(SIGUSR1, theHandler);
 # endif // defined(SIGUSR1) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 # if (defined(SIGUSR2) && (SIGUSR2 != STANDARD_SIGNAL_TO_USE_))
-    yarp::os::signal(SIGUSR2, theHandler);
+    signal(SIGUSR2, theHandler);
 # endif // defined(SIGUSR2) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
 #if 0
-    yarp::os::signal(SIGTERM, theHandler);
+    signal(SIGTERM, theHandler);
 #endif//0
 #endif // ! MAC_OR_LINUX_
     ODL_EXIT(); //####
 } // nImO::SetSignalHandlers
-
-void
-nImO::SetUpCatcher
-    (void)
-{
-#if MAC_OR_LINUX_
-    sigset_t            unblocking;
-    struct sigaction    act;
-#endif // MAC_OR_LINUX_
-
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    sigemptyset(&unblocking);
-    sigaddset(&unblocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_UNBLOCK, &unblocking, nullptr);
-    act.sa_handler = localCatcher;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
-#else // ! MAC_OR_LINUX_
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT(); //####
-} // nImO::SetUpCatcher
-
-void
-nImO::ShutDownCatcher
-    (void)
-{
-#if MAC_OR_LINUX_
-    sigset_t            blocking;
-    struct sigaction    act;
-#endif // MAC_OR_LINUX_
-
-    ODL_ENTER(); //####
-#if MAC_OR_LINUX_
-    sigemptyset(&blocking);
-    sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
-    pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
-    act.sa_handler = SIG_DFL;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    sigaction(STANDARD_SIGNAL_TO_USE_, &act, nullptr);
-#else // ! MAC_OR_LINUX_
-#endif // ! MAC_OR_LINUX_
-    ODL_EXIT(); //####
-} // nImO::ShutDownCatcher

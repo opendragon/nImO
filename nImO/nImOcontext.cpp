@@ -98,38 +98,6 @@ nImO::Context::Context
     {
         lContextCreated = true;
         Value::initialize();
-#if 0
-#if (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        yarp::os::Network::setVerbosity(1);
-#else // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        yarp::os::Network::setVerbosity(-1);
-#endif // ! (defined(ODL_ENABLE_LOGGING_) && defined(MpM_LogIncludesYarpTrace))
-        double  intPart;
-        double  now = yarp::os::Time::now();
-        double  fraction = modf(now, &intPart);
-        int     seed = StaticCast(int, ceil(fraction * kMaxRandom));
-
-#if defined(MpM_ChattyStart)
-# if MAC_OR_LINUX_
-        if (lLogger)
-        {
-            std::string message{"Program "};
-
-            message += progName;
-#  if USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info("%s", message.c_str());
-#  else // ! USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info(message.c_str());
-#  endif // ! USE_YARP_FATAL_NOT_FAIL_
-            lLogger->info("Movement And Meaning Version: " MpM_VERSION_ ", YARP Version: "
-                          YARP_VERSION_STRING ", ACE Version: " ACE_VERSION);
-        }
-# endif // MAC_OR_LINUX_
-#endif // defined(MpM_ChattyStart)
-        ODL_D2("time = ", now, "fraction = ", fraction); //####
-        ODL_I1("seed = ", seed); //####
-        yarp::os::Random::seed(seed);
-#endif//0
     }
     catch (...)
     {

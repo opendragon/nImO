@@ -69,6 +69,9 @@ static const char   kStartPath = '/';
 /*! @brief The character that starts the protocol part of a ChannelName. */
 static const char   kStartProtocol = '#';
 
+/*! @brief The standard name for any protocol. */
+static const std::string    kProtocolAnyName{"any"};
+
 /*! @brief The standard name for the TCP protocol. */
 static const std::string    kProtocolTcpName{"tcp"};
 
@@ -130,7 +133,7 @@ checkChar
 
 nImO::ChannelName::ChannelName
     (void) :
-        _transport(TransportType::Unknown)
+        _transport(TransportType::kUnknown)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -153,7 +156,7 @@ nImO::ChannelName::ChannelName
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     other._network = other._node = other._path = "";
-    other._transport = TransportType::Unknown;
+    other._transport = TransportType::kUnknown;
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
@@ -187,7 +190,7 @@ nImO::ChannelName::getName
     }
     result += kStartPath;
     result += _path;
-    if (TransportType::Unknown != _transport)
+    if (TransportType::kUnknown != _transport)
     {
         result += kStartProtocol;
         result += transportToName(_transport);
@@ -205,7 +208,7 @@ nImO::ChannelName::parse
     ODL_S1s("input = ", input); //####
     ODL_P1("problemDescription = ", &problemDescription); //####
     bool            okSoFar;
-    enum // Note that this can't be an 'enum class' since it will reqire a name; it's only used in this function, however.
+    enum // Note that this can't be an 'enum class' since it will require a name; it's only used in this function, however.
     {
         kNetwork,
         kNode,
@@ -344,13 +347,17 @@ nImO::ChannelName::parse
     okSoFar &= (0 < path.length());
     if (okSoFar)
     {
-        if (protocolName == transportToName(TransportType::UDP))
+        if (protocolName == transportToName(TransportType::kAny))
         {
-            protocol = TransportType::UDP;
+            protocol = TransportType::kAny;
         }
-        else if (protocolName == transportToName(TransportType::TCP))
+        else if (protocolName == transportToName(TransportType::kUDP))
         {
-            protocol = TransportType::TCP;
+            protocol = TransportType::kUDP;
+        }
+        else if (protocolName == transportToName(TransportType::kTCP))
+        {
+            protocol = TransportType::kTCP;
         }
         else if (protocolName == "")
         {
@@ -361,7 +368,7 @@ nImO::ChannelName::parse
             }
             else
             {
-                protocol = TransportType::Unknown;
+                protocol = TransportType::kUnknown;
             }
         }
         else
@@ -389,6 +396,7 @@ nImO::ChannelName::transportNames
     StringSet   result;
 
     ODL_ENTER(); //####
+    result.insert(kProtocolAnyName);
     result.insert(kProtocolUdpName);
     result.insert(kProtocolTcpName);
     ODL_EXIT(); //####
@@ -405,15 +413,19 @@ nImO::ChannelName::transportToName
     ODL_I1("aValue = ", StaticCast(int64_t, aValue)); //####
     switch (aValue)
     {
-        case TransportType::TCP :
+        case TransportType::kAny :
+            result = kProtocolAnyName;
+            break;
+
+        case TransportType::kTCP :
             result = kProtocolTcpName;
             break;
 
-        case TransportType::UDP :
+        case TransportType::kUDP :
             result = kProtocolUdpName;
             break;
 
-        case TransportType::Unknown :
+        case TransportType::kUnknown :
             result = kProtocolUnknownName;
             break;
 

@@ -154,11 +154,130 @@ helpForList
 /*! @brief Output the known nodes.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
+ @param[in] partOfAll @c true if the output is part of the 'all' request.
+ @param[in] isLast @c true if there is nothing following the output.
+ @return @c true if no errors encountered or @c false if there was a problem. */
+static bool
+listMachines
+    (nImO::RegistryProxy &      proxy,
+     nImO::StandardOptions &    options,
+     const bool                 partOfAll = false,
+     const bool                 isLast = true)
+{
+    bool                                okSoFar = true;
+    nImO::RegMachineInfoVectorOrFailure statusWithAllMachines = proxy.getInformationForAllMachines();
+
+    if (statusWithAllMachines.first.first)
+    {
+        if (partOfAll)
+        {
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << "{ " CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ ": " << std::endl;
+            }
+            else
+            {
+                std::cout << "Machines:" << std::endl;
+            }
+        }
+        nImO::MachineInfoVector &   machines = statusWithAllMachines.second;
+
+        if (machines.empty())
+        {
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << "[ ]" << std::endl;
+            }
+            else
+            {
+                std::cout << "** No machines **" << std::endl;
+            }
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << "[ " << std::endl;
+            }
+            for (auto walker = machines.begin(); walker != machines.end(); )
+            {
+                auto    theInfo{*walker};
+
+                if (theInfo._found)
+                {
+                    std::string             machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    asio::ip::address_v4    address{theInfo._address};
+
+                    switch (options._flavour)
+                    {
+                        case nImO::OutputFlavour::kFlavourNormal :
+                            std::cout << machineName << ' ' << address.to_string();
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourJSON :
+                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << machineName <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                        address.to_string() << CHAR_DOUBLEQUOTE_ " }";
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourTabs :
+                            std::cout << machineName << '\t' << address.to_string();
+                            break;
+
+                        default :
+                            break;
+
+                    }
+                    ++walker;
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                    {
+                        if (machines.end() != walker)
+                        {
+                            std::cout << ",";
+                        }
+                    }
+                    std::cout << std::endl;
+                }
+                else
+                {
+                    ++walker;
+                }
+            }
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << " ]" << std::endl;
+            }
+        }
+        if (partOfAll && (nImO::OutputFlavour::kFlavourJSON == options._flavour))
+        {
+            std::cout << " }";
+            if (! isLast)
+            {
+                std::cout << ",";
+            }
+            std::cout << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << std::endl;
+        okSoFar = false;
+    }
+    return okSoFar;
+} // listMachines
+
+/*! @brief Output the known nodes.
+ @param[in] proxy The connection to the Registry.
+ @param[in] options The options to apply.
+ @param[in] partOfAll @c true if the output is part of the 'all' request.
+ @param[in] isLast @c true if there is nothing following the output.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listNodes
     (nImO::RegistryProxy &      proxy,
-     nImO::StandardOptions &    options)
+     nImO::StandardOptions &    options,
+     const bool                 partOfAll = false,
+     const bool                 isLast = true)
 {
     bool                                okSoFar = true;
     nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodes();
@@ -167,26 +286,26 @@ listNodes
     {
         nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
 
+        if (partOfAll)
+        {
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << "{ " CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ ": " << std::endl;
+            }
+            else
+            {
+                std::cout << "Nodes:" << std::endl;
+            }
+        }
         if (nodes.empty())
         {
-            switch (options._flavour)
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-
-                case nImO::OutputFlavour::kFlavourNormal :
-                    std::cout << "** No nodes **" << std::endl;
-                    break;
-
-                case nImO::OutputFlavour::kFlavourJSON :
-                    std::cout << "[ ]" << std::endl;
-                    break;
-
-                case nImO::OutputFlavour::kFlavourTabs :
-                    std::cout << "** No nodes **" << std::endl;
-                    break;
-
-                default :
-                    break;
-
+                std::cout << "[ ]" << std::endl;
+            }
+            else
+            {
+                std::cout << "** No nodes **" << std::endl;
             }
         }
         else
@@ -211,7 +330,7 @@ listNodes
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
-                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
+                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
                                         CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_;
@@ -260,9 +379,6 @@ listNodes
                                     break;
 
                             }
-
-
-
                         }
                         else
                         {
@@ -289,6 +405,15 @@ listNodes
             {
                 std::cout << " ]" << std::endl;
             }
+        }
+        if (partOfAll && (nImO::OutputFlavour::kFlavourJSON == options._flavour))
+        {
+            std::cout << " }";
+            if (! isLast)
+            {
+                std::cout << ",";
+            }
+            std::cout << std::endl;
         }
     }
     else
@@ -373,7 +498,10 @@ main
                             break;
 
                         case Choice::kMach :
-                            // TBD
+                            if (! listMachines(proxy, optionValues))
+                            {
+                                exitCode = 1;
+                            }
                             break;
 
                         case Choice::kNode :
@@ -384,7 +512,10 @@ main
                             break;
 
                         case Choice::kAll :
-                            // TBD
+                            if (! (listMachines(proxy, optionValues, true, false) && listNodes(proxy, optionValues, true)))
+                            {
+                                exitCode = 1;
+                            }
                             break;
 
                     }

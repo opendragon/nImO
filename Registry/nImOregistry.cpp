@@ -1045,9 +1045,9 @@ nImO::Registry::getInformationForAllMachines
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes = "SELECT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_;
+        static CPtr(char)           searchMachines = "SELECT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_;
 
-        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
@@ -1284,9 +1284,9 @@ nImO::Registry::getNamesOfMachines
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT " MACHINE_NAME_C_ " FROM " MACHINES_T_;
+        static CPtr(char)   searchMachines = "SELECT " MACHINE_NAME_C_ " FROM " MACHINES_T_;
 
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
@@ -1417,9 +1417,9 @@ nImO::Registry::getNumberOfMachines
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   countNodes = "SELECT COUNT(*) FROM " MACHINES_T_;
+        static CPtr(char)   countMachines = "SELECT COUNT(*) FROM " MACHINES_T_;
 
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
         if (status.first)
         {
             size_t  pos;
@@ -1495,9 +1495,9 @@ nImO::Registry::isMachinePresent
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_;
+        static CPtr(char)   searchMachines = "SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_;
 
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &machineName);
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
         if (status.first)
         {
             size_t  pos;

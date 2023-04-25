@@ -1,0 +1,48 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red163\green21\blue21;
+\red15\green104\blue160;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c63900\c8200\c8200;
+\csgenericrgb\c5882\c40784\c62745;}
+{\info
+{\author Norman Jaffe}
+{\*\company OpenDragon}}\margl1440\margr1440\vieww24420\viewh20080\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Create tables:\
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f1 \cf2 \cb3                 \cf4 CREATE TABLE IF NOT EXISTS\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 name\cf2  \cf4 Text NOT NULL DEFAULT _\cf2  \cf4 COLLATE NOCASE PRIMARY KEY ON CONFLICT IGNORE,\cf2 \
+                                                                \cf4 address INTEGER KEY PM CONFLICT ABORT)\cf2 ;\
+                \cf4 CREATE INDEX IF NOT EXISTS\cf2  \cf4 Machines_name_idx ON\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 name\cf2  \cf4 )\cf2 ;\
+                \cf4 CREATE INDEX IF NOT EXISTS\cf2  \cf4 Machines_address_idx ON\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 address\cf2  \cf4 )\cf2 ;\
+                \cf4 CREATE TABLE IF NOT EXISTS\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name\cf2  \cf4 Text NOT NULL DEFAULT _\cf2  \cf4 COLLATE NOCASE PRIMARY KEY ON CONFLICT ABORT,\cf2 \
+                                                            \cf4 address INTEGER REFERENCES\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 address\cf2  \cf4 ), \cf2 \
+                                                            \cf4 port INTEGER,\
+                                                            serviceType INTEGER,\cf2 \
+                                                            \cf4 execPath\cf2  \cf4 Text NOT NULL DEFAULT _\cf2  \cf4 COLLATE BINARY,\cf2 \
+                                                            \cf4 launchDirectory\cf2  \cf4 Text NOT NULL DEFAULT _\cf2  \cf4 COLLATE BINARY, \cf2 \
+                                                            \cf4 commandLine\cf2  \cf4 Text NOT NULL DEFAULT _\cf2  \cf4 COLLATE BINARY\cf2  \cf4 )\cf2 ;\
+                \cf4 CREATE INDEX IF NOT EXISTS\cf2  \cf4 Nodes_name_idx ON\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name\cf2  \cf4 );\cf2 \
+\
+Insertions:\
+        insertIntoMachines = \cf4 INSERT INTO\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address\cf2  \cf4 ) VALUES( @\cf2 name\cf4 , @address\cf2  \cf4 )\cf2 ;\
+        insertIntoNodes = \cf4 INSERT INTO\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType,\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine\cf2  \cf4 )\
+                                                VALUES( @name, @address, @port, @serviceType, @execPath, @launchDirectory, @commandLine\cf2  \cf4 )\cf2 ;\
+\
+Searches:\
+        \cf5 getInformationForAllMachines\cf2  = \cf4 SELECT\cf2  \cf4 name,\cf2  \cf4 address FROM\cf2  \cf4 Machines\cf2 ;\
+        getInformationForAllNodes = \cf4 SELECT\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType FROM Nodes\cf2 ;\
+        getLaunchDetails = \cf4 SELECT\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine FROM\cf2  \cf4 Nodes\cf2  \cf4 WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+        \cf5 getMachineInformation\cf2  = \cf4 SELECT\cf2  \cf4 address FROM\cf2  \cf4 Machines WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+        \cf5 getNamesOfMachines\cf2  = \cf4 SELECT\cf2  \cf4 name FROM\cf2  \cf4 Machines\cf2 ;\
+        \cf5 getNamesOfNodes\cf2  = \cf4 SELECT\cf2  \cf4 name FROM\cf2  \cf4 Nodes\cf2 ;\
+        getNodeInformation = \cf4 SELECT\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType FROM\cf2  \cf4 Nodes WHERE name\cf2  \cf4 = @name\cf2 ;\
+        \cf5 getNumberOfMachines\cf2  = \cf4 SELECT COUNT(*) FROM\cf2  \cf4 Machines\cf2 ;\
+        \cf5 getNumberOfNodes\cf2  = \cf4 SELECT COUNT(*) FROM \cf2  \cf4 Nodes\cf2 ;\
+        \cf5 isMachinePresent\cf2  = \cf4 SELECT COUNT(*) FROM\cf2  \cf4 Machines WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+        isNodePresent = \cf4 SELECT COUNT(*) FROM\cf2  \cf4 Nodes WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+\
+Updates:\
+        removeNode = \cf4 DELETE FROM\cf2  \cf4 Nodes WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+}

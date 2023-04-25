@@ -79,8 +79,8 @@ enum class Choice
     /*! @brief Return information on the known connections. */
     kConn,
 
-    /*! @brief Return information on the known services. */
-    kServ,
+    /*! @brief Return information on the known machine. */
+    kMach,
 
     /*! @brief Return information on the known nodes. */
     kNode,
@@ -172,15 +172,15 @@ listNodes
             switch (options._flavour)
             {
 
-                case nImO::OutputFlavour::FlavourNormal :
+                case nImO::OutputFlavour::kFlavourNormal :
                     std::cout << "** No nodes **" << std::endl;
                     break;
 
-                case nImO::OutputFlavour::FlavourJSON :
+                case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << "[ ]" << std::endl;
                     break;
 
-                case nImO::OutputFlavour::FlavourTabs :
+                case nImO::OutputFlavour::kFlavourTabs :
                     std::cout << "** No nodes **" << std::endl;
                     break;
 
@@ -191,7 +191,7 @@ listNodes
         }
         else
         {
-            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << "[ " << std::endl;
             }
@@ -201,16 +201,16 @@ listNodes
 
                 if (theInfo._found)
                 {
-                    std::string             nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::FlavourJSON == options._flavour)};
+                    std::string             nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
                     asio::ip::address_v4    address{theInfo._connection._address};
 
                     switch (options._flavour)
                     {
-                        case nImO::OutputFlavour::FlavourNormal :
+                        case nImO::OutputFlavour::kFlavourNormal :
                             std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port;
                             break;
 
-                        case nImO::OutputFlavour::FlavourJSON :
+                        case nImO::OutputFlavour::kFlavourJSON :
                             std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
@@ -221,7 +221,7 @@ listNodes
                             }
                             break;
 
-                        case nImO::OutputFlavour::FlavourTabs :
+                        case nImO::OutputFlavour::kFlavourTabs :
                             std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port;
                             break;
 
@@ -240,11 +240,11 @@ listNodes
 
                             switch (options._flavour)
                             {
-                                case nImO::OutputFlavour::FlavourNormal :
+                                case nImO::OutputFlavour::kFlavourNormal :
                                     std::cout << ' ' << details._execPath << ' ' << details._launchDirectory << ' ' << details._commandLine;
                                     break;
 
-                                case nImO::OutputFlavour::FlavourJSON :
+                                case nImO::OutputFlavour::kFlavourJSON :
                                     std::cout << ", " CHAR_DOUBLEQUOTE_ "execPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                     nImO::SanitizeString(details._execPath, true) << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "launchDirectory"
                                     CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nImO::SanitizeString(details._launchDirectory, true) <<
@@ -252,7 +252,7 @@ listNodes
                                     nImO::SanitizeString(details._commandLine, true) << CHAR_DOUBLEQUOTE_ " }";
                                     break;
 
-                                case nImO::OutputFlavour::FlavourTabs :
+                                case nImO::OutputFlavour::kFlavourTabs :
                                     std::cout << '\t' << details._execPath << '\t' << details._launchDirectory << '\t' << details._commandLine;
                                     break;
 
@@ -271,7 +271,7 @@ listNodes
                         }
                     }
                     ++walker;
-                    if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
                     {
                         if (nodes.end() != walker)
                         {
@@ -285,7 +285,7 @@ listNodes
                     ++walker;
                 }
             }
-            if (nImO::OutputFlavour::FlavourJSON == options._flavour)
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]" << std::endl;
             }
@@ -324,7 +324,7 @@ main
     lChoiceMap.insert({"apps", ChoiceInfo{Choice::kApps, "available applications"}});
     lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});
     lChoiceMap.insert({"conn", ChoiceInfo{Choice::kConn, "active connections"}});
-    lChoiceMap.insert({"serv", ChoiceInfo{Choice::kServ, "active services"}});
+    lChoiceMap.insert({"mach", ChoiceInfo{Choice::kMach, "active machines"}});
     lChoiceMap.insert({"node", ChoiceInfo{Choice::kNode, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
     nImO::StringSet choiceSet;
@@ -340,7 +340,7 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space", "nImOlist node", 2016,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, helpForList, nImO::kSkipLoggingOption))
+                                     NIMO_COPYRIGHT_NAME_, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
@@ -372,7 +372,7 @@ main
                             // TBD
                             break;
 
-                        case Choice::kServ :
+                        case Choice::kMach :
                             // TBD
                             break;
 

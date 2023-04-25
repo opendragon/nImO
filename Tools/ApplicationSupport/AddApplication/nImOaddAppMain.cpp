@@ -104,7 +104,8 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add application", "nImOaddApp /path-to-application [shortAppName]", 2020,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipDetailOption | nImO::kSkipFlavoursOption |
+                                     nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

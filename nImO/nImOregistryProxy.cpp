@@ -140,6 +140,7 @@ nImO::RegistryProxy::addNode
     std::unique_ptr<AddNodeResponseHandler> handler{new AddNodeResponseHandler};
     SpArray                                 connArray{new Array};
 
+    argArray->addValue(std::make_shared<String>(nImO::GetShortComputerName()));
     argArray->addValue(std::make_shared<String>(nodeName));
     argArray->addValue(std::make_shared<String>(execPath));
     argArray->addValue(std::make_shared<String>(launchDirectory));

@@ -92,7 +92,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown"), nImO::ArgumentMode::Optional, ""};
+    nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown (if machine is not specified)"), nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode = 0;
@@ -103,7 +103,7 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or all nodes", "nImOshutdown [node]", 2023,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes", "nImOshutdown [node]", 2023,
                                      NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -118,7 +118,11 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-                if (0 < nodeName.length())
+                if (0 < optionValues._machine.length())
+                {
+// shutdown a specific machine - all the services on it.
+                }
+                else if (0 < nodeName.length())
                 {
                     nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
 

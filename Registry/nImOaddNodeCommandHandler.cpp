@@ -115,18 +115,20 @@ nImO::AddNodeCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     _owner->report("add node request received");
-    if (5 < arguments.size())
+    if (6 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
         SpValue         element3{arguments[3]};
         SpValue         element4{arguments[4]};
         SpValue         element5{arguments[5]};
-        CPtr(String)    nameString{element1->asString()};
-        CPtr(String)    execPathString{element2->asString()};
-        CPtr(String)    launchDirectoryString{element3->asString()};
-        CPtr(String)    commandLineString{element4->asString()};
-        CPtr(Array)     connArray{element5->asArray()};
+        SpValue         element6{arguments[6]};
+        CPtr(String)    machineNameString{element1->asString()};
+        CPtr(String)    nodeNameString{element2->asString()};
+        CPtr(String)    execPathString{element3->asString()};
+        CPtr(String)    launchDirectoryString{element4->asString()};
+        CPtr(String)    commandLineString{element5->asString()};
+        CPtr(Array)     connArray{element6->asArray()};
         Connection      theConnection;
         ServiceType     theType;
 
@@ -158,21 +160,32 @@ nImO::AddNodeCommandHandler::doIt
                 theType = StaticCast(ServiceType, typeValue->getIntegerValue());
             }
         }
-        if ((nullptr != nameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) && (nullptr != commandLineString) &&
-            (nullptr != connArray))
+        if ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) &&
+            (nullptr != commandLineString) && (nullptr != connArray))
         {
-            std::string         nodeName{nameString->getValue()};
-            std::string         execPath{execPathString->getValue()};
-            std::string         launchDirectory{launchDirectoryString->getValue()};
-            std::string         commandLine{commandLineString->getValue()};
-            RegSuccessOrFailure status{_registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection)};
+            std::string         machineName{machineNameString->getValue()};
+            uint32_t            address{theConnection._address};
+            RegSuccessOrFailure status{_registry->addMachine(machineName, address)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node", true);
-                if (okSoFar)
+                std::string nodeName{nodeNameString->getValue()};
+                std::string execPath{execPathString->getValue()};
+                std::string launchDirectory{launchDirectoryString->getValue()};
+                std::string commandLine{commandLineString->getValue()};
+
+                status = _registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection);
+                if (status.first)
                 {
-                    sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);
+                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node", true);
+                    if (okSoFar)
+                    {
+                        sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -182,13 +195,13 @@ nImO::AddNodeCommandHandler::doIt
         }
         else
         {
-            ODL_LOG("! ((nullptr != nameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) && " //####
-                    "(nullptr != commandLineString) && (nullptr != connArray))"); //####
+            ODL_LOG("! ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && " //####
+                    "(nullptr != launchDirectoryString) && (nullptr != commandLineString) && (nullptr != connArray))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (6 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

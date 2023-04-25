@@ -102,7 +102,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two subnets", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                     nImO::kSkipDetailOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

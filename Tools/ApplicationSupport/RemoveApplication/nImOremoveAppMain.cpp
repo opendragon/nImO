@@ -101,7 +101,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application", "nImOremoveApp shortAppName", 2020, NIMO_COPYRIGHT_NAME_,
-                                     optionValues, nullptr, nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                     optionValues, nullptr, nImO::kSkipDetailOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

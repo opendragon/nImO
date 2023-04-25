@@ -80,11 +80,14 @@ namespace nImO
         /*! @brief Skip the 'logging' option. */
         kSkipLoggingOption      = 0x0020,
 
+        /*! @brief Skip the 'machine' option. */
+        kSkipMachineOption      = 0x0040,
+
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x0040,
+        kSkipNodeOption         = 0x0080,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x0080,
+        kSkipTagOption          = 0x0100,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
@@ -94,17 +97,17 @@ namespace nImO
     enum class OutputFlavour
     {
         /*! @brief Normal output with no special processing. */
-        FlavourNormal,
+        kFlavourNormal,
 
         /*! @brief Output in JSON format. Tabs and newlines are replaced with spaces. */
-        FlavourJSON,
+        kFlavourJSON,
 
         /*! @brief Output in tab-delimited format. Tabs and newlines are replaced with
          spaces. */
-        FlavourTabs,
+        kFlavourTabs,
 
         /*! @brief The output format is unknown. */
-        FlavourUnknown
+        kFlavourUnknown
 
     }; // OutputFlavour
 
@@ -123,13 +126,16 @@ namespace nImO
         bool    _logging;
 
         /*! @brief The configuration file path set by a command-line option. */
-        std::string     _configFilePath;
+        std::string _configFilePath;
+
+        /*! @brief The machine name set by a command-line option. */
+        std::string _machine;
 
         /*! @brief The constructor.
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _flavour(OutputFlavour::FlavourNormal), _detailed(false), _logging(loggingOnByDefault)
+                _flavour(OutputFlavour::kFlavourNormal), _detailed(false), _logging(loggingOnByDefault)
         {
         }
 
@@ -155,6 +161,7 @@ namespace nImO
      The option '-i' / '--info' displays the type of the executable and the description of the executable and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
+     The option '-m'/'--machine' specifies the machine to be referenced.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
      The option '-v' / '--vers' displays the version and copyright information and returns @c false.
      @param[in] argc The number of arguments in 'argv'.

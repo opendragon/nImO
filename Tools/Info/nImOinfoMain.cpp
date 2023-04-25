@@ -103,7 +103,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on a channel", "nImOinfo chan", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
-                                     nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption))
+                                     nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

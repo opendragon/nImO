@@ -64,58 +64,77 @@ fix_dynamic_libs(${THIS_TARGET})
 
 ## Test create a Registry
 add_test(NAME TestCreateRegistry COMMAND ${THIS_TARGET} 1)
-## Test check empty Registry for nodes
-add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 2)
-## Test check node set with empty Registry
-add_test(NAME TestNodeSetWithEmptyRegistry COMMAND ${THIS_TARGET} 3)
-## Test check find with empty Registry
-add_test(NAME TestFindWithEmptyRegistry COMMAND ${THIS_TARGET} 4)
-## Test add node to Registry
-add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 5)
-## Test check count with Registry with one node
-add_test(NAME TestCountWithRegistryWithOneNode COMMAND ${THIS_TARGET} 6)
-## Test check node set with Registry with one node
-add_test(NAME TestNodeSetWithRegistryWithOneNode COMMAND ${THIS_TARGET} 7)
-## Test check find with Registry with one node
-add_test(NAME TestFindWithRegistryWithOneNode COMMAND ${THIS_TARGET} 8)
-## Test check node data added to Registry
-add_test(NAME TestNodeDataAddedToRegistry COMMAND ${THIS_TARGET} 9)
-## Test remove node from Registry
-add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 10)
-## Test check count with Registry with node removed
-add_test(NAME TestCountWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 11)
-## Test check node set with Registry with node removed
-add_test(NAME TestNodeSetWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 12)
-## Test check find with Registry with node removed
-add_test(NAME TestFindWithRegistryNodeRemoved COMMAND ${THIS_TARGET} 13)
-## Test add two distinct nodes to Registry
-add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 14)
-## Test check count with Registry with two nodes
-add_test(NAME TestCountWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 15)
-## Test check node set with Registry with node removed
-add_test(NAME TestNodeSetWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 16)
-## Test check find with Registry with two nodes
-add_test(NAME TestFindWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 17)
-## Test remove added nodes from Registry
-add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 18)
-## Test check count with Registry with all nodes removed
-add_test(NAME TestCountWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 19)
-## Test check node set with Registry with node removed
-add_test(NAME TestNodeSetWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 20)
-## Test check find with Registry with all nodes removed
-add_test(NAME TestFindWithRegistryAllNodesRemoved COMMAND ${THIS_TARGET} 21)
+## Test check empty Registry for machines
+add_test(NAME TestEmptyRegistryForMachines COMMAND ${THIS_TARGET} 2)
+## Test check machine set with empty Registry
+add_test(NAME TestMachineSetWithEmptyRegistry COMMAND ${THIS_TARGET} 3)
+## Test check find machine with empty Registry
+add_test(NAME TestFindMachineWithEmptyRegistry COMMAND ${THIS_TARGET} 4)
+## Test add machine to Registry
+add_test(NAME TestAddMachineToRegistry COMMAND ${THIS_TARGET} 5)
+## Test check count machines with Registry with one machine
+add_test(NAME TestCountMachinesWithRegistryWithOneMachine COMMAND ${THIS_TARGET} 6)
+## Test check machine set with Registry with one machine
+add_test(NAME TestMachineSetWithRegistryWithOneMachine COMMAND ${THIS_TARGET} 7)
+## Test check find machine with Registry with one machine
+add_test(NAME TestFindMachineWithRegistryWithOneMachine COMMAND ${THIS_TARGET} 8)
+## Test add two distinct machines to Registry
+add_test(NAME TestAddTwoDistinctMachinesToRegistry COMMAND ${THIS_TARGET} 9)
+## Test check count machines with Registry with two machines
+add_test(NAME TestCountMachinesWithRegistryWithTwoMachines COMMAND ${THIS_TARGET} 10)
 ## Test add two identical nodes to Registry
-add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 22)
+add_test(NAME TestAddTwoIdenticalMachinesToRegistry COMMAND ${THIS_TARGET} 11)
+## Test check empty Registry for nodes
+add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 100)
+## Test check node set with empty Registry
+add_test(NAME TestNodeSetWithEmptyRegistry COMMAND ${THIS_TARGET} 101)
+## Test check find with empty Registry
+add_test(NAME TestFindNodeWithEmptyRegistry COMMAND ${THIS_TARGET} 102)
+## Test add node to Registry
+add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 103)
+## Test check count nodes with Registry with one node
+add_test(NAME TestCountNodesWithRegistryWithOneNode COMMAND ${THIS_TARGET} 104)
+## Test check node set with Registry with one node
+add_test(NAME TestNodeSetWithRegistryWithOneNode COMMAND ${THIS_TARGET} 105)
+## Test check find node with Registry with one node
+add_test(NAME TestFindNodeWithRegistryWithOneNode COMMAND ${THIS_TARGET} 106)
+## Test check node data added to Registry
+add_test(NAME TestNodeDataAddedToRegistry COMMAND ${THIS_TARGET} 107)
+## Test remove node from Registry
+add_test(NAME TestRemoveNodeFromRegistry COMMAND ${THIS_TARGET} 108)
+## Test check count nodes with Registry with node removed
+add_test(NAME TestCountNodesWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 109)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithNodeRemoved COMMAND ${THIS_TARGET} 110)
+## Test check find node with Registry with node removed
+add_test(NAME TestFindNodeWithRegistryNodeRemoved COMMAND ${THIS_TARGET} 111)
+## Test add two distinct nodes to Registry
+add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 112)
+## Test check count nodes with Registry with two nodes
+add_test(NAME TestCountNodesWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 113)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 114)
+## Test check find node with Registry with two nodes
+add_test(NAME TestFindNodeWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 115)
+## Test remove added nodes from Registry
+add_test(NAME TestRemoveNodesFromRegistry COMMAND ${THIS_TARGET} 116)
+## Test check count nodes with Registry with all nodes removed
+add_test(NAME TestCountNodesWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 117)
+## Test check node set with Registry with node removed
+add_test(NAME TestNodeSetWithRegistryWithAllNodesRemoved COMMAND ${THIS_TARGET} 118)
+## Test check find node with Registry with all nodes removed
+add_test(NAME TestFindNodeWithRegistryAllNodesRemoved COMMAND ${THIS_TARGET} 119)
+## Test add two identical nodes to Registry
+add_test(NAME TestAddTwoIdenticalNodesToRegistry COMMAND ${THIS_TARGET} 120)
 ## Test check node information with Registry with no nodes
-add_test(NAME TestNodeInfoWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 23)
+add_test(NAME TestNodeInfoWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 121)
 ## Test check node information with Registry with one node
-add_test(NAME TestNodeInfoWithRegistryWithOneNode COMMAND ${THIS_TARGET} 24)
+add_test(NAME TestNodeInfoWithRegistryWithOneNode COMMAND ${THIS_TARGET} 122)
 ## Test check node information with Registry with two nodes
-add_test(NAME TestNodeInfoWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 25)
+add_test(NAME TestNodeInfoWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 123)
 ## Test check launch details with Registry with no nodes
-add_test(NAME TestLaunchDetailsWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 26)
+add_test(NAME TestLaunchDetailsWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 124)
 ## Test check launch details with Registry with one node
-add_test(NAME TestLaunchDetailsWithRegistryWithOneNode COMMAND ${THIS_TARGET} 27)
+add_test(NAME TestLaunchDetailsWithRegistryWithOneNode COMMAND ${THIS_TARGET} 125)
 ## Test check launch details with Registry with two nodes
-add_test(NAME TestLaunchDetailsWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 28)
-
+add_test(NAME TestLaunchDetailsWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 126)

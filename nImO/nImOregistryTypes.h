@@ -99,6 +99,27 @@ namespace nImO
     }; // LaunchDetails
 
     /*! @brief The data found in the Registry for a node. */
+    struct MachineInfo
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found;
+
+        /*! @brief The name of the machine. */
+        std::string _name;
+
+        /*! @brief The address of the machine. */
+        uint32_t _address;
+
+        /*! @brief The constructor. */
+        inline MachineInfo
+            (void) :
+                _found(false)
+        {
+        }
+
+    }; // MachineInfo
+
+    /*! @brief The data found in the Registry for a node. */
     struct NodeInfo
     {
         /*! @brief @c true if the data is valid. */
@@ -123,6 +144,9 @@ namespace nImO
     }; // NodeInfo
 
     /*! @brief Contains a sequence of NodeInfo values. */
+    typedef std::vector<MachineInfo>    MachineInfoVector;
+
+    /*! @brief Contains a sequence of NodeInfo values. */
     typedef std::vector<NodeInfo>   NodeInfoVector;
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
@@ -136,6 +160,12 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, LaunchDetails> RegLaunchDetailsOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, MachineInfo> RegMachineInfoOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, MachineInfoVector> RegMachineInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, NodeInfo> RegNodeInfoOrFailure;

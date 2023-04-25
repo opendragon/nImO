@@ -64,6 +64,18 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The firsts machine address for testing. */
+#define MACHINE_ADDRESS_1   IPV4_ADDR(192, 168, 100, 11)
+
+/*! @brief The second machine address for testing. */
+#define MACHINE_ADDRESS_2   IPV4_ADDR(192, 168, 100, 12)
+
+/*! @brief The first machine name for testing. */
+#define MACHINE_NAME_1 "Blort"
+
+/*! @brief The second machine name for testing. */
+#define MACHINE_NAME_2 "Blurt"
+
 /*! @brief The first node name for testing. */
 #define NODE_NAME_1 "blort"
 
@@ -159,6 +171,785 @@ doTestCreateRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestEmptyRegistryForMachines
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for machines
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestEmptyRegistryForMachines
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 03 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMachineSetWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfMachines();
+
+            if (statusWithStrings.first.first)
+            {
+                StringSet   machines = statusWithStrings.second;
+
+                if (machines.empty())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (machines.empty())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithStrings.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMachineSetWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 04 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindMachineWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_1);
+
+            if (statusWithBool.first.first)
+            {
+                if (statusWithBool.second)
+                {
+                    ODL_LOG("(statusWithBool.second)"); //####
+                }
+                else
+                {
+                    statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_2);
+                    if (statusWithBool.first.first)
+                    {
+                        if (statusWithBool.second)
+                        {
+                            ODL_LOG("(statusWithBool.second)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithBool.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindMachineWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 05 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddMachineToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddMachineToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 06 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountMachinesWithRegistryWithOneMachine
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+
+                if (statusWithInt.first.first)
+                {
+                    if (1 == statusWithInt.second)
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (1 == statusWithInt.second)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountMachinesWithRegistryWithOneMachine
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 07 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMachineSetWithRegistryWithOneMachine
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfMachines();
+
+                if (statusWithStrings.first.first)
+                {
+                    StringSet   machines = statusWithStrings.second;
+
+                    if (machines.end() == machines.find(MACHINE_NAME_1))
+                    {
+                        ODL_LOG("(machines.end() == machines.find(MACHINE_NAME_1))"); //####
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (statusWithStrings.first.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMachineSetWithRegistryWithOneMachine
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 08 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindMachineWithRegistryWithOneMachine
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_1);
+
+                if (statusWithBool.first.first)
+                {
+                    if (statusWithBool.second)
+                    {
+                        statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_2);
+                        if (statusWithBool.first.first)
+                        {
+                            if (statusWithBool.second)
+                            {
+                                ODL_LOG("(statusWithBool.second)"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithBool.second)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindMachineWithRegistryWithOneMachine
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 09 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoDistinctMachinesToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
+                if (status.first)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoDistinctMachinesToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 10 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountMachinesWithRegistryWithTwoMachines
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
+                if (status.first)
+                {
+                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+
+                    if (statusWithInt.first.first)
+                    {
+                        if (2 == statusWithInt.second)
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (2 == statusWithInt.second)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountMachinesWithRegistryWithTwoMachines
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 11 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoIdenticalMachinesToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_ARG_(execPath);
+    NIMO_UNUSED_ARG_(currentDir);
+    NIMO_UNUSED_ARG_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+
+            if (status.first)
+            {
+                status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+                if (status.first)
+                {
+                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+
+                    if (statusWithInt.first.first)
+                    {
+                        if (1 == statusWithInt.second)
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (1 == statusWithInt.second)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoIdenticalMachinesToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 100 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestEmptyRegistryForNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
@@ -219,7 +1010,7 @@ doTestEmptyRegistryForNodes
 } // doTestEmptyRegistryForNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
+# pragma mark *** Test Case 101 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -290,7 +1081,7 @@ doTestNodeSetWithEmptyRegistry
 } // doTestNodeSetWithEmptyRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
+# pragma mark *** Test Case 102 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -299,7 +1090,7 @@ doTestNodeSetWithEmptyRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestFindWithEmptyRegistry
+doTestFindNodeWithEmptyRegistry
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -336,7 +1127,7 @@ doTestFindWithEmptyRegistry
             {
                 if (statusWithBool.second)
                 {
-                    ODL_LOG("(statusWithInt.second)"); //####
+                    ODL_LOG("(statusWithBool.second)"); //####
                 }
                 else
                 {
@@ -345,7 +1136,7 @@ doTestFindWithEmptyRegistry
                     {
                         if (statusWithBool.second)
                         {
-                            ODL_LOG("(statusWithInt.second)"); //####
+                            ODL_LOG("(statusWithBool.second)"); //####
                         }
                         else
                         {
@@ -354,13 +1145,13 @@ doTestFindWithEmptyRegistry
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                        ODL_LOG("! (statusWithBool.first.first)"); //####
                     }
                 }
             }
             else
             {
-                ODL_LOG("! (statusWithInt.first.first)"); //####
+                ODL_LOG("! (statusWithBool.first.first)"); //####
             }
         }
     }
@@ -371,10 +1162,10 @@ doTestFindWithEmptyRegistry
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestFindWithEmptyRegistry
+} // doTestFindNodeWithEmptyRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 103 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -411,12 +1202,22 @@ doTestAddNodeToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                result = 0;
+                nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                        nImO::ServiceType::GenericService);
+
+                if (status.first)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
             }
             else
             {
@@ -434,7 +1235,7 @@ doTestAddNodeToRegistry
 } // doTestAddNodeToRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 104 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -443,7 +1244,7 @@ doTestAddNodeToRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCountWithRegistryWithOneNode
+doTestCountNodesWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -471,27 +1272,35 @@ doTestCountWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
-
-                if (statusWithInt.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
                 {
-                    if (1 == statusWithInt.second)
+                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+
+                    if (statusWithInt.first.first)
                     {
-                        result = 0;
+                        if (1 == statusWithInt.second)
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (1 == statusWithInt.second)"); //####
+                        }
                     }
                     else
                     {
-                        ODL_LOG("! (1 == statusWithInt.second)"); //####
+                        ODL_LOG("! (statusWithInt.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -507,10 +1316,10 @@ doTestCountWithRegistryWithOneNode
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCountWithRegistryWithOneNode
+} // doTestCountNodesWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
+# pragma mark *** Test Case 105 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -547,29 +1356,37 @@ doTestNodeSetWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
-
-                if (statusWithStrings.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
                 {
-                    StringSet   nodes = statusWithStrings.second;
+                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
-                    if (nodes.end() == nodes.find(NODE_NAME_1))
+                    if (statusWithStrings.first.first)
                     {
-                        ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                        StringSet   nodes = statusWithStrings.second;
+
+                        if (nodes.end() == nodes.find(NODE_NAME_1))
+                        {
+                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
                     }
                     else
                     {
-                        result = 0;
+                        ODL_LOG("! (statusWithStrings.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithStrings.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -588,7 +1405,7 @@ doTestNodeSetWithRegistryWithOneNode
 } // doTestNodeSetWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 08 ***
+# pragma mark *** Test Case 106 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -597,7 +1414,7 @@ doTestNodeSetWithRegistryWithOneNode
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestFindWithRegistryWithOneNode
+doTestFindNodeWithRegistryWithOneNode
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -625,42 +1442,50 @@ doTestFindWithRegistryWithOneNode
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
-
-                if (statusWithBool.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
                 {
-                    if (statusWithBool.second)
+                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+
+                    if (statusWithBool.first.first)
                     {
-                        statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
-                        if (statusWithBool.first.first)
+                        if (statusWithBool.second)
                         {
-                            if (statusWithBool.second)
+                            statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                            if (statusWithBool.first.first)
                             {
-                                ODL_LOG("(statusWithBool.second)"); //####
+                                if (statusWithBool.second)
+                                {
+                                    ODL_LOG("(statusWithBool.second)"); //####
+                                }
+                                else
+                                {
+                                    result = 0;
+                                }
                             }
                             else
                             {
-                                result = 0;
+                                ODL_LOG("! (statusWithBool.first.first)"); //####
                             }
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                            ODL_LOG("! (statusWithBool.second)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithBool.second)"); //####
+                        ODL_LOG("! (statusWithBool.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -676,10 +1501,10 @@ doTestFindWithRegistryWithOneNode
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestFindWithRegistryWithOneNode
+} // doTestFindNodeWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 09 ***
+# pragma mark *** Test Case 107 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -718,39 +1543,48 @@ doTestNodeDataAddedToRegistry
         {
             uint32_t                    randomAddress = nImO::RandomUnsigned();
             uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
-                                                                    nImO::Connection(randomAddress, randomPort));
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
 
             if (status.first)
             {
-                nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeInformation(NODE_NAME_1);
-
-                if (statusWithInfo.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                            nImO::Connection(randomAddress, randomPort));
+                if (status.first)
                 {
-                    if (statusWithInfo.second._found)
+                    nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeInformation(NODE_NAME_1);
+
+                    if (statusWithInfo.first.first)
                     {
-                        if ((statusWithInfo.second._name == NODE_NAME_1) && (randomAddress == statusWithInfo.second._connection._address) &&
-                            (randomPort == statusWithInfo.second._connection._port) &&
-                            (nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))
+                        if (statusWithInfo.second._found)
                         {
-                            result = 0;
+                            if ((statusWithInfo.second._name == NODE_NAME_1) && (randomAddress == statusWithInfo.second._connection._address) &&
+                                (randomPort == statusWithInfo.second._connection._port) &&
+                                (nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! ((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                        "(randomAddress == statusWithInfo.second._connection._address) && " //####
+                                        "(randomPort == statusWithInfo.second._connection._port) && " //####
+                                        "(nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! ((statusWithInfo.second._name == NODE_NAME_1) && " //####
-                                    "(randomAddress == statusWithInfo.second._connection._address) && " //####
-                                    "(randomPort == statusWithInfo.second._connection._port) && " //####
-                                    "(nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))"); //####
+                            ODL_LOG("! (statusWithInfo.second._found)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInfo.second._found)"); //####
+                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithInfo.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -769,7 +1603,7 @@ doTestNodeDataAddedToRegistry
 } // doTestNodeDataAddedToRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 10 ***
+# pragma mark *** Test Case 108 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -806,15 +1640,23 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->removeNode(NODE_NAME_1);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    result = 0;
+                    status = aRegistry->removeNode(NODE_NAME_1);
+                    if (status.first)
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
                 }
                 else
                 {
@@ -837,7 +1679,7 @@ doTestRemoveNodeFromRegistry
 } // doTestRemoveNodeFromRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 11 ***
+# pragma mark *** Test Case 109 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -846,7 +1688,7 @@ doTestRemoveNodeFromRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCountWithRegistryWithNodeRemoved
+doTestCountNodesWithRegistryWithNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -874,30 +1716,38 @@ doTestCountWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->removeNode(NODE_NAME_1);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
-
-                    if (statusWithInt.first.first)
+                    status = aRegistry->removeNode(NODE_NAME_1);
+                    if (status.first)
                     {
-                        if (0 == statusWithInt.second)
+                        nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+
+                        if (statusWithInt.first.first)
                         {
-                            result = 0;
+                            if (0 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (0 == statusWithInt.second)"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! (0 == statusWithInt.second)"); //####
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -918,10 +1768,10 @@ doTestCountWithRegistryWithNodeRemoved
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCountWithRegistryWithNodeRemoved
+} // doTestCountNodesWithRegistryWithNodeRemoved
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 12 ***
+# pragma mark *** Test Case 110 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -958,32 +1808,40 @@ doTestNodeSetWithRegistryWithNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->removeNode(NODE_NAME_1);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
-
-                    if (statusWithStrings.first.first)
+                    status = aRegistry->removeNode(NODE_NAME_1);
+                    if (status.first)
                     {
-                        StringSet   nodes = statusWithStrings.second;
+                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
-                        if (nodes.empty())
+                        if (statusWithStrings.first.first)
                         {
-                            result = 0;
+                            StringSet   nodes = statusWithStrings.second;
+
+                            if (nodes.empty())
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (nodes.empty())"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! (nodes.empty())"); //####
+                            ODL_LOG("! (statusWithStrings.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithStrings.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -1007,7 +1865,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
 } // doTestNodeSetWithRegistryWithNodeRemoved
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 13 ***
+# pragma mark *** Test Case 111 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1016,7 +1874,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestFindWithRegistryNodeRemoved
+doTestFindNodeWithRegistryNodeRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -1044,30 +1902,38 @@ doTestFindWithRegistryNodeRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->removeNode(NODE_NAME_1);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
-
-                    if (statusWithBool.first.first)
+                    status = aRegistry->removeNode(NODE_NAME_1);
+                    if (status.first)
                     {
-                        if (statusWithBool.second)
+                        nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+
+                        if (statusWithBool.first.first)
                         {
-                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                            if (statusWithBool.second)
+                            {
+                                ODL_LOG("! (statusWithBool.first.first)"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
                         }
                         else
                         {
-                            result = 0;
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -1088,10 +1954,10 @@ doTestFindWithRegistryNodeRemoved
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestFindWithRegistryNodeRemoved
+} // doTestFindNodeWithRegistryNodeRemoved
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 14 ***
+# pragma mark *** Test Case 112 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1128,15 +1994,23 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    result = 0;
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
                 }
                 else
                 {
@@ -1159,7 +2033,7 @@ doTestAddTwoDistinctNodesToRegistry
 } // doTestAddTwoDistinctNodesToRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 15 ***
+# pragma mark *** Test Case 113 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1168,7 +2042,7 @@ doTestAddTwoDistinctNodesToRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCountWithRegistryWithTwoNodes
+doTestCountNodesWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -1196,30 +2070,38 @@ doTestCountWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
-
-                    if (statusWithInt.first.first)
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
                     {
-                        if (2 == statusWithInt.second)
+                        nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+
+                        if (statusWithInt.first.first)
                         {
-                            result = 0;
+                            if (2 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (2 == statusWithInt.second)"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! (2 == statusWithInt.second)"); //####
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -1240,10 +2122,10 @@ doTestCountWithRegistryWithTwoNodes
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestCountWithRegistryWithTwoNodes
+} // doTestCountNodesWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 16 ***
+# pragma mark *** Test Case 114 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1280,39 +2162,47 @@ doTestNodeSetWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
-
-                    if (statusWithStrings.first.first)
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
                     {
-                        StringSet   nodes = statusWithStrings.second;
+                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
 
-                        if (nodes.end() == nodes.find(NODE_NAME_1))
+                        if (statusWithStrings.first.first)
                         {
-                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
-                        }
-                        else
-                        {
-                            if (nodes.end() == nodes.find(NODE_NAME_2))
+                            StringSet   nodes = statusWithStrings.second;
+
+                            if (nodes.end() == nodes.find(NODE_NAME_1))
                             {
-                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_2))"); //####
+                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
                             }
                             else
                             {
-                                result = 0;
+                                if (nodes.end() == nodes.find(NODE_NAME_2))
+                                {
+                                    ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_2))"); //####
+                                }
+                                else
+                                {
+                                    result = 0;
+                                }
                             }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithStrings.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithStrings.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -1336,7 +2226,7 @@ doTestNodeSetWithRegistryWithTwoNodes
 } // doTestNodeSetWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 17 ***
+# pragma mark *** Test Case 115 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1345,7 +2235,7 @@ doTestNodeSetWithRegistryWithTwoNodes
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestFindWithRegistryWithTwoNodes
+doTestFindNodeWithRegistryWithTwoNodes
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -1373,45 +2263,53 @@ doTestFindWithRegistryWithTwoNodes
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
-
-                    if (statusWithBool.first.first)
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
                     {
-                        if (statusWithBool.second)
+                        nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+
+                        if (statusWithBool.first.first)
                         {
-                            statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
-                            if (statusWithBool.first.first)
+                            if (statusWithBool.second)
                             {
-                                if (statusWithBool.second)
+                                statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                                if (statusWithBool.first.first)
                                 {
-                                    result = 0;
+                                    if (statusWithBool.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithBool.second)"); //####
+                                    }
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (statusWithBool.second)"); //####
+                                    ODL_LOG("! (statusWithBool.first.first)"); //####
                                 }
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithBool.first.first)"); //####
+                                ODL_LOG("! (statusWithBool.second)"); //####
                             }
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithBool.second)"); //####
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -1432,10 +2330,10 @@ doTestFindWithRegistryWithTwoNodes
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestFindWithRegistryWithTwoNodes
+} // doTestFindNodeWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 18 ***
+# pragma mark *** Test Case 116 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1472,21 +2370,29 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_2);
+                        status = aRegistry->removeNode(NODE_NAME_1);
                         if (status.first)
                         {
-                            result = 0;
+                            status = aRegistry->removeNode(NODE_NAME_2);
+                            if (status.first)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
                         }
                         else
                         {
@@ -1519,7 +2425,7 @@ doTestRemoveNodesFromRegistry
 } // doTestRemoveNodesFromRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 19 ***
+# pragma mark *** Test Case 117 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1528,7 +2434,7 @@ doTestRemoveNodesFromRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestCountWithRegistryWithAllNodesRemoved
+doTestCountNodesWithRegistryWithAllNodesRemoved
     (CPtr(char)                     launchPath,
      const int                      argc,
      Ptr(Ptr(char))                 argv,
@@ -1556,253 +2462,44 @@ doTestCountWithRegistryWithAllNodesRemoved
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_2);
+                        status = aRegistry->removeNode(NODE_NAME_1);
                         if (status.first)
                         {
-                            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
-
-                            if (statusWithInt.first.first)
+                            status = aRegistry->removeNode(NODE_NAME_2);
+                            if (status.first)
                             {
-                                if (0 == statusWithInt.second)
+                                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+
+                                if (statusWithInt.first.first)
                                 {
-                                    result = 0;
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (0 == statusWithInt.second)"); //####
-                                }
-                            }
-                            else
-                            {
-                                ODL_LOG("! (statusWithInt.first.first)"); //####
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (status.first)"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (status.first)"); //####
-                    }
-                }
-                else
-                {
-                    ODL_LOG("! (status.first)"); //####
-                }
-            }
-            else
-            {
-                ODL_LOG("! (status.first)"); //####
-            }
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestCountWithRegistryWithAllNodesRemoved
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 20 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestTestNodeSetWithRegistryWithAllNodesRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
-{
-    int result = 1;
-
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
-    try
-    {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
-
-       if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
-        {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
-
-            if (status.first)
-            {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
-                if (status.first)
-                {
-                    status = aRegistry->removeNode(NODE_NAME_1);
-                    if (status.first)
-                    {
-                        status = aRegistry->removeNode(NODE_NAME_2);
-                        if (status.first)
-                        {
-                            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
-
-                            if (statusWithStrings.first.first)
-                            {
-                                StringSet   nodes = statusWithStrings.second;
-
-                                if (nodes.empty())
-                                {
-                                    result = 0;
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (nodes.empty())"); //####
-                                }
-                            }
-                            else
-                            {
-                                ODL_LOG("! (statusWithStrings.first.first)"); //####
-                            }
-                        }
-                        else
-                        {
-                            ODL_LOG("! (status.first)"); //####
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (status.first)"); //####
-                    }
-                }
-                else
-                {
-                    ODL_LOG("! (status.first)"); //####
-                }
-            }
-            else
-            {
-                ODL_LOG("! (status.first)"); //####
-            }
-        }
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_I(result); //####
-    return result;
-} // doTestTestNodeSetWithRegistryWithAllNodesRemoved
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 21 ***
-#endif // defined(__APPLE__)
-
-/*! @brief Perform a test case.
- @param[in] launchPath The command-line name used to launch the service.
- @param[in] argc The number of arguments in 'argv'.
- @param[in] argv The arguments to be used for the test.
- @return @c 0 on success and @c 1 on failure. */
-static int
-doTestFindWithRegistryAllNodesRemoved
-    (CPtr(char)                     launchPath,
-     const int                      argc,
-     Ptr(Ptr(char))                 argv,
-     nImO::SpContextWithNetworking  context,
-     const std::string &            execPath,
-     const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
-{
-    int result = 1;
-
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
-    try
-    {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
-
-       if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
-        {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
-
-            if (status.first)
-            {
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
-                if (status.first)
-                {
-                    status = aRegistry->removeNode(NODE_NAME_1);
-                    if (status.first)
-                    {
-                        status = aRegistry->removeNode(NODE_NAME_2);
-                        if (status.first)
-                        {
-                            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
-
-                            if (statusWithBool.first.first)
-                            {
-                                if (statusWithBool.second)
-                                {
-                                    ODL_LOG("(statusWithBool.second)"); //####
-                                }
-                                else
-                                {
-                                    statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
-                                    if (statusWithBool.first.first)
+                                    if (0 == statusWithInt.second)
                                     {
-                                        if (statusWithBool.second)
-                                        {
-                                            ODL_LOG("(statusWithBool.second)"); //####
-                                        }
-                                        else
-                                        {
-                                            result = 0;
-                                        }
+                                        result = 0;
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                                        ODL_LOG("! (0 == statusWithInt.second)"); //####
                                     }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
                                 }
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithBool.first.first)"); //####
+                                ODL_LOG("! (status.first)"); //####
                             }
                         }
                         else
@@ -1833,10 +2530,243 @@ doTestFindWithRegistryAllNodesRemoved
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestFindWithRegistryAllNodesRemoved
+} // doTestCountNodesWithRegistryWithAllNodesRemoved
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 22 ***
+# pragma mark *** Test Case 118 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNodeSetWithRegistryWithAllNodesRemoved
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->removeNode(NODE_NAME_1);
+                        if (status.first)
+                        {
+                            status = aRegistry->removeNode(NODE_NAME_2);
+                            if (status.first)
+                            {
+                                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+
+                                if (statusWithStrings.first.first)
+                                {
+                                    StringSet   nodes = statusWithStrings.second;
+
+                                    if (nodes.empty())
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (nodes.empty())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithStrings.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeSetWithRegistryWithAllNodesRemoved
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 119 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindNodeWithRegistryAllNodesRemoved
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // remove nodes from Registry
+{
+    int result = 1;
+
+    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_ARG_(argc);
+    NIMO_UNUSED_ARG_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->removeNode(NODE_NAME_1);
+                        if (status.first)
+                        {
+                            status = aRegistry->removeNode(NODE_NAME_2);
+                            if (status.first)
+                            {
+                                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+
+                                if (statusWithBool.first.first)
+                                {
+                                    if (statusWithBool.second)
+                                    {
+                                        ODL_LOG("(statusWithBool.second)"); //####
+                                    }
+                                    else
+                                    {
+                                        statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (statusWithBool.second)
+                                            {
+                                                ODL_LOG("(statusWithBool.second)"); //####
+                                            }
+                                            else
+                                            {
+                                                result = 0;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindNodeWithRegistryAllNodesRemoved
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 120 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1873,37 +2803,45 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                    nImO::ServiceType::GenericService);
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    ODL_LOG("(status.first)"); //####
-                }
-                else
-                {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
-
-                    if (statusWithStrings.first.first)
+                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
                     {
-                        StringSet   nodes = statusWithStrings.second;
-
-                        if (nodes.end() == nodes.find(NODE_NAME_1))
-                        {
-                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
-                        }
-                        else
-                        {
-                            result = 0;
-                        }
+                        ODL_LOG("(status.first)"); //####
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithStrings.first.first)"); //####
+                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+
+                        if (statusWithStrings.first.first)
+                        {
+                            StringSet   nodes = statusWithStrings.second;
+
+                            if (nodes.end() == nodes.find(NODE_NAME_1))
+                            {
+                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithStrings.first.first)"); //####
+                        }
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -1922,7 +2860,7 @@ doTestAddTwoIdenticalNodesToRegistry
 } // doTestAddTwoIdenticalNodesToRegistry
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 23 ***
+# pragma mark *** Test Case 121 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -1993,7 +2931,7 @@ doTestNodeInfoWithRegistryWithNoNodes
 } // doTestNodeInfoWithRegistryWithNoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 24 ***
+# pragma mark *** Test Case 122 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2032,41 +2970,50 @@ doTestNodeInfoWithRegistryWithOneNode
         {
             uint32_t                    randomAddress = nImO::RandomUnsigned();
             uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
-                                                                    nImO::Connection(randomAddress, randomPort));
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
 
             if (status.first)
             {
-                nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
-
-                if (statusWithInformation.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                            nImO::Connection(randomAddress, randomPort));
+                if (status.first)
                 {
-                    nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
 
-                    if (1 == infoVector.size())
+                    if (statusWithInformation.first.first)
                     {
-                        nImO::NodeInfo &    firstElem{infoVector[0]};
+                        nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
 
-                        if ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) &&
-                            (randomPort == firstElem._connection._port) && (nImO::ServiceType::FilterService == firstElem._serviceType))
+                        if (1 == infoVector.size())
                         {
-                            result = 0;
+                            nImO::NodeInfo &    firstElem{infoVector[0]};
+
+                            if ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) &&
+                                (randomPort == firstElem._connection._port) && (nImO::ServiceType::FilterService == firstElem._serviceType))
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) && " //####
+                                        "(randomPort == firstElem._connection._port) && " //####
+                                        "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) && " //####
-                                    "(randomPort == firstElem._connection._port) && " //####
-                                    "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
+                            ODL_LOG("! (1 == infoVector.size())"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (1 == infoVector.size())"); //####
+                        ODL_LOG("! (statusWithInformation.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -2085,7 +3032,7 @@ doTestNodeInfoWithRegistryWithOneNode
 } // doTestNodeInfoWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 25 ***
+# pragma mark *** Test Case 123 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2124,94 +3071,115 @@ doTestNodeInfoWithRegistryWithTwoNodes
         {
             uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
             uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
-                                                                    nImO::Connection(randomAddress1, randomPort1));
+            std::string                 machineName1{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName1, randomAddress1);
 
             if (status.first)
             {
+                std::string machineName2{machineName1 + "_1"};
                 uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
-                uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
-                status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
-                                            nImO::Connection(randomAddress2, randomPort2));
+                status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
                 {
-                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
-
-                    if (statusWithInformation.first.first)
+                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                nImO::Connection(randomAddress1, randomPort1));
+                    if (status.first)
                     {
-                        nImO::NodeInfoVector &  infoVector = statusWithInformation.second;
+                        uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
-                        if (2 == infoVector.size())
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
+                                                    nImO::Connection(randomAddress2, randomPort2));
+                        if (status.first)
                         {
-                            nImO::NodeInfo &    firstElem{infoVector[0]};
-                            nImO::NodeInfo &    secondElem{infoVector[1]};
+                            nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
 
-                            if (firstElem._name == NODE_NAME_1)
+                            if (statusWithInformation.first.first)
                             {
-                                if (secondElem._name == NODE_NAME_2)
+                                nImO::NodeInfoVector &  infoVector = statusWithInformation.second;
+
+                                if (2 == infoVector.size())
                                 {
-                                    if ((randomAddress1 == firstElem._connection._address) && (randomPort1 == firstElem._connection._port) &&
-                                        (nImO::ServiceType::FilterService == firstElem._serviceType) &&
-                                        (randomAddress2 == secondElem._connection._address) && (randomPort2 == secondElem._connection._port) &&
-                                        (nImO::ServiceType::LauncherService == secondElem._serviceType))
+                                    nImO::NodeInfo &    firstElem{infoVector[0]};
+                                    nImO::NodeInfo &    secondElem{infoVector[1]};
+
+                                    if (firstElem._name == NODE_NAME_1)
                                     {
-                                        result = 0;
+                                        if (secondElem._name == NODE_NAME_2)
+                                        {
+                                            if ((randomAddress1 == firstElem._connection._address) && (randomPort1 == firstElem._connection._port) &&
+                                                (nImO::ServiceType::FilterService == firstElem._serviceType) &&
+                                                (randomAddress2 == secondElem._connection._address) &&
+                                                (randomPort2 == secondElem._connection._port) &&
+                                                (nImO::ServiceType::LauncherService == secondElem._serviceType))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! ((randomAddress1 == firstElem._connection._address) && " //####
+                                                        "(randomPort1 == firstElem._connection._port) && " //####
+                                                        "(nImO::ServiceType::FilterService == firstElem._serviceType) && " //####
+                                                        "(randomAddress2 == secondElem._connection._address) && " //####
+                                                        "(randomPort2 == secondElem._connection._port) && " //####
+                                                        "(nImO::ServiceType::LauncherService == secondElem._serviceType))"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (secondElem._name == NODE_NAME_2)"); //####
+                                        }
+                                    }
+                                    else if (secondElem._name == NODE_NAME_1)
+                                    {
+                                        if (firstElem._name == NODE_NAME_2)
+                                        {
+                                            if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
+                                                (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
+                                                (randomAddress1 == secondElem._connection._address) &&
+                                                (randomPort1 == secondElem._connection._port) &&
+                                                (nImO::ServiceType::FilterService == secondElem._serviceType))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! ((randomAddress2 == firstElem._connection._address) && " //####
+                                                        "(randomPort2 == firstElem._connection._port) && " //####
+                                                        "(nImO::ServiceType::LauncherService == firstElem._serviceType) && " //####
+                                                        "(randomAddress1 == secondElem._connection._address) && " //####
+                                                        "(randomPort1 == secondElem._connection._port) && " //####
+                                                        "(nImO::ServiceType::FilterService == secondElem._serviceType))"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (firstElem._name == NODE_NAME_2)"); //####
+                                        }
                                     }
                                     else
                                     {
-                                        ODL_LOG("! ((randomAddress1 == firstElem._connection._address) && " //####
-                                                "(randomPort1 == firstElem._connection._port) && " //####
-                                                "(nImO::ServiceType::FilterService == firstElem._serviceType) && " //####
-                                                "(randomAddress2 == secondElem._connection._address) && " //####
-                                                "(randomPort2 == secondElem._connection._port) && " //####
-                                                "(nImO::ServiceType::LauncherService == secondElem._serviceType))"); //####
+                                        ODL_LOG("! (secondElem._name == NODE_NAME_1)"); //####
                                     }
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (secondElem._name == NODE_NAME_2)"); //####
-                                }
-                            }
-                            else if (secondElem._name == NODE_NAME_1)
-                            {
-                                if (firstElem._name == NODE_NAME_2)
-                                {
-                                    if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
-                                        (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
-                                        (randomAddress1 == secondElem._connection._address) && (randomPort1 == secondElem._connection._port) &&
-                                        (nImO::ServiceType::FilterService == secondElem._serviceType))
-                                    {
-                                        result = 0;
-                                    }
-                                    else
-                                    {
-                                        ODL_LOG("! ((randomAddress2 == firstElem._connection._address) && " //####
-                                                "(randomPort2 == firstElem._connection._port) && " //####
-                                                "(nImO::ServiceType::LauncherService == firstElem._serviceType) && " //####
-                                                "(randomAddress1 == secondElem._connection._address) && " //####
-                                                "(randomPort1 == secondElem._connection._port) && " //####
-                                                "(nImO::ServiceType::FilterService == secondElem._serviceType))"); //####
-                                    }
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (firstElem._name == NODE_NAME_2)"); //####
+                                    ODL_LOG("! (2 == infoVector.size())"); //####
                                 }
                             }
                             else
                             {
-                                ODL_LOG("! (secondElem._name == NODE_NAME_1)"); //####
+                                ODL_LOG("! (statusWithInformation.first.first)"); //####
                             }
                         }
                         else
                         {
-                            ODL_LOG("! (2 == infoVector.size())"); //####
+                            ODL_LOG("! (status.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -2235,7 +3203,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
 } // doTestNodeInfoWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 26 ***
+# pragma mark *** Test Case 124 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2306,7 +3274,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
 } // doTestLaunchDetailsWithRegistryWithNoNodes
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 27 ***
+# pragma mark *** Test Case 125 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2345,37 +3313,46 @@ doTestLaunchDetailsWithRegistryWithOneNode
         {
             uint32_t                    randomAddress = nImO::RandomUnsigned();
             uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
-                                                                    nImO::Connection(randomAddress, randomPort));
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
 
             if (status.first)
             {
-                nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
-
-                if (statusWithDetails.first.first)
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                            nImO::Connection(randomAddress, randomPort));
+                if (status.first)
                 {
-                    nImO::LaunchDetails details{statusWithDetails.second};
+                    nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
 
-                    if (details._found)
+                    if (statusWithDetails.first.first)
                     {
-                        if ((execPath == details._execPath) && (currentDir == details._launchDirectory) && (commandLine == details._commandLine))
+                        nImO::LaunchDetails details{statusWithDetails.second};
+
+                        if (details._found)
                         {
-                            result = 0;
+                            if ((execPath == details._execPath) && (currentDir == details._launchDirectory) && (commandLine == details._commandLine))
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! ((execPath == details._execPath) && (currentDir == details._launchDirectory) && " //####
+                                        "(commandLine == details._commandLine))"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! ((execPath == details._execPath) && (currentDir == details._launchDirectory) && " //####
-                                    "(commandLine == details._commandLine))"); //####
+                            ODL_LOG("! (details._found)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (details._found)"); //####
+                        ODL_LOG("! (statusWithDetails.first.first)"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithDetails.first.first)"); //####
+                    ODL_LOG("! (status.first)"); //####
                 }
             }
             else
@@ -2394,7 +3371,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
 } // doTestLaunchDetailsWithRegistryWithOneNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 28 ***
+# pragma mark *** Test Case 126 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -2433,72 +3410,91 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
         {
             uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
             uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
-            nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
-                                                                    nImO::Connection(randomAddress1, randomPort1));
+            std::string                 machineName1{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName1, randomAddress1);
 
             if (status.first)
             {
+                std::string machineName2{machineName1 + "_1"};
                 uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
-                uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
-                status = aRegistry->addNode(NODE_NAME_2, "!" + execPath, "?" + currentDir, "^" + commandLine, nImO::ServiceType::LauncherService,
-                                            nImO::Connection(randomAddress2, randomPort2));
+                status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
                 {
-                    nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
-
-                    if (statusWithDetails.first.first)
+                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                                                nImO::Connection(randomAddress1, randomPort1));
+                    if (status.first)
                     {
-                        nImO::LaunchDetails details1{statusWithDetails.second};
+                        uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
 
-                        if (details1._found)
+                        status = aRegistry->addNode(NODE_NAME_2, "!" + execPath, "?" + currentDir, "^" + commandLine,
+                                                    nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
+                        if (status.first)
                         {
-                            if ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) &&
-                                (commandLine == details1._commandLine))
-                            {
-                                statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_2);
-                                if (statusWithDetails.first.first)
-                                {
-                                    nImO::LaunchDetails details2{statusWithDetails.second};
+                            nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
 
-                                    if (details2._found)
+                            if (statusWithDetails.first.first)
+                            {
+                                nImO::LaunchDetails details1{statusWithDetails.second};
+
+                                if (details1._found)
+                                {
+                                    if ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) &&
+                                        (commandLine == details1._commandLine))
                                     {
-                                        if ((("!" + execPath) == details2._execPath) && (("?" + currentDir) == details2._launchDirectory) &&
-                                            (("^" + commandLine) == details2._commandLine))
+                                        statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_2);
+                                        if (statusWithDetails.first.first)
                                         {
-                                            result = 0;
+                                            nImO::LaunchDetails details2{statusWithDetails.second};
+
+                                            if (details2._found)
+                                            {
+                                                if ((("!" + execPath) == details2._execPath) && (("?" + currentDir) == details2._launchDirectory) &&
+                                                    (("^" + commandLine) == details2._commandLine))
+                                                {
+                                                    result = 0;
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (((\"!\" + execPath) == details2._execPath) && " //####
+                                                            "((\"?\" + currentDir) == details2._launchDirectory) && " //####
+                                                            "((\"^\" + commandLine) == details2._commandLine))"); //####
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (details2._found)"); //####
+                                            }
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (((\"!\" + execPath) == details2._execPath) && " //####
-                                                    "((\"?\" + currentDir) == details2._launchDirectory) && " //####
-                                                    "((\"^\" + commandLine) == details2._commandLine))"); //####
+                                            ODL_LOG("! (statusWithDetails.first.first)"); //####
                                         }
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (details2._found)"); //####
+                                        ODL_LOG("! ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) && " //####
+                                                "(commandLine == details1._commandLine))"); //####
                                     }
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (statusWithDetails.first.first)"); //####
+                                    ODL_LOG("! (details1._found)"); //####
                                 }
                             }
                             else
                             {
-                                ODL_LOG("! ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) && " //####
-                                        "(commandLine == details1._commandLine))"); //####
+                                ODL_LOG("! (statusWithDetails.first.first)"); //####
                             }
                         }
                         else
                         {
-                            ODL_LOG("! (details1._found)"); //####
+                            ODL_LOG("! (status.first)"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithDetails.first.first)"); //####
+                        ODL_LOG("! (status.first)"); //####
                     }
                 }
                 else
@@ -2568,111 +3564,153 @@ main
                         break;
 
                     case 2 :
-                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestEmptyRegistryForMachines(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 3 :
-                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestMachineSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
-                        
+
                     case 4 :
-                        result = doTestFindWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestFindMachineWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 5 :
-                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddMachineToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 6 :
-                        result = doTestCountWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestCountMachinesWithRegistryWithOneMachine(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 7 :
-                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestMachineSetWithRegistryWithOneMachine(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 8 :
-                        result = doTestFindWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestFindMachineWithRegistryWithOneMachine(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 9 :
-                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddTwoDistinctMachinesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 10 :
-                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestCountMachinesWithRegistryWithTwoMachines(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 11 :
-                        result = doTestCountWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddTwoIdenticalMachinesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 12 :
+                    case 100 :
+                        result = doTestEmptyRegistryForNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 101 :
+                        result = doTestNodeSetWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+                        
+                    case 102 :
+                        result = doTestFindNodeWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 103 :
+                        result = doTestAddNodeToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 104 :
+                        result = doTestCountNodesWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 105 :
+                        result = doTestNodeSetWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 106 :
+                        result = doTestFindNodeWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 107 :
+                        result = doTestNodeDataAddedToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 108 :
+                        result = doTestRemoveNodeFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 109 :
+                        result = doTestCountNodesWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                             commandLine);
+                        break;
+
+                    case 110 :
                         result = doTestNodeSetWithRegistryWithNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 13 :
-                        result = doTestFindWithRegistryNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                    case 111 :
+                        result = doTestFindNodeWithRegistryNodeRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 14 :
+                    case 112 :
                         result = doTestAddTwoDistinctNodesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 15 :
-                        result = doTestCountWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                    case 113 :
+                        result = doTestCountNodesWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 16 :
+                    case 114 :
                         result = doTestNodeSetWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 17 :
-                        result = doTestFindWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                    case 115 :
+                        result = doTestFindNodeWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 18 :
+                    case 116 :
                         result = doTestRemoveNodesFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 19 :
-                        result = doTestCountWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                    case 117 :
+                        result = doTestCountNodesWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                 commandLine);
                         break;
 
-                    case 20 :
-                        result = doTestTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-                                                                                  commandLine);
+                    case 118 :
+                        result = doTestNodeSetWithRegistryWithAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                              commandLine);
                         break;
 
-                    case 21 :
-                        result = doTestFindWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                    case 119 :
+                        result = doTestFindNodeWithRegistryAllNodesRemoved(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 22 :
+                    case 120 :
                         result = doTestAddTwoIdenticalNodesToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 23 :
+                    case 121 :
                         result = doTestNodeInfoWithRegistryWithNoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 24 :
+                    case 122 :
                         result = doTestNodeInfoWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 25 :
+                    case 123 :
                         result = doTestNodeInfoWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 26 :
+                    case 124 :
                         result = doTestLaunchDetailsWithRegistryWithNoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 27 :
+                    case 125 :
                         result = doTestLaunchDetailsWithRegistryWithOneNode(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
-                    case 28 :
+                    case 126 :
                         result = doTestLaunchDetailsWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
                                                                              commandLine);
                         break;

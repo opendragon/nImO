@@ -122,8 +122,8 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used", "nImOversion -t", 2016,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipLoggingOption |
-                                     nImO::kSkipDetailOption))
+                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipDetailOption |
+                                     nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         std::string ifVersionString;
         std::string mdnsVersionString;
@@ -134,7 +134,7 @@ main
         {
             switch (optionValues._flavour)
             {
-                case nImO::OutputFlavour::FlavourTabs :
+                case nImO::OutputFlavour::kFlavourTabs :
                     ifVersionString = nImO::SanitizeString(IF_VERSION_, true);
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
@@ -143,7 +143,7 @@ main
                                 getBoostVersion() << "\t" << ifVersionString << std::endl;
                     break;
 
-                case nImO::OutputFlavour::FlavourJSON :
+                case nImO::OutputFlavour::kFlavourJSON :
                     ifVersionString = nImO::SanitizeString(IF_VERSION_, true);
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
@@ -159,7 +159,7 @@ main
                                 ifVersionString << T_(CHAR_DOUBLEQUOTE_ " }") << std::endl;
                     break;
 
-                case nImO::OutputFlavour::FlavourNormal :
+                case nImO::OutputFlavour::kFlavourNormal :
                     ifVersionString = nImO::SanitizeString(IF_VERSION_, true);
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);

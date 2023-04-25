@@ -175,6 +175,7 @@ nImO::ProcessStandardOptions
         kOptionINFO,
         kOptionJSON,
         kOptionLOG,
+        kOptionMACHINE,
         kOptionTABS,
         kOptionVERSION
     }; // OptionIndex
@@ -183,7 +184,7 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
-                                                    Option_::Arg::Optional,
+                                                    Option_::Arg::Required,
                                                     T_("  --config, -c <path> \tSpecify path to configuration file")};
     Option_::Descriptor         detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "x",
                                                 "detail", Option_::Arg::None, T_("  --detail, -x \tDisplay more details")};
@@ -197,6 +198,9 @@ nImO::ProcessStandardOptions
                                                 T_("  --json, -j \tGenerate output in JSON format")};
     Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
                                                 "log", Option_::Arg::None, T_("  --log, -l \tLog application")};
+    Option_::Descriptor         machineDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMACHINE), 0, "m", "machine",
+                                                    Option_::Arg::Required,
+                                                    T_("  --machine, -m <name> \tSpecify machine to be referenced")};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
                                                 Option_::Arg::None,
                                                 T_("  --tabs, -t \tGenerate output in tab-format")};
@@ -204,7 +208,7 @@ nImO::ProcessStandardOptions
                                                     "vers", Option_::Arg::None,
                                                     T_("  --vers, -v \tPrint version information and exit")};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[10]; // first, config, detail, help, info, json, logg, tabs, version, last
+    Option_::Descriptor         usage[11]; // first, config, detail, help, info, json, logg, machine, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
@@ -258,6 +262,10 @@ nImO::ProcessStandardOptions
     if (0 == (kSkipConfigFileOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
+    }
+    if (0 == (kSkipMachineOption & optionsToIgnore))
+    {
+        memcpy(usageWalker++, &machineDescriptor, sizeof(machineDescriptor));
     }
     if (0 == (kSkipDetailOption & optionsToIgnore))
     {
@@ -319,11 +327,11 @@ nImO::ProcessStandardOptions
     {
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionJSON)])
         {
-            optionValues._flavour = OutputFlavour::FlavourJSON;
+            optionValues._flavour = OutputFlavour::kFlavourJSON;
         }
         else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
         {
-            optionValues._flavour = OutputFlavour::FlavourTabs;
+            optionValues._flavour = OutputFlavour::kFlavourTabs;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDETAIL)])
         {
@@ -335,9 +343,15 @@ nImO::ProcessStandardOptions
         }
         Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
 
-        if ((0 == (kSkipConfigFileOption & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
+        if ((0 == (kSkipConfigFileOption & optionsToIgnore)) && (nullptr != configOption) && (nullptr != configOption->arg))
         {
             optionValues._configFilePath = configOption->arg;
+        }
+        Ptr(Option_::Option)    machineOption{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]};
+
+        if ((0 == (kSkipMachineOption & optionsToIgnore)) && (nullptr != machineOption) && (nullptr != machineOption->arg))
+        {
+            optionValues._machine = machineOption->arg;
         }
         if (nullptr != arguments)
         {

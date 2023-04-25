@@ -136,6 +136,14 @@ namespace nImO
                 (void)
                 const;
 
+            /*! @brief Get information for all nodes on a machine in the Registry.
+             @param[in] machineName The name of the machine to be located in the Registry.
+             @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            RegNodeInfoVectorOrFailure
+            getInformationForAllNodesOnMachine
+                (const std::string &    machineName)
+                const;
+
             /*! @brief Get information on how the node was launched.
              @param[in] nodeName The name of the node to be located in the Registry.
              @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
@@ -145,7 +153,7 @@ namespace nImO
                 const;
 
             /*! @brief Get information on the machine stored in the Registry.
-             @param[in] machineName The name of the node to be located in the Registry.
+             @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and if the machine was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
             RegMachineInfoOrFailure
             getMachineInformation
@@ -164,6 +172,14 @@ namespace nImO
             RegStringSetOrFailure
             getNamesOfNodes
                 (void)
+                const;
+
+            /*! @brief Get the set of nodes on a machine in the Registry.
+             @param[in] machineName The name of the machine to be located in the Registry.
+             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegStringSetOrFailure
+            getNamesOfNodesOnMachine
+                (const std::string &    machineName)
                 const;
 
             /*! @brief Get information on the node stored in the Registry.
@@ -188,8 +204,16 @@ namespace nImO
                 (void)
                 const;
 
+            /*! @brief Return the number of nodes on a machine in the Registry.
+             @param[in] machineName The name of the machine to be located in the Registry.
+             @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
+            getNumberOfNodesOnMachine
+                (const std::string &    machineName)
+                const;
+
             /*! @brief Check if a machine is in the Registry.
-             @param[in] machineName The name of the node to be checked.
+             @param[in] machineName The name of the machine to be checked.
              @return @c true and if the machine was found,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegBoolOrFailure
             isMachinePresent

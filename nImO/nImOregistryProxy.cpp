@@ -42,13 +42,16 @@
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
 #include <nImOgetInformationForAllMachinesResponseHandler.h>
+#include <nImOgetInformationForAllNodesOnMachineResponseHandler.h>
 #include <nImOgetInformationForAllNodesResponseHandler.h>
 #include <nImOgetLaunchDetailsResponseHandler.h>
 #include <nImOgetMachineInformationResponseHandler.h>
 #include <nImOgetNamesOfMachinesResponseHandler.h>
+#include <nImOgetNamesOfNodesOnMachineResponseHandler.h>
 #include <nImOgetNamesOfNodesResponseHandler.h>
 #include <nImOgetNodeInformationResponseHandler.h>
 #include <nImOgetNumberOfMachinesResponseHandler.h>
+#include <nImOgetNumberOfNodesOnMachineResponseHandler.h>
 #include <nImOgetNumberOfNodesResponseHandler.h>
 #include <nImOinteger.h>
 #include <nImOlogical.h>
@@ -193,6 +196,24 @@ nImO::RegistryProxy::getInformationForAllNodes
     return RegNodeInfoVectorOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllNodes
 
+nImO::RegNodeInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllNodesOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SpArray                                                         argArray{new Array};
+    std::unique_ptr<InformationForAllNodesOnMachineResponseHandler> handler{new InformationForAllNodesOnMachineResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetInformationForAllNodesOnMachineRequest,
+                                                                             kGetInformationForAllNodesOnMachineResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllNodesOnMachine
+
 nImO::RegLaunchDetailsOrFailure
 nImO::RegistryProxy::getLaunchDetails
     (const std::string &    nodeName)
@@ -255,6 +276,23 @@ nImO::RegistryProxy::getNamesOfNodes
     return RegStringSetOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNamesOfNodes
 
+nImO::RegStringSetOrFailure
+nImO::RegistryProxy::getNamesOfNodesOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<NamesOfNodesOnMachineResponseHandler>   handler{new NamesOfNodesOnMachineResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetNamesOfNodesOnMachineRequest, kGetNamesOfNodesOnMachineResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNamesOfNodesOnMachine
+
 nImO::RegNodeInfoOrFailure
 nImO::RegistryProxy::getNodeInformation
     (const std::string &    nodeName)
@@ -299,6 +337,23 @@ nImO::RegistryProxy::getNumberOfNodes
     ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNumberOfNodes
+
+nImO::RegIntOrFailure
+nImO::RegistryProxy::getNumberOfNodesOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<NumberOfNodesOnMachineResponseHandler>  handler{new NumberOfNodesOnMachineResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetNumberOfNodesOnMachineRequest, kGetNumberOfNodesOnMachineResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfNodesOnMachine
 
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::isMachinePresent

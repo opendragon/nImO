@@ -120,7 +120,61 @@ main
 
                 if (0 < optionValues._machine.length())
                 {
-// shutdown a specific machine - all the services on it.
+                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodesOnMachine(optionValues._machine);
+
+                    if (statusWithAllNodes.first.first)
+                    {
+                        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
+
+                        // Send Shutdown command to all launchers on the machine.
+                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        {
+                            auto    theInfo{*walker};
+
+                            if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
+                            {
+                                ourContext->report("sending shutdown request to " + theInfo._name);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                 nImO::kShutDownResponse);
+                                // Give the service time to inform the Registry.
+                                nImO::ConsumeSomeTime(ourContext.get(), 20);
+                            }
+                            else
+                            {
+                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
+                            }
+                        }
+
+
+                        // TBD: Close all connections for nodes on the machine.
+                        if (optionValues._detailed)
+                        {
+                            ourContext->report("closing all connections");
+                        }
+                        // Send Shutdown command to all other nodes on the machine.
+                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        {
+                            auto    theInfo{*walker};
+
+                            if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
+                            {
+                                ourContext->report("sending shutdown request to " + nodeName);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                 nImO::kShutDownResponse);
+                                // Give the service time to inform the Registry.
+                                nImO::ConsumeSomeTime(ourContext.get(), 20);
+                            }
+                            else
+                            {
+                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
+                            }
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << std::endl;
+                        exitCode = 1;
+                    }
                 }
                 else if (0 < nodeName.length())
                 {

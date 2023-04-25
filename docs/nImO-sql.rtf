@@ -6,7 +6,7 @@
 \csgenericrgb\c5882\c40784\c62745;}
 {\info
 {\author Norman Jaffe}
-{\*\company OpenDragon}}\margl1440\margr1440\vieww24420\viewh20080\viewkind0
+{\*\company OpenDragon}}\margl1440\margr1440\vieww27600\viewh20080\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 Create tables:\
@@ -45,4 +45,23 @@ Searches:\
 \
 Updates:\
         removeNode = \cf4 DELETE FROM\cf2  \cf4 Nodes WHERE\cf2  \cf4 name\cf2  \cf4 = @name\cf2 ;\
+\
+\
+Tests:\
+       \cf4 INSERT INTO\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address\cf2  \cf4 ) VALUES( \cf2 "blort"\cf4 , 20000000\cf2  \cf4 )\cf2 ;\
+       \cf4 INSERT INTO\cf2  \cf4 Machines\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address\cf2  \cf4 ) VALUES( \cf2 "blurt"\cf4 , 30000000\cf2  \cf4 )\cf2 ;\
+       \cf4 INSERT INTO\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType,\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine\cf2  \cf4 ) VALUES( "b1", 20000000, 5000, 1, "/opt/bin/stuff", "/home/", "-n b1"\cf2  \cf4 )\cf2 ;\
+       \cf4 INSERT INTO\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType,\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine\cf2  \cf4 ) VALUES( "b2", 20000000, 5001, 1, "/opt/bin/stuff", "/home/", "-n b2"\cf2  \cf4 )\cf2 ;\
+       \cf4 INSERT INTO\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType,\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine\cf2  \cf4 ) VALUES( "b3", 30000000, 5100, 1, "/opt/bin/stuff", "/home/", "-n b3"\cf2  \cf4 )\cf2 ;\
+       \cf4 INSERT INTO\cf2  \cf4 Nodes\cf2  \cf4 (\cf2  \cf4 name,\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType,\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine\cf2  \cf4 ) VALUES( "b4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/", "-n b4"\cf2  \cf4 )\cf2 ;\
+\
+       \cf4 SELECT\cf2  \cf4 execPath,\cf2  \cf4 launchDirectory,\cf2  \cf4 commandLine FROM\cf2  \cf4 Nodes\cf2  \cf4 WHERE\cf2  \cf4 name\cf2  \cf4 = "b3"\cf2 ;\
+       \cf4 SELECT\cf2  \cf4 address FROM\cf2  \cf4 Machines WHERE\cf2  \cf4 name\cf2  \cf4 = "blurt"\cf2 ;\
+       \cf4 SELECT\cf2  \cf4 address,\cf2  \cf4 port,\cf2  \cf4 serviceType FROM\cf2  \cf4 Nodes WHERE name\cf2  \cf4 = "b1"\cf2 ;\
+       \cf4 SELECT COUNT(*) FROM\cf2  \cf4 Machines WHERE\cf2  \cf4 name\cf2  \cf4 = "blort"\cf2 ;\
+       \cf4 SELECT COUNT(*) FROM\cf2  \cf4 Nodes WHERE\cf2  \cf4 name\cf2  \cf4 = "b2"\cf2 ;\
+\
+       SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name == "blort" and Machines.address == Nodes.address;\
+       SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name == "blurt" and Machines.address == Nodes.address;\
+       SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name == "blurt" and Machines.address == Nodes.address;\
 }

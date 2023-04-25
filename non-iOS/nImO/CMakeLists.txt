@@ -89,13 +89,16 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
             "${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOinOutPort.cpp"
             "${THIS_SOURCE_DIR}/nImOinPort.cpp"
             "${THIS_SOURCE_DIR}/nImOinputOutputContext.cpp"
@@ -192,13 +195,16 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOflaw.h"
         "${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOinOutPort.h"
         "${THIS_SOURCE_DIR}/nImOinPort.h"
         "${THIS_SOURCE_DIR}/nImOinputOutputContext.h"
@@ -275,13 +281,16 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.h
         ${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesOnMachineResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOinOutPort.cpp ${THIS_SOURCE_DIR}/nImOinOutPort.h
         ${THIS_SOURCE_DIR}/nImOinPort.cpp ${THIS_SOURCE_DIR}/nImOinPort.h
         ${THIS_SOURCE_DIR}/nImOinputOutputContext.cpp ${THIS_SOURCE_DIR}/nImOinputOutputContext.h

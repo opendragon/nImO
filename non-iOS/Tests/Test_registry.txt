@@ -84,6 +84,7 @@ add_test(NAME TestAddTwoDistinctMachinesToRegistry COMMAND ${THIS_TARGET} 9)
 add_test(NAME TestCountMachinesWithRegistryWithTwoMachines COMMAND ${THIS_TARGET} 10)
 ## Test add two identical nodes to Registry
 add_test(NAME TestAddTwoIdenticalMachinesToRegistry COMMAND ${THIS_TARGET} 11)
+
 ## Test check empty Registry for nodes
 add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 100)
 ## Test check node set with empty Registry
@@ -112,7 +113,7 @@ add_test(NAME TestFindNodeWithRegistryNodeRemoved COMMAND ${THIS_TARGET} 111)
 add_test(NAME TestAddTwoDistinctNodesToRegistry COMMAND ${THIS_TARGET} 112)
 ## Test check count nodes with Registry with two nodes
 add_test(NAME TestCountNodesWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 113)
-## Test check node set with Registry with node removed
+## Test check node set with Registry with two nodes
 add_test(NAME TestNodeSetWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 114)
 ## Test check find node with Registry with two nodes
 add_test(NAME TestFindNodeWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 115)
@@ -138,3 +139,22 @@ add_test(NAME TestLaunchDetailsWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 12
 add_test(NAME TestLaunchDetailsWithRegistryWithOneNode COMMAND ${THIS_TARGET} 125)
 ## Test check launch details with Registry with two nodes
 add_test(NAME TestLaunchDetailsWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 126)
+
+## Test check node set with empty Registry via machine name
+add_test(NAME TestNodeSetWithEmptyRegistryViaMachineName COMMAND ${THIS_TARGET} 200)
+## Test check node set with Registry with one node via machine name
+add_test(NAME TestNodeSetWithRegistryWithOneNodeViaMachineName COMMAND ${THIS_TARGET} 201)
+## Test check node set with Registry with two nodes via machine name
+add_test(NAME TestNodeSetWithRegistryWithTwoNodesViaMachineName COMMAND ${THIS_TARGET} 202)
+## Test check node info with empty Registry via machine name
+add_test(NAME TestNodeInfoWithEmptyRegistryViaMachineName COMMAND ${THIS_TARGET} 203)
+## Test check node info with Registry with one node via machine name
+add_test(NAME TestNodeInfoWithRegistryWithOneNodeViaMachineName COMMAND ${THIS_TARGET} 204)
+## Test check node info with Registry with two nodes via machine name
+add_test(NAME TestNodeInfoWithRegistryWithTwoNodesViaMachineName COMMAND ${THIS_TARGET} 205)
+## Test check count nodes with empty Registry via machine name
+add_test(NAME TestCountNodesWithEmptyRegistryViaMachineName COMMAND ${THIS_TARGET} 206)
+## Test check count nodes with Registry with one node via machine name
+add_test(NAME TestCountNodesWithRegistryWithOneNodeViaMachineName COMMAND ${THIS_TARGET} 207)
+## Test check count nodes with Registry with two nodes via machine name
+add_test(NAME TestCountNodesWithRegistryWithTwoNodesViaMachineName COMMAND ${THIS_TARGET} 208)

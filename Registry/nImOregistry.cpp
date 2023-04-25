@@ -1160,6 +1160,78 @@ nImO::Registry::getInformationForAllNodes
     return RegNodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodes
 
+nImO::RegNodeInfoVectorOrFailure
+nImO::Registry::getInformationForAllNodesOnMachine
+    (const std::string &    machineName)
+    const
+{
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    NodeInfoVector      nodeData;
+
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchNodesAndMachines = "SELECT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ "," NODE_PORT_C_ ","
+                                                                NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "."
+                                                                MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_
+                                                                " == " NODES_T_ "." NODE_ADDRESS_C_;
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (3 < values.size())
+                {
+                    NodeInfo    info;
+                    size_t      pos;
+
+                    info._found = true;
+                    info._name = values[0];
+                    info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    info._serviceType = StaticCast(ServiceType, stoul(values[3], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    if (info._found)
+                    {
+                        nodeData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (3 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return RegNodeInfoVectorOrFailure{status, nodeData};
+} // nImO::Registry::getInformationForAllNodesOnMachine
+
 nImO::RegLaunchDetailsOrFailure
 nImO::Registry::getLaunchDetails
     (const std::string &    nodeName)
@@ -1336,6 +1408,50 @@ nImO::Registry::getNamesOfNodes
     return RegStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodes
 
+nImO::RegStringSetOrFailure
+nImO::Registry::getNamesOfNodesOnMachine
+    (const std::string &    machineName)
+    const
+{
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    StringSet           strings;
+
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchNodesAndMachines = "SELECT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+                                                                MACHINES_T_ "." MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
+                                                                MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_;
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (0 < values.size())
+                {
+                    strings.insert(values[0]);
+                }
+                else
+                {
+                    ODL_LOG("! (0 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, strings};
+} // nImO::Registry::getNamesOfNodesOnMachine
+
 nImO::RegNodeInfoOrFailure
 nImO::Registry::getNodeInformation
     (const std::string &    nodeName)
@@ -1482,6 +1598,46 @@ nImO::Registry::getNumberOfNodes
    ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodes
+
+nImO::RegIntOrFailure
+nImO::Registry::getNumberOfNodesOnMachine
+    (const std::string &    machineName)
+    const
+{
+    int                 count = -1;
+    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+
+    ODL_OBJENTER(); //####
+    if (status.first)
+    {
+        StringVector        results;
+        static CPtr(char)   searchMachines = "SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ "=@"
+                                                MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_;
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, count};
+} // nImO::Registry::getNumberOfNodesOnMachine
 
 nImO::RegBoolOrFailure
 nImO::Registry::isMachinePresent

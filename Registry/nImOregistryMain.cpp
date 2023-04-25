@@ -37,11 +37,16 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "nImOaddNodeCommandHandler.h"
+#include "nImOgetInformationForAllMachinesCommandHandler.h"
 #include "nImOgetInformationForAllNodesCommandHandler.h"
 #include "nImOgetLaunchDetailsCommandHandler.h"
+#include "nImOgetMachineInformationCommandHandler.h"
+#include "nImOgetNamesOfMachinesCommandHandler.h"
 #include "nImOgetNamesOfNodesCommandHandler.h"
 #include "nImOgetNodeInformationCommandHandler.h"
+#include "nImOgetNumberOfMachinesCommandHandler.h"
 #include "nImOgetNumberOfNodesCommandHandler.h"
+#include "nImOisMachinePresentCommandHandler.h"
 #include "nImOisNodePresentCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
@@ -139,12 +144,20 @@ main
                     Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
+                                                  new nImO::InformationForAllMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
                                                   new nImO::InformationForAllNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest, new nImO::LaunchDetailsCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetMachineInformationRequest,
+                                                  new nImO::MachineInformationCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNamesOfMachinesRequest, new nImO::NamesOfMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest, new nImO::NodeInformationCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
+                                                  new nImO::NumberOfMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kIsMachinePresentRequest, new nImO::MachinePresentCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kIsNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest,
                                                   new nImO::RemoveNodeCommandHandler(ourContext, theRegistry, statusConnection));

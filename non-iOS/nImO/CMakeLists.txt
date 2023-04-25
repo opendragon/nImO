@@ -87,10 +87,14 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/nImOflaw.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOinOutPort.cpp"
             "${THIS_SOURCE_DIR}/nImOinPort.cpp"
@@ -98,6 +102,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
             "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOinvalid.cpp"
+            "${THIS_SOURCE_DIR}/nImOisMachinePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOlogical.cpp"
@@ -185,10 +190,14 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOfilterContext.h"
         "${THIS_SOURCE_DIR}/nImOflaw.h"
+        "${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOinOutPort.h"
         "${THIS_SOURCE_DIR}/nImOinPort.h"
@@ -196,6 +205,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOinteger.h"
         "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOinvalid.h"
+        "${THIS_SOURCE_DIR}/nImOisMachinePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOlogger.h"
         "${THIS_SOURCE_DIR}/nImOlogical.h"
@@ -263,10 +273,14 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOfilePathArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/nImOflaw.cpp ${THIS_SOURCE_DIR}/nImOflaw.h
+        ${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetMachineInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNodeInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOinOutPort.cpp ${THIS_SOURCE_DIR}/nImOinOutPort.h
         ${THIS_SOURCE_DIR}/nImOinPort.cpp ${THIS_SOURCE_DIR}/nImOinPort.h
@@ -274,6 +288,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.h
         ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOinvalid.cpp ${THIS_SOURCE_DIR}/nImOinvalid.h
+        ${THIS_SOURCE_DIR}/nImOisMachinePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOisMachinePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOisNodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h
         ${THIS_SOURCE_DIR}/nImOlogical.cpp ${THIS_SOURCE_DIR}/nImOlogical.h

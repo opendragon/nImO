@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOisNodePresentCommandHandler.cpp
+//  File:       nImO/nImOisMachinePresentCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'node present' command handler.
+//  Contains:   The class definition for the nImO 'machine present' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-03
+//  Created:    2023-04-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOisNodePresentCommandHandler.h"
+#include "nImOisMachinePresentCommandHandler.h"
 
 #include <nImOarray.h>
 #include <nImOregistryCommands.h>
@@ -52,7 +52,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'node present' command handler. */
+ @brief The class definition for the %nImO 'machine present' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +81,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentCommandHandler::NodePresentCommandHandler
+nImO::MachinePresentCommandHandler::MachinePresentCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -89,21 +89,21 @@ nImO::NodePresentCommandHandler::NodePresentCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentCommandHandler::NodePresentCommandHandler
+} // nImO::MachinePresentCommandHandler::MachinePresentCommandHandler
 
-nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+nImO::MachinePresentCommandHandler::~MachinePresentCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+} // nImO::MachinePresentCommandHandler::~MachinePresentCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NodePresentCommandHandler::doIt
+nImO::MachinePresentCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -113,7 +113,7 @@ nImO::NodePresentCommandHandler::doIt
     NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("node present request received");
+    _owner->report("machine present request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -121,11 +121,11 @@ nImO::NodePresentCommandHandler::doIt
 
         if (nullptr != asString)
         {
-            RegBoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
+            RegBoolOrFailure    statusWithBool{_registry->isMachinePresent(asString->getValue())};
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "node present", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "machine present", statusWithBool.second);
             }
             else
             {
@@ -143,7 +143,7 @@ nImO::NodePresentCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NodePresentCommandHandler::doIt
+} // nImO::MachinePresentCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -39,9 +39,8 @@
 #if (! defined(nImOgetLaunchDetailsCommandHandler_H_))
 # define nImOgetLaunchDetailsCommandHandler_H_ /* Header guard */
 
-# include <nImOcommandHandler.h>
-
 # include "nImOregistry.h"
+# include "nImOregistryCommandHandler.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -57,7 +56,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a handler for the 'launch details' command. */
-    class LaunchDetailsCommandHandler final : public CommandHandler
+    class LaunchDetailsCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -70,7 +69,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = CommandHandler;
+            using inherited = RegistryCommandHandler;
 
         public :
             // Public methods.
@@ -112,9 +111,6 @@ namespace nImO
 
         private :
             // Private fields.
-
-            /*! @brief The Registry to use when processing a request. */
-            SpRegistry  _registry;
 
     }; // LaunchDetailsCommandHandler
 

@@ -41,13 +41,18 @@
 #include <nImOaddNodeResponseHandler.h>
 #include <nImOarray.h>
 #include <nImOcontextWithMDNS.h>
+#include <nImOgetInformationForAllMachinesResponseHandler.h>
 #include <nImOgetInformationForAllNodesResponseHandler.h>
 #include <nImOgetLaunchDetailsResponseHandler.h>
+#include <nImOgetMachineInformationResponseHandler.h>
+#include <nImOgetNamesOfMachinesResponseHandler.h>
 #include <nImOgetNamesOfNodesResponseHandler.h>
 #include <nImOgetNodeInformationResponseHandler.h>
+#include <nImOgetNumberOfMachinesResponseHandler.h>
 #include <nImOgetNumberOfNodesResponseHandler.h>
 #include <nImOinteger.h>
 #include <nImOlogical.h>
+#include <nImOisMachinePresentResponseHandler.h>
 #include <nImOisNodePresentResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOremoveNodeResponseHandler.h>
@@ -158,6 +163,21 @@ nImO::RegistryProxy::addNode
 
 } // nImO::RegistryProxy::addNode
 
+nImO::RegMachineInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllMachines
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<InformationForAllMachinesResponseHandler>   handler{new InformationForAllMachinesResponseHandler};
+    RegSuccessOrFailure                                         status = SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                       handler.get(),
+                                                                                                               kGetInformationForAllMachinesRequest,
+                                                                                                            kGetInformationForAllMachinesResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegMachineInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllMachines
+
 nImO::RegNodeInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllNodes
     (void)
@@ -190,6 +210,37 @@ nImO::RegistryProxy::getLaunchDetails
     return RegLaunchDetailsOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getLaunchDetails
 
+nImO::RegMachineInfoOrFailure
+nImO::RegistryProxy::getMachineInformation
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<MachineInformationResponseHandler>  handler{new MachineInformationResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetMachineInformationRequest, kGetMachineInformationResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegMachineInfoOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getMachineInformation
+
+nImO::RegStringSetOrFailure
+nImO::RegistryProxy::getNamesOfMachines
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<NamesOfMachinesResponseHandler> handler{new NamesOfMachinesResponseHandler};
+    RegSuccessOrFailure                             status = SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
+                                                                                                           kGetNamesOfMachinesRequest,
+                                                                                                           kGetNamesOfMachinesResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegStringSetOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNamesOfMachines
+
 nImO::RegStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodes
     (void)
@@ -208,7 +259,6 @@ nImO::RegNodeInfoOrFailure
 nImO::RegistryProxy::getNodeInformation
     (const std::string &    nodeName)
 {
-    NIMO_UNUSED_ARG_(nodeName);
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     SpArray                                         argArray{new Array};
@@ -223,6 +273,20 @@ nImO::RegistryProxy::getNodeInformation
 } // nImO::RegistryProxy::getNodeInformation
 
 nImO::RegIntOrFailure
+nImO::RegistryProxy::getNumberOfMachines
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<NumberOfMachinesResponseHandler>    handler{new NumberOfMachinesResponseHandler};
+    RegSuccessOrFailure                                 status = SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
+                                                                                                               kGetNumberOfMachinesRequest,
+                                                                                                               kGetNumberOfMachinesResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfMachines
+
+nImO::RegIntOrFailure
 nImO::RegistryProxy::getNumberOfNodes
     (void)
 {
@@ -235,6 +299,23 @@ nImO::RegistryProxy::getNumberOfNodes
     ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNumberOfNodes
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::isMachinePresent
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<MachinePresentResponseHandler>  handler{new MachinePresentResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status = SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kIsMachinePresentRequest, kIsMachinePresentResponse);
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::isMachinePresent
 
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::isNodePresent

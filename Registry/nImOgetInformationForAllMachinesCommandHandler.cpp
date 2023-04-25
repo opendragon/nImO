@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOisNodePresentCommandHandler.cpp
+//  File:       nImO/nImOgetInformationForAllMachinesCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'node present' command handler.
+//  Contains:   The class definition for the nImO 'information for all machines' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-03
+//  Created:    2023-04-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOisNodePresentCommandHandler.h"
+#include "nImOgetInformationForAllMachinesCommandHandler.h"
 
 #include <nImOarray.h>
+#include <nImOinteger.h>
+#include <nImOlogical.h>
 #include <nImOregistryCommands.h>
 #include <nImOregistryTypes.h>
 #include <nImOstring.h>
@@ -52,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'node present' command handler. */
+ @brief The class definition for the %nImO 'information for all machines' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentCommandHandler::NodePresentCommandHandler
+nImO::InformationForAllMachinesCommandHandler::InformationForAllMachinesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -89,21 +91,21 @@ nImO::NodePresentCommandHandler::NodePresentCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentCommandHandler::NodePresentCommandHandler
+} // nImO::InformationForAllMachinesCommandHandler::InformationForAllMachinesCommandHandler
 
-nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+nImO::InformationForAllMachinesCommandHandler::~InformationForAllMachinesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+} // nImO::InformationForAllMachinesCommandHandler::~InformationForAllMachinesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NodePresentCommandHandler::doIt
+nImO::InformationForAllMachinesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -113,37 +115,40 @@ nImO::NodePresentCommandHandler::doIt
     NIMO_UNUSED_ARG_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("node present request received");
-    if (1 < arguments.size())
+    _owner->report("information for all machines request received");
+    if (0 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        RegMachineInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllMachines()};
 
-        if (nullptr != asString)
+        if (statusWithInfoVector.first.first)
         {
-            RegBoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
+            SpArray             nodeArray{new Array};
+            MachineInfoVector & theMachines{statusWithInfoVector.second};
 
-            if (statusWithBool.first.first)
+            for (auto walker = theMachines.begin(); walker != theMachines.end(); ++walker)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "node present", statusWithBool.second);
+                MachineInfo &   theInfo{*walker};
+                SpArray         infoArray{new Array};
+
+                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                infoArray->addValue(std::make_shared<String>(theInfo._name));
+                infoArray->addValue(std::make_shared<Integer>(theInfo._address));
+                nodeArray->addValue(infoArray);
             }
-            else
-            {
-                ODL_LOG("! (statusWithBool.first.first)"); //####
-            }
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "information for all machines", nodeArray);
         }
         else
         {
-            ODL_LOG("! (nullptr != asString)"); //####
+            ODL_LOG("! (statusWithInfoVector.first.first)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (1 < arguments.size())"); //####
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NodePresentCommandHandler::doIt
+} // nImO::InformationForAllMachinesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

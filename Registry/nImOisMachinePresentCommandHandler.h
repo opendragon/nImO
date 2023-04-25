@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNodeInformationCommandHandler.h
+//  File:       nImO/nImOisMachinePresentCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'node information' command handler.
+//  Contains:   The class declaration for the nImO 'machine present' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-09
+//  Created:    2023-04-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNodeInformationCommandHandler_H_))
-# define nImOgetNodeInformationCommandHandler_H_ /* Header guard */
+#if (! defined(nImOisMachinePresentCommandHandler_H_))
+# define nImOisMachinePresentCommandHandler_H_ /* Header guard */
 
 # include "nImOregistry.h"
 # include "nImOregistryCommandHandler.h"
@@ -48,15 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'node information' command handler. */
+ @brief The class declaration for the %nImO 'machine present' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'node information' command. */
-    class NodeInformationCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide a handler for the 'node present' command. */
+    class MachinePresentCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -77,13 +77,13 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
-            NodeInformationCommandHandler
+            MachinePresentCommandHandler
                 (SpContextWithNetworking    owner,
                  SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~NodeInformationCommandHandler
+            ~MachinePresentCommandHandler
                 (void);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -112,8 +112,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // NodeInformationCommandHandler
+    }; // MachinePresentCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNodeInformationCommandHandler_H_)
+#endif // not defined(nImOisMachinePresentCommandHandler_H_)

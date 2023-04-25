@@ -85,7 +85,7 @@
 nImO::NumberOfNodesCommandHandler::NumberOfNodesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+        inherited(owner, theRegistry)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

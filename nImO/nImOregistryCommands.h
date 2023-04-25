@@ -101,6 +101,12 @@ namespace nImO
     /*! @brief The 'disConnectChannels' response. */
     const std::string   kDisconnectChannelsResponse = "disconnectChannels=";
 
+    /*! @brief The request to get information on all machines in the Registry. */
+    const std::string   kGetInformationForAllMachinesRequest = "getInformationForAllMachines?";
+
+    /*! @brief The 'getInformationForAllMachines' response. */
+    const std::string   kGetInformationForAllMachinesResponse = "getInformationForAllMachines=";
+
     /*! @brief The request to get information on all nodes in the Registry. */
     const std::string   kGetInformationForAllNodesRequest = "getInformationForAllNodes?";
 
@@ -112,6 +118,18 @@ namespace nImO
 
     /*! @brief The 'getInformationForAllNodes' response. */
     const std::string   kGetLaunchDetailsResponse = "getLaunchDetails=";
+
+    /*! @brief The request to get information on a machine from the Registry. */
+    const std::string   kGetMachineInformationRequest = "getMachineInformation?";
+
+    /*! @brief The 'getNodeInformation' response. */
+    const std::string   kGetMachineInformationResponse = "getMachineInformation=";
+
+    /*! @brief The request to get the set of machines in the Registry. */
+    const std::string   kGetNamesOfMachinesRequest = "getNamesOfMachines?";
+
+    /*! @brief The 'getNamesOfMachines' response'. */
+    const std::string   kGetNamesOfMachinesResponse = "getNamesOfMachines=";
 
     /*! @brief The request to get the set of nodes in the Registry. */
     const std::string   kGetNamesOfNodesRequest = "getNamesOfNodes?";
@@ -125,11 +143,23 @@ namespace nImO
     /*! @brief The 'getNodeInformation' response. */
     const std::string   kGetNodeInformationResponse = "getNodeInformation=";
 
+    /*! @brief The request to get the number of machines in the Registry. */
+    const std::string   kGetNumberOfMachinesRequest = "getNumberOfMachines?";
+
+    /*! @brief The 'getNumberOfNodes' response. */
+    const std::string   kGetNumberOfMachinesResponse = "getNumberOfMachines=";
+
     /*! @brief The request to get the number of nodes in the Registry. */
     const std::string   kGetNumberOfNodesRequest = "getNumberOfNodes?";
 
     /*! @brief The 'getNumberOfNodes' response. */
     const std::string   kGetNumberOfNodesResponse = "getNumberOfNodes=";
+
+    /*! @brief The request to check if a machine is present in the Registry. */
+    const std::string   kIsMachinePresentRequest = "isMachinePresent?";
+
+    /*! @brief The 'isMachinePresent' reponse. */
+    const std::string   kIsMachinePresentResponse = "isMachinePresent=";
 
     /*! @brief The request to check if a node is present in the Registry. */
     const std::string   kIsNodePresentRequest = "isNodePresent?";

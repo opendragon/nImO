@@ -109,6 +109,12 @@ namespace nImO
                  const ServiceType      serviceType = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Get information for all machines in the Registry.
+             @return @c true and the information for each machine if the operation was successfully performed and @c false and an error string otherwise. */
+            RegMachineInfoVectorOrFailure
+            getInformationForAllMachines
+                (void);
+
             /*! @brief Get information for all nodes in the Registry.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoVectorOrFailure
@@ -122,6 +128,19 @@ namespace nImO
             getLaunchDetails
                 (const std::string &    nodeName);
 
+            /*! @brief Get information on the machine stored in the Registry.
+             @param[in] machineName The name of the machine to be located in the Registry.
+             @return @c true and if the machine was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegMachineInfoOrFailure
+            getMachineInformation
+                (const std::string &    machineName);
+
+            /*! @brief Get the set of machines in the Registry.
+             @return @c true and the set of machines if the operation was successfully performed and @c false and an error string otherwise. */
+            RegStringSetOrFailure
+            getNamesOfMachines
+                (void);
+
             /*! @brief Get the set of nodes in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
             RegStringSetOrFailure
@@ -130,18 +149,29 @@ namespace nImO
 
             /*! @brief Get information on the node stored in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
-             @param[out] nodeAddress The IP address of the node.
-             @param[out] nodePort The command port of the node.
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegNodeInfoOrFailure
             getNodeInformation
                 (const std::string &    nodeName);
+
+            /*! @brief Return the number of machines in the Registry.
+             @return @c true and the number of machines if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
+            getNumberOfMachines
+                (void);
 
             /*! @brief Return the number of nodes in the Registry.
              @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
             RegIntOrFailure
             getNumberOfNodes
                 (void);
+
+            /*! @brief Check if a machine is in the Registry.
+             @param[in] machineName The name of the machine to be checked.
+             @return @c true and if the machine was found,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            isMachinePresent
+                (const std::string &    machineName);
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.

@@ -86,7 +86,7 @@
 nImO::InformationForAllNodesCommandHandler::InformationForAllNodesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
-        inherited(owner), _registry(theRegistry)
+        inherited(owner, theRegistry)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
@@ -128,7 +128,6 @@ nImO::InformationForAllNodesCommandHandler::doIt
             for (auto walker = theNodes.begin(); walker != theNodes.end(); ++walker)
             {
                 NodeInfo &  theInfo{*walker};
-
                 SpArray     infoArray{new Array};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));

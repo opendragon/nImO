@@ -39,9 +39,8 @@
 #if (! defined(nImOremoveNodeCommandHandler_H_))
 # define nImOremoveNodeCommandHandler_H_ /* Header guard */
 
-# include <nImOcommandHandler.h>
-
 # include "nImOregistry.h"
+# include "nImOregistryCommandHandler.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -57,7 +56,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a handler for the 'remove node' command. */
-    class RemoveNodeCommandHandler final : public CommandHandler
+    class RemoveNodeCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -70,7 +69,7 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = CommandHandler;
+            using inherited = RegistryCommandHandler;
 
         public :
             // Public methods.
@@ -114,9 +113,6 @@ namespace nImO
 
         private :
             // Private fields.
-
-            /*! @brief The Registry to use when processing a request. */
-            SpRegistry  _registry;
 
             /*! @brief The multicast connection used for status reports. */
             Connection  _statusConnection;

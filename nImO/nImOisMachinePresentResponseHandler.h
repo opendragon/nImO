@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOgetNodeInformationCommandHandler.h
+//  File:       nImO/nImOisMachinePresentResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'node information' command handler.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-09
+//  Created:    2023-04-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNodeInformationCommandHandler_H_))
-# define nImOgetNodeInformationCommandHandler_H_ /* Header guard */
+#if (! defined(nImOisMachinePresentResponseHandler_H_))
+# define nImOisMachinePresentResponseHandler_H_ /* Header guard */
 
-# include "nImOregistry.h"
-# include "nImOregistryCommandHandler.h"
+# include <nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'node information' command handler. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'node information' command. */
-    class NodeInformationCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class MachinePresentResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -69,33 +68,37 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = RegistryCommandHandler;
+            using inherited = nImO::ResponseHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context.
-             @param[in] theRegistry The Registry to use when processing a request. */
-            NodeInformationCommandHandler
-                (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry);
+             @param[in] responseKey The expected response key. */
+            MachinePresentResponseHandler
+                (void);
 
             /*! @brief The destructor. */
             virtual
-            ~NodeInformationCommandHandler
+            ~MachinePresentResponseHandler
                 (void);
 
-            /*! @brief Handle the command, returning @c true if successful.
-             @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received.
-             @return @c true if a response was sent. */
-            virtual bool
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            virtual void
             doIt
-                (asio::ip::tcp::socket &    socket,
-                 const Array &              arguments)
-                const
+                (const nImO::Array &    stuff)
                 override;
+
+            /*! @brief Return the received value.
+             @return The received value. */
+            inline bool
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
         protected :
             // Protected methods.
@@ -112,8 +115,11 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // NodeInformationCommandHandler
+            /*! @brief The received value. */
+            bool    _result;
+
+    }; // MachinePresentResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNodeInformationCommandHandler_H_)
+#endif // not defined(nImOisMachinePresentResponseHandler_H_)

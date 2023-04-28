@@ -84,6 +84,12 @@
 		F62DA79A298015E7002882FF /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Echo/resource.h; sourceTree = "<group>"; };
 		F62DA79B298015E7002882FF /* nImOechoService.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOechoService.rc.in; path = examples/Echo/nImOechoService.rc.in; sourceTree = "<group>"; };
 		F62DA79C298015E7002882FF /* nImOechoClientMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOechoClientMain.cpp; path = examples/Echo/nImOechoClientMain.cpp; sourceTree = "<group>"; };
+		F62FE69929FBCE1D002D5FE3 /* nImOoutChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOoutChannel.cpp; path = nImO/nImOoutChannel.cpp; sourceTree = "<group>"; };
+		F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinChannel.cpp; path = nImO/nImOinChannel.cpp; sourceTree = "<group>"; };
+		F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinChannel.h; path = nImO/nImOinChannel.h; sourceTree = "<group>"; };
+		F62FE69C29FBCE1D002D5FE3 /* nImOoutChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOoutChannel.h; path = nImO/nImOoutChannel.h; sourceTree = "<group>"; };
+		F62FE69D29FBCF39002D5FE3 /* nImObaseChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObaseChannel.cpp; path = nImO/nImObaseChannel.cpp; sourceTree = "<group>"; };
+		F62FE69E29FBCF39002D5FE3 /* nImObaseChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObaseChannel.h; path = nImO/nImObaseChannel.h; sourceTree = "<group>"; };
 		F634701B29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddNodeResponseHandler.cpp; path = nImO/nImOaddNodeResponseHandler.cpp; sourceTree = "<group>"; };
 		F634701C29DC9A11008FCEA2 /* nImOaddNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddNodeResponseHandler.h; path = nImO/nImOaddNodeResponseHandler.h; sourceTree = "<group>"; };
 		F634701D29DC9CA8008FCEA2 /* nImOresponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOresponseHandler.h; path = nImO/nImOresponseHandler.h; sourceTree = "<group>"; };
@@ -94,12 +100,6 @@
 		F634702229DCA2A9008FCEA2 /* nImOremoveNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveNodeResponseHandler.h; path = nImO/nImOremoveNodeResponseHandler.h; sourceTree = "<group>"; };
 		F6351BE929462B1E00A93CA2 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Tests/resource.h; sourceTree = "<group>"; };
 		F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_MIMEAndMessages.txt; path = "non-iOS/Tests/Test_MIMEAndMessages.txt"; sourceTree = "<group>"; };
-		F635925F29E9559D009B0147 /* nImOoutPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOoutPort.h; path = nImO/nImOoutPort.h; sourceTree = "<group>"; };
-		F635926029E9559D009B0147 /* nImOinOutPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinOutPort.h; path = nImO/nImOinOutPort.h; sourceTree = "<group>"; };
-		F635926129E9559D009B0147 /* nImOinPort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinPort.h; path = nImO/nImOinPort.h; sourceTree = "<group>"; };
-		F635926229E9559D009B0147 /* nImOinOutPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinOutPort.cpp; path = nImO/nImOinOutPort.cpp; sourceTree = "<group>"; };
-		F635926329E9559D009B0147 /* nImOinPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinPort.cpp; path = nImO/nImOinPort.cpp; sourceTree = "<group>"; };
-		F635926429E9559D009B0147 /* nImOoutPort.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOoutPort.cpp; path = nImO/nImOoutPort.cpp; sourceTree = "<group>"; };
 		F642B66D29F8750600BD31A5 /* nImOgetInformationForAllNodesOnMachineCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllNodesOnMachineCommandHandler.h; path = Registry/nImOgetInformationForAllNodesOnMachineCommandHandler.h; sourceTree = "<group>"; };
 		F642B66E29F8750600BD31A5 /* nImOgetNamesOfNodesOnMachineCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNamesOfNodesOnMachineCommandHandler.h; path = Registry/nImOgetNamesOfNodesOnMachineCommandHandler.h; sourceTree = "<group>"; };
 		F642B66F29F8750600BD31A5 /* nImOgetInformationForAllNodesOnMachineCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllNodesOnMachineCommandHandler.cpp; path = Registry/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp; sourceTree = "<group>"; };
@@ -359,8 +359,6 @@
 		F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcommon.h; path = nImO/nImOcommon.h; sourceTree = SOURCE_ROOT; };
 		F6EE0ACB1CA2C7F4004748ED /* nImOconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOconfig.h; path = nImO/nImOconfig.h; sourceTree = SOURCE_ROOT; };
 		F6EE0ACC1CA2C7F4004748ED /* nImOconfig.h.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconfig.h.in; path = nImO/nImOconfig.h.in; sourceTree = SOURCE_ROOT; };
-		F6EE0ACD1CA2C7F4004748ED /* nImOchannel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannel.cpp; path = nImO/nImOchannel.cpp; sourceTree = SOURCE_ROOT; };
-		F6EE0ACE1CA2C7F4004748ED /* nImOchannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOchannel.h; path = nImO/nImOchannel.h; sourceTree = SOURCE_ROOT; };
 		F6EE0AD31CA2C7F4004748ED /* nImOmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmap.cpp; path = nImO/nImOmap.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0AD41CA2C7F4004748ED /* nImOmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOmap.h; path = nImO/nImOmap.h; sourceTree = SOURCE_ROOT; };
 		F6EE0AD51CA2C7F4004748ED /* nImOnumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnumber.cpp; path = nImO/nImOnumber.cpp; sourceTree = SOURCE_ROOT; };
@@ -1261,8 +1259,8 @@
 				F6263BF629DCC4040034A9F9 /* Response Handlers */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
 				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
-				F6EE0ACD1CA2C7F4004748ED /* nImOchannel.cpp */,
-				F6EE0ACE1CA2C7F4004748ED /* nImOchannel.h */,
+				F62FE69D29FBCF39002D5FE3 /* nImObaseChannel.cpp */,
+				F62FE69E29FBCF39002D5FE3 /* nImObaseChannel.h */,
 				F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */,
 				F6811BD3240FFD9700B09333 /* nImOchannelName.h */,
 				F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */,
@@ -1280,18 +1278,16 @@
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.h.in */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.h */,
-				F635926229E9559D009B0147 /* nImOinOutPort.cpp */,
-				F635926029E9559D009B0147 /* nImOinOutPort.h */,
-				F635926329E9559D009B0147 /* nImOinPort.cpp */,
-				F635926129E9559D009B0147 /* nImOinPort.h */,
+				F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */,
+				F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */,
 				F6943A582886C275002117FA /* nImOlogger.cpp */,
 				F6943A572886C275002117FA /* nImOlogger.h */,
 				F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */,
 				F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */,
 				F699CCA12945026100B471C6 /* nImOMIMESupport.cpp */,
 				F699CCA22945026100B471C6 /* nImOMIMESupport.h */,
-				F635926429E9559D009B0147 /* nImOoutPort.cpp */,
-				F635925F29E9559D009B0147 /* nImOoutPort.h */,
+				F62FE69929FBCE1D002D5FE3 /* nImOoutChannel.cpp */,
+				F62FE69C29FBCE1D002D5FE3 /* nImOoutChannel.h */,
 				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,

@@ -64,10 +64,10 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOarray.cpp"
             "${THIS_SOURCE_DIR}/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/nImObaseChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOblob.cpp"
             "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImObufferChunk.cpp"
-            "${THIS_SOURCE_DIR}/nImOchannel.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelName.cpp"
             "${THIS_SOURCE_DIR}/nImOchunkArray.cpp"
@@ -99,8 +99,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.cpp"
-            "${THIS_SOURCE_DIR}/nImOinOutPort.cpp"
-            "${THIS_SOURCE_DIR}/nImOinPort.cpp"
+            "${THIS_SOURCE_DIR}/nImOinChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOinputOutputContext.cpp"
             "${THIS_SOURCE_DIR}/nImOinteger.cpp"
             "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp"
@@ -115,7 +114,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/nImOnumber.cpp"
-            "${THIS_SOURCE_DIR}/nImOoutPort.cpp"
+            "${THIS_SOURCE_DIR}/nImOoutChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOremoveNodeResponseHandler.cpp"
@@ -168,10 +167,10 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOarray.h"
         "${THIS_SOURCE_DIR}/nImOatom.h"
         "${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/nImObaseChannel.h"
         "${THIS_SOURCE_DIR}/nImOblob.h"
         "${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImObufferChunk.h"
-        "${THIS_SOURCE_DIR}/nImOchannel.h"
         "${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOchannelName.h"
         "${THIS_SOURCE_DIR}/nImOchunkArray.h"
@@ -205,8 +204,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.h"
-        "${THIS_SOURCE_DIR}/nImOinOutPort.h"
-        "${THIS_SOURCE_DIR}/nImOinPort.h"
+        "${THIS_SOURCE_DIR}/nImOinChannel.h"
         "${THIS_SOURCE_DIR}/nImOinputOutputContext.h"
         "${THIS_SOURCE_DIR}/nImOinteger.h"
         "${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h"
@@ -221,7 +219,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
         "${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h"
         "${THIS_SOURCE_DIR}/nImOnumber.h"
-        "${THIS_SOURCE_DIR}/nImOoutPort.h"
+        "${THIS_SOURCE_DIR}/nImOoutChannel.h"
         "${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
         "${THIS_SOURCE_DIR}/nImOregistryProxy.h"
@@ -255,10 +253,10 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOarray.cpp ${THIS_SOURCE_DIR}/nImOarray.h
         ${THIS_SOURCE_DIR}/nImOatom.cpp ${THIS_SOURCE_DIR}/nImOatom.h
         ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObaseArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/nImObaseChannel.cpp ${THIS_SOURCE_DIR}/nImObaseChannel.h
         ${THIS_SOURCE_DIR}/nImOblob.cpp ${THIS_SOURCE_DIR}/nImOblob.h
         ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImObooleanArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/nImObufferChunk.h
-        ${THIS_SOURCE_DIR}/nImOchannel.cpp ${THIS_SOURCE_DIR}/nImOchannel.h
         ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOchannelArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
         ${THIS_SOURCE_DIR}/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/nImOchunkArray.h
@@ -291,8 +289,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.cpp ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineResponseHandler.h
-        ${THIS_SOURCE_DIR}/nImOinOutPort.cpp ${THIS_SOURCE_DIR}/nImOinOutPort.h
-        ${THIS_SOURCE_DIR}/nImOinPort.cpp ${THIS_SOURCE_DIR}/nImOinPort.h
+        ${THIS_SOURCE_DIR}/nImOinChannel.cpp ${THIS_SOURCE_DIR}/nImOinChannel.h
         ${THIS_SOURCE_DIR}/nImOinputOutputContext.cpp ${THIS_SOURCE_DIR}/nImOinputOutputContext.h
         ${THIS_SOURCE_DIR}/nImOinteger.cpp ${THIS_SOURCE_DIR}/nImOinteger.h
         ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOintegerArgumentDescriptor.h
@@ -307,7 +304,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
         ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/nImOmiscellaneousContext.h
         ${THIS_SOURCE_DIR}/nImOnumber.cpp ${THIS_SOURCE_DIR}/nImOnumber.h
-        ${THIS_SOURCE_DIR}/nImOoutPort.cpp ${THIS_SOURCE_DIR}/nImOoutPort.h
+        ${THIS_SOURCE_DIR}/nImOoutChannel.cpp ${THIS_SOURCE_DIR}/nImOoutChannel.h
         ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.cpp ${THIS_SOURCE_DIR}/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h
         ${THIS_SOURCE_DIR}/nImOregistryProxy.cpp ${THIS_SOURCE_DIR}/nImOregistryProxy.h

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputContext.h
+//  File:       nImO/nImObaseChannel.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'inputOutput' execution context.
+//  Contains:   The class declaration for nImO connections to services.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,16 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-12
+//  Created:    2023-04-14
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinputOutputContext_H_))
-# define nImOinputOutputContext_H_ /* Header guard */
+#if (! defined(nImObaseChannel_H_))
+# define nImObaseChannel_H_ /* Header guard */
 
-# include <nImOserviceContext.h>
-
-# include <nImObaseChannel.h>
+# include <nImOcommon.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -49,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the 'inputOutput' %nImO execution context. */
+ @brief The class declaration for %nImO connections to services. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide support for an 'inputOutput' application. */
-    class InputOutputContext : public ServiceContext
+    /*! @brief A class to provide connections to services. */
+    class BaseChannel
     {
 
         public :
@@ -69,34 +67,34 @@ namespace nImO
         private :
             // Private type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = ServiceContext;
-
         public :
             // Public methods.
 
+            /*! @brief The constructor. */
+            BaseChannel
+                (void);
+
             /*! @brief The destructor. */
             virtual
-            ~InputOutputContext
+            ~BaseChannel
                 (void);
 
         protected :
             // Protected methods.
 
-            /*! @brief The constructor.
-             @param[in] argc The number of arguments in 'argv'.
-             @param[in] argv The command-line arguments provided to the application.
-             @param[in] executable The name of the executing program.
-             @param[in] tag The symbolic name for the current process.
-             @param[in] logging @c true if the executing program is to be logged.
-             @param[in] nodeName The @nImO-visible name of the executing program. */
-            InputOutputContext
-                (const int              argc,
-                 Ptr(Ptr(char))         argv,
-                 const std::string &    executableName,
-                 const std::string &    tag = "",
-                 const bool             logging = false,
-                 const std::string &    nodeName = "");
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            BaseChannel
+                (BaseChannel &&    other)
+                noexcept;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            BaseChannel &
+            operator=
+                (BaseChannel && other)
+                noexcept;
 
         private :
             // Private methods.
@@ -107,11 +105,17 @@ namespace nImO
         protected :
             // Protected fields.
 
+            /*! @brief The IP address, port and mode for the communication. */
+            Connection  _connection;
+
+            /*! @brief The name to be used when connecting or disconnecting. */
+            std::string _name;
+
         private :
             // Private fields.
 
-    }; // InputOutputContext
+    }; // BaseChannel
 
 } // nImO
 
-#endif // not defined(nImOinputOutputContext_H_)
+#endif // not defined(nImObaseChannel_H_)

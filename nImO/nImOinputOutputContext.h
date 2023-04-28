@@ -41,7 +41,8 @@
 
 # include <nImOserviceContext.h>
 
-# include <nImObaseChannel.h>
+# include <nImOinChannel.h>
+# include <nImOoutChannel.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,6 +57,18 @@
 
 namespace nImO
 {
+    /*! @brief A holder for a shared pointer to an input channel. */
+    using SpInChannel = std::shared_ptr<InChannel>;
+
+    /*! @brief A holder for a shared pointer to an output channel. */
+    using SpOutChannel = std::shared_ptr<OutChannel>;
+
+    /*! @brief An array of input channels. */
+    typedef std::vector<SpInChannel>    InChannelVector;
+
+    /*! @brief An array of output channels. */
+    typedef std::vector<SpOutChannel>   OutChannelVector;
+
     /*! @brief A class to provide support for an 'inputOutput' application. */
     class InputOutputContext : public ServiceContext
     {
@@ -109,6 +122,12 @@ namespace nImO
 
         private :
             // Private fields.
+
+            /*! @brief The input channels for the service. */
+            InChannelVector _inputChannels;
+
+            /*! @brief The output channels for the service. */
+            OutChannelVector    _outputChannels;
 
     }; // InputOutputContext
 

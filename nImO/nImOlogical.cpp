@@ -220,7 +220,7 @@ nImO::Logical::extractValue
 {
     auto    result{std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte))};
 
-    NIMO_UNUSED_ARG_(theMessage);
+    NIMO_UNUSED_VAR_(theMessage);
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
@@ -487,7 +487,7 @@ nImO::Logical::printToStringBuffer
      const bool     squished)
     const
 {
-    NIMO_UNUSED_ARG_(squished);
+    NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
@@ -501,7 +501,7 @@ nImO::Logical::printToStringBufferAsJSON
      const bool     squished)
     const
 {
-    NIMO_UNUSED_ARG_(squished);
+    NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####

@@ -89,10 +89,11 @@ nImO::Number::Number
 } // nImO::Number::Number
 
 nImO::Number::Number
-    (Number &&  NIMO_UNUSED_PARAM_(other))
+    (Number &&  other)
     noexcept :
         inherited()
 {
+    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number

@@ -172,8 +172,9 @@ nImO::CommandHandler::sendComplexResponseWithContext
             asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
                               [context, &keepGoing, &okSoFar, responseText]
                               (const system::error_code &   ec,
-                               const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                               const std::size_t            bytes_transferred)
                               {
+                                NIMO_UNUSED_VAR_(bytes_transferred);
                                 if (ec)
                                 {
                                     if (asio::error::operation_aborted == ec)
@@ -274,8 +275,9 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
                               [context, &keepGoing, &okSoFar, responseText]
                               (const system::error_code &   ec,
-                               const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                               const std::size_t            bytes_transferred)
                               {
+                                NIMO_UNUSED_VAR_(bytes_transferred);
                                 if (ec)
                                 {
                                     if (asio::error::operation_aborted == ec)
@@ -348,9 +350,11 @@ nImO::CommandHandler::sendStatusReport
             // send the encoded message to the logging ports
             theSocket.async_send_to(asio::buffer(*outString), theEndpoint,
                                       [outString]
-                                      (const system::error_code NIMO_UNUSED_PARAM_(ec),
-                                       const std::size_t        NIMO_UNUSED_PARAM_(length))
+                                      (const system::error_code ec,
+                                       const std::size_t        length)
                                       {
+                                        NIMO_UNUSED_VAR_(ec);
+                                        NIMO_UNUSED_VAR_(length);
                                       });
         }
         else

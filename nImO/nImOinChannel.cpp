@@ -85,10 +85,11 @@ nImO::InChannel::InChannel
 } // nImO::InChannel::InChannel
 
 nImO::InChannel::InChannel
-    (InChannel &&  NIMO_UNUSED_PARAM_(other))
+    (InChannel &&  other)
     noexcept :
         inherited()
 {
+    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::InChannel::InChannel

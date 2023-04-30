@@ -247,8 +247,9 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         asio::async_write(socket, asio::buffer(outString->c_str(), outString->length()),
                                                           [&socket, context, handler, &keepGoing, &responseKey, &status]
                                                           (const system::error_code &   ec2,
-                                                           const std::size_t            NIMO_UNUSED_PARAM_(bytes_transferred))
+                                                           const std::size_t            bytes_transferred)
                                                           {
+                                                            NIMO_UNUSED_VAR_(bytes_transferred);
                                                             if (ec2)
                                                             {
                                                                 if (asio::error::operation_aborted == ec2)
@@ -276,8 +277,9 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                 asio::async_read_until(socket, *rB, MatchMessageSeparator,
                                                                                         [context, rB, handler, &keepGoing, &responseKey, &status]
                                                                                         (const system::error_code & ec,
-                                                                                         const std::size_t          NIMO_UNUSED_PARAM_(size))
+                                                                                         const std::size_t          size)
                                                                                         {
+                                                                                            NIMO_UNUSED_VAR_(size);
                                                                                             if (ec)
                                                                                             {
                                                                                                 if (asio::error::operation_aborted == ec)

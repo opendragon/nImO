@@ -259,7 +259,7 @@ bool
 ExtraArgumentDescriptor::validate
     (const std::string &    value)
 {
-    NIMO_UNUSED_ARG_(value);
+    NIMO_UNUSED_VAR_(value);
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
     //ODL_P1("value = ", &value); //####

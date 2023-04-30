@@ -84,9 +84,10 @@ nImO::BaseChannel::BaseChannel
 } // nImO::BaseChannel::BaseChannel
 
 nImO::BaseChannel::BaseChannel
-    (BaseChannel &&  NIMO_UNUSED_PARAM_(other))
+    (BaseChannel &&  other)
     noexcept
 {
+    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::BaseChannel::BaseChannel

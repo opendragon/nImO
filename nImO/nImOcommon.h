@@ -626,9 +626,7 @@ namespace nImO
 
     }; // internal_
 
-# define NIMO_UNUSED_ARG_(var_)  nImO::internal_::ignore_unused_variable_(var_)
-# define NIMO_UNUSED_PARAM_(xx_) /* xx_ */
-# define NIMO_UNUSED_VAR_(var_)  NIMO_UNUSED_ARG_(var_)
+# define NIMO_UNUSED_VAR_(var_)  nImO::internal_::ignore_unused_variable_(var_)
 
     /*! @brief The minimum count representable in a short floating point. */
     const int   DataKindDoubleShortCountMinValue = 1;

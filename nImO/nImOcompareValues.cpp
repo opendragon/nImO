@@ -99,7 +99,7 @@ nImO::CompareValues::operator=
     (CompareValues &&    other)
     noexcept
 {
-    NIMO_UNUSED_ARG_(other);
+    NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT_P(this); //####

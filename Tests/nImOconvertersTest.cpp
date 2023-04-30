@@ -114,7 +114,7 @@ doTestInvalidArgs
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -197,7 +197,7 @@ doTestIntegerSize
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -258,9 +258,9 @@ doTestDoubleSize
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -306,7 +306,7 @@ doTestIntegerConversion
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     ODL_I1("argc = ", argc); //####
@@ -378,9 +378,9 @@ doTestDoubleConversion
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

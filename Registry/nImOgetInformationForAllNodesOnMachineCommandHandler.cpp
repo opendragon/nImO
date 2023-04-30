@@ -112,7 +112,7 @@ nImO::InformationForAllNodesOnMachineCommandHandler::doIt
 {
     bool    okSoFar = false;
 
-    NIMO_UNUSED_ARG_(arguments);
+    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     _owner->report("information for all nodes on machine request received");

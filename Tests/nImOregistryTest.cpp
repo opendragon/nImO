@@ -129,12 +129,12 @@ doTestCreateRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -182,12 +182,12 @@ doTestEmptyRegistryForMachines
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -251,12 +251,12 @@ doTestMachineSetWithEmptyRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -322,12 +322,12 @@ doTestFindMachineWithEmptyRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -406,12 +406,12 @@ doTestAddMachineToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -468,12 +468,12 @@ doTestCountMachinesWithRegistryWithOneMachine
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -546,12 +546,12 @@ doTestMachineSetWithRegistryWithOneMachine
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -626,12 +626,12 @@ doTestFindMachineWithRegistryWithOneMachine
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -719,12 +719,12 @@ doTestAddTwoDistinctMachinesToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -789,12 +789,12 @@ doTestCountMachinesWithRegistryWithTwoMachines
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -875,12 +875,12 @@ doTestAddTwoIdenticalMachinesToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -961,12 +961,12 @@ doTestEmptyRegistryForNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1030,12 +1030,12 @@ doTestNodeSetWithEmptyRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1101,12 +1101,12 @@ doTestFindNodeWithEmptyRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1185,9 +1185,9 @@ doTestAddNodeToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1255,9 +1255,9 @@ doTestCountNodesWithRegistryWithOneNode
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1339,9 +1339,9 @@ doTestNodeSetWithRegistryWithOneNode
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1425,9 +1425,9 @@ doTestFindNodeWithRegistryWithOneNode
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1524,9 +1524,9 @@ doTestNodeDataAddedToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1623,9 +1623,9 @@ doTestRemoveNodeFromRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1699,9 +1699,9 @@ doTestCountNodesWithRegistryWithNodeRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1791,9 +1791,9 @@ doTestNodeSetWithRegistryWithNodeRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1885,9 +1885,9 @@ doTestFindNodeWithRegistryNodeRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -1977,9 +1977,9 @@ doTestAddTwoDistinctNodesToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2053,9 +2053,9 @@ doTestCountNodesWithRegistryWithTwoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2145,9 +2145,9 @@ doTestNodeSetWithRegistryWithTwoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2246,9 +2246,9 @@ doTestFindNodeWithRegistryWithTwoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2353,9 +2353,9 @@ doTestRemoveNodesFromRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2445,9 +2445,9 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2553,9 +2553,9 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2663,9 +2663,9 @@ doTestFindNodeWithRegistryAllNodesRemoved
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2786,9 +2786,9 @@ doTestAddTwoIdenticalNodesToRegistry
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2880,12 +2880,12 @@ doTestNodeInfoWithRegistryWithNoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -2951,9 +2951,9 @@ doTestNodeInfoWithRegistryWithOneNode
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3052,9 +3052,9 @@ doTestNodeInfoWithRegistryWithTwoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3223,12 +3223,12 @@ doTestLaunchDetailsWithRegistryWithNoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3294,9 +3294,9 @@ doTestLaunchDetailsWithRegistryWithOneNode
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3391,9 +3391,9 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3538,12 +3538,12 @@ doTestNodeSetWithEmptyRegistryViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3619,9 +3619,9 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3705,9 +3705,9 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3806,12 +3806,12 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3887,9 +3887,9 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -3988,9 +3988,9 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4118,12 +4118,12 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
-    NIMO_UNUSED_ARG_(execPath);
-    NIMO_UNUSED_ARG_(currentDir);
-    NIMO_UNUSED_ARG_(commandLine);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4197,9 +4197,9 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
@@ -4281,9 +4281,9 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
-    NIMO_UNUSED_ARG_(argc);
-    NIMO_UNUSED_ARG_(argv);
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####

@@ -690,7 +690,7 @@ sqlLogger
      const int  code,
      CPtr(char) message)
 {
-    NIMO_UNUSED_ARG_(code);
+    NIMO_UNUSED_VAR_(code);
     Ptr(nImO::ContextWithNetworking)    owner = StaticCast(Ptr(nImO::ContextWithNetworking), data);
 
     if (nullptr != owner)

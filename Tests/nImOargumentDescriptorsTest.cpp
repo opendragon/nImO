@@ -138,7 +138,7 @@ doTestAddressArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -234,7 +234,7 @@ doTestBooleanArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -326,7 +326,7 @@ doTestChannelArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -419,7 +419,7 @@ doTestDoubleArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -515,7 +515,7 @@ doTestFilePathArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -611,7 +611,7 @@ doTestIntegerArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -710,7 +710,7 @@ doTestPortArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -806,7 +806,7 @@ doTestStringArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####
@@ -886,7 +886,7 @@ doTestStringsArgumentDescriptors
 {
     int result = 1;
 
-    NIMO_UNUSED_ARG_(launchPath);
+    NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     ODL_S1("launchPath = ", launchPath); //####
     ODL_I2("subSelector = ", subSelector, "argc = ", argc); //####

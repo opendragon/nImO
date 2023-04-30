@@ -97,10 +97,10 @@ announcementServiceCallback
 {
     bool    result;
 
-    NIMO_UNUSED_ARG_(ttl);
-    NIMO_UNUSED_ARG_(nameLength);
-    NIMO_UNUSED_ARG_(recordOffset);
-    NIMO_UNUSED_ARG_(recordLength);
+    NIMO_UNUSED_VAR_(ttl);
+    NIMO_UNUSED_VAR_(nameLength);
+    NIMO_UNUSED_VAR_(recordOffset);
+    NIMO_UNUSED_VAR_(recordLength);
     if ((mDNS::kEntryTypeQuestion == entry) && (! lAnnouncerThreadStop))
     {
         const char                          kDnsSd[] = "_services._dns-sd._udp.local.";

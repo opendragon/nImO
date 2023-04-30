@@ -161,8 +161,8 @@ namespace nImO
                 (const mDNS::string_t &    entryData,
                  const mDNS::string_t &    aData)
             {
-                NIMO_UNUSED_ARG_(entryData);
-                NIMO_UNUSED_ARG_(aData);
+                NIMO_UNUSED_VAR_(entryData);
+                NIMO_UNUSED_VAR_(aData);
                 if (_processing)
                 {
                     // Note that the A records are ignored.
@@ -178,8 +178,8 @@ namespace nImO
                 (const mDNS::string_t &    entryData,
                  const mDNS::string_t &    aaaaData)
             {
-                NIMO_UNUSED_ARG_(entryData);
-                NIMO_UNUSED_ARG_(aaaaData);
+                NIMO_UNUSED_VAR_(entryData);
+                NIMO_UNUSED_VAR_(aaaaData);
                 if (_processing)
                 {
                     // Note that the AAAA records are ignored.
@@ -478,11 +478,11 @@ queryCallback
      const size_t               recordLength,
      Ptr(void)                  userData)
 {
-    NIMO_UNUSED_ARG_(sock);
-    NIMO_UNUSED_ARG_(entry);
-    NIMO_UNUSED_ARG_(queryId);
-    NIMO_UNUSED_ARG_(rClass);
-    NIMO_UNUSED_ARG_(nameLength);
+    NIMO_UNUSED_VAR_(sock);
+    NIMO_UNUSED_VAR_(entry);
+    NIMO_UNUSED_VAR_(queryId);
+    NIMO_UNUSED_VAR_(rClass);
+    NIMO_UNUSED_VAR_(nameLength);
     size_t                      workOffset = nameOffset;
     mDNS::string_t              fromAddrStr = nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen);
     mDNS::string_t              entryStr = mDNS::mDNSPrivate::string_extract(data, size, workOffset, lEntryBuffer,

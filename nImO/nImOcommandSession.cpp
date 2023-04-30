@@ -208,8 +208,9 @@ nImO::CommandSession::start
     asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                             [this, &keepGoing]
                             (const system::error_code & ec,
-                             const std::size_t          NIMO_UNUSED_PARAM_(size))
+                             const std::size_t          size)
                             {
+                                NIMO_UNUSED_VAR_(size);
                                 if (ec)
                                 {
                                     if (asio::error::operation_aborted == ec)

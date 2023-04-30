@@ -106,7 +106,7 @@ nImO::Value::Value
     (Value &&   other)
     noexcept
 {
-    NIMO_UNUSED_ARG_(other);
+    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
@@ -439,7 +439,7 @@ nImO::Value::greaterThan
 {
     ComparisonStatus    result(false, false);
 
-    NIMO_UNUSED_ARG_(other);
+    NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
@@ -596,7 +596,7 @@ nImO::Value::lessThan
 {
     ComparisonStatus    result(false, false);
 
-    NIMO_UNUSED_ARG_(other);
+    NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT();
@@ -625,7 +625,7 @@ nImO::Value::operator=
     (Value &&   other)
     noexcept
 {
-    NIMO_UNUSED_ARG_(other);
+    NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_OBJEXIT_P(this); //####
@@ -653,8 +653,8 @@ nImO::Value::printToStringBuffer
      const bool     squished)
     const
 {
-    NIMO_UNUSED_ARG_(outBuffer);
-    NIMO_UNUSED_ARG_(squished);
+    NIMO_UNUSED_VAR_(outBuffer);
+    NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
@@ -667,8 +667,8 @@ nImO::Value::printToStringBufferAsJSON
      const bool     squished)
     const
 {
-    NIMO_UNUSED_ARG_(outBuffer);
-    NIMO_UNUSED_ARG_(squished);
+    NIMO_UNUSED_VAR_(outBuffer);
+    NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
@@ -775,7 +775,7 @@ nImO::Value::writeToMessage
     (Message &  outMessage)
     const
 {
-    NIMO_UNUSED_ARG_(outMessage);
+    NIMO_UNUSED_VAR_(outMessage);
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_OBJEXIT(); //####

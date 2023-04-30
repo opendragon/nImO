@@ -112,7 +112,7 @@ nImO::NamesOfNodesCommandHandler::doIt
 {
     bool    okSoFar = false;
 
-    NIMO_UNUSED_ARG_(arguments);
+    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     _owner->report("names of nodes request received");

@@ -110,7 +110,7 @@ nImO::NodePresentCommandHandler::doIt
 {
     bool    okSoFar = false;
 
-    NIMO_UNUSED_ARG_(arguments);
+    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     _owner->report("node present request received");

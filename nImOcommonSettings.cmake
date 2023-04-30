@@ -37,7 +37,7 @@
 #--------------------------------------------------------------------------------------------------
 
 set(nImO_VERSION_MAJOR 0)
-set(nImO_VERSION_MINOR 3)
+set(nImO_VERSION_MINOR 4)
 set(nImO_VERSION_PATCH 0)
 set(nImO_VERSION "${nImO_VERSION_MAJOR}.${nImO_VERSION_MINOR}.${nImO_VERSION_PATCH}")
 set(nImO_COMPANY "OpenDragon")

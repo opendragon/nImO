@@ -47,10 +47,10 @@ Updates:\
 Tests:\
        INSERT INTO Machines ( name, address ) VALUES( "blort", 20000000 );\
        INSERT INTO Machines ( name, address ) VALUES( "blurt", 30000000 );\
-       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b1", 20000000, 5000, 1, "/opt/bin/stuff", "/home/", "-n b1" );\
-       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b2", 20000000, 5001, 1, "/opt/bin/stuff", "/home/", "-n b2" );\
-       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b3", 30000000, 5100, 1, "/opt/bin/stuff", "/home/", "-n b3" );\
-       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/", "-n b4" );\
+       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b1", 20000000, 5000, 4, "/opt/bin/stuff", "/home/able", "-n b1" );\
+       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b2", 20000000, 5001, 3, "/opt/bin/stuff", "/home/baker", "-n b2" );\
+       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b3" );\
+       INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES( "b4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b4" );\
 \
        SELECT execPath, launchDirectory, commandLine FROM Nodes WHERE name = "b3";\
        SELECT address FROM Machines WHERE name = "blurt";\

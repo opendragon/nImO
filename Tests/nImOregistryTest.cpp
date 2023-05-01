@@ -4595,6 +4595,166 @@ main
                                                                                         commandLine);
                         break;
 
+                    case 300 :
+//                        result = doTestEmptyRegistryForChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 301 :
+//                        result = doTestCountChannelsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 302 :
+//                        result = doTestAddChannelToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 303 :
+//                        result = doTestCountChannelsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                             commandLine);
+                        break;
+
+                    case 304 :
+//                        result = doTestFindChannelInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 305 :
+//                        result = doTestAddTwoChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 306 :
+//                        result = doTestCountChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                              commandLine);
+                        break;
+
+                    case 307 :
+//                        result = doTestFindChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                             commandLine);
+                        break;
+
+                    case 308 :
+//                        result = doTestAddTwoIdenticalChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 309:
+//                        result = doTestAddChannelWithBadNodeNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 310:
+//                        result = doTestAddChannelWithBadChannelNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                              commandLine);
+                        break;
+
+                    case 320 :
+//                        result = doTestGetChannelInfoFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 321 :
+//                        result = doTestGetChannelInfoFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                commandLine);
+                        break;
+
+                    case 322 :
+//                        result = doTestGetChannelInfoFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                 commandLine);
+                        break;
+
+                    case 323 :
+//                        result = doTestGetChannelInfoWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                 commandLine);
+                        break;
+
+                    case 324 :
+//                        result = doTestGetChannelInfoWithBadChannelNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                    commandLine);
+                        break;
+
+                    case 340 :
+//                        result = doTestGetChannelSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 341 :
+//                        result = doTestGetChannelSetForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                      commandLine);
+                        break;
+
+                    case 342 :
+//                        result = doTestGetChannelSetForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                       commandLine);
+                        break;
+
+                    case 343 :
+//                        result = doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                 currentDir, commandLine);
+                        break;
+
+                    case 344 :
+//                        result = doTestGetChannelSetForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                         commandLine);
+                        break;
+
+                    case 345 :
+//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                          commandLine);
+                        break;
+
+                    case 346 :
+//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                   currentDir, commandLine);
+                        break;
+
+                    case 347 :
+//                        result = doTestGetChannelSetWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                commandLine);
+                        break;
+
+                    case 348 :
+//                        result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                   commandLine);
+                        break;
+
+                    case 360 :
+//                        result = doTestGetChannelDetailsFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 361 :
+//                        result = doTestGetChannelDetailsForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                          commandLine);
+                        break;
+
+                    case 362 :
+//                        result = doTestGetChannelDetailsForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                           currentDir, commandLine);
+                        break;
+
+                    case 363 :
+//                        result = doTestGetChannelDetailsForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                     currentDir, commandLine);
+                        break;
+
+                    case 364 :
+//                        result = doTestGetChannelDetailsForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                             currentDir, commandLine);
+                        break;
+
+                    case 365 :
+//                        result = doTestGetChannelDetailsForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                              currentDir, commandLine);
+                        break;
+
+                    case 366 :
+//                        result = doTestGetChannelDetailsForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                       execPath, currentDir, commandLine);
+                        break;
+
+                    case 367 :
+//                        result = doTestGetChannelDetailsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                    commandLine);
+                        break;
+
+                    case 368 :
+//                        result = doTestGetChannelDetailsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                       commandLine);
+                        break;
+
                     default :
                         break;
 

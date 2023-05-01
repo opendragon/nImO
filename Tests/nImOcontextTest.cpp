@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include "../Registry/nImOregistryContext.h"
 #include <nImOcontextWithMDNS.h>
 #include <nImOcontextWithNetworking.h>
 #include <nImOfilterContext.h>
@@ -377,6 +378,38 @@ doTestCreateUtilityContext
 } // doTestCreateUtilityContext
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 10 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext aContext{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext);
+        EnableWaitForRegistry();
+        result = 0;
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryContext
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 20 ***
 #endif // defined(__APPLE__)
 
@@ -627,6 +660,42 @@ doTestKindOfContextForSourceContext
     ODL_EXIT_I(result); //####
     return result;
 } // doTestKindOfContextForSourceContext
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 27 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKindOfContextForRegistryContext
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext         aContext{0, nullptr, ""};
+        CPtr(ServiceContext)    asService = aContext.asServiceContext();
+        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+
+        if ((nullptr != asService) && (nullptr == asUtility))
+        {
+            result = 0;
+        }
+        EnableWaitForRegistry();
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKindOfContextForRegistryContext
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -4193,6 +4262,798 @@ doTestCreateUtilityAndUtilityContexts
 } // doTestCreateUtilityAndUtilityContexts
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 200 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndMDNSContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            ContextWithMDNS aContext2{""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndMDNSContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 201 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndNetworkingContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            ContextWithNetworking   aContext2{""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndNetworkingContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 202 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndFilterContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            FilterContext   aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndFilterContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 203 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndMiscellaneousContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            MiscellaneousContext    aContext2("");
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndMiscellaneousContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 204 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 205 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndServiceContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            ServiceContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndServiceContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 206 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndSinkContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            SinkContext aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndSinkContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 207 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndSourceContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            SourceContext   aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndSourceContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 208 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndTestContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext  aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            TestContext   aContext2{""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndTestContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 209 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateRegistryAndUtilityContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        RegistryContext aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            UtilityContext  aContext2{""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateRegistryAndUtilityContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 220 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateMDNSAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        ContextWithMDNS aContext1{""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateMDNSAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 221 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateNetworkingAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        ContextWithNetworking   aContext1{""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateNetworkingAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 222 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateFilterAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        FilterContext   aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateFilterAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 223 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateMiscellaneousAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        MiscellaneousContext    aContext1("");
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateMiscellaneousAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 224 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateSinkAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        SinkContext aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateSinkAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 225 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateSourceAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        SourceContext   aContext1{0, nullptr, ""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateSourceAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 226 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateTestAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        TestContext   aContext1{""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateTestAndRegistryContexts
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 227 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCreateUtilityAndRegistryContexts
+    (void)
+{
+    int result = 1;
+
+    ODL_ENTER(); //####
+    try
+    {
+        DisableWaitForRegistry();
+        UtilityContext  aContext1{""};
+
+        NIMO_UNUSED_VAR_(aContext1);
+        try
+        {
+            RegistryContext  aContext2{0, nullptr, ""};
+
+            NIMO_UNUSED_VAR_(aContext2);
+            EnableWaitForRegistry();
+        }
+        catch (...)
+        {
+            // A second Context should throw an exception.
+            ODL_LOG("Exception caught"); //####
+            EnableWaitForRegistry();
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        EnableWaitForRegistry();
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCreateUtilityAndRegistryContexts
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -4262,6 +5123,10 @@ main
                         result = doTestCreateUtilityContext();
                         break;
 
+                    case 10 :
+                        result = doTestCreateRegistryContext();
+                        break;
+
                     case 20 :
                         result = doTestKindOfContextForContextWithNetworking();
                         break;
@@ -4288,6 +5153,10 @@ main
 
                     case 26 :
                         result = doTestKindOfContextForSourceContext();
+                        break;
+
+                    case 27 :
+                        result = doTestKindOfContextForRegistryContext();
                         break;
 
                     case 100 :
@@ -4613,6 +5482,78 @@ main
                     case 188 :
                         result = doTestCreateUtilityAndUtilityContexts();
                         break;
+
+                    case 200 :
+                       result = doTestCreateRegistryAndMDNSContexts();
+                       break;
+
+                    case 201 :
+                       result = doTestCreateRegistryAndNetworkingContexts();
+                       break;
+
+                    case 202 :
+                       result = doTestCreateRegistryAndFilterContexts();
+                       break;
+
+                    case 203 :
+                       result = doTestCreateRegistryAndMiscellaneousContexts();
+                       break;
+
+                    case 204 :
+                       result = doTestCreateRegistryAndRegistryContexts();
+                       break;
+
+                    case 205 :
+                       result = doTestCreateRegistryAndServiceContexts();
+                       break;
+
+                    case 206 :
+                       result = doTestCreateRegistryAndSinkContexts();
+                       break;
+
+                    case 207 :
+                       result = doTestCreateRegistryAndSourceContexts();
+                       break;
+
+                    case 208 :
+                       result = doTestCreateRegistryAndTestContexts();
+                       break;
+
+                    case 209 :
+                       result = doTestCreateRegistryAndUtilityContexts();
+                       break;
+
+                    case 220 :
+                       result = doTestCreateMDNSAndRegistryContexts();
+                       break;
+
+                    case 221 :
+                       result = doTestCreateNetworkingAndRegistryContexts();
+                       break;
+
+                    case 222 :
+                       result = doTestCreateFilterAndRegistryContexts();
+                       break;
+
+                    case 223 :
+                       result = doTestCreateMiscellaneousAndRegistryContexts();
+                       break;
+
+                    case 224 :
+                       result = doTestCreateSinkAndRegistryContexts();
+                       break;
+
+                    case 225 :
+                       result = doTestCreateSourceAndRegistryContexts();
+                       break;
+
+                    case 226 :
+                       result = doTestCreateTestAndRegistryContexts();
+                       break;
+
+                    case 227 :
+                       result = doTestCreateUtilityAndRegistryContexts();
+                       break;
 
                     default :
                         break;

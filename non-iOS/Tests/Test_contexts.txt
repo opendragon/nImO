@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tests/Test_context.txt
+#  File:       non-iOS/Tests/Test_contexts.txt
 #
 #  Project:    nImO
 #
@@ -49,6 +49,7 @@ enable_testing()
 
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOcontextTest.cpp
+               ${THIS_SOURCE_DIR}/../Registry/nImOregistryContext.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
@@ -75,6 +76,8 @@ add_test(NAME TestCreateSourceContext COMMAND ${THIS_TARGET} 7)
 add_test(NAME TestCreateTestContext COMMAND ${THIS_TARGET} 8)
 ## Test create a UtilityContext
 add_test(NAME TestCreateUtilityContext COMMAND ${THIS_TARGET} 9)
+## Test create a RegistryContext
+add_test(NAME TestCreateRegistryContext COMMAND ${THIS_TARGET} 10)
 
 ## Test a ContextWithNetworking is neither a ServiceContext nor a UtilityContext
 add_test(NAME TestKindOfContextForContextWithNetworking COMMAND ${THIS_TARGET} 20)
@@ -90,6 +93,8 @@ add_test(NAME TestKindOfContextForFilterContext COMMAND ${THIS_TARGET} 24)
 add_test(NAME TestKindOfContextForSinkContext COMMAND ${THIS_TARGET} 25)
 ## Test a SourceContext is a ServiceContext
 add_test(NAME TestKindOfContextForSourceContext COMMAND ${THIS_TARGET} 26)
+## Test a RegistryContext is a ServiceContext
+add_test(NAME TestKindOfContextForRegistryContext COMMAND ${THIS_TARGET} 27)
 
 ## Test create ContextWithMDNS and ContextWithMDNS
 add_test(NAME TestCreateMDNSAndMDNSContexts COMMAND ${THIS_TARGET} 100)
@@ -261,3 +266,41 @@ add_test(NAME TestCreateUtilityAndSourceContexts COMMAND ${THIS_TARGET} 186)
 add_test(NAME TestCreateUtilityAndTestContexts COMMAND ${THIS_TARGET} 187)
 ## Test create UtilityContext and UtilityContext
 add_test(NAME TestCreateUtilityAndUtilityContexts COMMAND ${THIS_TARGET} 188)
+
+## Test create RegistryContext and ContextWithMDNS
+add_test(NAME TestCreateRegistryAndMDNSContexts COMMAND ${THIS_TARGET} 200)
+## Test create RegistryContext and ContextWithNetworking
+add_test(NAME TestCreateRegistryAndNetworkingContexts COMMAND ${THIS_TARGET} 201)
+## Test create RegistryContext and FilterContext
+add_test(NAME TestCreateRegistryAndFilterContexts COMMAND ${THIS_TARGET} 202)
+## Test create RegistryContext and MiscellaneousContext
+add_test(NAME TestCreateRegistryAndMiscellaneousContexts COMMAND ${THIS_TARGET} 203)
+## Test create RegistryContext and RegistryContext
+add_test(NAME TestCreateRegistryAndRegistryContexts COMMAND ${THIS_TARGET} 204)
+## Test create RegistryContext and ServiceContext
+add_test(NAME TestCreateRegistryAndServiceContexts COMMAND ${THIS_TARGET} 205)
+## Test create RegistryContext and SinkContext
+add_test(NAME TestCreateRegistryAndSinkContexts COMMAND ${THIS_TARGET} 206)
+## Test create RegistryContext and SourceContext
+add_test(NAME TestCreateRegistryAndSourceContexts COMMAND ${THIS_TARGET} 207)
+## Test create RegistryContext and TestContext
+add_test(NAME TestCreateRegistryAndTestContexts COMMAND ${THIS_TARGET} 208)
+## Test create RegistryContext and UtilityContext
+add_test(NAME TestCreateRegistryAndUtilityContexts COMMAND ${THIS_TARGET} 209)
+
+## Test create ContextWithMDNS and RegistryContext
+add_test(NAME TestCreateMDNSAndRegistryContexts COMMAND ${THIS_TARGET} 220)
+## Test create ContextWithNetworking and RegistryContext
+add_test(NAME TestCreateNetworkingAndRegistryContexts COMMAND ${THIS_TARGET} 221)
+## Test create FilterContext and RegistryContext
+add_test(NAME TestCreateFilterAndRegistryContexts COMMAND ${THIS_TARGET} 222)
+## Test create MiscellaneousContext and RegistryContext
+add_test(NAME TestCreateMiscellaneousAndRegistryContexts COMMAND ${THIS_TARGET} 223)
+## Test create SinkContext and RegistryContext
+add_test(NAME TestCreateSinkAndRegistryContexts COMMAND ${THIS_TARGET} 224)
+## Test create SourceContext and RegistryContext
+add_test(NAME TestCreateSourceAndRegistryContexts COMMAND ${THIS_TARGET} 225)
+## Test create TestContext and RegistryContext
+add_test(NAME TestCreateTestAndRegistryContexts COMMAND ${THIS_TARGET} 226)
+## Test create UtilityContext and RegistryContext
+add_test(NAME TestCreateUtilityAndRegistryContexts COMMAND ${THIS_TARGET} 227)

@@ -4755,6 +4755,106 @@ main
 //                                                                                       commandLine);
                         break;
 
+                    case 380 :
+//                        result = doTestCountChannelConnectionsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                commandLine);
+                        break;
+
+                    case 381 :
+//                        result = doTestGetChannelConnectionsFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                              commandLine);
+                        break;
+
+                    case 382 :
+//                        result = doTestCountChannelConnectionsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                       commandLine);
+                        break;
+
+                    case 383 :
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                              currentDir, commandLine);
+                        break;
+
+                    case 384 :
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                               currentDir, commandLine);
+                        break;
+
+                    case 385 :
+//                        result = doTestGetChannelConnectionsForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                         execPath, currentDir, commandLine);
+                        break;
+
+                    case 386 :
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                 currentDir, commandLine);
+                        break;
+
+                    case 387 :
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                  currentDir, commandLine);
+                        break;
+
+                    case 388 :
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                           execPath, currentDir, commandLine);
+                        break;
+
+                    case 389 :
+//                        result = doTestGetChannelConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                        commandLine);
+                        break;
+
+                    case 390 :
+//                        result = doTestGetChannelConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                           currentDir, commandLine);
+                        break;
+
+                    case 400 :
+//                        result = doTestCountChannelConnectionsWithRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                   currentDir, commandLine);
+                        break;
+
+                    case 401 :
+//                        result = doTestConnectChannelsWithRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                     commandLine);
+                        break;
+
+                    case 402 :
+//                        result = doTestConnectChannelsWithRegistryWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                  commandLine);
+                        break;
+
+                    case 403 :
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                        execPath, currentDir, commandLine);
+                        break;
+
+                    case 404 :
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                           execPath, currentDir, commandLine);
+                        break;
+
+                    case 405 :
+//                        result = doTestGetChannelDetailsForInputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                    commandLine);
+                        break;
+
+                    case 406 :
+//                        result = doTestGetChannelDetailsForOutputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                     commandLine);
+                        break;
+
+                    case 407 :
+//                        result = doTestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                      currentDir, commandLine);
+                        break;
+
+                    case 408 :
+//                        result = doTestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                       execPath, currentDir, commandLine);
+                        break;
+
                     default :
                         break;
 

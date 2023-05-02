@@ -2,7 +2,7 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww24760\viewh23620\viewkind0
+\margl1440\margr1440\vieww28060\viewh25020\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?; nImO processes report their channels via a registry entry\
@@ -37,7 +37,7 @@ n) Destroy context/RAII\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name comes from the host name and service name or is directly provided.\
-The default node name is <computer short name>-<service name>.\
+The default node name is <computer short name>-<service name>, but the service cannot be a Launcher\
 The node name can be modified by a tag number, so it will be <node>-<tag #> to allow multiple copies of a service on a machine.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -45,11 +45,14 @@ The node name can be modified by a tag number, so it will be <node>-<tag #> to a
 \f1\b \cf0 Channel names:
 \f0\b0 \
 [NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; (physical) ports are assigned by the system; no Protocol implies TCP\
-If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running\
+If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running or if the only services are Launchers\
 IP addresses and physical ports are not part of either Channel or Node names; neither is the 'direction' of the Channel\
 \
 Minimal Channel = node/arbitrary-path; maximal Channel = network:node/arbitrary-path#protocol\
 \
+Channels have an associated 'type' that represents the format of the data that they can process.\
+If the type is not specified, the service can handle any properly-formatted messages.\
+It the type is specified, the channel can only be connected to a channel of the same type or a channel with no type specified\'85 this may lead to problems, as the type information is lost across services that can accept any messages. \
 ServiceContext objects set up a command port; the destructor closes the command port.\
 ContextWithMDNS objects start an mDNS scan/post thread; the destructor stops the mDNS scan/post thread.\
 ContextWithNetworking objects provide the logging mechanism and basic networking setup and shutdown.\

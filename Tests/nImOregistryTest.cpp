@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "../Registry/nImOregistry.h"
+#include <nImOchannelName.h>
 #include <nImOserviceContext.h>
 
 //#include <odlEnable.h>

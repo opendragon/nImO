@@ -38,6 +38,8 @@
 
 #include <nImObaseChannel.h>
 
+#include <nImOchannelName.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 

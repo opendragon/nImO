@@ -181,19 +181,16 @@ nImO::ChannelName::getName
     ODL_OBJENTER(); //####
     if (0 < _network.length())
     {
-        result += _network;
-        result += kEndNetwork;
+        result += _network + kEndNetwork;
     }
     if (0 < _node.length())
     {
         result += _node;
     }
-    result += kStartPath;
-    result += _path;
+    result += kStartPath + _path;
     if (TransportType::kUnknown != _transport)
     {
-        result += kStartProtocol;
-        result += transportToName(_transport);
+        result += kStartProtocol + transportToName(_transport);
     }
     ODL_OBJEXIT_s(result); //####
     return result;

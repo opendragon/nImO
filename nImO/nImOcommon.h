@@ -626,6 +626,7 @@ namespace nImO
 
     }; // internal_
 
+/*! @brief Suppress warnings about unused variables. */
 # define NIMO_UNUSED_VAR_(var_)  nImO::internal_::ignore_unused_variable_(var_)
 
     /*! @brief The minimum count representable in a short floating point. */

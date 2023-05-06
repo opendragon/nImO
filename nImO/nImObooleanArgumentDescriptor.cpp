@@ -188,7 +188,7 @@ BooleanArgumentDescriptor::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        BooleanArgumentDescriptor   temp(other);
+        BooleanArgumentDescriptor   temp{other};
 
         swap(temp);
     }
@@ -227,7 +227,7 @@ BooleanArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
     {
-        bool        okSoFar = true;
+        bool        okSoFar{true};
         bool        defaultValue;
         std::string defaultString{inVector[0]};
         std::string description{inVector[1]};
@@ -299,7 +299,7 @@ BooleanArgumentDescriptor::validate
     (const std::string &    value)
 {
     bool    boolValue;
-    char    firstChar = tolower(value[0]);
+    char    firstChar{StaticCast(char, tolower(value[0]))};
 
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####

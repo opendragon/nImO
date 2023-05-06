@@ -179,7 +179,7 @@ nImO::StringBuffer::addBytes
     addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
-        uint8_t aByte = inBytes[ii];
+        uint8_t aByte{inBytes[ii]};
 
         addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
     }
@@ -198,7 +198,7 @@ nImO::StringBuffer::addString
     ODL_B1("addQuotes = ", addQuotes); //####
     if (nullptr != aString)
     {
-        size_t  length = strlen(aString);
+        size_t  length{strlen(aString)};
 
         if (addQuotes)
         {
@@ -218,7 +218,7 @@ nImO::StringBuffer::addString
     (const std::string &    aString,
      const bool             addQuotes)
 {
-    size_t  length = aString.length();
+    size_t  length{aString.length()};
 
     ODL_OBJENTER(); //####
     ODL_S1s("aString = ", aString); //####
@@ -240,21 +240,21 @@ nImO::StringBuffer::convertToValue
     (void)
     const
 {
-    size_t  position = 0;
+    size_t  position{0};
     SpValue result{Value::readFromStringBuffer(*this, position)};
 
     ODL_OBJENTER(); //####
     ODL_P1("result <- ", result.get()); //####
-    if (0 != result)
+    if (nullptr != result)
     {
         bool    atEnd;
-        bool    done = false;
-        bool    valid = true;
+        bool    done{false};
+        bool    valid{true};
         SpArray holder;
 
         for ( ; ! done; )
         {
-            int aChar = getChar(position, atEnd);
+            int aChar{getChar(position, atEnd)};
 
             // Skip any whitespace after the value
             ODL_C1("aChar <- ", aChar); //####
@@ -334,10 +334,10 @@ nImO::StringBuffer::processCharacters
     (CPtr(char)     aString,
      const size_t   length)
 {
-    bool    hasSpecials = false;
-    size_t  numSingleQuotes = 0;
-    size_t  numDoubleQuotes = 0;
-    size_t  numEscapes = 0;
+    bool    hasSpecials{false};
+    size_t  numSingleQuotes{0};
+    size_t  numDoubleQuotes{0};
+    size_t  numEscapes{0};
 
     ODL_ENTER(); //####
     ODL_S1("aString = ", aString); //####
@@ -346,7 +346,7 @@ nImO::StringBuffer::processCharacters
     // 'special' characters - control characters or characters with the high bit set
     for (size_t ii = 0; length > ii; ++ii)
     {
-        uint8_t aByte = StaticCast(uint8_t, aString[ii]);
+        uint8_t aByte{StaticCast(uint8_t, aString[ii])};
 
         if ((0x20 > aByte) || (0 != (aByte &0x80)))
         {
@@ -367,12 +367,12 @@ nImO::StringBuffer::processCharacters
     }
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
     {
-        uint8_t delimiter = ((numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote);
+        uint8_t delimiter{StaticCast(uint8_t, (numDoubleQuotes > numSingleQuotes) ? kSingleQuote : kDoubleQuote)};
 
         inherited::appendBytes(&delimiter, sizeof(delimiter));
         for (size_t ii = 0; length > ii; ++ii)
         {
-            uint8_t aByte = StaticCast(uint8_t, aString[ii]);
+            uint8_t aByte{StaticCast(uint8_t, aString[ii])};
 
             if ((0x20 > aByte) || (0 != (aByte &0x80)))
             {
@@ -476,7 +476,7 @@ nImO::operator<<
 
         if (nullptr != aChunk)
         {
-           size_t   nn = aChunk->getDataSize();
+            size_t   nn{aChunk->getDataSize()};
 
            if (0 < nn)
            {

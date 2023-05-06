@@ -109,7 +109,7 @@ nImO::RemoveNodeCommandHandler::doIt
      const Array &              arguments)
     const
 {
-    bool    okSoFar = false;
+    bool    okSoFar{false};
 
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####

@@ -112,7 +112,7 @@ main
     nImO::StringsArgumentDescriptor thirdArg{"mode", T_("Transport mode"), nImO::ArgumentMode::Optional, "tcp", nImO::ChannelName::transportNames()};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
-    int                             exitCode = 0;
+    int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

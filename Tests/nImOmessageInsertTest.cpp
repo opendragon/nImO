@@ -155,7 +155,7 @@ doTestInsertEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -195,8 +195,7 @@ doTestInsertEmptyMessage
                 ODL_PACKET("contents", contents.data(), length); //####
                 if (expectedEmptyByteCount == length)
                 {
-                    result = StaticCast(int, CompareBytes(expectedEmptyBytes, contents.data(),
-                                                          expectedEmptyByteCount));
+                    result = StaticCast(int, CompareBytes(expectedEmptyBytes, contents.data(), expectedEmptyByteCount));
                 }
                 else
                 {
@@ -233,7 +232,7 @@ doTestInsertLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -316,7 +315,7 @@ doTestInsertTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -419,7 +418,7 @@ doTestInsertSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -504,7 +503,7 @@ doTestInsertMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -560,12 +559,10 @@ doTestInsertMediumIntegerMessage
             SpValue                 minus1234567Value{new Integer(-1234567)};
             SpValue                 plus1234567Value{new Integer(1234567)};
 
-            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes,
-                                      expectedMinus1234567ByteCount);
+            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes, expectedMinus1234567ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes,
-                                          expectedPlus1234567ByteCount);
+                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Bytes, expectedPlus1234567ByteCount);
             }
         }
     }
@@ -593,7 +590,7 @@ doTestInsertBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -651,12 +648,10 @@ doTestInsertBigIntegerMessage
             SpValue                 minusBigNumberValue{new Integer(-20015998343868)};
             SpValue                 plusBigNumberValue{new Integer(20015998343868)};
 
-            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes,
-                                      expectedMinusBigNumberByteCount);
+            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes, expectedMinusBigNumberByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes,
-                                          expectedPlusBigNumberByteCount);
+                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberBytes, expectedPlusBigNumberByteCount);
             }
         }
     }
@@ -684,7 +679,7 @@ doTestInsertEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -748,7 +743,7 @@ doTestInsertShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -815,7 +810,7 @@ doTestInsertMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -874,8 +869,7 @@ doTestInsertMediumStringMessage
             const size_t            expectedMediumStringByteCount{A_SIZE(expectedMediumStringBytes)};
             SpValue                 mediumStringValue{new String("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
 
-            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes,
-                                      expectedMediumStringByteCount);
+            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount);
         }
     }
     catch (...)
@@ -902,7 +896,7 @@ doTestInsertEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -966,7 +960,7 @@ doTestInsertSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1038,7 +1032,7 @@ doTestInsertMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1135,7 +1129,7 @@ doTestInsertSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1201,8 +1195,7 @@ doTestInsertSingleDoubleMessage
                                       expectedPlus42Point5ByteCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Bytes,
-                                          expectedMinus42Point5ByteCount);
+                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Bytes, expectedMinus42Point5ByteCount);
             }
         }
     }
@@ -1234,7 +1227,7 @@ doTestInsertEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1302,7 +1295,7 @@ doTestInsertEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1370,7 +1363,7 @@ doTestInsertEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1438,7 +1431,7 @@ doTestInsertArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1488,8 +1481,7 @@ doTestInsertArrayOneLogicalMessage
             SpArray                 arrayOneLogical{new Array};
 
             arrayOneLogical->addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes,
-                                      expectedArrayOneLogicalByteCount);
+            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes, expectedArrayOneLogicalByteCount);
         }
     }
     catch (...)
@@ -1516,7 +1508,7 @@ doTestInsertArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1566,8 +1558,7 @@ doTestInsertArrayOneIntegerMessage
             SpArray                 arrayOneInteger{new Array};
 
             arrayOneInteger->addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes,
-                                      expectedArrayOneIntegerByteCount);
+            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes, expectedArrayOneIntegerByteCount);
         }
     }
     catch (...)
@@ -1594,7 +1585,7 @@ doTestInsertArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1649,8 +1640,7 @@ doTestInsertArrayOneDoubleMessage
             SpArray                 arrayOneDouble{new Array};
 
             arrayOneDouble->addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes,
-                                      expectedArrayOneDoubleByteCount);
+            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes, expectedArrayOneDoubleByteCount);
         }
     }
     catch (...)
@@ -1677,7 +1667,7 @@ doTestInsertArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1728,8 +1718,7 @@ doTestInsertArrayOneStringMessage
             SpArray                 arrayOneString{new Array};
 
             arrayOneString->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes,
-                                      expectedArrayOneStringByteCount);
+            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes, expectedArrayOneStringByteCount);
         }
     }
     catch (...)
@@ -1756,7 +1745,7 @@ doTestInsertArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1834,7 +1823,7 @@ doTestInsertArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1889,8 +1878,7 @@ doTestInsertArrayOneArrayMessage
             SpArray                 arrayOneArray{new Array};
 
             arrayOneArray->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes,
-                                      expectedArrayOneArrayByteCount);
+            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes, expectedArrayOneArrayByteCount);
         }
     }
     catch (...)
@@ -1917,7 +1905,7 @@ doTestInsertArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1999,7 +1987,7 @@ doTestInsertArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2081,7 +2069,7 @@ doTestInsertArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2135,8 +2123,7 @@ doTestInsertArrayTwoLogicalsMessage
 
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes,
-                                      expectedArrayTwoLogicalsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsBytes, expectedArrayTwoLogicalsByteCount);
         }
     }
     catch (...)
@@ -2163,7 +2150,7 @@ doTestInsertArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2217,8 +2204,7 @@ doTestInsertArrayTwoIntegersMessage
 
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes,
-                                      expectedArrayTwoIntegersByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersBytes, expectedArrayTwoIntegersByteCount);
         }
     }
     catch (...)
@@ -2245,7 +2231,7 @@ doTestInsertArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2305,8 +2291,7 @@ doTestInsertArrayTwoDoublesMessage
 
             arrayTwoDoubles->addValue(std::make_shared<Double>());
             arrayTwoDoubles->addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes,
-                                      expectedArrayTwoDoublesByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesBytes, expectedArrayTwoDoublesByteCount);
         }
     }
     catch (...)
@@ -2333,7 +2318,7 @@ doTestInsertArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2389,8 +2374,7 @@ doTestInsertArrayTwoStringsMessage
 
             arrayTwoStrings->addValue(std::make_shared<String>());
             arrayTwoStrings->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes,
-                                      expectedArrayTwoStringsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsBytes, expectedArrayTwoStringsByteCount);
         }
     }
     catch (...)
@@ -2417,7 +2401,7 @@ doTestInsertArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2473,8 +2457,7 @@ doTestInsertArrayTwoBlobsMessage
 
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes,
-                                      expectedArrayTwoBlobsByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsBytes, expectedArrayTwoBlobsByteCount);
         }
     }
     catch (...)
@@ -2501,7 +2484,7 @@ doTestInsertArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2565,8 +2548,7 @@ doTestInsertArrayTwoArraysMessage
 
             arrayTwoArrays->addValue(std::make_shared<Array>());
             arrayTwoArrays->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes,
-                                      expectedArrayTwoArraysByteCount);
+            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysBytes, expectedArrayTwoArraysByteCount);
         }
     }
     catch (...)
@@ -2593,7 +2575,7 @@ doTestInsertArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2684,7 +2666,7 @@ doTestInsertArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2775,7 +2757,7 @@ doTestInsertArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2839,8 +2821,7 @@ doTestInsertArrayOneArrayOneMapMessage
 
             arrayOneArrayOneMap->addValue(std::make_shared<Array>());
             arrayOneArrayOneMap->addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes,
-                                      expectedArrayOneArrayOneMapByteCount);
+            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapBytes, expectedArrayOneArrayOneMapByteCount);
         }
     }
     catch (...)
@@ -2867,7 +2848,7 @@ doTestInsertArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2931,8 +2912,7 @@ doTestInsertArrayOneMapOneSetMessage
 
             arrayOneMapOneSet->addValue(std::make_shared<Map>());
             arrayOneMapOneSet->addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes,
-                                      expectedArrayOneMapOneSetByteCount);
+            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetBytes, expectedArrayOneMapOneSetByteCount);
         }
     }
     catch (...)
@@ -2959,7 +2939,7 @@ doTestInsertArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3023,8 +3003,7 @@ doTestInsertArrayOneSetOneArrayMessage
 
             arrayOneSetOneArray->addValue(std::make_shared<Set>());
             arrayOneSetOneArray->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes,
-                                      expectedArrayOneSetOneArrayByteCount);
+            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayBytes, expectedArrayOneSetOneArrayByteCount);
         }
     }
     catch (...)
@@ -3051,7 +3030,7 @@ doTestInsertArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3278,8 +3257,7 @@ doTestInsertArrayWithManyDoublesMessage
             {
                 arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes,
-                                      expectedArrayManyDoublesByteCount);
+            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesBytes, expectedArrayManyDoublesByteCount);
         }
     }
     catch (...)
@@ -3306,7 +3284,7 @@ doTestInsertLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3386,7 +3364,7 @@ doTestInsertIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3466,7 +3444,7 @@ doTestInsertStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3547,7 +3525,7 @@ doTestInsertLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3624,7 +3602,7 @@ doTestInsertIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3701,7 +3679,7 @@ doTestInsertStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3782,7 +3760,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

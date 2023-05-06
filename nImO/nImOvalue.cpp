@@ -129,8 +129,8 @@ nImO::Value::addToExtractionMap
      const DataKind aMask,
      Extractor      theExtractor)
 {
-    uint8_t lByte = toUType(aByte);
-    uint8_t lMask = toUType(aMask);
+    uint8_t lByte{toUType(aByte)};
+    uint8_t lMask{toUType(aMask)};
 
     ODL_ENTER(); //####
     ODL_I2("aByte = ", toUType(aByte), "aMask = ", toUType(aMask)); //####
@@ -141,7 +141,7 @@ nImO::Value::addToExtractionMap
         {
             if (lByte == (lMask & ii))
             {
-                ExtractorMap::value_type    keyValue(ii, theExtractor);
+                ExtractorMap::value_type    keyValue{ii, theExtractor};
 
                 gExtractors.emplace(keyValue);
             }
@@ -307,27 +307,27 @@ nImO::Value::extractInt64FromMessage
      size_t &           position,
      IntStatus &        status)
 {
-    int64_t result = 0;
+    int64_t result{0};
 
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "status = ", &status); //####
     ODL_X1("leadByte = ", leadByte); //####
     if (DataKind::Integer == (leadByte & DataKind::Mask))
     {
-        bool    isShort = (DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte));
+        bool    isShort{DataKind::IntegerShortValue == (DataKind::IntegerSizeMask & leadByte)};
 
         ++position; // We can accept the lead byte
         ODL_I1("position <- ", position); //####
         if (isShort)
         {
             ODL_LOG("(isShort)"); //####
-            DataKind    shortBits = (DataKind::IntegerShortValueValueMask & leadByte);
-            bool        isNegative = (DataKind::IntegerShortValueSignBit == (DataKind::IntegerShortValueSignBit & leadByte));
+            DataKind    shortBits{DataKind::IntegerShortValueValueMask & leadByte};
+            bool        isNegative{DataKind::IntegerShortValueSignBit == (DataKind::IntegerShortValueSignBit & leadByte)};
 
             if (isNegative)
             {
                 ODL_LOG("(isNegative)"); //####
-                int64_t tempValue = (-1 & (~ toUType(DataKind::IntegerShortValueValueMask)));
+                int64_t tempValue{-1 & (~ toUType(DataKind::IntegerShortValueValueMask))};
 
                 result = (tempValue | toUType(shortBits));
             }
@@ -342,14 +342,14 @@ nImO::Value::extractInt64FromMessage
         else
         {
             ODL_LOG("! (isShort)"); //####
-            size_t          size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
+            size_t          size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
             NumberAsBytes   holder;
             bool            atEnd;
-            bool            okSoFar = true;
+            bool            okSoFar{true};
 
             for (size_t ii = 0; okSoFar && (size > ii); ++ii)
             {
-                int aByte = theMessage.getByte(position, atEnd);
+                int aByte{theMessage.getByte(position, atEnd)};
 
                 if (atEnd)
                 {
@@ -388,7 +388,7 @@ nImO::Value::getTypeTag
     (void)
     const
 {
-    DataKind    result = StaticCast(DataKind, 0);
+    DataKind    result{StaticCast(DataKind, 0)};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
@@ -415,7 +415,7 @@ nImO::Value::getValueFromMessage
     }
     else
     {
-        Extractor   handler = match->second;
+        Extractor   handler{match->second};
 
         if (nullptr == handler)
         {
@@ -437,7 +437,7 @@ nImO::Value::greaterThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(false, false);
+    ComparisonStatus    result{false, false};
 
     NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
@@ -474,7 +474,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &Logical::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &Logical::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -484,7 +484,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &Number::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &Number::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -494,7 +494,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &String::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &String::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -504,7 +504,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &Array::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &Array::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -514,7 +514,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &Map::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &Map::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -524,7 +524,7 @@ nImO::Value::initialize
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)
         {
-            BufferReaderValue   aValue(*prefixes, &Set::readFromStringBuffer);
+            BufferReaderValue   aValue{*prefixes, &Set::readFromStringBuffer};
 
             gReaders.emplace(aValue);
         }
@@ -542,9 +542,9 @@ nImO::Value::initialize
     {
         gTerminators += suffixes;
     }
-    DataKind    aByte = StaticCast(DataKind, 0);
-    DataKind    aMask = StaticCast(DataKind, 0);
-    Extractor   theExtractor = nullptr;
+    DataKind    aByte{StaticCast(DataKind, 0)};
+    DataKind    aMask{StaticCast(DataKind, 0)};
+    Extractor   theExtractor{nullptr};
 
     Array::getExtractionInfo(aByte, aMask, theExtractor);
     addToExtractionMap(aByte, aMask, theExtractor);
@@ -594,7 +594,7 @@ nImO::Value::lessThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(false, false);
+    ComparisonStatus    result{false, false};
 
     NIMO_UNUSED_VAR_(other);
     ODL_OBJENTER(); //####
@@ -637,7 +637,7 @@ nImO::Value::operator<<
     (std::ostream & out)
     const
 {
-    std::ios_base::fmtflags  originalFormat = out.flags();
+    std::ios_base::fmtflags  originalFormat{out.flags()};
 
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
@@ -681,9 +681,9 @@ nImO::Value::readFromStringBuffer
      size_t &               position)
 {
     SpValue result;
-    size_t  localIndex = position;
+    size_t  localIndex{position};
     bool    atEnd;
-    int     aChar = inBuffer.getChar(localIndex, atEnd);
+    int     aChar{inBuffer.getChar(localIndex, atEnd)};
 
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -743,9 +743,9 @@ nImO::Value::writeInt64ToMessage
     {
         ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
-        DataKind    stuff = (DataKind::Integer | DataKind::IntegerShortValue |
-                              (StaticCast(DataKind, outValue) &
-                               DataKind::IntegerShortValueValueMask));
+        DataKind    stuff{DataKind::Integer | DataKind::IntegerShortValue |
+                            (StaticCast(DataKind, outValue) &
+                             DataKind::IntegerShortValueValueMask)};
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }
@@ -754,14 +754,14 @@ nImO::Value::writeInt64ToMessage
         ODL_LOG("! ((DataKindIntegerShortValueMinValue <= outValue) && " //####
                 "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
         NumberAsBytes   numBuff;
-        size_t          numBytes = I2B(outValue, numBuff);
+        size_t          numBytes{I2B(outValue, numBuff)};
 
         if (0 < numBytes)
         {
             ODL_LOG("(0 < numBytes)"); //####
-            DataKind    stuff = (DataKind::Integer | DataKind::IntegerLongValue |
-                                  (StaticCast(DataKind, numBytes - 1) &
-                                   DataKind::IntegerLongValueCountMask));
+            DataKind    stuff{DataKind::Integer | DataKind::IntegerLongValue |
+                                (StaticCast(DataKind, numBytes - 1) &
+                                 DataKind::IntegerLongValueCountMask)};
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
             outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);

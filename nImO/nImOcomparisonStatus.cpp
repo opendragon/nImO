@@ -89,7 +89,7 @@ nImO::operator<<
     (std::ostream &                 out,
      const nImO::ComparisonStatus & aValue)
 {
-    std::ios_base::fmtflags  originalFormat = out.flags();
+    std::ios_base::fmtflags  originalFormat{out.flags()};
 
     ODL_ENTER(); //###
     ODL_P2("out = ", &out, "aValue = ", &aValue); //####

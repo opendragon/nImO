@@ -206,7 +206,7 @@ bool
 nImO::Logger::report
     (SpValue    valueToSend)
 {
-    bool    okSoFar = false;
+    bool    okSoFar{false};
 
     ODL_OBJENTER(); //####
     ODL_P1("valueToSend = ",valueToSend.get()); //####

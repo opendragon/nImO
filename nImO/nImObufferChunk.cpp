@@ -137,7 +137,7 @@ nImO::BufferChunk::appendData
     ODL_OBJENTER(); //####
     ODL_P1("data = ", data); //####
     ODL_I1("numBytes = ", numBytes); //####
-    size_t  actualCount = ((getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes);
+    size_t  actualCount{(getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes};
 
     if (0 < actualCount)
     {

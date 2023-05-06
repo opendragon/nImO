@@ -152,8 +152,8 @@ nImO::ConvertInt64ToPacketOrder
 {
     size_t  result;
     uint8_t buffer[sizeof(int64_t)];
-    size_t  numBytes = 1;
-    int64_t valueCopy = value;
+    size_t  numBytes{1};
+    int64_t valueCopy{value};
 
     if ((nullptr != start) && ((nullptr == end) || (start > end)))
     {

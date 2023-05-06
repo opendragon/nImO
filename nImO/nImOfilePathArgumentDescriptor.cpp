@@ -97,7 +97,7 @@ checkFilePath
     if (forOutput)
     {
         std::string dirPath{thePath};
-        size_t      lastDelim = dirPath.rfind(kDirectorySeparator[0]);
+        size_t      lastDelim{dirPath.rfind(kDirectorySeparator[0])};
 
         if (dirPath.npos == lastDelim)
         {
@@ -182,12 +182,11 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (FilePathArgumentDescriptor &&  other)
     noexcept :
-        inherited(std::move(other)), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
+        inherited(std::move(other)), _pathPrefix(std::move(other._pathPrefix)), _pathSuffix(std::move(other._pathSuffix)),
         _defaultSet(other._defaultSet), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._pathPrefix = other._pathSuffix = "";
     other._defaultSet = other._forOutput = other._useRandomPath = false;
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
@@ -269,7 +268,7 @@ FilePathArgumentDescriptor::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        FilePathArgumentDescriptor  temp(other);
+        FilePathArgumentDescriptor  temp{other};
 
         swap(temp);
     }
@@ -287,12 +286,11 @@ FilePathArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _pathPrefix = other._pathPrefix;
-        _pathSuffix = other._pathSuffix;
+        _pathPrefix = std::move(other._pathPrefix);
+        _pathSuffix = std::move(other._pathSuffix);
         _defaultSet = other._defaultSet;
         _forOutput = other._forOutput;
         _useRandomPath = other._useRandomPath;
-        other._pathPrefix = other._pathSuffix = "";
         other._defaultSet = other._forOutput = other._useRandomPath = false;
     }
     ODL_OBJEXIT_P(this); //####
@@ -312,9 +310,9 @@ FilePathArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::FilePathTypeTag, 6, name, argMode, inVector))
     {
-        bool        forOutput = false;
-        bool        okSoFar = true;
-        bool        usesRandom = false;
+        bool        forOutput{false};
+        bool        okSoFar{true};
+        bool        usesRandom{false};
         std::string direction{inVector[0]};
         std::string suffixValue{inVector[1]};
         std::string randomFlag{inVector[2]};

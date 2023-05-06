@@ -93,9 +93,9 @@ main
     nImO::BooleanArgumentDescriptor firstArg{"stream", T_("Read standard input for text"), nImO::ArgumentMode::Optional, false};
     nImO::StringArgumentDescriptor  secondArg{"message", T_("Text to send to logging applications"), nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues(true);
+    nImO::StandardOptions           optionValues{true};
     nImO::StringVector              arguments;
-    int                             exitCode = 0;
+    int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

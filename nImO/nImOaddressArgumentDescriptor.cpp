@@ -89,8 +89,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
         inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
 {
     ODL_ENTER(); //####
-    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", //####
-            defaultValue); //####
+    ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_P1("addrBuff = ", addrBuff); //####
     if (SELF_ADDRESS_NAME_ == inherited::getDefaultValue())
@@ -149,7 +148,7 @@ AddressArgumentDescriptor::operator=
 {
     if (this != &other)
     {
-        AddressArgumentDescriptor   temp(other);
+        AddressArgumentDescriptor   temp{other};
 
         swap(temp);
     }
@@ -186,7 +185,7 @@ AddressArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::AddressTypeTag, 3, name, argMode, inVector))
     {
-        bool            okSoFar = true;
+        bool            okSoFar{true};
         std::string     defaultString{inVector[0]};
         std::string     description{inVector[1]};
         struct in_addr  addrBuff;

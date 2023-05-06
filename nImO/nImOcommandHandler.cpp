@@ -121,7 +121,7 @@ nImO::CommandHandler::sendComplexResponse
      SpValue                    contents)
     const
 {
-    bool    okSoFar = sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents);
+    bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents)};
 
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
@@ -139,7 +139,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
      const std::string          responseText,
      SpValue                    contents)
 {
-    bool    okSoFar = false;
+    bool    okSoFar{false};
     Message responseToSend;
     SpArray responseArray{new Array};
 
@@ -224,7 +224,7 @@ nImO::CommandHandler::sendSimpleResponse
      const bool                 wasOK)
     const
 {
-    bool    okSoFar = sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK);
+    bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK)};
 
     ODL_OBJENTER(); //####
     ODL_P1("socket = ", &socket); //####
@@ -242,7 +242,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
      const std::string          responseText,
      const bool                 wasOK)
 {
-    bool    okSoFar = false;
+    bool    okSoFar{false};
     Message responseToSend;
     SpArray responseArray{new Array};
 

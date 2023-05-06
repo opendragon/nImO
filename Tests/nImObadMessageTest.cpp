@@ -113,7 +113,7 @@ attemptExtractValueAndCheck
      const size_t           insertedSize,
      const std::string &    expectedFlawString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_P2("stuff = ", &stuff, "insertedContents = ", insertedContents); //####
@@ -132,7 +132,7 @@ attemptExtractValueAndCheck
     }
     else
     {
-        CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+        auto    asFlaw{extractedValue->asFlaw()};
 
         if (nullptr != asFlaw)
         {
@@ -164,7 +164,7 @@ doTestMessageInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong initial tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -220,7 +220,7 @@ doTestMessageTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message wrong terminal tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -276,7 +276,7 @@ doTestEmptyMessageWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message with content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -335,7 +335,7 @@ doTestNonEmptyMessageWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty message without content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -395,7 +395,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -458,7 +458,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with mismatched tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -521,7 +521,7 @@ doTestNonEmptyMessageWithInvalidContentTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with invalid content tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -583,7 +583,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad double count
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -647,7 +647,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with string with invalid length
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -712,7 +712,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
      const int      argc,
      Ptr(Ptr(char)) argv) // message with blob with invalid length
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -777,7 +777,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with initial end tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -845,7 +845,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with terminal start tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -913,7 +913,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty array with content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -984,7 +984,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array without content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1057,7 +1057,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty array with invalid count
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1129,7 +1129,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too few values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1208,7 +1208,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1290,7 +1290,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
      const int      argc,
      Ptr(Ptr(char)) argv) // message with array with too many doubles
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1382,7 +1382,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with initial end tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1450,7 +1450,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with terminal start tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1518,7 +1518,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty map with content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1589,7 +1589,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map without content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1662,7 +1662,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty map with invalid count
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1734,7 +1734,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too few values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1819,7 +1819,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with too many values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1904,7 +1904,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
      const int      argc,
      Ptr(Ptr(char)) argv) // message with map with incomplete pair
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1986,7 +1986,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with initial end tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2054,7 +2054,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with terminal start tag
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2122,7 +2122,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with empty set with content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2193,7 +2193,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set without content
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2266,7 +2266,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
      const int      argc,
      Ptr(Ptr(char)) argv) // message with nonempty set with invalid count
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2338,7 +2338,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too few values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2417,7 +2417,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
      const int      argc,
      Ptr(Ptr(char)) argv) // message with set with too many values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

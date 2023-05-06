@@ -81,26 +81,22 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The lead byte for an empty Message. */
-static const DataKind   kInitEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
-                                                  nImO::DataKind::OtherMessageEmptyValue);
+static const DataKind   kInitEmptyMessageValue{nImO::DataKind::StartOfMessageValue | nImO::DataKind::OtherMessageEmptyValue};
 
 /*! @brief The mask byte for checking lead/trailing bytes for Messages. */
-static const DataKind   kInitTermMessageMask = (nImO::DataKind::Mask |
+static const DataKind   kInitTermMessageMask{nImO::DataKind::Mask |
                                                 nImO::DataKind::OtherTypeMask |
                                                 nImO::DataKind::OtherMessageStartEndMask |
-                                                nImO::DataKind::OtherMessageEmptyMask);
+                                                nImO::DataKind::OtherMessageEmptyMask};
 
 /*! @brief The trailing byte for an empty Message. */
-static const DataKind   kTermEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
-                                                  nImO::DataKind::OtherMessageEmptyValue);
+static const DataKind   kTermEmptyMessageValue{nImO::DataKind::EndOfMessageValue | nImO::DataKind::OtherMessageEmptyValue};
 
 /*! @brief The lead byte for a non-empty Message. */
-static const DataKind   kInitNonEmptyMessageValue = (nImO::DataKind::StartOfMessageValue |
-                                                     nImO::DataKind::OtherMessageNonEmptyValue);
+static const DataKind   kInitNonEmptyMessageValue{nImO::DataKind::StartOfMessageValue | nImO::DataKind::OtherMessageNonEmptyValue};
 
 /*! @brief The trailing byte for a non-empty Message. */
-static const DataKind   kTermNonEmptyMessageValue = (nImO::DataKind::EndOfMessageValue |
-                                                     nImO::DataKind::OtherMessageNonEmptyValue);
+static const DataKind   kTermNonEmptyMessageValue{nImO::DataKind::EndOfMessageValue | nImO::DataKind::OtherMessageNonEmptyValue};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -134,14 +130,13 @@ nImO::Message::Message
 nImO::Message::Message
     (Message && other)
     noexcept :
-        inherited(std::move(other)), _lock(), _cachedTransmissionString(other._cachedTransmissionString),
+        inherited(std::move(other)), _lock(), _cachedTransmissionString(std::move(other._cachedTransmissionString)),
         _readPosition(other._readPosition), _state(other._state), _headerAdded(other._headerAdded)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####
     ODL_B1("_headerAdded <- ", _headerAdded); //####
-    other._cachedTransmissionString = "";
     other._readPosition = 0;
     other._state = MessageState::Unknown;
     other._headerAdded = false;
@@ -219,7 +214,7 @@ nImO::Message::getBytes
     if (MessageState::Closed == _state)
     {
         ODL_LOG("(MessageState::Closed == _state)"); //####
-        std::lock_guard<std::mutex> guard(_lock);
+        std::lock_guard<std::mutex> guard{_lock};
 
         result = inherited::getBytes();
     }
@@ -261,9 +256,9 @@ nImO::Message::getValue
     {
         ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####
                 "(MessageState::Closed == _state)))"); //####
-        size_t  savedPosition = _readPosition;
+        size_t  savedPosition{_readPosition};
         bool    atEnd;
-        int     aByte = getByte(_readPosition, atEnd);
+        int     aByte{getByte(_readPosition, atEnd)};
 
         ODL_X1("aByte <- ", aByte); //####
         ODL_B1("atEnd <- ", atEnd); //####
@@ -300,7 +295,7 @@ nImO::Message::getValue
             }
             else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
             {
-                DataKind    initTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
+                DataKind    initTag{aByte & DataKind::OtherMessageExpectedTypeMask};
 
                 ODL_X1("initTag <- ", toUType(initTag)); //####
                 aByte = getByte(++_readPosition, atEnd);
@@ -315,8 +310,7 @@ nImO::Message::getValue
                 else
                 {
                     ODL_LOG("! (atEnd)"); //####
-                    DataKind    nextTag = ((aByte >> toUType(DataKind::OtherMessageExpectedTypeShift)) &
-                                           DataKind::OtherMessageExpectedTypeMask);
+                    DataKind    nextTag{(aByte >> toUType(DataKind::OtherMessageExpectedTypeShift)) & DataKind::OtherMessageExpectedTypeMask};
 
                     ODL_X1("nextTag <- ", toUType(nextTag)); //####
                     if (nextTag == initTag)
@@ -418,11 +412,10 @@ nImO::Message::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _cachedTransmissionString = other._cachedTransmissionString;
+        _cachedTransmissionString = std::move(other._cachedTransmissionString);
         _readPosition = other._readPosition;
         _state = other._state;
         _headerAdded = other._headerAdded;
-        other._cachedTransmissionString = "";
         other._readPosition = 0;
         other._state = MessageState::Unknown;
         other._headerAdded = false;
@@ -438,7 +431,7 @@ nImO::Message::reset
     ODL_OBJENTER(); //####
     // Invalidate the cache.
     _cachedTransmissionString.clear();
-    std::lock_guard<std::mutex> guard(_lock);
+    std::lock_guard<std::mutex> guard{_lock};
 
     inherited::reset();
     _headerAdded = false;
@@ -459,10 +452,10 @@ nImO::Message::setValue
     if (MessageState::OpenForWriting == _state)
     {
         ODL_LOG("(MessageState::OpenForWriting == _state)"); //####
-        std::lock_guard<std::mutex> guard(_lock);
-        DataKind                    typeTag = theValue->getTypeTag();
-        DataKind                    headerByte = (DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
-        DataKind                    trailerByte = (DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag);
+        std::lock_guard<std::mutex> guard{_lock};
+        DataKind                    typeTag{theValue->getTypeTag()};
+        DataKind                    headerByte{DataKind::StartOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag};
+        DataKind                    trailerByte{DataKind::EndOfMessageValue | DataKind::OtherMessageNonEmptyValue | typeTag};
 
         appendBytes(&headerByte, sizeof(headerByte));
         _headerAdded = true;
@@ -487,7 +480,7 @@ nImO::MatchMessageSeparator
     (BufferIterator begin,
      BufferIterator end)
 {
-    BufferIterator  ii = begin;
+    auto    ii{begin};
 
     for ( ; ii != end; )
     {
@@ -513,4 +506,4 @@ nImO::UnpackageMessage
     (const std::string &    inString)
 {
     return inString.substr(0, inString.length() - (kMessageSentinel.length() + 1));
-}
+} // nImO::UnpackageMessage

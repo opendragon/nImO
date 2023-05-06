@@ -191,13 +191,13 @@ class ReceiveOnMessagePort final
                                                if (! ec)
                                                {
                                                    nImO::ByteVector inBytes;
-                                                   std::string      receivedAsString(_data.data(), length);
+                                                   std::string      receivedAsString{_data.data(), length};
 
                                                    // We need to convert the raw data to a string!
                                                    if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
                                                    {
                                                        auto     newMessage{std::make_shared<nImO::Message>()};
-                                                       uint32_t senderAddress = _senderEndpoint.address().to_v4().to_uint();
+                                                       uint32_t senderAddress{_senderEndpoint.address().to_v4().to_uint()};
 
                                                        newMessage->open(false);
                                                        newMessage->appendBytes(inBytes.data(), inBytes.size());
@@ -205,7 +205,7 @@ class ReceiveOnMessagePort final
                                                                                                                senderAddress)};
 
                                                        {
-                                                           std::lock_guard<std::mutex>  lock(lReceivedLock);
+                                                           std::lock_guard<std::mutex>  lock{lReceivedLock};
 
                                                            lReceivedData.push_back(newData);
                                                        }
@@ -274,7 +274,7 @@ main
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList;
     nImO::StandardOptions   optionValues;
-    int                     exitCode = 0;
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -307,7 +307,7 @@ main
                 this_thread::yield();
                 {
                     // Check for messages.
-                    std::unique_lock<std::mutex>    lock(lReceivedLock);
+                    std::unique_lock<std::mutex>    lock{lReceivedLock};
 
                     for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
                     {
@@ -378,7 +378,7 @@ main
                         nImO::SpString  tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
                         nImO::SpString  messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
                         // Get the computer name
-                        auto            anIterator = asMap->find(computerNameKey);
+                        auto            anIterator{asMap->find(computerNameKey)};
                         nImO::SpValue   theComputerName;
                         nImO::SpValue   theCommandPort;
                         nImO::SpValue   theTag;
@@ -448,8 +448,7 @@ main
                                     commandPortText = "-" + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
-                            std::string prefix{addressString + computerNameText + tagText + commandPortText +
-                                                timeBuffer};
+                            std::string prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
 
                             if (nullptr == asArray)
                             {

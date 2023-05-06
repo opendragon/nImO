@@ -135,7 +135,7 @@ doTestParseLogicalValue
      CPtr(char) inString,
      CPtr(char) expectedString) // logical values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -211,7 +211,7 @@ doTestParseNumberValue
      CPtr(char) inString,
      CPtr(char) expectedString) // number values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -287,7 +287,7 @@ doTestParseStringValue
      CPtr(char) inString,
      CPtr(char) expectedString) // string values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -363,7 +363,7 @@ doTestParseArrayValue
      CPtr(char) inString,
      CPtr(char) expectedString) // array values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -439,7 +439,7 @@ doTestParseSetValue
      CPtr(char) inString,
      CPtr(char) expectedString) // set values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -515,7 +515,7 @@ doTestParseMapValue
      CPtr(char) inString,
      CPtr(char) expectedString) // map values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -591,7 +591,7 @@ doTestParseImplicitArrayValue
      CPtr(char) inString,
      CPtr(char) expectedString) // implicit array values
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -670,7 +670,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -687,7 +687,7 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
+                bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
                 SetSignalHandlers(catchSignal);
                 ODL_B1("expected <- ", expected); //####

@@ -148,7 +148,7 @@ PortArgumentDescriptor::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        PortArgumentDescriptor  temp(other);
+        PortArgumentDescriptor  temp{other};
 
         swap(temp);
     }
@@ -186,9 +186,9 @@ PortArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::PortTypeTag, 4, name, argMode, inVector))
     {
-        bool        okSoFar = true;
-        bool        isSystemPort = false;
-        int         defaultValue = 0;
+        bool        okSoFar{true};
+        bool        isSystemPort{false};
+        int         defaultValue{0};
         std::string portClass{inVector[0]};
         std::string defaultString{inVector[1]};
         std::string description{inVector[2]};

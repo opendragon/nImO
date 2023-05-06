@@ -188,7 +188,7 @@ DoubleArgumentDescriptor::operator=
 {
     if (this != &other)
     {
-        DoubleArgumentDescriptor    temp(other);
+        DoubleArgumentDescriptor    temp{other};
 
         swap(temp);
     }
@@ -230,10 +230,10 @@ DoubleArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::DoubleTypeTag, 5, name, argMode, inVector))
     {
-        bool        okSoFar = true;
-        double      defaultValue = 0;
-        double      maxValue = 0;
-        double      minValue = 0;
+        bool        okSoFar{true};
+        double      defaultValue{0};
+        double      maxValue{0};
+        double      minValue{0};
         std::string minValString{inVector[0]};
         std::string maxValString{inVector[1]};
         std::string defaultString{inVector[2]};
@@ -284,8 +284,8 @@ DoubleArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            bool    hasMaximumValue = (0 < maxValString.length());
-            bool    hasMinimumValue = (0 < minValString.length());
+            bool    hasMaximumValue{0 < maxValString.length()};
+            bool    hasMinimumValue{0 < minValString.length()};
 
             result.reset(new DoubleArgumentDescriptor(name, description, argMode, defaultValue,
                                                       hasMinimumValue, hasMinimumValue ? minValue : 0,

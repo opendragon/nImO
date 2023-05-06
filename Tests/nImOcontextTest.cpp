@@ -108,7 +108,7 @@ static int
 doTestCreateContextWithMDNS
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -140,7 +140,7 @@ static int
 doTestCreateContextWithNetworking
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -169,7 +169,7 @@ static int
 doTestCreateFilterContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -201,7 +201,7 @@ static int
 doTestCreateMiscellaneousContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -230,7 +230,7 @@ static int
 doTestCreateServiceContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -262,7 +262,7 @@ static int
 doTestCreateSinkContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -294,7 +294,7 @@ static int
 doTestCreateSourceContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -326,7 +326,7 @@ static int
 doTestCreateTestContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -355,7 +355,7 @@ static int
 doTestCreateUtilityContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -387,7 +387,7 @@ static int
 doTestCreateRegistryContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -419,15 +419,15 @@ static int
 doTestKindOfContextForContextWithNetworking
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
         ContextWithNetworking   aContext{""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        auto                    asService{aContext.asServiceContext()};
+        auto                    asUtility{aContext.asUtilityContext()};
 
         if ((nullptr == asService) && (nullptr == asUtility))
         {
@@ -455,15 +455,15 @@ static int
 doTestKindOfContextForContextWithMDNS
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        ContextWithMDNS         aContext{""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        ContextWithMDNS aContext{""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr == asService) && (nullptr == asUtility))
         {
@@ -491,15 +491,15 @@ static int
 doTestKindOfContextForServiceContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        ServiceContext          aContext{0, nullptr, ""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        ServiceContext  aContext{0, nullptr, ""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -527,15 +527,15 @@ static int
 doTestKindOfContextForUtilityContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        UtilityContext          aContext{""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        UtilityContext  aContext{""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr == asService) && (nullptr != asUtility))
         {
@@ -563,15 +563,15 @@ static int
 doTestKindOfContextForFilterContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        FilterContext           aContext{0, nullptr, ""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        FilterContext   aContext{0, nullptr, ""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -599,15 +599,15 @@ static int
 doTestKindOfContextForSinkContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        SinkContext             aContext{0, nullptr, ""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        SinkContext aContext{0, nullptr, ""};
+        auto        asService{aContext.asServiceContext()};
+        auto        asUtility{aContext.asUtilityContext()};
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -635,15 +635,15 @@ static int
 doTestKindOfContextForSourceContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        SourceContext           aContext{0, nullptr, ""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        SourceContext   aContext{0, nullptr, ""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -671,15 +671,15 @@ static int
 doTestKindOfContextForRegistryContext
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
-        RegistryContext         aContext{0, nullptr, ""};
-        CPtr(ServiceContext)    asService = aContext.asServiceContext();
-        CPtr(UtilityContext)    asUtility = aContext.asUtilityContext();
+        RegistryContext aContext{0, nullptr, ""};
+        auto            asService{aContext.asServiceContext()};
+        auto            asUtility{aContext.asUtilityContext()};
 
         if ((nullptr != asService) && (nullptr == asUtility))
         {
@@ -707,7 +707,7 @@ static int
 doTestCreateMDNSAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -751,7 +751,7 @@ static int
 doTestCreateMDNSAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -795,7 +795,7 @@ static int
 doTestCreateMDNSAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -839,7 +839,7 @@ static int
 doTestCreateMDNSAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -883,7 +883,7 @@ static int
 doTestCreateMDNSAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -927,7 +927,7 @@ static int
 doTestCreateMDNSAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -971,7 +971,7 @@ static int
 doTestCreateMDNSAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1015,7 +1015,7 @@ static int
 doTestCreateMDNSAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1059,7 +1059,7 @@ static int
 doTestCreateMDNSAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1103,7 +1103,7 @@ static int
 doTestCreateNetworkingAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1147,7 +1147,7 @@ static int
 doTestCreateNetworkingAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1191,7 +1191,7 @@ static int
 doTestCreateNetworkingAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1235,7 +1235,7 @@ static int
 doTestCreateNetworkingAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1279,7 +1279,7 @@ static int
 doTestCreateNetworkingAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1323,7 +1323,7 @@ static int
 doTestCreateNetworkingAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1367,7 +1367,7 @@ static int
 doTestCreateNetworkingAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1411,7 +1411,7 @@ static int
 doTestCreateNetworkingAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1455,7 +1455,7 @@ static int
 doTestCreateNetworkingAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1499,7 +1499,7 @@ static int
 doTestCreateFilterAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1543,7 +1543,7 @@ static int
 doTestCreateFilterAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1587,7 +1587,7 @@ static int
 doTestCreateFilterAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1631,7 +1631,7 @@ static int
 doTestCreateFilterAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1675,7 +1675,7 @@ static int
 doTestCreateFilterAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1719,7 +1719,7 @@ static int
 doTestCreateFilterAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1763,7 +1763,7 @@ static int
 doTestCreateFilterAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1807,7 +1807,7 @@ static int
 doTestCreateFilterAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1851,7 +1851,7 @@ static int
 doTestCreateFilterAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1895,7 +1895,7 @@ static int
 doTestCreateMiscellaneousAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1939,7 +1939,7 @@ static int
 doTestCreateMiscellaneousAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -1983,7 +1983,7 @@ static int
 doTestCreateMiscellaneousAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2027,7 +2027,7 @@ static int
 doTestCreateMiscellaneousAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2071,7 +2071,7 @@ static int
 doTestCreateMiscellaneousAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2115,7 +2115,7 @@ static int
 doTestCreateMiscellaneousAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2159,7 +2159,7 @@ static int
 doTestCreateMiscellaneousAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2203,7 +2203,7 @@ static int
 doTestCreateMiscellaneousAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2247,7 +2247,7 @@ static int
 doTestCreateMiscellaneousAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2291,7 +2291,7 @@ static int
 doTestCreateServiceAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2335,7 +2335,7 @@ static int
 doTestCreateServiceAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2379,7 +2379,7 @@ static int
 doTestCreateServiceAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2423,7 +2423,7 @@ static int
 doTestCreateServiceAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2467,7 +2467,7 @@ static int
 doTestCreateServiceAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2511,7 +2511,7 @@ static int
 doTestCreateServiceAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2555,7 +2555,7 @@ static int
 doTestCreateServiceAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2599,7 +2599,7 @@ static int
 doTestCreateServiceAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2643,7 +2643,7 @@ static int
 doTestCreateServiceAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2687,7 +2687,7 @@ static int
 doTestCreateSinkAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2731,7 +2731,7 @@ static int
 doTestCreateSinkAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2775,7 +2775,7 @@ static int
 doTestCreateSinkAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2819,7 +2819,7 @@ static int
 doTestCreateSinkAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2863,7 +2863,7 @@ static int
 doTestCreateSinkAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2907,7 +2907,7 @@ static int
 doTestCreateSinkAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2951,7 +2951,7 @@ static int
 doTestCreateSinkAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -2995,7 +2995,7 @@ static int
 doTestCreateSinkAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3039,7 +3039,7 @@ static int
 doTestCreateSinkAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3083,7 +3083,7 @@ static int
 doTestCreateSourceAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3127,7 +3127,7 @@ static int
 doTestCreateSourceAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3171,7 +3171,7 @@ static int
 doTestCreateSourceAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3215,7 +3215,7 @@ static int
 doTestCreateSourceAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3259,7 +3259,7 @@ static int
 doTestCreateSourceAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3303,7 +3303,7 @@ static int
 doTestCreateSourceAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3347,7 +3347,7 @@ static int
 doTestCreateSourceAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3391,7 +3391,7 @@ static int
 doTestCreateSourceAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3435,7 +3435,7 @@ static int
 doTestCreateSourceAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3479,7 +3479,7 @@ static int
 doTestCreateTestAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3523,7 +3523,7 @@ static int
 doTestCreateTestAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3567,7 +3567,7 @@ static int
 doTestCreateTestAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3611,7 +3611,7 @@ static int
 doTestCreateTestAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3655,7 +3655,7 @@ static int
 doTestCreateTestAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3699,7 +3699,7 @@ static int
 doTestCreateTestAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3743,7 +3743,7 @@ static int
 doTestCreateTestAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3787,7 +3787,7 @@ static int
 doTestCreateTestAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3831,7 +3831,7 @@ static int
 doTestCreateTestAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3875,7 +3875,7 @@ static int
 doTestCreateUtilityAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3919,7 +3919,7 @@ static int
 doTestCreateUtilityAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -3963,7 +3963,7 @@ static int
 doTestCreateUtilityAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4007,7 +4007,7 @@ static int
 doTestCreateUtilityAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4051,7 +4051,7 @@ static int
 doTestCreateUtilityAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4095,7 +4095,7 @@ static int
 doTestCreateUtilityAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4139,7 +4139,7 @@ static int
 doTestCreateUtilityAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4183,7 +4183,7 @@ static int
 doTestCreateUtilityAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4227,7 +4227,7 @@ static int
 doTestCreateUtilityAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4271,7 +4271,7 @@ static int
 doTestCreateRegistryAndMDNSContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4315,7 +4315,7 @@ static int
 doTestCreateRegistryAndNetworkingContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4359,7 +4359,7 @@ static int
 doTestCreateRegistryAndFilterContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4403,7 +4403,7 @@ static int
 doTestCreateRegistryAndMiscellaneousContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4447,7 +4447,7 @@ static int
 doTestCreateRegistryAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4491,7 +4491,7 @@ static int
 doTestCreateRegistryAndServiceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4535,7 +4535,7 @@ static int
 doTestCreateRegistryAndSinkContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4579,7 +4579,7 @@ static int
 doTestCreateRegistryAndSourceContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4623,7 +4623,7 @@ static int
 doTestCreateRegistryAndTestContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4667,7 +4667,7 @@ static int
 doTestCreateRegistryAndUtilityContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4711,7 +4711,7 @@ static int
 doTestCreateMDNSAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4755,7 +4755,7 @@ static int
 doTestCreateNetworkingAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4799,7 +4799,7 @@ static int
 doTestCreateFilterAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4843,7 +4843,7 @@ static int
 doTestCreateMiscellaneousAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4887,7 +4887,7 @@ static int
 doTestCreateSinkAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4931,7 +4931,7 @@ static int
 doTestCreateSourceAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -4975,7 +4975,7 @@ static int
 doTestCreateTestAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -5019,7 +5019,7 @@ static int
 doTestCreateUtilityAndRegistryContexts
     (void)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     try
@@ -5069,7 +5069,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

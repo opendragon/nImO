@@ -71,22 +71,22 @@ static nImO::Connection kDefaultLogConnection{StaticCast(uint32_t, IPV4_ADDR(239
 static nImO::Connection kDefaultStatusConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1955};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
-static int kDefaultRegistryTimeout = 5;
+static int kDefaultRegistryTimeout{5};
 
 /*! @brief The key for the logger address in the configuration file. */
-static std::string  kLoggerAddressKey = "logger address";
+static std::string  kLoggerAddressKey{"logger address"};
 
 /*! @brief The key for the logger port in the configuration file. */
-static std::string  kLoggerPortKey = "logger port";
+static std::string  kLoggerPortKey{"logger port"};
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
-static std::string  kRegistryTimeoutKey = "registry search timeout";
+static std::string  kRegistryTimeoutKey{"registry search timeout"};
 
 /*! @brief The key for the status address in the configuration file. */
-static std::string  kStatusAddressKey = "status address";
+static std::string  kStatusAddressKey{"status address"};
 
 /*! @brief The key for the status port in the configuration file. */
-static std::string  kStatusPortKey = "status port";
+static std::string  kStatusPortKey{"status port"};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -114,7 +114,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         _loggingEnabled(logging), _logger(nullptr)
 {
 #if (! MAC_OR_LINUX_)
-    WORD    versionWanted = MAKEWORD(1, 1);
+    WORD    versionWanted{MAKEWORD(1, 1)};
 #endif // not MAC_OR_LINUX_
 
 #if (! MAC_OR_LINUX_)
@@ -133,7 +133,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
     {
         // The number of threads requested should be one less than the number possible, to account for the main thread
         // and the reserved threads.
-        int numThreadsInPool = std::max(static_cast<int>(thread::hardware_concurrency()), 1) - 1;
+        int numThreadsInPool{std::max(static_cast<int>(thread::hardware_concurrency()), 1) - 1};
 
         if ((0 < numReservedThreads) && ((numReservedThreads + 1) < numThreadsInPool))
         {
@@ -143,17 +143,17 @@ nImO::ContextWithNetworking::ContextWithNetworking
         ODL_P1("_work <- ", _work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
-            Ptr(boost::thread)  aThread = new boost::thread([this]
-                                                            (void)
-                                                            {
-                                                                getService()->run();
-                                                            });
+            Ptr(boost::thread)  aThread{new boost::thread([this]
+                                                          (void)
+                                                          {
+                                                            getService()->run();
+                                                          })};
 
             ODL_P1("service thread = ", aThread); //####
             _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.
-        boost::optional<InitFile::SpBaseValue>  retValue = GetConfiguredValue(kLoggerAddressKey);
+        boost::optional<InitFile::SpBaseValue>  retValue{GetConfiguredValue(kLoggerAddressKey)};
 
         if (retValue)
         {
@@ -162,7 +162,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr != asAddress)
             {
-                uint64_t    tempValue = asAddress->GetValue();
+                uint64_t    tempValue{asAddress->GetValue()};
 
                 if (239 == (tempValue >> 24))
                 {
@@ -182,7 +182,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr != asInteger)
             {
-                int64_t tempValue = asInteger->GetValue();
+                int64_t tempValue{asInteger->GetValue()};
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
@@ -202,7 +202,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr != asAddress)
             {
-                uint64_t    tempValue = asAddress->GetValue();
+                uint64_t    tempValue{asAddress->GetValue()};
 
                 if (239 == (tempValue >> 24))
                 {
@@ -222,7 +222,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr != asInteger)
             {
-                int64_t tempValue = asInteger->GetValue();
+                int64_t tempValue{asInteger->GetValue()};
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
@@ -253,7 +253,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             else
             {
-                int tempValue = asInteger->GetValue();
+                int tempValue{StaticCast(int, asInteger->GetValue())};
 
                 if (0 < tempValue)
                 {
@@ -283,7 +283,7 @@ nImO::ContextWithNetworking::~ContextWithNetworking
 {
     ODL_OBJENTER(); //####
     {
-        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
         if (nullptr != _logger)
         {
@@ -352,7 +352,7 @@ nImO::ContextWithNetworking::report
     ODL_S1("stringToSend = ", stringToSend); //####
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
         if (nullptr == _logger)
         {
@@ -382,7 +382,7 @@ nImO::ContextWithNetworking::report
     ODL_S1s("stringToSend = ", stringToSend); //####
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
         if (nullptr == _logger)
         {
@@ -412,7 +412,7 @@ nImO::ContextWithNetworking::report
     ODL_P1("stringsToSend = ", &stringsToSend); //####
     if (_loggingEnabled)
     {
-        std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+        std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
         if (nullptr == _logger)
         {

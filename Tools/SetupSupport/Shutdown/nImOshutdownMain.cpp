@@ -95,7 +95,7 @@ main
     nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown (if machine is not specified)"), nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
-    int                             exitCode = 0;
+    int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -120,11 +120,11 @@ main
 
                 if (0 < optionValues._machine.length())
                 {
-                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodesOnMachine(optionValues._machine);
+                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodesOnMachine(optionValues._machine)};
 
                     if (statusWithAllNodes.first.first)
                     {
-                        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
+                        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
                         // Send Shutdown command to all launchers on the machine.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
@@ -178,7 +178,7 @@ main
                 }
                 else if (0 < nodeName.length())
                 {
-                    nImO::RegNodeInfoOrFailure  statusWithInfo = proxy.getNodeInformation(nodeName);
+                    nImO::RegNodeInfoOrFailure  statusWithInfo{proxy.getNodeInformation(nodeName)};
 
                     if (statusWithInfo.first.first)
                     {
@@ -211,11 +211,11 @@ main
                 }
                 else
                 {
-                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodes();
+                    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
 
                     if (statusWithAllNodes.first.first)
                     {
-                        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
+                        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
                         // Send Shutdown command to all launchers.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)

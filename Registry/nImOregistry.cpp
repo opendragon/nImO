@@ -218,8 +218,8 @@ performSQLstatementWithMultipleColumnResults
         }
         else
         {
-            Ptr(sqlite3_stmt)   prepared = NULL;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
+            Ptr(sqlite3_stmt)   prepared{nullptr};
+            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -250,7 +250,7 @@ performSQLstatementWithMultipleColumnResults
                         if (SQLITE_ROW == sqlRes)
                         {
                             // Gather the column data...
-                            int colCount = sqlite3_column_count(prepared);
+                            int colCount{sqlite3_column_count(prepared)};
 
                             ODL_I1("colCount <- ", colCount); //####
                             if (0 < colCount)
@@ -259,7 +259,7 @@ performSQLstatementWithMultipleColumnResults
 
                                 for (int ii = 0; ii < colCount; ++ii)
                                 {
-                                    CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii));
+                                    CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, ii))};
 
                                     ODL_S1("value <- ", value); //####
                                     if (nullptr == value)
@@ -327,8 +327,8 @@ performSQLstatementWithNoResults
         }
         else
         {
-            Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
+            Ptr(sqlite3_stmt)   prepared{nullptr};
+            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -403,8 +403,8 @@ performSQLstatementWithNoResultsNoArgs
         }
         else
         {
-            Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
+            Ptr(sqlite3_stmt)   prepared{nullptr};
+            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -473,8 +473,8 @@ performSQLstatementWithSingleColumnResults
         }
         else
         {
-            Ptr(sqlite3_stmt)   prepared = nullptr;
-            int                 sqlRes = sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr);
+            Ptr(sqlite3_stmt)   prepared{nullptr};
+            int                 sqlRes{sqlite3_prepare_v2(dbHandle, sqlStatement, static_cast<int>(strlen(sqlStatement)), &prepared, nullptr)};
 
             ODL_I1("sqlRes <- ", sqlRes); //####
             if ((SQLITE_OK == sqlRes) && (nullptr != prepared))
@@ -505,12 +505,12 @@ performSQLstatementWithSingleColumnResults
                         if (SQLITE_ROW == sqlRes)
                         {
                             // Gather the column data...
-                            int colCount = sqlite3_column_count(prepared);
+                            int colCount{sqlite3_column_count(prepared)};
 
                             ODL_I1("colCount <- ", colCount); //####
                             if (0 < colCount)
                             {
-                                CPtr(char)  value = ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0));
+                                CPtr(char)  value{ReinterpretCast(CPtr(char), sqlite3_column_text(prepared, 0))};
 
                                 ODL_S1("value <- ", value); //####
                                 if (nullptr != value)
@@ -566,7 +566,7 @@ doBeginTransaction
         }
         else
         {
-            static CPtr(char)   beginTransaction = "BEGIN TRANSACTION";
+            static CPtr(char)   beginTransaction{"BEGIN TRANSACTION"};
 
             status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, beginTransaction);
         }
@@ -605,8 +605,8 @@ doEndTransaction
         }
         else
         {
-            static CPtr(char)   abortTransaction = "ROLLBACK TRANSACTION";
-            static CPtr(char)   commitTransaction = "END TRANSACTION";
+            static CPtr(char)   abortTransaction{"ROLLBACK TRANSACTION"};
+            static CPtr(char)   commitTransaction{"END TRANSACTION"};
 
             status = performSQLstatementWithNoResultsNoArgs(owner, dbHandle, wasOK ? commitTransaction : abortTransaction);
         }
@@ -643,14 +643,14 @@ createTables
     }
     else
     {
-        if (owner && logging)
+        if ((nullptr != owner) && logging)
         {
             owner->report("creating tables.");
         }
         status = doBeginTransaction(owner, dbHandle);
         if (status.first)
         {
-            static CPtr(char)   tableSQL[] =
+            static CPtr(char)   tableSQL[]
             {
                 "CREATE TABLE IF NOT EXISTS " MACHINES_T_ "(" MACHINE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ " PRIMARY KEY ON CONFLICT IGNORE,"
                                                                 MACHINE_ADDRESS_C_ " INTEGER KEY PM CONFLICT ABORT)",
@@ -663,7 +663,7 @@ createTables
                                                             NODE_COMMAND_LINE_C_ " " TEXTNOTNULL_ " " BINARY_ ")",
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")"
             };
-            static const size_t numTables = A_SIZE(tableSQL);
+            static const size_t numTables{A_SIZE(tableSQL)};
 
             for (size_t ii = 0; status.first && (ii < numTables); ++ii)
             {
@@ -691,7 +691,7 @@ sqlLogger
      CPtr(char) message)
 {
     NIMO_UNUSED_VAR_(code);
-    Ptr(nImO::ContextWithNetworking)    owner = StaticCast(Ptr(nImO::ContextWithNetworking), data);
+    Ptr(nImO::ContextWithNetworking)    owner{StaticCast(Ptr(nImO::ContextWithNetworking), data)};
 
     if (nullptr != owner)
     {
@@ -708,20 +708,20 @@ setupInsertIntoMachines
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    int result = SQLITE_MISUSE;
+    int result{SQLITE_MISUSE};
 
     ODL_ENTER(); //####
     ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
-        int machineNameIndex = sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_);
-        int machineAddressIndex = sqlite3_bind_parameter_index(statement, "@" MACHINE_ADDRESS_C_);
+        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
+        int machineAddressIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_ADDRESS_C_)};
 
         if ((0 < machineNameIndex) && (0 < machineAddressIndex))
         {
-            CPtr(MachineInsertData) machineData = StaticCast(CPtr(MachineInsertData), stuff);
-            std::string             name = machineData->_name;
-            uint32_t                address = machineData->_address;
+            auto        machineData{StaticCast(CPtr(MachineInsertData), stuff)};
+            std::string name{machineData->_name};
+            uint32_t    address{machineData->_address};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -756,28 +756,28 @@ setupInsertIntoNodes
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    int result = SQLITE_MISUSE;
+    int result{SQLITE_MISUSE};
 
     ODL_ENTER(); //####
     ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
-        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
-        int nodeAddressIndex = sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_);
-        int nodePortIndex = sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_);
-        int nodeServiceTypeIndex = sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_);
-        int nodeExecPathIndex = sqlite3_bind_parameter_index(statement, "@" NODE_EXEC_PATH_C_);
-        int nodeLaunchDirectoryIndex = sqlite3_bind_parameter_index(statement, "@" NODE_LAUNCH_DIRECTORY_C_);
-        int nodeCommandLineIndex = sqlite3_bind_parameter_index(statement, "@" NODE_COMMAND_LINE_C_);
+        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
+        int nodeAddressIndex{sqlite3_bind_parameter_index(statement, "@" NODE_ADDRESS_C_)};
+        int nodePortIndex{sqlite3_bind_parameter_index(statement, "@" NODE_PORT_C_)};
+        int nodeServiceTypeIndex{sqlite3_bind_parameter_index(statement, "@" NODE_SERVICE_TYPE_C_)};
+        int nodeExecPathIndex{sqlite3_bind_parameter_index(statement, "@" NODE_EXEC_PATH_C_)};
+        int nodeLaunchDirectoryIndex{sqlite3_bind_parameter_index(statement, "@" NODE_LAUNCH_DIRECTORY_C_)};
+        int nodeCommandLineIndex{sqlite3_bind_parameter_index(statement, "@" NODE_COMMAND_LINE_C_)};
 
         if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex) && (0 < nodeExecPathIndex) &&
             (0 < nodeLaunchDirectoryIndex) && (0 < nodeCommandLineIndex))
         {
-            CPtr(NodeInsertData)    nodeData = StaticCast(CPtr(NodeInsertData), stuff);
-            std::string             name = nodeData->_name;
-            std::string             execPath = nodeData->_execPath;
-            std::string             launchDirectory = nodeData->_launchDirectory;
-            std::string             commandLine = nodeData->_commandLine;
+            auto        nodeData{StaticCast(CPtr(NodeInsertData), stuff)};
+            std::string name{nodeData->_name};
+            std::string execPath{nodeData->_execPath};
+            std::string launchDirectory{nodeData->_launchDirectory};
+            std::string commandLine{nodeData->_commandLine};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -835,17 +835,17 @@ setupSearchMachines
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    int result = SQLITE_MISUSE;
+    int result{SQLITE_MISUSE};
 
     ODL_ENTER(); //####
     ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
-        int machineNameIndex = sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_);
+        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
 
         if (0 < machineNameIndex)
         {
-            std::string name = *StaticCast(CPtr(std::string), stuff);
+            std::string name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -876,17 +876,17 @@ setupSearchNodes
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
 {
-    int result = SQLITE_MISUSE;
+    int result{SQLITE_MISUSE};
 
     ODL_ENTER(); //####
     ODL_P2("statement = ", statement, "stuff = ", stuff); //####
     try
     {
-        int nodeNameIndex = sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_);
+        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" NODE_NAME_C_)};
 
         if (0 < nodeNameIndex)
         {
-            std::string name = *StaticCast(CPtr(std::string), stuff);
+            std::string name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -924,22 +924,22 @@ nImO::Registry::Registry
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_B1("logging = ", logging); //####
-    if (logging && _owner)
+    if (logging && (nullptr != _owner))
     {
         sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner.get());
     }
-    int result = sqlite3_open_v2("nImO_registry", &_dbHandle,
-                                 SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr);
+    int result{sqlite3_open_v2("nImO_registry", &_dbHandle,
+                               SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr)};
 
     if (SQLITE_OK == result)
     {
-        nImO::RegSuccessOrFailure   status = createTables(_owner, logging, _dbHandle);
+        nImO::RegSuccessOrFailure   status{createTables(_owner, logging, _dbHandle)};
 
         if (! status.first)
         {
             std::string prefix{"Problem creating tables in database: "};
 
-            if (_owner && logging)
+            if ((nullptr != _owner) && logging)
             {
                 _owner->report(prefix + status.second);
             }
@@ -951,7 +951,7 @@ nImO::Registry::Registry
         std::string errorMessage(sqlite3_errstr(result));
         std::string prefix{"Unable to open database: "};
 
-        if (_owner && logging)
+        if ((nullptr != _owner) && logging)
         {
             _owner->report(prefix + errorMessage);
         }
@@ -977,7 +977,7 @@ nImO::Registry::addMachine
     (const std::string &    machineName,
      const uint32_t         address)
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
@@ -985,8 +985,8 @@ nImO::Registry::addMachine
     if (status.first)
     {
         MachineInsertData   data{machineName, address};
-        static CPtr(char)   insertIntoMachines = "INSERT INTO " MACHINES_T_ "(" MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ ") VALUES(@" MACHINE_NAME_C_
-                                                ",@" MACHINE_ADDRESS_C_ ")";
+        static CPtr(char)   insertIntoMachines{"INSERT INTO " MACHINES_T_ "(" MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ ") VALUES(@" MACHINE_NAME_C_
+                                                ",@" MACHINE_ADDRESS_C_ ")"};
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoMachines, setupInsertIntoMachines, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
@@ -1008,7 +1008,7 @@ nImO::Registry::addNode
      const ServiceType      serviceClass,
      const Connection &     nodeConnection)
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
@@ -1017,10 +1017,10 @@ nImO::Registry::addNode
     if (status.first)
     {
         NodeInsertData      data{nodeName, nodeConnection, serviceClass, execPath, launchDirectory, commandLine};
-        static CPtr(char)   insertIntoNodes = "INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
-                                                "," NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ ") VALUES(@" NODE_NAME_C_
-                                                ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ",@" NODE_SERVICE_TYPE_C_ ",@" NODE_EXEC_PATH_C_ ",@"
-                                                NODE_LAUNCH_DIRECTORY_C_ ",@" NODE_COMMAND_LINE_C_ ")";
+        static CPtr(char)   insertIntoNodes{"INSERT INTO " NODES_T_ "(" NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
+                                            "," NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ ") VALUES(@" NODE_NAME_C_
+                                            ",@" NODE_ADDRESS_C_ ",@" NODE_PORT_C_ ",@" NODE_SERVICE_TYPE_C_ ",@" NODE_EXEC_PATH_C_ ",@"
+                                            NODE_LAUNCH_DIRECTORY_C_ ",@" NODE_COMMAND_LINE_C_ ")"};
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
@@ -1038,14 +1038,14 @@ nImO::Registry::getInformationForAllMachines
     (void)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     MachineInfoVector   machineData;
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchMachines = "SELECT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_;
+        static CPtr(char)           searchMachines{"SELECT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
@@ -1096,15 +1096,15 @@ nImO::Registry::getInformationForAllNodes
     (void)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes = "SELECT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM "
-                                                    NODES_T_;
+        static CPtr(char)           searchNodes{"SELECT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM "
+                                                NODES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
@@ -1165,7 +1165,7 @@ nImO::Registry::getInformationForAllNodesOnMachine
     (const std::string &    machineName)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     ODL_OBJENTER(); //####
@@ -1173,10 +1173,10 @@ nImO::Registry::getInformationForAllNodesOnMachine
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines = "SELECT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ "," NODE_PORT_C_ ","
-                                                                NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "."
-                                                                MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_
-                                                                " == " NODES_T_ "." NODE_ADDRESS_C_;
+        static CPtr(char)           searchNodesAndMachines{"SELECT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ "," NODE_PORT_C_ ","
+                                                            NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "."
+                                                            MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_
+                                                            " == " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -1237,7 +1237,7 @@ nImO::Registry::getLaunchDetails
     (const std::string &    nodeName)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     LaunchDetails       details;
 
     ODL_OBJENTER(); //####
@@ -1245,8 +1245,8 @@ nImO::Registry::getLaunchDetails
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes = "SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM " NODES_T_
-                                                    " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
+        static CPtr(char)           searchNodes{"SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM " NODES_T_
+                                                " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (status.first)
@@ -1291,7 +1291,7 @@ nImO::Registry::getMachineInformation
     (const std::string &    nodeName)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     MachineInfo         info;
 
     ODL_OBJENTER(); //####
@@ -1299,7 +1299,7 @@ nImO::Registry::getMachineInformation
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchMachines = "SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_;
+        static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
         if (status.first)
@@ -1349,14 +1349,14 @@ nImO::Registry::getNamesOfMachines
     (void)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines = "SELECT " MACHINE_NAME_C_ " FROM " MACHINES_T_;
+        static CPtr(char)   searchMachines{"SELECT " MACHINE_NAME_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
@@ -1381,14 +1381,14 @@ nImO::Registry::getNamesOfNodes
     (void)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT " NODE_NAME_C_ " FROM " NODES_T_;
+        static CPtr(char)   searchNodes{"SELECT " NODE_NAME_C_ " FROM " NODES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
@@ -1413,7 +1413,7 @@ nImO::Registry::getNamesOfNodesOnMachine
     (const std::string &    machineName)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     ODL_OBJENTER(); //####
@@ -1421,9 +1421,9 @@ nImO::Registry::getNamesOfNodesOnMachine
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines = "SELECT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
-                                                                MACHINES_T_ "." MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
-                                                                MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_;
+        static CPtr(char)           searchNodesAndMachines{"SELECT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+                                                            MACHINES_T_ "." MACHINE_NAME_C_ " == @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
+                                                            MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -1457,7 +1457,7 @@ nImO::Registry::getNodeInformation
     (const std::string &    nodeName)
     const
 {
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfo            info;
 
     ODL_OBJENTER(); //####
@@ -1465,8 +1465,8 @@ nImO::Registry::getNodeInformation
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes = "SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
-                                                    NODE_NAME_C_ "=@" NODE_NAME_C_;
+        static CPtr(char)           searchNodes{"SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
+                                                NODE_NAME_C_ "=@" NODE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (status.first)
@@ -1526,14 +1526,14 @@ nImO::Registry::getNumberOfMachines
     (void)
     const
 {
-    int                 count = -1;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    int                 count{-1};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   countMachines = "SELECT COUNT(*) FROM " MACHINES_T_;
+        static CPtr(char)   countMachines{"SELECT COUNT(*) FROM " MACHINES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
         if (status.first)
@@ -1565,14 +1565,14 @@ nImO::Registry::getNumberOfNodes
     (void)
     const
 {
-    int                 count = -1;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    int                 count{-1};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   countNodes = "SELECT COUNT(*) FROM " NODES_T_;
+        static CPtr(char)   countNodes{"SELECT COUNT(*) FROM " NODES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
         if (status.first)
@@ -1604,15 +1604,15 @@ nImO::Registry::getNumberOfNodesOnMachine
     (const std::string &    machineName)
     const
 {
-    int                 count = -1;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    int                 count{-1};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines = "SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ "=@"
-                                                MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_;
+        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ "=@"
+                                            MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " == " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -1643,15 +1643,15 @@ nImO::RegBoolOrFailure
 nImO::Registry::isMachinePresent
     (const std::string &    machineName)
 {
-    bool                found = false;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    bool                found{false};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines = "SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_;
+        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "=@" MACHINE_NAME_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -1686,15 +1686,15 @@ nImO::RegBoolOrFailure
 nImO::Registry::isNodePresent
     (const std::string &    nodeName)
 {
-    bool                found = false;
-    RegSuccessOrFailure status = doBeginTransaction(_owner, _dbHandle);
+    bool                found{false};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes = "SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
+        static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
         if (status.first)
@@ -1729,13 +1729,13 @@ nImO::RegSuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
 {
-    RegSuccessOrFailure   status = doBeginTransaction(_owner, _dbHandle);
+    RegSuccessOrFailure   status{doBeginTransaction(_owner, _dbHandle)};
 
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     if (status.first)
     {
-        static CPtr(char)   searchNodes = "DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_;
+        static CPtr(char)   searchNodes{"DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "=@" NODE_NAME_C_};
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
         doEndTransaction(_owner, _dbHandle, status.first);

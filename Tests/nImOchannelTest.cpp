@@ -104,7 +104,7 @@ doTestParseChannelName
     (const bool expected,
      CPtr(char) inString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -112,7 +112,7 @@ doTestParseChannelName
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -143,7 +143,7 @@ doTestParseExpectedName
      CPtr(char) inString,
      CPtr(char) expectedString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -151,7 +151,7 @@ doTestParseExpectedName
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -188,7 +188,7 @@ doTestParseExtractNetwork
      CPtr(char) inString,
      CPtr(char) expectedString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -196,7 +196,7 @@ doTestParseExtractNetwork
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -233,7 +233,7 @@ doTestParseExtractNode
      CPtr(char) inString,
      CPtr(char) expectedString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -241,7 +241,7 @@ doTestParseExtractNode
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -278,7 +278,7 @@ doTestParseExtractPath
      CPtr(char) inString,
      CPtr(char) expectedString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -286,7 +286,7 @@ doTestParseExtractPath
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -323,7 +323,7 @@ doTestParseExtractProtocol
      CPtr(char) inString,
      CPtr(char) expectedString)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -331,7 +331,7 @@ doTestParseExtractProtocol
     try
     {
         std::string     failed;
-        SpChannelName   parsed = ChannelName::parse(inString, failed);
+        SpChannelName   parsed{ChannelName::parse(inString, failed)};
 
         if ((nullptr != parsed) == expected)
         {
@@ -371,7 +371,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -388,7 +388,7 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
+                bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
                 SetSignalHandlers(catchSignal);
                 ODL_B1("expected <- ", expected); //####

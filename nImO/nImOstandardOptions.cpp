@@ -73,8 +73,10 @@ using namespace nImO;
 # define CONFIG_FILE_ROOT_PATH  "C:/nImO/"
 #endif // ! MAC_OR_LINUX_
 
-static const std::string    kDefaultConfigFilePath = CONFIG_FILE_ROOT_PATH "nimo-config.txt";
+/*! @brief The default path to the configuration file. */
+static const std::string    kDefaultConfigFilePath{CONFIG_FILE_ROOT_PATH "nimo-config.txt"};
 
+/*! @brief The loaded configuration values. */
 static InitFile::SpBaseValue    lConfigurationValues;
 
 #if defined(__APPLE__)
@@ -137,11 +139,11 @@ nImO::LoadConfiguration
     if (0 == _access(workingPath.c_str(), 4))
 #endif // ! MAC_OR_LINUX_
     {
-        std::ifstream   inStream(workingPath.c_str());
+        std::ifstream   inStream{workingPath.c_str()};
 
         if (inStream)
         {
-            InitFile::SpBaseValue readValue = InitFile::GetValue(inStream);
+            InitFile::SpBaseValue readValue{InitFile::GetValue(inStream)};
 
             if ((nullptr != readValue) && (nullptr != readValue->AsObject()))
             {
@@ -180,7 +182,7 @@ nImO::ProcessStandardOptions
         kOptionVERSION
     }; // OptionIndex
 
-    bool                        keepGoing = true;
+    bool                        keepGoing{true};
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",

@@ -145,7 +145,7 @@ nImO::Integer::deeplyEqualTo
     (const Value &  other)
     const
 {
-    bool    result = (&other == this);
+    bool    result{&other == this};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -167,7 +167,7 @@ nImO::Integer::enumerationType
     (void)
     const
 {
-    Enumerable  result = Enumerable::Integer;
+    Enumerable  result{Enumerable::Integer};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
@@ -225,7 +225,7 @@ nImO::Integer::extractValue
 {
     SpValue     result;
     IntStatus   numStatus;
-    int64_t     holder = extractInt64FromMessage(theMessage, leadByte, position, numStatus);
+    int64_t     holder{extractInt64FromMessage(theMessage, leadByte, position, numStatus)};
 
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
@@ -267,7 +267,7 @@ nImO::Integer::getTypeTag
     (void)
     const
 {
-    DataKind    result = DataKind::OtherMessageExpectedIntegerValue;
+    DataKind    result{DataKind::OtherMessageExpectedIntegerValue};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####

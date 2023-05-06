@@ -925,6 +925,8 @@ namespace nImO
 
     UnaryAndBinaryOperators(DataKind)
 
+    UnaryAndBinaryOperators(TransportType)
+
     /*! @brief Write out a (possibly multi-line) description.
      @param[in,out] outStream The stream to write to.
      @param[in] heading The text to appear on the first line before the beginning of the

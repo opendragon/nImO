@@ -92,7 +92,7 @@ main
     nImO::FilePathArgumentDescriptor    firstArg{"inFile", T_("File to be read from"), nImO::ArgumentMode::Required, "", ".txt"};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
-    int                                 exitCode = 0;
+    int                                 exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

@@ -188,7 +188,7 @@ IntegerArgumentDescriptor::operator=
 {
     if (this != &other)
     {
-        IntegerArgumentDescriptor   temp(other);
+        IntegerArgumentDescriptor   temp{other};
 
         swap(temp);
     }
@@ -230,10 +230,10 @@ IntegerArgumentDescriptor::parseArgString
     ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::IntegerTypeTag, 5, name, argMode, inVector))
     {
-        bool        okSoFar = true;
-        int         defaultValue = 0;
+        bool        okSoFar{true};
+        int         defaultValue{0};
         int         maxValue;
-        int         minValue = 0;
+        int         minValue{0};
         std::string minValString{inVector[0]};
         std::string maxValString{inVector[1]};
         std::string defaultString{inVector[2]};
@@ -284,8 +284,8 @@ IntegerArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            bool    hasMaximumValue = (0 < maxValString.length());
-            bool    hasMinimumValue = (0 < minValString.length());
+            bool    hasMaximumValue{0 < maxValString.length()};
+            bool    hasMinimumValue{0 < minValString.length()};
 
             result.reset(new IntegerArgumentDescriptor(name, description, argMode, defaultValue,
                                                    hasMinimumValue, hasMinimumValue ? minValue : 0,

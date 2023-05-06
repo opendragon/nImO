@@ -144,9 +144,8 @@ char
 BaseArgumentDescriptor::identifyDelimiter
     (const std::string &    valueToCheck)
 {
-    static const char possibles[] = "~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrtuvwxyz0123456789";
-    char              charToUse = possibles[0];
+    static const char possibles[]{"~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrtuvwxyz0123456789"};
+    char              charToUse{possibles[0]};
 
     if (0 < valueToCheck.length())
     {
@@ -222,11 +221,10 @@ BaseArgumentDescriptor::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        _argDescription = other._argDescription;
+        _argDescription = std::move(other._argDescription);
         _argMode = other._argMode;
-        _argName = other._argName;
+        _argName = std::move(other._argName);
         _valid = other._valid;
-        other._argDescription = other._argName = "";
         other._argMode = ArgumentMode::Unknown;
         other._valid = false;
     }
@@ -244,7 +242,7 @@ BaseArgumentDescriptor::partitionString
      StringVector &         result,
      const size_t           indexOfListValue)
 {
-    bool        okSoFar = false;
+    bool        okSoFar{false};
     std::string workingCopy{inString};
 
     ODL_ENTER(); //####
@@ -260,12 +258,12 @@ BaseArgumentDescriptor::partitionString
         {
             // The default value and list fields are special, as they have two delimiters - the inner one,
             // which is a character that is not present in the default value field, and the normal separator character.
-            char    innerChar = workingCopy[0];
+            char    innerChar{workingCopy[0]};
 
             workingCopy = workingCopy.substr(1);
             if (0 < workingCopy.length())
             {
-                size_t  innerIndx = workingCopy.find(innerChar, 0);
+                size_t  innerIndx{workingCopy.find(innerChar, 0)};
 
                 if (workingCopy.npos == innerIndx)
                 {
@@ -298,7 +296,7 @@ BaseArgumentDescriptor::partitionString
         }
         else
         {
-            size_t  indx = workingCopy.find(_parameterSeparator);
+            size_t  indx{workingCopy.find(_parameterSeparator)};
 
             if (workingCopy.npos == indx)
             {
@@ -328,8 +326,8 @@ BaseArgumentDescriptor::partitionString
     okSoFar &= (result.size() > indexOfDefaultValue);
     if (okSoFar)
     {
-        std::string typeTag(result[1]);
-        std::string modeString(result[2]);
+        std::string typeTag{result[1]};
+        std::string modeString{result[2]};
 
         name = result[0];
         if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
@@ -363,8 +361,7 @@ BaseArgumentDescriptor::prefixFields
 
     ODL_OBJENTER(); //####
     ODL_C1("tagForField = ", tagForField); //####
-    result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator +
-               std::to_string(toUType(_argMode)));
+    result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
@@ -416,7 +413,7 @@ nImO::ArgumentsToArgString
     (const DescriptorVector &   arguments)
 {
     std::string result;
-    size_t      numOptional = 0;
+    size_t      numOptional{0};
 
     ODL_ENTER(); //####
     ODL_P1("arguments = ", &arguments); //####
@@ -452,9 +449,9 @@ nImO::ArgumentsToDescriptionArray
      StringVector &             output,
      const size_t               minSpace)
 {
-    int       nameSize = -1;
-    int       optionSize = -1;
-    const int kOptionStringLen = 20; // '(Optional, default=)'
+    int       nameSize{-1};
+    int       optionSize{-1};
+    const int kOptionStringLen{20}; // '(Optional, default=)'
 
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
@@ -466,7 +463,7 @@ nImO::ArgumentsToDescriptionArray
 
         if (nullptr != anArg)
         {
-            int len = StaticCast(int, anArg->argumentName().length());
+            int len{StaticCast(int, anArg->argumentName().length())};
 
             if (nameSize < len)
             {
@@ -558,39 +555,39 @@ nImO::ConvertStringToArgument
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
     result = AddressArgumentDescriptor::parseArgString(inString);
-    if (! result)
+    if (nullptr == result)
     {
         result = BooleanArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = ChannelArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = DoubleArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = ExtraArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = FilePathArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = IntegerArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = PortArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = StringArgumentDescriptor::parseArgString(inString);
     }
-    if (! result)
+    if (nullptr == result)
     {
         result = StringsArgumentDescriptor::parseArgString(inString);
     }
@@ -610,7 +607,7 @@ nImO::ModeFromString
     if (ConvertToInt64(modeString, modeAsInt))
     {
         // Check that only the known bits are set!
-        if (0 == (modeAsInt & ~toUType(ArgumentMode::Mask)))
+        if (0 == (modeAsInt & ~ toUType(ArgumentMode::Mask)))
         {
             // Only known bits were set.
             result = StaticCast(ArgumentMode, modeAsInt);
@@ -626,12 +623,12 @@ nImO::ProcessArguments
      Option_::Parser &          parseResult,
      std::string &              badArgs)
 {
-    bool   result = true;
-    bool   sawExtra = false;
-    bool   sawOptional = false;
-    size_t numArgs = arguments.size();
-    size_t numValues = parseResult.nonOptionsCount();
-    size_t numToCheck = (std::min)(numArgs, numValues);
+    bool   result{true};
+    bool   sawExtra{false};
+    bool   sawOptional{false};
+    size_t numArgs{arguments.size()};
+    size_t numValues{StaticCast(size_t, parseResult.nonOptionsCount())};
+    size_t numToCheck{std::min(numArgs, numValues)};
 
     ODL_ENTER(); //####
     ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", &badArgs); //####
@@ -732,7 +729,7 @@ bool
 nImO::PromptForValues
     (const DescriptorVector &   arguments)
 {
-    bool    result = true;
+    bool    result{true};
     char    inChar;
 
     ODL_ENTER(); //####

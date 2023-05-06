@@ -181,7 +181,7 @@ ExtraArgumentDescriptor::operator=
 {
     if (this != &other)
     {
-        ExtraArgumentDescriptor temp(other);
+        ExtraArgumentDescriptor temp{other};
 
         swap(temp);
     }

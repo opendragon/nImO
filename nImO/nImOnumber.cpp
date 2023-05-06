@@ -160,21 +160,21 @@ nImO::Number::readFromStringBuffer
     }; // ScanState
 
     bool        atEnd;
-    bool        done = false;
-    bool        isDouble = false;
-    bool        needsAdigit = false;
-    bool        sawInitialMinus = false;
-    bool        sawInitialPlus = false;
-    bool        sawExponentMinus = false;
-    bool        sawExponentPlus = false;
-    bool        valid = false;
-    int64_t     integerPart = 0;
-    int64_t     fractionPart = 0;
-    int         exponent = 0;
-    int         fractionPower = 0;
-    ScanState   currentState = ScanState::Initial;
+    bool        done(false);
+    bool        isDouble(false);
+    bool        needsAdigit(false);
+    bool        sawInitialMinus(false);
+    bool        sawInitialPlus(false);
+    bool        sawExponentMinus(false);
+    bool        sawExponentPlus(false);
+    bool        valid(false);
+    int64_t     integerPart(0);
+    int64_t     fractionPart(0);
+    int         exponent(0);
+    int         fractionPower(0);
+    ScanState   currentState{ScanState::Initial};
     SpValue     result;
-    size_t      localIndex = position;
+    size_t      localIndex{position};
 
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -259,7 +259,7 @@ nImO::Number::readFromStringBuffer
             case ScanState::FractionStartSeen :
                 if ('e' == aChar)
                 {
-                if (needsAdigit)
+                    if (needsAdigit)
                     {
                         done = true; // decimal point with no trailing digits
                     }

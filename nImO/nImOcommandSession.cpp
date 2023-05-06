@@ -89,7 +89,7 @@ processRequest
      const std::string &            incoming)
 {
     // We need to strip off the Message separator first.
-    bool                okSoFar = false;
+    bool                okSoFar{false};
     std::string         trimmed{nImO::UnpackageMessage(incoming)};
     nImO::ByteVector    rawStuff;
 

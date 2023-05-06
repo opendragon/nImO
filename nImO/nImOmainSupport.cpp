@@ -67,7 +67,7 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-static nImO::SignalFunction  lSpecialSignalFunction = nullptr;
+static nImO::SignalFunction  lSpecialSignalFunction{nullptr};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

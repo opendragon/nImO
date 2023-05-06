@@ -103,8 +103,8 @@ announcementServiceCallback
     NIMO_UNUSED_VAR_(recordLength);
     if ((mDNS::kEntryTypeQuestion == entry) && (! lAnnouncerThreadStop))
     {
-        const char                          kDnsSd[] = "_services._dns-sd._udp.local.";
-        CPtr(nImO::AnnounceServiceData)     servicePtr = ReinterpretCast(CPtr(nImO::AnnounceServiceData), userData);
+        const char                          kDnsSd[]{"_services._dns-sd._udp.local."};
+        CPtr(nImO::AnnounceServiceData)     servicePtr{ReinterpretCast(CPtr(nImO::AnnounceServiceData), userData)};
 
         if (nullptr == servicePtr)
         {
@@ -112,10 +112,10 @@ announcementServiceCallback
         }
         else
         {
-            const nImO::AnnounceServiceData &   serviceData = *servicePtr;
-            size_t                              offset = nameOffset;
-            mDNS::string_t                      name = mDNS::mDNSPrivate::string_extract(data, size, offset, nImO::ContextWithMDNS::gNameBuffer,
-                                                                                         sizeof(nImO::ContextWithMDNS::gNameBuffer));
+            const nImO::AnnounceServiceData &   serviceData{*servicePtr};
+            size_t                              offset{nameOffset};
+            mDNS::string_t                      name{mDNS::mDNSPrivate::string_extract(data, size, offset, nImO::ContextWithMDNS::gNameBuffer,
+                                                                                       sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
             {
@@ -128,7 +128,7 @@ announcementServiceCallback
                     // "<hostname>.<_service-name>._tcp.local."
                     mDNS::record_t  answer;
                     // Send the answer, unicast or multicast depending on flag in query
-                    bool            unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+                    bool            unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
                     answer.name = name;
                     answer.type = mDNS::kRecordTypePTR;
@@ -159,9 +159,9 @@ announcementServiceCallback
 
                     // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
                     // "<hostname>.<_service-name>._tcp.local."
-                    mDNS::record_t  answer = serviceData._recordPTR;
+                    mDNS::record_t  answer{serviceData._recordPTR};
                     mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount = 0;
+                    size_t          additionalCount{0};
 
                     // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
                     // "<hostname>.local." with port. Set weight & priority to 0.
@@ -183,7 +183,7 @@ announcementServiceCallback
                         additional[additionalCount++] = serviceData._recordTXT[ii];
                     }
                     // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
                     // Send the answer, unicast or multicast depending on flag in query
                     if (unicast)
@@ -212,9 +212,9 @@ announcementServiceCallback
 
                     // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
                     // "<hostname>.<_service-name>._tcp.local."
-                    mDNS::record_t  answer = serviceData._recordSRV;
+                    mDNS::record_t  answer{serviceData._recordSRV};
                     mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount = 0;
+                    size_t          additionalCount{0};
 
                     // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
                     memset(&additional, 0, sizeof(additional));
@@ -233,7 +233,7 @@ announcementServiceCallback
                         additional[additionalCount++] = serviceData._recordTXT[ii];
                     }
                     // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
                     if (unicast)
                     {
@@ -259,9 +259,9 @@ announcementServiceCallback
                     // address, as well as any IPv6 address for the hostname, and two test TXT records
 
                     // Answer A records mapping "<hostname>.local." to IPv4 address
-                    mDNS::record_t  answer = serviceData._recordA;
+                    mDNS::record_t  answer{serviceData._recordA};
                     mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount = 0;
+                    size_t          additionalCount{0};
 
                     // AAAA record mapping "<hostname>.local." to IPv6 addresses
                     memset(&additional, 0, sizeof(additional));
@@ -276,7 +276,7 @@ announcementServiceCallback
                         additional[additionalCount++] = serviceData._recordTXT[ii];
                     }
                     // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
                     if (unicast)
                     {
@@ -298,9 +298,9 @@ announcementServiceCallback
                     // address, as well as any IPv4 address for the hostname, and two test TXT records
 
                     // Answer AAAA records mapping "<hostname>.local." to IPv6 address
-                    mDNS::record_t  answer = serviceData._recordAAAA;
+                    mDNS::record_t  answer{serviceData._recordAAAA};
                     mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount = 0;
+                    size_t          additionalCount{0};
 
                     // A record mapping "<hostname>.local." to IPv4 addresses
                     memset(&additional, 0, sizeof(additional));
@@ -315,7 +315,7 @@ announcementServiceCallback
                         additional[additionalCount++] = serviceData._recordTXT[ii];
                     }
                     // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast = (0 != (rClass & MDNS_UNICAST_RESPONSE));
+                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
                     if (unicast)
                     {
@@ -407,7 +407,7 @@ nImO::RegistryContext::executeAnnouncer
             break;
 
         }
-        int     nfds = 0;
+        int     nfds{0};
         fd_set  readfs;
 
         FD_ZERO(&readfs);
@@ -432,7 +432,7 @@ nImO::RegistryContext::executeAnnouncer
         }
         if (! lAnnouncerThreadStop)
         {
-            int    res = select(nfds, &readfs, nullptr, nullptr, &timeout);
+            int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
 
             if (res >= 0)
             {
@@ -528,7 +528,7 @@ nImO::RegistryContext::makePortAnnouncement
         {
             // Send an announcement on startup of service
             mDNS::record_t    additional[kNumTxtRecords + 3];
-            size_t            additionalCount = 0;
+            size_t            additionalCount{0};
 
             memset(additional, 0, sizeof(additional));
             additional[additionalCount++] = _announceData->_recordSRV;
@@ -571,7 +571,7 @@ nImO::RegistryContext::removeAnnouncement
         {
             // Send a goodbye on end of service
             mDNS::record_t    additional[kNumTxtRecords + 3];
-            size_t            additionalCount = 0;
+            size_t            additionalCount{0};
 
             memset(additional, 0, sizeof(additional));
             additional[additionalCount++] = _announceData->_recordSRV;

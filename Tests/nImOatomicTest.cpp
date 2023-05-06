@@ -171,7 +171,7 @@ doTestEmptyBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // empty buffer chunk
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -224,7 +224,7 @@ doTestBufferChunkWithSingleByte
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk with 1 byte of data
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -243,7 +243,7 @@ doTestBufferChunkWithSingleByte
         }
         else
         {
-            uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
+            uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -289,7 +289,7 @@ doTestFilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk filled with data
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -308,15 +308,15 @@ doTestFilledBufferChunk
         }
         else
         {
-            size_t  howMuch = stuff->getAvailableBytes();
+            size_t  howMuch{stuff->getAvailableBytes()};
 
             if (1 < howMuch)
             {
-                uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
+                uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
                 for (size_t ii = 0; howMuch > ii; ++ii)
                 {
-                    uint8_t newData = StaticCast(uint8_t, (data + ii) & 0x00FF);
+                    uint8_t newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -329,8 +329,8 @@ doTestFilledBufferChunk
                         result = 0;
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
-                            uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = StaticCast(uint8_t, (data + ii) & 0x00FF);
+                            uint8_t aValue{storedData[ii]};
+                            uint8_t expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                             if (aValue != expectedValue)
                             {
@@ -380,7 +380,7 @@ doTestOverfilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk overfilled with data
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -399,15 +399,15 @@ doTestOverfilledBufferChunk
         }
         else
         {
-            size_t  howMuch = stuff->getAvailableBytes();
+            size_t  howMuch{stuff->getAvailableBytes()};
 
             if (1 < howMuch)
             {
-                uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
+                uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
                 for (size_t ii = 0; howMuch >= ii; ++ii)
                 {
-                    uint8_t newData = StaticCast(uint8_t, (data + ii) & 0x00FF);
+                    uint8_t newData{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                     stuff->appendData(&newData, sizeof(newData));
                 }
@@ -420,8 +420,8 @@ doTestOverfilledBufferChunk
                         result = 0;
                         for (size_t ii = 0; (0 == result) && (howMuch > ii); ++ii)
                         {
-                            uint8_t aValue = storedData[ii];
-                            uint8_t expectedValue = StaticCast(uint8_t, (data + ii) & 0x00FF);
+                            uint8_t aValue{storedData[ii]};
+                            uint8_t expectedValue{StaticCast(uint8_t, (data + ii) & 0x00FF)};
 
                             if (aValue != expectedValue)
                             {
@@ -471,7 +471,7 @@ doTestBufferChunkReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting buffer chunk
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -490,7 +490,7 @@ doTestBufferChunkReset
         }
         else
         {
-            uint8_t data = (ReinterpretCast(intptr_t, stuff.get()) & 0x00FF);
+            uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
             stuff->appendData(&data, sizeof(data));
             if (1 == stuff->getDataSize())
@@ -535,7 +535,7 @@ doTestEmptyStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string buffer
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -557,7 +557,7 @@ doTestEmptyStringBuffer
             if (0 == stuff->getLength())
             {
                 auto    outString{stuff->getString()};
-                size_t  length = outString.size();
+                size_t  length{outString.size()};
 
                 if (0 == length)
                 {
@@ -598,7 +598,7 @@ doTestStringBufferWithCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with character string
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -621,7 +621,7 @@ doTestStringBufferWithCharacters
             else
             {
                 stuff->addString(inString);
-                size_t  resultLength = stuff->getLength();
+                size_t  resultLength{stuff->getLength()};
 
                 if (resultLength == outLength)
                 {
@@ -633,8 +633,7 @@ doTestStringBufferWithCharacters
                     }
                     else
                     {
-                        ODL_S2("outString = ", outString, "resultString = ", //####
-                               resultString.c_str()); //####
+                        ODL_S2("outString = ", outString, "resultString = ", resultString.c_str()); //####
                         ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
                 }
@@ -673,7 +672,7 @@ doTestStringBufferWithLogical
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with logical
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -697,7 +696,7 @@ doTestStringBufferWithLogical
                 }
                 else
                 {
-                    bool asBool = (0 != value);
+                    bool asBool{0 != value};
 
                     stuff->addBool(asBool);
                     auto    resultString{stuff->getString()};
@@ -746,7 +745,7 @@ doTestStringBufferWithInteger
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with integer
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -817,7 +816,7 @@ doTestStringBufferWithString
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with string
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -840,7 +839,7 @@ doTestStringBufferWithString
             else
             {
                 stuff->addString(inString, true);
-                size_t  resultLength = stuff->getLength();
+                size_t  resultLength{stuff->getLength()};
 
                 if (resultLength == outLength)
                 {
@@ -890,7 +889,7 @@ doTestStringBufferWithSpecialCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with special chars
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -913,7 +912,7 @@ doTestStringBufferWithSpecialCharacters
         else
         {
             stuff->addString(inString, true);
-            size_t  resultLength = stuff->getLength();
+            size_t  resultLength{stuff->getLength()};
 
             if (resultLength == outLength)
             {
@@ -958,7 +957,7 @@ doTestStringBufferWithDouble
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with floating point
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -984,12 +983,12 @@ doTestStringBufferWithDouble
                 {
                     stuff->addDouble(value);
                     auto    resultString{stuff->getString()};
-                    size_t  ii = 0;
+                    size_t  ii{0};
 
-                    for (result = 0; *outString && resultString[ii]; ++outString, ++ii)
+                    for (result = 0; (kEndOfString != *outString) && (kEndOfString != resultString[ii]); ++outString, ++ii)
                     {
-                        char    outChar = tolower(*outString);
-                        char    resultChar = tolower(resultString[ii]);
+                        char    outChar{StaticCast(char, tolower(*outString))};
+                        char    resultChar{StaticCast(char, tolower(resultString[ii]))};
 
                         if (outChar != resultChar)
                         {
@@ -997,7 +996,7 @@ doTestStringBufferWithDouble
 
                         }
                     }
-                    if (*outString || resultString[ii])
+                    if ((kEndOfString != *outString) || (kEndOfString != resultString[ii]))
                     {
                         ODL_LOG("(*outString || resultString[ii])"); //####
                         result = 1;
@@ -1038,7 +1037,7 @@ doTestBigStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // big string buffer
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1111,7 +1110,7 @@ doTestStringBufferWithEmptyBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with empty blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1168,7 +1167,7 @@ doTestStringBufferWithSmallBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with small blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1194,7 +1193,7 @@ doTestStringBufferWithSmallBlob
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{smallBlob.get()};
-                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     smallBlob[ii] = aByte;
                 }
@@ -1205,9 +1204,9 @@ doTestStringBufferWithSmallBlob
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = smallBlob[ii];
-                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
-                    char    lowByte = kHexDigits[aByte & 0x0F];
+                    uint8_t aByte{smallBlob[ii]};
+                    char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
+                    char    lowByte{kHexDigits[aByte & 0x0F]};
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1252,7 +1251,7 @@ doTestStringBufferWithBigBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with big blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1278,7 +1277,7 @@ doTestStringBufferWithBigBlob
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{bigBlob.get()};
-                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     bigBlob[ii] = aByte;
                 }
@@ -1289,9 +1288,9 @@ doTestStringBufferWithBigBlob
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = bigBlob[ii];
-                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
-                    char    lowByte = kHexDigits[aByte & 0x0F];
+                    uint8_t aByte{bigBlob[ii]};
+                    char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
+                    char    lowByte{kHexDigits[aByte & 0x0F]};
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1336,7 +1335,7 @@ doTestStringBufferReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting string buffer
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1357,7 +1356,7 @@ doTestStringBufferReset
         {
             stuff->addString("abcdef");
             stuff->reset();
-            size_t  resultLength = stuff->getLength();
+            size_t  resultLength{stuff->getLength()};
 
             if (0 == resultLength)
             {
@@ -1402,7 +1401,7 @@ doTestDefaultLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default logical value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1455,7 +1454,7 @@ doTestLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // logical values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1523,7 +1522,7 @@ doTestDefaultIntegerValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default integer value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1577,7 +1576,7 @@ doTestNumberValue
      const int      argc,
      Ptr(Ptr(char)) argv) // number values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1670,7 +1669,7 @@ doTestDefaultStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default string value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1723,7 +1722,7 @@ doTestStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // string values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1781,7 +1780,7 @@ doTestStringValueWithEscapes
      const int      argc,
      Ptr(Ptr(char)) argv) // string value with escapes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1836,7 +1835,7 @@ doTestDefaultBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1889,7 +1888,7 @@ doTestSmallBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1906,7 +1905,7 @@ doTestSmallBlobValue
         {
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii);
+                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
 
                 smallBlob[ii] = aByte;
             }
@@ -1923,9 +1922,9 @@ doTestSmallBlobValue
                 expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = smallBlob[ii];
-                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
-                    char    lowByte = kHexDigits[aByte & 0x0F];
+                    uint8_t aByte{smallBlob[ii]};
+                    char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
+                    char    lowByte{kHexDigits[aByte & 0x0F]};
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -1971,7 +1970,7 @@ doTestBigBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // big blob
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1988,7 +1987,7 @@ doTestBigBlobValue
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii);
+                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
 
                 bigBlob[ii] = aByte;
             }
@@ -2005,9 +2004,9 @@ doTestBigBlobValue
                 expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    uint8_t aByte = bigBlob[ii];
-                    char    highByte = kHexDigits[(aByte >> 4) & 0x0F];
-                    char    lowByte = kHexDigits[aByte & 0x0F];
+                    uint8_t aByte{bigBlob[ii]};
+                    char    highByte{kHexDigits[(aByte >> 4) & 0x0F]};
+                    char    lowByte{kHexDigits[aByte & 0x0F]};
 
                     expectedString += highByte;
                     expectedString += lowByte;
@@ -2064,13 +2063,13 @@ doTestLogicalCopyAndAssign
     //ODL_P1("argv = ", argv); //####
     try
     {
-        Logical falseStuff(false);
-        Logical trueStuff(true);
+        Logical falseStuff{false};
+        Logical trueStuff{true};
 
         if ((! falseStuff.getValue()) && trueStuff.getValue())
         {
-            Logical falseCopy(falseStuff);
-            Logical trueCopy(trueStuff);
+            Logical falseCopy{falseStuff};
+            Logical trueCopy{trueStuff};
 
             if ((falseCopy.getValue() == falseStuff.getValue()) && (trueCopy.getValue() == trueStuff.getValue()))
             {
@@ -2125,7 +2124,7 @@ doTestIntegerCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // integer copy and assign
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2136,20 +2135,20 @@ doTestIntegerCopyAndAssign
     //ODL_P1("argv = ", argv); //####
     try
     {
-        static const int64_t value1 = -1234;
-        static const int64_t value2 = 0;
-        static const int64_t value3 = 2345;
-        Integer              negativeStuff(value1);
-        Integer              zeroStuff(value2);
-        Integer              positiveStuff(value3);
+        static const int64_t value1{-1234};
+        static const int64_t value2{0};
+        static const int64_t value3{2345};
+        Integer              negativeStuff{value1};
+        Integer              zeroStuff{value2};
+        Integer              positiveStuff{value3};
 
         if ((value1 == negativeStuff.getIntegerValue()) &&
             (value2 == zeroStuff.getIntegerValue()) &&
             (value3 == positiveStuff.getIntegerValue()))
         {
-            Integer negativeCopy(negativeStuff);
-            Integer zeroCopy(zeroStuff);
-            Integer positiveCopy(positiveStuff);
+            Integer negativeCopy{negativeStuff};
+            Integer zeroCopy{zeroStuff};
+            Integer positiveCopy{positiveStuff};
 
             if ((negativeCopy.getIntegerValue() == negativeStuff.getIntegerValue()) &&
                 (zeroCopy.getIntegerValue() == zeroStuff.getIntegerValue()) &&
@@ -2218,7 +2217,7 @@ doTestDoubleCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // floating point copy and assign
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2229,20 +2228,20 @@ doTestDoubleCopyAndAssign
     //ODL_P1("argv = ", argv); //####
     try
     {
-        static const double value1 = -1234.5;
-        static const double value2 = 0.0;
-        static const double value3 = 2345.6;
-        Double              negativeStuff(value1);
-        Double              zeroStuff(value2);
-        Double              positiveStuff(value3);
+        static const double value1{-1234.5};
+        static const double value2{0.0};
+        static const double value3{2345.6};
+        Double              negativeStuff{value1};
+        Double              zeroStuff{value2};
+        Double              positiveStuff{value3};
 
         if ((value1 == negativeStuff.getDoubleValue()) &&
             (value2 == zeroStuff.getDoubleValue()) &&
             (value3 == positiveStuff.getDoubleValue()))
         {
-            Double negativeCopy(negativeStuff);
-            Double zeroCopy(zeroStuff);
-            Double positiveCopy(positiveStuff);
+            Double negativeCopy{negativeStuff};
+            Double zeroCopy{zeroStuff};
+            Double positiveCopy{positiveStuff};
 
             if ((negativeCopy.getDoubleValue() == negativeStuff.getDoubleValue()) &&
                 (zeroCopy.getDoubleValue() == zeroStuff.getDoubleValue()) &&
@@ -2310,7 +2309,7 @@ doTestStringCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // string copy and assign
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2322,12 +2321,12 @@ doTestStringCopyAndAssign
     try
     {
         String emptyString;
-        String shortString("alphabetagamma");
+        String shortString{"alphabetagamma"};
 
         if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"))
         {
-            String  emptyCopy(emptyString);
-            String  shortCopy(shortString);
+            String  emptyCopy{emptyString};
+            String  shortCopy{shortString};
 
             if ((emptyCopy.getValue() == emptyString.getValue()) && (shortCopy.getValue() == shortString.getValue()))
             {
@@ -2382,7 +2381,7 @@ doTestBlobCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // blob copy and assign
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2400,20 +2399,20 @@ doTestBlobCopyAndAssign
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
-                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii);
+                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, bigBlob.get()) ^ ii)};
 
                 bigBlob[ii] = aByte;
             }
             for (size_t ii = 0; kSmallTestSize > ii; ++ii)
             {
-                uint8_t aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii);
+                uint8_t aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, smallBlob.get()) ^ ii)};
 
                 smallBlob[ii] = aByte;
             }
             Blob            smallStuff{smallBlob.get(), kSmallTestSize};
             Blob            bigStuff{bigBlob.get(), kBigTestSize};
-            size_t          smallLength = 0;
-            size_t          bigLength = 0;
+            size_t          smallLength{0};
+            size_t          bigLength{0};
             CPtr(uint8_t)   smallValue{smallStuff.getValue(smallLength)};
             CPtr(uint8_t)   bigValue{bigStuff.getValue(bigLength)};
 
@@ -2499,7 +2498,7 @@ doTestValidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2552,8 +2551,8 @@ doTestValidLogicalCompares
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            Logical leftValue(testSet[ii]._leftValue);
-            Logical rightValue(testSet[ii]._rightValue);
+            Logical leftValue{testSet[ii]._leftValue};
+            Logical rightValue{testSet[ii]._rightValue};
 
             if (testSet[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -2618,7 +2617,7 @@ doTestValidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid number compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2861,8 +2860,8 @@ doTestValidNumberCompares
 
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
-            Integer leftValue(testSet1[ii]._leftValue);
-            Integer rightValue(testSet1[ii]._rightValue);
+            Integer leftValue{testSet1[ii]._leftValue};
+            Integer rightValue{testSet1[ii]._rightValue};
 
             if (testSet1[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -2904,8 +2903,8 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests2 > ii); ++ii)
         {
-            Integer leftValue(testSet2[ii]._leftValue);
-            Double  rightValue(testSet2[ii]._rightValue);
+            Integer leftValue{testSet2[ii]._leftValue};
+            Double  rightValue{testSet2[ii]._rightValue};
 
             if (testSet2[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -2947,8 +2946,8 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests3 > ii); ++ii)
         {
-            Double  leftValue(testSet3[ii]._leftValue);
-            Integer rightValue(testSet3[ii]._rightValue);
+            Double  leftValue{testSet3[ii]._leftValue};
+            Integer rightValue{testSet3[ii]._rightValue};
 
             if (testSet3[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -2990,8 +2989,8 @@ doTestValidNumberCompares
         }
         for (size_t ii = 0; (0 == result) && (numTests4 > ii); ++ii)
         {
-            Double  leftValue(testSet4[ii]._leftValue);
-            Double  rightValue(testSet4[ii]._rightValue);
+            Double  leftValue{testSet4[ii]._leftValue};
+            Double  rightValue{testSet4[ii]._rightValue};
 
             if (testSet4[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -3056,7 +3055,7 @@ doTestValidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3134,8 +3133,8 @@ doTestValidStringCompares
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            String leftValue(testSet[ii]._leftValue);
-            String rightValue(testSet[ii]._rightValue);
+            String leftValue{testSet[ii]._leftValue};
+            String rightValue{testSet[ii]._rightValue};
 
             if (testSet[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -3200,7 +3199,7 @@ doTestValidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid blob compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3288,8 +3287,8 @@ doTestValidBlobCompares
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
-            const Blob &    leftValue = *testSet[ii]._leftValue;
-            const Blob &    rightValue = *testSet[ii]._rightValue;
+            const Blob &    leftValue{*testSet[ii]._leftValue};
+            const Blob &    rightValue{*testSet[ii]._rightValue};
 
             if (testSet[ii]._lessThan != leftValue.lessThan(rightValue))
             {
@@ -3354,7 +3353,7 @@ doTestInvalidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3375,7 +3374,7 @@ doTestInvalidLogicalCompares
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -3457,7 +3456,7 @@ doTestInvalidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid number compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3478,7 +3477,7 @@ doTestInvalidNumberCompares
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -3560,7 +3559,7 @@ doTestInvalidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3581,7 +3580,7 @@ doTestInvalidStringCompares
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -3663,7 +3662,7 @@ doTestInvalidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid blob compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3684,7 +3683,7 @@ doTestInvalidBlobCompares
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -3766,7 +3765,7 @@ doTestDefaultLogicalValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default logical value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3819,7 +3818,7 @@ doTestLogicalValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // logical values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -3887,7 +3886,7 @@ doTestDefaultIntegerValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default integer value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3941,7 +3940,7 @@ doTestNumberValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // number values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -4034,7 +4033,7 @@ doTestDefaultStringValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default string value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4087,7 +4086,7 @@ doTestStringValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // string values
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -4148,7 +4147,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

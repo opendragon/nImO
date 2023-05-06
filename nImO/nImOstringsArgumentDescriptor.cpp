@@ -106,12 +106,10 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
+        inherited(std::move(other)), _defaultValue(std::move(other._defaultValue)), _allowedValues(std::move(other._allowedValues))
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._defaultValue = "";
-    other._allowedValues = StringSet();
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
@@ -177,7 +175,7 @@ StringsArgumentDescriptor::operator=
 {
     if (this != &other)
     {
-        StringsArgumentDescriptor   temp(other);
+        StringsArgumentDescriptor   temp{other};
 
         swap(temp);
     }
@@ -194,10 +192,8 @@ StringsArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _defaultValue = other._defaultValue;
-        _allowedValues = other._allowedValues;
-        other._defaultValue = "";
-        other._allowedValues = StringSet();
+        _defaultValue = std::move(other._defaultValue);
+        _allowedValues = std::move(other._allowedValues);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -224,7 +220,7 @@ StringsArgumentDescriptor::parseArgString
         // We need to split the input into keys.
         for ( ; 0 < stringList.length(); )
         {
-            size_t  indx = stringList.find(getParameterSeparator());
+            size_t  indx{stringList.find(getParameterSeparator())};
 
             if (stringList.npos == indx)
             {
@@ -293,7 +289,7 @@ StringsArgumentDescriptor::toString
     {
         scratch += walker;
     }
-    char    delim = identifyDelimiter(scratch);
+    char    delim{identifyDelimiter(scratch)};
 
     result += delim;
     for (auto walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)

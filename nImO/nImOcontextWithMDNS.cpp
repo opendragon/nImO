@@ -125,7 +125,7 @@ namespace nImO
                 (const std::string &    inString)
             {
                 std::string             outString;
-                std::string::size_type  period = inString.find('.');
+                std::string::size_type  period{inString.find('.')};
 
                 if (std::string::npos == period)
                 {
@@ -199,7 +199,7 @@ namespace nImO
             {
                 if (mDNS::kEntryTypeAnswer == entry)
                 {
-                    std::string _entryData = mdns_string_to_std_string(entryData);
+                    std::string _entryData{mdns_string_to_std_string(entryData)};
 
                     if (NIMO_REGISTRY_SERVICE_NAME == _entryData)
                     {
@@ -296,9 +296,9 @@ struct sockaddr_in   nImO::ContextWithMDNS::gServiceAddressIpv4;
 
 struct sockaddr_in6  nImO::ContextWithMDNS::gServiceAddressIpv6;
 
-bool nImO::ContextWithMDNS::gHasIpv4 = false;
+bool nImO::ContextWithMDNS::gHasIpv4{false};
 
-bool nImO::ContextWithMDNS::gHasIpv6 = false;
+bool nImO::ContextWithMDNS::gHasIpv6{false};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -310,12 +310,12 @@ getLocalAddresses
     (void)
 {
 #if MAC_OR_LINUX_
-    Ptr(struct ifaddrs)         addresses = nullptr;
+    Ptr(struct ifaddrs)         addresses{nullptr};
 #else // not MAC_OR_LINUX_
-    Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress = nullptr;
-    ULONG                       addressSize = 8000;
+    Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress{nullptr};
+    ULONG                       addressSize{8000};
     uint                        ret;
-    uint                        numRetries = 4;
+    uint                        numRetries{4};
 #endif // not MAC_OR_LINUX_
 
     ODL_ENTER(); //####
@@ -324,8 +324,8 @@ getLocalAddresses
     {
         throw "Failed to get network adapter addresses";
     }
-    bool    firstIpv4 = true;
-    bool    firstIpv6 = true;
+    bool    firstIpv4{true};
+    bool    firstIpv6{true};
 
     for (Ptr(struct ifaddrs) address = addresses; nullptr != address; address = address->ifa_next)
     {
@@ -333,7 +333,7 @@ getLocalAddresses
         {
             if (AF_INET == address->ifa_addr->sa_family)
             {
-                struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr);
+                struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr)};
 
                 if (IPV4_ADDR(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
                 {
@@ -347,11 +347,10 @@ getLocalAddresses
             }
             else if (AF_INET6 == address->ifa_addr->sa_family)
             {
-                struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr);
-                static const uint8_t    localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
-                                                        0, 0, 0, 0, 0, 0, 0, 1 };
-                static const uint8_t    localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
-                                                              0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+                struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr)};
+                static const uint8_t    localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+                static const uint8_t    localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
+                                                           0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
 
                 if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
                     (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
@@ -372,8 +371,7 @@ getLocalAddresses
     do
     {
         adapterAddress = ReinterpretCast(Ptr(IP_ADAPTER_ADDRESSES), malloc(addressSize));
-        ret = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_ANYCAST, 0, adapterAddress,
-                                   &addressSize);
+        ret = GetAdaptersAddresses(AF_UNSPEC, GAA_FLAG_SKIP_MULTICAST | GAA_FLAG_SKIP_ANYCAST, 0, adapterAddress, &addressSize);
         if (ERROR_BUFFER_OVERFLOW == ret)
         {
             free(adapterAddress);
@@ -392,8 +390,8 @@ getLocalAddresses
         free(adapterAddress);
         throw "Failed to get network adapter addresses";
     }
-    bool    firstIpv4 = true;
-    bool    firstIpv6 = true;
+    bool    firstIpv4{true};
+    bool    firstIpv6{true};
 
     for (PIP_ADAPTER_ADDRESSES adapter = adapterAddress; nullptr != adapter; adapter = adapter->Next)
     {
@@ -407,14 +405,13 @@ getLocalAddresses
             continue;
 
         }
-        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast = adapter->FirstUnicastAddress; nullptr != unicast;
-             unicast = unicast->Next)
+        for (Ptr(IP_ADAPTER_UNICAST_ADDRESS) unicast = adapter->FirstUnicastAddress; nullptr != unicast; unicast = unicast->Next)
         {
             if (nullptr != unicast->Address.lpSockaddr)
             {
                 if (AF_INET == unicast->Address.lpSockaddr->sa_family)
                 {
-                    struct sockaddr_in &    saddr = *ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr);
+                    struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), unicast->Address.lpSockaddr)};
 
                     if ((saddr.sin_addr.S_un.S_un_b.s_b1 != 127) || (saddr.sin_addr.S_un.S_un_b.s_b2 != 0) ||
                         (saddr.sin_addr.S_un.S_un_b.s_b3 != 0) || (saddr.sin_addr.S_un.S_un_b.s_b4 != 1))
@@ -429,11 +426,10 @@ getLocalAddresses
                 }
                 else if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
                 {
-                    struct sockaddr_in6 &   saddr = *ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr);
-                    static const uchar      localHost[] = { 0, 0, 0, 0, 0, 0, 0, 0,
-                                                            0, 0, 0, 0, 0, 0, 0, 1 };
-                    static const uchar      localHostMapped[] = { 0, 0, 0,    0,    0,    0, 0, 0,
-                                                                  0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+                    struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
+                    static const uchar      localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+                    static const uchar      localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
+                                                               0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
 
                     if ((NldsPreferred == unicast->DadState) &&
                         (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
@@ -483,12 +479,11 @@ queryCallback
     NIMO_UNUSED_VAR_(queryId);
     NIMO_UNUSED_VAR_(rClass);
     NIMO_UNUSED_VAR_(nameLength);
-    size_t                      workOffset = nameOffset;
-    mDNS::string_t              fromAddrStr = nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen);
-    mDNS::string_t              entryStr = mDNS::mDNSPrivate::string_extract(data, size, workOffset, lEntryBuffer,
-                                                                             sizeof(lEntryBuffer));
-    Ptr(nImO::RecordHandler)    handlerPtr = ReinterpretCast(Ptr(nImO::RecordHandler), userData);
-    nImO::RecordHandler &       handler = *handlerPtr;
+    size_t                      workOffset{nameOffset};
+    mDNS::string_t              fromAddrStr{nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen)};
+    mDNS::string_t              entryStr{mDNS::mDNSPrivate::string_extract(data, size, workOffset, lEntryBuffer, sizeof(lEntryBuffer))};
+    Ptr(nImO::RecordHandler)    handlerPtr{ReinterpretCast(Ptr(nImO::RecordHandler), userData)};
+    nImO::RecordHandler &       handler{*handlerPtr};
 
 //#if DUMP_RAW_DATA
 //    dumpData(data, size, name_offset, record_offset, record_length, entry, rtype, rclass, ttl);
@@ -497,8 +492,8 @@ queryCallback
     {
         case mDNS::kRecordTypePTR:
         {
-            mDNS::string_t    nameStr = mDNS::record_parse_ptr(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
-                                                               sizeof(nImO::ContextWithMDNS::gNameBuffer));
+            mDNS::string_t    nameStr{mDNS::record_parse_ptr(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
+                                                             sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (0 < ttl)
             {
@@ -514,8 +509,8 @@ queryCallback
 
         case mDNS::kRecordTypeSRV:
         {
-            mDNS::record_srv_t    srv = mDNS::record_parse_srv(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
-                                                               sizeof(nImO::ContextWithMDNS::gNameBuffer));
+            mDNS::record_srv_t    srv{mDNS::record_parse_srv(data, size, recordOffset, recordLength, nImO::ContextWithMDNS::gNameBuffer,
+                                                             sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (0 < ttl)
             {
@@ -530,8 +525,8 @@ queryCallback
             struct sockaddr_in    addr;
 
             mDNS::record_parse_a(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr = nImO::Ipv4AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
-                                                                      addr, sizeof(addr));
+            mDNS::string_t    addrStr{nImO::Ipv4AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
+                                                                    addr, sizeof(addr))};
 
             if (0 < ttl)
             {
@@ -546,8 +541,8 @@ queryCallback
             struct sockaddr_in6    addr;
 
             mDNS::record_parse_aaaa(data, size, recordOffset, recordLength, addr);
-            mDNS::string_t    addrStr = nImO::Ipv6AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
-                                                                      addr, sizeof(addr));
+            mDNS::string_t    addrStr{nImO::Ipv6AddressToMdnsString(nImO::ContextWithMDNS::gNameBuffer, sizeof(nImO::ContextWithMDNS::gNameBuffer),
+                                                                    addr, sizeof(addr))};
 
             if (0 < ttl)
             {
@@ -559,8 +554,7 @@ queryCallback
 
         case mDNS::kRecordTypeTXT:
         {
-            size_t    parsed = mDNS::record_parse_txt(data, size, recordOffset, recordLength, lTxtBuffer,
-                                                      A_SIZE(lTxtBuffer));
+            size_t    parsed{mDNS::record_parse_txt(data, size, recordOffset, recordLength, lTxtBuffer, A_SIZE(lTxtBuffer))};
 
             for (size_t itxt = 0; itxt < parsed; ++itxt)
             {
@@ -683,7 +677,7 @@ nImO::ContextWithMDNS::executeBrowser
 # pragma option pop
 #endif /* not MAC_OR_LINUX_ */
         }
-        int    res = select(nfds, &readfs, nullptr, nullptr, &timeout);
+        int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
 
         if (res >= 0)
         {
@@ -779,7 +773,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
     ODL_B1("quietly = ", quietly); //####
     if (_startBrowser)
     {
-        bool    okSoFar = true;
+        bool    okSoFar{true};
 
         lBrowserThreadStopped = false;
         lBrowserThreadStop = false;
@@ -808,8 +802,8 @@ nImO::ContextWithMDNS::gatherAnnouncements
         }
         if (okSoFar)
         {
-            std::atomic<bool>       timedOut(false);
-            asio::deadline_timer    timeOutTimer(*getService());
+            std::atomic<bool>       timedOut{false};
+            asio::deadline_timer    timeOutTimer{*getService()};
 
             report("timeout = " + std::to_string(getRegistrySearchTimeout()));
             timeOutTimer.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
@@ -856,7 +850,7 @@ nImO::ContextWithMDNS::openSockets
         sock_addr.sin_family = AF_INET;
         sock_addr.sin_addr.s_addr = INADDR_ANY;
         sock_addr.sin_port = htons(MDNS_PORT);
-        int    sock = mDNS::socket_open_ipv4(sock_addr);
+        int    sock{mDNS::socket_open_ipv4(sock_addr)};
 
         if (sock >= 0)
         {
@@ -871,7 +865,7 @@ nImO::ContextWithMDNS::openSockets
         sock_addr.sin6_family = AF_INET6;
         sock_addr.sin6_addr = in6addr_any;
         sock_addr.sin6_port = htons(MDNS_PORT);
-        int    sock = mDNS::socket_open_ipv6(sock_addr);
+        int    sock{mDNS::socket_open_ipv6(sock_addr)};
 
         if (sock >= 0)
         {
@@ -990,11 +984,11 @@ nImO::Ipv4AddressToMdnsString
      const struct sockaddr_in & addr,
      const size_t               addrLen)
 {
-    char    host[NI_MAXHOST] = { 0 };
-    char    service[NI_MAXSERV] = { 0 };
-    int     ret = getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
-                              NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST);
-    int     len = 0;
+    char    host[NI_MAXHOST]{ 0 };
+    char    service[NI_MAXSERV]{ 0 };
+    int     ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+                            NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST)};
+    int     len{0};
 
     if (0 == ret)
     {
@@ -1020,7 +1014,7 @@ nImO::Ipv4AddressToStdString
      const size_t               addrLen)
 {
     char            addrBuffer[64];
-    mDNS::string_t  mdnsString = nImO::Ipv4AddressToMdnsString(addrBuffer, sizeof(addrBuffer), addr, addrLen);
+    mDNS::string_t  mdnsString{nImO::Ipv4AddressToMdnsString(addrBuffer, sizeof(addrBuffer), addr, addrLen)};
     std::string     result{mdns_string_to_std_string(mdnsString)};
 
     release_mdns_string(mdnsString);
@@ -1034,11 +1028,11 @@ nImO::Ipv6AddressToMdnsString
      const struct sockaddr_in6 &    addr,
      const size_t                   addrLen)
 {
-    char    host[NI_MAXHOST] = { 0 };
-    char    service[NI_MAXSERV] = { 0 };
-    int     ret = getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
-                              NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST);
-    int     len = 0;
+    char    host[NI_MAXHOST]{ 0 };
+    char    service[NI_MAXSERV]{ 0 };
+    int     ret{getnameinfo(ReinterpretCast(CPtr(struct sockaddr), &addr), StaticCast(socklen_t, addrLen), host,
+                            NI_MAXHOST, service, NI_MAXSERV, NI_NUMERICSERV | NI_NUMERICHOST)};
+    int     len{0};
 
     if (0 == ret)
     {

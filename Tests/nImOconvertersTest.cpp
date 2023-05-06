@@ -112,7 +112,7 @@ doTestInvalidArgs
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid args
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -195,7 +195,7 @@ doTestIntegerSize
      const int      argc,
      Ptr(Ptr(char)) argv) // integer size
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -256,7 +256,7 @@ doTestDoubleSize
      const int      argc,
      Ptr(Ptr(char)) argv) // double size
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -267,9 +267,9 @@ doTestDoubleSize
     //ODL_P1("argv = ", argv); //####
     try
     {
-        double  value = ((nImO::RandomUnsigned() % 10000) * 0.1);
-        size_t  expectedLength = sizeof(double);
-        int64_t calcLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
+        double  value{(nImO::RandomUnsigned() % 10000) * 0.1};
+        size_t  expectedLength{sizeof(double)};
+        int64_t calcLength{StaticCast(int64_t, ConvertDoubleToPacketOrder(nullptr, nullptr, value))};
 
         if (calcLength == StaticCast(int64_t, expectedLength))
         {
@@ -304,7 +304,7 @@ doTestIntegerConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // integer conversion
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -319,14 +319,14 @@ doTestIntegerConversion
 
             if (ConvertToInt64(*argv, value))
             {
-                size_t  expectedLength = ConvertInt64ToPacketOrder(nullptr, nullptr, value);
+                size_t  expectedLength{ConvertInt64ToPacketOrder(nullptr, nullptr, value)};
                 uint8_t buffer[kBufferSize];
-                size_t  convLength = ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
+                size_t  convLength{ConvertInt64ToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
 
                 if (expectedLength == convLength)
                 {
                     int64_t newValue;
-                    size_t  newLength = ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue);
+                    size_t  newLength{ConvertPacketOrderToInt64(buffer, buffer + convLength - 1, newValue)};
 
                     if ((newValue == value) && (newLength == convLength))
                     {
@@ -376,7 +376,7 @@ doTestDoubleConversion
      const int      argc,
      Ptr(Ptr(char)) argv) // double conversion
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -389,15 +389,15 @@ doTestDoubleConversion
     {
         for (int ii = 0; ii < kNumDoubleTests; ++ii)
         {
-            double  value = ((nImO::RandomUnsigned() % 10000) * 0.1);
-            size_t  expectedLength = ConvertDoubleToPacketOrder(nullptr, nullptr, value);
+            double  value{(nImO::RandomUnsigned() % 10000) * 0.1};
+            size_t  expectedLength{ConvertDoubleToPacketOrder(nullptr, nullptr, value)};
             uint8_t buffer[kBufferSize];
-            size_t  convLength = ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value);
+            size_t  convLength{ConvertDoubleToPacketOrder(buffer, buffer + sizeof(buffer) - 1, value)};
 
             if (expectedLength == convLength)
             {
                 double  newValue;
-                size_t  newLength = ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue);
+                size_t  newLength{ConvertPacketOrderToDouble(buffer, buffer + convLength - 1, newValue)};
 
                 if ((newValue == value) && (newLength == convLength))
                 {
@@ -447,7 +447,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

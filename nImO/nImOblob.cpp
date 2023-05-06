@@ -122,8 +122,8 @@ compareBytes
         result = 0;
         for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
         {
-            uint8_t leftByte = leftValue[ii];
-            uint8_t rightByte = rightValue[ii];
+            uint8_t leftByte{leftValue[ii]};
+            uint8_t rightByte{rightValue[ii]};
 
             if (leftByte > rightByte)
             {
@@ -237,7 +237,7 @@ nImO::Blob::deeplyEqualTo
     (const Value &  other)
     const
 {
-    bool    result = (&other == this);
+    bool    result{&other == this};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -296,8 +296,8 @@ nImO::Blob::extractValue
 {
     SpValue result;
     bool    atEnd;
-    bool    isShort = (DataKind::StringOrBlobShortLengthValue == (DataKind::StringOrBlobLengthMask & leadByte));
-    size_t  numBytes = 0;
+    bool    isShort{DataKind::StringOrBlobShortLengthValue == (DataKind::StringOrBlobLengthMask & leadByte)};
+    size_t  numBytes{0};
 
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
@@ -312,13 +312,13 @@ nImO::Blob::extractValue
     }
     else
     {
-        size_t          size = toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1;
+        size_t          size{StaticCast(size_t, toUType(DataKind::IntegerLongValueCountMask & leadByte) + 1)};
         NumberAsBytes   holder;
-        bool            okSoFar = true;
+        bool            okSoFar{true};
 
         for (size_t ii = 0; okSoFar && (size > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position, atEnd);
+            int aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -341,11 +341,11 @@ nImO::Blob::extractValue
     if (0 < numBytes)
     {
         UpAuint8_t  holder{new uint8_t[numBytes]};
-        bool        okSoFar = (nullptr != holder);
+        bool        okSoFar{nullptr != holder};
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
-            int aByte = theMessage.getByte(position, atEnd);
+            int aByte{theMessage.getByte(position, atEnd)};
 
             if (atEnd)
             {
@@ -398,7 +398,7 @@ nImO::Blob::getTypeTag
     (void)
     const
 {
-    DataKind    result = DataKind::OtherMessageExpectedStringOrBlobValue;
+    DataKind    result{DataKind::OtherMessageExpectedStringOrBlobValue};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
@@ -637,15 +637,15 @@ nImO::Blob::writeToMessage
         {
             ODL_LOG("(15 < _size)"); //####
             NumberAsBytes   numBuff;
-            size_t          numBytes = I2B(_size, numBuff);
+            size_t          numBytes{I2B(_size, numBuff)};
 
             if (0 < numBytes)
             {
                 ODL_LOG("(0 < numBytes)"); //####
-                DataKind    stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                                      DataKind::StringOrBlobLongLengthValue |
-                                      (DataKind::StringOrBlobLongLengthMask &
-                                       StaticCast(DataKind, numBytes - 1)));
+                DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                                    DataKind::StringOrBlobLongLengthValue |
+                                    (DataKind::StringOrBlobLongLengthMask &
+                                     StaticCast(DataKind, numBytes - 1))};
 
                 outMessage.appendBytes(&stuff, sizeof(stuff));
                 outMessage.appendBytes(numBuff + sizeof(numBuff) - numBytes, numBytes);
@@ -654,10 +654,10 @@ nImO::Blob::writeToMessage
         else
         {
             ODL_LOG("! (15 < _size)"); //####
-            DataKind    stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                                  DataKind::StringOrBlobShortLengthValue |
-                                  (DataKind::StringOrBlobShortLengthMask &
-                                   StaticCast(DataKind, _size)));
+            DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                                DataKind::StringOrBlobShortLengthValue |
+                                (DataKind::StringOrBlobShortLengthMask &
+                                 StaticCast(DataKind, _size))};
 
             outMessage.appendBytes(&stuff, sizeof(stuff));
         }
@@ -666,8 +666,8 @@ nImO::Blob::writeToMessage
     else
     {
         ODL_LOG("! (0 < _size)"); //####
-        DataKind    stuff = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
-                             DataKind::StringOrBlobShortLengthValue | (DataKind::StringOrBlobShortLengthMask & 0));
+        DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
+                            DataKind::StringOrBlobShortLengthValue | (DataKind::StringOrBlobShortLengthMask & 0)};
 
         outMessage.appendBytes(&stuff, sizeof(stuff));
     }

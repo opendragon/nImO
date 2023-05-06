@@ -136,7 +136,7 @@ doTestAddressArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -166,8 +166,7 @@ doTestAddressArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new AddressArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   ""));
+                testDescriptor.reset(new AddressArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, ""));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -178,8 +177,7 @@ doTestAddressArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new AddressArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       *argv));
+                    testDescriptor.reset(new AddressArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, *argv));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -232,7 +230,7 @@ doTestBooleanArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -283,8 +281,7 @@ doTestBooleanArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new BooleanArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       false));
+                    testDescriptor.reset(new BooleanArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, false));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -324,7 +321,7 @@ doTestChannelArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -344,8 +341,7 @@ doTestChannelArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   "/out"));
+                testDescriptor.reset(new ChannelArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/out"));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -417,7 +413,7 @@ doTestDoubleArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -437,8 +433,8 @@ doTestDoubleArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   42.0, false, 0.0, false, 0.0));
+                testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42.0, false, 0.0, false,
+                                                                  0.0));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -447,8 +443,8 @@ doTestDoubleArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   42.0, true, 1000, true, 200));
+                testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42.0, true, 1000, true,
+                                                                  200));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -459,8 +455,8 @@ doTestDoubleArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       strtod(*argv, nullptr), false, 0, true, 1000));
+                    testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, strtod(*argv, nullptr),
+                                                                      false, 0, true, 1000));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -472,8 +468,8 @@ doTestDoubleArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       42.0, true, -10, true, 10));
+                    testDescriptor.reset(new DoubleArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42.0, true, -10, true,
+                                                                      10));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -513,7 +509,7 @@ doTestFilePathArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -533,8 +529,8 @@ doTestFilePathArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                    "/tmp/", "temp.txt", true));
+                testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/tmp/", "temp.txt",
+                                                                    true));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -543,8 +539,7 @@ doTestFilePathArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                    "/usr/bin", "", true));
+                testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/usr/bin", "", true));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -555,8 +550,7 @@ doTestFilePathArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                        "/tmp/", "stuff.txt"));
+                    testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/tmp/", "stuff.txt"));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -568,8 +562,8 @@ doTestFilePathArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                        "/tmp/", "stuff.txt", true));
+                    testDescriptor.reset(new FilePathArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "/tmp/", "stuff.txt",
+                                                                        true));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -609,7 +603,7 @@ doTestIntegerArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -629,8 +623,7 @@ doTestIntegerArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                               42, false, 0, false, 0));
+                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42, false, 0, false, 0));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -639,8 +632,7 @@ doTestIntegerArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                               42, true, 1000, true, 200));
+                testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42, true, 1000, true, 200));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -652,7 +644,7 @@ doTestIntegerArgumentDescriptors
                 if (2 == argc)
                 {
                     testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   strtol(*argv, nullptr, 10), false, 0, true, 1000));
+                                                                       strtol(*argv, nullptr, 10), false, 0, true, 1000));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -664,8 +656,8 @@ doTestIntegerArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   42, true, -100, true, 100));
+                    testDescriptor.reset(new IntegerArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42, true, -100, true,
+                                                                       100));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -708,7 +700,7 @@ doTestPortArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -728,8 +720,7 @@ doTestPortArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                1234, true));
+                testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 1234, true));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -738,8 +729,7 @@ doTestPortArgumentDescriptors
 
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
-                testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                42, false));
+                testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 42, false));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -763,8 +753,7 @@ doTestPortArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                    1234, false));
+                    testDescriptor.reset(new PortArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, 1234, false));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -804,7 +793,7 @@ doTestStringArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -884,7 +873,7 @@ doTestStringsArgumentDescriptors
      const int      argc,
      Ptr(Ptr(char)) argv)
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -908,8 +897,7 @@ doTestStringsArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   "abc", allowable));
+                testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "abc", allowable));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -919,8 +907,7 @@ doTestStringsArgumentDescriptors
             case 2 :
                 // Test that using 'unreasonable' parameters fails with the default value.
                 allowable.clear();
-                testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                   "abc", allowable));
+                testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "abc", allowable));
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -931,8 +918,7 @@ doTestStringsArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       "abc", allowable));
+                    testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "abc", allowable));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
                         result = 0;
@@ -944,8 +930,7 @@ doTestStringsArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required,
-                                                                       "abc", allowable));
+                    testDescriptor.reset(new StringsArgumentDescriptor("descriptor", T_("something"), ArgumentMode::Required, "abc", allowable));
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;
@@ -984,7 +969,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -999,11 +984,10 @@ main
         {
             int64_t selector;
             int64_t subSelector;
-            bool    expected = (('t' == *argv[2]) || ('T' == *argv[2]));
+            bool    expected{('t' == *argv[2]) || ('T' == *argv[2])};
 
             ODL_B1("expected <- ", expected); //####
-            if (ConvertToInt64(argv[1], selector) && (0 < selector) &&
-                ConvertToInt64(argv[3], subSelector) && (0 < subSelector))
+            if (ConvertToInt64(argv[1], selector) && (0 < selector) && ConvertToInt64(argv[3], subSelector) && (0 < subSelector))
             {
                 SetSignalHandlers(catchSignal);
                 switch (selector)

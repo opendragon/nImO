@@ -129,12 +129,12 @@ static void
 helpForList
     (std::ostream & outStream)
 {
-    size_t  choiceWidth = 0;
+    size_t  choiceWidth{0};
 
     outStream << "Available choices:" << std::endl;
     for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
-        size_t  thisWidth = walker->first.length();
+        size_t  thisWidth{walker->first.length()};
 
         if (thisWidth > choiceWidth)
         {
@@ -164,8 +164,8 @@ listMachines
      const bool                 partOfAll = false,
      const bool                 isLast = true)
 {
-    bool                                okSoFar = true;
-    nImO::RegMachineInfoVectorOrFailure statusWithAllMachines = proxy.getInformationForAllMachines();
+    bool                                okSoFar{true};
+    nImO::RegMachineInfoVectorOrFailure statusWithAllMachines{proxy.getInformationForAllMachines()};
 
     if (statusWithAllMachines.first.first)
     {
@@ -180,7 +180,7 @@ listMachines
                 std::cout << "Machines:" << std::endl;
             }
         }
-        nImO::MachineInfoVector &   machines = statusWithAllMachines.second;
+        nImO::MachineInfoVector &   machines{statusWithAllMachines.second};
 
         if (machines.empty())
         {
@@ -279,12 +279,12 @@ listNodes
      const bool                 partOfAll = false,
      const bool                 isLast = true)
 {
-    bool                                okSoFar = true;
-    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes = proxy.getInformationForAllNodes();
+    bool                                okSoFar{true};
+    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
 
     if (statusWithAllNodes.first.first)
     {
-        nImO::NodeInfoVector &  nodes = statusWithAllNodes.second;
+        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
         if (partOfAll)
         {
@@ -350,12 +350,11 @@ listNodes
                     }
                     if (options._detailed)
                     {
-                        nImO::RegLaunchDetailsOrFailure statusWithDetails = proxy.getLaunchDetails(theInfo._name);
+                        nImO::RegLaunchDetailsOrFailure statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
 
                         if (statusWithDetails.first.first)
                         {
-                            nImO::LaunchDetails &   details = statusWithDetails.second;
-
+                            nImO::LaunchDetails &   details{statusWithDetails.second};
 
                             switch (options._flavour)
                             {
@@ -461,7 +460,7 @@ main
     nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"), nImO::ArgumentMode::Optional, "all", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
-    int                             exitCode = 0;
+    int                             exitCode{0};
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space", "nImOlist node", 2016,

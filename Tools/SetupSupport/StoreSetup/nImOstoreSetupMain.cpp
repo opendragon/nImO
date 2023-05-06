@@ -92,7 +92,7 @@ main
     nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("File to be written to"), nImO::ArgumentMode::Required, "", ".txt", true};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
-    int                                 exitCode = 0;
+    int                                 exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

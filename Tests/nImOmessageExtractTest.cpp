@@ -113,11 +113,10 @@ extractValueAndCheck
      const size_t   insertedSize,
      const Value &  expectedValue)
 {
-    int result = 1;
+    int result{1};
 
     ODL_ENTER(); //####
-    ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
-           &expectedValue); //####
+    ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", &expectedValue); //####
     ODL_I1("insertedSize = ", insertedSize); //####
     ODL_PACKET("inserted", insertedContents, insertedSize); //####
     // First, the 'this-should-work' test:
@@ -133,7 +132,7 @@ extractValueAndCheck
     }
     else
     {
-        CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+        auto    asFlaw{extractedValue->asFlaw()};
 
         if (nullptr == asFlaw)
         {
@@ -171,7 +170,7 @@ extractValueAndCheck
             stuff.close();
             if (nullptr != extractedValue)
             {
-                CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+                auto    asFlaw{extractedValue->asFlaw()};
 
                 if (nullptr == asFlaw)
                 {
@@ -205,7 +204,7 @@ doTestExtractEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -244,7 +243,7 @@ doTestExtractEmptyMessage
                 }
                 else
                 {
-                    CPtr(Flaw)  asFlaw{extractedValue->asFlaw()};
+                    auto    asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr != asFlaw)
                     {
@@ -310,7 +309,7 @@ doTestExtractLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -359,8 +358,8 @@ doTestExtractLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            insertedFalseCount{A_SIZE(insertedBytesForFalse)};
-            Logical                 falseValue(false);
-            Logical                 trueValue(true);
+            Logical                 falseValue{false};
+            Logical                 trueValue{true};
 
             result = extractValueAndCheck(*stuff, insertedBytesForTrue, insertedTrueCount, trueValue);
             if (0 == result)
@@ -393,7 +392,7 @@ doTestExtractTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -457,9 +456,9 @@ doTestExtractTinyIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            insertedPlus12Count{A_SIZE(insertedBytesForPlus12)};
-            Integer                 minus12Value(-12);
-            Integer                 zeroValue(0);
-            Integer                 plus12Value(12);
+            Integer                 minus12Value{-12};
+            Integer                 zeroValue{0};
+            Integer                 plus12Value{12};
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus12, insertedMinus12Count, minus12Value);
             if (0 == result)
@@ -496,7 +495,7 @@ doTestExtractSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -547,8 +546,8 @@ doTestExtractSmallIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            insertedPlus144Count{A_SIZE(insertedBytesForPlus144)};
-            Integer                 minus144Value(-144);
-            Integer                 plus144Value(144);
+            Integer                 minus144Value{-144};
+            Integer                 plus144Value{144};
 
             result = extractValueAndCheck(*stuff, insertedBytesForMinus144, insertedMinus144Count, minus144Value);
             if (0 == result)
@@ -581,7 +580,7 @@ doTestExtractMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -634,15 +633,13 @@ doTestExtractMediumIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            insertedPlus1234567Count{A_SIZE(insertedBytesForPlus1234567)};
-            Integer                 minus1234567Value(-1234567);
-            Integer                 plus1234567Value(1234567);
+            Integer                 minus1234567Value{-1234567};
+            Integer                 plus1234567Value{1234567};
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567, insertedMinus1234567Count,
-                                          minus1234567Value);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus1234567, insertedMinus1234567Count, minus1234567Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count,
-                                              plus1234567Value);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count, plus1234567Value);
             }
         }
     }
@@ -670,7 +667,7 @@ doTestExtractBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -725,15 +722,13 @@ doTestExtractBigIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            insertedPlusBigNumberCount{A_SIZE(insertedBytesForPlusBigNumber)};
-            Integer                 minusBigNumberValue(-20015998343868);
-            Integer                 plusBigNumberValue(20015998343868);
+            Integer                 minusBigNumberValue{-20015998343868};
+            Integer                 plusBigNumberValue{20015998343868};
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber, insertedMinusBigNumberCount,
-                                          minusBigNumberValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinusBigNumber, insertedMinusBigNumberCount, minusBigNumberValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount,
-                                              plusBigNumberValue);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount, plusBigNumberValue);
             }
         }
     }
@@ -761,7 +756,7 @@ doTestExtractEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -798,8 +793,7 @@ doTestExtractEmptyStringMessage
             const size_t            insertedEmptyStringCount{A_SIZE(insertedBytesForEmptyString)};
             String                  emptyStringValue;
 
-            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount,
-                                          emptyStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
         }
     }
     catch (...)
@@ -826,7 +820,7 @@ doTestExtractShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -864,10 +858,9 @@ doTestExtractShortStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            insertedShortStringCount{A_SIZE(insertedBytesForShortString)};
-            String                  shortStringValue("abcdef");
+            String                  shortStringValue{"abcdef"};
 
-            result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount,
-                                          shortStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
         }
     }
     catch (...)
@@ -894,7 +887,7 @@ doTestExtractMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -951,10 +944,9 @@ doTestExtractMediumStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            insertedMediumStringCount{A_SIZE(insertedBytesForMediumString)};
-            String                  mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            String                  mediumStringValue{"abcdefabcdefabcdefabcdefabcdefabcdefabcdef"};
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount,
-                                          mediumStringValue);
+            result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
         }
     }
     catch (...)
@@ -981,7 +973,7 @@ doTestExtractEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1045,7 +1037,7 @@ doTestExtractSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1088,7 +1080,7 @@ doTestExtractSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            Blob                    smallBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, smallBlobValue);
         }
@@ -1117,7 +1109,7 @@ doTestExtractMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1185,7 +1177,7 @@ doTestExtractMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            Blob                    mediumBlobValue(actualData, actualDataCount);
+            Blob                    mediumBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
         }
@@ -1214,7 +1206,7 @@ doTestExtractSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1273,15 +1265,13 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t            insertedMinus42Point5Count{A_SIZE(insertedBytesForMinus42Point5)};
-            Double                  plus42Point5Value(42.5);
-            Double                  minus42Point5Value(-42.5);
+            Double                  plus42Point5Value{42.5};
+            Double                  minus42Point5Value{-42.5};
 
-            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count,
-                                          minus42Point5Value);
+            result = extractValueAndCheck(*stuff, insertedBytesForMinus42Point5, insertedMinus42Point5Count, minus42Point5Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count,
-                                              plus42Point5Value);
+                result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5Value);
             }
         }
     }
@@ -1309,7 +1299,7 @@ doTestExtractEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1377,7 +1367,7 @@ doTestExtractEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1445,7 +1435,7 @@ doTestExtractEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1513,7 +1503,7 @@ doTestExtractArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1563,8 +1553,7 @@ doTestExtractArrayOneLogicalMessage
             Array                   arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount,
-                                          arrayOneLogical);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount, arrayOneLogical);
         }
     }
     catch (...)
@@ -1591,7 +1580,7 @@ doTestExtractArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1641,8 +1630,7 @@ doTestExtractArrayOneIntegerMessage
             Array                   arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount,
-                                          arrayOneInteger);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount, arrayOneInteger);
         }
     }
     catch (...)
@@ -1669,7 +1657,7 @@ doTestExtractArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1724,8 +1712,7 @@ doTestExtractArrayOneDoubleMessage
             Array                   arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount,
-                                          arrayOneDouble);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount, arrayOneDouble);
         }
     }
     catch (...)
@@ -1752,7 +1739,7 @@ doTestExtractArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1803,8 +1790,7 @@ doTestExtractArrayOneStringMessage
             Array                   arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount,
-                                          arrayOneString);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount, arrayOneString);
         }
     }
     catch (...)
@@ -1831,7 +1817,7 @@ doTestExtractArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1882,8 +1868,7 @@ doTestExtractArrayOneBlobMessage
             Array                   arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount,
-                                          arrayOneBlob);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount, arrayOneBlob);
         }
     }
     catch (...)
@@ -1910,7 +1895,7 @@ doTestExtractArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1965,8 +1950,7 @@ doTestExtractArrayOneArrayMessage
             Array                   arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount,
-                                          arrayOneArray);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount, arrayOneArray);
         }
     }
     catch (...)
@@ -1993,7 +1977,7 @@ doTestExtractArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2075,7 +2059,7 @@ doTestExtractArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2157,7 +2141,7 @@ doTestExtractArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2211,8 +2195,7 @@ doTestExtractArrayTwoLogicalsMessage
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount,
-                                          arrayTwoLogicals);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount, arrayTwoLogicals);
         }
     }
     catch (...)
@@ -2239,7 +2222,7 @@ doTestExtractArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2293,8 +2276,7 @@ doTestExtractArrayTwoIntegersMessage
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount,
-                                          arrayTwoIntegers);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount, arrayTwoIntegers);
         }
     }
     catch (...)
@@ -2321,7 +2303,7 @@ doTestExtractArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2381,8 +2363,7 @@ doTestExtractArrayTwoDoublesMessage
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount,
-                                          arrayTwoDoubles);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount, arrayTwoDoubles);
         }
     }
     catch (...)
@@ -2409,7 +2390,7 @@ doTestExtractArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2465,8 +2446,7 @@ doTestExtractArrayTwoStringsMessage
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount,
-                                          arrayTwoStrings);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount, arrayTwoStrings);
         }
     }
     catch (...)
@@ -2493,7 +2473,7 @@ doTestExtractArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2549,8 +2529,7 @@ doTestExtractArrayTwoBlobsMessage
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount,
-                                          arrayTwoBlobs);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount, arrayTwoBlobs);
         }
     }
     catch (...)
@@ -2577,7 +2556,7 @@ doTestExtractArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2641,8 +2620,7 @@ doTestExtractArrayTwoArraysMessage
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount,
-                                          arrayTwoArrays);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount, arrayTwoArrays);
         }
     }
     catch (...)
@@ -2669,7 +2647,7 @@ doTestExtractArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2733,8 +2711,7 @@ doTestExtractArrayTwoMapsMessage
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount,
-                                          arrayTwoMaps);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount, arrayTwoMaps);
         }
     }
     catch (...)
@@ -2761,7 +2738,7 @@ doTestExtractArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2825,8 +2802,7 @@ doTestExtractArrayTwoSetsMessage
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount,
-                                          arrayTwoSets);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount, arrayTwoSets);
         }
     }
     catch (...)
@@ -2853,7 +2829,7 @@ doTestExtractArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2917,8 +2893,7 @@ doTestExtractArrayOneArrayOneMapMessage
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount,
-                                          arrayOneArrayOneMap);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
         }
     }
     catch (...)
@@ -2945,7 +2920,7 @@ doTestExtractArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3009,8 +2984,7 @@ doTestExtractArrayOneMapOneSetMessage
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount,
-                                          arrayOneMapOneSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
         }
     }
     catch (...)
@@ -3037,7 +3011,7 @@ doTestExtractArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3101,8 +3075,7 @@ doTestExtractArrayOneSetOneArrayMessage
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount,
-                                          arrayOneSetOneArray);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
         }
     }
     catch (...)
@@ -3129,7 +3102,7 @@ doTestExtractArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3356,8 +3329,7 @@ doTestExtractArrayWithManyDoublesMessage
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount,
-                                          arrayManyDoubles);
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount, arrayManyDoubles);
         }
     }
     catch (...)
@@ -3384,7 +3356,7 @@ doTestExtractLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3464,7 +3436,7 @@ doTestExtractIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3544,7 +3516,7 @@ doTestExtractStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3625,7 +3597,7 @@ doTestExtractLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3702,7 +3674,7 @@ doTestExtractIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3779,7 +3751,7 @@ doTestExtractStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3857,7 +3829,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3944,8 +3916,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerLongValue |
                           ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) +
-                                              DataKindIntegerShortValueMinValue - 1),
+                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) + DataKindIntegerShortValueMinValue - 1),
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerShortValue |
                           0x01, // 1
@@ -4150,14 +4121,12 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                           DataKind::OtherMessageNonEmptyValue |
                           DataKind::OtherMessageExpectedOtherValue
                     };
-                    const size_t            expectedBytesForArrayWithIntegersCount{
-                                                                            A_SIZE(expectedBytesForArrayWithIntegers)};
+                    const size_t            expectedBytesForArrayWithIntegersCount{A_SIZE(expectedBytesForArrayWithIntegers)};
                     auto                    contents{stuff->getBytes()};
-                    size_t                  length = contents.size();
+                    size_t                  length{contents.size()};
 
                     ODL_PACKET("contents", contents.data(), length); //####
-                    ODL_PACKET("expected", expectedBytesForArrayWithIntegers, //####
-                               expectedBytesForArrayWithIntegersCount); //####
+                    ODL_PACKET("expected", expectedBytesForArrayWithIntegers, expectedBytesForArrayWithIntegersCount); //####
                     if (expectedBytesForArrayWithIntegersCount == length)
                     {
                         result = StaticCast(int, CompareBytes(expectedBytesForArrayWithIntegers, contents.data(),
@@ -4203,7 +4172,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

@@ -94,7 +94,7 @@ main
     nImO::IntegerArgumentDescriptor secondArg{"numOut", T_("Number of output channels"), nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
-    int                             exitCode = 0;
+    int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -127,7 +127,7 @@ main
             if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy     proxy{ourContext, registryConnection};
-                nImO::RegBoolOrFailure  statusWithBool = proxy.isNodePresent(nodeName);
+                nImO::RegBoolOrFailure  statusWithBool{proxy.isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {

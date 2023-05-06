@@ -218,7 +218,7 @@ doTestEmptyArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -289,7 +289,7 @@ doTestSingularArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -365,7 +365,7 @@ doTestSmallArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -450,7 +450,7 @@ doTestBigArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // big array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -482,8 +482,8 @@ doTestBigArrayValue
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr = bigBlob.get();
-                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    Ptr(uint8_t)    addr{bigBlob.get()};
+                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
                     {
@@ -542,7 +542,7 @@ doTestEmptyArraySizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -595,7 +595,7 @@ doTestNonEmptyArraySizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -649,7 +649,7 @@ doTestEmptyArrayEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -702,7 +702,7 @@ doTestNonEmptyArrayEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -756,7 +756,7 @@ doTestEmptyArrayClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -810,7 +810,7 @@ doTestNonEmptyArrayClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -865,7 +865,7 @@ doTestEmptyArrayRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -918,7 +918,7 @@ doTestNonEmptyArrayRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty array random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -978,7 +978,7 @@ doTestClearingNonEmptyArrayUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty array using random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1049,7 +1049,7 @@ doTestEmptyMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1120,7 +1120,7 @@ doTestSingularLogicalMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1198,7 +1198,7 @@ doTestSingularIntegerMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1274,7 +1274,7 @@ doTestSingularStringMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1352,7 +1352,7 @@ doTestSmallLogicalMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1433,7 +1433,7 @@ doTestSmallIntegerMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1515,7 +1515,7 @@ doTestSmallStringMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small string map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1603,7 +1603,7 @@ doTestEmptyMapSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1656,7 +1656,7 @@ doTestNonEmptyMapSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1710,7 +1710,7 @@ doTestEmptyMapEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1763,7 +1763,7 @@ doTestNonEmptyMapEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1817,7 +1817,7 @@ doTestEmptyMapClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1871,7 +1871,7 @@ doTestNonEmptyMapClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1926,7 +1926,7 @@ doTestEmptyMapRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1979,7 +1979,7 @@ doTestNonEmptyMapRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty map random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2038,7 +2038,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty map using random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2108,7 +2108,7 @@ doTestEmptySetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2179,7 +2179,7 @@ doTestSingularLogicalSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2255,7 +2255,7 @@ doTestSingularIntegerSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2331,7 +2331,7 @@ doTestSingularStringSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2407,7 +2407,7 @@ doTestSmallLogicalSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2488,7 +2488,7 @@ doTestSmallIntegerSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2577,7 +2577,7 @@ doTestSmallStringSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small string set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2666,7 +2666,7 @@ doTestEmptySetSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2719,7 +2719,7 @@ doTestNonEmptySetSizeFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set size()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2773,7 +2773,7 @@ doTestEmptySetEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2826,7 +2826,7 @@ doTestNonEmptySetEmptyFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set empty()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2880,7 +2880,7 @@ doTestEmptySetClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2934,7 +2934,7 @@ doTestNonEmptySetClearFunction
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set clear()
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2989,7 +2989,7 @@ doTestEmptySetRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3042,7 +3042,7 @@ doTestNonEmptySetRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // non-empty set random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3103,7 +3103,7 @@ doTestClearingNonEmptySetUsingRandomIterator
      const int      argc,
      Ptr(Ptr(char)) argv) // clear non-empty set using random iterator
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3175,7 +3175,7 @@ doTestArrayWithArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3251,7 +3251,7 @@ doTestArrayWithMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3327,7 +3327,7 @@ doTestArrayWithSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3403,7 +3403,7 @@ doTestMapWithArrayValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with array
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3481,7 +3481,7 @@ doTestMapWithMapValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3559,7 +3559,7 @@ doTestMapWithSetValue
      const int      argc,
      Ptr(Ptr(char)) argv) // map with set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3637,7 +3637,7 @@ doTestLogicalMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3718,7 +3718,7 @@ doTestIntegerMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3797,7 +3797,7 @@ doTestStringMapValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // string map with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3878,7 +3878,7 @@ doTestLogicalSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3957,7 +3957,7 @@ doTestIntegerSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4036,7 +4036,7 @@ doTestStringSetValueWithIncompatibleKeys
      const int      argc,
      Ptr(Ptr(char)) argv) // string set with incompatible keys
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4115,7 +4115,7 @@ doTestValidArrayCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid array compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4173,16 +4173,16 @@ doTestValidArrayCompares
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
-        for (size_t ii = 0; /*(0 == result) &&*/ (numTestValues1l > ii); ++ii)
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            Logical aValue(testSet1l[ii]._testValue);
+            Logical aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
                 ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
                 result = 1;
             }
-            //if (0 == result)
+            if (0 == result)
             {
                 if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
                 {
@@ -4190,7 +4190,7 @@ doTestValidArrayCompares
                     result = 1;
                 }
             }
-            //if (0 == result)
+            if (0 == result)
             {
                 if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
                 {
@@ -4198,7 +4198,7 @@ doTestValidArrayCompares
                     result = 1;
                 }
             }
-            //if (0 == result)
+            if (0 == result)
             {
                 if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
                 {
@@ -4206,7 +4206,7 @@ doTestValidArrayCompares
                     result = 1;
                 }
             }
-            //if (0 == result)
+            if (0 == result)
             {
                 if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
                 {
@@ -4217,7 +4217,7 @@ doTestValidArrayCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            Logical aValue(testSet1r[ii]._testValue);
+            Logical aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -4298,7 +4298,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                Logical aValue(testSet2l[ii]._testValue);
+                Logical aValue{testSet2l[ii]._testValue};
 
                 if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -4340,7 +4340,7 @@ doTestValidArrayCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                Logical aValue(testSet2r[ii]._testValue);
+                Logical aValue{testSet2r[ii]._testValue};
 
                 if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -4542,7 +4542,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<Double>(0.0));
             for (size_t ii = 0; (0 == result) && (numTestValues3l > ii); ++ii)
             {
-                Double  aValue(testSet3l[ii]._testValue);
+                Double  aValue{testSet3l[ii]._testValue};
 
                 if (testSet3l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -4584,7 +4584,7 @@ doTestValidArrayCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues3r > ii); ++ii)
             {
-                Double  aValue(testSet3r[ii]._testValue);
+                Double  aValue{testSet3r[ii]._testValue};
 
                 if (testSet3r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -4712,7 +4712,7 @@ doTestValidArrayCompares
             stuff.addValue(std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues4l > ii); ++ii)
             {
-                String  aValue(testSet4l[ii]._testValue);
+                String  aValue{testSet4l[ii]._testValue};
 
                 if (testSet4l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -4754,7 +4754,7 @@ doTestValidArrayCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues4r > ii); ++ii)
             {
-                String  aValue(testSet4r[ii]._testValue);
+                String  aValue{testSet4r[ii]._testValue};
 
                 if (testSet4r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -4820,7 +4820,7 @@ doTestValidLogicalMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4880,7 +4880,7 @@ doTestValidLogicalMapCompares
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            Logical aValue(testSet1l[ii]._testValue);
+            Logical aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -4922,7 +4922,7 @@ doTestValidLogicalMapCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            Logical aValue(testSet1r[ii]._testValue);
+            Logical aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -5003,7 +5003,7 @@ doTestValidLogicalMapCompares
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("ghi"));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                Logical aValue(testSet2l[ii]._testValue);
+                Logical aValue{testSet2l[ii]._testValue};
 
                 if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -5045,7 +5045,7 @@ doTestValidLogicalMapCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                Logical aValue(testSet2r[ii]._testValue);
+                Logical aValue{testSet2r[ii]._testValue};
 
                 if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -5111,7 +5111,7 @@ doTestValidIntegerMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid integer map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5281,7 +5281,7 @@ doTestValidIntegerMapCompares
         stuff.addValue(std::make_shared<Integer>(0), std::make_shared<String>("mno"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            Integer aValue(testSet1l[ii]._testValue);
+            Integer aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -5323,7 +5323,7 @@ doTestValidIntegerMapCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            Integer aValue(testSet1r[ii]._testValue);
+            Integer aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -5388,7 +5388,7 @@ doTestValidStringMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5484,7 +5484,7 @@ doTestValidStringMapCompares
         stuff.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            String  aValue(testSet1l[ii]._testValue);
+            String  aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -5526,7 +5526,7 @@ doTestValidStringMapCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            String  aValue(testSet1r[ii]._testValue);
+            String  aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -5591,7 +5591,7 @@ doTestValidLogicalSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5651,7 +5651,7 @@ doTestValidLogicalSetCompares
         stuff.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            Logical aValue(testSet1l[ii]._testValue);
+            Logical aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -5693,7 +5693,7 @@ doTestValidLogicalSetCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            Logical aValue(testSet1r[ii]._testValue);
+            Logical aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -5774,7 +5774,7 @@ doTestValidLogicalSetCompares
             stuff.addValue(std::make_shared<Logical>(false));
             for (size_t ii = 0; (0 == result) && (numTestValues2l > ii); ++ii)
             {
-                Logical aValue(testSet2l[ii]._testValue);
+                Logical aValue{testSet2l[ii]._testValue};
 
                 if (testSet2l[ii]._lessThan != aValue.lessThan(stuff))
                 {
@@ -5816,7 +5816,7 @@ doTestValidLogicalSetCompares
             }
             for (size_t ii = 0; (0 == result) && (numTestValues2r > ii); ++ii)
             {
-                Logical aValue(testSet2r[ii]._testValue);
+                Logical aValue{testSet2r[ii]._testValue};
 
                 if (testSet2r[ii]._lessThan != stuff.lessThan(aValue))
                 {
@@ -5882,7 +5882,7 @@ doTestValidIntegerSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid integer set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6052,7 +6052,7 @@ doTestValidIntegerSetCompares
         stuff.addValue(std::make_shared<Integer>(0));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            Integer aValue(testSet1l[ii]._testValue);
+            Integer aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -6094,7 +6094,7 @@ doTestValidIntegerSetCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            Integer aValue(testSet1r[ii]._testValue);
+            Integer aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -6159,7 +6159,7 @@ doTestValidStringSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6255,7 +6255,7 @@ doTestValidStringSetCompares
         stuff.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
         {
-            String  aValue(testSet1l[ii]._testValue);
+            String  aValue{testSet1l[ii]._testValue};
 
             if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
             {
@@ -6297,7 +6297,7 @@ doTestValidStringSetCompares
         }
         for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
         {
-            String  aValue(testSet1r[ii]._testValue);
+            String  aValue{testSet1r[ii]._testValue};
 
             if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
             {
@@ -6362,7 +6362,7 @@ doTestInvalidArrayCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid array compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6395,7 +6395,7 @@ doTestInvalidArrayCompares
         leftValue.addValue(std::make_shared<String>());
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -6477,7 +6477,7 @@ doTestInvalidLogicalMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6508,7 +6508,7 @@ doTestInvalidLogicalMapCompares
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -6590,7 +6590,7 @@ doTestInvalidIntegerMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid integer map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6620,7 +6620,7 @@ doTestInvalidIntegerMapCompares
         leftValue.addValue(std::make_shared<Integer>(12), std::make_shared<Double>(1234.5));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -6702,7 +6702,7 @@ doTestInvalidStringMapCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string map compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6734,7 +6734,7 @@ doTestInvalidStringMapCompares
         leftValue.addValue(std::make_shared<String>("ghi"), std::make_shared<String>("789"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -6816,7 +6816,7 @@ doTestInvalidLogicalSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6847,7 +6847,7 @@ doTestInvalidLogicalSetCompares
         leftValue.addValue(std::make_shared<Logical>(true));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -6929,7 +6929,7 @@ doTestInvalidIntegerSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid integer set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6959,7 +6959,7 @@ doTestInvalidIntegerSetCompares
         leftValue.addValue(std::make_shared<Integer>(12));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -7041,7 +7041,7 @@ doTestInvalidStringSetCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string set compares
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7073,7 +7073,7 @@ doTestInvalidStringSetCompares
         leftValue.addValue(std::make_shared<String>("ghi"));
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
-            Value & aRightValue = *rightValues[ii];
+            Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
             if (status.IsValid())
@@ -7155,7 +7155,7 @@ doTestArrayIndices
      const int      argc,
      Ptr(Ptr(char)) argv) // array indices
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7272,7 +7272,7 @@ doTestLogicalMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7377,7 +7377,7 @@ doTestIntegerMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7482,7 +7482,7 @@ doTestStringMapSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // string map searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7587,7 +7587,7 @@ doTestLogicalSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7679,7 +7679,7 @@ doTestIntegerSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7771,7 +7771,7 @@ doTestStringSetSearches
      const int      argc,
      Ptr(Ptr(char)) argv) // string set searches
 {
-    int result = 0;
+    int result{0};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7863,7 +7863,7 @@ doTestEmptyArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7934,7 +7934,7 @@ doTestSingularArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8010,7 +8010,7 @@ doTestSmallArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8095,7 +8095,7 @@ doTestBigArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // big array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8127,8 +8127,8 @@ doTestBigArrayValueAsJSON
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
-                    Ptr(uint8_t)    addr = bigBlob.get();
-                    uint8_t         aByte = StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii);
+                    Ptr(uint8_t)    addr{bigBlob.get()};
+                    uint8_t         aByte{StaticCast(uint8_t, ReinterpretCast(intptr_t, addr) ^ ii)};
 
                     if (0 != ii)
                     {
@@ -8188,7 +8188,7 @@ doTestEmptyMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8259,7 +8259,7 @@ doTestSingularLogicalMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8337,7 +8337,7 @@ doTestSingularIntegerMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8413,7 +8413,7 @@ doTestSingularStringMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8491,7 +8491,7 @@ doTestSmallLogicalMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8572,7 +8572,7 @@ doTestSmallIntegerMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8654,7 +8654,7 @@ doTestSmallStringMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small string map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8742,7 +8742,7 @@ doTestEmptySetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8813,7 +8813,7 @@ doTestSingularLogicalSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular logical set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8889,7 +8889,7 @@ doTestSingularIntegerSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular integer set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8965,7 +8965,7 @@ doTestSingularStringSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // singular string set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9041,7 +9041,7 @@ doTestSmallLogicalSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small logical set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9122,7 +9122,7 @@ doTestSmallIntegerSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9211,7 +9211,7 @@ doTestSmallStringSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // small string set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9300,7 +9300,7 @@ doTestArrayWithArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array value
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9376,7 +9376,7 @@ doTestArrayWithMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9452,7 +9452,7 @@ doTestArrayWithSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9528,7 +9528,7 @@ doTestMapWithArrayValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with array
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9606,7 +9606,7 @@ doTestMapWithMapValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with map
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9684,7 +9684,7 @@ doTestMapWithSetValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // map with set
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9765,7 +9765,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

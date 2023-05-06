@@ -61,13 +61,13 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The character that ends the network part of a ChannelName. */
-static const char   kEndNetwork = ':';
+static const char   kEndNetwork{':'};
 
 /*! @brief The character that starts the path part of a ChannelName. */
-static const char   kStartPath = '/';
+static const char   kStartPath{'/'};
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
-static const char   kStartProtocol = '#';
+static const char   kStartProtocol{'#'};
 
 /*! @brief The standard name for any protocol. */
 static const std::string    kProtocolAnyName{"any"};
@@ -151,11 +151,11 @@ nImO::ChannelName::ChannelName
 nImO::ChannelName::ChannelName
     (ChannelName && other)
     noexcept :
-        _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
+        _network(std::move(other._network)), _node(std::move(other._node)), _path(std::move(other._path)),
+        _transport(other._transport)
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._network = other._node = other._path = "";
     other._transport = TransportType::kUnknown;
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
@@ -196,6 +196,37 @@ nImO::ChannelName::getName
     return result;
 } // nImO::ChannelName::getName
 
+nImO::ChannelName &
+nImO::ChannelName::operator=
+    (const ChannelName &  other)
+{
+    ODL_OBJENTER(); //####
+    _network = other._network;
+    _node = other._node;
+    _path = other._path;
+    _transport = other._transport;
+    ODL_OBJEXIT(); //####
+    return *this;
+} // nImO::ChannelName::operator=
+
+/*! @brief The move assignment operator.
+ @param[in] other The object to be moved.
+ @return The updated object. */
+nImO::ChannelName &
+nImO::ChannelName::operator=
+    (ChannelName &&  other)
+    noexcept
+{
+    ODL_OBJENTER(); //####
+    _network = std::move(other._network);
+    _node = std::move(other._node);
+    _path = std::move(other._path);
+    _transport = other._transport;
+    other._transport = TransportType::kUnknown;
+    ODL_OBJEXIT(); //####
+    return *this;
+} // nImO::ChannelName::operator=
+
 nImO::SpChannelName
 nImO::ChannelName::parse
     (const std::string &    input,
@@ -211,7 +242,7 @@ nImO::ChannelName::parse
         kNode,
         kPath,
         kProtocol
-    }               scanState = kNetwork;
+    }               scanState{kNetwork};
     SpChannelName   result;
     std::string     networkName;
     std::string     nodeName;
@@ -231,7 +262,7 @@ nImO::ChannelName::parse
     }
     for (size_t ii = 0, mm = input.length(); okSoFar && (ii < mm); ++ii)
     {
-        char    cc = input[ii];
+        char    cc{input[ii]};
 
         switch (scanState)
         {
@@ -385,6 +416,18 @@ nImO::ChannelName::parse
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::ChannelName::parse
+
+void
+nImO::ChannelName::swap
+    (ChannelName &  other)
+{
+    ODL_ENTER(); //####
+    _network.swap(other._network);
+    _node.swap(other._node);
+    _path.swap(other._path);
+    std::swap(_transport, other._transport);
+    ODL_EXIT(); //####
+} // nImO::ChannelName::swap
 
 nImO::StringSet
 nImO::ChannelName::transportNames

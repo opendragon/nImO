@@ -123,8 +123,8 @@ nImO::AnnounceServiceData::setServiceData
      const std::string &    hostAddress)
 {
     bool    okSoFar;
-    size_t  serviceNameLength = serviceName.length();
-    size_t  hostNameLength = hostName.length();
+    size_t  serviceNameLength{serviceName.length()};
+    size_t  hostNameLength{hostName.length()};
 
     ODL_OBJENTER(); //####
     ODL_I1("port = ", port); //####
@@ -138,21 +138,21 @@ nImO::AnnounceServiceData::setServiceData
         {
             _serviceNameBuffer[serviceNameLength++] = '.';
         }
-        _serviceNameBuffer[serviceNameLength] = '\0';
-        std::string     scratchName(_serviceNameBuffer);
-        mDNS::string_t  serviceString = make_mdns_string(scratchName.c_str(), scratchName.length());
-        mDNS::string_t  hostNameString = make_mdns_string(hostName.c_str(), hostNameLength);
+        _serviceNameBuffer[serviceNameLength] = kEndOfString;
+        std::string     scratchName{_serviceNameBuffer};
+        mDNS::string_t  serviceString{make_mdns_string(scratchName.c_str(), scratchName.length())};
+        mDNS::string_t  hostNameString{make_mdns_string(hostName.c_str(), hostNameLength)};
         // Build the service instance "<hostname>.<_service-name>._tcp.local." string
-        std::string     serviceInstanceBuffer(hostNameString.str);
+        std::string     serviceInstanceBuffer{hostNameString.str};
 
         serviceInstanceBuffer += "-" + std::to_string(_port) + ".";
         serviceInstanceBuffer += serviceString.str;
-        mDNS::string_t  serviceInstanceString = make_mdns_string(serviceInstanceBuffer.c_str());
+        mDNS::string_t  serviceInstanceString{make_mdns_string(serviceInstanceBuffer.c_str())};
         // Build the "<hostname>.local." string
-        std::string     qualifiedHostnameBuffer(hostNameString.str);
+        std::string     qualifiedHostnameBuffer{hostNameString.str};
 
         qualifiedHostnameBuffer += ".local.";
-        mDNS::string_t hostnameQualifiedQtring = make_mdns_string(qualifiedHostnameBuffer.c_str());
+        mDNS::string_t hostnameQualifiedQtring{make_mdns_string(qualifiedHostnameBuffer.c_str())};
 
         _serviceName = make_mdns_string(serviceString);
         _hostName = make_mdns_string(hostNameString);

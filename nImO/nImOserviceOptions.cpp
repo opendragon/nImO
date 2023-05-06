@@ -111,9 +111,9 @@ nImO::ProcessServiceOptions
         kOptionVERSION
     }; // OptionIndex
 
-    bool        isAdapter = (0 < matchingCriteria.length());
-    bool        keepGoing = true;
-    std::string serviceKindName(isAdapter ? "adapter" : "service");
+    bool        isAdapter{0 < matchingCriteria.length()};
+    bool        keepGoing{true};
+    std::string serviceKindName{isAdapter ? "adapter" : "service"};
     std::string goPartText("  --go, -g \tStart the ");
     std::string infoPartText("  --info, -i \tPrint executable type, supported ");
     std::string reportPartText("  --report, -r \tReport the ");
@@ -146,9 +146,9 @@ nImO::ProcessServiceOptions
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "vers", Option_::Arg::None,
                                             T_("  --vers, -v \tPrint version information and exit")};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    int                 argcWork = argc;
-    Ptr(Ptr(char))      argvWork = argv;
-    std::string         usageString("USAGE: ");
+    int                 argcWork{argc};
+    Ptr(Ptr(char))      argvWork{argv};
+    std::string         usageString{"USAGE: "};
     std::string         argList{ArgumentsToArgString(argumentDescriptions)};
 
     if (nullptr != arguments)
@@ -176,7 +176,7 @@ nImO::ProcessServiceOptions
     }
     usageString += "\n\nOptions:";
     // firstDescriptor, helpDescriptor, versionDescriptor, lastDescriptor
-    size_t descriptorCount = 4;
+    size_t descriptorCount{4};
 
     if (0 == (skipOptions & kSkipArgsOption))
     {
@@ -206,8 +206,8 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
-    Ptr(Option_::Descriptor)    usage = new Option_::Descriptor[descriptorCount];
-    Ptr(Option_::Descriptor)    usageWalker = usage;
+    Ptr(Option_::Descriptor)    usage{new Option_::Descriptor[descriptorCount]};
+    Ptr(Option_::Descriptor)    usageWalker{usage};
 
 #if MAC_OR_LINUX_
     firstDescriptor.help = strdup(usageString.c_str());
@@ -248,10 +248,10 @@ nImO::ProcessServiceOptions
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats          stats(usage, argcWork, argvWork);
-    Ptr(Option_::Option)    options = new Option_::Option[stats.options_max];
-    Ptr(Option_::Option)    buffer = new Option_::Option[stats.buffer_max];
-    Option_::Parser         parse(usage, argcWork, argvWork, options, buffer, 1);
+    Option_::Stats          stats{usage, argcWork, argvWork};
+    Ptr(Option_::Option)    options{new Option_::Option[stats.options_max]};
+    Ptr(Option_::Option)    buffer{new Option_::Option[stats.buffer_max]};
+    Option_::Parser         parse{usage, argcWork, argvWork, options, buffer, 1};
     std::string             badArgs;
 
     if (parse.error())
@@ -277,7 +277,7 @@ nImO::ProcessServiceOptions
     {
         for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
         {
-            Ptr(nImO::BaseArgumentDescriptor)   anArg = argumentDescriptions[ii];
+            Ptr(nImO::BaseArgumentDescriptor)   anArg{argumentDescriptions[ii]};
 
             if (0 < ii)
             {
@@ -294,7 +294,7 @@ nImO::ProcessServiceOptions
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINFO)])
     {
-        bool    needTab = true;
+        bool    needTab{true};
 
         // Note that we don't report the 'h' and 'v' options, as they are not involved in
         // determining what choices to offer when launching a service.

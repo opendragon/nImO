@@ -202,7 +202,7 @@ nImO::Map::deeplyEqualTo
     (const Value &  other)
     const
 {
-    bool    result = (&other == this);
+    bool    result{&other == this};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -254,7 +254,7 @@ nImO::Map::empty
     (void)
     const
 {
-    bool    result = inherited2::empty();
+    bool    result{inherited2::empty()};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(result); //####
@@ -282,7 +282,7 @@ nImO::Map::equalTo
             {
                 SpValue aValue{walker->first};
 
-                if (aValue)
+                if (nullptr != aValue)
                 {
                     result &= aValue->equalTo(other);
                 }
@@ -302,7 +302,7 @@ nImO::Map::extractValue
 {
     SpValue result;
     bool    atEnd;
-    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
+    bool    isEmpty{DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte)};
     int     aByte;
 
     ODL_ENTER(); //####
@@ -323,8 +323,8 @@ nImO::Map::extractValue
         else
         {
             ODL_LOG("! (atEnd)"); //####
-            static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                                 DataKind::OtherContainerTypeMap | DataKind::OtherContainerEmptyValue);
+            static const DataKind   endMarker{DataKind::Other | DataKind::OtherContainerEnd |
+                                                DataKind::OtherContainerTypeMap | DataKind::OtherContainerEmptyValue};
 
             if (toUType(endMarker) == aByte)
             {
@@ -354,7 +354,7 @@ nImO::Map::extractValue
         {
             ODL_LOG("! (atEnd)"); //####
             IntStatus   numStatus;
-            int64_t     elementCount = extractInt64FromMessage(theMessage, aByte, position, numStatus);
+            int64_t     elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
 
             if (IntStatus::Successful == numStatus)
             {
@@ -378,7 +378,7 @@ nImO::Map::extractValue
                     }
                     else
                     {
-                        bool    okSoFar = true;
+                        bool    okSoFar{true};
 
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, aMap->size())); )
                         {
@@ -458,9 +458,9 @@ nImO::Map::extractValue
                             else
                             {
                                 ODL_LOG("! (atEnd)"); //####
-                                static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                                                     DataKind::OtherContainerTypeMap |
-                                                                     DataKind::OtherContainerNonEmptyValue);
+                                static const DataKind   endMarker{DataKind::Other | DataKind::OtherContainerEnd |
+                                                                    DataKind::OtherContainerTypeMap |
+                                                                    DataKind::OtherContainerNonEmptyValue};
 
                                 if (toUType(endMarker) == aByte)
                                 {
@@ -535,7 +535,7 @@ nImO::Map::getTypeTag
     (void)
     const
 {
-    DataKind    result = DataKind::OtherMessageExpectedOtherValue;
+    DataKind    result{DataKind::OtherMessageExpectedOtherValue};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
@@ -565,7 +565,7 @@ nImO::Map::greaterThan
         {
             SpValue aValue{walker->first};
 
-            if (aValue)
+            if (nullptr != aValue)
             {
                 result &= aValue->greaterThan(other);
             }
@@ -596,7 +596,7 @@ nImO::Map::greaterThanOrEqual
             {
                 SpValue aValue{walker->first};
 
-                if (aValue)
+                if (nullptr != aValue)
                 {
                     result &= aValue->greaterThanOrEqual(other);
                 }
@@ -630,7 +630,7 @@ nImO::Map::lessThan
         {
             SpValue aValue{walker->first};
 
-            if (aValue)
+            if (nullptr != aValue)
             {
                 result &= aValue->lessThan(other);
             }
@@ -661,7 +661,7 @@ nImO::Map::lessThanOrEqual
             {
                 SpValue aValue{walker->first};
 
-                if (aValue)
+                if (nullptr != aValue)
                 {
                     result &= aValue->lessThanOrEqual(other);
                 }
@@ -713,7 +713,7 @@ nImO::Map::printToStringBuffer
      const bool     squished)
     const
 {
-    bool    first = true;
+    bool    first{true};
 
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -752,7 +752,7 @@ nImO::Map::printToStringBufferAsJSON
      const bool     squished)
     const
 {
-    bool    first = true;
+    bool    first{true};
 
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -805,8 +805,8 @@ nImO::Map::random
     (void)
     const
 {
-    auto    result(inherited2::begin());
-    size_t  howMany = size();
+    auto    result{inherited2::begin()};
+    size_t  howMany{size()};
 
     ODL_OBJENTER(); //####
     if (0 < howMany)
@@ -824,8 +824,8 @@ nImO::Map::iterator
 nImO::Map::random
     (void)
 {
-    auto    result(inherited2::begin());
-    size_t  howMany = size();
+    auto    result{inherited2::begin()};
+    size_t  howMany{size()};
 
     ODL_OBJENTER(); //####
     if (0 < howMany)
@@ -845,11 +845,11 @@ nImO::Map::readFromStringBuffer
      size_t &               position)
 {
     bool    atEnd;
-    bool    done = false;
-    bool    valid = false;
+    bool    done{false};
+    bool    valid{false};
     auto    result{std::make_shared<Map>()};
-    size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex++, atEnd);
+    size_t  localIndex{position};
+    int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -893,7 +893,7 @@ nImO::Map::readFromStringBuffer
                 }
                 else
                 {
-                    Enumerable  elementType = keyValue->enumerationType();
+                    Enumerable  elementType{keyValue->enumerationType()};
 
                     if ((Enumerable::Unknown == elementType) || (Enumerable::NotEnumerable == elementType))
                     {
@@ -976,7 +976,7 @@ nImO::Map::size
     (void)
     const
 {
-    size_t  result = inherited2::size();
+    size_t  result{inherited2::size()};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(result); //####
@@ -993,12 +993,12 @@ nImO::Map::writeToMessage
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        const DataKind  startMap = (DataKind::Other | DataKind::OtherContainerStart |
+        const DataKind  startMap{DataKind::Other | DataKind::OtherContainerStart |
                                     DataKind::OtherContainerTypeMap |
-                                    DataKind::OtherContainerNonEmptyValue);
-        const DataKind  endMap = (DataKind::Other | DataKind::OtherContainerEnd |
-                                  DataKind::OtherContainerTypeMap |
-                                  DataKind::OtherContainerNonEmptyValue);
+                                    DataKind::OtherContainerNonEmptyValue};
+        const DataKind  endMap{DataKind::Other | DataKind::OtherContainerEnd |
+                                DataKind::OtherContainerTypeMap |
+                                DataKind::OtherContainerNonEmptyValue};
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);

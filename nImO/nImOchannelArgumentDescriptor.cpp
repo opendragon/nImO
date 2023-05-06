@@ -107,12 +107,10 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
     (ChannelArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+        inherited(std::move(other)), _currentValue(std::move(other._currentValue)), _defaultValue(std::move(other._defaultValue))
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._defaultValue = "";
-    other._currentValue.reset();
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
@@ -184,7 +182,7 @@ ChannelArgumentDescriptor::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        ChannelArgumentDescriptor   temp(other);
+        ChannelArgumentDescriptor   temp{other};
 
         swap(temp);
     }
@@ -202,10 +200,8 @@ ChannelArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
-        _currentValue = other._currentValue;
-        _defaultValue = other._defaultValue;
-        other._defaultValue = "";
-        other._currentValue.reset();
+        _currentValue = std::move(other._currentValue);
+        _defaultValue = std::move(other._defaultValue);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

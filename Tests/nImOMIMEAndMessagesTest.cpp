@@ -126,7 +126,7 @@ setValueAndCheck
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    int     result = 1;
+    int     result{1};
 
     if (0 < stuff.getLength())
     {
@@ -180,7 +180,7 @@ extractValueAndCheck
      const size_t       insertedSize,
      const Value &      expectedValue)
 {
-    int             result = 1;
+    int             result{1};
     StringVector    inVec;
     ByteVector      outBytes;
 
@@ -211,7 +211,7 @@ extractValueAndCheck
                 }
                 else
                 {
-                    CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+                    auto    asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr == asFlaw)
                     {
@@ -272,7 +272,7 @@ doTestMIMEBytesMod3Is0
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 0
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -289,7 +289,7 @@ doTestMIMEBytesMod3Is0
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3);
+            int mm{ii * 3};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -303,9 +303,9 @@ doTestMIMEBytesMod3Is0
             DecodeMIMEToBytes(inOutValue, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -341,7 +341,7 @@ doTestMIMEBytesMod3Is1
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 1
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -358,7 +358,7 @@ doTestMIMEBytesMod3Is1
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3) + 1;
+            int mm{(ii * 3) + 1};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -372,9 +372,9 @@ doTestMIMEBytesMod3Is1
             DecodeMIMEToBytes(inOutValue, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -410,7 +410,7 @@ doTestMIMEBytesMod3Is2
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 2
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -427,7 +427,7 @@ doTestMIMEBytesMod3Is2
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3) + 2;
+            int mm{(ii * 3) + 2};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -441,9 +441,9 @@ doTestMIMEBytesMod3Is2
             DecodeMIMEToBytes(inOutValue, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -479,7 +479,7 @@ doTestMIMEBytesMod3Is0Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 0
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -496,7 +496,7 @@ doTestMIMEBytesMod3Is0Packaged
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3);
+            int mm{ii * 3};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -513,9 +513,9 @@ doTestMIMEBytesMod3Is0Packaged
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -551,7 +551,7 @@ doTestMIMEBytesMod3Is1Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 1
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -568,7 +568,7 @@ doTestMIMEBytesMod3Is1Packaged
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3) + 1;
+            int mm{(ii * 3) + 1};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -585,9 +585,9 @@ doTestMIMEBytesMod3Is1Packaged
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -623,7 +623,7 @@ doTestMIMEBytesMod3Is2Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 2
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -640,7 +640,7 @@ doTestMIMEBytesMod3Is2Packaged
 
         for (int ii = 0; ii < kMaxMIMETests; ++ii)
         {
-            int mm = (ii * 3) + 2;
+            int mm{(ii * 3) + 2};
 
             inValue.clear();
             inValue.reserve(mm);
@@ -650,17 +650,16 @@ doTestMIMEBytesMod3Is2Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto    inOutString{PackageMessage(inOutValue)};
-
+            auto        inOutString{PackageMessage(inOutValue)};
             std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
             if (inValue.size() == outValue.size())
             {
-                if (memcmp(inValue.data(), outValue.data(), inValue.size()))
+                if (0 != memcmp(inValue.data(), outValue.data(), inValue.size()))
                 {
-                    ODL_LOG("(memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
+                    ODL_LOG("(0 != memcmp(inValue.data(), outValue.data(), inValue.size()))"); //####
                     result = 1;
                     break;
                 }
@@ -696,7 +695,7 @@ doTestMIMEInsertEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -780,7 +779,7 @@ doTestMIMEExtractEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -822,7 +821,7 @@ doTestMIMEExtractEmptyMessage
                         }
                         else
                         {
-                            CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+                            auto    asFlaw{extractedValue->asFlaw()};
 
                             if (nullptr == asFlaw)
                             {
@@ -875,7 +874,7 @@ doTestMIMEInsertLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -932,7 +931,7 @@ doTestMIMEExtractLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -955,8 +954,8 @@ doTestMIMEExtractLogicalMessage
             const size_t    insertedTrueLinesCount{A_SIZE(insertedTrueLines)};
             std::string     insertedFalseLines[]{ "98D/" };
             const size_t    insertedFalseLinesCount{A_SIZE(insertedFalseLines)};
-            Logical         falseValue(false);
-            Logical         trueValue(true);
+            Logical         falseValue{false};
+            Logical         trueValue{true};
 
             result = extractValueAndCheck(*stuff, insertedTrueLines, insertedTrueLinesCount, trueValue);
             if (0 == result)
@@ -989,7 +988,7 @@ doTestMIMEInsertTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1053,7 +1052,7 @@ doTestMIMEExtractTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1078,9 +1077,9 @@ doTestMIMEExtractTinyIntegerMessage
             const size_t    insertedZeroLinesCount{A_SIZE(insertedZeroLines)};
             std::string     insertedPlus12Lines[]{ "9Az8" };
             const size_t    insertedPlus12LinesCount{A_SIZE(insertedPlus12Lines)};
-            Integer         minus12Value(-12);
-            Integer         zeroValue(0);
-            Integer         plus12Value(12);
+            Integer         minus12Value{-12};
+            Integer         zeroValue{0};
+            Integer         plus12Value{12};
 
             result = extractValueAndCheck(*stuff, insertedMinus12Lines, insertedMinus12LinesCount, minus12Value);
             if (0 == result)
@@ -1117,7 +1116,7 @@ doTestMIMEInsertSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1174,7 +1173,7 @@ doTestMIMEExtractSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1197,8 +1196,8 @@ doTestMIMEExtractSmallIntegerMessage
             const size_t    insertedMinus144LinesCount{A_SIZE(insertedMinus144Lines)};
             std::string     insertedPlus144Lines[]{ "9CEAkPw=" };
             const size_t    insertedPlus144LinesCount{A_SIZE(insertedPlus144Lines)};
-            Integer         minus144Value(-144);
-            Integer         plus144Value(144);
+            Integer         minus144Value{-144};
+            Integer         plus144Value{144};
 
             result = extractValueAndCheck(*stuff, insertedMinus144Lines, insertedMinus144LinesCount, minus144Value);
             if (0 == result)
@@ -1231,7 +1230,7 @@ doTestMIMEInsertMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1257,12 +1256,10 @@ doTestMIMEInsertMediumIntegerMessage
             std::string     expectedPlus1234567Lines[]{ "9CIS1of8" };
             const size_t    expectedPlus1234567LinesCount{A_SIZE(expectedPlus1234567Lines)};
 
-            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Lines,
-                                      expectedMinus1234567LinesCount);
+            result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Lines, expectedMinus1234567LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Lines,
-                                          expectedPlus1234567LinesCount);
+                result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Lines, expectedPlus1234567LinesCount);
             }
         }
     }
@@ -1290,7 +1287,7 @@ doTestMIMEExtractMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1313,15 +1310,13 @@ doTestMIMEExtractMediumIntegerMessage
             const size_t    insertedMinus1234567LinesCount{A_SIZE(insertedMinus1234567Lines)};
             std::string     insertedPlus1234567Lines[]{ "9CIS1of8" };
             const size_t    insertedPlus1234567LinesCount{A_SIZE(insertedPlus1234567Lines)};
-            Integer         minus1234567Value(-1234567);
-            Integer         plus1234567Value(1234567);
+            Integer         minus1234567Value{-1234567};
+            Integer         plus1234567Value{1234567};
 
-            result = extractValueAndCheck(*stuff, insertedMinus1234567Lines, insertedMinus1234567LinesCount,
-                                          minus1234567Value);
+            result = extractValueAndCheck(*stuff, insertedMinus1234567Lines, insertedMinus1234567LinesCount, minus1234567Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedPlus1234567Lines, insertedPlus1234567LinesCount,
-                                              plus1234567Value);
+                result = extractValueAndCheck(*stuff, insertedPlus1234567Lines, insertedPlus1234567LinesCount, plus1234567Value);
             }
         }
     }
@@ -1349,7 +1344,7 @@ doTestMIMEInsertBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1375,12 +1370,10 @@ doTestMIMEInsertBigIntegerMessage
             std::string     expectedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
             const size_t    expectedPlusBigNumberLinesCount{A_SIZE(expectedPlusBigNumberLines)};
 
-            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberLines,
-                                      expectedMinusBigNumberLinesCount);
+            result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberLines, expectedMinusBigNumberLinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberLines,
-                                          expectedPlusBigNumberLinesCount);
+                result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberLines, expectedPlusBigNumberLinesCount);
             }
         }
     }
@@ -1408,7 +1401,7 @@ doTestMIMEExtractBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1431,15 +1424,13 @@ doTestMIMEExtractBigIntegerMessage
             const size_t    insertedMinusBigNumberLinesCount{A_SIZE(insertedMinusBigNumberLines)};
             std::string     insertedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
             const size_t    insertedPlusBigNumberLinesCount{A_SIZE(insertedPlusBigNumberLines)};
-            Integer         minusBigNumberValue(-20015998343868);
-            Integer         plusBigNumberValue(20015998343868);
+            Integer         minusBigNumberValue{-20015998343868};
+            Integer         plusBigNumberValue{20015998343868};
 
-            result = extractValueAndCheck(*stuff, insertedMinusBigNumberLines, insertedMinusBigNumberLinesCount,
-                                          minusBigNumberValue);
+            result = extractValueAndCheck(*stuff, insertedMinusBigNumberLines, insertedMinusBigNumberLinesCount, minusBigNumberValue);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedPlusBigNumberLines, insertedPlusBigNumberLinesCount,
-                                              plusBigNumberValue);
+                result = extractValueAndCheck(*stuff, insertedPlusBigNumberLines, insertedPlusBigNumberLinesCount, plusBigNumberValue);
             }
         }
     }
@@ -1467,7 +1458,7 @@ doTestMIMEInsertEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1517,7 +1508,7 @@ doTestMIMEExtractEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1540,8 +1531,7 @@ doTestMIMEExtractEmptyStringMessage
             const size_t    insertedEmptyStringLinesCount{A_SIZE(insertedEmptyStringLines)};
             String          emptyStringValue;
 
-            result = extractValueAndCheck(*stuff, insertedEmptyStringLines, insertedEmptyStringLinesCount,
-                                          emptyStringValue);
+            result = extractValueAndCheck(*stuff, insertedEmptyStringLines, insertedEmptyStringLinesCount, emptyStringValue);
         }
     }
     catch (...)
@@ -1568,7 +1558,7 @@ doTestMIMEInsertShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1591,8 +1581,7 @@ doTestMIMEInsertShortStringMessage
             std::string     expectedShortStringLines[]{ "9oZhYmNkZWb+" };
             const size_t    expectedShortStringLinesCount{A_SIZE(expectedShortStringLines)};
 
-            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringLines,
-                                      expectedShortStringLinesCount);
+            result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringLines, expectedShortStringLinesCount);
         }
     }
     catch (...)
@@ -1619,7 +1608,7 @@ doTestMIMEExtractShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1640,10 +1629,9 @@ doTestMIMEExtractShortStringMessage
         {
             std::string     insertedShortStringLines[]{ "9oZhYmNkZWb+" };
             const size_t    insertedShortStringLinesCount{A_SIZE(insertedShortStringLines)};
-            String          shortStringValue("abcdef");
+            String          shortStringValue{"abcdef"};
 
-            result = extractValueAndCheck(*stuff, insertedShortStringLines, insertedShortStringLinesCount,
-                                          shortStringValue);
+            result = extractValueAndCheck(*stuff, insertedShortStringLines, insertedShortStringLinesCount, shortStringValue);
         }
     }
     catch (...)
@@ -1670,7 +1658,7 @@ doTestMIMEInsertMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1690,12 +1678,10 @@ doTestMIMEInsertMediumStringMessage
         else
         {
             SpValue         mediumStringValue{new String("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
-            std::string     expectedMediumStringLines[]{
-                                                "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
+            std::string     expectedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
             const size_t    expectedMediumStringLinesCount{A_SIZE(expectedMediumStringLines)};
 
-            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringLines,
-                                      expectedMediumStringLinesCount);
+            result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringLines, expectedMediumStringLinesCount);
         }
     }
     catch (...)
@@ -1722,7 +1708,7 @@ doTestMIMEExtractMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1741,13 +1727,11 @@ doTestMIMEExtractMediumStringMessage
         }
         else
         {
-            std::string     insertedMediumStringLines[]{
-                                                "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
+            std::string     insertedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
             const size_t    insertedMediumStringLinesCount{A_SIZE(insertedMediumStringLines)};
-            String          mediumStringValue("abcdefabcdefabcdefabcdefabcdefabcdefabcdef");
+            String          mediumStringValue{"abcdefabcdefabcdefabcdefabcdefabcdefabcdef"};
 
-            result = extractValueAndCheck(*stuff, insertedMediumStringLines, insertedMediumStringLinesCount,
-                                          mediumStringValue);
+            result = extractValueAndCheck(*stuff, insertedMediumStringLines, insertedMediumStringLinesCount, mediumStringValue);
         }
     }
     catch (...)
@@ -1774,7 +1758,7 @@ doTestMIMEInsertEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1824,7 +1808,7 @@ doTestMIMEExtractEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1874,7 +1858,7 @@ doTestMIMEInsertSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1898,7 +1882,7 @@ doTestMIMEInsertSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            SpValue                 smallBlobValue{ new Blob(actualData, actualDataCount)};
+            SpValue                 smallBlobValue{new Blob(actualData, actualDataCount)};
             std::string             expectedSmallBlobLines[]{ "9qYSIzRFVmf+" };
             const size_t            expectedSmallBlobLinesCount{A_SIZE(expectedSmallBlobLines)};
 
@@ -1929,7 +1913,7 @@ doTestMIMEExtractSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1955,7 +1939,7 @@ doTestMIMEExtractSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            Blob                    smallBlobValue(actualData, actualDataCount);
+            Blob                    smallBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedSmallBlobLines, insertedSmallBlobLinesCount, smallBlobValue);
         }
@@ -1984,7 +1968,7 @@ doTestMIMEInsertMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2015,8 +1999,7 @@ doTestMIMEInsertMediumBlobMessage
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
             SpValue                 mediumBlobValue{new Blob(actualData, actualDataCount)};
-            std::string             expectedMediumBlobLines[]{
-                                                "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
+            std::string             expectedMediumBlobLines[]{ "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
             const size_t            expectedMediumBlobLinesCount{A_SIZE(expectedMediumBlobLines)};
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobLines, expectedMediumBlobLinesCount);
@@ -2046,7 +2029,7 @@ doTestMIMEExtractMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2065,8 +2048,7 @@ doTestMIMEExtractMediumBlobMessage
         }
         else
         {
-            std::string             insertedMediumBlobLines[]{
-                                                "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
+            std::string             insertedMediumBlobLines[]{ "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
             const size_t            insertedMediumBlobLinesCount{A_SIZE(insertedMediumBlobLines)};
             static const uint8_t    actualData[]
             {
@@ -2079,10 +2061,9 @@ doTestMIMEExtractMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            Blob                    mediumBlobValue(actualData, actualDataCount);
+            Blob                    mediumBlobValue{actualData, actualDataCount};
 
-            result = extractValueAndCheck(*stuff, insertedMediumBlobLines, insertedMediumBlobLinesCount,
-                                          mediumBlobValue);
+            result = extractValueAndCheck(*stuff, insertedMediumBlobLines, insertedMediumBlobLinesCount, mediumBlobValue);
         }
     }
     catch (...)
@@ -2109,7 +2090,7 @@ doTestMIMEInsertSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2135,12 +2116,10 @@ doTestMIMEInsertSingleDoubleMessage
             std::string     expectedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
             const size_t    expectedMinus42Point5LinesCount{A_SIZE(expectedMinus42Point5Lines)};
 
-            result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Lines,
-                                      expectedPlus42Point5LinesCount);
+            result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Lines, expectedPlus42Point5LinesCount);
             if (0 == result)
             {
-                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Lines,
-                                          expectedMinus42Point5LinesCount);
+                result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Lines, expectedMinus42Point5LinesCount);
             }
         }
     }
@@ -2168,7 +2147,7 @@ doTestMIMEExtractSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2191,15 +2170,13 @@ doTestMIMEExtractSingleDoubleMessage
             const size_t    insertedPlus42Point5LinesCount{A_SIZE(insertedPlus42Point5Lines)};
             std::string     insertedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
             const size_t    insertedMinus42Point5LinesCount{A_SIZE(insertedMinus42Point5Lines)};
-            Double          plus42Point5Value(42.5);
-            Double          minus42Point5Value(-42.5);
+            Double          plus42Point5Value{42.5};
+            Double          minus42Point5Value{-42.5};
 
-            result = extractValueAndCheck(*stuff, insertedPlus42Point5Lines, insertedPlus42Point5LinesCount,
-                                          plus42Point5Value);
+            result = extractValueAndCheck(*stuff, insertedPlus42Point5Lines, insertedPlus42Point5LinesCount, plus42Point5Value);
             if (0 == result)
             {
-                result = extractValueAndCheck(*stuff, insertedMinus42Point5Lines, insertedMinus42Point5LinesCount,
-                                              minus42Point5Value);
+                result = extractValueAndCheck(*stuff, insertedMinus42Point5Lines, insertedMinus42Point5LinesCount, minus42Point5Value);
             }
         }
     }
@@ -2227,7 +2204,7 @@ doTestMIMEInsertEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2277,7 +2254,7 @@ doTestMIMEExtractEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2327,7 +2304,7 @@ doTestMIMEInsertEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2377,7 +2354,7 @@ doTestMIMEExtractEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2427,7 +2404,7 @@ doTestMIMEInsertEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2477,7 +2454,7 @@ doTestMIMEExtractEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2527,7 +2504,7 @@ doTestMIMEInsertArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2551,8 +2528,7 @@ doTestMIMEInsertArrayOneLogicalMessage
             const size_t    expectedArrayOneLogicalLinesCount{A_SIZE(expectedArrayOneLogicalLines)};
 
             arrayOneLogical->addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalLines,
-                                      expectedArrayOneLogicalLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalLines, expectedArrayOneLogicalLinesCount);
         }
     }
     catch (...)
@@ -2579,7 +2555,7 @@ doTestMIMEExtractArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2603,8 +2579,7 @@ doTestMIMEExtractArrayOneLogicalMessage
             Array           arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneLogicalLines, insertedArrayOneLogicalLinesCount,
-                                          arrayOneLogical);
+            result = extractValueAndCheck(*stuff, insertedArrayOneLogicalLines, insertedArrayOneLogicalLinesCount, arrayOneLogical);
         }
     }
     catch (...)
@@ -2631,7 +2606,7 @@ doTestMIMEInsertArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2655,8 +2630,7 @@ doTestMIMEInsertArrayOneIntegerMessage
             const size_t    expectedArrayOneIntegerLinesCount{A_SIZE(expectedArrayOneIntegerLines)};
 
             arrayOneInteger->addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerLines,
-                                      expectedArrayOneIntegerLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerLines, expectedArrayOneIntegerLinesCount);
         }
     }
     catch (...)
@@ -2683,7 +2657,7 @@ doTestMIMEExtractArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2707,8 +2681,7 @@ doTestMIMEExtractArrayOneIntegerMessage
             Array           arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneIntegerLines, insertedArrayOneIntegerLinesCount,
-                                          arrayOneInteger);
+            result = extractValueAndCheck(*stuff, insertedArrayOneIntegerLines, insertedArrayOneIntegerLinesCount, arrayOneInteger);
         }
     }
     catch (...)
@@ -2735,7 +2708,7 @@ doTestMIMEInsertArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2759,8 +2732,7 @@ doTestMIMEInsertArrayOneDoubleMessage
             const size_t    expectedArrayOneDoubleLinesCount{A_SIZE(expectedArrayOneDoubleLines)};
 
             arrayOneDouble->addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleLines,
-                                      expectedArrayOneDoubleLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleLines, expectedArrayOneDoubleLinesCount);
         }
     }
     catch (...)
@@ -2787,7 +2759,7 @@ doTestMIMEExtractArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2811,8 +2783,7 @@ doTestMIMEExtractArrayOneDoubleMessage
             Array           arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneDoubleLines, insertedArrayOneDoubleLinesCount,
-                                          arrayOneDouble);
+            result = extractValueAndCheck(*stuff, insertedArrayOneDoubleLines, insertedArrayOneDoubleLinesCount, arrayOneDouble);
         }
     }
     catch (...)
@@ -2839,7 +2810,7 @@ doTestMIMEInsertArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2863,8 +2834,7 @@ doTestMIMEInsertArrayOneStringMessage
             const size_t    expectedArrayOneStringLinesCount{A_SIZE(expectedArrayOneStringLines)};
 
             arrayOneString->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringLines,
-                                      expectedArrayOneStringLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringLines, expectedArrayOneStringLinesCount);
         }
     }
     catch (...)
@@ -2891,7 +2861,7 @@ doTestMIMEExtractArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2915,8 +2885,7 @@ doTestMIMEExtractArrayOneStringMessage
             Array           arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneStringLines, insertedArrayOneStringLinesCount,
-                                          arrayOneString);
+            result = extractValueAndCheck(*stuff, insertedArrayOneStringLines, insertedArrayOneStringLinesCount, arrayOneString);
         }
     }
     catch (...)
@@ -2943,7 +2912,7 @@ doTestMIMEInsertArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2994,7 +2963,7 @@ doTestMIMEExtractArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3018,8 +2987,7 @@ doTestMIMEExtractArrayOneBlobMessage
             Array           arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneBlobLines, insertedArrayOneBlobLinesCount,
-                                          arrayOneBlob);
+            result = extractValueAndCheck(*stuff, insertedArrayOneBlobLines, insertedArrayOneBlobLinesCount, arrayOneBlob);
         }
     }
     catch (...)
@@ -3046,7 +3014,7 @@ doTestMIMEInsertArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3070,8 +3038,7 @@ doTestMIMEInsertArrayOneArrayMessage
             const size_t    expectedArrayOneArrayLinesCount{A_SIZE(expectedArrayOneArrayLines)};
 
             arrayOneArray->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayLines,
-                                      expectedArrayOneArrayLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayLines, expectedArrayOneArrayLinesCount);
         }
     }
     catch (...)
@@ -3098,7 +3065,7 @@ doTestMIMEExtractArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3122,8 +3089,7 @@ doTestMIMEExtractArrayOneArrayMessage
             Array           arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneArrayLines, insertedArrayOneArrayLinesCount,
-                                          arrayOneArray);
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayLines, insertedArrayOneArrayLinesCount, arrayOneArray);
         }
     }
     catch (...)
@@ -3150,7 +3116,7 @@ doTestMIMEInsertArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3201,7 +3167,7 @@ doTestMIMEExtractArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3252,7 +3218,7 @@ doTestMIMEInsertArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3303,7 +3269,7 @@ doTestMIMEExtractArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3354,7 +3320,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3379,8 +3345,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
-            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsLines,
-                                      expectedArrayTwoLogicalsLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsLines, expectedArrayTwoLogicalsLinesCount);
         }
     }
     catch (...)
@@ -3407,7 +3372,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3432,8 +3397,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoLogicalsLines, insertedArrayTwoLogicalsLinesCount,
-                                          arrayTwoLogicals);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoLogicalsLines, insertedArrayTwoLogicalsLinesCount, arrayTwoLogicals);
         }
     }
     catch (...)
@@ -3460,7 +3424,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3485,8 +3449,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
 
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
-            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersLines,
-                                      expectedArrayTwoIntegersLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersLines, expectedArrayTwoIntegersLinesCount);
         }
     }
     catch (...)
@@ -3513,7 +3476,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3538,8 +3501,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoIntegersLines, insertedArrayTwoIntegersLinesCount,
-                                          arrayTwoIntegers);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoIntegersLines, insertedArrayTwoIntegersLinesCount, arrayTwoIntegers);
         }
     }
     catch (...)
@@ -3566,7 +3528,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3591,8 +3553,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
 
             arrayTwoDoubles->addValue(std::make_shared<Double>());
             arrayTwoDoubles->addValue(std::make_shared<Double>());
-            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesLines,
-                                      expectedArrayTwoDoublesLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesLines, expectedArrayTwoDoublesLinesCount);
         }
     }
     catch (...)
@@ -3619,7 +3580,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3644,8 +3605,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoDoublesLines, insertedArrayTwoDoublesLinesCount,
-                                          arrayTwoDoubles);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoDoublesLines, insertedArrayTwoDoublesLinesCount, arrayTwoDoubles);
         }
     }
     catch (...)
@@ -3672,7 +3632,7 @@ doTestMIMEInsertArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3697,8 +3657,7 @@ doTestMIMEInsertArrayTwoStringsMessage
 
             arrayTwoStrings->addValue(std::make_shared<String>());
             arrayTwoStrings->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines,
-                                      expectedArrayTwoStringsLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines, expectedArrayTwoStringsLinesCount);
         }
     }
     catch (...)
@@ -3725,7 +3684,7 @@ doTestMIMEExtractArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3750,8 +3709,7 @@ doTestMIMEExtractArrayTwoStringsMessage
 
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoStringsLines, insertedArrayTwoStringsLinesCount,
-                                          arrayTwoStrings);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoStringsLines, insertedArrayTwoStringsLinesCount, arrayTwoStrings);
         }
     }
     catch (...)
@@ -3778,7 +3736,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3803,8 +3761,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
 
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
-            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsLines,
-                                      expectedArrayTwoBlobsLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsLines, expectedArrayTwoBlobsLinesCount);
         }
     }
     catch (...)
@@ -3831,7 +3788,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3856,8 +3813,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoBlobsLines, insertedArrayTwoBlobsLinesCount,
-                                          arrayTwoBlobs);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoBlobsLines, insertedArrayTwoBlobsLinesCount, arrayTwoBlobs);
         }
     }
     catch (...)
@@ -3884,7 +3840,7 @@ doTestMIMEInsertArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3909,8 +3865,7 @@ doTestMIMEInsertArrayTwoArraysMessage
 
             arrayTwoArrays->addValue(std::make_shared<Array>());
             arrayTwoArrays->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysLines,
-                                      expectedArrayTwoArraysLinesCount);
+            result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysLines, expectedArrayTwoArraysLinesCount);
         }
     }
     catch (...)
@@ -3937,7 +3892,7 @@ doTestMIMEExtractArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3962,8 +3917,7 @@ doTestMIMEExtractArrayTwoArraysMessage
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoArraysLines, insertedArrayTwoArraysLinesCount,
-                                          arrayTwoArrays);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoArraysLines, insertedArrayTwoArraysLinesCount, arrayTwoArrays);
         }
     }
     catch (...)
@@ -3990,7 +3944,7 @@ doTestMIMEInsertArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4042,7 +3996,7 @@ doTestMIMEExtractArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4067,8 +4021,7 @@ doTestMIMEExtractArrayTwoMapsMessage
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoMapsLines, insertedArrayTwoMapsLinesCount,
-                                          arrayTwoMaps);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoMapsLines, insertedArrayTwoMapsLinesCount, arrayTwoMaps);
         }
     }
     catch (...)
@@ -4095,7 +4048,7 @@ doTestMIMEInsertArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4147,7 +4100,7 @@ doTestMIMEExtractArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4172,8 +4125,7 @@ doTestMIMEExtractArrayTwoSetsMessage
 
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedArrayTwoSetsLines, insertedArrayTwoSetsLinesCount,
-                                          arrayTwoSets);
+            result = extractValueAndCheck(*stuff, insertedArrayTwoSetsLines, insertedArrayTwoSetsLinesCount, arrayTwoSets);
         }
     }
     catch (...)
@@ -4200,7 +4152,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4225,8 +4177,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 
             arrayOneArrayOneMap->addValue(std::make_shared<Array>());
             arrayOneArrayOneMap->addValue(std::make_shared<Map>());
-            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapLines,
-                                      expectedArrayOneArrayOneMapLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapLines, expectedArrayOneArrayOneMapLinesCount);
         }
     }
     catch (...)
@@ -4253,7 +4204,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4278,8 +4229,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneMapLines,
-                                          insertedArrayOneArrayOneMapLinesCount, arrayOneArrayOneMap);
+            result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneMapLines, insertedArrayOneArrayOneMapLinesCount, arrayOneArrayOneMap);
         }
     }
     catch (...)
@@ -4306,7 +4256,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4331,8 +4281,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 
             arrayOneMapOneSet->addValue(std::make_shared<Map>());
             arrayOneMapOneSet->addValue(std::make_shared<Set>());
-            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetLines,
-                                      expectedArrayOneMapOneSetLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetLines, expectedArrayOneMapOneSetLinesCount);
         }
     }
     catch (...)
@@ -4359,7 +4308,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4384,8 +4333,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneMapOneSetLines, insertedArrayOneMapOneSetLinesCount,
-                                          arrayOneMapOneSet);
+            result = extractValueAndCheck(*stuff, insertedArrayOneMapOneSetLines, insertedArrayOneMapOneSetLinesCount, arrayOneMapOneSet);
         }
     }
     catch (...)
@@ -4412,7 +4360,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4437,8 +4385,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 
             arrayOneSetOneArray->addValue(std::make_shared<Set>());
             arrayOneSetOneArray->addValue(std::make_shared<Array>());
-            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayLines,
-                                      expectedArrayOneSetOneArrayLinesCount);
+            result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayLines, expectedArrayOneSetOneArrayLinesCount);
         }
     }
     catch (...)
@@ -4465,7 +4412,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4490,8 +4437,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
-            result = extractValueAndCheck(*stuff, insertedArrayOneSetOneArrayLines,
-                                          insertedArrayOneSetOneArrayLinesCount, arrayOneSetOneArray);
+            result = extractValueAndCheck(*stuff, insertedArrayOneSetOneArrayLines, insertedArrayOneSetOneArrayLinesCount, arrayOneSetOneArray);
         }
     }
     catch (...)
@@ -4518,7 +4464,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4537,7 +4483,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
         }
         else
         {
-            const size_t    numValues = 43;
+            const size_t    numValues{43};
             SpArray         arrayManyDoubles{new Array};
             std::string     expectedArrayManyDoublesLines[]{
                                     "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA",
@@ -4553,8 +4499,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
             {
                 arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesLines,
-                                      expectedArrayManyDoublesLinesCount);
+            result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesLines, expectedArrayManyDoublesLinesCount);
         }
     }
     catch (...)
@@ -4581,7 +4526,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4600,7 +4545,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
         }
         else
         {
-            const size_t    numValues = 43;
+            const size_t    numValues{43};
             std::string     insertedArrayManyDoublesLines[]{
                                 "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA",
                                 "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA",
@@ -4616,8 +4561,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
             {
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
-            result = extractValueAndCheck(*stuff, insertedArrayManyDoublesLines, insertedArrayManyDoublesLinesCount,
-                                          arrayManyDoubles);
+            result = extractValueAndCheck(*stuff, insertedArrayManyDoublesLines, insertedArrayManyDoublesLinesCount, arrayManyDoubles);
         }
     }
     catch (...)
@@ -4644,7 +4588,7 @@ doTestMIMEInsertLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4695,7 +4639,7 @@ doTestMIMEExtractLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4746,7 +4690,7 @@ doTestMIMEInsertIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4797,7 +4741,7 @@ doTestMIMEExtractIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4848,7 +4792,7 @@ doTestMIMEInsertStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4899,7 +4843,7 @@ doTestMIMEExtractStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string map message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4950,7 +4894,7 @@ doTestMIMEInsertLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5001,7 +4945,7 @@ doTestMIMEExtractLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5052,7 +4996,7 @@ doTestMIMEInsertIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5103,7 +5047,7 @@ doTestMIMEExtractIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5154,7 +5098,7 @@ doTestMIMEInsertStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5205,7 +5149,7 @@ doTestMIMEExtractStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string set message
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5256,7 +5200,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5347,7 +5291,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5410,8 +5354,8 @@ doTestMIMEExtractArrayWithRangeOfIntegers
             arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-1000000000000000));
             arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-10000000000000000));
             arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
-            result = extractValueAndCheck(*stuff, insertedArrayWithRangeOfIntegersLines,
-                                          insertedArrayWithRangeOfIntegersLinesCount, arrayWithRangeOfIntegers);
+            result = extractValueAndCheck(*stuff, insertedArrayWithRangeOfIntegersLines, insertedArrayWithRangeOfIntegersLinesCount,
+                                          arrayWithRangeOfIntegers);
         }
     }
     catch (...)
@@ -5433,12 +5377,12 @@ doTestMIMEExtractArrayWithRangeOfIntegers
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-TestMEMExtractWithBadNumberOfCharacters
+doTestMIMExtractWithBadNumberOfCharacters
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad number of characters
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5469,7 +5413,7 @@ TestMEMExtractWithBadNumberOfCharacters
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayWithRangeOfIntegers
+} // doTestMIMExtractWithBadNumberOfCharacters
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 701 ***
@@ -5481,12 +5425,12 @@ TestMEMExtractWithBadNumberOfCharacters
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-TestMEMExtractWithBadCharacters
+doTestMIMExtractWithBadCharacters
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad characters
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5517,7 +5461,7 @@ TestMEMExtractWithBadCharacters
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractArrayWithRangeOfIntegers
+} // doTestMIMExtractWithBadCharacters
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -5537,7 +5481,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -5926,11 +5870,11 @@ main
                         break;
 
                     case 700 :
-                        result = TestMEMExtractWithBadNumberOfCharacters(*argv, argc - 1, argv + 2);
+                        result = doTestMIMExtractWithBadNumberOfCharacters(*argv, argc - 1, argv + 2);
                         break;
 
                     case 701 :
-                        result = TestMEMExtractWithBadCharacters(*argv, argc - 1, argv + 2);
+                        result = doTestMIMExtractWithBadCharacters(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

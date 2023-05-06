@@ -98,45 +98,42 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-///*! @brief @c true once the random number generator is seeded. */
-//static bool lRandomSeeded = false;
-//
 /*! @brief The maximum integer that we wish to use for generated random values. */
-static const int    kMaxRandom = 123456789;
+static const int    kMaxRandom{123456789};
 
 /*! @brief Seed for random number generator. */
 static std::random_device   lRd;
 
 /*! @brief Mersenne Twister random number engine. */
-static std::mt19937         lMt(lRd());
+static std::mt19937 lMt{lRd()};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const char  nImO::kBlobSeparator = '%';
+const char  nImO::kBlobSeparator{'%'};
 
-const char  nImO::kEndArrayChar = ')';
+const char  nImO::kEndArrayChar{')'};
 
-const char  nImO::kEndMapChar = '}';
+const char  nImO::kEndMapChar{'}'};
 
-const char  nImO::kEndOfString = '\0';
+const char  nImO::kEndOfString{'\0'};
 
-const char  nImO::kEndSetChar = ']';
+const char  nImO::kEndSetChar{']'};
 
-const char  nImO::kKeyValueSeparator = '>';
+const char  nImO::kKeyValueSeparator{'>'};
 
-const char  nImO::kSingleQuote = '\'';
+const char  nImO::kSingleQuote{'\''};
 
-const char  nImO::kStartArrayChar = '(';
+const char  nImO::kStartArrayChar{'('};
 
-const char  nImO::kStartMapChar = '{';
+const char  nImO::kStartMapChar{'{'};
 
-const char  nImO::kStartSetChar = '[';
+const char  nImO::kStartSetChar{'['};
 
-const uint8_t   nImO::kDoubleQuote = '"';
+const uint8_t   nImO::kDoubleQuote{'"'};
 
-const uint8_t   nImO::kEscapeChar = '\\';
+const uint8_t   nImO::kEscapeChar{'\\'};
 
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_
@@ -175,7 +172,7 @@ nImO::B2I
     (const NumberAsBytes &  inString,
      const size_t           numBytes)
 {
-    bool                            isNegative = (0 != (0x080 & inString[0]));
+    bool                            isNegative{0 != (0x080 & inString[0])};
     boost::endian::big_int64_buf_t  holder;
     int64_t                         result;
 
@@ -204,9 +201,9 @@ nImO::CanReadFromStandardInput
     (void)
 {
 #if MAC_OR_LINUX_
-    pid_t   fg = tcgetpgrp(STDIN_FILENO);
+    pid_t   fg{tcgetpgrp(STDIN_FILENO)};
 #else // ! MAC_OR_LINUX_
-    HWND    wind = GetConsoleWindow();
+    HWND    wind{GetConsoleWindow()};
 #endif // ! MAC_OR_LINUX_
     bool    result = false;
 
@@ -240,7 +237,7 @@ nImO::CompareBytes
      CPtr(void)     second,
      const size_t   numBytes)
 {
-    size_t  result = 0;
+    size_t  result{0};
 
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
@@ -311,7 +308,7 @@ nImO::ConvertToDouble
 {
     bool        okSoFar;
     Ptr(char)   endPtr;
-    double      value = strtod(startPtr, &endPtr);
+    double      value{strtod(startPtr, &endPtr)};
 
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -335,7 +332,7 @@ nImO::ConvertToDouble
     (const std::string &    aString,
      double &               result)
 {
-    bool    okSoFar = ConvertToDouble(aString.c_str(), result);
+    bool    okSoFar{ConvertToDouble(aString.c_str(), result)};
 
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
@@ -351,7 +348,7 @@ nImO::ConvertToInt64
 {
     bool        okSoFar;
     Ptr(char)   endPtr;
-    int64_t     value = strtoll(startPtr, &endPtr, 10);
+    int64_t     value{strtoll(startPtr, &endPtr, 10)};
 
     ODL_ENTER(); //####
     ODL_S1("startPtr = ", startPtr); //####
@@ -375,7 +372,7 @@ nImO::ConvertToInt64
     (const std::string &    aString,
      int64_t &              result)
 {
-    bool    okSoFar = ConvertToInt64(aString.c_str(), result);
+    bool    okSoFar{ConvertToInt64(aString.c_str(), result)};
 
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
@@ -405,9 +402,9 @@ nImO::DumpMemoryToStandardError
 {
     if ((nullptr != address) && (0 < numBytes))
     {
-        const size_t    bytesPerRow = 16;
-        size_t          offset = 0;
-        size_t          bytesInNextRow = std::min(numBytes, bytesPerRow);
+        const size_t    bytesPerRow{16};
+        size_t          offset{0};
+        size_t          bytesInNextRow{std::min(numBytes, bytesPerRow)};
 
         std::cerr << "**** address: " << std::hex << ReinterpretCast(intptr_t, address) << ", size: " << std::dec <<
                     numBytes << " ****" << std::endl;
@@ -417,8 +414,8 @@ nImO::DumpMemoryToStandardError
             std::cerr << std::hex << std::setw(4) << std::setfill('0') << offset << " : ";
             for (size_t ii = 0; ii < bytesInNextRow; ++ii)
             {
-                CPtr(uint8_t)   ptrToByte = ReinterpretCast(CPtr(uint8_t), address) + offset + ii;
-                uint            aByte = *ptrToByte;
+                CPtr(uint8_t)   ptrToByte{ReinterpretCast(CPtr(uint8_t), address) + offset + ii};
+                uint            aByte{*ptrToByte};
 
                 std::cerr << std::setw(2) << std::setfill('0') << aByte << " ";
                 if (3 == (ii % 4))
@@ -439,8 +436,8 @@ nImO::DumpMemoryToStandardError
             }
             for (size_t ii = 0; ii < bytesInNextRow; ++ii)
             {
-                CPtr(char)  ptrToChar = ReinterpretCast(CPtr(char), address) + offset + ii;
-                char        aChar = *ptrToChar;
+                CPtr(char)  ptrToChar{ReinterpretCast(CPtr(char), address) + offset + ii};
+                char        aChar{*ptrToChar};
 
                 if (std::isprint(aChar))
                 {
@@ -475,7 +472,7 @@ nImO::GetRandomChannelName
     ODL_S1("channelRoot = ", channelRoot); //####
     try
     {
-        bool                hasLeadingSlash = false;
+        bool                hasLeadingSlash{false};
         CPtr(char)          stringToUse;
         std::stringstream   buff;
 
@@ -533,7 +530,7 @@ nImO::GetShortComputerName
     (void)
 {
     std::string result{asio::ip::host_name()};
-    size_t      dotPos = result.find('.');
+    size_t      dotPos{result.find('.')};
 
     ODL_ENTER(); //####
     if (std::string::npos != dotPos)
@@ -550,7 +547,7 @@ nImO::I2B
      NumberAsBytes &    outString)
 {
     boost::endian::big_int64_buf_t  holder{inValue};
-    size_t                          length = 0;
+    size_t                          length{0};
 
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
@@ -568,7 +565,7 @@ nImO::I2B
         // Correct for the MSB having the sign bit set
         if (0 < length)
         {
-            uint8_t aByte = outString[sizeof(inValue) - length];
+            uint8_t aByte{outString[sizeof(inValue) - length]};
 
             if (0x00 != (0x080 & aByte))
             {
@@ -588,7 +585,7 @@ nImO::I2B
         // Correct for the MSB not having the sign bit set
         if (0 < length)
         {
-            uint8_t aByte = outString[sizeof(inValue) - length];
+            uint8_t aByte{outString[sizeof(inValue) - length]};
 
             if (0x00 == (0x080 & aByte))
             {
@@ -799,9 +796,9 @@ nImO::OutputDescription
      CPtr(char)             heading,
      const std::string &    description)
 {
-    size_t      descriptionLength = description.length();
-    size_t      indentSize = strlen(heading);
-    size_t      pieceStart = 0;
+    size_t      descriptionLength{description.length()};
+    size_t      indentSize{strlen(heading)};
+    size_t      pieceStart{0};
     std::string blanks(indentSize, ' ');
     std::string indent{heading};
 
@@ -858,6 +855,10 @@ nImO::ResolveTransport
             if ((TransportType::kUDP == secondTransport) || (TransportType::kTCP == secondTransport))
             {
                 result = secondTransport;
+            }
+            else if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
+            {
+                result = TransportType::kTCP;
             }
             else
             {
@@ -946,7 +947,7 @@ nImO::SanitizeString
     {
         for (size_t ii = 0, mm = inString.length(); mm > ii; )
         {
-            char    cc = inString[ii++];
+            char    cc{inString[ii++]};
 
             switch (cc)
             {

@@ -162,7 +162,7 @@ nImO::Array::deeplyEqualTo
     (const Value &  other)
     const
 {
-    bool    result = (&other == this);
+    bool    result{&other == this};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -200,7 +200,7 @@ nImO::Array::empty
     (void)
     const
 {
-    bool    result = inherited2::empty();
+    bool    result{inherited2::empty()};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(result); //####
@@ -221,7 +221,7 @@ nImO::Array::equalTo
     {
         SpValue aValue{*walker};
 
-        if (aValue)
+        if (nullptr != aValue)
         {
             result &= aValue->equalTo(other);
         }
@@ -239,7 +239,7 @@ nImO::Array::extractValue
 {
     SpValue result;
     bool    atEnd;
-    bool    isEmpty = (DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte));
+    bool    isEmpty{DataKind::OtherContainerEmptyValue == (DataKind::OtherContainerEmptyMask & leadByte)};
     int     aByte;
 
     ODL_ENTER(); //####
@@ -256,8 +256,8 @@ nImO::Array::extractValue
         if (! atEnd)
         {
             ODL_LOG("(! atEnd)"); //####
-            static const DataKind   endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                                 DataKind::OtherContainerTypeArray | DataKind::OtherContainerEmptyValue);
+            static const DataKind   endMarker{DataKind::Other | DataKind::OtherContainerEnd |
+                                                DataKind::OtherContainerTypeArray | DataKind::OtherContainerEmptyValue};
 
             if (toUType(endMarker) == aByte)
             {
@@ -283,7 +283,7 @@ nImO::Array::extractValue
         {
             ODL_LOG("(! atEnd)"); //####
             IntStatus numStatus;
-            int64_t   elementCount = extractInt64FromMessage(theMessage, aByte, position, numStatus);
+            int64_t   elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
 
             if (IntStatus::Successful == numStatus)
             {
@@ -307,7 +307,7 @@ nImO::Array::extractValue
                     }
                     else
                     {
-                        bool    okSoFar = true;
+                        bool    okSoFar{true};
 
                         for ( ; okSoFar && (elementCount > StaticCast(int64_t, anArray->size())); )
                         {
@@ -355,9 +355,9 @@ nImO::Array::extractValue
                             else
                             {
                                 ODL_LOG("! (atEnd)"); //####
-                                static const DataKind endMarker = (DataKind::Other | DataKind::OtherContainerEnd |
-                                                                   DataKind::OtherContainerTypeArray |
-                                                                   DataKind::OtherContainerNonEmptyValue);
+                                static const DataKind endMarker{DataKind::Other | DataKind::OtherContainerEnd |
+                                                                DataKind::OtherContainerTypeArray |
+                                                                DataKind::OtherContainerNonEmptyValue};
 
                                 if (toUType(endMarker) == aByte)
                                 {
@@ -431,7 +431,7 @@ nImO::Array::getTypeTag
     (void)
     const
 {
-    DataKind    result = DataKind::OtherMessageExpectedOtherValue;
+    DataKind    result{DataKind::OtherMessageExpectedOtherValue};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result));
@@ -443,7 +443,7 @@ nImO::Array::greaterThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(inherited2::begin() != inherited2::end());
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -466,7 +466,7 @@ nImO::Array::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(inherited2::begin() != inherited2::end());
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -475,7 +475,7 @@ nImO::Array::greaterThanOrEqual
     {
         SpValue aValue{*walker};
 
-        if (aValue)
+        if (nullptr != aValue)
         {
             result &= aValue->greaterThanOrEqual(other);
         }
@@ -489,7 +489,7 @@ nImO::Array::lessThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(inherited2::begin() != inherited2::end());
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -498,7 +498,7 @@ nImO::Array::lessThan
     {
         SpValue aValue{*walker};
 
-        if (aValue)
+        if (nullptr != aValue)
         {
             result &= aValue->lessThan(other);
         }
@@ -512,7 +512,7 @@ nImO::Array::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result(inherited2::begin() != inherited2::end());
+    ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -521,7 +521,7 @@ nImO::Array::lessThanOrEqual
     {
         SpValue aValue{*walker};
 
-        if (aValue)
+        if (nullptr != aValue)
         {
             result &= aValue->lessThanOrEqual(other);
         }
@@ -576,7 +576,7 @@ nImO::Array::printToStringBuffer
      const bool     squished)
     const
 {
-    bool    first = true;
+    bool    first{true};
 
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -610,7 +610,7 @@ nImO::Array::printToStringBufferAsJSON
      const bool     squished)
     const
 {
-    bool    first = true;
+    bool    first{true};
 
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
@@ -647,8 +647,8 @@ nImO::Array::random
     (void)
     const
 {
-    auto    result(inherited2::begin());
-    size_t  howMany = size();
+    auto    result{inherited2::begin()};
+    size_t  howMany{size()};
 
     ODL_OBJENTER(); //####
     if (0 < howMany)
@@ -666,8 +666,8 @@ nImO::Array::iterator
 nImO::Array::random
     (void)
 {
-    auto    result(inherited2::begin());
-    size_t  howMany = size();
+    auto    result{inherited2::begin()};
+    size_t  howMany{size()};
 
     ODL_OBJENTER(); //####
     if (0 < howMany)
@@ -687,11 +687,11 @@ nImO::Array::readFromStringBuffer
      size_t &               position)
 {
     bool    atEnd;
-    bool    done = false;
-    bool    valid = false;
+    bool    done{false};
+    bool    valid{false};
     auto    result{std::make_shared<Array>()};
-    size_t  localIndex = position;
-    int     aChar = inBuffer.getChar(localIndex++, atEnd);
+    size_t  localIndex{position};
+    int     aChar{inBuffer.getChar(localIndex++, atEnd)};
 
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
@@ -761,7 +761,7 @@ nImO::Array::size
     (void)
     const
 {
-    size_t  result = inherited2::size();
+    size_t  result{inherited2::size()};
 
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(result); //####
@@ -778,12 +778,12 @@ nImO::Array::writeToMessage
     if (0 < inherited2::size())
     {
         ODL_LOG("(0 < inherited2::size())"); //####
-        DataKind           startArray = (DataKind::Other | DataKind::OtherContainerStart |
-                                         DataKind::OtherContainerTypeArray |
-                                         DataKind::OtherContainerNonEmptyValue);
-        DataKind           endArray = (DataKind::Other | DataKind::OtherContainerEnd |
-                                       DataKind::OtherContainerTypeArray |
-                                       DataKind::OtherContainerNonEmptyValue);
+        DataKind           startArray{DataKind::Other | DataKind::OtherContainerStart |
+                                        DataKind::OtherContainerTypeArray |
+                                        DataKind::OtherContainerNonEmptyValue};
+        DataKind           endArray{DataKind::Other | DataKind::OtherContainerEnd |
+                                    DataKind::OtherContainerTypeArray |
+                                    DataKind::OtherContainerNonEmptyValue};
         std::queue<double> doublesSeen;
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
@@ -792,7 +792,7 @@ nImO::Array::writeToMessage
         {
             SpValue aValue{*walker};
 
-            if (aValue)
+            if (nullptr != aValue)
             {
                 // Check for sequences of Double values
                 CPtr(Double)    doubleValue{aValue->asDouble()};

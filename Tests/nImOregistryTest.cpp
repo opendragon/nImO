@@ -128,7 +128,7 @@ doTestCreateRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // create empty Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -181,7 +181,7 @@ doTestEmptyRegistryForMachines
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for machines
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -203,7 +203,7 @@ doTestEmptyRegistryForMachines
         }
         else
         {
-            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+            nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
 
             if (statusWithInt.first.first)
             {
@@ -250,7 +250,7 @@ doTestMachineSetWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -272,11 +272,11 @@ doTestMachineSetWithEmptyRegistry
         }
         else
         {
-            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfMachines();
+            nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfMachines()};
 
             if (statusWithStrings.first.first)
             {
-                StringSet   machines = statusWithStrings.second;
+                StringSet   machines{statusWithStrings.second};
 
                 if (machines.empty())
                 {
@@ -321,7 +321,7 @@ doTestFindMachineWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -343,7 +343,7 @@ doTestFindMachineWithEmptyRegistry
         }
         else
         {
-            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_1);
+            nImO::RegBoolOrFailure  statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
 
             if (statusWithBool.first.first)
             {
@@ -405,7 +405,7 @@ doTestAddMachineToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -427,7 +427,7 @@ doTestAddMachineToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
@@ -467,7 +467,7 @@ doTestCountMachinesWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -489,11 +489,11 @@ doTestCountMachinesWithRegistryWithOneMachine
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+                nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
 
                 if (statusWithInt.first.first)
                 {
@@ -545,7 +545,7 @@ doTestMachineSetWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -567,11 +567,11 @@ doTestMachineSetWithRegistryWithOneMachine
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfMachines();
+                nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfMachines()};
 
                 if (statusWithStrings.first.first)
                 {
@@ -625,7 +625,7 @@ doTestFindMachineWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -647,11 +647,11 @@ doTestFindMachineWithRegistryWithOneMachine
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_1);
+                nImO::RegBoolOrFailure  statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
 
                 if (statusWithBool.first.first)
                 {
@@ -718,7 +718,7 @@ doTestAddTwoDistinctMachinesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -740,7 +740,7 @@ doTestAddTwoDistinctMachinesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
@@ -788,7 +788,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -810,14 +810,14 @@ doTestCountMachinesWithRegistryWithTwoMachines
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
                 status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+                    nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
 
                     if (statusWithInt.first.first)
                     {
@@ -874,7 +874,7 @@ doTestAddTwoIdenticalMachinesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -896,14 +896,14 @@ doTestAddTwoIdenticalMachinesToRegistry
         }
         else
         {
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
                 status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfMachines();
+                    nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
 
                     if (statusWithInt.first.first)
                     {
@@ -960,7 +960,7 @@ doTestEmptyRegistryForNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -982,7 +982,7 @@ doTestEmptyRegistryForNodes
         }
         else
         {
-            nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+            nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
 
             if (statusWithInt.first.first)
             {
@@ -1029,7 +1029,7 @@ doTestNodeSetWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1051,11 +1051,11 @@ doTestNodeSetWithEmptyRegistry
         }
         else
         {
-            nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+            nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
             if (statusWithStrings.first.first)
             {
-                StringSet   nodes = statusWithStrings.second;
+                StringSet   nodes{statusWithStrings.second};
 
                 if (nodes.empty())
                 {
@@ -1100,7 +1100,7 @@ doTestFindNodeWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1122,7 +1122,7 @@ doTestFindNodeWithEmptyRegistry
         }
         else
         {
-            nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+            nImO::RegBoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
             if (statusWithBool.first.first)
             {
@@ -1184,7 +1184,7 @@ doTestAddNodeToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1204,12 +1204,12 @@ doTestAddNodeToRegistry
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::RegSuccessOrFailure   status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                        nImO::ServiceType::GenericService);
+                nImO::RegSuccessOrFailure   status{aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
+                                                                      nImO::ServiceType::GenericService)};
 
                 if (status.first)
                 {
@@ -1254,7 +1254,7 @@ doTestCountNodesWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1274,14 +1274,14 @@ doTestCountNodesWithRegistryWithOneNode
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+                    nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
 
                     if (statusWithInt.first.first)
                     {
@@ -1338,7 +1338,7 @@ doTestNodeSetWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1358,18 +1358,18 @@ doTestNodeSetWithRegistryWithOneNode
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+                    nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
                     if (statusWithStrings.first.first)
                     {
-                        StringSet   nodes = statusWithStrings.second;
+                        StringSet   nodes{statusWithStrings.second};
 
                         if (nodes.end() == nodes.find(NODE_NAME_1))
                         {
@@ -1424,7 +1424,7 @@ doTestFindNodeWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1444,14 +1444,14 @@ doTestFindNodeWithRegistryWithOneNode
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+                    nImO::RegBoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                     if (statusWithBool.first.first)
                     {
@@ -1523,7 +1523,7 @@ doTestNodeDataAddedToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1542,10 +1542,10 @@ doTestNodeDataAddedToRegistry
         }
         else
         {
-            uint32_t                    randomAddress = nImO::RandomUnsigned();
-            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress{nImO::RandomUnsigned()};
+            uint16_t                    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -1553,7 +1553,7 @@ doTestNodeDataAddedToRegistry
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::RegNodeInfoOrFailure  statusWithInfo = aRegistry->getNodeInformation(NODE_NAME_1);
+                    nImO::RegNodeInfoOrFailure  statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
 
                     if (statusWithInfo.first.first)
                     {
@@ -1622,7 +1622,7 @@ doTestRemoveNodeFromRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1642,7 +1642,7 @@ doTestRemoveNodeFromRegistry
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1698,7 +1698,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1718,7 +1718,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1728,7 +1728,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+                        nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
 
                         if (statusWithInt.first.first)
                         {
@@ -1790,7 +1790,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1810,7 +1810,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1820,11 +1820,11 @@ doTestNodeSetWithRegistryWithNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+                        nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes = statusWithStrings.second;
+                            StringSet   nodes{statusWithStrings.second};
 
                             if (nodes.empty())
                             {
@@ -1884,7 +1884,7 @@ doTestFindNodeWithRegistryNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1904,7 +1904,7 @@ doTestFindNodeWithRegistryNodeRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1914,7 +1914,7 @@ doTestFindNodeWithRegistryNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -1976,7 +1976,7 @@ doTestAddTwoDistinctNodesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1996,7 +1996,7 @@ doTestAddTwoDistinctNodesToRegistry
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2052,7 +2052,7 @@ doTestCountNodesWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2072,7 +2072,7 @@ doTestCountNodesWithRegistryWithTwoNodes
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2082,7 +2082,7 @@ doTestCountNodesWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+                        nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
 
                         if (statusWithInt.first.first)
                         {
@@ -2144,7 +2144,7 @@ doTestNodeSetWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2164,7 +2164,7 @@ doTestNodeSetWithRegistryWithTwoNodes
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2174,11 +2174,11 @@ doTestNodeSetWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+                        nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes = statusWithStrings.second;
+                            StringSet   nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(NODE_NAME_1))
                             {
@@ -2245,7 +2245,7 @@ doTestFindNodeWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2265,7 +2265,7 @@ doTestFindNodeWithRegistryWithTwoNodes
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2275,7 +2275,7 @@ doTestFindNodeWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -2352,7 +2352,7 @@ doTestRemoveNodesFromRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2372,7 +2372,7 @@ doTestRemoveNodesFromRegistry
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2444,7 +2444,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2464,7 +2464,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2480,7 +2480,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodes();
+                                nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
 
                                 if (statusWithInt.first.first)
                                 {
@@ -2552,7 +2552,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2572,7 +2572,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2588,11 +2588,11 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+                                nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
                                 if (statusWithStrings.first.first)
                                 {
-                                    StringSet   nodes = statusWithStrings.second;
+                                    StringSet   nodes{statusWithStrings.second};
 
                                     if (nodes.empty())
                                     {
@@ -2662,7 +2662,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2682,7 +2682,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2698,7 +2698,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::RegBoolOrFailure  statusWithBool = aRegistry->isNodePresent(NODE_NAME_1);
+                                nImO::RegBoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -2785,7 +2785,7 @@ doTestAddTwoIdenticalNodesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add two identical nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2805,7 +2805,7 @@ doTestAddTwoIdenticalNodesToRegistry
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2819,11 +2819,11 @@ doTestAddTwoIdenticalNodesToRegistry
                     }
                     else
                     {
-                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodes();
+                        nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes = statusWithStrings.second;
+                            StringSet   nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(NODE_NAME_1))
                             {
@@ -2879,7 +2879,7 @@ doTestNodeInfoWithRegistryWithNoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2901,7 +2901,7 @@ doTestNodeInfoWithRegistryWithNoNodes
         }
         else
         {
-            nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+            nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodes()};
 
             if (statusWithInformation.first.first)
             {
@@ -2950,7 +2950,7 @@ doTestNodeInfoWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2969,10 +2969,10 @@ doTestNodeInfoWithRegistryWithOneNode
         }
         else
         {
-            uint32_t                    randomAddress = nImO::RandomUnsigned();
-            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress{nImO::RandomUnsigned()};
+            uint16_t                    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -2980,7 +2980,7 @@ doTestNodeInfoWithRegistryWithOneNode
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodes()};
 
                     if (statusWithInformation.first.first)
                     {
@@ -3051,7 +3051,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3070,15 +3070,15 @@ doTestNodeInfoWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
-            uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t                    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName1{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName1, randomAddress1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
+                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -3087,17 +3087,17 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
+                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodes();
+                            nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodes()};
 
                             if (statusWithInformation.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector = statusWithInformation.second;
+                                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
 
                                 if (2 == infoVector.size())
                                 {
@@ -3222,7 +3222,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3244,7 +3244,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
         }
         else
         {
-            nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+            nImO::RegLaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
             if (statusWithDetails.first.first)
             {
@@ -3293,7 +3293,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3312,10 +3312,10 @@ doTestLaunchDetailsWithRegistryWithOneNode
         }
         else
         {
-            uint32_t                    randomAddress = nImO::RandomUnsigned();
-            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress{nImO::RandomUnsigned()};
+            uint16_t                    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -3323,7 +3323,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+                    nImO::RegLaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
                     if (statusWithDetails.first.first)
                     {
@@ -3390,7 +3390,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3409,15 +3409,15 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
-            uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t                    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName1{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName1, randomAddress1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
+                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -3426,13 +3426,13 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
+                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, "!" + execPath, "?" + currentDir, "^" + commandLine,
                                                     nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::RegLaunchDetailsOrFailure    statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_1);
+                            nImO::RegLaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
                             if (statusWithDetails.first.first)
                             {
@@ -3537,7 +3537,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3560,15 +3560,15 @@ doTestNodeSetWithEmptyRegistryViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodesOnMachine(machineName);
+                nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                 if (statusWithStrings.first.first)
                 {
-                    StringSet   nodes = statusWithStrings.second;
+                    StringSet   nodes{statusWithStrings.second};
 
                     if (nodes.empty())
                     {
@@ -3618,7 +3618,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3638,18 +3638,18 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodesOnMachine(machineName);
+                    nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                     if (statusWithStrings.first.first)
                     {
-                        StringSet   nodes = statusWithStrings.second;
+                        StringSet   nodes{statusWithStrings.second};
 
                         if (nodes.end() == nodes.find(NODE_NAME_1))
                         {
@@ -3704,7 +3704,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3724,7 +3724,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3734,11 +3734,11 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::RegStringSetOrFailure statusWithStrings = aRegistry->getNamesOfNodesOnMachine(machineName);
+                        nImO::RegStringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes = statusWithStrings.second;
+                            StringSet   nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(NODE_NAME_1))
                             {
@@ -3805,7 +3805,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3828,11 +3828,11 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodesOnMachine(machineName);
+                nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName)};
 
                 if (statusWithInformation.first.first)
                 {
@@ -3886,7 +3886,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3905,10 +3905,10 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            uint32_t                    randomAddress = nImO::RandomUnsigned();
-            uint16_t                    randomPort = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress{nImO::RandomUnsigned()};
+            uint16_t                    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName, randomAddress);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -3916,7 +3916,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodesOnMachine(machineName);
+                    nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName)};
 
                     if (statusWithInformation.first.first)
                     {
@@ -3987,7 +3987,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4006,15 +4006,15 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            uint32_t                    randomAddress1 = StaticCast(uint32_t, nImO::RandomUnsigned());
-            uint16_t                    randomPort1 = StaticCast(uint16_t, nImO::RandomUnsigned());
+            uint32_t                    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t                    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
             std::string                 machineName1{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName1, randomAddress1);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2 = StaticCast(uint32_t, nImO::RandomUnsigned());
+                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -4023,17 +4023,17 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2 = StaticCast(uint16_t, nImO::RandomUnsigned());
+                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::RegNodeInfoVectorOrFailure    statusWithInformation = aRegistry->getInformationForAllNodesOnMachine(machineName1);
+                            nImO::RegNodeInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName1)};
 
                             if (statusWithInformation.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector = statusWithInformation.second;
+                                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
 
                                 if (1 == infoVector.size())
                                 {
@@ -4117,7 +4117,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4140,11 +4140,11 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodesOnMachine(machineName);
+                nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                 if (statusWithInt.first.first)
                 {
@@ -4196,7 +4196,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4216,14 +4216,14 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodesOnMachine(machineName);
+                    nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                     if (statusWithInt.first.first)
                     {
@@ -4280,7 +4280,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result = 1;
+    int result{1};
 
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4300,7 +4300,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
         else
         {
             std::string                 machineName{nImO::GetShortComputerName()};
-            nImO::RegSuccessOrFailure   status = aRegistry->addMachine(machineName);
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4310,7 +4310,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::RegIntOrFailure   statusWithInt = aRegistry->getNumberOfNodesOnMachine(machineName);
+                        nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                         if (statusWithInt.first.first)
                         {
@@ -4371,7 +4371,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string progName{*argv};
-    int         result = 1;
+    int         result{1};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####

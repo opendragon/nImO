@@ -70,6 +70,10 @@ namespace nImO
         public :
             // Public methods.
 
+            /*! @brief The constructor. */
+            ChannelName
+                (void);
+
             /*! @brief The destructor. */
             virtual
             ~ChannelName
@@ -133,6 +137,21 @@ namespace nImO
                 return _transport;
             }
 
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            ChannelName &
+            operator=
+                (const ChannelName &  other);
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            ChannelName &
+            operator=
+                (ChannelName &&  other)
+                noexcept;
+
             /*! @brief Extracts a ChannelName from a string.
             @param[in] input The string being processed.
             @param[out] problemDescription A description of the first problem with the input that was detected.
@@ -141,6 +160,12 @@ namespace nImO
             parse
                 (const std::string &    input,
                  std::string &          problemDescription);
+
+            /*! @brief Exchanges the contents of the object with those of other.
+             @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (ChannelName &  other);
 
             /*! @brief Returns the set of names for TransportType values.
             @return The standard names for the TransportType values. */
@@ -160,10 +185,6 @@ namespace nImO
 
         private :
             // Private methods.
-
-            /*! @brief The constructor. */
-            ChannelName
-                (void);
 
         public :
             // Public fields.

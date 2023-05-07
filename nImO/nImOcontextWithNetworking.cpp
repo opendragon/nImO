@@ -113,15 +113,15 @@ nImO::ContextWithNetworking::ContextWithNetworking
         inherited(executableName, nodeName), _logConnection(kDefaultLogConnection), _statusConnection(kDefaultStatusConnection),
         _loggingEnabled(logging), _logger(nullptr)
 {
+    ODL_ENTER(); //####
+    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_B1("logging = ", logging); //####
+    ODL_I1("numReservedThreads = ", numReservedThreads); //####
 #if (! MAC_OR_LINUX_)
     WORD    versionWanted{MAKEWORD(1, 1)};
 #endif // not MAC_OR_LINUX_
 
 #if (! MAC_OR_LINUX_)
-    ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
-    ODL_B1("logging = ", logging); //####
-    ODL_I1("numReservedThreads = ", numReservedThreads); //####
     if (0 != WSAStartup(versionWanted, &_wsaData))
     {
         std::cerr << "Failed to initialize WinSock" << std::endl;
@@ -346,10 +346,10 @@ nImO::ContextWithNetworking::report
     (CPtr(char) stringToSend)
     const
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_S1("stringToSend = ", stringToSend); //####
+    bool    okSoFar;
+
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard{_loggerLock};
@@ -376,10 +376,10 @@ nImO::ContextWithNetworking::report
     (const std::string &    stringToSend)
     const
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_S1s("stringToSend = ", stringToSend); //####
+    bool    okSoFar;
+
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard{_loggerLock};
@@ -406,10 +406,10 @@ nImO::ContextWithNetworking::report
     (const StringVector & stringsToSend)
     const
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_P1("stringsToSend = ", &stringsToSend); //####
+    bool    okSoFar;
+
     if (_loggingEnabled)
     {
         std::lock_guard<std::mutex> loggerGuard{_loggerLock};

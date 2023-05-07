@@ -110,10 +110,10 @@ nImO::AddNodeCommandHandler::doIt
      const Array &              arguments)
     const
 {
-    bool    okSoFar{false};
-
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    bool    okSoFar{false};
+
     _owner->report("add node request received");
     if (6 < arguments.size())
     {

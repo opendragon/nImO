@@ -156,11 +156,11 @@ double
 nImO::B2D
     (const NumberAsBytes &  inString)
 {
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
     boost::endian::big_float64_buf_t    holder;
     double                              result;
 
-    ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
     memcpy(holder.data(), inString, sizeof(result));
     result = holder.value();
     ODL_EXIT_D(result); //####
@@ -172,13 +172,13 @@ nImO::B2I
     (const NumberAsBytes &  inString,
      const size_t           numBytes)
 {
+    ODL_ENTER(); //####
+    ODL_P1("inString = ", &inString); //####
+    ODL_I1("numBytes = ", numBytes); //####
     bool                            isNegative{0 != (0x080 & inString[0])};
     boost::endian::big_int64_buf_t  holder;
     int64_t                         result;
 
-    ODL_ENTER(); //####
-    ODL_P1("inString = ", &inString); //####
-    ODL_I1("numBytes = ", numBytes); //####
     if (isNegative)
     {
         holder = -1;
@@ -200,6 +200,7 @@ bool
 nImO::CanReadFromStandardInput
     (void)
 {
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     pid_t   fg{tcgetpgrp(STDIN_FILENO)};
 #else // ! MAC_OR_LINUX_
@@ -207,7 +208,6 @@ nImO::CanReadFromStandardInput
 #endif // ! MAC_OR_LINUX_
     bool    result = false;
 
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     if (-1 == fg)
     {
@@ -237,11 +237,11 @@ nImO::CompareBytes
      CPtr(void)     second,
      const size_t   numBytes)
 {
-    size_t  result{0};
-
     ODL_ENTER(); //####
     ODL_P2("first = ", first, "second = ", second); //####
     ODL_I1("numBytes = ", numBytes); //####
+    size_t  result{0};
+
     if (memcmp(first, second, numBytes))
     {
         CPtr(uint8_t)   firstWalker{StaticCast(CPtr(uint8_t), first)};
@@ -288,12 +288,12 @@ std::string
 nImO::ConvertDoubleToString
     (const double   value)
 {
+    ODL_ENTER(); //####
+    ODL_D1("value = ", value); //####
     // Note that boost::lexical_cast<std::string>(double) generates strings with trailing digits.
     // That is, 1E-22 winds up as 9.9999999999999E-21, which is platform-sensitive.
     std::ostringstream  holder;
 
-    ODL_ENTER(); //####
-    ODL_D1("value = ", value); //####
     holder << std::defaultfloat << value;
     std::string result{holder.str()};
 
@@ -306,13 +306,13 @@ nImO::ConvertToDouble
     (CPtr(char) startPtr,
      double &   result)
 {
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     double      value{strtod(startPtr, &endPtr)};
 
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -332,11 +332,11 @@ nImO::ConvertToDouble
     (const std::string &    aString,
      double &               result)
 {
-    bool    okSoFar{ConvertToDouble(aString.c_str(), result)};
-
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
+    bool    okSoFar{ConvertToDouble(aString.c_str(), result)};
+
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToDouble
@@ -346,13 +346,13 @@ nImO::ConvertToInt64
     (CPtr(char) startPtr,
      int64_t &  result)
 {
+    ODL_ENTER(); //####
+    ODL_S1("startPtr = ", startPtr); //####
+    ODL_P1("result = ", &result); //####
     bool        okSoFar;
     Ptr(char)   endPtr;
     int64_t     value{strtoll(startPtr, &endPtr, 10)};
 
-    ODL_ENTER(); //####
-    ODL_S1("startPtr = ", startPtr); //####
-    ODL_P1("result = ", &result); //####
     if ((startPtr != endPtr) && (! *endPtr))
     {
         result = value;
@@ -372,11 +372,11 @@ nImO::ConvertToInt64
     (const std::string &    aString,
      int64_t &              result)
 {
-    bool    okSoFar{ConvertToInt64(aString.c_str(), result)};
-
     ODL_ENTER(); //####
     ODL_S1s("aString = ", aString); //####
     ODL_P1("result = ", &result); //####
+    bool    okSoFar{ConvertToInt64(aString.c_str(), result)};
+
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ConvertToInt64
@@ -386,11 +386,11 @@ nImO::D2B
     (const double       inValue,
      NumberAsBytes &    outString)
 {
-    boost::endian::big_float64_buf_t    holder{inValue};
-
     ODL_ENTER(); //####
     ODL_D1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
+    boost::endian::big_float64_buf_t    holder{inValue};
+
     memcpy(outString, holder.data(), sizeof(inValue));
     ODL_EXIT(); //####
 } // nImO::D2B
@@ -466,10 +466,10 @@ std::string
 nImO::GetRandomChannelName
     (CPtr(char) channelRoot)
 {
-    std::string result;
-
     ODL_ENTER(); //####
     ODL_S1("channelRoot = ", channelRoot); //####
+    std::string result;
+
     try
     {
         bool                hasLeadingSlash{false};
@@ -515,10 +515,10 @@ std::string
 nImO::GetRandomHexString
     (void)
 {
+    ODL_ENTER(); //####
     std::string         result;
     std::stringstream   buff;
 
-    ODL_ENTER(); //####
     buff << std::hex << (nImO::RandomUnsigned() % 10000);
     result = buff.str();
     ODL_EXIT_s(result); //####
@@ -529,10 +529,10 @@ std::string
 nImO::GetShortComputerName
     (void)
 {
+    ODL_ENTER(); //####
     std::string result{asio::ip::host_name()};
     size_t      dotPos{result.find('.')};
 
-    ODL_ENTER(); //####
     if (std::string::npos != dotPos)
     {
         result.resize(dotPos);
@@ -546,12 +546,12 @@ nImO::I2B
     (const int64_t      inValue,
      NumberAsBytes &    outString)
 {
-    boost::endian::big_int64_buf_t  holder{inValue};
-    size_t                          length{0};
-
     ODL_ENTER(); //####
     ODL_X1("inValue = ", inValue); //####
     ODL_P1("outString = ", &outString); //####
+    boost::endian::big_int64_buf_t  holder{inValue};
+    size_t                          length{0};
+
     memcpy(outString, holder.data(), sizeof(inValue));
     if (0 <= inValue)
     {
@@ -602,11 +602,11 @@ nImO::MakeStringFromComandLine
     (const int      numArgs,
      Ptr(Ptr(char)) args)
 {
-    std::string result;
-
     ODL_ENTER(); //####
     ODL_I1("numArgs = ", numArgs); //####
     ODL_P1("args = ", args); //####
+    std::string result;
+
     if (0 < numArgs)
     {
         result = args[0];
@@ -938,11 +938,11 @@ nImO::SanitizeString
     (const std::string &    inString,
      const bool             allowDoubleQuotes)
 {
-    std::string outString;
-
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
     ODL_B1("allowDoubleQuotes = ", allowDoubleQuotes); //####
+    std::string outString;
+
     try
     {
         for (size_t ii = 0, mm = inString.length(); mm > ii; )
@@ -992,12 +992,12 @@ void
 nImO::SetSignalHandlers
     (SignalHandler  theHandler)
 {
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     sigset_t            blocking;
     struct sigaction    act;
 #endif // MAC_OR_LINUX_
 
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     act.sa_handler = theHandler;
     sigemptyset(&act.sa_mask);

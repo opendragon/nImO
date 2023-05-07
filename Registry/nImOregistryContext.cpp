@@ -393,10 +393,10 @@ void
 nImO::RegistryContext::executeAnnouncer
     (RegistryContext &  owner)
 {
-    struct timeval timeout;
-
     ODL_ENTER(); //####
     ODL_P1("owner = ", &owner); //####
+    struct timeval timeout;
+
     timeout.tv_sec = 2;
     timeout.tv_usec = 0;
     owner.report("announcer thread starting.");
@@ -475,11 +475,11 @@ nImO::RegistryContext::makePortAnnouncement
      const std::string &    hostName,
      const std::string &    dataKey)
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_I1("port = ", port); //####
     ODL_S3s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey); //####
+    bool    okSoFar;
+
     if (nullptr != _announceData)
     {
         delete _announceData;

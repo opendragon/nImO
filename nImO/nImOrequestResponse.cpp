@@ -186,13 +186,13 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
      const std::string          requestKey,
      const std::string          responseKey)
 {
+    ODL_ENTER(); //####
+    ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
+    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
     SpArray             requestArray{new Array};
     RegSuccessOrFailure status{true, ""};
 
-    ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
-    ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
     if (nullptr != arguments)

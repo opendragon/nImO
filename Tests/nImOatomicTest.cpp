@@ -116,12 +116,12 @@ compareValueWithString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    StringBuffer    buff;
-    int             result;
-
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
+    StringBuffer    buff;
+    int             result;
+
     aValue.printToStringBuffer(buff);
     auto    valString{buff.getString()};
 
@@ -141,12 +141,12 @@ compareValueWithStringAsJSON
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    StringBuffer    buff;
-    int             result;
-
     ODL_ENTER(); //###
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
+    StringBuffer    buff;
+    int             result;
+
     aValue.printToStringBufferAsJSON(buff);
     auto    valString{buff.getString()};
 
@@ -171,8 +171,6 @@ doTestEmptyBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // empty buffer chunk
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -180,6 +178,8 @@ doTestEmptyBufferChunk
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<BufferChunk>(false)};
@@ -224,8 +224,6 @@ doTestBufferChunkWithSingleByte
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk with 1 byte of data
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -233,6 +231,8 @@ doTestBufferChunkWithSingleByte
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<BufferChunk>(false)};
@@ -289,8 +289,6 @@ doTestFilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk filled with data
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -298,6 +296,8 @@ doTestFilledBufferChunk
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<BufferChunk>(false)};
@@ -380,8 +380,6 @@ doTestOverfilledBufferChunk
      const int      argc,
      Ptr(Ptr(char)) argv) // buffer chunk overfilled with data
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -389,6 +387,8 @@ doTestOverfilledBufferChunk
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<BufferChunk>(false)};
@@ -471,8 +471,6 @@ doTestBufferChunkReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting buffer chunk
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -480,6 +478,8 @@ doTestBufferChunkReset
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<BufferChunk>(false)};
@@ -535,8 +535,6 @@ doTestEmptyStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string buffer
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -544,6 +542,8 @@ doTestEmptyStringBuffer
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -598,13 +598,13 @@ doTestStringBufferWithCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with character string
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -672,13 +672,13 @@ doTestStringBufferWithLogical
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with logical
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -745,13 +745,13 @@ doTestStringBufferWithInteger
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with integer
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -816,13 +816,13 @@ doTestStringBufferWithString
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with string
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -889,8 +889,6 @@ doTestStringBufferWithSpecialCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with special chars
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -898,6 +896,8 @@ doTestStringBufferWithSpecialCharacters
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
@@ -957,13 +957,13 @@ doTestStringBufferWithDouble
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with floating point
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -1037,8 +1037,6 @@ doTestBigStringBuffer
      const int      argc,
      Ptr(Ptr(char)) argv) // big string buffer
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1046,6 +1044,8 @@ doTestBigStringBuffer
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -1110,8 +1110,6 @@ doTestStringBufferWithEmptyBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with empty blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1119,6 +1117,8 @@ doTestStringBufferWithEmptyBlob
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -1167,8 +1167,6 @@ doTestStringBufferWithSmallBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with small blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1176,6 +1174,8 @@ doTestStringBufferWithSmallBlob
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -1251,8 +1251,6 @@ doTestStringBufferWithBigBlob
      const int      argc,
      Ptr(Ptr(char)) argv) // string buffer with big blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1260,6 +1258,8 @@ doTestStringBufferWithBigBlob
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -1335,8 +1335,6 @@ doTestStringBufferReset
      const int      argc,
      Ptr(Ptr(char)) argv) // resetting string buffer
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1344,6 +1342,8 @@ doTestStringBufferReset
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<StringBuffer>()};
@@ -1401,8 +1401,6 @@ doTestDefaultLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default logical value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1410,6 +1408,8 @@ doTestDefaultLogicalValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Logical>()};
@@ -1454,13 +1454,13 @@ doTestLogicalValue
      const int      argc,
      Ptr(Ptr(char)) argv) // logical values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -1522,8 +1522,6 @@ doTestDefaultIntegerValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default integer value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1531,6 +1529,8 @@ doTestDefaultIntegerValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Integer>()};
@@ -1576,13 +1576,13 @@ doTestNumberValue
      const int      argc,
      Ptr(Ptr(char)) argv) // number values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -1669,8 +1669,6 @@ doTestDefaultStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default string value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1678,6 +1676,8 @@ doTestDefaultStringValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<String>()};
@@ -1722,13 +1722,13 @@ doTestStringValue
      const int      argc,
      Ptr(Ptr(char)) argv) // string values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -1780,8 +1780,6 @@ doTestStringValueWithEscapes
      const int      argc,
      Ptr(Ptr(char)) argv) // string value with escapes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1789,6 +1787,8 @@ doTestStringValueWithEscapes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
@@ -1835,8 +1835,6 @@ doTestDefaultBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // default blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1844,6 +1842,8 @@ doTestDefaultBlobValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Blob>()};
@@ -1888,8 +1888,6 @@ doTestSmallBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1897,6 +1895,8 @@ doTestSmallBlobValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
@@ -1970,8 +1970,6 @@ doTestBigBlobValue
      const int      argc,
      Ptr(Ptr(char)) argv) // big blob
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1979,6 +1977,8 @@ doTestBigBlobValue
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
@@ -2052,8 +2052,6 @@ doTestLogicalCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // logical copy and assign
 {
-    int result;
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2061,6 +2059,8 @@ doTestLogicalCopyAndAssign
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result;
+
     try
     {
         Logical falseStuff{false};
@@ -2124,8 +2124,6 @@ doTestIntegerCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // integer copy and assign
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2133,6 +2131,8 @@ doTestIntegerCopyAndAssign
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         static const int64_t value1{-1234};
@@ -2217,8 +2217,6 @@ doTestDoubleCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // floating point copy and assign
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2226,6 +2224,8 @@ doTestDoubleCopyAndAssign
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         static const double value1{-1234.5};
@@ -2309,8 +2309,6 @@ doTestStringCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // string copy and assign
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2318,6 +2316,8 @@ doTestStringCopyAndAssign
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         String emptyString;
@@ -2381,8 +2381,6 @@ doTestBlobCopyAndAssign
      const int      argc,
      Ptr(Ptr(char)) argv) // blob copy and assign
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2390,6 +2388,8 @@ doTestBlobCopyAndAssign
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
@@ -2498,8 +2498,6 @@ doTestValidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid logical compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2507,6 +2505,8 @@ doTestValidLogicalCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         struct tests
@@ -2617,8 +2617,6 @@ doTestValidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid number compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2626,6 +2624,8 @@ doTestValidNumberCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         struct testsI2I
@@ -3055,8 +3055,6 @@ doTestValidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid string compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3064,6 +3062,8 @@ doTestValidStringCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         struct tests
@@ -3199,8 +3199,6 @@ doTestValidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // valid blob compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3208,6 +3206,8 @@ doTestValidBlobCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         struct tests
@@ -3353,8 +3353,6 @@ doTestInvalidLogicalCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid logical compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3362,6 +3360,8 @@ doTestInvalidLogicalCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         ComparisonStatus    status;
@@ -3456,8 +3456,6 @@ doTestInvalidNumberCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid number compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3465,6 +3463,8 @@ doTestInvalidNumberCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         ComparisonStatus    status;
@@ -3559,8 +3559,6 @@ doTestInvalidStringCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid string compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3568,6 +3566,8 @@ doTestInvalidStringCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         ComparisonStatus    status;
@@ -3662,8 +3662,6 @@ doTestInvalidBlobCompares
      const int      argc,
      Ptr(Ptr(char)) argv) // invalid blob compares
 {
-    int result{0};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3671,6 +3669,8 @@ doTestInvalidBlobCompares
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{0};
+
     try
     {
         ComparisonStatus    status;
@@ -3765,8 +3765,6 @@ doTestDefaultLogicalValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default logical value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3774,6 +3772,8 @@ doTestDefaultLogicalValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Logical>()};
@@ -3818,13 +3818,13 @@ doTestLogicalValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // logical values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -3886,8 +3886,6 @@ doTestDefaultIntegerValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default integer value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3895,6 +3893,8 @@ doTestDefaultIntegerValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Integer>()};
@@ -3940,13 +3940,13 @@ doTestNumberValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // number values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)
@@ -4033,8 +4033,6 @@ doTestDefaultStringValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // default string value
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4042,6 +4040,8 @@ doTestDefaultStringValueAsJSON
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<String>()};
@@ -4086,13 +4086,13 @@ doTestStringValueAsJSON
      const int      argc,
      Ptr(Ptr(char)) argv) // string values
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         if (1 < argc)

@@ -105,10 +105,10 @@ nImO::RegistryProxy::RegistryProxy
      const Connection &         connection) :
         _context(context), _connection(connection)
 {
-    sockaddr_in sock_addr;
-
     ODL_ENTER(); //####
     ODL_P2("context = ", &context, "connection = ", &connection); //####
+    sockaddr_in sock_addr;
+
     memset(&sock_addr, 0, sizeof(sock_addr));
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_addr.s_addr = htonl(connection._address);

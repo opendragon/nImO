@@ -203,10 +203,10 @@ nImO::ChunkArray::atEnd
     (const size_t   index)
     const
 {
-    bool    result{true};
-
     ODL_OBJENTER(); //####
     ODL_I1("index = ", index); //####
+    bool    result{true};
+
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####
@@ -240,10 +240,10 @@ nImO::ChunkArray::getByte
      bool &         atEnd)
     const
 {
-    int result{-1};
-
     ODL_OBJENTER(); //####
     ODL_I1("index = ", index); //####
+    int result{-1};
+
     atEnd = true;
     ODL_B1("atEnd <- ", atEnd); //####
     if (nullptr != _buffers)
@@ -314,9 +314,9 @@ nImO::ChunkArray::getLength
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     size_t  totalLength{0};
 
-    ODL_OBJENTER(); //####
     if (nullptr != _buffers)
     {
         ODL_LOG("(nullptr != _buffers)"); //####

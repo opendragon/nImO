@@ -88,14 +88,14 @@ processRequest
      nImO::SPsocketTCP              socket,
      const std::string &            incoming)
 {
+    ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
+    ODL_S1s("incoming = ", incoming); //####
     // We need to strip off the Message separator first.
     bool                okSoFar{false};
     std::string         trimmed{nImO::UnpackageMessage(incoming)};
     nImO::ByteVector    rawStuff;
 
-    ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
-    ODL_S1s("incoming = ", incoming); //####
     ODL_S1s("trimmed <- ", trimmed); //####
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
@@ -199,9 +199,9 @@ void
 nImO::CommandSession::start
     (void)
 {
+    ODL_OBJENTER(); //####
     std::atomic<bool>   keepGoing{true};
 
-    ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpLogging)
     _owner->report("retrieving request");
 #endif /* defined(nImO_ChattyTcpLogging) */

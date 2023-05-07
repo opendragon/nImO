@@ -121,12 +121,12 @@ nImO::CommandHandler::sendComplexResponse
      SpValue                    contents)
     const
 {
-    bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents)};
-
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
+    bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents)};
+
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendComplexResponse
@@ -139,14 +139,14 @@ nImO::CommandHandler::sendComplexResponseWithContext
      const std::string          responseText,
      SpValue                    contents)
 {
-    bool    okSoFar{false};
-    Message responseToSend;
-    SpArray responseArray{new Array};
-
     ODL_OBJENTER(); //####
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
+    bool    okSoFar{false};
+    Message responseToSend;
+    SpArray responseArray{new Array};
+
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
     responseArray->addValue(contents);
@@ -224,12 +224,12 @@ nImO::CommandHandler::sendSimpleResponse
      const bool                 wasOK)
     const
 {
-    bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK)};
-
     ODL_OBJENTER(); //####
     ODL_P1("socket = ", &socket); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
+    bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK)};
+
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendSimpleResponse
@@ -242,14 +242,14 @@ nImO::CommandHandler::sendSimpleResponseWithContext
      const std::string          responseText,
      const bool                 wasOK)
 {
-    bool    okSoFar{false};
-    Message responseToSend;
-    SpArray responseArray{new Array};
-
     ODL_OBJENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
+    bool    okSoFar{false};
+    Message responseToSend;
+    SpArray responseArray{new Array};
+
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
     responseArray->addValue(std::make_shared<Logical>(wasOK));
@@ -327,12 +327,12 @@ nImO::CommandHandler::sendStatusReport
      const std::string &        statusChange)
     const
 {
+    ODL_OBJENTER(); //####
     asio::ip::udp::endpoint theEndpoint{asio::ip::address_v4(whereToSend._address), whereToSend._port};
     asio::ip::udp::socket   theSocket{*context->getService(), theEndpoint.protocol()};
     Message                 messageToSend;
     auto                    statusCopy{std::make_shared<String>(statusChange)};
 
-    ODL_OBJENTER(); //####
     messageToSend.open(true);
     messageToSend.setValue(statusCopy);
     messageToSend.close();

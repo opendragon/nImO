@@ -122,13 +122,13 @@ nImO::AnnounceServiceData::setServiceData
      const std::string &    dataKey,
      const std::string &    hostAddress)
 {
+    ODL_OBJENTER(); //####
+    ODL_I1("port = ", port); //####
+    ODL_S4s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey, "hostAddress = ", hostAddress); //####
     bool    okSoFar;
     size_t  serviceNameLength{serviceName.length()};
     size_t  hostNameLength{hostName.length()};
 
-    ODL_OBJENTER(); //####
-    ODL_I1("port = ", port); //####
-    ODL_S4s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey, "hostAddress = ", hostAddress); //####
     if ((0 < serviceNameLength) && (0 < hostNameLength))
     {
         _port = port;

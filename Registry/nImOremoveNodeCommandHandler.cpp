@@ -109,10 +109,10 @@ nImO::RemoveNodeCommandHandler::doIt
      const Array &              arguments)
     const
 {
-    bool    okSoFar{false};
-
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    bool    okSoFar{false};
+
     _owner->report("remove node request received");
     if (1 < arguments.size())
     {

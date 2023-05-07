@@ -208,9 +208,9 @@ std::string
 nImO::Message::getBytes
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result;
 
-    ODL_OBJENTER(); //####
     if (MessageState::Closed == _state)
     {
         ODL_LOG("(MessageState::Closed == _state)"); //####
@@ -227,9 +227,9 @@ nImO::Message::getLength
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     size_t  totalLength;
 
-    ODL_OBJENTER(); //####
     if (MessageState::Closed == _state)
     {
         ODL_LOG("(MessageState::Closed == _state)"); //####
@@ -248,10 +248,10 @@ nImO::SpValue
 nImO::Message::getValue
     (const bool allowClosed)
 {
-    SpValue result;
-
     ODL_OBJENTER(); //####
     ODL_B1("allowClosed = ", allowClosed); //####
+    SpValue result;
+
     if ((MessageState::OpenForReading == _state) || (allowClosed && (MessageState::Closed == _state)))
     {
         ODL_LOG("((MessageState::OpenForReading == _state) || (allowClosed && " //####

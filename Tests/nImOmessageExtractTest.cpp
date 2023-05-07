@@ -89,10 +89,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -113,12 +113,12 @@ extractValueAndCheck
      const size_t   insertedSize,
      const Value &  expectedValue)
 {
-    int result{1};
-
     ODL_ENTER(); //####
     ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", &expectedValue); //####
     ODL_I1("insertedSize = ", insertedSize); //####
     ODL_PACKET("inserted", insertedContents, insertedSize); //####
+    int result{1};
+
     // First, the 'this-should-work' test:
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
@@ -204,8 +204,6 @@ doTestExtractEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -213,6 +211,8 @@ doTestExtractEmptyMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -309,8 +309,6 @@ doTestExtractLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -318,6 +316,8 @@ doTestExtractLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -392,8 +392,6 @@ doTestExtractTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -401,6 +399,8 @@ doTestExtractTinyIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -495,8 +495,6 @@ doTestExtractSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -504,6 +502,8 @@ doTestExtractSmallIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -580,8 +580,6 @@ doTestExtractMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -589,6 +587,8 @@ doTestExtractMediumIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -667,8 +667,6 @@ doTestExtractBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -676,6 +674,8 @@ doTestExtractBigIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -756,8 +756,6 @@ doTestExtractEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -765,6 +763,8 @@ doTestExtractEmptyStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -820,8 +820,6 @@ doTestExtractShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -829,6 +827,8 @@ doTestExtractShortStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -887,8 +887,6 @@ doTestExtractMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -896,6 +894,8 @@ doTestExtractMediumStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -973,8 +973,6 @@ doTestExtractEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -982,6 +980,8 @@ doTestExtractEmptyBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1037,8 +1037,6 @@ doTestExtractSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1046,6 +1044,8 @@ doTestExtractSmallBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1109,8 +1109,6 @@ doTestExtractMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1118,6 +1116,8 @@ doTestExtractMediumBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1206,8 +1206,6 @@ doTestExtractSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1215,6 +1213,8 @@ doTestExtractSingleDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1299,8 +1299,6 @@ doTestExtractEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1308,6 +1306,8 @@ doTestExtractEmptyArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1367,8 +1367,6 @@ doTestExtractEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1376,6 +1374,8 @@ doTestExtractEmptyMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1435,8 +1435,6 @@ doTestExtractEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1444,6 +1442,8 @@ doTestExtractEmptySetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1503,8 +1503,6 @@ doTestExtractArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1512,6 +1510,8 @@ doTestExtractArrayOneLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1580,8 +1580,6 @@ doTestExtractArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1589,6 +1587,8 @@ doTestExtractArrayOneIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1657,8 +1657,6 @@ doTestExtractArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1666,6 +1664,8 @@ doTestExtractArrayOneDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1739,8 +1739,6 @@ doTestExtractArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1748,6 +1746,8 @@ doTestExtractArrayOneStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1817,8 +1817,6 @@ doTestExtractArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1826,6 +1824,8 @@ doTestExtractArrayOneBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1895,8 +1895,6 @@ doTestExtractArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1904,6 +1902,8 @@ doTestExtractArrayOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1977,8 +1977,6 @@ doTestExtractArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1986,6 +1984,8 @@ doTestExtractArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2059,8 +2059,6 @@ doTestExtractArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2068,6 +2066,8 @@ doTestExtractArrayOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2141,8 +2141,6 @@ doTestExtractArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2150,6 +2148,8 @@ doTestExtractArrayTwoLogicalsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2222,8 +2222,6 @@ doTestExtractArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2231,6 +2229,8 @@ doTestExtractArrayTwoIntegersMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2303,8 +2303,6 @@ doTestExtractArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2312,6 +2310,8 @@ doTestExtractArrayTwoDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2390,8 +2390,6 @@ doTestExtractArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2399,6 +2397,8 @@ doTestExtractArrayTwoStringsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2473,8 +2473,6 @@ doTestExtractArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2482,6 +2480,8 @@ doTestExtractArrayTwoBlobsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2556,8 +2556,6 @@ doTestExtractArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2565,6 +2563,8 @@ doTestExtractArrayTwoArraysMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2647,8 +2647,6 @@ doTestExtractArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2656,6 +2654,8 @@ doTestExtractArrayTwoMapsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2738,8 +2738,6 @@ doTestExtractArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2747,6 +2745,8 @@ doTestExtractArrayTwoSetsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2829,8 +2829,6 @@ doTestExtractArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2838,6 +2836,8 @@ doTestExtractArrayOneArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2920,8 +2920,6 @@ doTestExtractArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2929,6 +2927,8 @@ doTestExtractArrayOneMapOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3011,8 +3011,6 @@ doTestExtractArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3020,6 +3018,8 @@ doTestExtractArrayOneSetOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3102,8 +3102,6 @@ doTestExtractArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3111,6 +3109,8 @@ doTestExtractArrayWithManyDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3356,8 +3356,6 @@ doTestExtractLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3365,6 +3363,8 @@ doTestExtractLogicalMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3436,8 +3436,6 @@ doTestExtractIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3445,6 +3443,8 @@ doTestExtractIntegerMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3516,8 +3516,6 @@ doTestExtractStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3525,6 +3523,8 @@ doTestExtractStringMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3597,8 +3597,6 @@ doTestExtractLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3606,6 +3604,8 @@ doTestExtractLogicalSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3674,8 +3674,6 @@ doTestExtractIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3683,6 +3681,8 @@ doTestExtractIntegerSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3751,8 +3751,6 @@ doTestExtractStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3760,6 +3758,8 @@ doTestExtractStringSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3829,8 +3829,6 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3838,6 +3836,8 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};

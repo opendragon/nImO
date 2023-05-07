@@ -88,10 +88,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -155,8 +155,6 @@ doTestInsertEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -164,6 +162,8 @@ doTestInsertEmptyMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -232,8 +232,6 @@ doTestInsertLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -241,6 +239,8 @@ doTestInsertLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -315,8 +315,6 @@ doTestInsertTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -324,6 +322,8 @@ doTestInsertTinyIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -418,8 +418,6 @@ doTestInsertSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -427,6 +425,8 @@ doTestInsertSmallIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -503,8 +503,6 @@ doTestInsertMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -512,6 +510,8 @@ doTestInsertMediumIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -590,8 +590,6 @@ doTestInsertBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -599,6 +597,8 @@ doTestInsertBigIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -679,8 +679,6 @@ doTestInsertEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -688,6 +686,8 @@ doTestInsertEmptyStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -743,8 +743,6 @@ doTestInsertShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -752,6 +750,8 @@ doTestInsertShortStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -810,8 +810,6 @@ doTestInsertMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -819,6 +817,8 @@ doTestInsertMediumStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -896,8 +896,6 @@ doTestInsertEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -905,6 +903,8 @@ doTestInsertEmptyBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -960,8 +960,6 @@ doTestInsertSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -969,6 +967,8 @@ doTestInsertSmallBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1032,8 +1032,6 @@ doTestInsertMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1041,6 +1039,8 @@ doTestInsertMediumBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1129,8 +1129,6 @@ doTestInsertSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1138,6 +1136,8 @@ doTestInsertSingleDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1227,8 +1227,6 @@ doTestInsertEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1236,6 +1234,8 @@ doTestInsertEmptyArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1295,8 +1295,6 @@ doTestInsertEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1304,6 +1302,8 @@ doTestInsertEmptyMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1363,8 +1363,6 @@ doTestInsertEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1372,6 +1370,8 @@ doTestInsertEmptySetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1431,8 +1431,6 @@ doTestInsertArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1440,6 +1438,8 @@ doTestInsertArrayOneLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1508,8 +1508,6 @@ doTestInsertArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1517,6 +1515,8 @@ doTestInsertArrayOneIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1585,8 +1585,6 @@ doTestInsertArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1594,6 +1592,8 @@ doTestInsertArrayOneDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1667,8 +1667,6 @@ doTestInsertArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1676,6 +1674,8 @@ doTestInsertArrayOneStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1745,8 +1745,6 @@ doTestInsertArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1754,6 +1752,8 @@ doTestInsertArrayOneBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1823,8 +1823,6 @@ doTestInsertArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1832,6 +1830,8 @@ doTestInsertArrayOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1905,8 +1905,6 @@ doTestInsertArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1914,6 +1912,8 @@ doTestInsertArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1987,8 +1987,6 @@ doTestInsertArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1996,6 +1994,8 @@ doTestInsertArrayOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2069,8 +2069,6 @@ doTestInsertArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2078,6 +2076,8 @@ doTestInsertArrayTwoLogicalsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2150,8 +2150,6 @@ doTestInsertArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2159,6 +2157,8 @@ doTestInsertArrayTwoIntegersMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2231,8 +2231,6 @@ doTestInsertArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2240,6 +2238,8 @@ doTestInsertArrayTwoDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2318,8 +2318,6 @@ doTestInsertArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2327,6 +2325,8 @@ doTestInsertArrayTwoStringsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2401,8 +2401,6 @@ doTestInsertArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2410,6 +2408,8 @@ doTestInsertArrayTwoBlobsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2484,8 +2484,6 @@ doTestInsertArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2493,6 +2491,8 @@ doTestInsertArrayTwoArraysMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2575,8 +2575,6 @@ doTestInsertArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2584,6 +2582,8 @@ doTestInsertArrayTwoMapsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2666,8 +2666,6 @@ doTestInsertArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2675,6 +2673,8 @@ doTestInsertArrayTwoSetsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2757,8 +2757,6 @@ doTestInsertArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2766,6 +2764,8 @@ doTestInsertArrayOneArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2848,8 +2848,6 @@ doTestInsertArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2857,6 +2855,8 @@ doTestInsertArrayOneMapOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2939,8 +2939,6 @@ doTestInsertArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2948,6 +2946,8 @@ doTestInsertArrayOneSetOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3030,8 +3030,6 @@ doTestInsertArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3039,6 +3037,8 @@ doTestInsertArrayWithManyDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3284,8 +3284,6 @@ doTestInsertLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3293,6 +3291,8 @@ doTestInsertLogicalMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3364,8 +3364,6 @@ doTestInsertIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3373,6 +3371,8 @@ doTestInsertIntegerMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3444,8 +3444,6 @@ doTestInsertStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3453,6 +3451,8 @@ doTestInsertStringMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3525,8 +3525,6 @@ doTestInsertLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3534,6 +3532,8 @@ doTestInsertLogicalSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3602,8 +3602,6 @@ doTestInsertIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3611,6 +3609,8 @@ doTestInsertIntegerSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3679,8 +3679,6 @@ doTestInsertStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3688,6 +3686,8 @@ doTestInsertStringSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};

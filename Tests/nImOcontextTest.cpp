@@ -87,10 +87,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -108,9 +108,9 @@ static int
 doTestCreateContextWithMDNS
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -140,9 +140,9 @@ static int
 doTestCreateContextWithNetworking
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         ContextWithNetworking   aContext{""};
@@ -169,9 +169,9 @@ static int
 doTestCreateFilterContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -201,9 +201,9 @@ static int
 doTestCreateMiscellaneousContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         MiscellaneousContext    aContext("");
@@ -230,9 +230,9 @@ static int
 doTestCreateServiceContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -262,9 +262,9 @@ static int
 doTestCreateSinkContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -294,9 +294,9 @@ static int
 doTestCreateSourceContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -326,9 +326,9 @@ static int
 doTestCreateTestContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         TestContext   aContext{""};
@@ -355,9 +355,9 @@ static int
 doTestCreateUtilityContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -387,9 +387,9 @@ static int
 doTestCreateRegistryContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -419,9 +419,9 @@ static int
 doTestKindOfContextForContextWithNetworking
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -455,9 +455,9 @@ static int
 doTestKindOfContextForContextWithMDNS
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -491,9 +491,9 @@ static int
 doTestKindOfContextForServiceContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -527,9 +527,9 @@ static int
 doTestKindOfContextForUtilityContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -563,9 +563,9 @@ static int
 doTestKindOfContextForFilterContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -599,9 +599,9 @@ static int
 doTestKindOfContextForSinkContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -635,9 +635,9 @@ static int
 doTestKindOfContextForSourceContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -671,9 +671,9 @@ static int
 doTestKindOfContextForRegistryContext
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -707,9 +707,9 @@ static int
 doTestCreateMDNSAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -751,9 +751,9 @@ static int
 doTestCreateMDNSAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -795,9 +795,9 @@ static int
 doTestCreateMDNSAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -839,9 +839,9 @@ static int
 doTestCreateMDNSAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -883,9 +883,9 @@ static int
 doTestCreateMDNSAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -927,9 +927,9 @@ static int
 doTestCreateMDNSAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -971,9 +971,9 @@ static int
 doTestCreateMDNSAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1015,9 +1015,9 @@ static int
 doTestCreateMDNSAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1059,9 +1059,9 @@ static int
 doTestCreateMDNSAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1103,9 +1103,9 @@ static int
 doTestCreateNetworkingAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1147,9 +1147,9 @@ static int
 doTestCreateNetworkingAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1191,9 +1191,9 @@ static int
 doTestCreateNetworkingAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1235,9 +1235,9 @@ static int
 doTestCreateNetworkingAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1279,9 +1279,9 @@ static int
 doTestCreateNetworkingAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1323,9 +1323,9 @@ static int
 doTestCreateNetworkingAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1367,9 +1367,9 @@ static int
 doTestCreateNetworkingAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1411,9 +1411,9 @@ static int
 doTestCreateNetworkingAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1455,9 +1455,9 @@ static int
 doTestCreateNetworkingAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1499,9 +1499,9 @@ static int
 doTestCreateFilterAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1543,9 +1543,9 @@ static int
 doTestCreateFilterAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1587,9 +1587,9 @@ static int
 doTestCreateFilterAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1631,9 +1631,9 @@ static int
 doTestCreateFilterAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1675,9 +1675,9 @@ static int
 doTestCreateFilterAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1719,9 +1719,9 @@ static int
 doTestCreateFilterAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1763,9 +1763,9 @@ static int
 doTestCreateFilterAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1807,9 +1807,9 @@ static int
 doTestCreateFilterAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1851,9 +1851,9 @@ static int
 doTestCreateFilterAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1895,9 +1895,9 @@ static int
 doTestCreateMiscellaneousAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1939,9 +1939,9 @@ static int
 doTestCreateMiscellaneousAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -1983,9 +1983,9 @@ static int
 doTestCreateMiscellaneousAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2027,9 +2027,9 @@ static int
 doTestCreateMiscellaneousAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2071,9 +2071,9 @@ static int
 doTestCreateMiscellaneousAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2115,9 +2115,9 @@ static int
 doTestCreateMiscellaneousAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2159,9 +2159,9 @@ static int
 doTestCreateMiscellaneousAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2203,9 +2203,9 @@ static int
 doTestCreateMiscellaneousAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2247,9 +2247,9 @@ static int
 doTestCreateMiscellaneousAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2291,9 +2291,9 @@ static int
 doTestCreateServiceAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2335,9 +2335,9 @@ static int
 doTestCreateServiceAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2379,9 +2379,9 @@ static int
 doTestCreateServiceAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2423,9 +2423,9 @@ static int
 doTestCreateServiceAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2467,9 +2467,9 @@ static int
 doTestCreateServiceAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2511,9 +2511,9 @@ static int
 doTestCreateServiceAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2555,9 +2555,9 @@ static int
 doTestCreateServiceAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2599,9 +2599,9 @@ static int
 doTestCreateServiceAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2643,9 +2643,9 @@ static int
 doTestCreateServiceAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2687,9 +2687,9 @@ static int
 doTestCreateSinkAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2731,9 +2731,9 @@ static int
 doTestCreateSinkAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2775,9 +2775,9 @@ static int
 doTestCreateSinkAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2819,9 +2819,9 @@ static int
 doTestCreateSinkAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2863,9 +2863,9 @@ static int
 doTestCreateSinkAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2907,9 +2907,9 @@ static int
 doTestCreateSinkAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2951,9 +2951,9 @@ static int
 doTestCreateSinkAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -2995,9 +2995,9 @@ static int
 doTestCreateSinkAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3039,9 +3039,9 @@ static int
 doTestCreateSinkAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3083,9 +3083,9 @@ static int
 doTestCreateSourceAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3127,9 +3127,9 @@ static int
 doTestCreateSourceAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3171,9 +3171,9 @@ static int
 doTestCreateSourceAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3215,9 +3215,9 @@ static int
 doTestCreateSourceAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3259,9 +3259,9 @@ static int
 doTestCreateSourceAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3303,9 +3303,9 @@ static int
 doTestCreateSourceAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3347,9 +3347,9 @@ static int
 doTestCreateSourceAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3391,9 +3391,9 @@ static int
 doTestCreateSourceAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3435,9 +3435,9 @@ static int
 doTestCreateSourceAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3479,9 +3479,9 @@ static int
 doTestCreateTestAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3523,9 +3523,9 @@ static int
 doTestCreateTestAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3567,9 +3567,9 @@ static int
 doTestCreateTestAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3611,9 +3611,9 @@ static int
 doTestCreateTestAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3655,9 +3655,9 @@ static int
 doTestCreateTestAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3699,9 +3699,9 @@ static int
 doTestCreateTestAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3743,9 +3743,9 @@ static int
 doTestCreateTestAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3787,9 +3787,9 @@ static int
 doTestCreateTestAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3831,9 +3831,9 @@ static int
 doTestCreateTestAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3875,9 +3875,9 @@ static int
 doTestCreateUtilityAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3919,9 +3919,9 @@ static int
 doTestCreateUtilityAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -3963,9 +3963,9 @@ static int
 doTestCreateUtilityAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4007,9 +4007,9 @@ static int
 doTestCreateUtilityAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4051,9 +4051,9 @@ static int
 doTestCreateUtilityAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4095,9 +4095,9 @@ static int
 doTestCreateUtilityAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4139,9 +4139,9 @@ static int
 doTestCreateUtilityAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4183,9 +4183,9 @@ static int
 doTestCreateUtilityAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4227,9 +4227,9 @@ static int
 doTestCreateUtilityAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4271,9 +4271,9 @@ static int
 doTestCreateRegistryAndMDNSContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4315,9 +4315,9 @@ static int
 doTestCreateRegistryAndNetworkingContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4359,9 +4359,9 @@ static int
 doTestCreateRegistryAndFilterContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4403,9 +4403,9 @@ static int
 doTestCreateRegistryAndMiscellaneousContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4447,9 +4447,9 @@ static int
 doTestCreateRegistryAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4491,9 +4491,9 @@ static int
 doTestCreateRegistryAndServiceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4535,9 +4535,9 @@ static int
 doTestCreateRegistryAndSinkContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4579,9 +4579,9 @@ static int
 doTestCreateRegistryAndSourceContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4623,9 +4623,9 @@ static int
 doTestCreateRegistryAndTestContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4667,9 +4667,9 @@ static int
 doTestCreateRegistryAndUtilityContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4711,9 +4711,9 @@ static int
 doTestCreateMDNSAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4755,9 +4755,9 @@ static int
 doTestCreateNetworkingAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4799,9 +4799,9 @@ static int
 doTestCreateFilterAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4843,9 +4843,9 @@ static int
 doTestCreateMiscellaneousAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4887,9 +4887,9 @@ static int
 doTestCreateSinkAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4931,9 +4931,9 @@ static int
 doTestCreateSourceAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -4975,9 +4975,9 @@ static int
 doTestCreateTestAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();
@@ -5019,9 +5019,9 @@ static int
 doTestCreateUtilityAndRegistryContexts
     (void)
 {
+    ODL_ENTER(); //####
     int result{1};
 
-    ODL_ENTER(); //####
     try
     {
         DisableWaitForRegistry();

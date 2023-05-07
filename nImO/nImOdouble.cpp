@@ -145,10 +145,10 @@ nImO::Double::deeplyEqualTo
     (const Value &  other)
     const
 {
-    bool    result{&other == this};
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    bool    result{&other == this};
+
     if (! result)
     {
         CPtr(Double)    otherPtr{other.asDouble()};
@@ -167,9 +167,9 @@ nImO::Double::enumerationType
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     Enumerable  result{Enumerable::NotEnumerable};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Double::enumerationType
@@ -179,10 +179,10 @@ nImO::Double::equalTo
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};
@@ -223,14 +223,14 @@ nImO::Double::extractValue
      size_t &           position,
      SpArray            parentValue)
 {
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
     SpValue result;
     bool    atEnd;
     bool    isShort{DataKind::DoubleShortCount == (DataKind::DoubleCountMask & leadByte)};
     int64_t howMany;
 
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
     if (isShort)
@@ -332,9 +332,9 @@ nImO::Double::getTypeTag
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     DataKind    result{DataKind::OtherMessageExpectedDoubleValue};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Double::getTypeTag
@@ -344,10 +344,10 @@ nImO::Double::greaterThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other == this)
     {
         result = false;
@@ -390,10 +390,10 @@ nImO::Double::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};
@@ -432,10 +432,10 @@ nImO::Double::lessThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other == this)
     {
         result = false;
@@ -478,10 +478,10 @@ nImO::Double::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Double)    doublePtr{other.asDouble()};
@@ -577,10 +577,10 @@ nImO::Double::writeToMessage
     (Message &  outMessage)
     const
 {
-    NumberAsBytes   numBuff;
-
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
+    NumberAsBytes   numBuff;
+
     D2B(_floatValue, numBuff);
     DataKind    stuff{DataKind::Double | DataKind::DoubleShortCount |
                         ((1 - DataKindDoubleShortCountMinValue) & DataKind::DoubleShortCountMask)};
@@ -595,11 +595,11 @@ nImO::Double::writeValuesToMessage
     (std::queue<double> &   values,
      nImO::Message &        outMessage)
 {
+    ODL_ENTER(); //####
+    ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####
     NumberAsBytes   numBuff;
     size_t          numValues{values.size()};
 
-    ODL_ENTER(); //####
-    ODL_P2("values = ", &values, "outMessage = ", &outMessage); //####
     // First, the count.
     if (0 < numValues)
     {

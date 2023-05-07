@@ -93,10 +93,10 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -180,15 +180,14 @@ extractValueAndCheck
      const size_t       insertedSize,
      const Value &      expectedValue)
 {
+    ODL_ENTER(); //####
+    ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", &expectedValue); //####
+    ODL_I1("insertedSize = ", insertedSize); //####
+    ODL_PACKET("inserted", insertedContents, insertedSize); //####
     int             result{1};
     StringVector    inVec;
     ByteVector      outBytes;
 
-    ODL_ENTER(); //####
-    ODL_P3("stuff = ", &stuff, "insertedContents = ", insertedContents, "expectedValue = ", //####
-           &expectedValue); //####
-    ODL_I1("insertedSize = ", insertedSize); //####
-    ODL_PACKET("inserted", insertedContents, insertedSize); //####
     for (size_t ii = 0; ii < insertedSize; ++ii)
     {
         inVec.push_back(insertedContents[ii]);
@@ -272,8 +271,6 @@ doTestMIMEBytesMod3Is0
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 0
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -281,6 +278,8 @@ doTestMIMEBytesMod3Is0
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -341,8 +340,6 @@ doTestMIMEBytesMod3Is1
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 1
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -350,6 +347,8 @@ doTestMIMEBytesMod3Is1
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -410,8 +409,6 @@ doTestMIMEBytesMod3Is2
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 2
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -419,6 +416,8 @@ doTestMIMEBytesMod3Is2
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -479,8 +478,6 @@ doTestMIMEBytesMod3Is0Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 0
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -488,6 +485,8 @@ doTestMIMEBytesMod3Is0Packaged
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -551,8 +550,6 @@ doTestMIMEBytesMod3Is1Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 1
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -560,6 +557,8 @@ doTestMIMEBytesMod3Is1Packaged
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -623,8 +622,6 @@ doTestMIMEBytesMod3Is2Packaged
      const int      argc,
      Ptr(Ptr(char)) argv) // mod = 2
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -632,6 +629,8 @@ doTestMIMEBytesMod3Is2Packaged
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inOutValue;
@@ -695,8 +694,6 @@ doTestMIMEInsertEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -704,6 +701,8 @@ doTestMIMEInsertEmptyMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -779,8 +778,6 @@ doTestMIMEExtractEmptyMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -788,6 +785,8 @@ doTestMIMEExtractEmptyMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -874,8 +873,6 @@ doTestMIMEInsertLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -883,6 +880,8 @@ doTestMIMEInsertLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -931,8 +930,6 @@ doTestMIMEExtractLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -940,6 +937,8 @@ doTestMIMEExtractLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -988,8 +987,6 @@ doTestMIMEInsertTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -997,6 +994,8 @@ doTestMIMEInsertTinyIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1052,8 +1051,6 @@ doTestMIMEExtractTinyIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // tiny integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1061,6 +1058,8 @@ doTestMIMEExtractTinyIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1116,8 +1115,6 @@ doTestMIMEInsertSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1125,6 +1122,8 @@ doTestMIMEInsertSmallIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1173,8 +1172,6 @@ doTestMIMEExtractSmallIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1182,6 +1179,8 @@ doTestMIMEExtractSmallIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1230,8 +1229,6 @@ doTestMIMEInsertMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1239,6 +1236,8 @@ doTestMIMEInsertMediumIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1287,8 +1286,6 @@ doTestMIMEExtractMediumIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1296,6 +1293,8 @@ doTestMIMEExtractMediumIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1344,8 +1343,6 @@ doTestMIMEInsertBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1353,6 +1350,8 @@ doTestMIMEInsertBigIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1401,8 +1400,6 @@ doTestMIMEExtractBigIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // big integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1410,6 +1407,8 @@ doTestMIMEExtractBigIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1458,8 +1457,6 @@ doTestMIMEInsertEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1467,6 +1464,8 @@ doTestMIMEInsertEmptyStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1508,8 +1507,6 @@ doTestMIMEExtractEmptyStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1517,6 +1514,8 @@ doTestMIMEExtractEmptyStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1558,8 +1557,6 @@ doTestMIMEInsertShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1567,6 +1564,8 @@ doTestMIMEInsertShortStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1608,8 +1607,6 @@ doTestMIMEExtractShortStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // short string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1617,6 +1614,8 @@ doTestMIMEExtractShortStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1658,8 +1657,6 @@ doTestMIMEInsertMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1667,6 +1664,8 @@ doTestMIMEInsertMediumStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1708,8 +1707,6 @@ doTestMIMEExtractMediumStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1717,6 +1714,8 @@ doTestMIMEExtractMediumStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1758,8 +1757,6 @@ doTestMIMEInsertEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1767,6 +1764,8 @@ doTestMIMEInsertEmptyBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1808,8 +1807,6 @@ doTestMIMEExtractEmptyBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1817,6 +1814,8 @@ doTestMIMEExtractEmptyBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1858,8 +1857,6 @@ doTestMIMEInsertSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1867,6 +1864,8 @@ doTestMIMEInsertSmallBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1913,8 +1912,6 @@ doTestMIMEExtractSmallBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // small blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1922,6 +1919,8 @@ doTestMIMEExtractSmallBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -1968,8 +1967,6 @@ doTestMIMEInsertMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1977,6 +1974,8 @@ doTestMIMEInsertMediumBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2029,8 +2028,6 @@ doTestMIMEExtractMediumBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // medium blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2038,6 +2035,8 @@ doTestMIMEExtractMediumBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2090,8 +2089,6 @@ doTestMIMEInsertSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2099,6 +2096,8 @@ doTestMIMEInsertSingleDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2147,8 +2146,6 @@ doTestMIMEExtractSingleDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // single double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2156,6 +2153,8 @@ doTestMIMEExtractSingleDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2204,8 +2203,6 @@ doTestMIMEInsertEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2213,6 +2210,8 @@ doTestMIMEInsertEmptyArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2254,8 +2253,6 @@ doTestMIMEExtractEmptyArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2263,6 +2260,8 @@ doTestMIMEExtractEmptyArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2304,8 +2303,6 @@ doTestMIMEInsertEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2313,6 +2310,8 @@ doTestMIMEInsertEmptyMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2354,8 +2353,6 @@ doTestMIMEExtractEmptyMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2363,6 +2360,8 @@ doTestMIMEExtractEmptyMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2404,8 +2403,6 @@ doTestMIMEInsertEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2413,6 +2410,8 @@ doTestMIMEInsertEmptySetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2454,8 +2453,6 @@ doTestMIMEExtractEmptySetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // empty set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2463,6 +2460,8 @@ doTestMIMEExtractEmptySetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2504,8 +2503,6 @@ doTestMIMEInsertArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2513,6 +2510,8 @@ doTestMIMEInsertArrayOneLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2555,8 +2554,6 @@ doTestMIMEExtractArrayOneLogicalMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one logical message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2564,6 +2561,8 @@ doTestMIMEExtractArrayOneLogicalMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2606,8 +2605,6 @@ doTestMIMEInsertArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2615,6 +2612,8 @@ doTestMIMEInsertArrayOneIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2657,8 +2656,6 @@ doTestMIMEExtractArrayOneIntegerMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one integer message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2666,6 +2663,8 @@ doTestMIMEExtractArrayOneIntegerMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2708,8 +2707,6 @@ doTestMIMEInsertArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2717,6 +2714,8 @@ doTestMIMEInsertArrayOneDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2759,8 +2758,6 @@ doTestMIMEExtractArrayOneDoubleMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one double message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2768,6 +2765,8 @@ doTestMIMEExtractArrayOneDoubleMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2810,8 +2809,6 @@ doTestMIMEInsertArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2819,6 +2816,8 @@ doTestMIMEInsertArrayOneStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2861,8 +2860,6 @@ doTestMIMEExtractArrayOneStringMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one string message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2870,6 +2867,8 @@ doTestMIMEExtractArrayOneStringMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2912,8 +2911,6 @@ doTestMIMEInsertArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2921,6 +2918,8 @@ doTestMIMEInsertArrayOneBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -2963,8 +2962,6 @@ doTestMIMEExtractArrayOneBlobMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one blob message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2972,6 +2969,8 @@ doTestMIMEExtractArrayOneBlobMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3014,8 +3013,6 @@ doTestMIMEInsertArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3023,6 +3020,8 @@ doTestMIMEInsertArrayOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3065,8 +3064,6 @@ doTestMIMEExtractArrayOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3074,6 +3071,8 @@ doTestMIMEExtractArrayOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3116,8 +3115,6 @@ doTestMIMEInsertArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3125,6 +3122,8 @@ doTestMIMEInsertArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3167,8 +3166,6 @@ doTestMIMEExtractArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3176,6 +3173,8 @@ doTestMIMEExtractArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3218,8 +3217,6 @@ doTestMIMEInsertArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3227,6 +3224,8 @@ doTestMIMEInsertArrayOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3269,8 +3268,6 @@ doTestMIMEExtractArrayOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with one set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3278,6 +3275,8 @@ doTestMIMEExtractArrayOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3320,8 +3319,6 @@ doTestMIMEInsertArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3329,6 +3326,8 @@ doTestMIMEInsertArrayTwoLogicalsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3372,8 +3371,6 @@ doTestMIMEExtractArrayTwoLogicalsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two logicals message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3381,6 +3378,8 @@ doTestMIMEExtractArrayTwoLogicalsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3424,8 +3423,6 @@ doTestMIMEInsertArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3433,6 +3430,8 @@ doTestMIMEInsertArrayTwoIntegersMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3476,8 +3475,6 @@ doTestMIMEExtractArrayTwoIntegersMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two integers message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3485,6 +3482,8 @@ doTestMIMEExtractArrayTwoIntegersMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3528,8 +3527,6 @@ doTestMIMEInsertArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3537,6 +3534,8 @@ doTestMIMEInsertArrayTwoDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3580,8 +3579,6 @@ doTestMIMEExtractArrayTwoDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3589,6 +3586,8 @@ doTestMIMEExtractArrayTwoDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3632,8 +3631,6 @@ doTestMIMEInsertArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3641,6 +3638,8 @@ doTestMIMEInsertArrayTwoStringsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3684,8 +3683,6 @@ doTestMIMEExtractArrayTwoStringsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two strings message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3693,6 +3690,8 @@ doTestMIMEExtractArrayTwoStringsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3736,8 +3735,6 @@ doTestMIMEInsertArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3745,6 +3742,8 @@ doTestMIMEInsertArrayTwoBlobsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3788,8 +3787,6 @@ doTestMIMEExtractArrayTwoBlobsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two blobs message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3797,6 +3794,8 @@ doTestMIMEExtractArrayTwoBlobsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3840,8 +3839,6 @@ doTestMIMEInsertArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3849,6 +3846,8 @@ doTestMIMEInsertArrayTwoArraysMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3892,8 +3891,6 @@ doTestMIMEExtractArrayTwoArraysMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two arrays message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3901,6 +3898,8 @@ doTestMIMEExtractArrayTwoArraysMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3944,8 +3943,6 @@ doTestMIMEInsertArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3953,6 +3950,8 @@ doTestMIMEInsertArrayTwoMapsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -3996,8 +3995,6 @@ doTestMIMEExtractArrayTwoMapsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two maps message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4005,6 +4002,8 @@ doTestMIMEExtractArrayTwoMapsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4048,8 +4047,6 @@ doTestMIMEInsertArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4057,6 +4054,8 @@ doTestMIMEInsertArrayTwoSetsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4100,8 +4099,6 @@ doTestMIMEExtractArrayTwoSetsMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with two sets message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4109,6 +4106,8 @@ doTestMIMEExtractArrayTwoSetsMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4152,8 +4151,6 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4161,6 +4158,8 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4204,8 +4203,6 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with array and map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4213,6 +4210,8 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4256,8 +4255,6 @@ doTestMIMEInsertArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4265,6 +4262,8 @@ doTestMIMEInsertArrayOneMapOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4308,8 +4307,6 @@ doTestMIMEExtractArrayOneMapOneSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with map and set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4317,6 +4314,8 @@ doTestMIMEExtractArrayOneMapOneSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4360,8 +4359,6 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4369,6 +4366,8 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4412,8 +4411,6 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with set and array message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4421,6 +4418,8 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4464,8 +4463,6 @@ doTestMIMEInsertArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4473,6 +4470,8 @@ doTestMIMEInsertArrayWithManyDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4526,8 +4525,6 @@ doTestMIMEExtractArrayWithManyDoublesMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // array with many doubles message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4535,6 +4532,8 @@ doTestMIMEExtractArrayWithManyDoublesMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4588,8 +4587,6 @@ doTestMIMEInsertLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4597,6 +4594,8 @@ doTestMIMEInsertLogicalMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4639,8 +4638,6 @@ doTestMIMEExtractLogicalMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4648,6 +4645,8 @@ doTestMIMEExtractLogicalMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4690,8 +4689,6 @@ doTestMIMEInsertIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4699,6 +4696,8 @@ doTestMIMEInsertIntegerMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4741,8 +4740,6 @@ doTestMIMEExtractIntegerMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4750,6 +4747,8 @@ doTestMIMEExtractIntegerMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4792,8 +4791,6 @@ doTestMIMEInsertStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4801,6 +4798,8 @@ doTestMIMEInsertStringMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4843,8 +4842,6 @@ doTestMIMEExtractStringMapMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string map message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4852,6 +4849,8 @@ doTestMIMEExtractStringMapMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4894,8 +4893,6 @@ doTestMIMEInsertLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4903,6 +4900,8 @@ doTestMIMEInsertLogicalSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4945,8 +4944,6 @@ doTestMIMEExtractLogicalSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // logical set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4954,6 +4951,8 @@ doTestMIMEExtractLogicalSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -4996,8 +4995,6 @@ doTestMIMEInsertIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5005,6 +5002,8 @@ doTestMIMEInsertIntegerSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5047,8 +5046,6 @@ doTestMIMEExtractIntegerSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5056,6 +5053,8 @@ doTestMIMEExtractIntegerSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5098,8 +5097,6 @@ doTestMIMEInsertStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // integer set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5107,6 +5104,8 @@ doTestMIMEInsertStringSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5149,8 +5148,6 @@ doTestMIMEExtractStringSetMessage
      const int      argc,
      Ptr(Ptr(char)) argv) // string set message
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5158,6 +5155,8 @@ doTestMIMEExtractStringSetMessage
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5200,8 +5199,6 @@ doTestMIMEInsertArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5209,6 +5206,8 @@ doTestMIMEInsertArrayWithRangeOfIntegers
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5291,8 +5290,6 @@ doTestMIMEExtractArrayWithRangeOfIntegers
      const int      argc,
      Ptr(Ptr(char)) argv) // array with range of integers
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5300,6 +5297,8 @@ doTestMIMEExtractArrayWithRangeOfIntegers
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         auto    stuff{make_unique<Message>()};
@@ -5382,8 +5381,6 @@ doTestMIMExtractWithBadNumberOfCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad number of characters
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5391,6 +5388,8 @@ doTestMIMExtractWithBadNumberOfCharacters
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inVec;
@@ -5430,8 +5429,6 @@ doTestMIMExtractWithBadCharacters
      const int      argc,
      Ptr(Ptr(char)) argv) // message with bad characters
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -5439,6 +5436,8 @@ doTestMIMExtractWithBadCharacters
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         StringVector    inVec;

@@ -128,9 +128,9 @@ StringArgumentDescriptor::clone
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     auto    result{std::make_shared<StringArgumentDescriptor>(*this)};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(result.get());
     return result;
 } // StringArgumentDescriptor::clone
@@ -139,9 +139,9 @@ std::string
 StringArgumentDescriptor::getDefaultValue
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result{_defaultValue};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // StringArgumentDescriptor::getDefaultValue
@@ -150,9 +150,9 @@ std::string
 StringArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result{"\""};
 
-    ODL_OBJENTER(); //####
     result += getDefaultValue();
     result += "\"";
     ODL_OBJEXIT_s(result); //####
@@ -172,12 +172,15 @@ StringArgumentDescriptor &
 StringArgumentDescriptor::operator=
     (const StringArgumentDescriptor &   other)
 {
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
     if (this != &other)
     {
         StringArgumentDescriptor    temp{other};
 
         swap(temp);
     }
+    ODL_OBJEXIT_P(this); //####
     return *this;
 } // StringArgumentDescriptor::operator=
 
@@ -202,13 +205,13 @@ SpBaseArgumentDescriptor
 StringArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::StringTypeTag, 3, name, argMode, inVector))
     {
         std::string defaultString{inVector[0]};
@@ -266,9 +269,9 @@ std::string
 StringArgumentDescriptor::toString
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::StringTypeTag)};
 
-    ODL_OBJENTER(); //####
     result += suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####
     return result;

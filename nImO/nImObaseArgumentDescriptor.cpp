@@ -242,14 +242,14 @@ BaseArgumentDescriptor::partitionString
      StringVector &         result,
      const size_t           indexOfListValue)
 {
-    bool        okSoFar{false};
-    std::string workingCopy{inString};
-
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
     ODL_C1("expectedTag = ", expectedTag); //####
     ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue, "indexOfListValue = ", indexOfListValue); //####
     ODL_P3("name = ", &name, "argMode = ", &argMode, "result = ", &result); //####
+    bool        okSoFar{false};
+    std::string workingCopy{inString};
+
     // We need to split the input into fields.
     result.clear();
     for (size_t fieldNumber = 0; 0 < workingCopy.length(); ++fieldNumber)
@@ -357,10 +357,10 @@ BaseArgumentDescriptor::prefixFields
     (const ArgumentTypeTag  tagForField)
     const
 {
-    std::string result{_argName};
-
     ODL_OBJENTER(); //####
     ODL_C1("tagForField = ", tagForField); //####
+    std::string result{_argName};
+
     result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -380,11 +380,11 @@ std::string
 BaseArgumentDescriptor::suffixFields
     (const std::string &    defaultToUse)
 {
+    ODL_OBJENTER(); //####
+    ODL_S1s("defaultToUse = ", defaultToUse); //####
     char        charToUse{identifyDelimiter(defaultToUse)};
     std::string result{_parameterSeparator};
 
-    ODL_OBJENTER(); //####
-    ODL_S1s("defaultToUse = ", defaultToUse); //####
     result += charToUse;
     result += defaultToUse + charToUse + _parameterSeparator + _argDescription;
     ODL_OBJEXIT_s(result); //####
@@ -412,11 +412,11 @@ std::string
 nImO::ArgumentsToArgString
     (const DescriptorVector &   arguments)
 {
+    ODL_ENTER(); //####
+    ODL_P1("arguments = ", &arguments); //####
     std::string result;
     size_t      numOptional{0};
 
-    ODL_ENTER(); //####
-    ODL_P1("arguments = ", &arguments); //####
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
@@ -449,13 +449,13 @@ nImO::ArgumentsToDescriptionArray
      StringVector &             output,
      const size_t               minSpace)
 {
+    ODL_ENTER(); //####
+    ODL_P2("arguments = ", &arguments, "output = ", &output); //####
+    ODL_I1("minSpace = ", minSpace); //####
     int       nameSize{-1};
     int       optionSize{-1};
     const int kOptionStringLen{20}; // '(Optional, default=)'
 
-    ODL_ENTER(); //####
-    ODL_P2("arguments = ", &arguments, "output = ", &output); //####
-    ODL_I1("minSpace = ", minSpace); //####
     // Determine the width of the 'name' column.
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
@@ -550,11 +550,10 @@ SpBaseArgumentDescriptor
 nImO::ConvertStringToArgument
     (const std::string &    inString)
 {
-    SpBaseArgumentDescriptor result;
-
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    result = AddressArgumentDescriptor::parseArgString(inString);
+    SpBaseArgumentDescriptor result{AddressArgumentDescriptor::parseArgString(inString)};
+
     if (nullptr == result)
     {
         result = BooleanArgumentDescriptor::parseArgString(inString);
@@ -599,11 +598,11 @@ nImO::ArgumentMode
 nImO::ModeFromString
     (const std::string &    modeString)
 {
+    ODL_ENTER(); //####
+    ODL_S1s("modeString = ", modeString); //####
     ArgumentMode result{ArgumentMode::Unknown};
     int64_t      modeAsInt;
 
-    ODL_ENTER(); //####
-    ODL_S1s("modeString = ", modeString); //####
     if (ConvertToInt64(modeString, modeAsInt))
     {
         // Check that only the known bits are set!
@@ -623,6 +622,8 @@ nImO::ProcessArguments
      Option_::Parser &          parseResult,
      std::string &              badArgs)
 {
+    ODL_ENTER(); //####
+    ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", &badArgs); //####
     bool   result{true};
     bool   sawExtra{false};
     bool   sawOptional{false};
@@ -630,8 +631,6 @@ nImO::ProcessArguments
     size_t numValues{StaticCast(size_t, parseResult.nonOptionsCount())};
     size_t numToCheck{std::min(numArgs, numValues)};
 
-    ODL_ENTER(); //####
-    ODL_P3("arguments = ", &arguments, "parseResult = ", &parseResult, "badArgs = ", &badArgs); //####
     ODL_I3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
     badArgs = "";
@@ -729,11 +728,11 @@ bool
 nImO::PromptForValues
     (const DescriptorVector &   arguments)
 {
+    ODL_ENTER(); //####
+    ODL_P1("arguments = ", &arguments); //####
     bool    result{true};
     char    inChar;
 
-    ODL_ENTER(); //####
-    ODL_P1("arguments = ", &arguments); //####
     // Eat the trailing newline from the request.
     inChar = std::cin.peek();
     if (isspace(inChar))

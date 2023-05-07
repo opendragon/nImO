@@ -309,6 +309,7 @@ static void
 getLocalAddresses
     (void)
 {
+    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     Ptr(struct ifaddrs)         addresses{nullptr};
 #else // not MAC_OR_LINUX_
@@ -318,7 +319,6 @@ getLocalAddresses
     uint                        numRetries{4};
 #endif // not MAC_OR_LINUX_
 
-    ODL_ENTER(); //####
 #if MAC_OR_LINUX_
     if (-1 == getifaddrs(&addresses))
     {
@@ -637,11 +637,11 @@ void
 nImO::ContextWithMDNS::executeBrowser
     (ContextWithMDNS &  owner)
 {
+    ODL_ENTER(); //####
+    ODL_P1("owner = ", &owner); //####
     RecordHandler   handler(owner);
     struct timeval  timeout;
 
-    ODL_ENTER(); //####
-    ODL_P1("owner = ", &owner); //####
     timeout.tv_sec = 10;
     timeout.tv_usec = 0;
     owner.report("browser thread starting.");
@@ -741,11 +741,11 @@ nImO::ContextWithMDNS::findRegistry
     (Connection &   connection,
      const bool     quietly)
 {
-    bool    found;
-
     ODL_OBJENTER(); //####
     ODL_P1("connection = ", &connection); //####
     ODL_B1("quietly = ", quietly); //####
+    bool    found;
+
     if (lWaitForRegistry && ((! _havePort) || (! _haveAddress)))
     {
         gatherAnnouncements(quietly);
@@ -901,9 +901,9 @@ bool
 nImO::ContextWithMDNS::waitForRegistry
     (void)
 {
+    ODL_OBJENTER(); //####
     bool    wasFound;
 
-    ODL_OBJENTER(); //####
     if (lWaitForRegistry)
     {
         for ( ; (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )

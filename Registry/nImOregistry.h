@@ -96,6 +96,19 @@ namespace nImO
             ~Registry
                 (void);
 
+            /*! @brief Add a channel to the Registry.
+             @param[in] nodeName The node for the channel to be added.
+             @param[in] path The path for the channel.
+             @param[in] isOutput @c true if the channel is an output.
+             @param[in] dataType The format for the data to be transferred over the channel.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegSuccessOrFailure
+            addChannel
+                (const std::string &    nodeName,
+                 const std::string &    path,
+                 const bool             isOutput = false,
+                 const std::string &    dataType = "");
+
             /*! @brief Add a machine to the Registry.
              @param[in] machineName The name of the machine to be added.
              @param[in] address The IP address for the machine.
@@ -190,6 +203,13 @@ namespace nImO
                 (const std::string &    nodeName)
                 const;
 
+            /*! @brief Return the number of channels in the Registry.
+             @return @c true and the number of channels if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
+            getNumberOfChannels
+                (void)
+                const;
+
             /*! @brief Return the number of machines in the Registry.
              @return @c true and the number of machines if the operation was successfully performed and @c false and an error string otherwise. */
             RegIntOrFailure
@@ -211,6 +231,15 @@ namespace nImO
             getNumberOfNodesOnMachine
                 (const std::string &    machineName)
                 const;
+
+            /*! @brief Check if a channel is in the Registry.
+             @param[in] nodeName The name of the node to be checked.
+             @param[in] channelPath The path of the channel to be checked.
+             @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            isChannelPresent
+                (const std::string &    nodeName,
+                 const std::string &    channelPath);
 
             /*! @brief Check if a machine is in the Registry.
              @param[in] machineName The name of the machine to be checked.

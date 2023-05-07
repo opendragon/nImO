@@ -65,6 +65,12 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The first channel path for testing. */
+#define CHANNEL_PATH_1  "/blart/input/1"
+
+/*! @brief The second channel path for testing. */
+#define CHANNEL_PATH_2  "/blert/output/2"
+
 /*! @brief The firsts machine address for testing. */
 #define MACHINE_ADDRESS_1   IPV4_ADDR(192, 168, 100, 11)
 
@@ -98,10 +104,10 @@ static void
 catchSignal
     (const int  signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
+    std::string message{"exiting due to signal "};
+
     message += std::to_string(signal);
     message += " = ";
     message += NameOfSignal(signal);
@@ -128,8 +134,6 @@ doTestCreateRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // create empty Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -140,6 +144,8 @@ doTestCreateRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -181,8 +187,6 @@ doTestEmptyRegistryForMachines
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for machines
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -193,6 +197,8 @@ doTestEmptyRegistryForMachines
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -250,8 +256,6 @@ doTestMachineSetWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -262,6 +266,8 @@ doTestMachineSetWithEmptyRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -321,8 +327,6 @@ doTestFindMachineWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -333,6 +337,8 @@ doTestFindMachineWithEmptyRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -405,8 +411,6 @@ doTestAddMachineToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -417,6 +421,8 @@ doTestAddMachineToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -467,8 +473,6 @@ doTestCountMachinesWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -479,6 +483,8 @@ doTestCountMachinesWithRegistryWithOneMachine
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -545,8 +551,6 @@ doTestMachineSetWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -557,6 +561,8 @@ doTestMachineSetWithRegistryWithOneMachine
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -625,8 +631,6 @@ doTestFindMachineWithRegistryWithOneMachine
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -637,6 +641,8 @@ doTestFindMachineWithRegistryWithOneMachine
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -718,8 +724,6 @@ doTestAddTwoDistinctMachinesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -730,6 +734,8 @@ doTestAddTwoDistinctMachinesToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -788,8 +794,6 @@ doTestCountMachinesWithRegistryWithTwoMachines
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -800,6 +804,8 @@ doTestCountMachinesWithRegistryWithTwoMachines
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -874,8 +880,6 @@ doTestAddTwoIdenticalMachinesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -886,6 +890,8 @@ doTestAddTwoIdenticalMachinesToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -960,8 +966,6 @@ doTestEmptyRegistryForNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -972,6 +976,8 @@ doTestEmptyRegistryForNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1029,8 +1035,6 @@ doTestNodeSetWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1041,6 +1045,8 @@ doTestNodeSetWithEmptyRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1100,8 +1106,6 @@ doTestFindNodeWithEmptyRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1112,6 +1116,8 @@ doTestFindNodeWithEmptyRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1184,8 +1190,6 @@ doTestAddNodeToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1193,6 +1197,8 @@ doTestAddNodeToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1208,9 +1214,7 @@ doTestAddNodeToRegistry
 
             if (status.first)
             {
-                nImO::RegSuccessOrFailure   status{aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine,
-                                                                      nImO::ServiceType::GenericService)};
-
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     result = 0;
@@ -1254,8 +1258,6 @@ doTestCountNodesWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1263,6 +1265,8 @@ doTestCountNodesWithRegistryWithOneNode
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1338,8 +1342,6 @@ doTestNodeSetWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1347,6 +1349,8 @@ doTestNodeSetWithRegistryWithOneNode
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1424,8 +1428,6 @@ doTestFindNodeWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1433,6 +1435,8 @@ doTestFindNodeWithRegistryWithOneNode
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1523,8 +1527,6 @@ doTestNodeDataAddedToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1532,6 +1534,8 @@ doTestNodeDataAddedToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1622,8 +1626,6 @@ doTestRemoveNodeFromRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1631,6 +1633,8 @@ doTestRemoveNodeFromRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1698,8 +1702,6 @@ doTestCountNodesWithRegistryWithNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1707,6 +1709,8 @@ doTestCountNodesWithRegistryWithNodeRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1790,8 +1794,6 @@ doTestNodeSetWithRegistryWithNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1799,6 +1801,8 @@ doTestNodeSetWithRegistryWithNodeRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1884,8 +1888,6 @@ doTestFindNodeWithRegistryNodeRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove node from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1893,6 +1895,8 @@ doTestFindNodeWithRegistryNodeRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -1976,8 +1980,6 @@ doTestAddTwoDistinctNodesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -1985,6 +1987,8 @@ doTestAddTwoDistinctNodesToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2052,8 +2056,6 @@ doTestCountNodesWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2061,6 +2063,8 @@ doTestCountNodesWithRegistryWithTwoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2144,8 +2148,6 @@ doTestNodeSetWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2153,6 +2155,8 @@ doTestNodeSetWithRegistryWithTwoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2245,8 +2249,6 @@ doTestFindNodeWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2254,6 +2256,8 @@ doTestFindNodeWithRegistryWithTwoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2352,8 +2356,6 @@ doTestRemoveNodesFromRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2361,6 +2363,8 @@ doTestRemoveNodesFromRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2444,8 +2448,6 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2453,6 +2455,8 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2552,8 +2556,6 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2561,6 +2563,8 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2662,8 +2666,6 @@ doTestFindNodeWithRegistryAllNodesRemoved
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2671,6 +2673,8 @@ doTestFindNodeWithRegistryAllNodesRemoved
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2785,8 +2789,6 @@ doTestAddTwoIdenticalNodesToRegistry
      const std::string &            currentDir,
      const std::string &            commandLine) // add two identical nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2794,6 +2796,8 @@ doTestAddTwoIdenticalNodesToRegistry
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2879,8 +2883,6 @@ doTestNodeInfoWithRegistryWithNoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2891,6 +2893,8 @@ doTestNodeInfoWithRegistryWithNoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -2950,8 +2954,6 @@ doTestNodeInfoWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -2959,6 +2961,8 @@ doTestNodeInfoWithRegistryWithOneNode
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3051,8 +3055,6 @@ doTestNodeInfoWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3060,6 +3062,8 @@ doTestNodeInfoWithRegistryWithTwoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3222,8 +3226,6 @@ doTestLaunchDetailsWithRegistryWithNoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3234,6 +3236,8 @@ doTestLaunchDetailsWithRegistryWithNoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3293,8 +3297,6 @@ doTestLaunchDetailsWithRegistryWithOneNode
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3302,6 +3304,8 @@ doTestLaunchDetailsWithRegistryWithOneNode
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3390,8 +3394,6 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3399,6 +3401,8 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3537,8 +3541,6 @@ doTestNodeSetWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // check empty Registry for nodes
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3549,6 +3551,8 @@ doTestNodeSetWithEmptyRegistryViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3618,8 +3622,6 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3627,6 +3629,8 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3704,8 +3708,6 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3713,6 +3715,8 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3805,8 +3809,6 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3817,6 +3819,8 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3886,8 +3890,6 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3895,6 +3897,8 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -3987,8 +3991,6 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -3996,6 +3998,8 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -4117,8 +4121,6 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // remove nodes from Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4129,6 +4131,8 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -4196,8 +4200,6 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add node to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4205,6 +4207,8 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -4280,8 +4284,6 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
      const std::string &            currentDir,
      const std::string &            commandLine) // add two distinct nodes to Registry
 {
-    int result{1};
-
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
@@ -4289,6 +4291,8 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
     //ODL_S1("launchPath = ", launchPath); //####
     //ODL_I1("argc = ", argc); //####
     //ODL_P1("argv = ", argv); //####
+    int result{1};
+
     try
     {
         std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
@@ -4352,6 +4356,960 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
     ODL_EXIT_I(result); //####
     return result;
 } // doTestCountNodesWithRegistryWithTwoNodesViaMachineName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 300 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for machines
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfChannels()};
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 301 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindChannelWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegBoolOrFailure  statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (statusWithBool.first.first)
+            {
+                if (statusWithBool.second)
+                {
+                    ODL_LOG("(statusWithBool.second)"); //####
+                }
+                else
+                {
+                    statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                    if (statusWithBool.first.first)
+                    {
+                        if (statusWithBool.second)
+                        {
+                            ODL_LOG("(statusWithBool.second)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithBool.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindChannelWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 302 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddChannelToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddChannelToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 303 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsInRegistryWithOneChannel
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfChannels()};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsInRegistryWithOneChannel
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 304 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindChannelInRegistryWithOneChannel
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            if (statusWithBool.second)
+                            {
+                                statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                                if (statusWithBool.first.first)
+                                {
+                                    if (statusWithBool.second)
+                                    {
+                                        ODL_LOG("(statusWithBool.second)"); //####
+                                    }
+                                    else
+                                    {
+                                        result = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithBool.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindChannelInRegistryWithOneChannel
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 305 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoChannelsToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoChannelsToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 306 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsInRegistryWithTwoChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+                                nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfChannels()};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (2 == statusWithInt.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (2 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsInRegistryWithTwoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 307 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestFindChannelsInRegistryWithTwoChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine) // check empty Registry for nodes
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+                                nImO::RegBoolOrFailure  statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                                if (statusWithBool.first.first)
+                                {
+                                    if (statusWithBool.second)
+                                    {
+                                        statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (statusWithBool.second)
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("(statusWithBool.second)"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithBool.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestFindChannelsInRegistryWithTwoChannels
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 308 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 309 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 310 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 320 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 321 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 322 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 323 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 324 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 340 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 341 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 342 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 343 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 344 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 345 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 346 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 347 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 348 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 360 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 361 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 362 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 363 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 364 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 365 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 366 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 367 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 368 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 380 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 381 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 382 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 383 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 384 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 385 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 386 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 387 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 388 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 389 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 390 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 400 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 401 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 402 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 403 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 404 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 405 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 406 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 407 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 408 ***
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -4597,38 +5555,38 @@ main
                         break;
 
                     case 300 :
-//                        result = doTestEmptyRegistryForChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestCountChannelsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 301 :
-//                        result = doTestCountChannelsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestFindChannelWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 302 :
-//                        result = doTestAddChannelToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddChannelToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 303 :
-//                        result = doTestCountChannelsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                             commandLine);
+                        result = doTestCountChannelsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                             commandLine);
                         break;
 
                     case 304 :
-//                        result = doTestFindChannelInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestFindChannelInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 305 :
-//                        result = doTestAddTwoChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddTwoChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 306 :
-//                        result = doTestCountChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                              commandLine);
+                        result = doTestCountChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                              commandLine);
                         break;
 
                     case 307 :
-//                        result = doTestFindChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                             commandLine);
+                        result = doTestFindChannelsInRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                             commandLine);
                         break;
 
                     case 308 :

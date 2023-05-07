@@ -89,7 +89,7 @@ add_test(NAME TestAddTwoIdenticalMachinesToRegistry COMMAND ${THIS_TARGET} 11)
 add_test(NAME TestEmptyRegistryForNodes COMMAND ${THIS_TARGET} 100)
 ## Test check node set with empty Registry
 add_test(NAME TestNodeSetWithEmptyRegistry COMMAND ${THIS_TARGET} 101)
-## Test check find with empty Registry
+## Test check find node with empty Registry
 add_test(NAME TestFindNodeWithEmptyRegistry COMMAND ${THIS_TARGET} 102)
 ## Test add node to Registry
 add_test(NAME TestAddNodeToRegistry COMMAND ${THIS_TARGET} 103)
@@ -159,10 +159,10 @@ add_test(NAME TestCountNodesWithRegistryWithOneNodeViaMachineName COMMAND ${THIS
 ## Test check count nodes with Registry with two nodes via machine name
 add_test(NAME TestCountNodesWithRegistryWithTwoNodesViaMachineName COMMAND ${THIS_TARGET} 208)
 
-## Test check empty Registry for channel
-add_test(NAME TestEmptyRegistryForChannel COMMAND ${THIS_TARGET} 300)
 ## Test check count channels with empty Registry
-add_test(NAME TestCountChannelsWithEmptyRegistry COMMAND ${THIS_TARGET} 301)
+add_test(NAME TestCountChannelsWithEmptyRegistry COMMAND ${THIS_TARGET} 300)
+## Test check find channel with empty Registry
+add_test(NAME TestFindChannelWithEmptyRegistry COMMAND ${THIS_TARGET} 301)
 ## Test check add channel to Registry
 add_test(NAME TestAddChannelToRegistry COMMAND ${THIS_TARGET} 302)
 ## Test check count channels in Registry with one channel

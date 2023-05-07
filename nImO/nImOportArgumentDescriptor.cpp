@@ -133,9 +133,9 @@ PortArgumentDescriptor::clone
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     auto    result{std::make_shared<PortArgumentDescriptor>(*this)};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(result.get());
     return result;
 } // PortArgumentDescriptor::clone
@@ -177,13 +177,13 @@ SpBaseArgumentDescriptor
 PortArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::PortTypeTag, 4, name, argMode, inVector))
     {
         bool        okSoFar{true};
@@ -238,9 +238,9 @@ std::string
 PortArgumentDescriptor::toString
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result{prefixFields(ArgumentTypeTag::PortTypeTag)};
 
-    ODL_OBJENTER(); //####
     result += getParameterSeparator() + (_isSystemPort ? "s" : "r") + suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;

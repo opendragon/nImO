@@ -112,10 +112,10 @@ nImO::CompareValues::operator()
      SpValue    rhs)
     const
 {
-    bool    result;
-
     ODL_OBJENTER(); //####
     ODL_P2("lhs = ", lhs.get(), "rhs = ", rhs.get()); //####
+    bool    result;
+
     if (lhs->enumerationType() == rhs->enumerationType())
     {
         ComparisonStatus    status = lhs->lessThan(*rhs);

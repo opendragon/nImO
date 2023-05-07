@@ -130,11 +130,11 @@ nImO::ServiceContext::addHandler
     (const std::string &    commandName,
      Ptr(CommandHandler)    theHandler)
 {
-    bool    okSoFar{false};
-
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
     ODL_P1("theHandler = ", theHandler); //####
+    bool    okSoFar{false};
+
     if ((nullptr != theHandler) && (0 < commandName.size()))
     {
         const auto result = _commandHandlers.insert({commandName, theHandler});
@@ -149,10 +149,10 @@ void
 nImO::ServiceContext::addStandardHandlers
     (SpContextWithNetworking    context)
 {
-    Ptr(ServiceContext) actualContext = context->asServiceContext();
-
     ODL_ENTER(); //####
     ODL_P1("context = ", context.get()); //####
+    Ptr(ServiceContext) actualContext = context->asServiceContext();
+
     if (nullptr != actualContext)
     {
         bool    goAhead{true};
@@ -249,9 +249,9 @@ nImO::ServiceContext::getCommandConnection
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     Connection  serviceConnection{getCommandAddress(), getCommandPort()};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
     return serviceConnection;
 } // nImO::ServiceContext::getCommandConnection
@@ -261,10 +261,10 @@ nImO::ServiceContext::getHandler
     (const std::string &    commandName)
     const
 {
-    Ptr(CommandHandler) handler{nullptr};
-
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
+    Ptr(CommandHandler) handler{nullptr};
+
     if (0 < commandName.size())
     {
         auto match{_commandHandlers.find(commandName)};
@@ -283,11 +283,11 @@ nImO::ServiceContext::handleAccept
     (Ptr(CommandSession)        newSession,
      const system::error_code & error)
 {
-    bool    releaseSession;
-
     ODL_OBJENTER(); //####
     ODL_P1("newSession = ", newSession); //####
     ODL_I1("error = ", error.value()); //####
+    bool    releaseSession;
+
     if (error)
     {
         if (asio::error::operation_aborted == error)
@@ -344,10 +344,10 @@ bool
 nImO::ServiceContext::removeHandler
     (const std::string &    commandName)
 {
-    bool    okSoFar{false};
-
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
+    bool    okSoFar{false};
+
     if (0 < commandName.size())
     {
         auto match{_commandHandlers.find(commandName)};

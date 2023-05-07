@@ -89,11 +89,11 @@ checkFilePath
      const bool forOutput,
      const bool emptyIsOK)
 {
-    bool    okSoFar;
-
     ODL_ENTER(); //####
     ODL_S1("thePath = ", thePath); //####
     ODL_B2("forOutput = ", forOutput, "emptyIsOK = ", emptyIsOK); //####
+    bool    okSoFar;
+
     if (forOutput)
     {
         std::string dirPath{thePath};
@@ -207,9 +207,9 @@ FilePathArgumentDescriptor::clone
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     auto    result{std::make_shared<FilePathArgumentDescriptor>(*this)};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_P(result.get());
     return result;
 } // FilePathArgumentDescriptor::clone
@@ -241,9 +241,9 @@ std::string
 FilePathArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string result{getDefaultValue()};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_s(result); //####
     return result;
 } // FilePathArgumentDescriptor::getPrintableDefaultValue
@@ -301,13 +301,13 @@ SpBaseArgumentDescriptor
 FilePathArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
     StringVector                inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
-    ODL_ENTER(); //####
-    ODL_S1s("inString = ", inString); //####
     if (partitionString(inString, ArgumentTypeTag::FilePathTypeTag, 6, name, argMode, inVector))
     {
         bool        forOutput{false};
@@ -388,10 +388,10 @@ std::string
 FilePathArgumentDescriptor::toString
     (void)
 {
+    ODL_OBJENTER(); //####
     std::string oldDefault{inherited::getDefaultValue()};
     std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag)};
 
-    ODL_OBJENTER(); //####
     // Temporarily change the default value to the prefix value, as that's how we pass the path
     // prefix to the outside world.
     result += getParameterSeparator() + (_forOutput ? "o" : "i") + getParameterSeparator() + _pathSuffix +

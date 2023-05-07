@@ -109,11 +109,11 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
      const Array &              arguments)
     const
 {
-    bool    okSoFar{false};
-
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    bool    okSoFar{false};
+
     _owner->report("number of nodes on machine request received");
     if (1 < arguments.size())
     {

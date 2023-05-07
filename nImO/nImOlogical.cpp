@@ -149,10 +149,10 @@ nImO::Logical::deeplyEqualTo
     (const Value &    other)
     const
 {
-    bool    result{&other == this};
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    bool    result{&other == this};
+
     if (! result)
     {
         CPtr(Logical)   otherPtr{other.asLogical()};
@@ -171,9 +171,9 @@ nImO::Logical::enumerationType
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     Enumerable  result{Enumerable::Logical};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Logical::enumerationType
@@ -183,10 +183,10 @@ nImO::Logical::equalTo
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Logical)   otherPtr{other.asLogical()};
@@ -218,12 +218,12 @@ nImO::Logical::extractValue
      size_t &           position,
      SpArray            parentValue)
 {
-    auto    result{std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte))};
-
     NIMO_UNUSED_VAR_(theMessage);
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
+    auto    result{std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte))};
+
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
     if ((nullptr != parentValue) && (nullptr != result))
@@ -239,10 +239,10 @@ const std::string &
 nImO::Logical::getCanonicalRepresentation
     (const bool aValue)
 {
-    const std::string & result{aValue ? kCanonicalTrue : kCanonicalFalse};
-
     ODL_ENTER(); //####
     ODL_B1("aValue = ", aValue); //####
+    const std::string & result{aValue ? kCanonicalTrue : kCanonicalFalse};
+
     ODL_EXIT_P(&result); //####
     return result;
 } // nImO::Logical::getCanonicalRepresentation
@@ -265,9 +265,9 @@ CPtr(char)
 nImO::Logical::getInitialCharacters
     (void)
 {
+    ODL_ENTER(); //####
     static CPtr(char)   initialChars{"ftFT"};
 
-    ODL_ENTER(); //####
     ODL_EXIT_S(initialChars); //####
     return initialChars;
 } // nImO::Logical::getInitialCharacters
@@ -277,9 +277,9 @@ nImO::Logical::getTypeTag
     (void)
     const
 {
+    ODL_OBJENTER(); //####
     DataKind    result{DataKind::OtherMessageExpectedOtherValue};
 
-    ODL_OBJENTER(); //####
     ODL_OBJEXIT_I(StaticCast(int, result)); //####
     return result;
 } // nImO::Logical::getTypeTag
@@ -289,10 +289,10 @@ nImO::Logical::greaterThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other == this)
     {
         result = false;
@@ -326,10 +326,10 @@ nImO::Logical::greaterThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Logical)   otherPtr{other.asLogical()};
@@ -359,10 +359,10 @@ nImO::Logical::lessThan
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other == this)
     {
         result = false;
@@ -396,10 +396,10 @@ nImO::Logical::lessThanOrEqual
     (const Value &  other)
     const
 {
-    ComparisonStatus    result;
-
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
+    ComparisonStatus    result;
+
     if (&other != this)
     {
         CPtr(Logical)   otherPtr{other.asLogical()};
@@ -471,10 +471,10 @@ nImO::Logical::operator<<
     (std::ostream & out)
     const
 {
-    std::ios_base::fmtflags  originalFormat{out.flags()};
-
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
+    std::ios_base::fmtflags  originalFormat{out.flags()};
+
     out << std::boolalpha << _value;
     out.flags(originalFormat);
     ODL_OBJEXIT_P(&out); //####
@@ -514,6 +514,8 @@ nImO::Logical::readFromStringBuffer
     (const StringBuffer &   inBuffer,
      size_t &               position)
 {
+    ODL_ENTER(); //####
+    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     bool                atEnd;
     bool                candidateValue{false};
     SpValue             result;
@@ -521,8 +523,6 @@ nImO::Logical::readFromStringBuffer
     int                 aChar{inBuffer.getChar(localIndex++, atEnd)};
     CPtr(std::string)   candidate{nullptr};
 
-    ODL_ENTER(); //####
-    ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     // Select which form of the value that is in the buffer:
     if (! atEnd)
     {
@@ -586,11 +586,11 @@ nImO::Logical::writeToMessage
     (Message &  outMessage)
     const
 {
+    ODL_ENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
     DataKind    stuff{DataKind::Other | DataKind::OtherLogical | (_value ? DataKind::OtherLogicalTrueValue :
                                                                   DataKind::OtherLogicalFalseValue)};
 
-    ODL_ENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
     outMessage.appendBytes(&stuff, sizeof(stuff));
     ODL_EXIT(); //####
 } // nImO::Logical::writeToMessage

@@ -133,10 +133,10 @@ bool
 nImO::Logger::report
     (CPtr(char) stringToSend)
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_S1("stringToSend = ", stringToSend); //####
+    bool    okSoFar;
+
     if ((nullptr != stringToSend) && (0 < strlen(stringToSend)))
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
@@ -153,10 +153,10 @@ bool
 nImO::Logger::report
     (const std::string &    stringToSend)
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_S1s("stringToSend = ", stringToSend); //####
+    bool    okSoFar;
+
     if (0 < stringToSend.length())
     {
         okSoFar = report(std::make_shared<String>(stringToSend));
@@ -173,10 +173,10 @@ bool
 nImO::Logger::report
     (const StringVector &   stringsToSend)
 {
-    bool    okSoFar;
-
     ODL_OBJENTER(); //####
     ODL_P1("stringsToSend = ", &stringsToSend); //####
+    bool    okSoFar;
+
     if (1 <= stringsToSend.size())
     {
         if (1 < stringsToSend.size())
@@ -206,10 +206,10 @@ bool
 nImO::Logger::report
     (SpValue    valueToSend)
 {
-    bool    okSoFar{false};
-
     ODL_OBJENTER(); //####
     ODL_P1("valueToSend = ",valueToSend.get()); //####
+    bool    okSoFar{false};
+
     if (nullptr == valueToSend)
     {
         ODL_LOG("(nullptr == valueToSend)"); //####

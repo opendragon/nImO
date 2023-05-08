@@ -108,7 +108,7 @@ static int
 doTestInvalidArgs
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid args
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -191,7 +191,7 @@ static int
 doTestIntegerSize
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer size
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -252,7 +252,7 @@ static int
 doTestDoubleSize
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // double size
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -300,7 +300,7 @@ static int
 doTestIntegerConversion
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer conversion
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -372,7 +372,7 @@ static int
 doTestDoubleConversion
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // double conversion
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

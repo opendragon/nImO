@@ -151,7 +151,7 @@ static int
 doTestInsertEmptyMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -228,7 +228,7 @@ static int
 doTestInsertLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -311,7 +311,7 @@ static int
 doTestInsertTinyIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // tiny integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -414,7 +414,7 @@ static int
 doTestInsertSmallIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -499,7 +499,7 @@ static int
 doTestInsertMediumIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -586,7 +586,7 @@ static int
 doTestInsertBigIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -675,7 +675,7 @@ static int
 doTestInsertEmptyStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -739,7 +739,7 @@ static int
 doTestInsertShortStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // short string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -806,7 +806,7 @@ static int
 doTestInsertMediumStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -892,7 +892,7 @@ static int
 doTestInsertEmptyBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -956,7 +956,7 @@ static int
 doTestInsertSmallBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1028,7 +1028,7 @@ static int
 doTestInsertMediumBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1125,7 +1125,7 @@ static int
 doTestInsertSingleDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // single double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1223,7 +1223,7 @@ static int
 doTestInsertEmptyArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1291,7 +1291,7 @@ static int
 doTestInsertEmptyMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1359,7 +1359,7 @@ static int
 doTestInsertEmptySetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1427,7 +1427,7 @@ static int
 doTestInsertArrayOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1504,7 +1504,7 @@ static int
 doTestInsertArrayOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1581,7 +1581,7 @@ static int
 doTestInsertArrayOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1663,7 +1663,7 @@ static int
 doTestInsertArrayOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1741,7 +1741,7 @@ static int
 doTestInsertArrayOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1819,7 +1819,7 @@ static int
 doTestInsertArrayOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1901,7 +1901,7 @@ static int
 doTestInsertArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1983,7 +1983,7 @@ static int
 doTestInsertArrayOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2065,7 +2065,7 @@ static int
 doTestInsertArrayTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two logicals message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2146,7 +2146,7 @@ static int
 doTestInsertArrayTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two integers message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2227,7 +2227,7 @@ static int
 doTestInsertArrayTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2314,7 +2314,7 @@ static int
 doTestInsertArrayTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two strings message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2397,7 +2397,7 @@ static int
 doTestInsertArrayTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two blobs message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2480,7 +2480,7 @@ static int
 doTestInsertArrayTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two arrays message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2571,7 +2571,7 @@ static int
 doTestInsertArrayTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two maps message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2662,7 +2662,7 @@ static int
 doTestInsertArrayTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two sets message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2753,7 +2753,7 @@ static int
 doTestInsertArrayOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array and map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2844,7 +2844,7 @@ static int
 doTestInsertArrayOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map and set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2935,7 +2935,7 @@ static int
 doTestInsertArrayOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set and array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3026,7 +3026,7 @@ static int
 doTestInsertArrayWithManyDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with many doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3280,7 +3280,7 @@ static int
 doTestInsertLogicalMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3360,7 +3360,7 @@ static int
 doTestInsertIntegerMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3440,7 +3440,7 @@ static int
 doTestInsertStringMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3521,7 +3521,7 @@ static int
 doTestInsertLogicalSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3598,7 +3598,7 @@ static int
 doTestInsertIntegerSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3675,7 +3675,7 @@ static int
 doTestInsertStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

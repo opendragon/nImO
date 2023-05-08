@@ -167,7 +167,7 @@ static int
 doTestEmptyBufferChunk
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty buffer chunk
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -220,7 +220,7 @@ static int
 doTestBufferChunkWithSingleByte
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // buffer chunk with 1 byte of data
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -285,7 +285,7 @@ static int
 doTestFilledBufferChunk
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // buffer chunk filled with data
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -376,7 +376,7 @@ static int
 doTestOverfilledBufferChunk
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // buffer chunk overfilled with data
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -467,7 +467,7 @@ static int
 doTestBufferChunkReset
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // resetting buffer chunk
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -531,7 +531,7 @@ static int
 doTestEmptyStringBuffer
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty string buffer
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -594,7 +594,7 @@ static int
 doTestStringBufferWithCharacters
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with character string
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -668,7 +668,7 @@ static int
 doTestStringBufferWithLogical
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with logical
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -741,7 +741,7 @@ static int
 doTestStringBufferWithInteger
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with integer
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -812,7 +812,7 @@ static int
 doTestStringBufferWithString
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with string
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -885,7 +885,7 @@ static int
 doTestStringBufferWithSpecialCharacters
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with special chars
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -953,7 +953,7 @@ static int
 doTestStringBufferWithDouble
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with floating point
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1033,7 +1033,7 @@ static int
 doTestBigStringBuffer
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big string buffer
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1106,7 +1106,7 @@ static int
 doTestStringBufferWithEmptyBlob
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with empty blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1163,7 +1163,7 @@ static int
 doTestStringBufferWithSmallBlob
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with small blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1246,7 +1246,7 @@ static int
 doTestStringBufferWithBigBlob
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string buffer with big blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1329,7 +1329,7 @@ static int
 doTestStringBufferReset
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // resetting string buffer
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1395,7 +1395,7 @@ static int
 doTestDefaultLogicalValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default logical value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1448,7 +1448,7 @@ static int
 doTestLogicalValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1516,7 +1516,7 @@ static int
 doTestDefaultIntegerValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default integer value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1570,7 +1570,7 @@ static int
 doTestNumberValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // number values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1663,7 +1663,7 @@ static int
 doTestDefaultStringValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default string value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1716,7 +1716,7 @@ static int
 doTestStringValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -1774,7 +1774,7 @@ static int
 doTestStringValueWithEscapes
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string value with escapes
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1829,7 +1829,7 @@ static int
 doTestDefaultBlobValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1882,7 +1882,7 @@ static int
 doTestSmallBlobValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1963,7 +1963,7 @@ static int
 doTestBigBlobValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big blob
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2044,7 +2044,7 @@ static int
 doTestLogicalCopyAndAssign
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical copy and assign
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2116,7 +2116,7 @@ static int
 doTestIntegerCopyAndAssign
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer copy and assign
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2209,7 +2209,7 @@ static int
 doTestDoubleCopyAndAssign
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // floating point copy and assign
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2301,7 +2301,7 @@ static int
 doTestStringCopyAndAssign
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string copy and assign
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2373,7 +2373,7 @@ static int
 doTestBlobCopyAndAssign
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // blob copy and assign
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2490,7 +2490,7 @@ static int
 doTestValidLogicalCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid logical compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2609,7 +2609,7 @@ static int
 doTestValidNumberCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid number compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3047,7 +3047,7 @@ static int
 doTestValidStringCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid string compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3191,7 +3191,7 @@ static int
 doTestValidBlobCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid blob compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3345,7 +3345,7 @@ static int
 doTestInvalidLogicalCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid logical compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3448,7 +3448,7 @@ static int
 doTestInvalidNumberCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid number compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3551,7 +3551,7 @@ static int
 doTestInvalidStringCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid string compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3654,7 +3654,7 @@ static int
 doTestInvalidBlobCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid blob compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3757,7 +3757,7 @@ static int
 doTestDefaultLogicalValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default logical value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3810,7 +3810,7 @@ static int
 doTestLogicalValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -3878,7 +3878,7 @@ static int
 doTestDefaultIntegerValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default integer value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3932,7 +3932,7 @@ static int
 doTestNumberValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // number values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####
@@ -4025,7 +4025,7 @@ static int
 doTestDefaultStringValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // default string value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4078,7 +4078,7 @@ static int
 doTestStringValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string values
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     ODL_ENTER(); //####

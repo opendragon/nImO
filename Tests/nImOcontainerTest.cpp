@@ -214,7 +214,7 @@ static int
 doTestEmptyArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -285,7 +285,7 @@ static int
 doTestSingularArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -361,7 +361,7 @@ static int
 doTestSmallArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -446,7 +446,7 @@ static int
 doTestBigArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -536,7 +536,7 @@ static int
 doTestEmptyArraySizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -589,7 +589,7 @@ static int
 doTestNonEmptyArraySizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty array size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -643,7 +643,7 @@ static int
 doTestEmptyArrayEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -696,7 +696,7 @@ static int
 doTestNonEmptyArrayEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty array empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -750,7 +750,7 @@ static int
 doTestEmptyArrayClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -804,7 +804,7 @@ static int
 doTestNonEmptyArrayClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty array clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -859,7 +859,7 @@ static int
 doTestEmptyArrayRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -912,7 +912,7 @@ static int
 doTestNonEmptyArrayRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty array random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -972,7 +972,7 @@ static int
 doTestClearingNonEmptyArrayUsingRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // clear non-empty array using random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1043,7 +1043,7 @@ static int
 doTestEmptyMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1114,7 +1114,7 @@ static int
 doTestSingularLogicalMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular logical map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1192,7 +1192,7 @@ static int
 doTestSingularIntegerMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular integer map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1268,7 +1268,7 @@ static int
 doTestSingularStringMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular string map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1346,7 +1346,7 @@ static int
 doTestSmallLogicalMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small logical map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1427,7 +1427,7 @@ static int
 doTestSmallIntegerMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1509,7 +1509,7 @@ static int
 doTestSmallStringMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small string map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1597,7 +1597,7 @@ static int
 doTestEmptyMapSizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1650,7 +1650,7 @@ static int
 doTestNonEmptyMapSizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty map size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1704,7 +1704,7 @@ static int
 doTestEmptyMapEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1757,7 +1757,7 @@ static int
 doTestNonEmptyMapEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty map empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1811,7 +1811,7 @@ static int
 doTestEmptyMapClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1865,7 +1865,7 @@ static int
 doTestNonEmptyMapClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty map clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1920,7 +1920,7 @@ static int
 doTestEmptyMapRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1973,7 +1973,7 @@ static int
 doTestNonEmptyMapRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty map random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2032,7 +2032,7 @@ static int
 doTestClearingNonEmptyMapUsingRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // clear non-empty map using random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2102,7 +2102,7 @@ static int
 doTestEmptySetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2173,7 +2173,7 @@ static int
 doTestSingularLogicalSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular logical set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2249,7 +2249,7 @@ static int
 doTestSingularIntegerSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular integer set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2325,7 +2325,7 @@ static int
 doTestSingularStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular string set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2401,7 +2401,7 @@ static int
 doTestSmallLogicalSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small logical set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2482,7 +2482,7 @@ static int
 doTestSmallIntegerSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2571,7 +2571,7 @@ static int
 doTestSmallStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small string set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2660,7 +2660,7 @@ static int
 doTestEmptySetSizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2713,7 +2713,7 @@ static int
 doTestNonEmptySetSizeFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty set size()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2767,7 +2767,7 @@ static int
 doTestEmptySetEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2820,7 +2820,7 @@ static int
 doTestNonEmptySetEmptyFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty set empty()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2874,7 +2874,7 @@ static int
 doTestEmptySetClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2928,7 +2928,7 @@ static int
 doTestNonEmptySetClearFunction
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty set clear()
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2983,7 +2983,7 @@ static int
 doTestEmptySetRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3036,7 +3036,7 @@ static int
 doTestNonEmptySetRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // non-empty set random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3097,7 +3097,7 @@ static int
 doTestClearingNonEmptySetUsingRandomIterator
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // clear non-empty set using random iterator
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3169,7 +3169,7 @@ static int
 doTestArrayWithArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3245,7 +3245,7 @@ static int
 doTestArrayWithMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3321,7 +3321,7 @@ static int
 doTestArrayWithSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3397,7 +3397,7 @@ static int
 doTestMapWithArrayValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with array
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3475,7 +3475,7 @@ static int
 doTestMapWithMapValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3553,7 +3553,7 @@ static int
 doTestMapWithSetValue
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3631,7 +3631,7 @@ static int
 doTestLogicalMapValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3712,7 +3712,7 @@ static int
 doTestIntegerMapValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3791,7 +3791,7 @@ static int
 doTestStringMapValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string map with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3872,7 +3872,7 @@ static int
 doTestLogicalSetValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3951,7 +3951,7 @@ static int
 doTestIntegerSetValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4030,7 +4030,7 @@ static int
 doTestStringSetValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string set with incompatible keys
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4109,7 +4109,7 @@ static int
 doTestValidArrayCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid array compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4814,7 +4814,7 @@ static int
 doTestValidLogicalMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid logical map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5105,7 +5105,7 @@ static int
 doTestValidIntegerMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid integer map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5382,7 +5382,7 @@ static int
 doTestValidStringMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid string map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5585,7 +5585,7 @@ static int
 doTestValidLogicalSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid logical set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5876,7 +5876,7 @@ static int
 doTestValidIntegerSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid integer set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6153,7 +6153,7 @@ static int
 doTestValidStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // valid string set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6356,7 +6356,7 @@ static int
 doTestInvalidArrayCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid array compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6471,7 +6471,7 @@ static int
 doTestInvalidLogicalMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid logical map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6584,7 +6584,7 @@ static int
 doTestInvalidIntegerMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid integer map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6696,7 +6696,7 @@ static int
 doTestInvalidStringMapCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid string map compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6810,7 +6810,7 @@ static int
 doTestInvalidLogicalSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid logical set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -6923,7 +6923,7 @@ static int
 doTestInvalidIntegerSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid integer set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7035,7 +7035,7 @@ static int
 doTestInvalidStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // invalid string set compares
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7149,7 +7149,7 @@ static int
 doTestArrayIndices
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array indices
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7266,7 +7266,7 @@ static int
 doTestLogicalMapSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7371,7 +7371,7 @@ static int
 doTestIntegerMapSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7476,7 +7476,7 @@ static int
 doTestStringMapSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string map searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7581,7 +7581,7 @@ static int
 doTestLogicalSetSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7673,7 +7673,7 @@ static int
 doTestIntegerSetSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7765,7 +7765,7 @@ static int
 doTestStringSetSearches
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string set searches
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7857,7 +7857,7 @@ static int
 doTestEmptyArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -7928,7 +7928,7 @@ static int
 doTestSingularArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8004,7 +8004,7 @@ static int
 doTestSmallArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8089,7 +8089,7 @@ static int
 doTestBigArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8180,7 +8180,7 @@ static int
 doTestEmptyMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8251,7 +8251,7 @@ static int
 doTestSingularLogicalMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular logical map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8329,7 +8329,7 @@ static int
 doTestSingularIntegerMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular integer map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8405,7 +8405,7 @@ static int
 doTestSingularStringMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular string map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8483,7 +8483,7 @@ static int
 doTestSmallLogicalMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small logical map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8564,7 +8564,7 @@ static int
 doTestSmallIntegerMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8646,7 +8646,7 @@ static int
 doTestSmallStringMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small string map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8734,7 +8734,7 @@ static int
 doTestEmptySetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8805,7 +8805,7 @@ static int
 doTestSingularLogicalSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular logical set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8881,7 +8881,7 @@ static int
 doTestSingularIntegerSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular integer set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -8957,7 +8957,7 @@ static int
 doTestSingularStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // singular string set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9033,7 +9033,7 @@ static int
 doTestSmallLogicalSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small logical set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9114,7 +9114,7 @@ static int
 doTestSmallIntegerSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9203,7 +9203,7 @@ static int
 doTestSmallStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small string set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9292,7 +9292,7 @@ static int
 doTestArrayWithArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array value
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9368,7 +9368,7 @@ static int
 doTestArrayWithMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9444,7 +9444,7 @@ static int
 doTestArrayWithSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9520,7 +9520,7 @@ static int
 doTestMapWithArrayValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with array
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9598,7 +9598,7 @@ static int
 doTestMapWithMapValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with map
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -9676,7 +9676,7 @@ static int
 doTestMapWithSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // map with set
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

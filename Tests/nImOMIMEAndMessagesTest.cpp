@@ -267,7 +267,7 @@ static int
 doTestMIMEBytesMod3Is0
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 0
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -336,7 +336,7 @@ static int
 doTestMIMEBytesMod3Is1
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 1
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -405,7 +405,7 @@ static int
 doTestMIMEBytesMod3Is2
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 2
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -474,7 +474,7 @@ static int
 doTestMIMEBytesMod3Is0Packaged
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 0
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -546,7 +546,7 @@ static int
 doTestMIMEBytesMod3Is1Packaged
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 1
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -618,7 +618,7 @@ static int
 doTestMIMEBytesMod3Is2Packaged
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // mod = 2
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -690,7 +690,7 @@ static int
 doTestMIMEInsertEmptyMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -774,7 +774,7 @@ static int
 doTestMIMEExtractEmptyMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -869,7 +869,7 @@ static int
 doTestMIMEInsertLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -926,7 +926,7 @@ static int
 doTestMIMEExtractLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -983,7 +983,7 @@ static int
 doTestMIMEInsertTinyIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // tiny integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1047,7 +1047,7 @@ static int
 doTestMIMEExtractTinyIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // tiny integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1111,7 +1111,7 @@ static int
 doTestMIMEInsertSmallIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1168,7 +1168,7 @@ static int
 doTestMIMEExtractSmallIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1225,7 +1225,7 @@ static int
 doTestMIMEInsertMediumIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1282,7 +1282,7 @@ static int
 doTestMIMEExtractMediumIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1339,7 +1339,7 @@ static int
 doTestMIMEInsertBigIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1396,7 +1396,7 @@ static int
 doTestMIMEExtractBigIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1453,7 +1453,7 @@ static int
 doTestMIMEInsertEmptyStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1503,7 +1503,7 @@ static int
 doTestMIMEExtractEmptyStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1553,7 +1553,7 @@ static int
 doTestMIMEInsertShortStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // short string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1603,7 +1603,7 @@ static int
 doTestMIMEExtractShortStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // short string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1653,7 +1653,7 @@ static int
 doTestMIMEInsertMediumStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1703,7 +1703,7 @@ static int
 doTestMIMEExtractMediumStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1753,7 +1753,7 @@ static int
 doTestMIMEInsertEmptyBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1803,7 +1803,7 @@ static int
 doTestMIMEExtractEmptyBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1853,7 +1853,7 @@ static int
 doTestMIMEInsertSmallBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1908,7 +1908,7 @@ static int
 doTestMIMEExtractSmallBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1963,7 +1963,7 @@ static int
 doTestMIMEInsertMediumBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2024,7 +2024,7 @@ static int
 doTestMIMEExtractMediumBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2085,7 +2085,7 @@ static int
 doTestMIMEInsertSingleDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // single double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2142,7 +2142,7 @@ static int
 doTestMIMEExtractSingleDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // single double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2199,7 +2199,7 @@ static int
 doTestMIMEInsertEmptyArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2249,7 +2249,7 @@ static int
 doTestMIMEExtractEmptyArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2299,7 +2299,7 @@ static int
 doTestMIMEInsertEmptyMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2349,7 +2349,7 @@ static int
 doTestMIMEExtractEmptyMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2399,7 +2399,7 @@ static int
 doTestMIMEInsertEmptySetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2449,7 +2449,7 @@ static int
 doTestMIMEExtractEmptySetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2499,7 +2499,7 @@ static int
 doTestMIMEInsertArrayOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2550,7 +2550,7 @@ static int
 doTestMIMEExtractArrayOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2601,7 +2601,7 @@ static int
 doTestMIMEInsertArrayOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2652,7 +2652,7 @@ static int
 doTestMIMEExtractArrayOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2703,7 +2703,7 @@ static int
 doTestMIMEInsertArrayOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2754,7 +2754,7 @@ static int
 doTestMIMEExtractArrayOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2805,7 +2805,7 @@ static int
 doTestMIMEInsertArrayOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2856,7 +2856,7 @@ static int
 doTestMIMEExtractArrayOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2907,7 +2907,7 @@ static int
 doTestMIMEInsertArrayOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2958,7 +2958,7 @@ static int
 doTestMIMEExtractArrayOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3009,7 +3009,7 @@ static int
 doTestMIMEInsertArrayOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3060,7 +3060,7 @@ static int
 doTestMIMEExtractArrayOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3111,7 +3111,7 @@ static int
 doTestMIMEInsertArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3162,7 +3162,7 @@ static int
 doTestMIMEExtractArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3213,7 +3213,7 @@ static int
 doTestMIMEInsertArrayOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3264,7 +3264,7 @@ static int
 doTestMIMEExtractArrayOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3315,7 +3315,7 @@ static int
 doTestMIMEInsertArrayTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two logicals message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3367,7 +3367,7 @@ static int
 doTestMIMEExtractArrayTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two logicals message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3419,7 +3419,7 @@ static int
 doTestMIMEInsertArrayTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two integers message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3471,7 +3471,7 @@ static int
 doTestMIMEExtractArrayTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two integers message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3523,7 +3523,7 @@ static int
 doTestMIMEInsertArrayTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3575,7 +3575,7 @@ static int
 doTestMIMEExtractArrayTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3627,7 +3627,7 @@ static int
 doTestMIMEInsertArrayTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two strings message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3679,7 +3679,7 @@ static int
 doTestMIMEExtractArrayTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two strings message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3731,7 +3731,7 @@ static int
 doTestMIMEInsertArrayTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two blobs message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3783,7 +3783,7 @@ static int
 doTestMIMEExtractArrayTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two blobs message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3835,7 +3835,7 @@ static int
 doTestMIMEInsertArrayTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two arrays message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3887,7 +3887,7 @@ static int
 doTestMIMEExtractArrayTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two arrays message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3939,7 +3939,7 @@ static int
 doTestMIMEInsertArrayTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two maps message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3991,7 +3991,7 @@ static int
 doTestMIMEExtractArrayTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two maps message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4043,7 +4043,7 @@ static int
 doTestMIMEInsertArrayTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two sets message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4095,7 +4095,7 @@ static int
 doTestMIMEExtractArrayTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two sets message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4147,7 +4147,7 @@ static int
 doTestMIMEInsertArrayOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array and map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4199,7 +4199,7 @@ static int
 doTestMIMEExtractArrayOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array and map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4251,7 +4251,7 @@ static int
 doTestMIMEInsertArrayOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map and set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4303,7 +4303,7 @@ static int
 doTestMIMEExtractArrayOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map and set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4355,7 +4355,7 @@ static int
 doTestMIMEInsertArrayOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set and array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4407,7 +4407,7 @@ static int
 doTestMIMEExtractArrayOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set and array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4459,7 +4459,7 @@ static int
 doTestMIMEInsertArrayWithManyDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with many doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4521,7 +4521,7 @@ static int
 doTestMIMEExtractArrayWithManyDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with many doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4583,7 +4583,7 @@ static int
 doTestMIMEInsertLogicalMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4634,7 +4634,7 @@ static int
 doTestMIMEExtractLogicalMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4685,7 +4685,7 @@ static int
 doTestMIMEInsertIntegerMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4736,7 +4736,7 @@ static int
 doTestMIMEExtractIntegerMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4787,7 +4787,7 @@ static int
 doTestMIMEInsertStringMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4838,7 +4838,7 @@ static int
 doTestMIMEExtractStringMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4889,7 +4889,7 @@ static int
 doTestMIMEInsertLogicalSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4940,7 +4940,7 @@ static int
 doTestMIMEExtractLogicalSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4991,7 +4991,7 @@ static int
 doTestMIMEInsertIntegerSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5042,7 +5042,7 @@ static int
 doTestMIMEExtractIntegerSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5093,7 +5093,7 @@ static int
 doTestMIMEInsertStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5144,7 +5144,7 @@ static int
 doTestMIMEExtractStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5195,7 +5195,7 @@ static int
 doTestMIMEInsertArrayWithRangeOfIntegers
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with range of integers
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5286,7 +5286,7 @@ static int
 doTestMIMEExtractArrayWithRangeOfIntegers
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with range of integers
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5377,7 +5377,7 @@ static int
 doTestMIMExtractWithBadNumberOfCharacters
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // message with bad number of characters
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5425,7 +5425,7 @@ static int
 doTestMIMExtractWithBadCharacters
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // message with bad characters
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

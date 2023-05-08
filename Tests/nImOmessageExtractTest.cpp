@@ -200,7 +200,7 @@ static int
 doTestExtractEmptyMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -305,7 +305,7 @@ static int
 doTestExtractLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -388,7 +388,7 @@ static int
 doTestExtractTinyIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // tiny integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -491,7 +491,7 @@ static int
 doTestExtractSmallIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -576,7 +576,7 @@ static int
 doTestExtractMediumIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -663,7 +663,7 @@ static int
 doTestExtractBigIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // big integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -752,7 +752,7 @@ static int
 doTestExtractEmptyStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -816,7 +816,7 @@ static int
 doTestExtractShortStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // short string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -883,7 +883,7 @@ static int
 doTestExtractMediumStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -969,7 +969,7 @@ static int
 doTestExtractEmptyBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1033,7 +1033,7 @@ static int
 doTestExtractSmallBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // small blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1105,7 +1105,7 @@ static int
 doTestExtractMediumBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // medium blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1202,7 +1202,7 @@ static int
 doTestExtractSingleDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // single double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1295,7 +1295,7 @@ static int
 doTestExtractEmptyArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1363,7 +1363,7 @@ static int
 doTestExtractEmptyMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1431,7 +1431,7 @@ static int
 doTestExtractEmptySetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // empty set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1499,7 +1499,7 @@ static int
 doTestExtractArrayOneLogicalMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one logical message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1576,7 +1576,7 @@ static int
 doTestExtractArrayOneIntegerMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one integer message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1653,7 +1653,7 @@ static int
 doTestExtractArrayOneDoubleMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one double message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1735,7 +1735,7 @@ static int
 doTestExtractArrayOneStringMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one string message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1813,7 +1813,7 @@ static int
 doTestExtractArrayOneBlobMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one blob message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1891,7 +1891,7 @@ static int
 doTestExtractArrayOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1973,7 +1973,7 @@ static int
 doTestExtractArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2055,7 +2055,7 @@ static int
 doTestExtractArrayOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with one set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2137,7 +2137,7 @@ static int
 doTestExtractArrayTwoLogicalsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two logicals message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2218,7 +2218,7 @@ static int
 doTestExtractArrayTwoIntegersMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two integers message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2299,7 +2299,7 @@ static int
 doTestExtractArrayTwoDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2386,7 +2386,7 @@ static int
 doTestExtractArrayTwoStringsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two strings message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2469,7 +2469,7 @@ static int
 doTestExtractArrayTwoBlobsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two blobs message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2552,7 +2552,7 @@ static int
 doTestExtractArrayTwoArraysMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two arrays message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2643,7 +2643,7 @@ static int
 doTestExtractArrayTwoMapsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two maps message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2734,7 +2734,7 @@ static int
 doTestExtractArrayTwoSetsMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with two sets message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2825,7 +2825,7 @@ static int
 doTestExtractArrayOneArrayOneMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with array and map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2916,7 +2916,7 @@ static int
 doTestExtractArrayOneMapOneSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with map and set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3007,7 +3007,7 @@ static int
 doTestExtractArrayOneSetOneArrayMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with set and array message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3098,7 +3098,7 @@ static int
 doTestExtractArrayWithManyDoublesMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with many doubles message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3352,7 +3352,7 @@ static int
 doTestExtractLogicalMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3432,7 +3432,7 @@ static int
 doTestExtractIntegerMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3512,7 +3512,7 @@ static int
 doTestExtractStringMapMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string map message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3593,7 +3593,7 @@ static int
 doTestExtractLogicalSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // logical set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3670,7 +3670,7 @@ static int
 doTestExtractIntegerSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // integer set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3747,7 +3747,7 @@ static int
 doTestExtractStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // string set message
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3825,7 +3825,7 @@ static int
 doTestExtractMessageWithArrayWithRangeOfIntegers
     (CPtr(char)     launchPath,
      const int      argc,
-     Ptr(Ptr(char)) argv) // array with range of integers
+     Ptr(Ptr(char)) argv)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);

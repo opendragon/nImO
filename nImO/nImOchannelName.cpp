@@ -474,7 +474,58 @@ nImO::ChannelName::transportToName
     return result;
 } // nImO::ChannelName::transportToName
 
+bool
+nImO::ChannelName::validNetwork
+    (const std::string &    input)
+{
+    NIMO_UNUSED_VAR_(input);//!!
+    ODL_ENTER(); //####
+    ODL_S1s("input = ", input); //####
+    bool    result = false;
+
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ChannelName::validNetwork
+
+bool
+nImO::ChannelName::validNode
+    (const std::string &    input)
+{
+    NIMO_UNUSED_VAR_(input);//!!
+    ODL_ENTER(); //####
+    ODL_S1s("input = ", input); //####
+    bool    result = false;
+
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ChannelName::validNode
+
+bool
+nImO::ChannelName::validPath
+    (const std::string &    input)
+{
+    NIMO_UNUSED_VAR_(input);//!!
+    ODL_ENTER(); //####
+    ODL_S1s("input = ", input); //####
+    bool    result = false;
+
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ChannelName::validPath
+
+bool
+nImO::ChannelName::validTransport
+    (const std::string &    input)
+{
+    NIMO_UNUSED_VAR_(input);//!!
+    ODL_ENTER(); //####
+    ODL_S1s("input = ", input); //####
+    bool    result = false;
+
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ChannelName::validTransport
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
-

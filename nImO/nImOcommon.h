@@ -369,7 +369,7 @@ namespace nImO
             /*! @brief The mask for the type of data - String or Blob. */
             StringOrBlobTypeMask = 0x0020,
 
-            /*! @brief The data that follows is a non-@c nullptr-terminated String. */
+            /*! @brief The data that follows is a non-@c NULL-terminated String. */
             StringOrBlobStringValue = 0x0000,
 
             /*! @brief The data that follows is a Blob. */

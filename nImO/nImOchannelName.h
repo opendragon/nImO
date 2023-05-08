@@ -155,11 +155,39 @@ namespace nImO
             /*! @brief Extracts a ChannelName from a string.
             @param[in] input The string being processed.
             @param[out] problemDescription A description of the first problem with the input that was detected.
-            @return @c nullptr if the ChannelName could not be extracted or a non-nullptr if extraction was successful. */
+            @return @c nullptr if the ChannelName could not be extracted or a non-@c nullptr ChannelName if extraction was successful. */
             static SpChannelName
             parse
                 (const std::string &    input,
                  std::string &          problemDescription);
+
+            /*! @brief Check if the provided string is a valid network name.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a network name. */
+            static bool
+            validNetwork
+                (const std::string &    input);
+
+            /*! @brief Check if the provided string is a valid node name.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a node name. */
+            static bool
+            validNode
+                (const std::string &    input);
+
+            /*! @brief Check if the provided string is a valid channel path.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a channel path. */
+            static bool
+            validPath
+                (const std::string &    input);
+
+            /*! @brief Check if the provided string is a valid transport.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a transport. */
+            static bool
+            validTransport
+                (const std::string &    input);
 
             /*! @brief Exchanges the contents of the object with those of other.
              @param[in,out] other The object to be swapped with. */

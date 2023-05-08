@@ -71,7 +71,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-            @param[in] padWithNull @c true if the data needs to be @c nullptr-terminated. */
+            @param[in] padWithNull @c true if the data needs to be @c NULL-terminated. */
             explicit ChunkArray
                 (const bool padWithNull = false);
 

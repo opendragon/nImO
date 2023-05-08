@@ -327,9 +327,8 @@ DoubleArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::DoubleTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::DoubleTypeTag) + getParameterSeparator()};
 
-    result += getParameterSeparator();
     if (_hasMinimumValue)
     {
         result += ConvertDoubleToString(_minimumValue);

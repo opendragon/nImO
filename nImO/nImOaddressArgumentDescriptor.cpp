@@ -224,9 +224,8 @@ AddressArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::AddressTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::AddressTypeTag) + suffixFields(getDefaultValue())};
 
-    result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
 } // AddressArgumentDescriptor::toString

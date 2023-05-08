@@ -95,13 +95,11 @@ static void
 catchSignal
     (int signal)
 {
-    std::string message{"exiting due to signal "};
-
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    message += std::to_string(signal);
-    message += " = ";
-    message += NameOfSignal(signal);
+    std::string message{"exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
+
+    NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // catchSignal
@@ -1199,9 +1197,8 @@ doTestStringBufferWithSmallBlob
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
                 auto        resultString{stuff->getString()};
-                std::string expectedString{"%"};
+                std::string expectedString{"%" + std::to_string(kSmallTestSize) + "%"};
 
-                expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     uint8_t aByte{smallBlob[ii]};
@@ -1283,9 +1280,8 @@ doTestStringBufferWithBigBlob
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
                 auto        resultString{stuff->getString()};
-                std::string expectedString{"%"};
+                std::string expectedString{"%" + std::to_string(kBigTestSize) + "%"};
 
-                expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte{bigBlob[ii]};
@@ -1917,9 +1913,8 @@ doTestSmallBlobValue
             }
             else
             {
-                std::string expectedString{"%"};
+                std::string expectedString{"%" + std::to_string(kSmallTestSize) + "%"};
 
-                expectedString += std::to_string(kSmallTestSize) + "%";
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
                     uint8_t aByte{smallBlob[ii]};
@@ -1999,9 +1994,8 @@ doTestBigBlobValue
             }
             else
             {
-                std::string expectedString{"%"};
+                std::string expectedString{"%" + std::to_string(kBigTestSize) + "%"};
 
-                expectedString += std::to_string(kBigTestSize) + "%";
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     uint8_t aByte{bigBlob[ii]};

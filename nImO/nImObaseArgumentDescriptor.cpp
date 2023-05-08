@@ -359,9 +359,8 @@ BaseArgumentDescriptor::prefixFields
 {
     ODL_OBJENTER(); //####
     ODL_C1("tagForField = ", tagForField); //####
-    std::string result{_argName};
+    std::string result{_argName + _parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode))};
 
-    result += (_parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode)));
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::prefixFields
@@ -383,10 +382,8 @@ BaseArgumentDescriptor::suffixFields
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
     char        charToUse{identifyDelimiter(defaultToUse)};
-    std::string result{_parameterSeparator};
+    std::string result{_parameterSeparator + charToUse + defaultToUse + charToUse + _parameterSeparator + _argDescription};
 
-    result += charToUse;
-    result += defaultToUse + charToUse + _parameterSeparator + _argDescription;
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BaseArgumentDescriptor::suffixFields
@@ -501,10 +498,7 @@ nImO::ArgumentsToDescriptionArray
                     {
                         std::string anOption{anArg->getPrintableDefaultValue()};
 
-                        aLine += "(Optional, default=";
-                        aLine += anOption;
-                        aLine += ")";
-                        aLine += std::string(optionSize - anOption.length(), ' ');
+                        aLine += "(Optional, default=" + anOption + ")" + std::string(optionSize - anOption.length(), ' ');
                     }
                     else
                     {

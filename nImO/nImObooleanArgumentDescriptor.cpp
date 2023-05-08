@@ -287,9 +287,8 @@ BooleanArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::BoolTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::BoolTypeTag) + suffixFields(getDefaultValue())};
 
-    result += suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
 } // BooleanArgumentDescriptor::toString

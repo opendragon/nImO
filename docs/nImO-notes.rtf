@@ -16,7 +16,6 @@ The channel 'modes':\
 	'OUT' = a 'client' channel that can make a single connection to an 'IN' channel and is unidirectional 'out'; multiple logical 'out' connections are made via multiple physical connections\
 Note that the command/response port is not displayed in the GUI, as it is an implementation issue.\
 Command-line tools (and the GUI) can interact with the command/response ports, via code that uses the Registry mechanisms to interrogate the advertised ports.\
-Node names are hierarchical, as are the channel names. The format is TBD [but the 'mode' of a channel must be part of the name?].\
 \
 nImO contexts manage the channels (and threads to support I/O with them) as well as the identity of the nImO node - a context is created before doing any nImO operations, such as searching for a channel, registering or deregistering a channel, et cetera, is passed to all nImO I/O operations and is destroyed when completing all nImO operations.\
 1) Create context/RAII\
@@ -38,7 +37,7 @@ n) Destroy context/RAII\
 
 \f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name comes from the host name and service name or is directly provided.\
 The default node name is <computer short name>-<service name>, but the service cannot be a Launcher\
-The node name can be modified by a tag number, so it will be <node>-<tag #> to allow multiple copies of a service on a machine.\
+The node name can be modified by a tag, so it will be <node>-<tag> to allow multiple copies of a service on a machine.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -51,8 +50,8 @@ IP addresses and physical ports are not part of either Channel or Node names; ne
 Minimal Channel = node/arbitrary-path; maximal Channel = network:node/arbitrary-path#protocol\
 \
 Channels have an associated 'type' that represents the format of the data that they can process.\
-If the type is not specified, the service can handle any properly-formatted messages.\
-It the type is specified, the channel can only be connected to a channel of the same type or a channel with no type specified\'85 this may lead to problems, as the type information is lost across services that can accept any messages. \
+If the type is not specified or is blank, the service can handle any properly-formatted messages.\
+It the type is specified, the channel can only be connected to a channel of the same type or a channel with no type specified\'85 this may lead to problems, as the type information is lost across services that can accept any type of message. \
 ServiceContext objects set up a command port; the destructor closes the command port.\
 ContextWithMDNS objects start an mDNS scan/post thread; the destructor stops the mDNS scan/post thread.\
 ContextWithNetworking objects provide the logging mechanism and basic networking setup and shutdown.\

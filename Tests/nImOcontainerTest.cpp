@@ -94,11 +94,9 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "};
+    std::string message{"exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
 
-    message += std::to_string(signal);
-    message += " = ";
-    message += NameOfSignal(signal);
+    NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
     exit(1);
 } // catchSignal
@@ -473,12 +471,10 @@ doTestBigArrayValue
 
             if (nullptr != bigBlob)
             {
-                std::string expectedSquishedString;
-                std::string expectedString;
+                std::string expectedSquishedString{kStartArrayChar};
+                std::string expectedString{kStartArrayChar};
                 char        numBuff[10];
 
-                expectedSquishedString += kStartArrayChar;
-                expectedString += kStartArrayChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -8118,12 +8114,10 @@ doTestBigArrayValueAsJSON
 
             if (nullptr != bigBlob)
             {
-                std::string expectedSquishedString;
-                std::string expectedString;
+                std::string expectedSquishedString{kStartArrayChar};
+                std::string expectedString{kStartArrayChar};
                 char        numBuff[10];
 
-                expectedSquishedString += kStartArrayChar;
-                expectedString += kStartArrayChar;
                 expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {

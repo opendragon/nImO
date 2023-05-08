@@ -151,10 +151,8 @@ StringArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{"\""};
+    std::string result{"\"" + getDefaultValue() + "\""};
 
-    result += getDefaultValue();
-    result += "\"";
     ODL_OBJEXIT_s(result); //####
     return result;
 } // StringArgumentDescriptor::getPrintableDefaultValue

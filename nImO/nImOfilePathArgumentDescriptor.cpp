@@ -390,12 +390,11 @@ FilePathArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     std::string oldDefault{inherited::getDefaultValue()};
-    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o" : "i") +
+                        getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1" : "0") +
+                        suffixFields(_pathPrefix)};
 
-    // Temporarily change the default value to the prefix value, as that's how we pass the path
-    // prefix to the outside world.
-    result += getParameterSeparator() + (_forOutput ? "o" : "i") + getParameterSeparator() + _pathSuffix +
-                getParameterSeparator() + (_useRandomPath ? "1" : "0") + suffixFields(_pathPrefix);
+    NIMO_UNUSED_VAR_(oldDefault);
     ODL_OBJEXIT_s(result); //####
     return result;
 } // FilePathArgumentDescriptor::toString

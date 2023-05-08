@@ -114,19 +114,15 @@ nImO::ProcessServiceOptions
     bool        isAdapter{0 < matchingCriteria.length()};
     bool        keepGoing{true};
     std::string serviceKindName{isAdapter ? "adapter" : "service"};
-    std::string goPartText("  --go, -g \tStart the ");
-    std::string infoPartText("  --info, -i \tPrint executable type, supported ");
-    std::string reportPartText("  --report, -r \tReport the ");
-    std::string tagPartText("  --tag, -t \tSpecify the tag to be used as part of the ");
+    std::string infoPartText{"  --info, -i \tPrint executable type, supported "};
+    std::string tagPartText{"  --tag, -t \tSpecify the tag to be used as part of the "};
 
-    goPartText += serviceKindName + " immediately";
     infoPartText += serviceKindName + " options";
     if (isAdapter)
     {
         infoPartText += ", matching criteria";
     }
     infoPartText += " and description and exit";
-    reportPartText += serviceKindName + " metrics when the application exits";
     tagPartText += serviceKindName + " name";
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
@@ -162,16 +158,14 @@ nImO::ProcessServiceOptions
         StringVector    descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
-        usageString += " ";
-        usageString += argList + "\n\n";
+        usageString += " " + argList + "\n\n";
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
         {
             if (0 < ii)
             {
                 usageString += "\n";
             }
-            usageString += "  ";
-            usageString += descriptions[ii];
+            usageString += "  " + descriptions[ii];
         }
     }
     usageString += "\n\nOptions:";

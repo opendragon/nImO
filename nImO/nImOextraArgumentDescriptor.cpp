@@ -248,9 +248,8 @@ ExtraArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::ExtraTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::ExtraTypeTag) + suffixFields("")};
 
-    result += suffixFields("");
     ODL_OBJEXIT_s(result); //####
     return result;
 } // ExtraArgumentDescriptor::toString

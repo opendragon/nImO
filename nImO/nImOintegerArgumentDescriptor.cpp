@@ -327,9 +327,8 @@ IntegerArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::IntegerTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::IntegerTypeTag) + getParameterSeparator()};
 
-    result += getParameterSeparator();
     if (_hasMinimumValue)
     {
         result += std::to_string(_minimumValue);

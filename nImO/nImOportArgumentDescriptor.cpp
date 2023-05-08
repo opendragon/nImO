@@ -239,9 +239,9 @@ PortArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::PortTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::PortTypeTag) + getParameterSeparator() + (_isSystemPort ? "s" : "r") +
+                        suffixFields(getDefaultValue())};
 
-    result += getParameterSeparator() + (_isSystemPort ? "s" : "r") + suffixFields(getDefaultValue());
     ODL_OBJEXIT_s(result); //####
     return result;
 } // PortArgumentDescriptor::toString

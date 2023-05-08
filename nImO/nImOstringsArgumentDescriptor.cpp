@@ -152,10 +152,8 @@ StringsArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{"\""};
+    std::string result{"\"" + getDefaultValue() + "\""};
 
-    result += getDefaultValue();
-    result += "\"";
     ODL_OBJEXIT_s(result); //####
     return result;
 } // StringsArgumentDescriptor::getPrintableDefaultValue
@@ -284,10 +282,9 @@ StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::StringsTypeTag)};
+    std::string result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
     std::string scratch;
 
-    result += getParameterSeparator();
     for (auto & walker : _allowedValues)
     {
         scratch += walker;
@@ -303,8 +300,7 @@ StringsArgumentDescriptor::toString
         }
         result += *walker;
     }
-    result += delim;
-    result += suffixFields(_defaultValue);
+    result += delim + suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####
     return result;
 } // StringsArgumentDescriptor::toString

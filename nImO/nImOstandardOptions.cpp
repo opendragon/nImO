@@ -227,8 +227,7 @@ nImO::ProcessStandardOptions
     usageString += " [options]";
     if (0 < argList.length())
     {
-        usageString += " ";
-        usageString += argList;
+        usageString += " " + argList;
     }
     if (0 < utilityDescription.length())
     {
@@ -250,8 +249,7 @@ nImO::ProcessStandardOptions
             {
                 usageString += "\n";
             }
-            usageString += "  ";
-            usageString += descriptions[ii];
+            usageString += "  " + descriptions[ii];
         }
     }
     usageString += "\n\nOptions:";

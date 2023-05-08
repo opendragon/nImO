@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       Tests/nImOchannelTest.cpp
+//  File:       Tests/nImOchannelNameTest.cpp
 //
 //  Project:    nImO
 //

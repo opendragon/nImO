@@ -134,6 +134,9 @@ non-iOS/Tests/nImOatomicTest.rc
 non-iOS/Tests/nImObadMessageTest
 non-iOS/Tests/nImObadMessageTest.dir/
 non-iOS/Tests/nImObadMessageTest.rc
+non-iOS/Tests/nImOchannelNameTest
+non-iOS/Tests/nImOchannelNameTest.dir/
+non-iOS/Tests/nImOchannelNameTest.rc
 non-iOS/Tests/nImOchannelTest
 non-iOS/Tests/nImOchannelTest.dir/
 non-iOS/Tests/nImOchannelTest.rc

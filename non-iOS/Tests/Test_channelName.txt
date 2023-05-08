@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tests/Test_channel.txt
+#  File:       non-iOS/Tests/Test_channelName.txt
 #
 #  Project:    nImO
 #
@@ -36,7 +36,7 @@
 #
 #--------------------------------------------------------------------------------------------------
 
-set(THIS_TARGET nImOchannelTest)
+set(THIS_TARGET nImOchannelNameTest)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -48,7 +48,7 @@ endif()
 enable_testing()
 
 add_executable(${THIS_TARGET}
-                ${THIS_SOURCE_DIR}/nImOchannelTest.cpp
+                ${THIS_SOURCE_DIR}/nImOchannelNameTest.cpp
                 ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

@@ -89,7 +89,7 @@ catchSignal
 } // catchSignal
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 40 ***
+# pragma mark *** Test Case 10  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -127,7 +127,7 @@ doTestParseChannelName
 } // doTestParseChannelName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 41 ***
+# pragma mark *** Test Case 11  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -172,7 +172,7 @@ doTestParseExpectedName
 } // doTestParseExpectedName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 42 ***
+# pragma mark *** Test Case 12  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -217,7 +217,7 @@ doTestParseExtractNetwork
 } // doTestParseExtractNetwork
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 43 ***
+# pragma mark *** Test Case 13  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -262,7 +262,7 @@ doTestParseExtractNode
 } // doTestParseExtractNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 44 ***
+# pragma mark *** Test Case 14  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -307,7 +307,7 @@ doTestParseExtractPath
 } // doTestParseExtractPath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 45 ***
+# pragma mark *** Test Case 15  ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -392,39 +392,55 @@ main
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
-                    case 40 :
+                    case 1 :
+//                        result = doTestValidateNetworkName(expected, *(argv + 3));
+                        break;
+
+                    case 2 :
+//                        result = doTestValidateNodeName(expected, *(argv + 3));
+                        break;
+
+                    case 3 :
+//                        result = doTestValidatePath(expected, *(argv + 3));
+                        break;
+
+                    case 4 :
+//                        result = doTestValidateTransport(expected, *(argv + 3));
+                        break;
+
+                    case 10  :
                         result = doTestParseChannelName(expected, *(argv + 3));
                         break;
 
-                    case 41 :
+                    case 11  :
                         if (3 < argc)
                         {
                             result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 42 :
+                    case 12  :
                         if (3 < argc)
                         {
                             result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 43 :
+                    case 13  :
                         if (3 < argc)
                         {
                             result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 44 :
+                    case 14  :
                         if (3 < argc)
                         {
                             result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 45 :
+                    case 15  :
                         if (3 < argc)
                         {
                             result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));

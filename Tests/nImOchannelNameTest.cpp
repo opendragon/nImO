@@ -89,6 +89,154 @@ catchSignal
 } // catchSignal
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 01  ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidateNetworkName
+    (const bool expected,
+     CPtr(char) inString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S1("inString = ", inString); //####
+    int result{1};
+
+    try
+    {
+        bool    checked{ChannelName::validNetwork(inString)};
+
+        if (checked == expected)
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidateNetworkName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 02  ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidateNodeName
+    (const bool expected,
+     CPtr(char) inString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S1("inString = ", inString); //####
+    int result{1};
+
+    try
+    {
+        bool    checked{ChannelName::validNode(inString)};
+
+        if (checked == expected)
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidateNodeName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 03  ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidatePath
+    (const bool expected,
+     CPtr(char) inString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S1("inString = ", inString); //####
+    int result{1};
+
+    try
+    {
+        bool    checked{ChannelName::validPath(inString)};
+
+        if (checked == expected)
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidatePath
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 04  ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidateTransport
+    (const bool expected,
+     CPtr(char) inString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S1("inString = ", inString); //####
+    int result{1};
+
+    try
+    {
+        bool    checked{ChannelName::validTransport(inString)};
+
+        if (checked == expected)
+        {
+            result = 0;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidateTransport
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 10  ***
 #endif // defined(__APPLE__)
 
@@ -393,19 +541,19 @@ main
                 switch (selector)
                 {
                     case 1 :
-//                        result = doTestValidateNetworkName(expected, *(argv + 3));
+                        result = doTestValidateNetworkName(expected, *(argv + 3));
                         break;
 
                     case 2 :
-//                        result = doTestValidateNodeName(expected, *(argv + 3));
+                        result = doTestValidateNodeName(expected, *(argv + 3));
                         break;
 
                     case 3 :
-//                        result = doTestValidatePath(expected, *(argv + 3));
+                        result = doTestValidatePath(expected, *(argv + 3));
                         break;
 
                     case 4 :
-//                        result = doTestValidateTransport(expected, *(argv + 3));
+                        result = doTestValidateTransport(expected, *(argv + 3));
                         break;
 
                     case 10  :

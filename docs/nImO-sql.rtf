@@ -43,31 +43,31 @@ Tests:\
 	INSERT INTO Machines ( name, address ) VALUES( "blurt", 30000000 );\
 \
 	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b1", 20000000, 5000, 4, "/opt/bin/stuff", "/home/able", "-n b1" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b2", 20000000, 5001, 3, "/opt/bin/stuff", "/home/baker", "-n b2" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b3" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b4" );\
+	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b.2", 20000000, 5001, 3, "/opt/bin/stuff", "/home/baker", "-n b.2" );\
+	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b-3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b-3" );\
+	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b_4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b_4" );\
 \
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b1", "/blart", 0, "" );\
+	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b1", "/blart/in", 0, "" );\
 \pard\tx1153\tx3003\pardeftab593\pardirnatural\partightenfactor0
-\cf2 	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b2", "/blirt", 1, "simple" );\
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b3", "/blert", 0, "complex" );\
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b3", "/blort", 0, "complex" );\
+\cf2 	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b.2", "/blirt/out", 1, "simple" );\
+	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b-3", "/blert", 0, "complex" );\
+	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b_3", "/blort", 0, "vector" );\
 \pard\tx1153\tx3003\pardeftab593\pardirnatural\partightenfactor0
 \cf2 \
 	SELECT * FROM Machines;\
 	SELECT * FROM Nodes;\
 	SELECT * FROM Channels;\
 \
-	SELECT execPath, launchDirectory, commandLine FROM Nodes WHERE name = "b3";\
+	SELECT execPath, launchDirectory, commandLine FROM Nodes WHERE name = "b_3";\
 	SELECT address FROM Machines WHERE name = "blurt";\
 	SELECT address, port, serviceType FROM Nodes WHERE name = "b1";\
 	SELECT COUNT(*) FROM Machines WHERE name = "blort";\
-	SELECT COUNT(*) FROM Nodes WHERE name = "b2";\
-	SELECT COUNT(*) FROM Channels WHERE node = "b3"; \
+	SELECT COUNT(*) FROM Nodes WHERE name = "b.2";\
+	SELECT COUNT(*) FROM Channels WHERE node = "b_3"; \
 \
 	SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" and Machines.address = Nodes.address;\
 	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" and Machines.address = Nodes.address;\
 	SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name = "blurt" and Machines.address = Nodes.address;\
 \
-	DELETE FROM Nodes WHERE name = "b2"; \
+	DELETE FROM Nodes WHERE name = "b.2"; \
 }

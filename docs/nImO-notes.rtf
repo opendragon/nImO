@@ -2,7 +2,7 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww21660\viewh25020\viewkind0
+\margl1440\margr1440\vieww25420\viewh24780\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?; nImO processes report their channels via a registry entry; OSC I/O ?\
@@ -19,19 +19,19 @@ Command-line tools (and the GUI) can interact with the command/response ports, v
 nImO contexts manage the channels (and threads to support I/O with them) as well as the identity of the nImO node - a context is created before doing any nImO operations, such as searching for a channel, registering or deregistering a channel, et cetera, is passed to all nImO I/O operations and is destroyed when completing all nImO operations.\
 1) Create context/RAII\
 2) Assign name for node in context => if already present [checked via Registry], fail\
-3) Register node in Registry via proxy\
+3) Register node in Registry via proxy [Registry operations]\
 4) Register channels for node in context [Registry operations]\
-5) Signal 'operational' status\
+5) Signal 'operational' status?\
 6) \'85.\
-n-4) Signal 'shutdown' status\
+n-4) Signal 'shutdown' status?\
 n-3) Close active connections to node channels\
 n-2) Deregister node channels in context [Registry operations]\
-n-1) Deregister node\
+n-1) Deregister node [Registry operations]\
 n) Destroy context/RAII\
 \
 <name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore\
-<path> ::= (/<name>)+\
-<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP))?  \'97> The node name is 'optional' when parsed but required in actual use\
+<path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash\
+<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP|ANY))?  \'97> The node name is 'optional' when parsed but required in actual use\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -61,9 +61,7 @@ ContextWithNetworking objects provide the logging mechanism and basic networking
 Application role = Source, Sink, Filter, Service, Utility, Test or Miscellaneous - this determines whether a command port is to be used and if the mDNS scan/post thread is needed.\
 Test and Miscellaneous contexts won't need a command port; Source, Sink, Filter and Service contexts will respond on the command port while Utility contexts may send requests to a command port.\
 Source, Sink and Filter contexts will have one or more channels.\
-The non-registry applications use the command port of the registry to get and set information.\
-\
-nImObridge, nImOconnect, nImOdisconnect, nImOlauncher and nImOregistry should be able to post to the 'logging' ports\
+The non-registry applications use the command port of the Registry to get and set information.\
 \
 mDNS contexts: <an intermediate context class>\
 Input/Output contexts: <an intermediate context class>\
@@ -86,7 +84,6 @@ ContextWithMDNS <- ServiceContext, UtilityContext\
 ContextWithNetworking <- ContextWithMDNS\
 Context <- ContextWithNetworking, MiscellaneousContext, TestContext\
 \
-The Registry should behave like the m+m registry combined with the Yarp search mechanism.\
 When a ContextWithMDNS is constructed, it will locate the Registry via mDNS, unless 'told not to'.\
 //Locating an application will require determining the path to the running executable or some form of configuration file\'85 https://stackoverflow.com/questions/1528298/get-path-of-executable\
 \

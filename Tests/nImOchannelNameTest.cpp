@@ -89,7 +89,7 @@ catchSignal
 } // catchSignal
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 01 ***
+# pragma mark *** Test Case 40 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -127,7 +127,7 @@ doTestParseChannelName
 } // doTestParseChannelName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 02 ***
+# pragma mark *** Test Case 41 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -172,7 +172,7 @@ doTestParseExpectedName
 } // doTestParseExpectedName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 03 ***
+# pragma mark *** Test Case 42 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -217,7 +217,7 @@ doTestParseExtractNetwork
 } // doTestParseExtractNetwork
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 04 ***
+# pragma mark *** Test Case 43 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -262,7 +262,7 @@ doTestParseExtractNode
 } // doTestParseExtractNode
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 44 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -307,7 +307,7 @@ doTestParseExtractPath
 } // doTestParseExtractPath
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 45 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -392,39 +392,39 @@ main
                 ODL_B1("expected <- ", expected); //####
                 switch (selector)
                 {
-                    case 1 :
+                    case 40 :
                         result = doTestParseChannelName(expected, *(argv + 3));
                         break;
 
-                    case 2 :
+                    case 41 :
                         if (3 < argc)
                         {
                             result = doTestParseExpectedName(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 3 :
+                    case 42 :
                         if (3 < argc)
                         {
                             result = doTestParseExtractNetwork(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 4 :
+                    case 43 :
                         if (3 < argc)
                         {
                             result = doTestParseExtractNode(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 5 :
+                    case 44 :
                         if (3 < argc)
                         {
                             result = doTestParseExtractPath(expected, *(argv + 3), *(argv + 4));
                         }
                         break;
 
-                    case 6 :
+                    case 45 :
                         if (3 < argc)
                         {
                             result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));

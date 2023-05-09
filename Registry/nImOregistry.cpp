@@ -38,6 +38,8 @@
 
 #include "nImOregistry.h"
 
+#include <nImOchannelName.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -1165,38 +1167,42 @@ nImO::Registry::addChannel
     ODL_S1s("machineName = ", machineName); //####
     ODL_I1("address = ", address); //####
     RegSuccessOrFailure status;
-    RegBoolOrFailure    statusWithBool{isNodePresent(nodeName)};
 
-    if (statusWithBool.first.first)
+    if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
-        if (statusWithBool.second)
-        {
-            status = doBeginTransaction(_owner, _dbHandle);
-            if (status.first)
-            {
-                ChannelInsertData   data{nodeName, path, isOutput, dataType};
-                static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ "( " CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", " CHANNEL_IS_OUTPUT_C_
-                                                        ", " CHANNEL_DATA_TYPE_C_") VALUES ( @" CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
-                                                        CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_" )"};
+        RegBoolOrFailure    statusWithBool{isNodePresent(nodeName)};
 
-                status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
-                doEndTransaction(_owner, _dbHandle, status.first);
+        if (statusWithBool.first.first)
+        {
+            if (statusWithBool.second)
+            {
+                status = doBeginTransaction(_owner, _dbHandle);
+                if (status.first)
+                {
+                    ChannelInsertData   data{nodeName, path, isOutput, dataType};
+                    static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ "( " CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
+                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_") VALUES ( @" CHANNEL_NODE_C_ ", @"
+                                                            CHANNEL_PATH_C_ ", @" CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_" )"};
+
+                    status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
+                    doEndTransaction(_owner, _dbHandle, status.first);
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
             }
             else
             {
-                ODL_LOG("! (status.first)"); //####
+                ODL_LOG("! (statusWithBool.second)"); //####
+                status = RegSuccessOrFailure(false, "Unknown node name");
             }
-        }
-        else
-        {
-            ODL_LOG("! (statusWithBool.second)"); //####
-            status = RegSuccessOrFailure(false, "Unknown node name");
         }
     }
     else
     {
-        ODL_LOG("! (statusWithBool.first.first)"); //####
-        status = statusWithBool.first;
+        ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1242,22 +1248,31 @@ nImO::Registry::addNode
     ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
     ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        NodeInsertData      data{nodeName, nodeConnection, serviceClass, execPath, launchDirectory, commandLine};
-        static CPtr(char)   insertIntoNodes{"INSERT INTO " NODES_T_ "( " NODE_NAME_C_ ", " NODE_ADDRESS_C_ ", " NODE_PORT_C_ ", "
-                                            NODE_SERVICE_TYPE_C_ ", " NODE_EXEC_PATH_C_ ", " NODE_LAUNCH_DIRECTORY_C_ ", " NODE_COMMAND_LINE_C_
-                                            " ) VALUES ( @" NODE_NAME_C_ ", @" NODE_ADDRESS_C_ ", @" NODE_PORT_C_ ", @" NODE_SERVICE_TYPE_C_
-                                            ", @" NODE_EXEC_PATH_C_ ", @" NODE_LAUNCH_DIRECTORY_C_ ", @" NODE_COMMAND_LINE_C_ " )"};
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            NodeInsertData      data{nodeName, nodeConnection, serviceClass, execPath, launchDirectory, commandLine};
+            static CPtr(char)   insertIntoNodes{"INSERT INTO " NODES_T_ "( " NODE_NAME_C_ ", " NODE_ADDRESS_C_ ", " NODE_PORT_C_ ", "
+                                                NODE_SERVICE_TYPE_C_ ", " NODE_EXEC_PATH_C_ ", " NODE_LAUNCH_DIRECTORY_C_ ", " NODE_COMMAND_LINE_C_
+                                                " ) VALUES ( @" NODE_NAME_C_ ", @" NODE_ADDRESS_C_ ", @" NODE_PORT_C_ ", @" NODE_SERVICE_TYPE_C_
+                                                ", @" NODE_EXEC_PATH_C_ ", @" NODE_LAUNCH_DIRECTORY_C_ ", @" NODE_COMMAND_LINE_C_ " )"};
 
-        status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
-        doEndTransaction(_owner, _dbHandle, status.first);
+            status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1469,48 +1484,57 @@ nImO::Registry::getLaunchDetails
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
     LaunchDetails       details;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes{"SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM " NODES_T_
-                                                " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
-
-        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            if (0 < results.size())
-            {
-                StringVector    values{results[0]};
+            std::vector<StringVector>   results;
+            static CPtr(char)           searchNodes{"SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM "
+                                                    NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
 
-                if (2 < values.size())
+            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+            if (status.first)
+            {
+                if (0 < results.size())
                 {
-                    details._found = true;
-                    details._execPath = values[0];
-                    details._launchDirectory = values[1];
-                    details._commandLine = values[2];
+                    StringVector    values{results[0]};
+
+                    if (2 < values.size())
+                    {
+                        details._found = true;
+                        details._execPath = values[0];
+                        details._launchDirectory = values[1];
+                        details._commandLine = values[2];
+                    }
+                    else
+                    {
+                        ODL_LOG("! (2 < values.size())"); //####
+                    }
                 }
                 else
                 {
-                    ODL_LOG("! (2 < values.size())"); //####
+                    ODL_LOG("! (0 < results.size())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 < results.size())"); //####
+                ODL_LOG("! (status.first)"); //####
             }
+            doEndTransaction(_owner, _dbHandle, status.first);
         }
         else
         {
             ODL_LOG("! (status.first)"); //####
         }
-        doEndTransaction(_owner, _dbHandle, status.first);
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return RegLaunchDetailsOrFailure{status, details};
@@ -1523,52 +1547,62 @@ nImO::Registry::getMachineInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
     MachineInfo         info;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "= @" MACHINE_NAME_C_};
-
-        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
+        status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            if (0 < results.size())
+            std::vector<StringVector>   results;
+            static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "= @"
+                                                        MACHINE_NAME_C_};
+
+            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
+            if (status.first)
             {
-                StringVector    values{results[0]};
-
-                info._name = nodeName;
-                if (0 < values.size())
+                if (0 < results.size())
                 {
-                    size_t  pos;
+                    StringVector    values{results[0]};
 
-                    info._found = true;
-                    info._address = StaticCast(uint32_t, stoul(values[0], &pos));
-                    if (0 == pos)
+                    info._name = nodeName;
+                    if (0 < values.size())
                     {
-                        info._found = false;
+                        size_t  pos;
+
+                        info._found = true;
+                        info._address = StaticCast(uint32_t, stoul(values[0], &pos));
+                        if (0 == pos)
+                        {
+                            info._found = false;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 < values.size())"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (0 < values.size())"); //####
+                    ODL_LOG("! (0 < results.size())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 < results.size())"); //####
+                ODL_LOG("! (status.first)"); //####
             }
+            doEndTransaction(_owner, _dbHandle, status.first);
         }
         else
         {
             ODL_LOG("! (status.first)"); //####
         }
-        doEndTransaction(_owner, _dbHandle, status.first);
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (Connection::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return RegMachineInfoOrFailure{status, info};
@@ -1689,63 +1723,72 @@ nImO::Registry::getNodeInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
     NodeInfo            info;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes{"SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
-                                                NODE_NAME_C_ "= @" NODE_NAME_C_};
-
-        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            if (0 < results.size())
+            std::vector<StringVector>   results;
+            static CPtr(char)           searchNodes{"SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
+                                                    NODE_NAME_C_ "= @" NODE_NAME_C_};
+
+            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+            if (status.first)
             {
-                StringVector    values{results[0]};
-
-                info._name = nodeName;
-                if (2 < values.size())
+                if (0 < results.size())
                 {
-                    size_t  pos;
+                    StringVector    values{results[0]};
 
-                    info._found = true;
-                    info._connection._address = StaticCast(uint32_t, stoul(values[0], &pos));
-                    if (0 == pos)
+                    info._name = nodeName;
+                    if (2 < values.size())
                     {
-                        info._found = false;
+                        size_t  pos;
+
+                        info._found = true;
+                        info._connection._address = StaticCast(uint32_t, stoul(values[0], &pos));
+                        if (0 == pos)
+                        {
+                            info._found = false;
+                        }
+                        info._connection._port = StaticCast(uint16_t, stoul(values[1], &pos));
+                        if (0 == pos)
+                        {
+                            info._found = false;
+                        }
+                        info._serviceType = StaticCast(ServiceType, stoul(values[2], &pos));
+                        if (0 == pos)
+                        {
+                            info._found = false;
+                        }
                     }
-                    info._connection._port = StaticCast(uint16_t, stoul(values[1], &pos));
-                    if (0 == pos)
+                    else
                     {
-                        info._found = false;
-                    }
-                    info._serviceType = StaticCast(ServiceType, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
+                        ODL_LOG("! (2 < values.size())"); //####
                     }
                 }
                 else
                 {
-                    ODL_LOG("! (2 < values.size())"); //####
+                    ODL_LOG("! (0 < results.size())"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (0 < results.size())"); //####
+                ODL_LOG("! (status.first)"); //####
             }
+            doEndTransaction(_owner, _dbHandle, status.first);
         }
         else
         {
             ODL_LOG("! (status.first)"); //####
         }
-        doEndTransaction(_owner, _dbHandle, status.first);
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (Connection::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return RegNodeInfoOrFailure{status, info};
@@ -1916,39 +1959,48 @@ nImO::Registry::isChannelPresent
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "channelPath = ", channelPath); //####
     bool                found{false};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        StringVector        results;
-        ChannelSearchData   data{nodeName, channelPath};
-        static CPtr(char)   searchChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
-                                            " = @" CHANNEL_PATH_C_};
-
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
+        status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            size_t  pos;
-            int     count = stoi(results[0], &pos);
+            StringVector        results;
+            ChannelSearchData   data{nodeName, channelPath};
+            static CPtr(char)   searchChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND "
+                                                CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
-            if (0 == pos)
+            status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
+            if (status.first)
             {
-                found = false;
+                size_t  pos;
+                int     count = stoi(results[0], &pos);
+
+                if (0 == pos)
+                {
+                    found = false;
+                }
+                else
+                {
+                    found = (1 == count);
+                }
             }
             else
             {
-                found = (1 == count);
+                ODL_LOG("! (status.first)"); //####
             }
+            doEndTransaction(_owner, _dbHandle, status.first);
         }
         else
         {
             ODL_LOG("! (status.first)"); //####
         }
-        doEndTransaction(_owner, _dbHandle, status.first);
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (Connection::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, found};
@@ -2004,37 +2056,46 @@ nImO::Registry::isNodePresent
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     bool                found{false};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        StringVector        results;
-        static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
-
-        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+        status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            size_t  pos;
-            int     count = stoi(results[0], &pos);
-            
-            if (0 == pos)
+            StringVector        results;
+            static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+
+            status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
+            if (status.first)
             {
-                found = false;
+                size_t  pos;
+                int     count = stoi(results[0], &pos);
+
+                if (0 == pos)
+                {
+                    found = false;
+                }
+                else
+                {
+                    found = (1 == count);
+                }
             }
             else
             {
-                found = (1 == count);
+                ODL_LOG("! (status.first)"); //####
             }
+            doEndTransaction(_owner, _dbHandle, status.first);
         }
         else
         {
             ODL_LOG("! (status.first)"); //####
         }
-        doEndTransaction(_owner, _dbHandle, status.first);
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, found};
@@ -2046,18 +2107,27 @@ nImO::Registry::removeNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure   status{doBeginTransaction(_owner, _dbHandle)};
+    RegSuccessOrFailure status;
 
-    if (status.first)
+    if (ChannelName::validNode(nodeName))
     {
-        static CPtr(char)   searchNodes{"DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            static CPtr(char)   searchNodes{"DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
 
-        status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
-        doEndTransaction(_owner, _dbHandle, status.first);
+            status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
     }
     else
     {
-        ODL_LOG("! (status.first)"); //####
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;

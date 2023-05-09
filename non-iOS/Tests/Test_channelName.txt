@@ -59,8 +59,12 @@ fix_dynamic_libs(${THIS_TARGET})
 
 ## Test valid simple network name
 add_test(NAME TestSimpleNetworkName COMMAND ${THIS_TARGET} 1 t "thisNet")
-## Test valid network name with special characters
-add_test(NAME TestNetworkNameWithSpecialCharacters COMMAND ${THIS_TARGET} 1 t "this-net")
+## Test valid network name with special character
+add_test(NAME TestNetworkNameWithSpecialCharacter COMMAND ${THIS_TARGET} 1 t "this-net")
+## Test empty network name
+add_test(NAME TestEmptyNetworkName COMMAND ${THIS_TARGET} 1 f "")
+## Test network name with pair of special characters
+add_test(NAME TestNetworkNameWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 1 f "this-.net")
 ## Test network name with invalid characters
 add_test(NAME TestNetworkNameWithInvalidCharacters COMMAND ${THIS_TARGET} 1 f "this^net")
 ## Test network name with special character as lead character
@@ -70,8 +74,12 @@ add_test(NAME TestNetworkNameWithTrailingSpecialCharacter COMMAND ${THIS_TARGET}
 
 ## Test valid simple node name
 add_test(NAME TestSimpleNodeName COMMAND ${THIS_TARGET} 2 t "thisNode")
-## Test valid node name with special characters
-add_test(NAME TestNodeNameWithSpecialCharacters COMMAND ${THIS_TARGET} 2 t "thi$node")
+## Test valid node name with special character
+add_test(NAME TestNodeNameWithSpecialCharacter COMMAND ${THIS_TARGET} 2 t "thi$.node")
+## Test valid node name with pair of special characters
+add_test(NAME TestNodeNameWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 2 f "this__node")
+## Test empty node name
+add_test(NAME TestEmptyNodeName COMMAND ${THIS_TARGET} 2 f "")
 ## Test node name with invalid characters
 add_test(NAME TestNodeNameWithInvalidCharacters COMMAND ${THIS_TARGET} 2 f "this/node")
 ## Test node name with special character as lead character
@@ -81,8 +89,14 @@ add_test(NAME TestNodeNameWithTrailingSpecialCharacter COMMAND ${THIS_TARGET} 2 
 
 ## Test valid simple path
 add_test(NAME TestSimplePath COMMAND ${THIS_TARGET} 3 t "/arbitraryPath")
-## Test valid path with special characters
-add_test(NAME TestPathWithSpecialCharacters COMMAND ${THIS_TARGET} 3 t "/arbitrary_path")
+## Test valid path with special character
+add_test(NAME TestPathWithSpecialCharacter COMMAND ${THIS_TARGET} 3 t "/arbitrary_path")
+## Test valid path with pair of special characters
+add_test(NAME TestPathWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 3 f "/arbitrary..path")
+## Test empty path
+add_test(NAME TestEmptyPath COMMAND ${THIS_TARGET} 3 f "")
+## Test path with just leading forward slash
+add_test(NAME TestPathWithJustLeadingForwardSlash COMMAND ${THIS_TARGET} 3 f "/")
 ## Test path with invalid characters
 add_test(NAME TestPathWithInvalidCharacters COMMAND ${THIS_TARGET} 3 f "/arbitrary&path")
 ## Test path with special character as lead character
@@ -98,6 +112,8 @@ add_test(NAME TestPathWithTrailingForwardSlash COMMAND ${THIS_TARGET} 3 f "/arbi
 add_test(NAME TestValidTransport COMMAND ${THIS_TARGET} 4 t "UDP")
 ## Test valid transport with mixed case
 add_test(NAME TestTransportWithMixedCase COMMAND ${THIS_TARGET} 4 t "AnY")
+## Test empty transport
+add_test(NAME TestEmptyTransport COMMAND ${THIS_TARGET} 4 f "")
 ## Test invalid transport
 add_test(NAME TestInvalidTransport COMMAND ${THIS_TARGET} 4 f "RDP")
 

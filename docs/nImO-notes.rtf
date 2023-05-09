@@ -2,11 +2,10 @@
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww28060\viewh25020\viewkind0
+\margl1440\margr1440\vieww21660\viewh25020\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?; nImO processes report their channels via a registry entry\
-OSC I/O ?\
+\f0\fs24 \cf0 nImO \'97> support TCP, UDP, UDT?; nImO processes report their channels via a registry entry; OSC I/O ?\
 \
 nImO nodes have a command/response port, recorded in the Registry.\
 This port is used to report the channels available, their status and 'mode'; it also responds to connect / disconnect requests and is used to determine if there are other nodes reporting the same names as the node wants to support.\
@@ -30,6 +29,10 @@ n-2) Deregister node channels in context [Registry operations]\
 n-1) Deregister node\
 n) Destroy context/RAII\
 \
+<name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore\
+<path> ::= (/<name>)+\
+<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP))?  \'97> The node name is 'optional' when parsed but required in actual use\
+\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f1\b \cf0 Node names:\
@@ -45,7 +48,6 @@ The node name can be modified by a tag, so it will be <node>-<tag> to allow mult
 \f0\b0 \
 [NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; (physical) ports are assigned by the system; no Protocol implies TCP\
 If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running or if the only services are Launchers\
-IP addresses and physical ports are not part of either Channel or Node names; neither is the 'direction' of the Channel\
 \
 Minimal Channel = node/arbitrary-path; maximal Channel = network:node/arbitrary-path#protocol\
 \
@@ -95,4 +97,5 @@ The configuration file will specify the IP address and port for logging as well 
 Use boost::optional when retrieving a value for a key from the configuration.\
 \
 Note that the firewall daemon, firewalld, on Manjaro, blocks multicast.\
+Something on OpenBSD is interfering with mDNS but not multicast.\
 }

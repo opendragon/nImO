@@ -38,6 +38,8 @@
 
 #include <nImOchannelName.h>
 
+#include <regex>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -60,11 +62,12 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+#define NAME_MATCH_STRING       "[[:alnum:]$]+([_.-][[:alnum:]$]+)*"
+#define PATH_MATCH_STRING       "(/" NAME_MATCH_STRING ")+"
+#define TRANSPORT_MATCH_STRING  "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
+
 /*! @brief The character that ends the network part of a ChannelName. */
 static const char   kEndNetwork{':'};
-
-/*! @brief The character that starts the path part of a ChannelName. */
-static const char   kStartPath{'/'};
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
 static const char   kStartProtocol{'#'};
@@ -81,6 +84,19 @@ static const std::string    kProtocolUdpName{"udp"};
 /*! @brief The standard name for an unknown protocol. */
 static const std::string    kProtocolUnknownName{"unknown"};
 
+/*! @brief A regular expression describing the syntax of a channel name. */
+static std::regex   lChannelNameMatch{"^((" NAME_MATCH_STRING ")?:)?(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$",
+                                        std::regex::extended};
+
+/*! @brief A regular expression describing the syntax of a name. */
+static std::regex   lNameMatch{"^" NAME_MATCH_STRING "$", std::regex::extended};
+
+/*! @brief A regular expression describing the syntax of a path. */
+static std::regex   lPathMatch{"^" PATH_MATCH_STRING "$", std::regex::extended};
+
+/*! @brief A regular expression describing the syntax of a transport value. */
+static std::regex   lTransportMatch{"^" TRANSPORT_MATCH_STRING "$", std::regex::extended};
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -88,40 +104,6 @@ static const std::string    kProtocolUnknownName{"unknown"};
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-/*! @brief Check a character for legitimacy.
- @param[in] aChar The character to check.
- @param[in] slashAllowed @c true if a forward slash can appear.
- @return @c true if the character is legal. */
-static bool
-checkChar
-    (const char aChar,
-     const bool slashAllowed = false)
-{
-    ODL_ENTER(); //####
-    ODL_C1("aChar = ", aChar); //####
-    ODL_B1("slashAllowed = ", slashAllowed); //####
-    bool    result;
-
-    if (isalnum(aChar))
-    {
-        result = true;
-    }
-    else if (('$' == aChar) || ('_' == aChar) || ('-' == aChar) || ('.' == aChar))
-    {
-        result = true;
-    }
-    else if ('/' == aChar)
-    {
-        result = slashAllowed;
-    }
-    else
-    {
-        result = false;
-    }
-    ODL_EXIT_B(result); //####
-    return result;
-} // checkChar
 
 #if defined(__APPLE__)
 # pragma mark Class methods
@@ -187,7 +169,7 @@ nImO::ChannelName::getName
     {
         result += _node;
     }
-    result += kStartPath + _path;
+    result += _path;
     if (TransportType::kUnknown != _transport)
     {
         result += kStartProtocol + transportToName(_transport);
@@ -235,146 +217,25 @@ nImO::ChannelName::parse
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
     ODL_P1("problemDescription = ", &problemDescription); //####
-    bool            okSoFar;
-    enum // Note that this can't be an 'enum class' since it will require a name; it's only used in this function, however.
-    {
-        kNetwork,
-        kNode,
-        kPath,
-        kProtocol
-    }               scanState{kNetwork};
     SpChannelName   result;
     std::string     networkName;
     std::string     nodeName;
     std::string     path;
     std::string     protocolName;
-    TransportType   protocol;
+    std::smatch     matches;
+    TransportType   protocol = TransportType::kUnknown;
+    bool            okSoFar = std::regex_match(input, matches, lChannelNameMatch);
 
-    if (0 == input.length())
-    {
-        problemDescription = "Empty name";
-        okSoFar = false;
-    }
-    else
-    {
-        problemDescription = "";
-        okSoFar = true;
-    }
-    for (size_t ii = 0, mm = input.length(); okSoFar && (ii < mm); ++ii)
-    {
-        char    cc{input[ii]};
-
-        switch (scanState)
-        {
-            case kNetwork :
-                switch (cc)
-                {
-                    case kEndNetwork :
-                        scanState = kNode;
-                        break;
-
-                    case kStartPath :
-                        nodeName = networkName;
-                        networkName = "";
-                        scanState = kPath;
-                        break;
-
-                    case kStartProtocol :
-                        problemDescription = "Missing parts in name";
-                        okSoFar = false;
-                        break;
-
-                    default :
-                        if (checkChar(cc))
-                        {
-                            networkName += cc;
-                        }
-                        else
-                        {
-                            problemDescription = "Illegal character in string";
-                            okSoFar = false;
-                        }
-                        break;
-
-                }
-                break;
-
-            case kNode :
-                switch (cc)
-                {
-                    case kEndNetwork :
-                        problemDescription = "Illegal character in string";
-                        okSoFar = false;
-                        break;
-
-                    case kStartPath :
-                        scanState = kPath;
-                        break;
-
-                    case kStartProtocol :
-                        problemDescription = "Missing parts in name";
-                        okSoFar = false;
-                        break;
-
-                    default :
-                        if (checkChar(cc))
-                        {
-                            nodeName += cc;
-                        }
-                        else
-                        {
-                            problemDescription = "Illegal character in string";
-                            okSoFar = false;
-                        }
-                        break;
-
-                }
-                break;
-
-            case kPath :
-                switch (cc)
-                {
-                    case kEndNetwork :
-                        problemDescription = "Illegal character in string";
-                        okSoFar = false;
-                        break;
-
-                    case kStartProtocol :
-                        scanState = kProtocol;
-                        break;
-
-                    default :
-                        if (checkChar(cc, true))
-                        {
-                            path += cc;
-                        }
-                        else
-                        {
-                            problemDescription = "Illegal character in string";
-                            okSoFar = false;
-                        }
-                        break;
-
-                }
-                break;
-
-            case kProtocol :
-                if (checkChar(cc))
-                {
-                    protocolName += cc;
-                }
-                else
-                {
-                    problemDescription = "Illegal character in string";
-                    okSoFar = false;
-                }
-                break;
-
-        }
-    }
-    okSoFar &= (0 < path.length());
     if (okSoFar)
     {
+        // Submatch 2 = network [can be empty]
+        networkName = matches[2].str();
+        // Submatch 4 = node name
+        nodeName = matches[4].str();
+        // Submatch 6 = path
+        path = matches[6].str();
+        // Submatch 10 = transport [can be empty]
+        protocolName = matches[10].str();
         if (protocolName == transportToName(TransportType::kAny))
         {
             protocol = TransportType::kAny;
@@ -387,31 +248,15 @@ nImO::ChannelName::parse
         {
             protocol = TransportType::kTCP;
         }
-        else if (protocolName == "")
-        {
-            if (scanState == kProtocol)
-            {
-                problemDescription = "Invalid protocol";
-                okSoFar = false;
-            }
-            else
-            {
-                protocol = TransportType::kUnknown;
-            }
-        }
-        else
-        {
-            problemDescription = "Invalid protocol";
-            okSoFar = false;
-        }
-    }
-    if (okSoFar)
-    {
         result = SpChannelName(new ChannelName());
         result->_network = networkName;
         result->_node = nodeName;
         result->_path = path;
         result->_transport = protocol;
+    }
+    else
+    {
+        problemDescription = "Unable to parse channel name";
     }
     ODL_EXIT_P(result.get()); //####
     return result;
@@ -478,10 +323,9 @@ bool
 nImO::ChannelName::validNetwork
     (const std::string &    input)
 {
-    NIMO_UNUSED_VAR_(input);//!!
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = false;
+    bool    result = std::regex_match(input, lNameMatch);
 
     ODL_EXIT_B(result); //####
     return result;
@@ -491,10 +335,9 @@ bool
 nImO::ChannelName::validNode
     (const std::string &    input)
 {
-    NIMO_UNUSED_VAR_(input);//!!
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = false;
+    bool    result = std::regex_match(input, lNameMatch);
 
     ODL_EXIT_B(result); //####
     return result;
@@ -504,10 +347,9 @@ bool
 nImO::ChannelName::validPath
     (const std::string &    input)
 {
-    NIMO_UNUSED_VAR_(input);//!!
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = false;
+    bool    result = std::regex_match(input, lPathMatch);
 
     ODL_EXIT_B(result); //####
     return result;
@@ -517,10 +359,9 @@ bool
 nImO::ChannelName::validTransport
     (const std::string &    input)
 {
-    NIMO_UNUSED_VAR_(input);//!!
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = false;
+    bool    result = std::regex_match(input, lTransportMatch);
 
     ODL_EXIT_B(result); //####
     return result;

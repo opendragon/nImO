@@ -1202,7 +1202,7 @@ nImO::Registry::addChannel
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = RegSuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
     return status;

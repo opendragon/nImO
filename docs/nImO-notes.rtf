@@ -29,9 +29,9 @@ n-2) Deregister node channels in context [Registry operations]\
 n-1) Deregister node [Registry operations]\
 n) Destroy context/RAII\
 \
-<name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore\
-<path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash\
-<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP|ANY))?  \'97> The node name is 'optional' when parsed but required in actual use\
+<name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore.\
+<path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash.\
+<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP|ANY))?  \'97> The node name is 'optional' when parsed but required in actual use.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
@@ -39,7 +39,7 @@ n) Destroy context/RAII\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
 \f0\b0 \cf0 [Network:]Name  - where Network is established by a Bridge and Name is self-assigned; no Network implies the same subnet; the name comes from the host name and service name or is directly provided.\
-The default node name is <computer short name>-<service name>, but the service cannot be a Launcher\
+The default node name is <computer short name>-<service name>, but the service cannot be a Launcher.\
 The node name can be modified by a tag, so it will be <node>-<tag> to allow multiple copies of a service on a machine.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
@@ -47,7 +47,7 @@ The node name can be modified by a tag, so it will be <node>-<tag> to allow mult
 \f1\b \cf0 Channel names:
 \f0\b0 \
 [NodeName]/arbitrary-path[#Protocol] - where Protocol is in \{UDP, TCP, \'85\}; (physical) ports are assigned by the system; no Protocol implies TCP\
-If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running or if the only services are Launchers\
+If the NodeName is not specified, it implies the machine where the service is running and the NodeName of the only service on the machine - it's an error to not specify the NodeName if there is more than one service running or if the only services are Launchers; note that services will always report their node name but command-line tools can follow this rule.\
 \
 Minimal Channel = node/arbitrary-path; maximal Channel = network:node/arbitrary-path#protocol\
 \
@@ -93,6 +93,5 @@ This will allow unit testing of a Registry, since it will not require a command 
 The configuration file will specify the IP address and port for logging as well as the amount of time to wait for a response from the Registry before restarting the mDNS scan, amongst other things.\
 Use boost::optional when retrieving a value for a key from the configuration.\
 \
-Note that the firewall daemon, firewalld, on Manjaro, blocks multicast.\
-Something on OpenBSD is interfering with mDNS but not multicast.\
+Note that the firewall daemon, firewalld, on Manjaro, blocks multicast; something on OpenBSD is interfering with mDNS but not multicast.\
 }

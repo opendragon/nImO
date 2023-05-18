@@ -102,7 +102,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanOut example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

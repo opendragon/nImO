@@ -68,26 +68,32 @@ namespace nImO
         /*! @brief Skip the 'configFile' option. */
         kSkipConfigFileOption   = 0x0002,
 
-        /*! @brief Skip the 'detail' option. */
-        kSkipDetailOption       = 0x0004,
+        /*! @brief Skip the 'describe' option. */
+        kSkipDescribeOption     = 0x0004,
+
+        /*! @brief Skip the 'expanded' option. */
+        kSkipExpandedOption     = 0x0008,
 
         /*! @brief Skip the 'flavours' option. */
-        kSkipFlavoursOption     = 0x0008,
+        kSkipFlavoursOption     = 0x0010,
 
-        /*! @brief Skip the 'info' option. */
-        kSkipInfoOption         = 0x0010,
+        /*! @brief Skip the 'inType' option. */
+        kSkipInTypeOption       = 0x0020,
 
         /*! @brief Skip the 'logging' option. */
-        kSkipLoggingOption      = 0x0020,
+        kSkipLoggingOption      = 0x0040,
 
         /*! @brief Skip the 'machine' option. */
-        kSkipMachineOption      = 0x0040,
+        kSkipMachineOption      = 0x0080,
 
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x0080,
+        kSkipNodeOption         = 0x0100,
+
+        /*! @brief Skip the 'outType' option. */
+        kSkipOutTypeOption      = 0x0200,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x0100,
+        kSkipTagOption          = 0x0400,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
@@ -120,7 +126,7 @@ namespace nImO
         OutputFlavour   _flavour;
 
         /*! @brief @c true is a command-line option requested more details. */
-        bool    _detailed;
+        bool    _expanded;
 
         /*! @brief @c true if a command-line option enabled logging. */
         bool    _logging;
@@ -135,7 +141,7 @@ namespace nImO
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _flavour(OutputFlavour::kFlavourNormal), _detailed(false), _logging(loggingOnByDefault)
+                _flavour(OutputFlavour::kFlavourNormal), _expanded(false), _logging(loggingOnByDefault)
         {
         }
 
@@ -155,15 +161,15 @@ namespace nImO
         (const std::string &    configFilePath);
 
     /*! @brief Process the standard options for utility executables.
-     The option '-c' / '--conf' specifies an alternative configuration file to use.
-     The option '-d' / '--detail' increases the amount of detail presented.
+     The option '-c' / '--config' specifies an alternative configuration file to use.
+     The option '-d' / '--describe' displays the type of the executable and the description of the executable and returns @c false.
+     The option '-e' / '--expanded' increases the amount of detail presented.
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
-     The option '-i' / '--info' displays the type of the executable and the description of the executable and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.
      The option '-l' / '--log' specifies that the executable is to be logged.
      The option '-m'/'--machine' specifies the machine to be referenced.
      The option '-t' / '--tabs' specifies that output is to be in tab-delimited format.
-     The option '-v' / '--vers' displays the version and copyright information and returns @c false.
+     The option '-v' / '--version' displays the version and copyright information and returns @c false.
      @param[in] argc The number of arguments in 'argv'.
      @param[in] argv The arguments to be used with the utility.
      @param[in,out] argumentDescriptions Descriptions of the arguments to the application.

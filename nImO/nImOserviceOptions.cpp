@@ -102,11 +102,13 @@ nImO::ProcessServiceOptions
         kOptionUNKNOWN,
         kOptionARGS,
         kOptionCONFIG,
-        kOptionDETAIL,
+        kOptionDESCRIBE,
+        kOptionEXPANDED,
         kOptionHELP,
-        kOptionINFO,
+        kOptionINTYPE,
         kOptionLOG,
         kOptionNODE,
+        kOptionOUTTYPE,
         kOptionTAG,
         kOptionVERSION
     }; // OptionIndex
@@ -114,33 +116,38 @@ nImO::ProcessServiceOptions
     bool        isAdapter{0 < matchingCriteria.length()};
     bool        keepGoing{true};
     std::string serviceKindName{isAdapter ? "adapter" : "service"};
-    std::string infoPartText{"  --info, -i \tPrint executable type, supported "};
+    std::string describePartText{"  --describe, -d \tPrint executable type, supported "};
     std::string tagPartText{"  --tag, -t \tSpecify the tag to be used as part of the "};
 
-    infoPartText += serviceKindName + " options";
+    describePartText += serviceKindName + " options";
     if (isAdapter)
     {
-        infoPartText += ", matching criteria";
+        describePartText += ", matching criteria";
     }
-    infoPartText += " and description and exit";
+    describePartText += " and description and exit";
     tagPartText += serviceKindName + " name";
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         T_("  --args, -a \tReport the argument formats")};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             T_("  --config, -c <path> \tSpecify path to configuration file")};
-    Option_::Descriptor detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "d",
-                                                "detail", Option_::Arg::None, T_("  --detail, -d \tDisplay more details")};
+    Option_::Descriptor describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
+                                            describePartText.c_str()};
+    Option_::Descriptor expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
+                                            "expanded", Option_::Arg::None, T_("  --expanded, -e \tDisplay more details")};
     Option_::Descriptor helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help", Option_::Arg::None,
                                         T_("  --help, -h \tPrint usage and exit")};
-    Option_::Descriptor infoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINFO), 0, "i", "info", Option_::Arg::None, infoPartText.c_str()};
+    Option_::Descriptor inTypeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
+                                        T_("  --intype, -i \tspecifies the data type for input channels")};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
                                         T_("  --log, -l \tLog application")};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
                                         T_("  --node, -n \tSpecify a non-default node name to be used")};
+    Option_::Descriptor outTypeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
+                                            T_("  --outtype, -o \tspecifies the data type for output channels")};
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
-    Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "vers", Option_::Arg::None,
-                                            T_("  --vers, -v \tPrint version information and exit")};
+    Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "version", Option_::Arg::None,
+                                            T_("  --version, -v \tPrint version information and exit")};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -180,11 +187,15 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
-    if (0 == (skipOptions & kSkipDetailOption))
+    if (0 == (skipOptions & kSkipDescribeOption))
     {
         ++descriptorCount;
     }
-    if (0 == (skipOptions & kSkipInfoOption))
+    if (0 == (skipOptions & kSkipExpandedOption))
+    {
+        ++descriptorCount;
+    }
+    if (0 == (skipOptions & kSkipInTypeOption))
     {
         ++descriptorCount;
     }
@@ -193,6 +204,10 @@ nImO::ProcessServiceOptions
         ++descriptorCount;
     }
     if (0 == (skipOptions & kSkipNodeOption))
+    {
+        ++descriptorCount;
+    }
+    if (0 == (skipOptions & kSkipOutTypeOption))
     {
         ++descriptorCount;
     }
@@ -217,14 +232,18 @@ nImO::ProcessServiceOptions
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
     }
-    if (0 == (skipOptions & kSkipDetailOption))
+    if (0 == (skipOptions & kSkipDescribeOption))
     {
-        memcpy(usageWalker++, &detailDescriptor, sizeof(detailDescriptor));
+        memcpy(usageWalker++, &describeDescriptor, sizeof(describeDescriptor));
+    }
+    if (0 == (skipOptions & kSkipExpandedOption))
+    {
+        memcpy(usageWalker++, &expandedDescriptor, sizeof(expandedDescriptor));
     }
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
-    if (0 == (skipOptions & kSkipInfoOption))
+    if (0 == (skipOptions & kSkipInTypeOption))
     {
-        memcpy(usageWalker++, &infoDescriptor, sizeof(infoDescriptor));
+        memcpy(usageWalker++, &inTypeDescriptor, sizeof(inTypeDescriptor));
     }
     if (0 == (skipOptions & kSkipLoggingOption))
     {
@@ -233,6 +252,10 @@ nImO::ProcessServiceOptions
     if (0 == (skipOptions & kSkipNodeOption))
     {
         memcpy(usageWalker++, &nodeDescriptor, sizeof(nodeDescriptor));
+    }
+    if (0 == (skipOptions & kSkipOutTypeOption))
+    {
+        memcpy(usageWalker++, &outTypeDescriptor, sizeof(outTypeDescriptor));
     }
     if (0 == (skipOptions & kSkipTagOption))
     {
@@ -261,12 +284,6 @@ nImO::ProcessServiceOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
-    {
-        std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " << copyrightHolder << "." << std::endl;
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionARGS)])
     {
         for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
@@ -286,7 +303,13 @@ nImO::ProcessServiceOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINFO)])
+    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
+    {
+        std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " << copyrightHolder << "." << std::endl;
+        keepGoing = false;
+        ODL_B1("keepGoing <- ", keepGoing); //####
+    }
+    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
     {
         bool    needTab{true};
 
@@ -311,7 +334,7 @@ nImO::ProcessServiceOptions
             }
             std::cout << "c";
         }
-        if (0 == (skipOptions & kSkipDetailOption))
+        if (0 == (skipOptions & kSkipDescribeOption))
         {
             if (needTab)
             {
@@ -320,7 +343,16 @@ nImO::ProcessServiceOptions
             }
             std::cout << "d";
         }
-        if (0 == (skipOptions & kSkipInfoOption))
+        if (0 == (skipOptions & kSkipExpandedOption))
+        {
+            if (needTab)
+            {
+                std::cout << "\t";
+                needTab = false;
+            }
+            std::cout << "e";
+        }
+        if (0 == (skipOptions & kSkipInTypeOption))
         {
             if (needTab)
             {
@@ -347,6 +379,15 @@ nImO::ProcessServiceOptions
             }
             std::cout << "n";
         }
+        if (0 == (skipOptions & kSkipOutTypeOption))
+        {
+            if (needTab)
+            {
+                std::cout << "\t";
+                needTab = false;
+            }
+            std::cout << "o";
+        }
         if (0 == (skipOptions & kSkipTagOption))
         {
             if (needTab)
@@ -366,23 +407,31 @@ nImO::ProcessServiceOptions
     }
     else if (ProcessArguments(argumentDescriptions, parse, badArgs))
     {
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
+        {
+            optionValues._expanded = true;
+        }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {
             optionValues._logging = true;
         }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDETAIL)])
-        {
-            optionValues._detailed = true;
-        }
         Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
 
-        if ((0 == (kSkipConfigFileOption & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
+        if ((0 == (skipOptions & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
         {
             optionValues._configFilePath = configOption->arg;
+        }
+        if ((0 == (skipOptions & kSkipInTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]))
+        {
+            optionValues._inType = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)].arg;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNODE)])
         {
             optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
+        }
+        if ((0 == (skipOptions & kSkipOutTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]))
+        {
+            optionValues._outType = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)].arg;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
         {

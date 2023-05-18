@@ -117,8 +117,8 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipDetailOption | nImO::kSkipFlavoursOption | nImO::kSkipInfoOption |
-                                    nImO::kSkipNodeOption | nImO::kSkipTagOption))
+                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+                                    nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption | nImO::kSkipTagOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

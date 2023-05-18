@@ -105,7 +105,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

@@ -105,7 +105,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipFlavoursOption | nImO::kSkipDetailOption))
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

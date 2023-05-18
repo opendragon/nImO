@@ -334,7 +334,7 @@ listNodes
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
                                         CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_;
-                            if (! options._detailed)
+                            if (! options._expanded)
                             {
                                 std::cout << " }";
                             }
@@ -348,7 +348,7 @@ listNodes
                             break;
 
                     }
-                    if (options._detailed)
+                    if (options._expanded)
                     {
                         nImO::RegLaunchDetailsOrFailure statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
 

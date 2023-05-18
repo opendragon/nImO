@@ -147,7 +147,7 @@ main
 
 
                         // TBD: Close all connections for nodes on the machine.
-                        if (optionValues._detailed)
+                        if (optionValues._expanded)
                         {
                             ourContext->report("closing all connections");
                         }
@@ -185,13 +185,13 @@ main
                         if (statusWithInfo.second._found)
                         {
                             // Close all connections for services on the node.
-                            if (optionValues._detailed)
+                            if (optionValues._expanded)
                             {
                                 ourContext->report("closing all connections to " + nodeName);
                             }
                             // TBD
                             // Send Shutdown command to the node.
-                            if (optionValues._detailed)
+                            if (optionValues._expanded)
                             {
                                 ourContext->report("sending shutdown request to " + nodeName);
                             }
@@ -238,7 +238,7 @@ main
 
 
                         // TBD: Close all connections.
-                        if (optionValues._detailed)
+                        if (optionValues._expanded)
                         {
                             ourContext->report("closing all connections");
                         }

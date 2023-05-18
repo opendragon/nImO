@@ -178,9 +178,9 @@ nImO::ProcessStandardOptions
     {
         kOptionUNKNOWN,
         kOptionCONFIG,
-        kOptionDETAIL,
+        kOptionDESCRIBE,
+        kOptionEXPANDED,
         kOptionHELP,
-        kOptionINFO,
         kOptionJSON,
         kOptionLOG,
         kOptionMACHINE,
@@ -194,13 +194,12 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                     Option_::Arg::Required,
                                                     T_("  --config, -c <path> \tSpecify path to configuration file")};
-    Option_::Descriptor         detailDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDETAIL), 0, "x",
-                                                "detail", Option_::Arg::None, T_("  --detail, -x \tDisplay more details")};
+    Option_::Descriptor         describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
+                                                    T_("  --describe, -d \tPrint type and description and exit")};
+    Option_::Descriptor         expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
+                                                    "expanded", Option_::Arg::None, T_("  --expanded, -e \tDisplay more details")};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help",
                                                 Option_::Arg::None, T_("  --help, -h  \tPrint usage and exit")};
-    Option_::Descriptor         infoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINFO), 0, "i", "info",
-                                                Option_::Arg::None,
-                                                T_("  --info, -i \tPrint type and description and exit")};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
                                                 Option_::Arg::None,
                                                 T_("  --json, -j \tGenerate output in JSON format")};
@@ -213,10 +212,10 @@ nImO::ProcessStandardOptions
                                                 Option_::Arg::None,
                                                 T_("  --tabs, -t \tGenerate output in tab-format")};
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v",
-                                                    "vers", Option_::Arg::None,
-                                                    T_("  --vers, -v \tPrint version information and exit")};
+                                                    "version", Option_::Arg::None,
+                                                    T_("  --version, -v \tPrint version information and exit")};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[11]; // first, config, detail, help, info, json, logg, machine, tabs, version, last
+    Option_::Descriptor         usage[11]; // first, config, describe, expanded, help, json, log, machine, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
@@ -263,24 +262,27 @@ nImO::ProcessStandardOptions
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
     }
-    if (0 == (kSkipMachineOption & optionsToIgnore))
+    memcpy(usageWalker++, &describeDescriptor, sizeof(describeDescriptor));
+    if (0 == (kSkipExpandedOption & optionsToIgnore))
     {
-        memcpy(usageWalker++, &machineDescriptor, sizeof(machineDescriptor));
-    }
-    if (0 == (kSkipDetailOption & optionsToIgnore))
-    {
-        memcpy(usageWalker++, &detailDescriptor, sizeof(detailDescriptor));
+        memcpy(usageWalker++, &expandedDescriptor, sizeof(expandedDescriptor));
     }
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
-    memcpy(usageWalker++, &infoDescriptor, sizeof(infoDescriptor));
     if (0 == (kSkipFlavoursOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &jsonDescriptor, sizeof(jsonDescriptor));
-        memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
     if (0 == (kSkipLoggingOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &logDescriptor, sizeof(logDescriptor));
+    }
+    if (0 == (kSkipMachineOption & optionsToIgnore))
+    {
+        memcpy(usageWalker++, &machineDescriptor, sizeof(machineDescriptor));
+    }
+    if (0 == (kSkipFlavoursOption & optionsToIgnore))
+    {
+        memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
@@ -317,7 +319,7 @@ nImO::ProcessStandardOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINFO)])
+    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
     {
         std::cout << "Utility\t" << utilityDescription << std::endl;
         keepGoing = false;
@@ -333,9 +335,9 @@ nImO::ProcessStandardOptions
         {
             optionValues._flavour = OutputFlavour::kFlavourTabs;
         }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDETAIL)])
+        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
         {
-            optionValues._detailed = true;
+            optionValues._expanded = true;
         }
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
         {

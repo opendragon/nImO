@@ -104,7 +104,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipDetailOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

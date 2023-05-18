@@ -104,7 +104,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example", "", 2020, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
-                                     nImO::kSkipDetailOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

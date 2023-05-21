@@ -36,16 +36,16 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOaddressArgumentDescriptor.h>
-#include <nImObooleanArgumentDescriptor.h>
-#include <nImOchannelArgumentDescriptor.h>
-#include <nImOdoubleArgumentDescriptor.h>
-#include <nImOfilePathArgumentDescriptor.h>
-#include <nImOintegerArgumentDescriptor.h>
-#include <nImOportArgumentDescriptor.h>
-#include <nImOstringArgumentDescriptor.h>
-#include <nImOstringsArgumentDescriptor.h>
-#include <nImOtestContext.h>
+#include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <Contexts/nImOtestContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

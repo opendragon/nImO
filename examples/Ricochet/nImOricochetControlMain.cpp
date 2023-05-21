@@ -36,12 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <Contexts/nImOmiscellaneousContext.h>
 #include <nImOmainSupport.h>
-#include <nImOmiscellaneousContext.h>
-#include <nImOportArgumentDescriptor.h>
 #include <nImOstandardOptions.h>
-#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

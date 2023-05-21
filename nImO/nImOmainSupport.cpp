@@ -37,7 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <nImOmainSupport.h>
-#include <nImOcontextWithMDNS.h>
+
+#include <Contexts/nImOcontextWithMDNS.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

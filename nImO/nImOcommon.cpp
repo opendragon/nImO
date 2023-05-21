@@ -42,9 +42,9 @@
 #include <initFile.h>
 #include <initFileConfig.h>
 #include <initFileObject.h>
-#include <nImObaseArgumentDescriptor.h>
-#include <nImOcontext.h>
-#include <nImOvalue.h>
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <BasicTypes/nImOvalue.h>
+#include <Contexts/nImOcontext.h>
 #include <fstream>
 #include <random>
 #include <regex>

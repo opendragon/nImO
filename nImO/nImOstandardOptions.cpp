@@ -41,7 +41,7 @@
 #include <fstream>
 #include <initFile.h>
 #include <initFileObject.h>
-#include <nImObaseArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

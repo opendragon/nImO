@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <Contexts/nImOfilterContext.h>
 #include <nImOcommonCommands.h>
-#include <nImOfilterContext.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>

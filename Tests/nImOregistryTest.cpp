@@ -37,8 +37,8 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "../Registry/nImOregistry.h"
+#include <Contexts/nImOserviceContext.h>
 #include <nImOchannelName.h>
-#include <nImOserviceContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -130,7 +130,7 @@ doTestCreateRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // create empty Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -183,7 +183,7 @@ doTestEmptyRegistryForMachines
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for machines
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -252,7 +252,7 @@ doTestMachineSetWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -323,7 +323,7 @@ doTestFindMachineWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -407,7 +407,7 @@ doTestAddMachineToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -469,7 +469,7 @@ doTestCountMachinesWithRegistryWithOneMachine
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -547,7 +547,7 @@ doTestMachineSetWithRegistryWithOneMachine
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -627,7 +627,7 @@ doTestFindMachineWithRegistryWithOneMachine
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -720,7 +720,7 @@ doTestAddTwoDistinctMachinesToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -790,7 +790,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -876,7 +876,7 @@ doTestAddTwoIdenticalMachinesToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -962,7 +962,7 @@ doTestEmptyRegistryForNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1031,7 +1031,7 @@ doTestNodeSetWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1102,7 +1102,7 @@ doTestFindNodeWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1186,7 +1186,7 @@ doTestAddNodeToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1254,7 +1254,7 @@ doTestCountNodesWithRegistryWithOneNode
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1338,7 +1338,7 @@ doTestNodeSetWithRegistryWithOneNode
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1424,7 +1424,7 @@ doTestFindNodeWithRegistryWithOneNode
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1523,7 +1523,7 @@ doTestNodeDataAddedToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1622,7 +1622,7 @@ doTestRemoveNodeFromRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove node from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1698,7 +1698,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove node from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1790,7 +1790,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove node from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1884,7 +1884,7 @@ doTestFindNodeWithRegistryNodeRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove node from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -1976,7 +1976,7 @@ doTestAddTwoDistinctNodesToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2052,7 +2052,7 @@ doTestCountNodesWithRegistryWithTwoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2144,7 +2144,7 @@ doTestNodeSetWithRegistryWithTwoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2245,7 +2245,7 @@ doTestFindNodeWithRegistryWithTwoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2352,7 +2352,7 @@ doTestRemoveNodesFromRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2444,7 +2444,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2552,7 +2552,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2662,7 +2662,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2785,7 +2785,7 @@ doTestAddTwoIdenticalNodesToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two identical nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2879,7 +2879,7 @@ doTestNodeInfoWithRegistryWithNoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -2950,7 +2950,7 @@ doTestNodeInfoWithRegistryWithOneNode
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3051,7 +3051,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3222,7 +3222,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3293,7 +3293,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3390,7 +3390,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3537,7 +3537,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3618,7 +3618,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3704,7 +3704,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3805,7 +3805,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3886,7 +3886,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -3987,7 +3987,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4117,7 +4117,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // remove nodes from Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4196,7 +4196,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add node to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4280,7 +4280,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // add two distinct nodes to Registry
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4372,7 +4372,7 @@ doTestCountChannelsWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for machines
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4441,7 +4441,7 @@ doTestFindChannelWithEmptyRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4525,7 +4525,7 @@ doTestAddChannelToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4604,7 +4604,7 @@ doTestCountChannelsInRegistryWithOneChannel
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4699,7 +4699,7 @@ doTestFindChannelInRegistryWithOneChannel
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4809,7 +4809,7 @@ doTestAddTwoChannelsToRegistry
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -4904,7 +4904,7 @@ doTestCountChannelsInRegistryWithTwoChannels
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5015,7 +5015,7 @@ doTestFindChannelsInRegistryWithTwoChannels
      nImO::SpContextWithNetworking  context,
      const std::string &            execPath,
      const std::string &            currentDir,
-     const std::string &            commandLine) // check empty Registry for nodes
+     const std::string &            commandLine)
 {
     NIMO_UNUSED_VAR_(launchPath);
     NIMO_UNUSED_VAR_(argc);
@@ -5129,185 +5129,933 @@ doTestFindChannelsInRegistryWithTwoChannels
 # pragma mark *** Test Case 308 ***
 #endif // defined(__APPLE__)
 
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoIdenticalChannelsToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "only-blort");
+                        if (status.first)
+                        {
+                            ODL_LOG("(status.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoIdenticalChannelsToRegistry
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 309 ***
 #endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddChannelWithBadNodeNameToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_2, "/arbitrary_path", false, "");
+                    if (status.first)
+                    {
+                        ODL_LOG("(status.first)"); //####
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddChannelWithBadNodeNameToRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 310 ***
 #endif // defined(__APPLE__)
 
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddChannelWithBadChannelNameToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, "/arbitrary&path", false, "");
+                    if (status.first)
+                    {
+                        ODL_LOG("(status.first)"); //####
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddChannelWithBadChannelNameToRegistry
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 320 ***
 #endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInfoFromEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (statusWithInfo.first.first)
+            {
+                if (statusWithInfo.second._found)
+                {
+                    ODL_LOG("(statusWithInfo.second._found)"); //####
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInfoFromEmptyRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 321 ***
 #endif // defined(__APPLE__)
 
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInfoFromRegistryWithOneChannel
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            if (statusWithInfo.second._found)
+                            {
+                                if ((statusWithInfo.second._name == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                    (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                            "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
+                                            "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInfo.second._found)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInfoFromRegistryWithOneChannel
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 322 ***
 #endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInfoFromRegistryWithTwoChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+
+                                nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                                if (statusWithInfo.first.first)
+                                {
+                                    if (statusWithInfo.second._found)
+                                    {
+                                        if ((statusWithInfo.second._name == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                            (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
+                                        {
+                                            statusWithInfo = aRegistry->getChannelInformation(NODE_NAME_2, CHANNEL_PATH_2);
+                                            if (statusWithInfo.first.first)
+                                            {
+                                                if (statusWithInfo.second._found)
+                                                {
+                                                    if ((statusWithInfo.second._name == NODE_NAME_2) &&
+                                                        (statusWithInfo.second._path == CHANNEL_PATH_2) &&
+                                                        statusWithInfo.second._isOutput && (statusWithInfo.second._dataType == "only-blort"))
+                                                    {
+                                                        result = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        ODL_LOG("((statusWithInfo.second._name == NODE_NAME_2) && "  //####
+                                                                "(statusWithInfo.second._path == CHANNEL_PATH_2) && "  //####
+                                                                "statusWithInfo.second._isOutput && "  //####
+                                                                "(statusWithInfo.second._dataType == \"only-blort\"))"); //####
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (statusWithInfo.second._found)"); //####
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                                    "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
+                                                    "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithInfo.second._found)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInfoFromRegistryWithTwoChannels
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 323 ***
 #endif // defined(__APPLE__)
 
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInfoWithBadNodeNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    {
+                        nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_2, "/arbitrary_path")};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            if (statusWithInfo.second._found)
+                            {
+                                ODL_LOG("(statusWithInfo.second._found)"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        }
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInfoWithBadNodeNameFromRegistry
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 324 ***
 #endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInfoWithBadChannelNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    {
+                        nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            if (statusWithInfo.second._found)
+                            {
+                                ODL_LOG("(statusWithInfo.second._found)"); //####
+                            }
+                            else
+                            {
+                                result = 0;
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        }
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInfoWithBadChannelNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 340 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 341 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelSetForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                      commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 342 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelSetForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                       commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 343 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                 currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 344 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelSetForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                         commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 345 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                          commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 346 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                   currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 347 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelSetWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 348 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                   commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 360 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestCountChannelConnectionsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 361 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelConnectionsFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                              commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 362 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestCountChannelConnectionsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                       commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 363 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                              currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 364 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                               currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 365 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelConnectionsForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                         execPath, currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 366 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                 currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 367 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                  currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 368 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                           execPath, currentDir, commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 369 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                        commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 370 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                           currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 380 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestCountChannelConnectionsWithRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                   currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 381 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestConnectChannelsWithRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                     commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 382 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestConnectChannelsWithRegistryWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                  commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 383 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                        execPath, currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 384 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                           execPath, currentDir, commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 385 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelDetailsForInputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                    commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 386 ***
 #endif // defined(__APPLE__)
 
+//                        result = doTestGetChannelDetailsForOutputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+//                                                                                     commandLine);
+
 #if defined(__APPLE__)
 # pragma mark *** Test Case 387 ***
 #endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath,
+//                                                                                                      currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 388 ***
 #endif // defined(__APPLE__)
 
-#if defined(__APPLE__)
-# pragma mark *** Test Case 389 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 390 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 400 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 401 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 402 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 403 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 404 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 405 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 406 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 407 ***
-#endif // defined(__APPLE__)
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 408 ***
-#endif // defined(__APPLE__)
+//                        result = doTestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext,
+//                                                                                                       execPath, currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -5588,40 +6336,40 @@ main
                         break;
 
                     case 308 :
-//                        result = doTestAddTwoIdenticalChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddTwoIdenticalChannelsToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 309:
-//                        result = doTestAddChannelWithBadNodeNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestAddChannelWithBadNodeNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 310:
-//                        result = doTestAddChannelWithBadChannelNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                              commandLine);
+                        result = doTestAddChannelWithBadChannelNameToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                              commandLine);
                         break;
 
                     case 320 :
-//                        result = doTestGetChannelInfoFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelInfoFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 321 :
-//                        result = doTestGetChannelInfoFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                commandLine);
+                        result = doTestGetChannelInfoFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                commandLine);
                         break;
 
                     case 322 :
-//                        result = doTestGetChannelInfoFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                 commandLine);
+                        result = doTestGetChannelInfoFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                 commandLine);
                         break;
 
                     case 323 :
-//                        result = doTestGetChannelInfoWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                 commandLine);
+                        result = doTestGetChannelInfoWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                 commandLine);
                         break;
 
                     case 324 :
-//                        result = doTestGetChannelInfoWithBadChannelNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                    commandLine);
+                        result = doTestGetChannelInfoWithBadChannelNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                    commandLine);
                         break;
 
                     case 340 :
@@ -5669,145 +6417,101 @@ main
                         break;
 
                     case 360 :
-//                        result = doTestGetChannelDetailsFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
-                        break;
-
-                    case 361 :
-//                        result = doTestGetChannelDetailsForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                          commandLine);
-                        break;
-
-                    case 362 :
-//                        result = doTestGetChannelDetailsForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                           currentDir, commandLine);
-                        break;
-
-                    case 363 :
-//                        result = doTestGetChannelDetailsForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                     currentDir, commandLine);
-                        break;
-
-                    case 364 :
-//                        result = doTestGetChannelDetailsForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                             currentDir, commandLine);
-                        break;
-
-                    case 365 :
-//                        result = doTestGetChannelDetailsForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                              currentDir, commandLine);
-                        break;
-
-                    case 366 :
-//                        result = doTestGetChannelDetailsForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
-//                                                                                                       execPath, currentDir, commandLine);
-                        break;
-
-                    case 367 :
-//                        result = doTestGetChannelDetailsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                    commandLine);
-                        break;
-
-                    case 368 :
-//                        result = doTestGetChannelDetailsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                       commandLine);
-                        break;
-
-                    case 380 :
 //                        result = doTestCountChannelConnectionsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                commandLine);
                         break;
 
-                    case 381 :
+                    case 361 :
 //                        result = doTestGetChannelConnectionsFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                              commandLine);
                         break;
 
-                    case 382 :
+                    case 362 :
 //                        result = doTestCountChannelConnectionsInRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                       commandLine);
                         break;
 
-                    case 383 :
+                    case 363 :
 //                        result = doTestGetChannelConnectionsForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                              currentDir, commandLine);
                         break;
 
-                    case 384 :
+                    case 364 :
 //                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                               currentDir, commandLine);
                         break;
 
-                    case 385 :
+                    case 365 :
 //                        result = doTestGetChannelConnectionsForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
 //                                                                                                         execPath, currentDir, commandLine);
                         break;
 
-                    case 386 :
+                    case 366 :
 //                        result = doTestGetChannelConnectionsForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                                 currentDir, commandLine);
                         break;
 
-                    case 387 :
+                    case 367 :
 //                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                                  currentDir, commandLine);
                         break;
 
-                    case 388 :
+                    case 368 :
 //                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext,
 //                                                                                                           execPath, currentDir, commandLine);
                         break;
 
-                    case 389 :
+                    case 369 :
 //                        result = doTestGetChannelConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                        commandLine);
                         break;
 
-                    case 390 :
+                    case 370 :
 //                        result = doTestGetChannelConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                           currentDir, commandLine);
                         break;
 
-                    case 400 :
+                    case 380 :
 //                        result = doTestCountChannelConnectionsWithRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                                   currentDir, commandLine);
                         break;
 
-                    case 401 :
+                    case 381 :
 //                        result = doTestConnectChannelsWithRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                     commandLine);
                         break;
 
-                    case 402 :
+                    case 382 :
 //                        result = doTestConnectChannelsWithRegistryWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                  commandLine);
                         break;
 
-                    case 403 :
+                    case 383 :
 //                        result = doTestGetChannelConnectionsForNodeFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
 //                                                                                                        execPath, currentDir, commandLine);
                         break;
 
-                    case 404 :
+                    case 384 :
 //                        result = doTestGetChannelConnectionsForMachineFromRegistryWithTwoConnectedChannels(*argv, argc - 1, argv + 2, ourContext,
 //                                                                                                           execPath, currentDir, commandLine);
                         break;
 
-                    case 405 :
+                    case 385 :
 //                        result = doTestGetChannelDetailsForInputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                    commandLine);
                         break;
 
-                    case 406 :
+                    case 386 :
 //                        result = doTestGetChannelDetailsForOutputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
 //                                                                                     commandLine);
                         break;
 
-                    case 407 :
+                    case 387 :
 //                        result = doTestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath,
 //                                                                                                      currentDir, commandLine);
                         break;
 
-                    case 408 :
+                    case 388 :
 //                        result = doTestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext,
 //                                                                                                       execPath, currentDir, commandLine);
                         break;

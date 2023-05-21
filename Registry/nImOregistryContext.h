@@ -39,7 +39,7 @@
 #if (! defined(nImOregistryContext_H_))
 # define nImOregistryContext_H_ /* Header guard */
 
-# include <nImOserviceContext.h>
+# include <Contexts/nImOserviceContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

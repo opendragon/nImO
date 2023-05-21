@@ -39,7 +39,7 @@
 #if (! defined(nImOchannelName_H_))
 # define nImOchannelName_H_ /* Header guard */
 
-# include <nImOstring.h>
+# include <BasicTypes/nImOstring.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

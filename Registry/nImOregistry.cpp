@@ -725,18 +725,18 @@ createTables
             static CPtr(char)   tableSQL[]
             {
                 "CREATE TABLE IF NOT EXISTS " MACHINES_T_ "(" MACHINE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ "," MACHINE_ADDRESS_C_
-                        " INTEGER UNIQUE ON CONFLICT ABORT, PRIMARY KEY (" MACHINE_NAME_C_ ") ON CONFLICT IGNORE )",
+                        " INTEGER UNIQUE ON CONFLICT ABORT, PRIMARY KEY (" MACHINE_NAME_C_ ") ON CONFLICT IGNORE)",
                 "CREATE INDEX IF NOT EXISTS " MACHINES_NAME_I_ " ON " MACHINES_T_ "(" MACHINE_NAME_C_ ")",
                 "CREATE INDEX IF NOT EXISTS " MACHINES_ADDRESS_I_ " ON " MACHINES_T_ "(" MACHINE_ADDRESS_C_ ")",
                 "CREATE TABLE IF NOT EXISTS " NODES_T_ "(" NODE_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ "," NODE_ADDRESS_C_ " INTEGER, " NODE_PORT_C_
                         " INTEGER, " NODE_SERVICE_TYPE_C_ " INTEGER," NODE_EXEC_PATH_C_ " " TEXTNOTNULL_ " " BINARY_ ", " NODE_LAUNCH_DIRECTORY_C_
                         " " TEXTNOTNULL_ " " BINARY_ ", " NODE_COMMAND_LINE_C_ " " TEXTNOTNULL_ " " BINARY_ ", PRIMARY KEY (" NODE_NAME_C_
-                        ") ON CONFLICT ABORT, FOREIGN KEY (" MACHINE_ADDRESS_C_ ") REFERENCES " MACHINES_T_ " (" MACHINE_ADDRESS_C_ ") )",
+                        ") ON CONFLICT ABORT, FOREIGN KEY (" MACHINE_ADDRESS_C_ ") REFERENCES " MACHINES_T_ " (" MACHINE_ADDRESS_C_ "))",
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")",
-                "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " ( " CHANNEL_NODE_C_ " TEXT NOT NULL DEFAULT _ COLLATE NOCASE, " CHANNEL_PATH_C_
+                "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " (" CHANNEL_NODE_C_ " TEXT NOT NULL DEFAULT _ COLLATE NOCASE, " CHANNEL_PATH_C_
                         " TEXT NOT NULL DEFAULT _ COLLATE BINARY, " CHANNEL_IS_OUTPUT_C_ " INTEGER, " CHANNEL_DATA_TYPE_C_
                         " TEXT DEFAULT _ COLLATE BINARY, FOREIGN KEY (" CHANNEL_NODE_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_
-                        "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT )",
+                        "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " CHANNELS_I_ " ON " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ")"
             };
             static const size_t numTables{A_SIZE(tableSQL)};
@@ -774,6 +774,47 @@ sqlLogger
         owner->report(message);
     }
 } // sqlLogger
+
+/*! @brief Bind the value that is to be searched for in the Machines table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupCountChannels
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+
+        if (0 < nodeNameIndex)
+        {
+            std::string name{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < nodeNameIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupCountChannels
 
 /*! @brief Bind the values that are to be inserted into the Channels table.
  @param[in] statement The prepared statement that is to be updated.
@@ -1180,9 +1221,9 @@ nImO::Registry::addChannel
                 if (status.first)
                 {
                     ChannelInsertData   data{nodeName, path, isOutput, dataType};
-                    static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ "( " CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
-                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_") VALUES ( @" CHANNEL_NODE_C_ ", @"
-                                                            CHANNEL_PATH_C_ ", @" CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_" )"};
+                    static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
+                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_") VALUES (@" CHANNEL_NODE_C_ ", @"
+                                                            CHANNEL_PATH_C_ ", @" CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_")"};
 
                     status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
                     doEndTransaction(_owner, _dbHandle, status.first);
@@ -1221,8 +1262,8 @@ nImO::Registry::addMachine
     if (status.first)
     {
         MachineInsertData   data{machineName, address};
-        static CPtr(char)   insertIntoMachines{"INSERT INTO " MACHINES_T_ "( " MACHINE_NAME_C_ ", " MACHINE_ADDRESS_C_ ") VALUES ( @" MACHINE_NAME_C_
-                                                ", @" MACHINE_ADDRESS_C_ " )"};
+        static CPtr(char)   insertIntoMachines{"INSERT INTO " MACHINES_T_ " (" MACHINE_NAME_C_ ", " MACHINE_ADDRESS_C_ ") VALUES (@" MACHINE_NAME_C_
+                                                ", @" MACHINE_ADDRESS_C_ ")"};
 
         status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoMachines, setupInsertIntoMachines, &data);
         doEndTransaction(_owner, _dbHandle, status.first);
@@ -1256,10 +1297,10 @@ nImO::Registry::addNode
         if (status.first)
         {
             NodeInsertData      data{nodeName, nodeConnection, serviceClass, execPath, launchDirectory, commandLine};
-            static CPtr(char)   insertIntoNodes{"INSERT INTO " NODES_T_ "( " NODE_NAME_C_ ", " NODE_ADDRESS_C_ ", " NODE_PORT_C_ ", "
+            static CPtr(char)   insertIntoNodes{"INSERT INTO " NODES_T_ " (" NODE_NAME_C_ ", " NODE_ADDRESS_C_ ", " NODE_PORT_C_ ", "
                                                 NODE_SERVICE_TYPE_C_ ", " NODE_EXEC_PATH_C_ ", " NODE_LAUNCH_DIRECTORY_C_ ", " NODE_COMMAND_LINE_C_
-                                                " ) VALUES ( @" NODE_NAME_C_ ", @" NODE_ADDRESS_C_ ", @" NODE_PORT_C_ ", @" NODE_SERVICE_TYPE_C_
-                                                ", @" NODE_EXEC_PATH_C_ ", @" NODE_LAUNCH_DIRECTORY_C_ ", @" NODE_COMMAND_LINE_C_ " )"};
+                                                ") VALUES (@" NODE_NAME_C_ ", @" NODE_ADDRESS_C_ ", @" NODE_PORT_C_ ", @" NODE_SERVICE_TYPE_C_
+                                                ", @" NODE_EXEC_PATH_C_ ", @" NODE_LAUNCH_DIRECTORY_C_ ", @" NODE_COMMAND_LINE_C_ ")"};
 
             status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoNodes, setupInsertIntoNodes, &data);
             doEndTransaction(_owner, _dbHandle, status.first);
@@ -1277,6 +1318,84 @@ nImO::Registry::addNode
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::addNode
+
+nImO::RegChannelInfoOrFailure
+nImO::Registry::getChannelInformation
+    (const std::string &    nodeName,
+     const std::string &    path)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status;
+    ChannelInfo         info;
+
+    if (ChannelName::validNode(nodeName))
+    {
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            std::vector<StringVector>   results;
+            ChannelSearchData           data{nodeName, path};
+            static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
+                                                        "  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
+                                                        "= @" CHANNEL_PATH_C_};
+
+            status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
+            if (status.first)
+            {
+                if (0 < results.size())
+                {
+                    StringVector    values{results[0]};
+
+                    if (3 < values.size())
+                    {
+                        size_t      pos;
+                        uint32_t    scratch;
+
+                        info._found = true;
+                        info._name = values[0];
+                        info._path = values[1];
+                        scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+                        if (0 == pos)
+                        {
+                            info._found = false;
+                        }
+                        else
+                        {
+                            info._isOutput = (0 != scratch);
+                        }
+                        info._dataType = values[3];
+                    }
+                    else
+                    {
+                        ODL_LOG("! (3 < values.size())"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (0 < results.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (Connection::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
+    }
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoOrFailure{status, info};
+} // nImO::Registry::getChannelInformation
 
 nImO::RegMachineInfoVectorOrFailure
 nImO::Registry::getInformationForAllMachines
@@ -1832,6 +1951,45 @@ nImO::Registry::getNumberOfChannels
    ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannels
+
+nImO::RegIntOrFailure
+nImO::Registry::getNumberOfChannelsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    int                 count{-1};
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StringVector        results;
+        static CPtr(char)   countChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countChannels, setupCountChannels, &nodeName);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
+    return RegIntOrFailure{status, count};
+} // nImO::Registry::getNumberOfChannelsOnNode
 
 nImO::RegIntOrFailure
 nImO::Registry::getNumberOfMachines

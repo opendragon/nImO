@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOblob.h>
-#include <nImObufferChunk.h>
-#include <nImOlogical.h>
-#include <nImOnumber.h>
-#include <nImOstring.h>
-#include <nImOstringBuffer.h>
-#include <nImOtestContext.h>
+#include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOnumber.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImObufferChunk.h>
+#include <ContainerTypes/nImOstringBuffer.h>
+#include <Contexts/nImOtestContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -131,7 +131,7 @@ static int
 doTestParseLogicalValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // logical values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -207,7 +207,7 @@ static int
 doTestParseNumberValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // number values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -283,7 +283,7 @@ static int
 doTestParseStringValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // string values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -359,7 +359,7 @@ static int
 doTestParseArrayValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // array values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -435,7 +435,7 @@ static int
 doTestParseSetValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // set values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -511,7 +511,7 @@ static int
 doTestParseMapValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // map values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####
@@ -587,7 +587,7 @@ static int
 doTestParseImplicitArrayValue
     (const bool expected,
      CPtr(char) inString,
-     CPtr(char) expectedString) // implicit array values
+     CPtr(char) expectedString)
 {
     ODL_ENTER(); //####
     ODL_B1("expected = ", expected); //####

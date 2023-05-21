@@ -39,9 +39,9 @@
 #if (! defined(nImOregistry_H_))
 # define nImOregistry_H_ /* Header guard */
 
-# include <nImOcontextWithNetworking.h>
+# include <ContainerTypes/nImOset.h>
+# include <Contexts/nImOcontextWithNetworking.h>
 # include <nImOregistryTypes.h>
-# include <nImOset.h>
 # include "sqlite3.h"
 
 # if defined(__APPLE__)
@@ -135,6 +135,16 @@ namespace nImO
                  const ServiceType      serviceClass = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Get information on the channel stored in the Registry.
+             @param[in] nodeName The name of the node for the channel to be located in the Registry.
+             @param[in] path The path of the channel.
+             @return @c true and if the channel was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
+            RegChannelInfoOrFailure
+            getChannelInformation
+                (const std::string &    nodeName,
+                 const std::string &    path)
+                const;
+
             /*! @brief Get information for all machines in the Registry.
              @return @c true and the information for each machine if the operation was successfully performed and @c false and an error string otherwise. */
             RegMachineInfoVectorOrFailure
@@ -174,7 +184,7 @@ namespace nImO
                 const;
 
             /*! @brief Get the set of machines in the Registry.
-             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+             @return @c true and the set of machines if the operation was successfully performed and @c false and an error string otherwise. */
             RegStringSetOrFailure
             getNamesOfMachines
                 (void)
@@ -208,6 +218,14 @@ namespace nImO
             RegIntOrFailure
             getNumberOfChannels
                 (void)
+                const;
+
+            /*! @brief Return the number of channels associated with a node in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and the number of channels if the operation was successfully performed and @c false and an error string otherwise. */
+            RegIntOrFailure
+            getNumberOfChannelsOnNode
+                (const std::string &    nodeName)
                 const;
 
             /*! @brief Return the number of machines in the Registry.

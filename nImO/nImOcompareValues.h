@@ -39,7 +39,7 @@
 #if (! defined(nImOcompareValues_H_))
 # define nImOcompareValues_H_ /* Header guard */
 
-# include <nImOvalue.h>
+# include <BasicTypes/nImOvalue.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

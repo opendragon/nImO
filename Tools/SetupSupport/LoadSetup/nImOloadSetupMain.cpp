@@ -36,11 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOfilePathArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
+#include <Contexts/nImOutilityContext.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
-#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

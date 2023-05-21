@@ -39,9 +39,9 @@
 #if (! defined(nImOrequestResponse_H_))
 # define nImOrequestResponse_H_ /* Header guard */
 
-# include <nImOcontextWithNetworking.h>
+# include <Contexts/nImOcontextWithNetworking.h>
+# include <ResponseHandlers/nImOresponseHandler.h>
 # include <nImOregistryTypes.h>
-# include <nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

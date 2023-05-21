@@ -9,18 +9,20 @@
 
 \f0\fs24 \cf2 Create tables:\
 \pard\tx1153\tx3003\pardeftab593\pardirnatural\partightenfactor0
-\cf2 \cb3 	CREATE TABLE IF NOT EXISTS Machines ( name TEXT NOT NULL DEFAULT _ COLLATE NOCASE, address INTEGER UNIQUE ON CONFLICT ABORT, PRIMARY KEY (name) ON CONFLICT IGNORE );\
-	CREATE INDEX IF NOT EXISTS Machines_name_idx ON Machines ( name );\
-	CREATE INDEX IF NOT EXISTS Machines_address_idx ON Machines ( address );\
-	CREATE TABLE IF NOT EXISTS Nodes ( name TEXT NOT NULL DEFAULT _ COLLATE NOCASE, address INTEGER, port INTEGER, serviceType INTEGER, execPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, launchDirectory TEXT NOT NULL DEFAULT _ COLLATE BINARY, commandLine TEXT NOT NULL DEFAULT _ COLLATE BINARY, PRIMARY KEY (name) ON CONFLICT ABORT, FOREIGN KEY (address) REFERENCES Machines (address) );\
-	CREATE INDEX IF NOT EXISTS Nodes_name_idx ON Nodes ( name );\
-	CREATE TABLE IF NOT EXISTS Channels ( node TEXT NOT NULL DEFAULT _ COLLATE NOCASE, path TEXT NOT NULL DEFAULT _ COLLATE BINARY, isOutput INTEGER, dataType TEXT DEFAULT _ COLLATE BINARY, FOREIGN KEY (node) REFERENCES Nodes (name), PRIMARY KEY (node, path) ON CONFLICT ABORT );\
+\cf2 \cb3 	CREATE TABLE IF NOT EXISTS Machines (name TEXT NOT NULL DEFAULT _ COLLATE NOCASE, address INTEGER UNIQUE ON CONFLICT ABORT, PRIMARY KEY (name) ON CONFLICT IGNORE);\
+	CREATE INDEX IF NOT EXISTS Machines_name_idx ON Machines (name);\
+	CREATE INDEX IF NOT EXISTS Machines_address_idx ON Machines (address);\
+	CREATE TABLE IF NOT EXISTS Nodes (name TEXT NOT NULL DEFAULT _ COLLATE NOCASE, address INTEGER, port INTEGER, serviceType INTEGER, execPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, launchDirectory TEXT NOT NULL DEFAULT _ COLLATE BINARY, commandLine TEXT NOT NULL DEFAULT _ COLLATE BINARY, PRIMARY KEY (name) ON CONFLICT ABORT, FOREIGN KEY (address) REFERENCES Machines (address));\
+	CREATE INDEX IF NOT EXISTS Nodes_name_idx ON Nodes (name);\
+	CREATE TABLE IF NOT EXISTS Channels (node TEXT NOT NULL DEFAULT _ COLLATE NOCASE, path TEXT NOT NULL DEFAULT _ COLLATE BINARY, isOutput INTEGER, dataType TEXT DEFAULT _ COLLATE BINARY, FOREIGN KEY (node) REFERENCES Nodes (name), PRIMARY KEY (node, path) ON CONFLICT ABORT);\
 	CREATE INDEX IF NOT EXISTS Channels_idx ON Channels (node, path);\
 \
 Insertions:\
-	insertIntoMachines = INSERT INTO Machines ( name, address ) VALUES( @name, @address );\
-	insertIntoNodes = INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine )\
-                                                VALUES( @name, @address, @port, @serviceType, @execPath, @launchDirectory, @commandLine );\
+	insertIntoMachines = INSERT INTO Machines (name, address) VALUES (@name, @address);\
+	insertIntoNodes = INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine)\
+                                                VALUES (@name, @address, @port, @serviceType, @execPath, @launchDirectory, @commandLine);\
+	insertIntoChannels = INSERT INTO Channels (node, path, isOutput, dataType)\
+										VALUES (@node, @path, @isOutput, @dataType);\
 \
 Searches:\
 	getInformationForAllMachines = SELECT name, address FROM Machines;\
@@ -30,30 +32,29 @@ Searches:\
 	getNamesOfMachines = SELECT name FROM Machines;\
 	getNamesOfNodes = SELECT name FROM Nodes;\
 	getNodeInformation = SELECT address, port, serviceType FROM Nodes WHERE name = @name;\
-	getNumberOfMachines = SELECT COUNT(*) FROM Machines;\
-	getNumberOfNodes = SELECT COUNT(*) FROM  Nodes;\
-	isMachinePresent = SELECT COUNT(*) FROM Machines WHERE name = @name;\
-	isNodePresent = SELECT COUNT(*) FROM Nodes WHERE name = @name;\
+	getNumberOfMachines = SELECT COUNT (*) FROM Machines;\
+	getNumberOfNodes = SELECT COUNT (*) FROM  Nodes;\
+	isMachinePresent = SELECT COUNT (*) FROM Machines WHERE name = @name;\
+	isNodePresent = SELECT COUNT (*) FROM Nodes WHERE name = @name;\
 \
 Updates:\
 	removeNode = DELETE FROM Nodes WHERE name = @name;\
 \
 Tests:\
-	INSERT INTO Machines ( name, address ) VALUES( "blort", 20000000 );\
-	INSERT INTO Machines ( name, address ) VALUES( "blurt", 30000000 );\
+	INSERT INTO Machines (name, address) VALUES ("blort", 20000000);\
+	INSERT INTO Machines (name, address) VALUES ("blurt", 30000000);\
 \
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b1", 20000000, 5000, 4, "/opt/bin/stuff", "/home/able", "-n b1" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b.2", 20000000, 5001, 3, "/opt/bin/stuff", "/home/baker", "-n b.2" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b-3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b-3" );\
-	INSERT INTO Nodes ( name, address, port, serviceType, execPath, launchDirectory, commandLine ) VALUES ( "b_4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b_4" );\
+	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b1", 20000000, 5000, 4, "/opt/bin/stuff", "/home/able", "-n b1");\
+	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b.2", 20000000, 5001, 3, "/opt/bin/stuff", "/home/baker", "-n b.2");\
+	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b-3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b-3");\
+	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b_4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b_3");\
 \
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b1", "/blart/in", 0, "" );\
-\pard\tx1153\tx3003\pardeftab593\pardirnatural\partightenfactor0
-\cf2 	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b.2", "/blirt/out", 1, "simple" );\
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b-3", "/blert", 0, "complex" );\
-	INSERT INTO Channels ( node, path, isOutput, dataType ) VALUES ( "b_3", "/blort", 0, "vector" );\
-\pard\tx1153\tx3003\pardeftab593\pardirnatural\partightenfactor0
-\cf2 \
+	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b1", "/blart/in", 0, "");\
+	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b.2", "/blirt/out", 1, "simple");\
+	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b.2", "/blirt/in", 0, "simple");\
+	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b-3", "/blert", 0, "complex");\
+	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b_3", "/blort", 0, "vector");\
+\
 	SELECT * FROM Machines;\
 	SELECT * FROM Nodes;\
 	SELECT * FROM Channels;\
@@ -65,9 +66,12 @@ Tests:\
 	SELECT COUNT(*) FROM Nodes WHERE name = "b.2";\
 	SELECT COUNT(*) FROM Channels WHERE node = "b_3"; \
 \
-	SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" and Machines.address = Nodes.address;\
-	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" and Machines.address = Nodes.address;\
-	SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name = "blurt" and Machines.address = Nodes.address;\
+	SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" AND Machines.address = Nodes.address;\
+	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
+	SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
+\
+	SELECT node, path, isOutput, dataType FROM Channels WHERE node = "b_3";\
+	SELECT node, path, isOutput, dataType FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
 \
 	DELETE FROM Nodes WHERE name = "b.2"; \
 }

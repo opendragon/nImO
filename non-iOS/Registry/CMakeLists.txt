@@ -52,26 +52,28 @@ include_directories("${nImO_SQLITE_DIR}")
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOaddNodeCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetInformationForAllMachinesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetLaunchDetailsCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetMachineInformationCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNamesOfMachinesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNamesOfNodesOnMachineCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNodeInformationCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNumberOfMachinesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOgetNumberOfNodesOnMachineCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOisMachinePresentCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/nImOisNodePresentCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddChannelCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetLaunchDetailsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetMachineInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfMachinesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodeInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfMachinesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOisMachinePresentCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOisNodePresentCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOregistryCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOregistry.cpp
-               ${THIS_SOURCE_DIR}/nImOregistryCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOregistryContext.cpp
                ${THIS_SOURCE_DIR}/nImOregistryMain.cpp
-               ${THIS_SOURCE_DIR}/nImOremoveNodeCommandHandler.cpp
                ${nImO_SQLITE_DIR}/sqlite3.c
                ${VERS_RESOURCE})
 

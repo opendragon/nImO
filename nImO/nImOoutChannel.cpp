@@ -38,9 +38,9 @@
 
 #include <nImOoutChannel.h>
 
-#include <nImOdouble.h>
-#include <nImOinteger.h>
-#include <nImOstringBuffer.h>
+#include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <ContainerTypes/nImOstringBuffer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

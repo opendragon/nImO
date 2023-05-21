@@ -38,13 +38,13 @@
 
 #include <nImOcommandHandler.h>
 
-#include <nImOarray.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOmessage.h>
 #include <nImOcommonCommands.h>
-#include <nImOlogical.h>
 #include <nImOmainSupport.h>
-#include <nImOmessage.h>
 #include <nImOMIMESupport.h>
-#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

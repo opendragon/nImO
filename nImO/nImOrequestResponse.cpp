@@ -38,13 +38,13 @@
 
 #include <nImOrequestResponse.h>
 
-#include <nImOarray.h>
-#include <nImOcontextWithMDNS.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOmessage.h>
+#include <Contexts/nImOcontextWithMDNS.h>
+#include <Contexts/nImOutilityContext.h>
 #include <nImOmainSupport.h>
-#include <nImOmessage.h>
 #include <nImOMIMESupport.h>
-#include <nImOstring.h>
-#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -39,8 +39,8 @@
 #if (! defined(nImOlogger_H_))
 # define nImOlogger_H_ /* Header guard */
 
-# include <nImOcontext.h>
-# include <nImOmessage.h>
+# include <ContainerTypes/nImOmessage.h>
+# include <Contexts/nImOcontext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

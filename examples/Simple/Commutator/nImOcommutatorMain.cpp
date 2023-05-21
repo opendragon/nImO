@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <Contexts/nImOfilterContext.h>
 #include <nImOcommonCommands.h>
-#include <nImOfilterContext.h>
-#include <nImOintegerArgumentDescriptor.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>

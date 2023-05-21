@@ -212,63 +212,44 @@ add_test(NAME TestGetChannelSetWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET
 ## Test check get channel set with bad machine name from Registry
 add_test(NAME TestGetChannelSetWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 348)
 
-## Test check get channel details for node from empty Registry
-add_test(NAME TestGetChannelDetailsFromEmptyRegistry COMMAND ${THIS_TARGET} 360)
-## Test check get channel details for node from Registry with one channel
-add_test(NAME TestGetChannelDetailsForNodeFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 361)
-## Test check get channel details for node from Registry with two channels
-add_test(NAME TestGetChannelDetailsForNodeFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 362)
-## Test check get channel details for nodes from Registry with two nodes with channels
-add_test(NAME TestGetChannelDetailsForNodesFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 363)
-## Test check get channel details for machine from Registry with one channel
-add_test(NAME TestGetChannelDetailsForMachineFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 364)
-## Test check get channel details for machine from Registry with two channels
-add_test(NAME TestGetChannelDetailsForMachineFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 365)
-## Test check get channel details for machine from Registry with two nodes with channels
-add_test(NAME TestGetChannelDetailsForMachineFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 366)
-## Test check get channel details with bad node name from Registry
-add_test(NAME TestGetChannelDetailsWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 367)
-## Test check get channel details with bad machine name from Registry
-add_test(NAME TestGetChannelDetailsWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 368)
-
 ## Test check count channel connections with empty Registry
-add_test(NAME TestCountChannelConnectionsWithEmptyRegistry COMMAND ${THIS_TARGET} 380)
+add_test(NAME TestCountChannelConnectionsWithEmptyRegistry COMMAND ${THIS_TARGET} 360)
 ## Test check get channel connections for node from empty Registry
-add_test(NAME TestGetChannelConnectionsFromEmptyRegistry COMMAND ${THIS_TARGET} 381)
+add_test(NAME TestGetChannelConnectionsFromEmptyRegistry COMMAND ${THIS_TARGET} 361)
 ## Test check count channels in Registry with one channel
-add_test(NAME TestCountChannelConnectionsInRegistryWithOneChannel COMMAND ${THIS_TARGET} 382)
+add_test(NAME TestCountChannelConnectionsInRegistryWithOneChannel COMMAND ${THIS_TARGET} 362)
 ## Test check get channel connections for node from Registry with one channel
-add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 383)
+add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 363)
 ## Test check get channel connections for node from Registry with two channels
-add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 384)
+add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 364)
 ## Test check get channel connections for nodes from Registry with two nodes with channels
-add_test(NAME TestGetChannelConnectionsForNodesFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 385)
+add_test(NAME TestGetChannelConnectionsForNodesFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 365)
 ## Test check get channel connections for machine from Registry with one channel
-add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 386)
+add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithOneChannel COMMAND ${THIS_TARGET} 366)
 ## Test check get channel connections for machine from Registry with two channels
-add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 387)
+add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoChannels COMMAND ${THIS_TARGET} 367)
 ## Test check get channel connections for machine from Registry with two nodes with channels
-add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 388)
+add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoNodesWithChannels COMMAND ${THIS_TARGET} 368)
 ## Test check get channel connections with bad node name from Registry
-add_test(NAME TestGetChannelConnectionsWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 389)
+add_test(NAME TestGetChannelConnectionsWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 369)
 ## Test check get channel connections with bad machine name from Registry
-add_test(NAME TestGetChannelConnectionsWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 390)
+add_test(NAME TestGetChannelConnectionsWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 370)
 
 ## Test check count channel connections with Registry with two connected channels
-add_test(NAME TestCountChannelConnectionsWithRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 400)
+add_test(NAME TestCountChannelConnectionsWithRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 380)
 ## Test check connect channels with Registry with bad channel name
-add_test(NAME TestConnectChannelsWithRegistryWithBadChannelName COMMAND ${THIS_TARGET} 401)
+add_test(NAME TestConnectChannelsWithRegistryWithBadChannelName COMMAND ${THIS_TARGET} 381)
 ## Test check connect channels with Registry with bad node name
-add_test(NAME TestConnectChannelsWithRegistryWithBadNodeName COMMAND ${THIS_TARGET} 402)
+add_test(NAME TestConnectChannelsWithRegistryWithBadNodeName COMMAND ${THIS_TARGET} 382)
 ## Test check get channel connections for node from Registry with two connected channels
-add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 403)
+add_test(NAME TestGetChannelConnectionsForNodeFromRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 383)
 ## Test check get channel connections for machine from Registry with two connected channels
-add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 404)
+add_test(NAME TestGetChannelConnectionsForMachineFromRegistryWithTwoConnectedChannels COMMAND ${THIS_TARGET} 384)
 ## Test check get channel details for input channel on connection from Registry
-add_test(NAME TestGetChannelDetailsForInputChannelFromRegistry COMMAND ${THIS_TARGET} 405)
+add_test(NAME TestGetChannelDetailsForInputChannelFromRegistry COMMAND ${THIS_TARGET} 385)
 ## Test check get channel details for output channel on connection from Registry
-add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistry COMMAND ${THIS_TARGET} 406)
+add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistry COMMAND ${THIS_TARGET} 386)
 ## Test check get channel details for input channel on connection from Registry with bad channel name
-add_test(NAME TestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 407)
+add_test(NAME TestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 387)
 ## Test check get channel details for output channel on connection from Registry with bad channel name
-add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 408)
+add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 388)

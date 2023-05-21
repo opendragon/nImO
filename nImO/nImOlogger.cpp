@@ -38,12 +38,12 @@
 
 #include <nImOlogger.h>
 
-#include <nImOarray.h>
-#include <nImOinteger.h>
-#include <nImOmap.h>
-#include <nImOmessage.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOmap.h>
+#include <ContainerTypes/nImOmessage.h>
 #include <nImOMIMESupport.h>
-#include <nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

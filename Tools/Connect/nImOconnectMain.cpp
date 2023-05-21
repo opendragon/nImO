@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
-#include <nImOstringsArgumentDescriptor.h>
-#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

@@ -39,7 +39,7 @@
 #if (! defined(nImOcommandHandler_H_))
 # define nImOcommandHandler_H_ /* Header guard */
 
-# include <nImOcontextWithMDNS.h>
+# include <Contexts/nImOcontextWithMDNS.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

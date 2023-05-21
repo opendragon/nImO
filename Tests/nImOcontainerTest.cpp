@@ -36,17 +36,17 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOarray.h>
-#include <nImOblob.h>
-#include <nImObufferChunk.h>
-#include <nImOdouble.h>
-#include <nImOinteger.h>
-#include <nImOlogical.h>
-#include <nImOmap.h>
-#include <nImOset.h>
-#include <nImOstring.h>
-#include <nImOstringBuffer.h>
-#include <nImOtestContext.h>
+#include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdouble.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImObufferChunk.h>
+#include <ContainerTypes/nImOmap.h>
+#include <ContainerTypes/nImOset.h>
+#include <ContainerTypes/nImOstringBuffer.h>
+#include <Contexts/nImOtestContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

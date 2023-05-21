@@ -36,11 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOarray.h>
-#include <nImObooleanArgumentDescriptor.h>
-#include <nImOcontextWithMDNS.h>
+#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <ContainerTypes/nImOarray.h>
+#include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOstandardOptions.h>
-#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

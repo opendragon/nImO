@@ -74,6 +74,33 @@ namespace nImO
         OutputService
     }; // ServiceType
 
+    /*! @brief The data found in the Registry for a channel. */
+    struct ChannelInfo
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found;
+
+        /*! @brief The name of the node for the channel. */
+        std::string _name;
+
+        /*! @brief The path of the channel on the node. */
+        std::string _path;
+
+        /*! @brief @c true if the channel is for output from a service. */
+        bool _isOutput;
+
+        /*! @brief The type of data carried by the channel. */
+        std::string _dataType;
+
+        /*! @brief The constructor. */
+        inline ChannelInfo
+            (void) :
+                _found(false), _isOutput(false)
+        {
+        }
+
+    }; // ChannelInfo
+
     /*! @brief The launch information for a node. */
     struct LaunchDetails
     {
@@ -98,7 +125,7 @@ namespace nImO
 
     }; // LaunchDetails
 
-    /*! @brief The data found in the Registry for a node. */
+    /*! @brief The data found in the Registry for a machine. */
     struct MachineInfo
     {
         /*! @brief @c true if the data is valid. */
@@ -144,6 +171,9 @@ namespace nImO
     }; // NodeInfo
 
     /*! @brief Contains a sequence of NodeInfo values. */
+    typedef std::vector<ChannelInfo>    ChannelInfoVector;
+
+    /*! @brief Contains a sequence of NodeInfo values. */
     typedef std::vector<MachineInfo>    MachineInfoVector;
 
     /*! @brief Contains a sequence of NodeInfo values. */
@@ -157,6 +187,12 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, bool> RegBoolOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, ChannelInfo> RegChannelInfoOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<RegSuccessOrFailure, ChannelInfoVector> RegChannelInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
     typedef std::pair<RegSuccessOrFailure, LaunchDetails> RegLaunchDetailsOrFailure;

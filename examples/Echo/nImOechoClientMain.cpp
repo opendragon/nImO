@@ -36,11 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <Contexts/nImOutilityContext.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
-#include <nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

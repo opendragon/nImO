@@ -38,14 +38,14 @@
 
 #include <nImOcommandSession.h>
 
-#include <nImOarray.h>
+#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOvalue.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOmessage.h>
+#include <Contexts/nImOserviceContext.h>
 #include <nImOcommandHandler.h>
 #include <nImOmainSupport.h>
-#include <nImOmessage.h>
 #include <nImOMIMESupport.h>
-#include <nImOserviceContext.h>
-#include <nImOstring.h>
-#include <nImOvalue.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

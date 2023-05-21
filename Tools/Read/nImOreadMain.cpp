@@ -36,12 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <Contexts/nImOsinkContext.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
-#include <nImOsourceContext.h>
-#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -113,8 +113,8 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string                     nodeName;
-            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Read", optionValues._logging,
-                                                                                secondArg.getCurrentValue()}};
+            nImO::SpContextWithNetworking   ourContext{new nImO::SinkContext{argc, argv, progName, "Read", optionValues._logging,
+                                                                             secondArg.getCurrentValue()}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 

@@ -36,28 +36,30 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOaddNodeCommandHandler.h"
-#include "nImOgetInformationForAllMachinesCommandHandler.h"
-#include "nImOgetInformationForAllNodesCommandHandler.h"
-#include "nImOgetInformationForAllNodesOnMachineCommandHandler.h"
-#include "nImOgetLaunchDetailsCommandHandler.h"
-#include "nImOgetMachineInformationCommandHandler.h"
-#include "nImOgetNamesOfMachinesCommandHandler.h"
-#include "nImOgetNamesOfNodesCommandHandler.h"
-#include "nImOgetNamesOfNodesOnMachineCommandHandler.h"
-#include "nImOgetNodeInformationCommandHandler.h"
-#include "nImOgetNumberOfMachinesCommandHandler.h"
-#include "nImOgetNumberOfNodesCommandHandler.h"
-#include "nImOgetNumberOfNodesOnMachineCommandHandler.h"
-#include "nImOisMachinePresentCommandHandler.h"
-#include "nImOisNodePresentCommandHandler.h"
+#include "CommandHandlers/nImOaddChannelCommandHandler.h"
+#include "CommandHandlers/nImOaddNodeCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllNodesCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetLaunchDetailsCommandHandler.h"
+#include "CommandHandlers/nImOgetMachineInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetNamesOfMachinesCommandHandler.h"
+#include "CommandHandlers/nImOgetNamesOfNodesCommandHandler.h"
+#include "CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetNodeInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfMachinesCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfNodesCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOisMachinePresentCommandHandler.h"
+#include "CommandHandlers/nImOisNodePresentCommandHandler.h"
+#include "CommandHandlers/nImOremoveNodeCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
-#include "nImOremoveNodeCommandHandler.h"
 
+#include <Contexts/nImOserviceContext.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryCommands.h>
-#include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
 
 //#include <odlEnable.h>
@@ -146,6 +148,8 @@ main
                 {
                     Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
+                    asRegistryContext->addHandler(nImO::kAddChannelRequest,
+                                                  new nImO::AddChannelCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
                                                   new nImO::InformationForAllMachinesCommandHandler(ourContext, theRegistry));
@@ -161,6 +165,8 @@ main
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesOnMachineRequest,
                                                   new nImO::NamesOfNodesOnMachineCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest, new nImO::NodeInformationCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfChannelsRequest,
+                                                  new nImO::NumberOfChannelsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
                                                   new nImO::NumberOfMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));

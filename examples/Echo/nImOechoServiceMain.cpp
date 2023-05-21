@@ -36,10 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <Contexts/nImOserviceContext.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
-#include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
 
 //#include <odlEnable.h>

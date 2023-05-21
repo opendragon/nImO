@@ -36,15 +36,15 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOcontextWithMDNS.h>
-#include <nImOarray.h>
-#include <nImOinteger.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOvalue.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOmap.h>
+#include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOmainSupport.h>
-#include <nImOmap.h>
 #include <nImOMIMESupport.h>
 #include <nImOstandardOptions.h>
-#include <nImOstring.h>
-#include <nImOvalue.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

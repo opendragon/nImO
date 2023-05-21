@@ -36,12 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <Contexts/nImOserviceContext.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
-#include <nImOserviceContext.h>
 #include <nImOserviceOptions.h>
-#include <nImOstringArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

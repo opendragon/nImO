@@ -155,10 +155,16 @@ namespace nImO
     /*! @brief The 'getNodeInformation' response. */
     const std::string   kGetNodeInformationResponse = "getNodeInformation=";
 
+    /*! @brief The request to get the number of channels in the Registry. */
+    const std::string   kGetNumberOfChannelsRequest = "getNumberOfChannels?";
+
+    /*! @brief The 'getNumberOfChannels' response. */
+    const std::string   kGetNumberOfChannelsResponse = "getNumberOfChannels=";
+
     /*! @brief The request to get the number of machines in the Registry. */
     const std::string   kGetNumberOfMachinesRequest = "getNumberOfMachines?";
 
-    /*! @brief The 'getNumberOfNodes' response. */
+    /*! @brief The 'getNumberOfMachines' response. */
     const std::string   kGetNumberOfMachinesResponse = "getNumberOfMachines=";
 
     /*! @brief The request to get the number of nodes in the Registry. */

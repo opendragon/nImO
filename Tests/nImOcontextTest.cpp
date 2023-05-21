@@ -37,15 +37,15 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "../Registry/nImOregistryContext.h"
-#include <nImOcontextWithMDNS.h>
-#include <nImOcontextWithNetworking.h>
-#include <nImOfilterContext.h>
-#include <nImOmiscellaneousContext.h>
-#include <nImOserviceContext.h>
-#include <nImOsinkContext.h>
-#include <nImOsourceContext.h>
-#include <nImOtestContext.h>
-#include <nImOutilityContext.h>
+#include <Contexts/nImOcontextWithMDNS.h>
+#include <Contexts/nImOcontextWithNetworking.h>
+#include <Contexts/nImOfilterContext.h>
+#include <Contexts/nImOmiscellaneousContext.h>
+#include <Contexts/nImOserviceContext.h>
+#include <Contexts/nImOsinkContext.h>
+#include <Contexts/nImOsourceContext.h>
+#include <Contexts/nImOtestContext.h>
+#include <Contexts/nImOutilityContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

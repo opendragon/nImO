@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'channel information' command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,14 +36,11 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOgetChannelInformationCommandHandler.h"
+#include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <nImOregistryCommands.h>
-#include <nImOregistryTypes.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -54,7 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'channel information' command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,79 +80,92 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner, theRegistry)
+nImO::InformationForAllChannelsOnNodeResponseHandler::InformationForAllChannelsOnNodeResponseHandler
+    (void) :
+        inherited()
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
+} // nImO::InformationForAllChannelsOnNodeResponseHandler::InformationForAllChannelsOnNodeResponseHandler
 
-nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+nImO::InformationForAllChannelsOnNodeResponseHandler::~InformationForAllChannelsOnNodeResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+} // nImO::InformationForAllChannelsOnNodeResponseHandler::~InformationForAllChannelsOnNodeResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::ChannelInformationCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
-    const
+void
+nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
+    (const Array &  stuff)
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    bool    okSoFar{false};
-
-    _owner->report("machine information request received");
-    if (2 < arguments.size())
+    _result.clear();
+    if (1 < stuff.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        SpValue     element{stuff[1]};
+        CPtr(Array) infoVector{element->asArray()};
 
-        if ((nullptr != asString1) && (nullptr != asString2))
+        if (nullptr == infoVector)
         {
-            RegChannelInfoOrFailure statusWithInfo{_registry->getChannelInformation(asString1->getValue(), asString2->getValue())};
-
-            if (statusWithInfo.first.first)
-            {
-                ChannelInfo &   theInfo{statusWithInfo.second};
-                SpArray         infoArray{new Array};
-
-                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                infoArray->addValue(std::make_shared<String>(theInfo._node));
-                infoArray->addValue(std::make_shared<String>(theInfo._path));
-                infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
-                infoArray->addValue(std::make_shared<String>(theInfo._dataType));
-                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "channel information", infoArray);
-            }
-            else
-            {
-                ODL_LOG("! (statusWithInfo.first.first)"); //####
-            }
+            ODL_LOG("(nullptr == infoVector)"); //####
         }
         else
         {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            for (auto walker = infoVector->begin(); walker != infoVector->end(); ++walker)
+            {
+                CPtr(Array) infoArray{(*walker)->asArray()};
+
+                if (nullptr == infoArray)
+                {
+                    ODL_LOG("(nullptr == infoArray)"); //####
+                }
+                else
+                {
+                    ChannelInfo thisChannel;
+
+                    thisChannel._found = false;
+                    if (4 < infoArray->size())
+                    {
+                        CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
+                        CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
+                        CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
+                        CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
+                        CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
+
+                        if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
+                            (nullptr != dataTypePtr))
+                        {
+                            thisChannel._found = foundPtr->getValue();
+                            thisChannel._node = nodePtr->getValue();
+                            thisChannel._path = pathPtr->getValue();
+                            thisChannel._isOutput = isOutputPtr->getValue();
+                            thisChannel._dataType = dataTypePtr->getValue();
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
+                                    "(nullptr != dataTypePtr))"); //####
+                        }
+                    }
+                    if (thisChannel._found)
+                    {
+                        _result.push_back(thisChannel);
+                    }
+                }
+            }
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::ChannelInformationCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

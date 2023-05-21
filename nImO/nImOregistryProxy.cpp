@@ -46,6 +46,9 @@
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h>
@@ -214,6 +217,55 @@ nImO::RegistryProxy::getChannelInformation
     ODL_OBJEXIT(); //####
     return RegChannelInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getChannelInformation
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllChannels
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<InformationForAllChannelsResponseHandler>   handler{new InformationForAllChannelsResponseHandler};
+    RegSuccessOrFailure                                         status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                     handler.get(),
+                                                                                                             kGetInformationForAllChannelsRequest,
+                                                                                                             kGetInformationForAllChannelsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllChannels
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllChannelsOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    SpArray                                                             argArray{new Array};
+    std::unique_ptr<InformationForAllChannelsOnMachineResponseHandler>  handler{new InformationForAllChannelsOnMachineResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetInformationForAllChannelsOnMachineRequest,
+                                                                             kGetInformationForAllChannelsOnMachineResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllChannelsOnMachine
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllChannelsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    SpArray                                                         argArray{new Array};
+    std::unique_ptr<InformationForAllChannelsOnNodeResponseHandler> handler{new InformationForAllChannelsOnNodeResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                             kGetInformationForAllChannelsOnNodeRequest,
+                                                                             kGetInformationForAllChannelsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllChannelsOnNode
 
 nImO::RegMachineInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllMachines

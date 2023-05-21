@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'channel information' command handler.
+//  Contains:   The class definition for the nImO 'information for all channels' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOgetChannelInformationCommandHandler.h"
+#include "nImOgetInformationForAllChannelsCommandHandler.h"
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'channel information' command handler. */
+ @brief The class definition for the %nImO 'information for all channels' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
+nImO::InformationForAllChannelsCommandHandler::InformationForAllChannelsCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
+} // nImO::InformationForAllChannelsCommandHandler::InformationForAllChannelsCommandHandler
 
-nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+nImO::InformationForAllChannelsCommandHandler::~InformationForAllChannelsCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+} // nImO::InformationForAllChannelsCommandHandler::~InformationForAllChannelsCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ChannelInformationCommandHandler::doIt
+nImO::InformationForAllChannelsCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,21 +115,19 @@ nImO::ChannelInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("machine information request received");
-    if (2 < arguments.size())
+    _owner->report("information for all channels request received");
+    if (0 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        RegChannelInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllChannels()};
 
-        if ((nullptr != asString1) && (nullptr != asString2))
+        if (statusWithInfoVector.first.first)
         {
-            RegChannelInfoOrFailure statusWithInfo{_registry->getChannelInformation(asString1->getValue(), asString2->getValue())};
+            SpArray             channelArray{new Array};
+            ChannelInfoVector & theChannels{statusWithInfoVector.second};
 
-            if (statusWithInfo.first.first)
+            for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
             {
-                ChannelInfo &   theInfo{statusWithInfo.second};
+                ChannelInfo &   theInfo{*walker};
                 SpArray         infoArray{new Array};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
@@ -137,25 +135,22 @@ nImO::ChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._path));
                 infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
-                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "channel information", infoArray);
+                channelArray->addValue(infoArray);
             }
-            else
-            {
-                ODL_LOG("! (statusWithInfo.first.first)"); //####
-            }
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "information for all channels", channelArray);
         }
         else
         {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            ODL_LOG("! (statusWithInfoVector.first.first)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ChannelInformationCommandHandler::doIt
+} // nImO::InformationForAllChannelsCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

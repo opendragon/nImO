@@ -6329,14 +6329,14 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                         {
                             if (statusWithInfo.second._found)
                             {
-                                if ((statusWithInfo.second._name == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
                                     (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
                                 {
                                     result = 0;
                                 }
                                 else
                                 {
-                                    ODL_LOG("((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                    ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
                                             "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
                                             "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
                                 }
@@ -6434,14 +6434,13 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
                             if (status.first)
                             {
-
                                 nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
 
                                 if (statusWithInfo.first.first)
                                 {
                                     if (statusWithInfo.second._found)
                                     {
-                                        if ((statusWithInfo.second._name == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                        if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
                                             (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
                                         {
                                             statusWithInfo = aRegistry->getChannelInformation(NODE_NAME_2, CHANNEL_PATH_2);
@@ -6449,7 +6448,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                             {
                                                 if (statusWithInfo.second._found)
                                                 {
-                                                    if ((statusWithInfo.second._name == NODE_NAME_2) &&
+                                                    if ((statusWithInfo.second._node == NODE_NAME_2) &&
                                                         (statusWithInfo.second._path == CHANNEL_PATH_2) &&
                                                         statusWithInfo.second._isOutput && (statusWithInfo.second._dataType == "only-blort"))
                                                     {
@@ -6457,7 +6456,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                                     }
                                                     else
                                                     {
-                                                        ODL_LOG("((statusWithInfo.second._name == NODE_NAME_2) && "  //####
+                                                        ODL_LOG("((statusWithInfo.second._node == NODE_NAME_2) && "  //####
                                                                 "(statusWithInfo.second._path == CHANNEL_PATH_2) && "  //####
                                                                 "statusWithInfo.second._isOutput && "  //####
                                                                 "(statusWithInfo.second._dataType == \"only-blort\"))"); //####
@@ -6471,7 +6470,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                         }
                                         else
                                         {
-                                            ODL_LOG("((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                            ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
                                                     "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
                                                     "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
                                         }
@@ -6653,24 +6652,22 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    {
-                        nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
+                    nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
 
-                        if (statusWithInfo.first.first)
+                    if (statusWithInfo.first.first)
+                    {
+                        if (statusWithInfo.second._found)
                         {
-                            if (statusWithInfo.second._found)
-                            {
-                                ODL_LOG("(statusWithInfo.second._found)"); //####
-                            }
-                            else
-                            {
-                                result = 0;
-                            }
+                            ODL_LOG("(statusWithInfo.second._found)"); //####
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                            result = 0;
                         }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                     }
                 }
                 else
@@ -6697,63 +6694,994 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
 # pragma mark *** Test Case 340 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetFromEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
+
+            if (statusWithInformation.first.first)
+            {
+                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                if (0 == infoVector.size())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == infoVector.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInformation.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetFromEmptyRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 341 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                      commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForNodeFromRegistryWithOneChannel
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
+
+                        if (statusWithInformation.first.first)
+                        {
+                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                            if (1 == infoVector.size())
+                            {
+                                const ChannelInfo & theChannel{infoVector[0]};
+
+                                if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
+                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
+                                            "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
+                                            "(theChannel._dataType == \"<chuckles>\"))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForNodeFromRegistryWithOneChannel
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 342 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                       commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForNodeFromRegistryWithTwoChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        if (status.first)
+                        {
+                            nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
+
+                            if (statusWithInformation.first.first)
+                            {
+                                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                                if (2 == infoVector.size())
+                                {
+                                    const ChannelInfo & theChannel1{infoVector[0]};
+                                    const ChannelInfo & theChannel2{infoVector[1]};
+
+                                    if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                        (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                        (theChannel2._dataType == "only-blort"))
+                                    {
+                                        result = 0;
+                                    }
+                                    else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                             (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
+                                                "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                                "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
+                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (2 == infoVector.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForNodeFromRegistryWithTwoChannels
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 343 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                 currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+                                nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
+
+                                if (statusWithInformation.first.first)
+                                {
+                                    nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                                    if (2 == infoVector.size())
+                                    {
+                                        const ChannelInfo & theChannel1{infoVector[0]};
+                                        const ChannelInfo & theChannel2{infoVector[1]};
+
+                                        if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                            (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                            (theChannel2._dataType == "only-blort"))
+                                        {
+                                            result = 0;
+                                        }
+                                        else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                                 (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
+                                                    "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                    "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
+                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (2 == infoVector.size())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 344 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                         commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForMachineFromRegistryWithOneChannel
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+
+                        if (statusWithInformation.first.first)
+                        {
+                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                            if (1 == infoVector.size())
+                            {
+                                const ChannelInfo & theChannel{infoVector[0]};
+
+                                if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
+                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
+                                            "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
+                                            "(theChannel._dataType == \"<chuckles>\"))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForMachineFromRegistryWithOneChannel
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 345 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                          commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForMachineFromRegistryWithTwoChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        if (status.first)
+                        {
+                            nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+
+                            if (statusWithInformation.first.first)
+                            {
+                                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                                if (2 == infoVector.size())
+                                {
+                                    const ChannelInfo & theChannel1{infoVector[0]};
+                                    const ChannelInfo & theChannel2{infoVector[1]};
+
+                                    if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                        (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                        (theChannel2._dataType == "only-blort"))
+                                    {
+                                        result = 0;
+                                    }
+                                    else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                             (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
+                                                "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                                "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
+                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (2 == infoVector.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForMachineFromRegistryWithTwoChannels
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 346 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                   currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            if (status.first)
+                            {
+                                nImO::RegChannelInfoVectorOrFailure
+                                                                statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+
+                                if (statusWithInformation.first.first)
+                                {
+                                    nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                                    if (2 == infoVector.size())
+                                    {
+                                        const ChannelInfo & theChannel1{infoVector[0]};
+                                        const ChannelInfo & theChannel2{infoVector[1]};
+
+                                        if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                            (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                            (theChannel2._dataType == "only-blort"))
+                                        {
+                                            result = 0;
+                                        }
+                                        else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                                 (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
+                                                    "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                    "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
+                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (2 == infoVector.size())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 347 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetWithBadNodeNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnNode(NODE_NAME_2)};
+
+                        if (statusWithInformation.first.first)
+                        {
+                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                            if (0 == infoVector.size())
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (0 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetWithBadNodeNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 348 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                   commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelSetWithBadMachineNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    if (status.first)
+                    {
+                        nImO::RegChannelInfoVectorOrFailure
+                                                        statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName + "!!")};
+
+                        if (statusWithInformation.first.first)
+                        {
+                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+
+                            if (0 == infoVector.size())
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (0 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelSetWithBadMachineNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 360 ***
@@ -7248,47 +8176,47 @@ main
                         break;
 
                     case 340 :
-//                        result = doTestGetChannelSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelSetFromEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 341 :
-//                        result = doTestGetChannelSetForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                      commandLine);
+                        result = doTestGetChannelSetForNodeFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                      commandLine);
                         break;
 
                     case 342 :
-//                        result = doTestGetChannelSetForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                       commandLine);
+                        result = doTestGetChannelSetForNodeFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                       commandLine);
                         break;
 
                     case 343 :
-//                        result = doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                 currentDir, commandLine);
+                        result = doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                 currentDir, commandLine);
                         break;
 
                     case 344 :
-//                        result = doTestGetChannelSetForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                         commandLine);
+                        result = doTestGetChannelSetForMachineFromRegistryWithOneChannel(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                         commandLine);
                         break;
 
                     case 345 :
-//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                          commandLine);
+                        result = doTestGetChannelSetForMachineFromRegistryWithTwoChannels(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                          commandLine);
                         break;
 
                     case 346 :
-//                        result = doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                   currentDir, commandLine);
+                        result = doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                   currentDir, commandLine);
                         break;
 
                     case 347 :
-//                        result = doTestGetChannelSetWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                commandLine);
+                        result = doTestGetChannelSetWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                commandLine);
                         break;
 
                     case 348 :
-//                        result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                   commandLine);
+                        result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                   commandLine);
                         break;
 
                     case 360 :

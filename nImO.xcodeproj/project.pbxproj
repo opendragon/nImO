@@ -148,6 +148,18 @@
 		F65F3A912A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInformationCommandHandler.h; path = Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.h; sourceTree = "<group>"; };
 		F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmainSupport.cpp; path = nImO/nImOmainSupport.cpp; sourceTree = "<group>"; };
 		F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmainSupport.h; path = nImO/nImOmainSupport.h; sourceTree = "<group>"; };
+		F66E75422A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h; sourceTree = "<group>"; };
+		F66E75432A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp; sourceTree = "<group>"; };
+		F66E75442A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp; sourceTree = "<group>"; };
+		F66E75452A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.h; sourceTree = "<group>"; };
+		F66E75462A1AAC59002C03B5 /* nImOgetInformationForAllChannelsOnNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsOnNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h; sourceTree = "<group>"; };
+		F66E75472A1AAC59002C03B5 /* nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
+		F66E75482A1AAC9A002C03B5 /* nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp; sourceTree = "<group>"; };
+		F66E75492A1AAC9A002C03B5 /* nImOgetInformationForAllChannelsOnNodeCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsOnNodeCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.h; sourceTree = "<group>"; };
+		F66E754A2A1ABEA6002C03B5 /* nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp; sourceTree = "<group>"; };
+		F66E754B2A1ABEA6002C03B5 /* nImOgetInformationForAllChannelsOnMachineCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsOnMachineCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h; sourceTree = "<group>"; };
+		F66E754C2A1ABFC5002C03B5 /* nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp; sourceTree = "<group>"; };
+		F66E754D2A1ABFC5002C03B5 /* nImOgetInformationForAllChannelsOnMachineResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsOnMachineResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h; sourceTree = "<group>"; };
 		F67032541CB1CBB500E04BBC /* nImOcompareValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcompareValues.cpp; path = nImO/nImOcompareValues.cpp; sourceTree = "<group>"; };
 		F67032551CB1CBB500E04BBC /* nImOcompareValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcompareValues.h; path = nImO/nImOcompareValues.h; sourceTree = "<group>"; };
 		F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryCommands.h; path = nImO/nImOregistryCommands.h; sourceTree = "<group>"; };
@@ -476,6 +488,12 @@
 				F6E510842A19675600D52E80 /* nImOaddNodeResponseHandler.h */,
 				F65F3A8F2A1A804E005BCE2B /* nImOgetChannelInformationResponseHandler.cpp */,
 				F65F3A8E2A1A804E005BCE2B /* nImOgetChannelInformationResponseHandler.h */,
+				F66E754C2A1ABFC5002C03B5 /* nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp */,
+				F66E754D2A1ABFC5002C03B5 /* nImOgetInformationForAllChannelsOnMachineResponseHandler.h */,
+				F66E75472A1AAC59002C03B5 /* nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp */,
+				F66E75462A1AAC59002C03B5 /* nImOgetInformationForAllChannelsOnNodeResponseHandler.h */,
+				F66E75432A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.cpp */,
+				F66E75422A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.h */,
 				F6E510822A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.cpp */,
 				F6E510832A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.h */,
 				F6E510912A19675700D52E80 /* nImOgetInformationForAllNodesOnMachineResponseHandler.cpp */,
@@ -1383,6 +1401,12 @@
 				F6E511202A19905600D52E80 /* nImOaddNodeCommandHandler.h */,
 				F65F3A902A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.cpp */,
 				F65F3A912A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.h */,
+				F66E75442A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.cpp */,
+				F66E75452A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.h */,
+				F66E754A2A1ABEA6002C03B5 /* nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp */,
+				F66E754B2A1ABEA6002C03B5 /* nImOgetInformationForAllChannelsOnMachineCommandHandler.h */,
+				F66E75482A1AAC9A002C03B5 /* nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp */,
+				F66E75492A1AAC9A002C03B5 /* nImOgetInformationForAllChannelsOnNodeCommandHandler.h */,
 				F6E511262A19905600D52E80 /* nImOgetInformationForAllMachinesCommandHandler.cpp */,
 				F6E511372A19905700D52E80 /* nImOgetInformationForAllMachinesCommandHandler.h */,
 				F6E5113E2A19905800D52E80 /* nImOgetInformationForAllNodesCommandHandler.cpp */,

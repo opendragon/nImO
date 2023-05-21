@@ -148,6 +148,29 @@ namespace nImO
                  const std::string &    path)
                 const;
 
+            /*! @brief Get information for all channels in the Registry.
+             @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
+            RegChannelInfoVectorOrFailure
+            getInformationForAllChannels
+                (void)
+                const;
+
+            /*! @brief Get information for all channels on a machine in the Registry.
+             @param[in] machineName The name of the node for the channels to be located in the Registry.
+             @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            RegChannelInfoVectorOrFailure
+            getInformationForAllChannelsOnMachine
+                (const std::string &    machineName)
+                const;
+
+            /*! @brief Get information for all channels on a node in the Registry.
+             @param[in] nodeName The name of the node for the channels to be located in the Registry.
+             @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            RegChannelInfoVectorOrFailure
+            getInformationForAllChannelsOnNode
+                (const std::string &    nodeName)
+                const;
+
             /*! @brief Get information for all machines in the Registry.
              @return @c true and the information for each machine if the operation was successfully performed and @c false and an error string otherwise. */
             RegMachineInfoVectorOrFailure

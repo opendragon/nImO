@@ -55,6 +55,9 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddChannelCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp

@@ -1059,6 +1059,47 @@ setupSearchChannels
  @param[in] stuff The source of data that is to be bound.
  @return The SQLite error from the bind operation. */
 static int
+setupSearchChannelsMachineOnly
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int machineNameIndex{sqlite3_bind_parameter_index(statement, "@" MACHINE_NAME_C_)};
+
+        if (0 < machineNameIndex)
+        {
+            std::string machine{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, machineNameIndex, machine.c_str(), StaticCast(int, machine.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < machineNameIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchChannelsMachineOnly
+
+/*! @brief Bind the value that is to be searched for in the Channels table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
 setupSearchChannelsNodeOnly
     (Ptr(sqlite3_stmt)  statement,
      CPtr(void)         stuff)
@@ -1401,7 +1442,7 @@ nImO::Registry::getChannelInformation
                         uint32_t    scratch;
 
                         info._found = true;
-                        info._name = values[0];
+                        info._node = values[0];
                         info._path = values[1];
                         scratch = StaticCast(uint32_t, stoul(values[2], &pos));
                         if (0 == pos)
@@ -1443,6 +1484,217 @@ nImO::Registry::getChannelInformation
     ODL_OBJEXIT(); //####
     return RegChannelInfoOrFailure{status, info};
 } // nImO::Registry::getChannelInformation
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::Registry::getInformationForAllChannels
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelInfoVector   channelData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
+                                                    " FROM " CHANNELS_T_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (3 < values.size())
+                {
+                    ChannelInfo info;
+                    size_t      pos;
+                    uint32_t    scratch;
+
+                    info._found = true;
+                    info._node = values[0];
+                    info._path = values[1];
+                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    else
+                    {
+                        info._isOutput = (0 != scratch);
+                    }
+                    info._dataType = values[3];
+                    if (info._found)
+                    {
+                        channelData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (3 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, channelData};
+} // nImO::Registry::getInformationForAllChannels
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::Registry::getInformationForAllChannelsOnMachine
+    (const std::string &    machineName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelInfoVector   channelData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
+                                                    " FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_ " WHERE " NODES_T_ "." NODE_NAME_C_ " = "
+                                                    CHANNELS_T_ "." CHANNEL_NODE_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "."
+                                                    NODE_ADDRESS_C_ " AND " MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ };
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
+                                                              &machineName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (3 < values.size())
+                {
+                    ChannelInfo info;
+                    size_t      pos;
+                    uint32_t    scratch;
+
+                    info._found = true;
+                    info._node = values[0];
+                    info._path = values[1];
+                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    else
+                    {
+                        info._isOutput = (0 != scratch);
+                    }
+                    info._dataType = values[3];
+                    if (info._found)
+                    {
+                        channelData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (3 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, channelData};
+} // nImO::Registry::getInformationForAllChannelsOnMachine
+
+nImO::RegChannelInfoVectorOrFailure
+nImO::Registry::getInformationForAllChannelsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    ChannelInfoVector   channelData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
+                                                    " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ };
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector    values{results[ii]};
+
+                if (3 < values.size())
+                {
+                    ChannelInfo info;
+                    size_t      pos;
+                    uint32_t    scratch;
+
+                    info._found = true;
+                    info._node = values[0];
+                    info._path = values[1];
+                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    else
+                    {
+                        info._isOutput = (0 != scratch);
+                    }
+                    info._dataType = values[3];
+                    if (info._found)
+                    {
+                        channelData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (3 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoVectorOrFailure{status, channelData};
+} // nImO::Registry::getInformationForAllChannelsOnNode
 
 nImO::RegMachineInfoVectorOrFailure
 nImO::Registry::getInformationForAllMachines
@@ -1488,7 +1740,7 @@ nImO::Registry::getInformationForAllMachines
                 }
                 else
                 {
-                    ODL_LOG("! (3 < values.size())"); //####
+                    ODL_LOG("! (1 < values.size())"); //####
                 }
             }
         }

@@ -122,7 +122,7 @@ nImO::InformationForAllMachinesCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            SpArray             nodeArray{new Array};
+            SpArray             machineArray{new Array};
             MachineInfoVector & theMachines{statusWithInfoVector.second};
 
             for (auto walker = theMachines.begin(); walker != theMachines.end(); ++walker)
@@ -133,9 +133,9 @@ nImO::InformationForAllMachinesCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
-                nodeArray->addValue(infoArray);
+                machineArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "information for all machines", nodeArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "information for all machines", machineArray);
         }
         else
         {

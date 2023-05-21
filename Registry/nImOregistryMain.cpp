@@ -39,6 +39,9 @@
 #include "CommandHandlers/nImOaddChannelCommandHandler.h"
 #include "CommandHandlers/nImOaddNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetChannelInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.h"
@@ -158,6 +161,12 @@ main
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kGetChannelInformationRequest,
                                                   new nImO::ChannelInformationCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnMachineRequest,
+                                                  new nImO::InformationForAllChannelsOnMachineCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnNodeRequest,
+                                                  new nImO::InformationForAllChannelsOnNodeCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsRequest,
+                                                  new nImO::InformationForAllChannelsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
                                                   new nImO::InformationForAllMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesOnMachineRequest,

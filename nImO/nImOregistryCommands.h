@@ -101,7 +101,7 @@ namespace nImO
     /*! @brief The request to break the connection between two channels to the Registry. */
     const std::string   kDisconnectChannelsRequest = "disconnectChannels!";
 
-    /*! @brief The 'disConnectChannels' response. */
+    /*! @brief The 'disconnectChannels' response. */
     const std::string   kDisconnectChannelsResponse = "disconnectChannels=";
 
     /*! @brief The request to get information on a channel from the Registry. */
@@ -109,6 +109,24 @@ namespace nImO
 
     /*! @brief The 'getChannelInformation' response. */
     const std::string   kGetChannelInformationResponse = "getChannelInformation=";
+
+    /*! @brief The request to get information on all channels in the Registry. */
+    const std::string   kGetInformationForAllChannelsRequest = "getInformationForAllChannels?";
+
+    /*! @brief The 'getInformationForAllChannels' response. */
+    const std::string   kGetInformationForAllChannelsResponse = "getInformationForAllChannels=";
+
+    /*! @brief The request to get information on all channels on a machine in the Registry. */
+    const std::string   kGetInformationForAllChannelsOnMachineRequest = "getInformationForAllChannelsOnMachine?";
+
+    /*! @brief The 'getInformationForAllChannelsOnMachine' response. */
+    const std::string   kGetInformationForAllChannelsOnMachineResponse = "getInformationForAllChannelsOnMachine=";
+
+    /*! @brief The request to get information on all channels on a node in the Registry. */
+    const std::string   kGetInformationForAllChannelsOnNodeRequest = "getInformationForAllChannelsOnNode?";
+
+    /*! @brief The 'getInformationForAllChannelsOnNode' response. */
+    const std::string   kGetInformationForAllChannelsOnNodeResponse = "getInformationForAllChannelsOnNode=";
 
     /*! @brief The request to get information on all machines in the Registry. */
     const std::string   kGetInformationForAllMachinesRequest = "getInformationForAllMachines?";
@@ -122,16 +140,16 @@ namespace nImO
     /*! @brief The 'getInformationForAllNodes' response. */
     const std::string   kGetInformationForAllNodesResponse = "getInformationForAllNodes=";
 
-    /*! @brief The request to get information on all nodes in the Registry. */
+    /*! @brief The request to get information on all nodes on a machine in the Registry. */
     const std::string   kGetInformationForAllNodesOnMachineRequest = "getInformationForAllNodesOnMachine?";
 
-    /*! @brief The 'getInformationForAllNodes' response. */
+    /*! @brief The 'getInformationForAllNodesOnMachine' response. */
     const std::string   kGetInformationForAllNodesOnMachineResponse = "getInformationForAllNodesOnMachine=";
 
-    /*! @brief The request to get information on all nodes in the Registry. */
+    /*! @brief The request to get launch details in the Registry. */
     const std::string   kGetLaunchDetailsRequest = "getLaunchDetails?";
 
-    /*! @brief The 'getInformationForAllNodes' response. */
+    /*! @brief The 'getLaunchDetails' response. */
     const std::string   kGetLaunchDetailsResponse = "getLaunchDetails=";
 
     /*! @brief The request to get information on a machine from the Registry. */
@@ -188,7 +206,7 @@ namespace nImO
     /*! @brief The 'getNumberOfNodes' response. */
     const std::string   kGetNumberOfNodesResponse = "getNumberOfNodes=";
 
-    /*! @brief The request to get the number of nodes in the Registry. */
+    /*! @brief The request to get the number of nodes on a machine in the Registry. */
     const std::string   kGetNumberOfNodesOnMachineRequest = "getNumberOfNodesOnMachine?";
 
     /*! @brief The 'getNumberOfNodesOnMachine' response. */
@@ -221,7 +239,7 @@ namespace nImO
     /*! @brief The request to remove the channels for a node from the Registry. */
     const std::string   kRemoveChannelsForNodeRequest = "removeChannelsForNode!";
 
-    /*! @brief The 'removeChannels' response. */
+    /*! @brief The 'removeChannelsForNode' response. */
     const std::string   kRemoveChannelsForNodeResponse = "removeChannelsForNode=";
 
     /*! @brief The request to remove a node from the Registry. */

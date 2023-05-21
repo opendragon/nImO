@@ -72,6 +72,7 @@ Tests:\
 \
 	SELECT node, path, isOutput, dataType FROM Channels WHERE node = "b_3";\
 	SELECT node, path, isOutput, dataType FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
+	SELECT node, path, isOutput, dataType FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
 \
 	DELETE FROM Nodes WHERE name = "b.2";\
 	DELETE FROM Channels WHERE node = "b_3" AND path = "/blort";\

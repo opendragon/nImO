@@ -81,7 +81,7 @@ namespace nImO
         bool    _found;
 
         /*! @brief The name of the node for the channel. */
-        std::string _name;
+        std::string _node;
 
         /*! @brief The path of the channel on the node. */
         std::string _path;

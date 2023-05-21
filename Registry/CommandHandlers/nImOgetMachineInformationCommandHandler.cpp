@@ -121,7 +121,11 @@ nImO::MachineInformationCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             RegMachineInfoOrFailure statusWithInfo{_registry->getMachineInformation(asString->getValue())};
 
@@ -139,10 +143,6 @@ nImO::MachineInformationCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

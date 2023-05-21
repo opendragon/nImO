@@ -107,13 +107,13 @@ nImO::NumberOfMachinesResponseHandler::doIt
         SpValue       element{stuff[1]};
         CPtr(Integer) asInteger{element->asInteger()};
 
-        if (nullptr != asInteger)
+        if (nullptr == asInteger)
         {
-            _result = asInteger->getIntegerValue();
+            ODL_LOG("(nullptr == asInteger)"); //####
         }
         else
         {
-            ODL_LOG("! (nullptr != asInteger)"); //####
+            _result = asInteger->getIntegerValue();
         }
     }
     else

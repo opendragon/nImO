@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOisNodePresentCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'node present' command handler.
+//  Contains:   The class definition for the nImO 'channel information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-03
+//  Created:    2023-05-21
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOisNodePresentCommandHandler.h"
+#include "nImOgetChannelInformationCommandHandler.h"
 
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
 #include <nImOregistryCommands.h>
@@ -52,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'node present' command handler. */
+ @brief The class definition for the %nImO 'channel information' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentCommandHandler::NodePresentCommandHandler
+nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -89,21 +91,21 @@ nImO::NodePresentCommandHandler::NodePresentCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentCommandHandler::NodePresentCommandHandler
+} // nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
 
-nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+} // nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NodePresentCommandHandler::doIt
+nImO::ChannelInformationCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -113,37 +115,47 @@ nImO::NodePresentCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("node present request received");
-    if (1 < arguments.size())
+    _owner->report("machine information request received");
+    if (2 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        SpValue         element1{arguments[1]};
+        SpValue         element2{arguments[2]};
+        CPtr(String)    asString1{element1->asString()};
+        CPtr(String)    asString2{element2->asString()};
 
-        if (nullptr == asString)
+        if ((nullptr != asString1) && (nullptr != asString2))
         {
-            ODL_LOG("(nullptr == asString)"); //####
-        }
-        else
-        {
-            RegBoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
+            RegChannelInfoOrFailure statusWithInfo{_registry->getChannelInformation(asString1->getValue(), asString2->getValue())};
 
-            if (statusWithBool.first.first)
+            if (statusWithInfo.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "node present", statusWithBool.second);
+                ChannelInfo &   theInfo{statusWithInfo.second};
+                SpArray         infoArray{new Array};
+
+                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                infoArray->addValue(std::make_shared<String>(theInfo._name));
+                infoArray->addValue(std::make_shared<String>(theInfo._path));
+                infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
+                infoArray->addValue(std::make_shared<String>(theInfo._dataType));
+                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "channel information", infoArray);
             }
             else
             {
-                ODL_LOG("! (statusWithBool.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (1 < arguments.size())"); //####
+        ODL_LOG("! (2 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NodePresentCommandHandler::doIt
+} // nImO::ChannelInformationCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

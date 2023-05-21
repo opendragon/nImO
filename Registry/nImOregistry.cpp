@@ -1003,7 +1003,7 @@ setupInsertIntoNodes
     return result;
 } // setupInsertIntoNodes
 
-/*! @brief Bind the value that is to be searched for in the Channels table.
+/*! @brief Bind the values that are to be searched for in the Channels table.
  @param[in] statement The prepared statement that is to be updated.
  @param[in] stuff The source of data that is to be bound.
  @return The SQLite error from the bind operation. */
@@ -1050,6 +1050,47 @@ setupSearchChannels
     ODL_EXIT_I(result);
     return result;
 } // setupSearchChannels
+
+/*! @brief Bind the value that is to be searched for in the Channels table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchChannelsNodeOnly
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int channelNodeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_NODE_C_)};
+
+        if (0 < channelNodeIndex)
+        {
+            std::string node{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, channelNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < channelNodeIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchChannelsNodeOnly
 
 /*! @brief Bind the value that is to be searched for in the Machines table.
  @param[in] statement The prepared statement that is to be updated.
@@ -1203,6 +1244,7 @@ nImO::Registry::addChannel
      const std::string &    path,
      const bool             isOutput,
      const std::string &    dataType)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
@@ -1253,6 +1295,7 @@ nImO::RegSuccessOrFailure
 nImO::Registry::addMachine
     (const std::string &    machineName,
      const uint32_t         address)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
@@ -1284,6 +1327,7 @@ nImO::Registry::addNode
      const std::string &    commandLine,
      const ServiceType      serviceClass,
      const Connection &     nodeConnection)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
@@ -2113,6 +2157,7 @@ nImO::RegBoolOrFailure
 nImO::Registry::isChannelPresent
     (const std::string &    nodeName,
      const std::string &    channelPath)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "channelPath = ", channelPath); //####
@@ -2167,6 +2212,7 @@ nImO::Registry::isChannelPresent
 nImO::RegBoolOrFailure
 nImO::Registry::isMachinePresent
     (const std::string &    machineName)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
@@ -2210,6 +2256,7 @@ nImO::Registry::isMachinePresent
 nImO::RegBoolOrFailure
 nImO::Registry::isNodePresent
     (const std::string &    nodeName)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
@@ -2260,8 +2307,78 @@ nImO::Registry::isNodePresent
 } // nImO::Registry::isNodePresent
 
 nImO::RegSuccessOrFailure
+nImO::Registry::removeChannel
+    (const std::string &    nodeName,
+     const std::string &    path)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status;
+
+    if (ChannelName::validNode(nodeName))
+    {
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            ChannelSearchData   data{nodeName, path};
+            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
+                                                "= @" CHANNEL_PATH_C_};
+
+            status = performSQLstatementWithNoResults(_owner, _dbHandle, searchChannels, setupSearchChannels, &data);
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::removeChannel
+
+nImO::RegSuccessOrFailure
+nImO::Registry::removeChannelsForNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    RegSuccessOrFailure status;
+
+    if (ChannelName::validNode(nodeName))
+    {
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+
+            status = performSQLstatementWithNoResults(_owner, _dbHandle, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name");
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::removeChannelsForNode
+
+nImO::RegSuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
+    const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####

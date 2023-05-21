@@ -54,6 +54,7 @@ include_directories("${nImO_SQLITE_DIR}")
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddChannelCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp
@@ -64,12 +65,16 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodeInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOisChannelPresentCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOisMachinePresentCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOisNodePresentCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOregistryCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelsForNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOregistry.cpp
                ${THIS_SOURCE_DIR}/nImOregistryContext.cpp

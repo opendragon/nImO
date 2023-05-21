@@ -110,7 +110,11 @@ nImO::LaunchDetailsResponseHandler::doIt
         SpValue     element{stuff[1]};
         CPtr(Array) detailsArray{element->asArray()};
 
-        if (nullptr != detailsArray)
+        if (nullptr == detailsArray)
+        {
+            ODL_LOG("(nullptr == detailsArray)"); //####
+        }
+        else
         {
             if (3 < detailsArray->size())
             {
@@ -136,10 +140,6 @@ nImO::LaunchDetailsResponseHandler::doIt
             {
                 ODL_LOG("! (5 < detailsArray->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != detailsArray)"); //####
         }
     }
     else

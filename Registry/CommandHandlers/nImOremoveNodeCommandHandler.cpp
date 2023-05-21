@@ -119,7 +119,11 @@ nImO::RemoveNodeCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             std::string         nodeName{asString->getValue()};
             RegSuccessOrFailure status{_registry->removeNode(nodeName)};
@@ -136,10 +140,6 @@ nImO::RemoveNodeCommandHandler::doIt
             {
                 ODL_LOG("! (status.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

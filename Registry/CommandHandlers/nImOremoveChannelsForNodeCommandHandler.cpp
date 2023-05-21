@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOisNodePresentCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOremoveChannelsForNodeCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'node present' command handler.
+//  Contains:   The class definition for the nImO 'remove channels for node' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-03
+//  Created:    2023-05-21
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOisNodePresentCommandHandler.h"
+#include "nImOremoveChannelsForNodeCommandHandler.h"
 
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
@@ -52,7 +52,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'node present' command handler. */
+ @brief The class definition for the %nImO 'remove channels for node' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,39 +81,39 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodePresentCommandHandler::NodePresentCommandHandler
+nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
     (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner, theRegistry)
+     SpRegistry                 theRegistry,
+     const Connection &         statusConnection) :
+        inherited(owner, theRegistry), _statusConnection(statusConnection)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodePresentCommandHandler::NodePresentCommandHandler
+} // nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
 
-nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+nImO::RemoveChannelsForNodeCommandHandler::~RemoveChannelsForNodeCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodePresentCommandHandler::~NodePresentCommandHandler
+} // nImO::RemoveChannelsForNodeCommandHandler::~RemoveChannelsForNodeCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NodePresentCommandHandler::doIt
+nImO::RemoveChannelsForNodeCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("node present request received");
+    _owner->report("remove channels for node request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -125,15 +125,20 @@ nImO::NodePresentCommandHandler::doIt
         }
         else
         {
-            RegBoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
+            std::string         nodeName{asString->getValue()};
+            RegSuccessOrFailure status{_registry->removeChannelsForNode(nodeName)};
 
-            if (statusWithBool.first.first)
+            if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "node present", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node", true);
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kChannelsRemovedStatus + kStatusSeparator + nodeName);
+                }
             }
             else
             {
-                ODL_LOG("! (statusWithBool.first.first)"); //####
+                ODL_LOG("! (status.first)"); //####
             }
         }
     }
@@ -143,7 +148,7 @@ nImO::NodePresentCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NodePresentCommandHandler::doIt
+} // nImO::RemoveChannelsForNodeCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

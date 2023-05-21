@@ -121,7 +121,11 @@ nImO::LaunchDetailsCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             RegLaunchDetailsOrFailure   statusWithDetails{_registry->getLaunchDetails(asString->getValue())};
 
@@ -140,10 +144,6 @@ nImO::LaunchDetailsCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithDetails.first.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

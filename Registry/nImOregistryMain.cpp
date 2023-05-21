@@ -38,6 +38,7 @@
 
 #include "CommandHandlers/nImOaddChannelCommandHandler.h"
 #include "CommandHandlers/nImOaddNodeCommandHandler.h"
+#include "CommandHandlers/nImOgetChannelInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.h"
@@ -48,11 +49,15 @@
 #include "CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetNodeInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOisChannelPresentCommandHandler.h"
 #include "CommandHandlers/nImOisMachinePresentCommandHandler.h"
 #include "CommandHandlers/nImOisNodePresentCommandHandler.h"
+#include "CommandHandlers/nImOremoveChannelCommandHandler.h"
+#include "CommandHandlers/nImOremoveChannelsForNodeCommandHandler.h"
 #include "CommandHandlers/nImOremoveNodeCommandHandler.h"
 #include "nImOregistry.h"
 #include "nImOregistryContext.h"
@@ -151,29 +156,38 @@ main
                     asRegistryContext->addHandler(nImO::kAddChannelRequest,
                                                   new nImO::AddChannelCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kGetChannelInformationRequest,
+                                                  new nImO::ChannelInformationCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
                                                   new nImO::InformationForAllMachinesCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
-                                                  new nImO::InformationForAllNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesOnMachineRequest,
                                                   new nImO::InformationForAllNodesOnMachineCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
+                                                  new nImO::InformationForAllNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest, new nImO::LaunchDetailsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetMachineInformationRequest,
                                                   new nImO::MachineInformationCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfMachinesRequest, new nImO::NamesOfMachinesCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesOnMachineRequest,
                                                   new nImO::NamesOfNodesOnMachineCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::NamesOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest, new nImO::NodeInformationCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfChannelsOnNodeRequest,
+                                                  new nImO::NumberOfChannelsOnNodeCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsRequest,
                                                   new nImO::NumberOfChannelsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
                                                   new nImO::NumberOfMachinesCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesOnMachineRequest,
                                                   new nImO::NumberOfNodesOnMachineCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::NumberOfNodesCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kIsChannelPresentRequest, new nImO::ChannelPresentCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kIsMachinePresentRequest, new nImO::MachinePresentCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kIsNodePresentRequest, new nImO::NodePresentCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kRemoveChannelRequest,
+                                                  new nImO::RemoveChannelCommandHandler(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kRemoveChannelsForNodeRequest,
+                                                  new nImO::RemoveChannelsForNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest,
                                                   new nImO::RemoveNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,

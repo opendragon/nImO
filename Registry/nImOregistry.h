@@ -107,7 +107,8 @@ namespace nImO
                 (const std::string &    nodeName,
                  const std::string &    path,
                  const bool             isOutput = false,
-                 const std::string &    dataType = "");
+                 const std::string &    dataType = "")
+                const;
 
             /*! @brief Add a machine to the Registry.
              @param[in] machineName The name of the machine to be added.
@@ -116,7 +117,8 @@ namespace nImO
             RegSuccessOrFailure
             addMachine
                 (const std::string &    machineName,
-                 const uint32_t         address = 0);
+                 const uint32_t         address = 0)
+                const;
 
             /*! @brief Add a node to the Registry.
              @param[in] nodeName The name of the node to be added.
@@ -133,7 +135,8 @@ namespace nImO
                  const std::string &    launchDirectory,
                  const std::string &    commandLine,
                  const ServiceType      serviceClass = ServiceType::GenericService,
-                 const Connection &     nodeConnection = Connection());
+                 const Connection &     nodeConnection = Connection())
+                const;
 
             /*! @brief Get information on the channel stored in the Registry.
              @param[in] nodeName The name of the node for the channel to be located in the Registry.
@@ -257,28 +260,50 @@ namespace nImO
             RegBoolOrFailure
             isChannelPresent
                 (const std::string &    nodeName,
-                 const std::string &    channelPath);
+                 const std::string &    channelPath)
+                const;
 
             /*! @brief Check if a machine is in the Registry.
              @param[in] machineName The name of the machine to be checked.
              @return @c true and if the machine was found,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegBoolOrFailure
             isMachinePresent
-                (const std::string &    machineName);
+                (const std::string &    machineName)
+                const;
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.
              @return @c true and if the node was found,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegBoolOrFailure
             isNodePresent
-                (const std::string &    nodeName);
+                (const std::string &    nodeName)
+                const;
+
+            /*! @brief Remove a channel from the Registry.
+             @param[in] nodeName The name of the node for the channel to be removed.
+             @param[in] path The path for the channel.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegSuccessOrFailure
+            removeChannel
+                (const std::string &    nodeName,
+                 const std::string &    path)
+                const;
+
+            /*! @brief Remove all channels for a node from the Registry.
+             @param[in] nodeName The name of the node.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegSuccessOrFailure
+            removeChannelsForNode
+                (const std::string &    nodeName)
+                const;
 
             /*! @brief Remove a node from the Registry.
              @param[in] nodeName The name of the node to be removed.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
             RegSuccessOrFailure
             removeNode
-                (const std::string &    nodeName);
+                (const std::string &    nodeName)
+                const;
 
         protected :
             // Protected methods.

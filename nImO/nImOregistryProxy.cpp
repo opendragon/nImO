@@ -45,6 +45,7 @@
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddNodeResponseHandler.h>
+#include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h>
@@ -54,12 +55,16 @@
 #include <ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNodeInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h>
+#include <ResponseHandlers/nImOisChannelPresentResponseHandler.h>
 #include <ResponseHandlers/nImOisMachinePresentResponseHandler.h>
 #include <ResponseHandlers/nImOisNodePresentResponseHandler.h>
+#include <ResponseHandlers/nImOremoveChannelResponseHandler.h>
+#include <ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h>
 #include <ResponseHandlers/nImOremoveNodeResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
@@ -197,10 +202,17 @@ nImO::RegistryProxy::getChannelInformation
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    //TBD
-    ODL_OBJEXIT();
-    //TBD return ??
+    ODL_S1s("machineName = ", nodeName); //####
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<ChannelInformationResponseHandler>  handler{new ChannelInformationResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kGetChannelInformationRequest, kGetChannelInformationResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegChannelInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getChannelInformation
 
 nImO::RegMachineInfoVectorOrFailure
@@ -367,9 +379,15 @@ nImO::RegistryProxy::getNumberOfChannelsOnNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    //TBD
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<NumberOfChannelsOnNodeResponseHandler>  handler{new NumberOfChannelsOnNodeResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kGetNumberOfChannelsOnNodeRequest, kGetNumberOfChannelsOnNodeResponse)};
+
     ODL_OBJEXIT(); //####
-    //TBD return
+    return RegIntOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNumberOfChannelsOnNode
 
 nImO::RegIntOrFailure
@@ -424,9 +442,16 @@ nImO::RegistryProxy::isChannelPresent
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "channelPath = ", channelPath); //####
-//TBD
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<ChannelPresentResponseHandler>  handler{new ChannelPresentResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(channelPath));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kIsChannelPresentRequest, kIsChannelPresentResponse)};
+
     ODL_OBJEXIT(); //####
-    //TBD - return
+    return RegBoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::isChannelPresent
 
 nImO::RegBoolOrFailure
@@ -462,6 +487,42 @@ nImO::RegistryProxy::isNodePresent
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::isNodePresent
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::removeChannel
+    (const std::string &    nodeName,
+     const std::string &    path)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<RemoveChannelResponseHandler>   handler{new RemoveChannelResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kRemoveChannelRequest, kRemoveChannelResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::removeChannel
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::removeChannelsForNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<RemoveChannelsForNodeResponseHandler>   handler{new RemoveChannelsForNodeResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kRemoveChannelsForNodeRequest, kRemoveChannelsForNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::removeChannelsForNode
 
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::removeNode

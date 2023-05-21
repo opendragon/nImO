@@ -69,6 +69,9 @@ namespace nImO
     /*! @brief The prefix for a channel removed status report. */
     const std::string   kChannelRemovedStatus = "c-";
 
+    /*! @brief The prefix for a channels removed status report. */
+    const std::string   kChannelsRemovedStatus = "c!";
+
     /*! @brief The prefix for a node added status report. */
     const std::string   kNodeAddedStatus = "n+";
 
@@ -101,6 +104,12 @@ namespace nImO
     /*! @brief The 'disConnectChannels' response. */
     const std::string   kDisconnectChannelsResponse = "disconnectChannels=";
 
+    /*! @brief The request to get information on a channel from the Registry. */
+    const std::string   kGetChannelInformationRequest = "getChannelInformation?";
+
+    /*! @brief The 'getChannelInformation' response. */
+    const std::string   kGetChannelInformationResponse = "getChannelInformation=";
+
     /*! @brief The request to get information on all machines in the Registry. */
     const std::string   kGetInformationForAllMachinesRequest = "getInformationForAllMachines?";
 
@@ -128,7 +137,7 @@ namespace nImO
     /*! @brief The request to get information on a machine from the Registry. */
     const std::string   kGetMachineInformationRequest = "getMachineInformation?";
 
-    /*! @brief The 'getNodeInformation' response. */
+    /*! @brief The 'getMachineInformation' response. */
     const std::string   kGetMachineInformationResponse = "getMachineInformation=";
 
     /*! @brief The request to get the set of machines in the Registry. */
@@ -155,6 +164,12 @@ namespace nImO
     /*! @brief The 'getNodeInformation' response. */
     const std::string   kGetNodeInformationResponse = "getNodeInformation=";
 
+    /*! @brief The request to get the number of channels on a node in the Registry. */
+    const std::string   kGetNumberOfChannelsOnNodeRequest = "getNumberOfChannelsOnNode?";
+
+    /*! @brief The 'getNumberOfChannelsOnNode' response. */
+    const std::string   kGetNumberOfChannelsOnNodeResponse = "getNumberOfChannelsOnNode=";
+
     /*! @brief The request to get the number of channels in the Registry. */
     const std::string   kGetNumberOfChannelsRequest = "getNumberOfChannels?";
 
@@ -179,16 +194,22 @@ namespace nImO
     /*! @brief The 'getNumberOfNodesOnMachine' response. */
     const std::string   kGetNumberOfNodesOnMachineResponse = "getNumberOfNodesOnMachine=";
 
+    /*! @brief The request to check if a channel is present in the Registry. */
+    const std::string   kIsChannelPresentRequest = "isChannelPresent?";
+
+    /*! @brief The 'isChannelPresent' response. */
+    const std::string   kIsChannelPresentResponse = "isChannelPresent=";
+
     /*! @brief The request to check if a machine is present in the Registry. */
     const std::string   kIsMachinePresentRequest = "isMachinePresent?";
 
-    /*! @brief The 'isMachinePresent' reponse. */
+    /*! @brief The 'isMachinePresent' response. */
     const std::string   kIsMachinePresentResponse = "isMachinePresent=";
 
     /*! @brief The request to check if a node is present in the Registry. */
     const std::string   kIsNodePresentRequest = "isNodePresent?";
 
-    /*! @brief The 'isNodePresent' reponse. */
+    /*! @brief The 'isNodePresent' response. */
     const std::string   kIsNodePresentResponse = "isNodePresent=";
 
     /*! @brief The request to remove a channel from the Registry. */
@@ -196,6 +217,12 @@ namespace nImO
 
     /*! @brief The 'removeChannel' response. */
     const std::string   kRemoveChannelResponse = "removeChannel=";
+
+    /*! @brief The request to remove the channels for a node from the Registry. */
+    const std::string   kRemoveChannelsForNodeRequest = "removeChannelsForNode!";
+
+    /*! @brief The 'removeChannels' response. */
+    const std::string   kRemoveChannelsForNodeResponse = "removeChannelsForNode=";
 
     /*! @brief The request to remove a node from the Registry. */
     const std::string   kRemoveNodeRequest = "removeNode!";

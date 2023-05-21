@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-25
+//  Created:    2023-05-20
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -107,13 +107,13 @@ nImO::NumberOfChannelsResponseHandler::doIt
         SpValue       element{stuff[1]};
         CPtr(Integer) asInteger{element->asInteger()};
 
-        if (nullptr != asInteger)
+        if (nullptr == asInteger)
         {
-            _result = asInteger->getIntegerValue();
+            ODL_LOG("(nullptr == asInteger)"); //####
         }
         else
         {
-            ODL_LOG("! (nullptr != asInteger)"); //####
+            _result = asInteger->getIntegerValue();
         }
     }
     else

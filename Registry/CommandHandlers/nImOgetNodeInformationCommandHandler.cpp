@@ -121,7 +121,11 @@ nImO::NodeInformationCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             RegNodeInfoOrFailure    statusWithInfo{_registry->getNodeInformation(asString->getValue())};
 
@@ -142,10 +146,6 @@ nImO::NodeInformationCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

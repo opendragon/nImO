@@ -110,7 +110,11 @@ nImO::MachineInformationResponseHandler::doIt
         SpValue     element{stuff[1]};
         CPtr(Array) infoArray{element->asArray()};
 
-        if (nullptr != infoArray)
+        if (nullptr == infoArray)
+        {
+            ODL_LOG("(nullptr == infoArray)"); //####
+        }
+        else
         {
             if (2 < infoArray->size())
             {
@@ -131,12 +135,8 @@ nImO::MachineInformationResponseHandler::doIt
             }
             else
             {
-                ODL_LOG("! (5 < infoArray->size())"); //####
+                ODL_LOG("! (2 < infoArray->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != infoArray)"); //####
         }
     }
     else

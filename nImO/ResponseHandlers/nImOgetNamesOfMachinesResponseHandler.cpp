@@ -107,7 +107,11 @@ nImO::NamesOfMachinesResponseHandler::doIt
         SpValue     element{stuff[1]};
         CPtr(Set)   asSet{element->asSet()};
 
-        if (nullptr != asSet)
+        if (nullptr == asSet)
+        {
+            ODL_LOG("(nullptr == asSet)"); //####
+        }
+        else
         {
             if (Enumerable::String == asSet->getKeyKind())
             {
@@ -120,10 +124,6 @@ nImO::NamesOfMachinesResponseHandler::doIt
             {
                 ODL_LOG("! (Enumerable::String == asSet->getKeyKind())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asSet)"); //####
         }
     }
     else

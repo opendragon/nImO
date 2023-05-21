@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOisMachinePresentCommandHandler.h
+//  File:       nImO/Registry/CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'machine present' command handler.
+//  Contains:   The class declaration for the nImO 'number of channels' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-25
+//  Created:    2023-05-21
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOisMachinePresentCommandHandler_H_))
-# define nImOisMachinePresentCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetNumberOfChannelsOnNodeCommandHandler_H_))
+# define nImOgetNumberOfChannelsOnNodeCommandHandler_H_ /* Header guard */
 
 # include "nImOregistryCommandHandler.h"
 
@@ -49,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'machine present' command handler. */
+ @brief The class declaration for the %nImO 'number of channels on node' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'machine present' command. */
-    class MachinePresentCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide a handler for the 'number of channels on node' command. */
+    class NumberOfChannelsOnNodeCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -78,13 +78,13 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
-            MachinePresentCommandHandler
+            NumberOfChannelsOnNodeCommandHandler
                 (SpContextWithNetworking    owner,
                  SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~MachinePresentCommandHandler
+            ~NumberOfChannelsOnNodeCommandHandler
                 (void);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -113,8 +113,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // MachinePresentCommandHandler
+    }; // NumberOfChannelsOnNodeCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOisMachinePresentCommandHandler_H_)
+#endif // not defined(nImOgetNumberOfChannelsOnNodeCommandHandler_H_)

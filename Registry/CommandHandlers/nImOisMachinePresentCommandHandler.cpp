@@ -119,7 +119,11 @@ nImO::MachinePresentCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             RegBoolOrFailure    statusWithBool{_registry->isMachinePresent(asString->getValue())};
 
@@ -131,10 +135,6 @@ nImO::MachinePresentCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

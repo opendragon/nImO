@@ -107,13 +107,13 @@ nImO::RemoveNodeResponseHandler::doIt
         SpValue       element{stuff[1]};
         CPtr(Logical) asLogical{element->asLogical()};
 
-        if (nullptr != asLogical)
+        if (nullptr == asLogical)
         {
-            _result = asLogical->getValue();
+            ODL_LOG("(nullptr == asLogical)"); //####
         }
         else
         {
-            ODL_LOG("! (nullptr != asLogical)"); //####
+            _result = asLogical->getValue();
         }
     }
     else

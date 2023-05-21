@@ -114,7 +114,7 @@ nImO::NumberOfChannelsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("number of machines request received");
+    _owner->report("number of channels request received");
     if (0 < arguments.size())
     {
         RegIntOrFailure    statusWithInt{_registry->getNumberOfChannels()};
@@ -123,7 +123,7 @@ nImO::NumberOfChannelsCommandHandler::doIt
         {
             SpInteger   count{new Integer{statusWithInt.second}};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "number of machines", count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "number of channels", count);
         }
         else
         {

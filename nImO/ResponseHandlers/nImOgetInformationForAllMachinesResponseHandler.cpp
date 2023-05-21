@@ -110,13 +110,21 @@ nImO::InformationForAllMachinesResponseHandler::doIt
         SpValue     element{stuff[1]};
         CPtr(Array) infoVector{element->asArray()};
 
-        if (nullptr != infoVector)
+        if (nullptr == infoVector)
+        {
+            ODL_LOG("(nullptr == infoVector)"); //####
+        }
+        else
         {
             for (auto walker = infoVector->begin(); walker != infoVector->end(); ++walker)
             {
                 CPtr(Array) infoArray{(*walker)->asArray()};
 
-                if (nullptr != infoArray)
+                if (nullptr == infoArray)
+                {
+                    ODL_LOG("(nullptr == infoArray)"); //####
+                }
+                else
                 {
                     MachineInfo thisMachine;
 
@@ -144,15 +152,7 @@ nImO::InformationForAllMachinesResponseHandler::doIt
                         _result.push_back(thisMachine);
                     }
                 }
-                else
-                {
-                    ODL_LOG("! (nullptr != infoArray)"); //####
-                }
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != infoVector)"); //####
         }
     }
     else

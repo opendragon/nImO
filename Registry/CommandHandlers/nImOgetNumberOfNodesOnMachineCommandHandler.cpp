@@ -120,7 +120,11 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
         SpValue         element{arguments[1]};
         CPtr(String)    asString{element->asString()};
 
-        if (nullptr != asString)
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
         {
             RegIntOrFailure    statusWithInt{_registry->getNumberOfNodesOnMachine(asString->getValue())};
 
@@ -134,10 +138,6 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != asString)"); //####
         }
     }
     else

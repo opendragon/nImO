@@ -260,6 +260,22 @@ namespace nImO
                 (RegistryProxy &&   other)
                 noexcept = delete;
 
+            /*! @brief Remove a channel from the Registry.
+             @param[in] nodeName The name of the node for the channel to be removed.
+             @param[in] path The path for the channel.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            removeChannel
+                (const std::string &    nodeName,
+                 const std::string &    path);
+
+            /*! @brief Remove all channels for a node from the Registry.
+             @param[in] nodeName The name of the node.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            removeChannelsForNode
+                (const std::string &    nodeName);
+
             /*! @brief Remove a node from the Registry.
              @param[in] nodeName The name of the node to be removed.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */

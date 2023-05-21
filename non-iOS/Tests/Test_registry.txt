@@ -181,6 +181,22 @@ add_test(NAME TestAddTwoIdenticalChannelsToRegistry COMMAND ${THIS_TARGET} 308)
 add_test(NAME TestAddChannelWithBadNodeNameToRegistry COMMAND ${THIS_TARGET} 309)
 ## Test check add channel with bad channel name to Registry
 add_test(NAME TestAddChannelWithBadChannelNameToRegistry COMMAND ${THIS_TARGET} 310)
+## Test remove added channels from Registry
+add_test(NAME TestRemoveAllChannelsFromRegistry COMMAND ${THIS_TARGET} 311)
+## Test check count channels with Registry with all channels removed
+add_test(NAME TestCountChannelsWithRegistryWithAllChannelsRemoved COMMAND ${THIS_TARGET} 312)
+## Test check find channel with Registry with all channels removed
+add_test(NAME TestFindChannelWithRegistryAllChannelsRemoved COMMAND ${THIS_TARGET} 313)
+## Test remove single added channel from Registry
+add_test(NAME TestRemoveOneChannelFromRegistry COMMAND ${THIS_TARGET} 314)
+## Test check count channels with Registry with one channel removed
+add_test(NAME TestCountChannelsWithRegistryWithOneChannelRemoved COMMAND ${THIS_TARGET} 315)
+## Test check find channel with Registry with one channel removed
+add_test(NAME TestFindChannelWithRegistryOneChannelRemoved COMMAND ${THIS_TARGET} 316)
+## Test remove non-existent channel from Registry
+add_test(NAME TestRemoveNonexistentChannelFromRegistry COMMAND ${THIS_TARGET} 317)
+## Test remove channel from non-existent node from Registry
+add_test(NAME TestRemoveChannelFromNonexistentNodeFromRegistry COMMAND ${THIS_TARGET} 318)
 
 ## Test check get channel info from empty Registry
 add_test(NAME TestGetChannelInfoFromEmptyRegistry COMMAND ${THIS_TARGET} 320)

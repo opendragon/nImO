@@ -279,6 +279,7 @@ performSQLstatementWithMultipleColumnResults
     ODL_ENTER(); //####
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
+    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
     try
@@ -388,6 +389,7 @@ performSQLstatementWithNoResults
     ODL_ENTER(); //####
     ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
+    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
     try
@@ -533,6 +535,7 @@ performSQLstatementWithSingleColumnResults
     ODL_ENTER(); //####
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
+    ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
     nImO::RegSuccessOrFailure   status{true, ""};
 
     resultList.clear();
@@ -1247,8 +1250,8 @@ nImO::Registry::addChannel
     const
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", machineName); //####
-    ODL_I1("address = ", address); //####
+    ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
+    ODL_B1("isOutput = ", isOutput); //####
     RegSuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -1382,8 +1385,8 @@ nImO::Registry::getChannelInformation
             std::vector<StringVector>   results;
             ChannelSearchData           data{nodeName, path};
             static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                        "  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
-                                                        "= @" CHANNEL_PATH_C_};
+                                                        "  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
+                                                        " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
@@ -1657,7 +1660,7 @@ nImO::Registry::getLaunchDetails
         {
             std::vector<StringVector>   results;
             static CPtr(char)           searchNodes{"SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM "
-                                                    NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+                                                    NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
@@ -1719,7 +1722,7 @@ nImO::Registry::getMachineInformation
         if (status.first)
         {
             std::vector<StringVector>   results;
-            static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "= @"
+            static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
                                                         MACHINE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
@@ -1896,7 +1899,7 @@ nImO::Registry::getNodeInformation
         {
             std::vector<StringVector>   results;
             static CPtr(char)           searchNodes{"SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
-                                                    NODE_NAME_C_ "= @" NODE_NAME_C_};
+                                                    NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
@@ -2125,7 +2128,7 @@ nImO::Registry::getNumberOfNodesOnMachine
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ "= @"
+        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ " = @"
                                             MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
@@ -2171,7 +2174,7 @@ nImO::Registry::isChannelPresent
         {
             StringVector        results;
             ChannelSearchData   data{nodeName, channelPath};
-            static CPtr(char)   searchChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND "
+            static CPtr(char)   searchChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND "
                                                 CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
@@ -2222,7 +2225,7 @@ nImO::Registry::isMachinePresent
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ "= @" MACHINE_NAME_C_};
+        static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @" MACHINE_NAME_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -2269,7 +2272,7 @@ nImO::Registry::isNodePresent
         if (status.first)
         {
             StringVector        results;
-            static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+            static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
@@ -2322,8 +2325,8 @@ nImO::Registry::removeChannel
         if (status.first)
         {
             ChannelSearchData   data{nodeName, path};
-            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ "= @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
-                                                "= @" CHANNEL_PATH_C_};
+            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_
+                                                " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithNoResults(_owner, _dbHandle, searchChannels, setupSearchChannels, &data);
             doEndTransaction(_owner, _dbHandle, status.first);
@@ -2356,7 +2359,7 @@ nImO::Registry::removeChannelsForNode
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+            static CPtr(char)   searchChannels{"DELETE FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
 
             status = performSQLstatementWithNoResults(_owner, _dbHandle, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
             doEndTransaction(_owner, _dbHandle, status.first);
@@ -2389,7 +2392,7 @@ nImO::Registry::removeNode
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            static CPtr(char)   searchNodes{"DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ "= @" NODE_NAME_C_};
+            static CPtr(char)   searchNodes{"DELETE FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
             doEndTransaction(_owner, _dbHandle, status.first);

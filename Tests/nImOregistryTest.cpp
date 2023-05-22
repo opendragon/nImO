@@ -4557,7 +4557,7 @@ doTestAddChannelToRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
                         result = 0;
@@ -4636,7 +4636,7 @@ doTestCountChannelsInRegistryWithOneChannel
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
                         nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfChannels()};
@@ -4731,7 +4731,7 @@ doTestFindChannelInRegistryWithOneChannel
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         nImO::RegBoolOrFailure  statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
@@ -4841,13 +4841,13 @@ doTestAddTwoChannelsToRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                             if (status.first)
                             {
                                 result = 0;
@@ -4936,13 +4936,13 @@ doTestCountChannelsInRegistryWithTwoChannels
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                             if (status.first)
                             {
                                 nImO::RegIntOrFailure   statusWithInt{aRegistry->getNumberOfChannels()};
@@ -5047,14 +5047,14 @@ doTestFindChannelsInRegistryWithTwoChannels
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
 
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                             if (status.first)
                             {
                                 nImO::RegBoolOrFailure  statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
@@ -5174,10 +5174,10 @@ doTestAddTwoIdenticalChannelsToRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "only-blort", nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -5258,7 +5258,7 @@ doTestAddChannelWithBadNodeNameToRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_2, "/arbitrary_path", false, "");
+                    status = aRegistry->addChannel(NODE_NAME_2, "/arbitrary_path", false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         ODL_LOG("(status.first)"); //####
@@ -5334,7 +5334,7 @@ doTestAddChannelWithBadChannelNameToRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, "/arbitrary&path", false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, "/arbitrary&path", false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
                         ODL_LOG("(status.first)"); //####
@@ -5413,10 +5413,10 @@ doTestRemoveAllChannelsFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                         if (status.first)
                         {
                             status = aRegistry->removeChannelsForNode(NODE_NAME_1);
@@ -5508,10 +5508,10 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             status = aRegistry->removeChannelsForNode(NODE_NAME_1);
@@ -5619,10 +5619,10 @@ doTestFindChannelWithRegistryAllChannelsRemoved
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                         if (status.first)
                         {
                             status = aRegistry->removeChannelsForNode(NODE_NAME_1);
@@ -5745,10 +5745,10 @@ doTestRemoveOneChannelFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                         if (status.first)
                         {
                             status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
@@ -5840,10 +5840,10 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
@@ -5951,10 +5951,10 @@ doTestFindChannelWithRegistryOneChannelRemoved
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                         if (status.first)
                         {
                             status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
@@ -6077,7 +6077,7 @@ doTestRemoveNonexistentChannelFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
                         status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_2);
@@ -6164,7 +6164,7 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         status = aRegistry->removeChannel(NODE_NAME_2, CHANNEL_PATH_1);
@@ -6320,7 +6320,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                     if (status.first)
                     {
                         nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
@@ -6330,15 +6330,18 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                             if (statusWithInfo.second._found)
                             {
                                 if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
-                                    (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
+                                    (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>") &&
+                                    (nImO::TransportType::kAny == statusWithInfo.second._modes))
                                 {
                                     result = 0;
                                 }
                                 else
                                 {
                                     ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
-                                            "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
-                                            "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
+                                            "(statusWithInfo.second._path == CHANNEL_PATH_1) && " //####
+                                            "(! statusWithInfo.second._isOutput) && " //####
+                                            "(statusWithInfo.second._dataType == \"<chuckles>\") && " //####
+                                            "(nImO::TransportType::kAny == statusWithInfo.second._modes))"); //####
                                 }
                             }
                             else
@@ -6425,13 +6428,13 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
                     if (status.first)
                     {
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                             if (status.first)
                             {
                                 nImO::RegChannelInfoOrFailure   statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
@@ -6441,7 +6444,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                     if (statusWithInfo.second._found)
                                     {
                                         if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
-                                            (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"))
+                                            (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>") &&
+                                            (nImO::TransportType::kTCP == statusWithInfo.second._modes))
                                         {
                                             statusWithInfo = aRegistry->getChannelInformation(NODE_NAME_2, CHANNEL_PATH_2);
                                             if (statusWithInfo.first.first)
@@ -6450,7 +6454,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                                 {
                                                     if ((statusWithInfo.second._node == NODE_NAME_2) &&
                                                         (statusWithInfo.second._path == CHANNEL_PATH_2) &&
-                                                        statusWithInfo.second._isOutput && (statusWithInfo.second._dataType == "only-blort"))
+                                                        statusWithInfo.second._isOutput && (statusWithInfo.second._dataType == "only-blort") &&
+                                                        (nImO::TransportType::kUDP == statusWithInfo.second._modes))
                                                     {
                                                         result = 0;
                                                     }
@@ -6459,7 +6464,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                                         ODL_LOG("((statusWithInfo.second._node == NODE_NAME_2) && "  //####
                                                                 "(statusWithInfo.second._path == CHANNEL_PATH_2) && "  //####
                                                                 "statusWithInfo.second._isOutput && "  //####
-                                                                "(statusWithInfo.second._dataType == \"only-blort\"))"); //####
+                                                                "(statusWithInfo.second._dataType == \"only-blort\") && " //####
+                                                                "(nImO::TransportType::kUDP == statusWithInfo.second._modes))"); //####
                                                     }
                                                 }
                                                 else
@@ -6471,8 +6477,10 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                         else
                                         {
                                             ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
-                                                    "(statusWithInfo.second._path == CHANNEL_PATH_1) && (! statusWithInfo.second._isOutput) && "
-                                                    "(statusWithInfo.second._dataType == \"<chuckles>\"))"); //####
+                                                    "(statusWithInfo.second._path == CHANNEL_PATH_1) && " //####
+                                                    "(! statusWithInfo.second._isOutput) && " //####
+                                                    "(statusWithInfo.second._dataType == \"<chuckles>\") && " //####
+                                                    "(nImO::TransportType::kTCP == statusWithInfo.second._modes))"); //####
                                         }
                                     }
                                     else
@@ -6807,7 +6815,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                     if (status.first)
                     {
                         nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
@@ -6821,7 +6829,8 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                                 const ChannelInfo & theChannel{infoVector[0]};
 
                                 if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
-                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"))
+                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>") &&
+                                    (nImO::TransportType::kAny == theChannel._modes))
                                 {
                                     result = 0;
                                 }
@@ -6829,7 +6838,8 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                                 {
                                     ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
                                             "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
-                                            "(theChannel._dataType == \"<chuckles>\"))"); //####
+                                            "(theChannel._dataType == \"<chuckles>\") && " //####
+                                            "(nImO::TransportType::kAny == theChannel._modes))"); //####
                                 }
                             }
                             else
@@ -6913,10 +6923,10 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                         if (status.first)
                         {
                             nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
@@ -6931,16 +6941,19 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                     const ChannelInfo & theChannel2{infoVector[1]};
 
                                     if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
-                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
+                                        (nImO::TransportType::kTCP == theChannel1._modes) && theChannel2._found &&
                                         (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                        (theChannel2._dataType == "only-blort"))
+                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kUDP == theChannel2._modes))
                                     {
                                         result = 0;
                                     }
                                     else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
-                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
+                                             (nImO::TransportType::kTCP == theChannel2._modes) && theChannel1._found &&
                                              (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
-                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
+                                             (nImO::TransportType::kUDP == theChannel1._modes))
                                     {
                                         result = 0;
                                     }
@@ -6948,9 +6961,11 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                     {
                                         ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                 "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
-                                                "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                "(theChannel2._dataType == \"<chuckles>\") && " //####
+                                                "(nImO::TransportType::kTCP == theChannel2._modes) && theChannel1._found && " //####
                                                 "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
+                                                "(nImO::TransportType::kUDP == theChannel1._modes))"); //####
                                     }
                                 }
                                 else
@@ -7042,10 +7057,10 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                             if (status.first)
                             {
                                 nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannels()};
@@ -7060,16 +7075,19 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                         const ChannelInfo & theChannel2{infoVector[1]};
 
                                         if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
-                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
+                                            (nImO::TransportType::kAny == theChannel1._modes) && theChannel2._found &&
                                             (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                            (theChannel2._dataType == "only-blort"))
+                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes))
                                         {
                                             result = 0;
                                         }
                                         else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
-                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
+                                                 (nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found &&
                                                  (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
-                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
+                                                 (nImO::TransportType::kTCP == theChannel1._modes))
                                         {
                                             result = 0;
                                         }
@@ -7077,9 +7095,11 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                         {
                                             ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                     "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
-                                                    "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\") && " //####
+                                                    "(nImO::TransportType::kAny == theChannel2._modes) theChannel1._found && " //####
                                                     "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
+                                                    "(nImO::TransportType::kTCP == theChannel1._modes))"); //####
                                         }
                                     }
                                     else
@@ -7173,7 +7193,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
@@ -7187,7 +7207,8 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                                 const ChannelInfo & theChannel{infoVector[0]};
 
                                 if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
-                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"))
+                                    (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>") &&
+                                    (nImO::TransportType::kUDP == theChannel._modes))
                                 {
                                     result = 0;
                                 }
@@ -7195,7 +7216,8 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                                 {
                                     ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
                                             "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
-                                            "(theChannel._dataType == \"<chuckles>\"))"); //####
+                                            "(theChannel._dataType == \"<chuckles>\") && " //####
+                                            "(nImO::TransportType::kUDP == theChannel._modes))"); //####
                                 }
                             }
                             else
@@ -7279,10 +7301,10 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
@@ -7297,16 +7319,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                     const ChannelInfo & theChannel2{infoVector[1]};
 
                                     if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
-                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                        (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
+                                        (nImO::TransportType::kAny == theChannel1._modes) && theChannel2._found &&
                                         (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                        (theChannel2._dataType == "only-blort"))
+                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes))
                                     {
                                         result = 0;
                                     }
                                     else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
-                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
+                                             (nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found &&
                                              (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
-                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
+                                             (nImO::TransportType::kTCP == theChannel1._modes))
                                     {
                                         result = 0;
                                     }
@@ -7314,9 +7339,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                     {
                                         ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                 "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
-                                                "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                "(theChannel2._dataType == \"<chuckles>\") && " //####
+                                                "(nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found && " //####
                                                 "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
+                                                "(nImO::TransportType::kTCP == theChannel1._modes))"); //####
                                     }
                                 }
                                 else
@@ -7408,10 +7435,10 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort");
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                             if (status.first)
                             {
                                 nImO::RegChannelInfoVectorOrFailure
@@ -7427,16 +7454,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                         const ChannelInfo & theChannel2{infoVector[1]};
 
                                         if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
-                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") && theChannel2._found &&
+                                            (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
+                                            (nImO::TransportType::kUDP == theChannel1._modes) && theChannel2._found &&
                                             (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                            (theChannel2._dataType == "only-blort"))
+                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kAny == theChannel2._modes))
                                         {
                                             result = 0;
                                         }
                                         else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
-                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") && theChannel1._found &&
+                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
+                                                 (nImO::TransportType::kUDP == theChannel2._modes) && theChannel1._found &&
                                                  (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
-                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"))
+                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
+                                                 (nImO::TransportType::kAny == theChannel1._modes))
                                         {
                                             result = 0;
                                         }
@@ -7444,9 +7474,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                         {
                                             ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                     "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
-                                                    "(theChannel2._dataType == \"<chuckles>\") && theChannel1._found && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\") && " //####
+                                                    "(nImO::TransportType::kUDP == theChannel2._modes) && theChannel1._found && " //####
                                                     "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\"))"); //####
+                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
+                                                    "(nImO::TransportType::kAny == theChannel1._modes))"); //####
                                         }
                                     }
                                     else
@@ -7540,7 +7572,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
                     if (status.first)
                     {
                         nImO::RegChannelInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllChannelsOnNode(NODE_NAME_2)};
@@ -7634,7 +7666,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>");
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         nImO::RegChannelInfoVectorOrFailure

@@ -38,6 +38,7 @@
 
 #include "nImOaddChannelCommandHandler.h"
 
+#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
@@ -115,24 +116,28 @@ nImO::AddChannelCommandHandler::doIt
     bool    okSoFar{false};
 
     _owner->report("add channel request received");
-    if (4 < arguments.size())
+    if (5 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
         SpValue         element3{arguments[3]};
         SpValue         element4{arguments[4]};
+        SpValue         element5{arguments[5]};
         CPtr(String)    nodeNameString{element1->asString()};
         CPtr(String)    pathString{element2->asString()};
         CPtr(Logical)   isOutputValue{element3->asLogical()};
         CPtr(String)    dataTypeString{element4->asString()};
+        CPtr(Integer)   modesString{element5->asInteger()};
 
-        if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) && (nullptr != dataTypeString))
+        if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) &&
+            (nullptr != dataTypeString) && (nullptr != modesString))
         {
             std::string         nodeName{nodeNameString->getValue()};
             std::string         path{pathString->getValue()};
             bool                isOutput{isOutputValue->getValue()};
             std::string         dataType{dataTypeString->getValue()};
-            RegSuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType)};
+            TransportType       modes{StaticCast(TransportType, modesString->getIntegerValue())};
+            RegSuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
 
             if (status.first)
             {
@@ -150,7 +155,7 @@ nImO::AddChannelCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) && " //####
-                    "(nullptr != dataTypeString))"); //####
+                    "(nullptr != dataTypeString) && (nullptr != modesString))"); //####
         }
     }
     else

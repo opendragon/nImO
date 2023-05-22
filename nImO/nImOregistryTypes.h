@@ -92,10 +92,13 @@ namespace nImO
         /*! @brief The type of data carried by the channel. */
         std::string _dataType;
 
+        /*! @brief The allowed transport types for the channel. */
+        TransportType   _modes;
+
         /*! @brief The constructor. */
         inline ChannelInfo
             (void) :
-                _found(false), _isOutput(false)
+                _found(false), _isOutput(false), _modes(TransportType::kAny)
         {
         }
 

@@ -136,20 +136,22 @@ nImO::InformationForAllChannelsResponseHandler::doIt
                         CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
                         CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
                         CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
+                        CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
 
                         if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
-                            (nullptr != dataTypePtr))
+                            (nullptr != dataTypePtr) && (nullptr != modesPtr))
                         {
                             thisChannel._found = foundPtr->getValue();
                             thisChannel._node = nodePtr->getValue();
                             thisChannel._path = pathPtr->getValue();
                             thisChannel._isOutput = isOutputPtr->getValue();
                             thisChannel._dataType = dataTypePtr->getValue();
+                            thisChannel._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
-                                    "(nullptr != dataTypePtr))"); //####
+                                    "(nullptr != dataTypePtr) && (nullptr != modesPtr))"); //####
                         }
                     }
                     if (thisChannel._found)

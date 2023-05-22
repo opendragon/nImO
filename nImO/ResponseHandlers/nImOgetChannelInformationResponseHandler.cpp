@@ -116,31 +116,34 @@ nImO::ChannelInformationResponseHandler::doIt
         }
         else
         {
-            if (4 < infoArray->size())
+            if (5 < infoArray->size())
             {
                 CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
                 CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
                 CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
                 CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
                 CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
+                CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
 
-                if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && (nullptr != dataTypePtr))
+                if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
+                    (nullptr != dataTypePtr) && (nullptr != modesPtr))
                 {
                     _result._found = foundPtr->getValue();
                     _result._node = nodePtr->getValue();
                     _result._path = pathPtr->getValue();
                     _result._isOutput = isOutputPtr->getValue();
                     _result._dataType = dataTypePtr->getValue();
+                    _result._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
                 }
                 else
                 {
                     ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
-                            "(nullptr != dataTypePtr))"); //####
+                            "(nullptr != dataTypePtr) && (nullptr != modesPtr))"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (4 < infoArray->size())"); //####
+                ODL_LOG("! (5 < infoArray->size())"); //####
             }
         }
     }

@@ -129,13 +129,14 @@ nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
                     ChannelInfo thisChannel;
 
                     thisChannel._found = false;
-                    if (4 < infoArray->size())
+                    if (5 < infoArray->size())
                     {
                         CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
                         CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
                         CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
                         CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
                         CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
+                        CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
 
                         if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
                             (nullptr != dataTypePtr))
@@ -145,6 +146,7 @@ nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
                             thisChannel._path = pathPtr->getValue();
                             thisChannel._isOutput = isOutputPtr->getValue();
                             thisChannel._dataType = dataTypePtr->getValue();
+                            thisChannel._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
                         }
                         else
                         {

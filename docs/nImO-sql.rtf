@@ -1,10 +1,10 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2639
+{\rtf1\ansi\ansicpg1252\cocoartf2709
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgenericrgb\c100000\c100000\c100000;}
 {\info
 {\author Norman Jaffe}
-{\*\company OpenDragon}}\margl1440\margr1440\vieww27600\viewh20080\viewkind0
+{\*\company OpenDragon}}\margl1440\margr1440\vieww27600\viewh18380\viewkind0
 \pard\tx1153\tx3003\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf2 Create tables:\
@@ -14,7 +14,7 @@
 	CREATE INDEX IF NOT EXISTS Machines_address_idx ON Machines (address);\
 	CREATE TABLE IF NOT EXISTS Nodes (name TEXT NOT NULL DEFAULT _ COLLATE NOCASE, address INTEGER, port INTEGER, serviceType INTEGER, execPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, launchDirectory TEXT NOT NULL DEFAULT _ COLLATE BINARY, commandLine TEXT NOT NULL DEFAULT _ COLLATE BINARY, PRIMARY KEY (name) ON CONFLICT ABORT, FOREIGN KEY (address) REFERENCES Machines (address));\
 	CREATE INDEX IF NOT EXISTS Nodes_name_idx ON Nodes (name);\
-	CREATE TABLE IF NOT EXISTS Channels (node TEXT NOT NULL DEFAULT _ COLLATE NOCASE, path TEXT NOT NULL DEFAULT _ COLLATE BINARY, isOutput INTEGER, dataType TEXT DEFAULT _ COLLATE BINARY, FOREIGN KEY (node) REFERENCES Nodes (name), PRIMARY KEY (node, path) ON CONFLICT ABORT);\
+	CREATE TABLE IF NOT EXISTS Channels (node TEXT NOT NULL DEFAULT _ COLLATE NOCASE, path TEXT NOT NULL DEFAULT _ COLLATE BINARY, isOutput INTEGER, dataType TEXT DEFAULT _ COLLATE BINARY, modes INTEGER, FOREIGN KEY (node) REFERENCES Nodes (name), PRIMARY KEY (node, path) ON CONFLICT ABORT);\
 	CREATE INDEX IF NOT EXISTS Channels_idx ON Channels (node, path);\
 \
 Insertions:\
@@ -49,11 +49,11 @@ Tests:\
 	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b-3", 30000000, 5100, 2, "/opt/bin/stuff", "/home/charlie", "-n b-3");\
 	INSERT INTO Nodes (name, address, port, serviceType, execPath, launchDirectory, commandLine) VALUES ("b_4", 30000000, 5101, 1, "/opt/bin/stuff", "/home/delta", "-n b_3");\
 \
-	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b1", "/blart/in", 0, "");\
-	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b.2", "/blirt/out", 1, "simple");\
-	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b.2", "/blirt/in", 0, "simple");\
-	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b-3", "/blert", 0, "complex");\
-	INSERT INTO Channels (node, path, isOutput, dataType) VALUES ("b_3", "/blort", 0, "vector");\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b1", "/blart/in", 0, \'93\'94, 1);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b.2", "/blirt/out", 1, "simple\'94, 2);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b.2", "/blirt/in", 0, "simple\'94, 127);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b-3", "/blert", 0, "complex\'94, 1);\
+	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b_3", "/blort", 0, "vector\'94, 2);\
 \
 	SELECT * FROM Machines;\
 	SELECT * FROM Nodes;\
@@ -70,9 +70,9 @@ Tests:\
 	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
 	SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
 \
-	SELECT node, path, isOutput, dataType FROM Channels WHERE node = "b_3";\
-	SELECT node, path, isOutput, dataType FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
-	SELECT node, path, isOutput, dataType FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
+	SELECT node, path, isOutput, dataType, modes FROM Channels WHERE node = "b_3";\
+	SELECT node, path, isOutput, dataType, modes FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
+	SELECT node, path, isOutput, dataType, modes FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
 \
 	DELETE FROM Nodes WHERE name = "b.2";\
 	DELETE FROM Channels WHERE node = "b_3" AND path = "/blort";\

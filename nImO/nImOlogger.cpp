@@ -108,13 +108,13 @@ const std::string   nImO::kTagKey{"tag"};
 
 nImO::Logger::Logger
     (SPservice              service,
-     const std::string &    tag,
+     const std::string &    tagForLogging,
      const Connection &     logConnection):
         _connection(logConnection), _endpoint(asio::ip::address_v4(_connection._address), _connection._port),
         _socket(*service, _endpoint.protocol()), _commandPort(nullptr)
 {
     _computerName = std::make_shared<String>(GetShortComputerName());
-    _tag = std::make_shared<String>(tag);
+    _tag = std::make_shared<String>(tagForLogging);
     ODL_EXIT_P(this); //####
 } // nImO::Logger::Logger
 

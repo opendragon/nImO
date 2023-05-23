@@ -354,7 +354,7 @@ nImO::RegistryContext::RegistryContext
      const std::string &    executableName,
      const bool             logging,
      const bool             startAnnouncer) :
-        inherited(argc, argv, executableName, "registry", logging, true), _announcerThread(nullptr), _announceData(nullptr),
+        inherited(argc, argv, executableName, "registry", logging, true, ""), _announcerThread(nullptr), _announceData(nullptr),
         _startAnnouncer(startAnnouncer)
 {
     ODL_ENTER(); //####

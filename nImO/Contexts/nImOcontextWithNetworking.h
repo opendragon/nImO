@@ -85,13 +85,13 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] executable The name of the executing program.
-             @param[in] tag The symbolic name for the current process.
+             @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] numReservedThreads The number of threads which the application will need for itself.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithNetworking
                 (const std::string &    executableName,
-                 const std::string &    tag = "",
+                 const std::string &    tagForLogging = "",
                  const bool             logging = false,
                  const int              numReservedThreads = 0,
                  const std::string &    nodeName = "");

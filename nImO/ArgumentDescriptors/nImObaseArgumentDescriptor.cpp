@@ -637,9 +637,8 @@ nImO::ProcessArguments
             anArg->setToDefaultValue();
         }
     }
-    // Check if there are required arguments after optional arguments or the trailing arguments
-    // placeholder.
-    // Note that we don't care how many trailing arguments placeholders there are, but they must
+    // Check if there are required arguments after optional arguments or the trailing argument placeholders.
+    // Note that we don't care how many trailing argument placeholders there are, but they must
     // follow the optional arguments, which follow the mandatory ones.
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
@@ -647,7 +646,7 @@ nImO::ProcessArguments
 
         if (nullptr != anArg)
         {
-            ODL_LOG("(anArg)"); //####
+            ODL_LOG("(nullptr != anArg)"); //####
             if (anArg->isExtra())
             {
                 ODL_LOG("(anArg->isExtra())"); //####

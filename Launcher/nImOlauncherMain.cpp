@@ -101,25 +101,18 @@ main
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
-                                    nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption))
+                                    nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipTagOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName;
-            nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "launcher", optionValues._logging, true}};
+            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "launcher", optionValues._tag)};
+            nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "Launcher", optionValues._logging, true,
+                                                                                nodeName}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
-            if (0 < optionValues._node.length())
-            {
-                nodeName = optionValues._node;
-            }
-            else
-            {
-                nodeName = nImO::GetShortComputerName() + "-launcher";
-            }
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {

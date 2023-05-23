@@ -108,19 +108,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName;
-            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "FanIn", optionValues._logging}};
+            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "fanin", optionValues._tag)};
+            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "FanIn", optionValues._logging, nodeName}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
-            if (0 < optionValues._node.length())
-            {
-                nodeName = optionValues._node;
-            }
-            else
-            {
-                nodeName = nImO::GetShortComputerName() + "-fanin";
-            }
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {

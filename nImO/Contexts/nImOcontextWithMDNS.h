@@ -99,13 +99,13 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] executable The name of the executing program.
-             @param[in] tag The symbolic name for the current process.
+             @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] startBrowser @c true if the browser thread is to be started.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithMDNS
                 (const std::string &    executableName,
-                 const std::string &    tag = "",
+                 const std::string &    tagForLogging = "",
                  const bool             logging = false,
                  const bool             startBrowser = false,
                  const std::string &    nodeName = "");

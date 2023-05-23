@@ -265,6 +265,32 @@ nImO::CompareBytes
     return result;
 } // nImO::CompareBytes
 
+std::string
+nImO::ConstructNodeName
+    (const std::string  nameFromOptions,
+     const std::string  suffixIfNotFromOptions,
+     const std::string  tag)
+{
+    ODL_ENTER(); //####
+    ODL_S3s("nameFromOptions = ", nameFromOptions, "suffixIfNotFromOptions = ", suffixIfNotFromOptions, "tag =", tag); //####
+    std::string nodeName;
+
+    if (0 < nameFromOptions.length())
+    {
+        nodeName = nameFromOptions;
+    }
+    else
+    {
+        nodeName = nImO::GetShortComputerName() + "-" + suffixIfNotFromOptions;
+    }
+    if (0 < tag.length())
+    {
+        nodeName += "-" + tag;
+    }
+    ODL_EXIT_s(nodeName); //####
+    return nodeName;
+} // nImO::ConstructNodeName
+
 void
 nImO::ConsumeSomeTime
     (Ptr(Context)   context,

@@ -91,8 +91,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"), nImO::ArgumentMode::Required, "/out"};
-    nImO::StringArgumentDescriptor  secondArg{"name", T_("Application name"), nImO::ArgumentMode::Optional, "source"};
+    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"), nImO::ArgumentMode::Optional, "/out"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode{0};
@@ -103,7 +102,6 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {
@@ -111,20 +109,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName;
-            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Write", optionValues._logging,
-                                                                               secondArg.getCurrentValue()}};
+            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "write", optionValues._tag)};
+            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Write", optionValues._logging, nodeName}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 
-            if (0 < optionValues._node.length())
-            {
-                nodeName = optionValues._node;
-            }
-            else
-            {
-                nodeName = nImO::GetShortComputerName() + "-write";
-            }
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {

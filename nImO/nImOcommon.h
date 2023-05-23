@@ -803,6 +803,17 @@ namespace nImO
          CPtr(void)     second,
          const size_t   numBytes);
 
+    /*! @brief Construct a node name.
+     @param[in] nameFromOptions The name to be used if provided via a command-line option.
+     @param[in] suffixIfNotFromOptions If nameFromOptions is blank, construct a name with this as the suffix.
+     @param[in] tag The tag to be applied to the name.
+     @return The constructed node name. */
+    std::string
+    ConstructNodeName
+        (const std::string  nameFromOptions,
+         const std::string  suffixIfNotFromOptions,
+         const std::string  tag);
+
     /*! @brief Introduce some delay in processing.
      @param[in] context The active runtime environment.
      @param[in] amount The fraction of a second to delay. */

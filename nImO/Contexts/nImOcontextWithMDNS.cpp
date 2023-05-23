@@ -587,15 +587,15 @@ queryCallback
 
 nImO::ContextWithMDNS::ContextWithMDNS
     (const std::string &    executableName,
-     const std::string &    tag,
+     const std::string &    tagForLogging,
      const bool             logging,
      const bool             startBrowser,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, 2 /* browse + announce */, nodeName), _numSockets(0),
+        inherited(executableName, tagForLogging, logging, 2 /* browse + announce */, nodeName), _numSockets(0),
         _buffer(new char[kBufferCapacity]), _startBrowser(startBrowser), _browserThread(nullptr)
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
     ODL_B2("logging = ", logging, "startBrowser = ", startBrowser); //####
     getLocalAddresses();
     openSockets();

@@ -161,6 +161,25 @@ namespace nImO
                 (const std::string &    input,
                  std::string &          problemDescription);
 
+            /*! @brief Exchanges the contents of the object with those of other.
+             @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (ChannelName &  other);
+
+            /*! @brief Returns the set of names for TransportType values.
+            @return The standard names for the TransportType values. */
+            static StringSet
+            transportNames
+                (void);
+
+            /*! @brief Returns the name corresponding to a TransportType value.
+            @param[in] aValue The TransportType value to be converted.
+            @return The standard name for the TransportType value. */
+            static std::string
+            transportToName
+                (const TransportType    aValue);
+
             /*! @brief Check if the provided string is a valid network name.
              @parm[in] input The string being checked.
              @return @c true if the string is in the correct format for a network name. */
@@ -188,25 +207,6 @@ namespace nImO
             static bool
             validTransport
                 (const std::string &    input);
-
-            /*! @brief Exchanges the contents of the object with those of other.
-             @param[in,out] other The object to be swapped with. */
-            void
-            swap
-                (ChannelName &  other);
-
-            /*! @brief Returns the set of names for TransportType values.
-            @return The standard names for the TransportType values. */
-            static StringSet
-            transportNames
-                (void);
-
-            /*! @brief Returns the name corresponding to a TransportType value.
-            @param[in] aValue The TransportType value to be converted.
-            @return The standard name for the TransportType value. */
-            static std::string
-            transportToName
-                (const TransportType    aValue);
 
         protected :
             // Protected methods.

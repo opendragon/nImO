@@ -106,7 +106,7 @@ static std::string  kStatusPortKey{"status port"};
 
 nImO::ContextWithNetworking::ContextWithNetworking
     (const std::string &    executableName,
-     const std::string &    tag,
+     const std::string &    tagForLogging,
      const bool             logging,
      const int              numReservedThreads,
      const std::string &    nodeName) :
@@ -114,7 +114,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         _loggingEnabled(logging), _logger(nullptr)
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
     ODL_B1("logging = ", logging); //####
     ODL_I1("numReservedThreads = ", numReservedThreads); //####
 #if (! MAC_OR_LINUX_)
@@ -238,7 +238,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         {
             std::lock_guard<std::mutex> loggerGuard(_loggerLock);
 
-            _logger = new Logger(getService(), tag, _logConnection);
+            _logger = new Logger(getService(), tagForLogging, _logConnection);
             ODL_P1("_logger <- ", _logger); //####
         }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);

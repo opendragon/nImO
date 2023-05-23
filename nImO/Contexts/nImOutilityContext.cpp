@@ -78,13 +78,13 @@
 
 nImO::UtilityContext::UtilityContext
     (const std::string &    executableName,
-     const std::string &    tag,
+     const std::string &    tagForLogging,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tag, logging, true, nodeName)
+        inherited(executableName, tagForLogging, logging, true, nodeName)
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tag = ", tag, "nodeName = ", nodeName); //####
+    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
     ODL_B1("logging = ", logging); //####
     try
     {

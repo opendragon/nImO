@@ -220,20 +220,11 @@ ChannelArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::ChannelTypeTag, 3, name, argMode, inVector))
     {
-        bool        okSoFar;
         std::string defaultString{inVector[0]};
         std::string description{inVector[1]};
         std::string failReason;
 
         if (ChannelName::parse(defaultString, failReason))
-        {
-            okSoFar = true;
-        }
-        else
-        {
-            okSoFar = false;
-        }
-        if (okSoFar)
         {
             result.reset(new ChannelArgumentDescriptor(name, description, argMode, defaultString));
         }

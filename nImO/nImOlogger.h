@@ -86,11 +86,11 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] service The I/O service to attach to.
-             @param[in] tag The symbolic name for the current process.
+             @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logConnection The multicast connection to use. */
             Logger
                 (SPservice              service,
-                 const std::string &    tag,
+                 const std::string &    tagForLogging,
                  const Connection &     logConnection);
 
             /*! @brief The destructor. */

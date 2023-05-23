@@ -90,8 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from", T_("'Sending' channel"), nImO::ArgumentMode::Required, "/out"};
-    nImO::ChannelArgumentDescriptor secondArg{"to", T_("'Receiving' channel"), nImO::ArgumentMode::Required, "/in"};
+    nImO::ChannelArgumentDescriptor firstArg{"from", "'Sending' channel", nImO::ArgumentMode::Required, "/out"};
+    nImO::ChannelArgumentDescriptor secondArg{"to", "'Receiving' channel", nImO::ArgumentMode::Required, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

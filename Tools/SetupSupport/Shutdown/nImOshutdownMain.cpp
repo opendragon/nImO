@@ -92,7 +92,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"node", T_("Node to be shutdown (if machine is not specified)"), nImO::ArgumentMode::Optional, ""};
+    nImO::StringArgumentDescriptor  firstArg{"node", "Node to be shutdown (if machine is not specified)", nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

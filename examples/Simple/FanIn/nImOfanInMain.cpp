@@ -90,7 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::IntegerArgumentDescriptor firstArg{"numIn", T_("Number of input channels"), nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
+    nImO::IntegerArgumentDescriptor firstArg{"numIn", "Number of input channels", nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode{0};

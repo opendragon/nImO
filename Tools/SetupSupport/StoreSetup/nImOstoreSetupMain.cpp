@@ -89,7 +89,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile", T_("File to be written to"), nImO::ArgumentMode::Required, "", ".txt", true};
+    nImO::FilePathArgumentDescriptor    firstArg{"outFile", "File to be written to", nImO::ArgumentMode::Required, "", ".txt", true};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode{0};

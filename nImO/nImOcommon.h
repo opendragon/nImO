@@ -179,9 +179,6 @@ constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
 #  define STANDARD_SIGNAL_TO_USE_       42
 # endif // ! MAC_OR_LINUX_
 
-/*! @brief A simple macro to hold the pieces of a string together. */
-# define T_(xx_)                        xx_
-
 /*! @brief A simple macro to calculate the number of elements in an array. */
 # define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
 

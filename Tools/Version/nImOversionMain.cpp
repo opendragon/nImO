@@ -148,15 +148,15 @@ main
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_);
-                    std::cout << T_("{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) << nImOversionString <<
-                                T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                odlVersionString << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mdns_plusplus"
-                                                       CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                mdnsVersionString << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
-                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                getBoostVersion() << T_(CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "IF"
-                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_) <<
-                                ifVersionString << T_(CHAR_DOUBLEQUOTE_ " }") << std::endl;
+                    std::cout << "{ " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nImOversionString <<
+                                CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                odlVersionString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mdns_plusplus"
+                                                       CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                mdnsVersionString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
+                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                getBoostVersion() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "IF"
+                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                ifVersionString << CHAR_DOUBLEQUOTE_ " }" << std::endl;
                     break;
 
                 case nImO::OutputFlavour::kFlavourNormal :

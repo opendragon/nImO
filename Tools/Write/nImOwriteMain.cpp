@@ -91,7 +91,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"output", T_("Channel to write to"), nImO::ArgumentMode::Optional, "/out"};
+    nImO::ChannelArgumentDescriptor firstArg{"output", "Channel to write to", nImO::ArgumentMode::Optional, "/out"};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode{0};

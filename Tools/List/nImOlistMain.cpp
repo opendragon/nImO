@@ -457,7 +457,7 @@ main
     {
         choiceSet.insert(walker.first);
     }
-    nImO::StringsArgumentDescriptor firstArg{"choice", T_("Objects to report"), nImO::ArgumentMode::Optional, "all", choiceSet};
+    nImO::StringsArgumentDescriptor firstArg{"choice", "Objects to report", nImO::ArgumentMode::Optional, "all", choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

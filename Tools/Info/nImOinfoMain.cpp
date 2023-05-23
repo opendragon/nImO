@@ -91,7 +91,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"channel", T_("Channel of interest"), nImO::ArgumentMode::Required, "/in"};
+    nImO::ChannelArgumentDescriptor firstArg{"channel", "Channel of interest", nImO::ArgumentMode::Required, "/in"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

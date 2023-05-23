@@ -193,27 +193,24 @@ nImO::ProcessStandardOptions
                                                 Option_::Arg::None, nullptr};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                     Option_::Arg::Required,
-                                                    T_("  --config, -c <path> \tSpecify path to configuration file")};
+                                                    "  --config, -c <path> \tSpecify path to configuration file"};
     Option_::Descriptor         describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
-                                                    T_("  --describe, -d \tPrint type and description and exit")};
+                                                    "  --describe, -d \tPrint type and description and exit"};
     Option_::Descriptor         expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
-                                                    "expanded", Option_::Arg::None, T_("  --expanded, -e \tDisplay more details")};
+                                                    "expanded", Option_::Arg::None, "  --expanded, -e \tDisplay more details"};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help",
-                                                Option_::Arg::None, T_("  --help, -h  \tPrint usage and exit")};
+                                                Option_::Arg::None, "  --help, -h  \tPrint usage and exit"};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
-                                                Option_::Arg::None,
-                                                T_("  --json, -j \tGenerate output in JSON format")};
+                                                Option_::Arg::None, "  --json, -j \tGenerate output in JSON format"};
     Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
-                                                "log", Option_::Arg::None, T_("  --log, -l \tLog application")};
+                                                "log", Option_::Arg::None, "  --log, -l \tLog application"};
     Option_::Descriptor         machineDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMACHINE), 0, "m", "machine",
                                                     Option_::Arg::Required,
-                                                    T_("  --machine, -m <name> \tSpecify machine to be referenced")};
+                                                    "  --machine, -m <name> \tSpecify machine to be referenced"};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
-                                                Option_::Arg::None,
-                                                T_("  --tabs, -t \tGenerate output in tab-format")};
+                                                Option_::Arg::None, "  --tabs, -t \tGenerate output in tab-format"};
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v",
-                                                    "version", Option_::Arg::None,
-                                                    T_("  --version, -v \tPrint version information and exit")};
+                                                    "version", Option_::Arg::None, "  --version, -v \tPrint version information and exit"};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     Option_::Descriptor         usage[11]; // first, config, describe, expanded, help, json, log, machine, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};

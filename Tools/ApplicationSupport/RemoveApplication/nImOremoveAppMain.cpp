@@ -89,7 +89,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"name", T_("Application name"), nImO::ArgumentMode::Required, ""};
+    nImO::StringArgumentDescriptor  firstArg{"name", "Application name", nImO::ArgumentMode::Required, ""};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

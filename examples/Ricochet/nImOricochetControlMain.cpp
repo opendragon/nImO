@@ -90,8 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::BooleanArgumentDescriptor firstArg{"random", T_("True if random path"), nImO::ArgumentMode::Optional, false};
-    nImO::PortArgumentDescriptor    secondArg{"port", T_("Port for communication"), nImO::ArgumentMode::Optional, 2020};
+    nImO::BooleanArgumentDescriptor firstArg{"random", "True if random path", nImO::ArgumentMode::Optional, false};
+    nImO::PortArgumentDescriptor    secondArg{"port", "Port for communication", nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

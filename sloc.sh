@@ -7,7 +7,7 @@ sloccount examples Launcher nImO Registry Tests Tools
 echo ---------------
 echo Subtract the following -
 echo ---------------
-sloccount nImO/swig_nImO_in nImO/swig_nImO_out_csharp nImO/swig_nImO_out_python odl/swig_odl_in
+sloccount nImO/swig_nImO_in nImO/swig_nImO_out_csharp nImO/swig_nImO_out_python
 echo ---------------
 echo Tests
 echo ---------------

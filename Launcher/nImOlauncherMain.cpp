@@ -100,8 +100,9 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
-                                    nImO::kSkipArgsOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
-                                    nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption | nImO::kSkipTagOption))
+                                    nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
+                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
+                                    nImO::kSkipTagOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

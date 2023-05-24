@@ -500,6 +500,67 @@ doTestParseExtractProtocol
 } // doTestParseExtractProtocol
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 16  ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] baseString The base path to be used for the test.
+ @param[in] forOutputString Whether an output path is to be generated or an input path.
+ @param[in] numChannelsString The number of channels for output or input.
+ @param[in] channelNumberString The index of the channel.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGeneratePath
+    (const bool expected,
+     CPtr(char) baseString,
+     CPtr(char) forOutputString,
+     CPtr(char) numChannelsString,
+     CPtr(char) channelNumberString,
+     CPtr(char) expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S4("baseString = ", baseString, "forOutputString = ", forOutputString, "numChannelsString = ", numChannelsString, //####
+           "channelNumberString = ", channelNumberString); //####
+    ODL_S1("expectedString = ", expectedString); //####
+    int result{1};
+
+    try
+    {
+        int64_t numChannels;
+        int64_t channelNumber;
+
+        if (ConvertToInt64(numChannelsString, numChannels) && (0 < numChannels) &&
+            ConvertToInt64(channelNumberString, channelNumber) && (0 < channelNumber))
+        {
+            bool        forOutput{('t' == *forOutputString) || ('T' == *forOutputString)};
+            std::string path;
+
+            if (nImO::ChannelName::generatePath(baseString, forOutput, numChannels, channelNumber, path))
+            {
+                if (expected && (path == expectedString))
+                {
+                    result = 0;
+                }
+            }
+            else if (! expected)
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGeneratePath
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -592,6 +653,13 @@ main
                         if (3 < argc)
                         {
                             result = doTestParseExtractProtocol(expected, *(argv + 3), *(argv + 4));
+                        }
+                        break;
+
+                    case 16  :
+                        if (6 < argc)
+                        {
+                            result = doTestGeneratePath(expected, *(argv + 3), *(argv + 4), *(argv + 5), *(argv + 6), *(argv + 7));
                         }
                         break;
 

@@ -489,55 +489,6 @@ nImO::DumpMemoryToStandardError
 } // nImO::DumpMemoryToStandardError
 
 std::string
-nImO::GetRandomChannelName
-    (CPtr(char) channelRoot)
-{
-    ODL_ENTER(); //####
-    ODL_S1("channelRoot = ", channelRoot); //####
-    std::string result;
-
-    try
-    {
-        bool                hasLeadingSlash{false};
-        CPtr(char)          stringToUse;
-        std::stringstream   buff;
-
-        if (channelRoot)
-        {
-            stringToUse = channelRoot;
-            if ('/' == *channelRoot)
-            {
-                hasLeadingSlash = true;
-            }
-        }
-        else
-        {
-            stringToUse = "_";
-        }
-        if (! hasLeadingSlash)
-        {
-            buff << "/" ;
-        }
-        buff << stringToUse << std::hex << (nImO::RandomUnsigned() % kMaxRandom);
-        result = buff.str();
-    }
-    catch (...)
-    {
-        ODL_LOG("Exception caught"); //####
-        throw;
-    }
-    ODL_EXIT_s(result); //####
-    return result;
-} // nImO::GetRandomChannelName
-
-std::string
-nImO::GetRandomChannelName
-    (const std::string &    channelRoot)
-{
-    return GetRandomChannelName(channelRoot.c_str());
-} // nImO::GetRandomChannelName
-
-std::string
 nImO::GetRandomHexString
     (void)
 {

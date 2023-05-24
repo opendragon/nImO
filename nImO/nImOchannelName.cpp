@@ -153,6 +153,66 @@ nImO::ChannelName::~ChannelName
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+/*! @brief Generate the path component of a ChannelName.
+ @param[in] base The base name of the path, which can be blank.
+ @param[in] forOutput @c true if this is an output channel and @c false otherwise.
+ @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
+ @param[in] channelNumber The index for the channel (1-origin).
+ @param[out] path The generated path.
+ @return @c true if the base name was valid so that the path could be generated. */
+bool
+nImO::ChannelName::generatePath
+    (const std::string &    base,
+     const bool             forOutput,
+     const uint16_t         numChannels,
+     const uint16_t         channelNumber,
+     std::string &          path)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("base = ", base); //####
+    ODL_B1("forOutput = ", forOutput); //####
+    ODL_I2("numChannels = ", numChannels, "channelNumber = ", channelNumber); //####
+    bool    okSoFar;
+
+    if ((channelNumber > 0) && (channelNumber <= numChannels))
+    {
+        if (0 < base.length())
+        {
+            std::string     problem;
+            SpChannelName   parsed{parse(base, problem)};
+
+            if (parsed)
+            {
+                okSoFar = true;
+                path = parsed->_path;
+            }
+            else
+            {
+                okSoFar = false;
+            }
+        }
+        else
+        {
+            okSoFar = true;
+            path = "";
+        }
+        if (okSoFar)
+        {
+            path += (forOutput ? "/out" : "/in");
+            if (1 < numChannels)
+            {
+                path += std::to_string(channelNumber);
+            }
+        }
+    }
+    else
+    {
+        okSoFar = false;
+    }
+    ODL_EXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::ChannelName::generatePath
+
 std::string
 nImO::ChannelName::getName
     (void)

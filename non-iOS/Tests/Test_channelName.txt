@@ -229,3 +229,54 @@ add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetProtocol COMMAND ${THIS
 add_test(NAME TestMinimalChannelNameGetProtocol COMMAND ${THIS_TARGET} 15 t "/arbitrary-path" "unknown")
 ## Test channel name with longer path, fetch protocol
 add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 15 t "/top/level/path/$has_special-chars" "unknown")
+
+## Test generated singular output channel name with default base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 1 1 "/out")
+## Test generated singular input channel name with default base
+add_test(NAME TestGeneratedSingularInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 1 1 "/in")
+## Test generated first output channel name with default base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 10 1 "/out1")
+## Test generated last output channel name with default base
+add_test(NAME TestGeneratedLastOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 10 10 "/out10")
+## Test generated first input channel name with default base
+add_test(NAME TestGeneratedFirstInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 10 1 "/in1")
+## Test generated last input channel name with default base
+add_test(NAME TestGeneratedLastInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 10 10 "/in10")
+
+## Test generated singular output channel name with simple base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 1 1 "/chuckles/out")
+## Test generated singular input channel name with simple base
+add_test(NAME TestGeneratedSingularInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 1 1 "/chuckles/in")
+## Test generated first output channel name with simple base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 10 1 "/chuckles/out1")
+## Test generated last output channel name with simple base
+add_test(NAME TestGeneratedLastOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 10 10 "/chuckles/out10")
+## Test generated first input channel name with simple base
+add_test(NAME TestGeneratedFirstInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 10 1 "/chuckles/in1")
+## Test generated last input channel name with simple base
+add_test(NAME TestGeneratedLastInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 10 10 "/chuckles/in10")
+
+## Test generated singular output channel name with full base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 1 1
+            "/arbitrary-path/out")
+## Test generated singular input channel name with full base
+add_test(NAME TestGeneratedSingularInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 1 1
+            "/arbitrary-path/in")
+## Test generated first output channel name with full base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 10 1
+            "/arbitrary-path/out1")
+## Test generated last output channel name with full base
+add_test(NAME TestGeneratedLastOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 10 10
+            "/arbitrary-path/out10")
+## Test generated first input channel name with full base
+add_test(NAME TestGeneratedFirstInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 10 1
+            "/arbitrary-path/in1")
+## Test generated last input channel name with full base
+add_test(NAME TestGeneratedLastInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 10 10
+            "/arbitrary-path/in10")
+
+## Test generated channel name with invalid base
+add_test(NAME TestGeneratedInputChannelNameWithInvalidBase COMMAND ${THIS_TARGET} 16 f "this-net:this-mode/arbitrary%path#udp" f 1 1
+            "/arbitrary%path/in")
+## Test generated channel name with out-of-range index
+add_test(NAME TestGeneratedInputChannelNameWithOutOfRangeIndex COMMAND ${THIS_TARGET} 16 f "/chuckles" f 1 2 "/chuckles/in")

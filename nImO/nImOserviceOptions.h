@@ -61,17 +61,20 @@ namespace nImO
         /*! @brief The struct that this struct is derived from. */
         using inherited = StandardOptions;
 
-        /*! @brief The address tag set by a command-line option. */
-        std::string _tag;
-
-        /*! @brief The node name set by a command-line option. */
-        std::string _node;
+        /*! @brief The base name for channels. */
+        std::string _base;
 
         /*! @brief The data type for input channels. */
         std::string _inType;
 
+        /*! @brief The node name set by a command-line option. */
+        std::string _node;
+
         /*! @brief The data type for output channels. */
         std::string _outType;
+
+        /*! @brief The address tag set by a command-line option. */
+        std::string _tag;
 
         /*! @brief The constructor. */
         ServiceOptions
@@ -84,6 +87,7 @@ namespace nImO
 
     /*! @brief Process the standard options for service executables.
      The option '-a' / '--args' specifies the arguments to the executable.
+     The option '-b' / '--base' specifies the base name of the channels for the service.
      The option '-c' / '--config' specifies an alternative configuration file to use.
      The option '-d' / '--describe' displays the type of the executable, the available options and the description of the executable and returns @c false.
      The option '-e' / '--expanded' increases the amount of detail presented.

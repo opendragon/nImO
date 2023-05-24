@@ -90,15 +90,30 @@ namespace nImO
                 (ChannelName &&	other)
                 noexcept;
 
+            /*! @brief Generate the path component of a ChannelName.
+             @param[in] base The base name of the path, which can be blank.
+             @param[in] forOutput @c true if this is an output channel and @c false otherwise.
+             @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
+             @param[in] channelNumber The index for the channel (1-origin).
+             @param[out] path The generated path.
+             @return @c true if the base name was valid so that the path could be generated. */
+            static bool
+            generatePath
+                (const std::string &    base,
+                 const bool             forOutput,
+                 const uint16_t         numChannels,
+                 const uint16_t         channelNumber,
+                 std::string &          path);
+
             /*! @brief Return the name in standard form.
-            @return The name in standard form. */
+             @return The name in standard form. */
             std::string
             getName
                 (void)
                 const;
 
             /*! @brief Return the name of the network for the channel.
-            @return The network name for the channel. */
+             @return The network name for the channel. */
             inline const std::string &
             getNetwork
                 (void)
@@ -108,7 +123,7 @@ namespace nImO
             }
 
             /*! @brief Return the name of the node for the channel.
-            @return The node name for the channel. */
+             @return The node name for the channel. */
             inline const std::string &
             getNode
                 (void)
@@ -118,7 +133,7 @@ namespace nImO
             }
 
             /*! @brief Return the path for the channel.
-            @return The path for the channel. */
+             @return The path for the channel. */
             inline const std::string &
             getPath
                 (void)
@@ -128,7 +143,7 @@ namespace nImO
             }
 
             /*! @brief Return the transport mechanism for the channel.
-            @return The transport mechanism for the channel. */
+             @return The transport mechanism for the channel. */
             inline TransportType
             getTransport
                 (void)
@@ -153,9 +168,9 @@ namespace nImO
                 noexcept;
 
             /*! @brief Extracts a ChannelName from a string.
-            @param[in] input The string being processed.
-            @param[out] problemDescription A description of the first problem with the input that was detected.
-            @return @c nullptr if the ChannelName could not be extracted or a non-@c nullptr ChannelName if extraction was successful. */
+             @param[in] input The string being processed.
+             @param[out] problemDescription A description of the first problem with the input that was detected.
+             @return @c nullptr if the ChannelName could not be extracted or a non-@c nullptr ChannelName if extraction was successful. */
             static SpChannelName
             parse
                 (const std::string &    input,
@@ -168,14 +183,14 @@ namespace nImO
                 (ChannelName &  other);
 
             /*! @brief Returns the set of names for TransportType values.
-            @return The standard names for the TransportType values. */
+             @return The standard names for the TransportType values. */
             static StringSet
             transportNames
                 (void);
 
             /*! @brief Returns the name corresponding to a TransportType value.
-            @param[in] aValue The TransportType value to be converted.
-            @return The standard name for the TransportType value. */
+             @param[in] aValue The TransportType value to be converted.
+             @return The standard name for the TransportType value. */
             static std::string
             transportToName
                 (const TransportType    aValue);

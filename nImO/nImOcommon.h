@@ -882,18 +882,6 @@ namespace nImO
         (CPtr(void)     address,
          const size_t   numBytes);
 
-    /*! @brief Generate a random channel name.
-     @return A randomly-generated channel name. */
-    std::string
-    GetRandomChannelName
-        (CPtr(char) channelRoot = DEFAULT_CHANNEL_ROOT_);
-
-    /*! @brief Generate a random channel name.
-     @return A randomly-generated channel name. */
-    std::string
-    GetRandomChannelName
-        (const std::string &    channelRoot);
-
     /*! @brief Return a random string of hexadecimal digits.
      @return A random string of hexadecimal digits. */
     std::string

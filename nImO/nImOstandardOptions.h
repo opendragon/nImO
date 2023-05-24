@@ -65,35 +65,38 @@ namespace nImO
         /*! @brief Skip the 'args' option. */
         kSkipArgsOption         = 0x0001,
 
+        /*! @brief Skip the 'base' option. */
+        kSkipBaseOption         = 0x0002,
+
         /*! @brief Skip the 'configFile' option. */
-        kSkipConfigFileOption   = 0x0002,
+        kSkipConfigFileOption   = 0x0004,
 
         /*! @brief Skip the 'describe' option. */
-        kSkipDescribeOption     = 0x0004,
+        kSkipDescribeOption     = 0x0008,
 
         /*! @brief Skip the 'expanded' option. */
-        kSkipExpandedOption     = 0x0008,
+        kSkipExpandedOption     = 0x0010,
 
         /*! @brief Skip the 'flavours' option. */
-        kSkipFlavoursOption     = 0x0010,
+        kSkipFlavoursOption     = 0x0020,
 
         /*! @brief Skip the 'inType' option. */
-        kSkipInTypeOption       = 0x0020,
+        kSkipInTypeOption       = 0x0040,
 
         /*! @brief Skip the 'logging' option. */
-        kSkipLoggingOption      = 0x0040,
+        kSkipLoggingOption      = 0x0080,
 
         /*! @brief Skip the 'machine' option. */
-        kSkipMachineOption      = 0x0080,
+        kSkipMachineOption      = 0x0100,
 
         /*! @brief Skip the 'node' option. */
-        kSkipNodeOption         = 0x0100,
+        kSkipNodeOption         = 0x0200,
 
         /*! @brief Skip the 'outType' option. */
-        kSkipOutTypeOption      = 0x0200,
+        kSkipOutTypeOption      = 0x0400,
 
         /*! @brief Skip the 'tag' option. */
-        kSkipTagOption          = 0x0400,
+        kSkipTagOption          = 0x0800,
 
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
@@ -122,17 +125,17 @@ namespace nImO
     /*! @brief Convenience structure for standard options. */
     struct StandardOptions
     {
-        /*! @brief The flavour set by a command-line option. */
-        OutputFlavour   _flavour;
+        /*! @brief The configuration file path set by a command-line option. */
+        std::string _configFilePath;
 
         /*! @brief @c true is a command-line option requested more details. */
         bool    _expanded;
 
+        /*! @brief The flavour set by a command-line option. */
+        OutputFlavour   _flavour;
+
         /*! @brief @c true if a command-line option enabled logging. */
         bool    _logging;
-
-        /*! @brief The configuration file path set by a command-line option. */
-        std::string _configFilePath;
 
         /*! @brief The machine name set by a command-line option. */
         std::string _machine;
@@ -141,7 +144,7 @@ namespace nImO
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _flavour(OutputFlavour::kFlavourNormal), _expanded(false), _logging(loggingOnByDefault)
+                _expanded(false), _flavour(OutputFlavour::kFlavourNormal), _logging(loggingOnByDefault)
         {
         }
 

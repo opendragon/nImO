@@ -135,6 +135,7 @@ main
                         {
                             if (statusWithBool.second)
                             {
+                                bool        outValid = false;
                                 std::string outChannelPath;
                                 std::string basePath{optionValues._base};
 
@@ -146,28 +147,7 @@ main
                                     {
                                         if (statusWithBool.second)
                                         {
-                                            ourContext->report("waiting for requests.");
-                                            for ( ; nImO::gKeepRunning; )
-                                            {
-                                                this_thread::yield();
-                        //TBD
-                                            }
-                                            nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                            statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
-                                            if (statusWithBool.first.first)
-                                            {
-                                                if (! statusWithBool.second)
-                                                {
-                                                    ourContext->report(outChannelPath + " already unregistered.");
-                                                    std::cerr << outChannelPath << " already unregistered." << std::endl;
-                                                    exitCode = 1;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << std::endl;
-                                                exitCode = 1;
-                                            }
+                                            outValid = true;
                                         }
                                         else
                                         {
@@ -186,6 +166,34 @@ main
                                 {
                                     std::cerr << "Invalid channel path " << "'" << basePath << "'" << std::endl;
                                     exitCode = 1;
+                                }
+                                if (0 == exitCode)
+                                {
+                                    ourContext->report("waiting for requests.");
+                                    for ( ; nImO::gKeepRunning; )
+                                    {
+                                        this_thread::yield();
+                //TBD
+                                    }
+                                }
+                                if (outValid)
+                                {
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(outChannelPath + " already unregistered.");
+                                            std::cerr << outChannelPath << " already unregistered." << std::endl;
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << std::endl;
+                                        exitCode = 1;
+                                    }
                                 }
                                 nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                                 statusWithBool = proxy.removeNode(nodeName);

@@ -38,6 +38,7 @@
 
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
+#include <nImOchannelName.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -137,12 +138,27 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                ourContext->report("waiting for requests.");
-                                for ( ; nImO::gKeepRunning; )
+
+                                if (0 == exitCode)
                                 {
-                                    this_thread::yield();
-            //TBD
+// input channels
+
                                 }
+                                if (0 == exitCode)
+                                {
+// output channels
+
+                                }
+                                if (0 == exitCode)
+                                {
+                                    ourContext->report("waiting for requests.");
+                                    for ( ; nImO::gKeepRunning; )
+                                    {
+                                        this_thread::yield();
+                //TBD
+                                    }
+                                }
+// remove channels
                                 nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                                 statusWithBool = proxy.removeNode(nodeName);
                                 if (statusWithBool.first.first)

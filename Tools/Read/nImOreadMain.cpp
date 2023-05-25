@@ -92,18 +92,16 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"input", "Channel to read from", nImO::ArgumentMode::Optional, ""};
-    nImO::DescriptorVector          argumentList;
-    nImO::ServiceOptions            optionValues;
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    nImO::DescriptorVector  argumentList;
+    nImO::ServiceOptions    optionValues;
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Read from a channel", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipOutTypeOption))
     {
@@ -138,15 +136,10 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                std::string         inChannelPath;
-                                std::string         basePath;
-                                nImO::SpChannelName currPath{firstArg.getCurrentValue()};
+                                std::string inChannelPath;
+                                std::string basePath{optionValues._base};
 
-                                if (currPath)
-                                {
-                                    basePath = currPath->getPath();
-                                }
-                                if (nImO::ChannelName::generatePath(basePath, firstArg.getDefaultValue(), false, 1, 1, inChannelPath))
+                                if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
                                 {
                                     statusWithBool = proxy.addChannel(nodeName, inChannelPath, false, optionValues._inType,
                                                                       nImO::TransportType::kAny);
@@ -192,7 +185,7 @@ main
                                 }
                                 else
                                 {
-                                    std::cerr << "Invalid channel path " << "'" << firstArg.getCurrentValue() << "'" << std::endl;
+                                    std::cerr << "Invalid channel path " << "'" << basePath << "'" << std::endl;
                                     exitCode = 1;
                                 }
                                 nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...

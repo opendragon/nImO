@@ -36,7 +36,6 @@
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(Echo)
 add_subdirectory(Ricochet)
 add_subdirectory(Simple)
 

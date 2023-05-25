@@ -112,7 +112,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "commutator", optionValues._tag)};
-            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "FanOut", optionValues._logging, nodeName}};
+            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "Commutator", optionValues._logging, nodeName}};
             nImO::Connection                registryConnection;
             Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
 

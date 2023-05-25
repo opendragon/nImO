@@ -92,7 +92,6 @@ namespace nImO
 
             /*! @brief Generate the path component of a ChannelName.
              @param[in] base The base name of the path, which can be blank.
-             @param[in] defaultName The default name of the path.
              @param[in] forOutput @c true if this is an output channel and @c false otherwise.
              @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
              @param[in] channelNumber The index for the channel (1-origin).
@@ -101,7 +100,6 @@ namespace nImO
             static bool
             generatePath
                 (const std::string &    base,
-                 const std::string &    defaultName,
                  const bool             forOutput,
                  const uint16_t         numChannels,
                  const uint16_t         channelNumber,

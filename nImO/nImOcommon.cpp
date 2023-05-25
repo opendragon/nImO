@@ -98,9 +98,6 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief The maximum integer that we wish to use for generated random values. */
-static const int    kMaxRandom{123456789};
-
 /*! @brief Seed for random number generator. */
 static std::random_device   lRd;
 

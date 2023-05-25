@@ -39,6 +39,7 @@
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Contexts/nImOsinkContext.h>
+#include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
@@ -92,7 +93,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"input", "Channel to read from", nImO::ArgumentMode::Optional, "/in"};
+    nImO::ChannelArgumentDescriptor firstArg{"input", "Channel to read from", nImO::ArgumentMode::Optional, ""};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode{0};
@@ -137,11 +138,62 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                ourContext->report("waiting for requests.");
-                                for ( ; nImO::gKeepRunning; )
+                                std::string         inChannelPath;
+                                std::string         basePath;
+                                nImO::SpChannelName currPath{firstArg.getCurrentValue()};
+
+                                if (currPath)
                                 {
-                                    this_thread::yield();
-            //TBD
+                                    basePath = currPath->getPath();
+                                }
+                                if (nImO::ChannelName::generatePath(basePath, firstArg.getDefaultValue(), false, 1, 1, inChannelPath))
+                                {
+                                    statusWithBool = proxy.addChannel(nodeName, inChannelPath, false, optionValues._inType,
+                                                                      nImO::TransportType::kAny);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (statusWithBool.second)
+                                        {
+                                            ourContext->report("waiting for requests.");
+                                            for ( ; nImO::gKeepRunning; )
+                                            {
+                                                this_thread::yield();
+                        //TBD
+                                            }
+                                            nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                            statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
+                                            if (statusWithBool.first.first)
+                                            {
+                                                if (! statusWithBool.second)
+                                                {
+                                                    ourContext->report(inChannelPath + " already unregistered.");
+                                                    std::cerr << inChannelPath << " already unregistered." << std::endl;
+                                                    exitCode = 1;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << std::endl;
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ourContext->report(inChannelPath + " already registered.");
+                                            std::cerr << inChannelPath << " already registered." << std::endl;
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << std::endl;
+                                        exitCode = 1;
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Invalid channel path " << "'" << firstArg.getCurrentValue() << "'" << std::endl;
+                                    exitCode = 1;
                                 }
                                 nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                                 statusWithBool = proxy.removeNode(nodeName);

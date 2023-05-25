@@ -38,9 +38,6 @@
 
 #include <nImOserviceOptions.h>
 
-//#include <fstream>
-//#include <initFile.h>
-//#include <initFileObject.h>
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
 //#include <odlEnable.h>
@@ -93,10 +90,11 @@ nImO::ProcessServiceOptions
      Ptr(StringVector)      arguments)
 {
     ODL_ENTER(); //####
-    ODL_I3("argc = ", argc, "year = ", year, "skipOptions = ", StaticCast(int64_t, skipOptions)); //####
+    ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
     ODL_S2s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####
+    ODL_X1("skipOptions = ", StaticCast(int64_t, skipOptions)); //####
     enum class OptionIndex
     {
         kOptionUNKNOWN,

@@ -538,7 +538,7 @@ doTestGeneratePath
             bool        forOutput{('t' == *forOutputString) || ('T' == *forOutputString)};
             std::string path;
 
-            if (nImO::ChannelName::generatePath(baseString, forOutput, numChannels, channelNumber, path))
+            if (nImO::ChannelName::generatePath(baseString, "", forOutput, numChannels, channelNumber, path))
             {
                 if (expected && (path == expectedString))
                 {

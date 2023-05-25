@@ -169,8 +169,9 @@ nImO::ProcessStandardOptions
      Ptr(StringVector)      arguments)
 {
     ODL_ENTER(); //####
-    ODL_I3("argc = ", argc, "year = ", year, "optionsToIgnore = ", StaticCast(int64_t, optionsToIgnore)); //####
+    ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P3("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues); //####
+    ODL_X1("optionsToIgnore = ", StaticCast(int64_t, optionsToIgnore)); //####
     ODL_P1("arguments = ", arguments); //####
     ODL_S2s("utilityDescription = ", utilityDescription, "utilityExample = ", utilityExample); //####
     ODL_S1("copyrightHolder = ", copyrightHolder); //####

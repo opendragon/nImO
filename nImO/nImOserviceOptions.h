@@ -73,7 +73,7 @@ namespace nImO
         /*! @brief The data type for output channels. */
         std::string _outType;
 
-        /*! @brief The address tag set by a command-line option. */
+        /*! @brief The tag modifier set by a command-line option. */
         std::string _tag;
 
         /*! @brief The constructor. */

@@ -238,10 +238,17 @@ ChannelArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string failReason;
+    if (0 < _defaultValue.length())
+    {
+        std::string failReason;
 
-    _currentValue = ChannelName::parse(_defaultValue, failReason);
-    ODL_S1s("_currentValue = ", _currentValue->getName()); //####
+        _currentValue = ChannelName::parse(_defaultValue, failReason);
+    }
+    else
+    {
+        _currentValue.reset();
+    }
+    ODL_P1("_currentValue = ", _currentValue.get()); //####
     ODL_OBJEXIT(); //####
 } // ChannelArgumentDescriptor::setToDefaultValue
 

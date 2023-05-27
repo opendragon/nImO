@@ -139,9 +139,10 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        inValid = false;
-                                std::string inChannelPath;
-                                std::string basePath{optionValues._base};
+                                std::string         basePath{optionValues._base};
+                                std::string         inChannelPath;
+                                bool                inValid = false;
+                                nImO::StringVector  outChannelPaths;
 
                                 if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
                                 {
@@ -171,9 +172,40 @@ main
                                     std::cerr << "Invalid channel path " << "'" << basePath << "'" << std::endl;
                                     exitCode = 1;
                                 }
-                                if (0 == exitCode)
+                                for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
-// output channels
+                                    std::string scratch;
+
+                                    // Using one greater than the requested number of channels will ensure that all the
+                                    // channel paths will have a number at the end.
+                                    if (nImO::ChannelName::generatePath(basePath, true, mm + 1, ii, scratch))
+                                    {
+                                        statusWithBool = proxy.addChannel(nodeName, scratch, true, optionValues._outType,
+                                                                          nImO::TransportType::kAny);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (statusWithBool.second)
+                                            {
+                                                outChannelPaths.push_back(scratch);
+                                            }
+                                            else
+                                            {
+                                                ourContext->report(scratch + " already registered.");
+                                                std::cerr << scratch << " already registered." << std::endl;
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << std::endl;
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Invalid channel path " << "'" << basePath << "'" << std::endl;
+                                        exitCode = 1;
+                                    }
                                 }
                                 if (0 == exitCode)
                                 {
@@ -194,6 +226,27 @@ main
                                         {
                                             ourContext->report(inChannelPath + " already unregistered.");
                                             std::cerr << inChannelPath << " already unregistered." << std::endl;
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << std::endl;
+                                        exitCode = 1;
+                                    }
+                                }
+                                for (auto walker{outChannelPaths.begin()}; walker != outChannelPaths.end(); ++walker)
+                                {
+                                    std::string chanName{*walker};
+
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, chanName);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(chanName + " already unregistered.");
+                                            std::cerr << chanName << " already unregistered." << std::endl;
                                             exitCode = 1;
                                         }
                                     }

@@ -73,18 +73,6 @@ static const char   kEndNetwork{':'};
 /*! @brief The character that starts the protocol part of a ChannelName. */
 static const char   kStartProtocol{'#'};
 
-/*! @brief The standard name for any protocol. */
-static const std::string    kProtocolAnyName{"any"};
-
-/*! @brief The standard name for the TCP protocol. */
-static const std::string    kProtocolTcpName{"tcp"};
-
-/*! @brief The standard name for the UDP protocol. */
-static const std::string    kProtocolUdpName{"udp"};
-
-/*! @brief The standard name for an unknown protocol. */
-static const std::string    kProtocolUnknownName{"unknown"};
-
 /*! @brief A regular expression describing the syntax of a channel name. */
 static std::regex   lChannelNameMatch{"^((" NAME_MATCH_STRING ")?:)?(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$",
                                         std::regex::extended};
@@ -101,6 +89,14 @@ static std::regex   lTransportMatch{"^" TRANSPORT_MATCH_STRING "$", std::regex::
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
+
+const std::string    nImO::kProtocolAnyName{"any"};
+
+const std::string    nImO::kProtocolTcpName{"tcp"};
+
+const std::string    nImO::kProtocolUdpName{"udp"};
+
+const std::string    nImO::kProtocolUnknownName{"unknown"};
 
 #if defined(__APPLE__)
 # pragma mark Local functions

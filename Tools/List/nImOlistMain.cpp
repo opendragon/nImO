@@ -68,6 +68,23 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief The position within a sequence of outputs. */
+enum class Placement
+{
+    /*! @brief The first output element. */
+    kFirst,
+
+    /*! @brief An intermediate output element. */
+    kMiddle,
+
+    /*! @brief The last output element. */
+    kLast,
+
+    /*! @brief A solitary output element. */
+    kSolitary
+
+}; // Placement
+
 /*! @brief The available choices. */
 enum class Choice
 {
@@ -155,31 +172,42 @@ helpForList
 /*! @brief Output the known channels.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
- @param[in] partOfAll @c true if the output is part of the 'all' request.
- @param[in] isLast @c true if there is nothing following the output.
+ @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listChannels
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
-     const bool                 partOfAll = false,
-     const bool                 isLast = true)
+     const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
     nImO::RegChannelInfoVectorOrFailure statusWithAllChannels{proxy.getInformationForAllChannels()};
 
     if (statusWithAllChannels.first.first)
     {
-        if (partOfAll)
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (thePlacement)
             {
-                std::cout << "{ " CHAR_DOUBLEQUOTE_ "channels" CHAR_DOUBLEQUOTE_ ": " << std::endl;
+                case Placement::kSolitary :
+                case Placement::kFirst :
+                    std::cout << "{ ";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kLast :
+                    std::cout << ",";
+                    break;
+
+                default :
+                    break;
+
             }
-            else
-            {
-                std::cout << "Channels:" << std::endl;
-            }
+            std::cout << CHAR_DOUBLEQUOTE_ "channels" CHAR_DOUBLEQUOTE_ ": ";
+        }
+        else
+        {
+            std::cout << "Channels:" << std::endl;
         }
         nImO::ChannelInfoVector &   channels{statusWithAllChannels.second};
 
@@ -287,14 +315,19 @@ listChannels
                 std::cout << " ]" << std::endl;
             }
         }
-        if (partOfAll && (nImO::OutputFlavour::kFlavourJSON == options._flavour))
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            std::cout << " }";
-            if (! isLast)
+            switch (thePlacement)
             {
-                std::cout << ",";
+                case Placement::kSolitary :
+                case Placement::kLast :
+                    std::cout << " }" << std::endl;
+                    break;
+
+                default :
+                    break;
+
             }
-            std::cout << std::endl;
         }
     }
     else
@@ -308,31 +341,42 @@ listChannels
 /*! @brief Output the known machines.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
- @param[in] partOfAll @c true if the output is part of the 'all' request.
- @param[in] isLast @c true if there is nothing following the output.
+ @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listMachines
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
-     const bool                 partOfAll = false,
-     const bool                 isLast = true)
+     const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
     nImO::RegMachineInfoVectorOrFailure statusWithAllMachines{proxy.getInformationForAllMachines()};
 
     if (statusWithAllMachines.first.first)
     {
-        if (partOfAll)
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (thePlacement)
             {
-                std::cout << "{ " CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ ": " << std::endl;
+                case Placement::kSolitary :
+                case Placement::kFirst :
+                    std::cout << "{ ";
+                    break;
+
+                case Placement::kLast :
+                case Placement::kMiddle :
+                    std::cout << ",";
+                    break;
+
+                default :
+                    break;
+
             }
-            else
-            {
-                std::cout << "Machines:" << std::endl;
-            }
+            std::cout << CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ ": ";
+        }
+        else
+        {
+            std::cout << "Machines:" << std::endl;
         }
         nImO::MachineInfoVector &   machines{statusWithAllMachines.second};
 
@@ -402,14 +446,19 @@ listMachines
                 std::cout << " ]" << std::endl;
             }
         }
-        if (partOfAll && (nImO::OutputFlavour::kFlavourJSON == options._flavour))
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            std::cout << " }";
-            if (! isLast)
+            switch (thePlacement)
             {
-                std::cout << ",";
+                case Placement::kSolitary :
+                case Placement::kLast :
+                    std::cout << " }" << std::endl;
+                    break;
+
+                default :
+                    break;
+
             }
-            std::cout << std::endl;
         }
     }
     else
@@ -423,15 +472,13 @@ listMachines
 /*! @brief Output the known nodes.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
- @param[in] partOfAll @c true if the output is part of the 'all' request.
- @param[in] isLast @c true if there is nothing following the output.
+ @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listNodes
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
-     const bool                 partOfAll = false,
-     const bool                 isLast = true)
+     const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
     nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
@@ -440,16 +487,29 @@ listNodes
     {
         nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
-        if (partOfAll)
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (thePlacement)
             {
-                std::cout << "{ " CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ ": " << std::endl;
+                case Placement::kSolitary :
+                case Placement::kFirst :
+                    std::cout << "{ ";
+                    break;
+
+                case Placement::kLast :
+                case Placement::kMiddle :
+                    std::cout << ",";
+                    break;
+
+                default :
+                    break;
+
             }
-            else
-            {
-                std::cout << "Nodes:" << std::endl;
-            }
+            std::cout << CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ ": ";
+        }
+        else
+        {
+            std::cout << "Nodes:" << std::endl;
         }
         if (nodes.empty())
         {
@@ -559,14 +619,19 @@ listNodes
                 std::cout << " ]" << std::endl;
             }
         }
-        if (partOfAll && (nImO::OutputFlavour::kFlavourJSON == options._flavour))
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
-            std::cout << " }";
-            if (! isLast)
+            switch (thePlacement)
             {
-                std::cout << ",";
+                case Placement::kSolitary :
+                case Placement::kLast :
+                    std::cout << " }" << std::endl;
+                    break;
+
+                default :
+                    break;
+
             }
-            std::cout << std::endl;
         }
     }
     else
@@ -668,8 +733,8 @@ main
                             break;
 
                         case Choice::kAll :
-                            if (! (listMachines(proxy, optionValues, true, false) && listNodes(proxy, optionValues, true, false) &&
-                                listChannels(proxy, optionValues, true)))
+                            if (! (listMachines(proxy, optionValues, Placement::kFirst) && listNodes(proxy, optionValues, Placement::kMiddle) &&
+                                listChannels(proxy, optionValues, Placement::kLast)))
                             {
                                 exitCode = 1;
                             }

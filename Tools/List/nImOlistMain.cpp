@@ -194,11 +194,6 @@ listChannels
                     std::cout << "{ ";
                     break;
 
-                case Placement::kMiddle :
-                case Placement::kLast :
-                    std::cout << ",";
-                    break;
-
                 default :
                     break;
 
@@ -215,7 +210,7 @@ listChannels
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ]" << std::endl;
+                std::cout << "[ ]";
             }
             else
             {
@@ -226,7 +221,7 @@ listChannels
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ " << std::endl;
+                std::cout << "[ ";
             }
             for (auto walker = channels.begin(); walker != channels.end(); )
             {
@@ -300,10 +295,13 @@ listChannels
                     {
                         if (channels.end() != walker)
                         {
-                            std::cout << ",";
+                            std::cout << "," << std::endl;
                         }
                     }
-                    std::cout << std::endl;
+                    else
+                    {
+                        std::cout << std::endl;
+                    }
                 }
                 else
                 {
@@ -312,7 +310,7 @@ listChannels
             }
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << " ]" << std::endl;
+                std::cout << " ]";
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -321,13 +319,19 @@ listChannels
             {
                 case Placement::kSolitary :
                 case Placement::kLast :
-                    std::cout << " }" << std::endl;
+                    std::cout << " }";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kFirst :
+                    std::cout << ",";
                     break;
 
                 default :
                     break;
 
             }
+            std::cout << std::endl;
         }
     }
     else
@@ -363,11 +367,6 @@ listMachines
                     std::cout << "{ ";
                     break;
 
-                case Placement::kLast :
-                case Placement::kMiddle :
-                    std::cout << ",";
-                    break;
-
                 default :
                     break;
 
@@ -384,7 +383,7 @@ listMachines
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ]" << std::endl;
+                std::cout << "[ ]";
             }
             else
             {
@@ -395,7 +394,7 @@ listMachines
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ " << std::endl;
+                std::cout << "[ ";
             }
             for (auto walker = machines.begin(); walker != machines.end(); )
             {
@@ -431,10 +430,13 @@ listMachines
                     {
                         if (machines.end() != walker)
                         {
-                            std::cout << ",";
+                            std::cout << "," << std::endl;
                         }
                     }
-                    std::cout << std::endl;
+                    else
+                    {
+                        std::cout << std::endl;
+                    }
                 }
                 else
                 {
@@ -443,7 +445,7 @@ listMachines
             }
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << " ]" << std::endl;
+                std::cout << " ]";
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -452,13 +454,19 @@ listMachines
             {
                 case Placement::kSolitary :
                 case Placement::kLast :
-                    std::cout << " }" << std::endl;
+                    std::cout << " }";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kFirst :
+                    std::cout << ",";
                     break;
 
                 default :
                     break;
 
             }
+            std::cout << std::endl;
         }
     }
     else
@@ -496,11 +504,6 @@ listNodes
                     std::cout << "{ ";
                     break;
 
-                case Placement::kLast :
-                case Placement::kMiddle :
-                    std::cout << ",";
-                    break;
-
                 default :
                     break;
 
@@ -515,7 +518,7 @@ listNodes
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ]" << std::endl;
+                std::cout << "[ ]";
             }
             else
             {
@@ -526,7 +529,7 @@ listNodes
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ " << std::endl;
+                std::cout << "[ ";
             }
             for (auto walker = nodes.begin(); walker != nodes.end(); )
             {
@@ -604,10 +607,13 @@ listNodes
                     {
                         if (nodes.end() != walker)
                         {
-                            std::cout << ",";
+                            std::cout << "," << std::endl;
                         }
                     }
-                    std::cout << std::endl;
+                    else
+                    {
+                        std::cout << std::endl;
+                    }
                 }
                 else
                 {
@@ -616,7 +622,7 @@ listNodes
             }
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << " ]" << std::endl;
+                std::cout << " ]";
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -625,13 +631,19 @@ listNodes
             {
                 case Placement::kSolitary :
                 case Placement::kLast :
-                    std::cout << " }" << std::endl;
+                    std::cout << " }";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kFirst :
+                    std::cout << ",";
                     break;
 
                 default :
                     break;
 
             }
+            std::cout << std::endl;
         }
     }
     else

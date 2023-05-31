@@ -145,6 +145,7 @@ nImO::InformationForAllChannelsOnNodeCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
                     infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                     infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
+                    infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                     channelArray->addValue(infoArray);
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnNodeResponse, "information for all channels on node",

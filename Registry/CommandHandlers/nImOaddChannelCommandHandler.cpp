@@ -116,28 +116,31 @@ nImO::AddChannelCommandHandler::doIt
     bool    okSoFar{false};
 
     _owner->report("add channel request received");
-    if (5 < arguments.size())
+    if (6 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
         SpValue         element3{arguments[3]};
         SpValue         element4{arguments[4]};
         SpValue         element5{arguments[5]};
+        SpValue         element6{arguments[6]};
         CPtr(String)    nodeNameString{element1->asString()};
         CPtr(String)    pathString{element2->asString()};
         CPtr(Logical)   isOutputValue{element3->asLogical()};
         CPtr(String)    dataTypeString{element4->asString()};
         CPtr(Integer)   modesString{element5->asInteger()};
+        CPtr(Logical)   inUseValue{element6->asLogical()};
 
         if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) &&
-            (nullptr != dataTypeString) && (nullptr != modesString))
+            (nullptr != dataTypeString) && (nullptr != modesString) && (nullptr != inUseValue))
         {
             std::string         nodeName{nodeNameString->getValue()};
             std::string         path{pathString->getValue()};
             bool                isOutput{isOutputValue->getValue()};
             std::string         dataType{dataTypeString->getValue()};
             TransportType       modes{StaticCast(TransportType, modesString->getIntegerValue())};
-            RegSuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
+            bool                inUse{inUseValue->getValue()};
+            RegSuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes, inUse)};
 
             if (status.first)
             {
@@ -155,12 +158,12 @@ nImO::AddChannelCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) && " //####
-                    "(nullptr != dataTypeString) && (nullptr != modesString))"); //####
+                    "(nullptr != dataTypeString) && (nullptr != modesString) && (nullptr != inUseValue))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (3 < arguments.size())"); //####
+        ODL_LOG("! (6 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

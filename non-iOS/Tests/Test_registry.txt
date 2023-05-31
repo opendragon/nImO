@@ -228,6 +228,15 @@ add_test(NAME TestGetChannelSetWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET
 ## Test check get channel set with bad machine name from Registry
 add_test(NAME TestGetChannelSetWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 348)
 
+## Test check channel in use can be set
+add_test(NAME TestChannelInUseCanBeSet COMMAND ${THIS_TARGET} 350)
+## Test check channel in use can be cleared
+add_test(NAME TestChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 351)
+## Test check get channel in use with bad node name
+add_test(NAME TestGetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 352)
+## Test check set channel in use with bad node name
+add_test(NAME TestSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 353)
+
 ## Test check count channel connections with empty Registry
 add_test(NAME TestCountChannelConnectionsWithEmptyRegistry COMMAND ${THIS_TARGET} 360)
 ## Test check get channel connections for node from empty Registry

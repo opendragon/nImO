@@ -6830,7 +6830,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
 
                                 if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
                                     (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>") &&
-                                    (nImO::TransportType::kAny == theChannel._modes))
+                                    (nImO::TransportType::kAny == theChannel._modes) && (! theChannel._inUse))
                                 {
                                     result = 0;
                                 }
@@ -6839,7 +6839,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                                     ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
                                             "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
                                             "(theChannel._dataType == \"<chuckles>\") && " //####
-                                            "(nImO::TransportType::kAny == theChannel._modes))"); //####
+                                            "(nImO::TransportType::kAny == theChannel._modes) && (! theChannel._inUse))"); //####
                                 }
                             }
                             else
@@ -6942,18 +6942,19 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
 
                                     if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
                                         (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
-                                        (nImO::TransportType::kTCP == theChannel1._modes) && theChannel2._found &&
+                                        (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
                                         (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kUDP == theChannel2._modes))
+                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kUDP == theChannel2._modes) &&
+                                        (! theChannel2._inUse))
                                     {
                                         result = 0;
                                     }
                                     else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
                                              (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
-                                             (nImO::TransportType::kTCP == theChannel2._modes) && theChannel1._found &&
+                                             (nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
                                              (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
                                              theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
-                                             (nImO::TransportType::kUDP == theChannel1._modes))
+                                             (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))
                                     {
                                         result = 0;
                                     }
@@ -6962,10 +6963,11 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                         ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                 "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
                                                 "(theChannel2._dataType == \"<chuckles>\") && " //####
-                                                "(nImO::TransportType::kTCP == theChannel2._modes) && theChannel1._found && " //####
-                                                "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
-                                                "(nImO::TransportType::kUDP == theChannel1._modes))"); //####
+                                                "(nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                "theChannel1._found && (theChannel1._node == NODE_NAME_1) && " //####
+                                                "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                "(theChannel1._dataType == \"only-blort\") && " //####
+                                                "(nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                     }
                                 }
                                 else
@@ -7076,18 +7078,19 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
 
                                         if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
                                             (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
-                                            (nImO::TransportType::kAny == theChannel1._modes) && theChannel2._found &&
+                                            (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
                                             (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes))
+                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes) &&
+                                            (! theChannel2._inUse))
                                         {
                                             result = 0;
                                         }
                                         else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
                                                  (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
-                                                 (nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found &&
+                                                 (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
                                                  (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
                                                  theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
-                                                 (nImO::TransportType::kTCP == theChannel1._modes))
+                                                 (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
                                         {
                                             result = 0;
                                         }
@@ -7096,10 +7099,11 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                             ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                     "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
                                                     "(theChannel2._dataType == \"<chuckles>\") && " //####
-                                                    "(nImO::TransportType::kAny == theChannel2._modes) theChannel1._found && " //####
-                                                    "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
-                                                    "(nImO::TransportType::kTCP == theChannel1._modes))"); //####
+                                                    "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                    "theChannel1._found && (theChannel1._node == NODE_NAME_2) && " //####
+                                                    "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                    "(theChannel1._dataType == \"only-blort\") && " //####
+                                                    "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                         }
                                     }
                                     else
@@ -7208,7 +7212,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
 
                                 if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
                                     (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>") &&
-                                    (nImO::TransportType::kUDP == theChannel._modes))
+                                    (nImO::TransportType::kUDP == theChannel._modes) && (! theChannel._inUse))
                                 {
                                     result = 0;
                                 }
@@ -7217,7 +7221,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                                     ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
                                             "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
                                             "(theChannel._dataType == \"<chuckles>\") && " //####
-                                            "(nImO::TransportType::kUDP == theChannel._modes))"); //####
+                                            "(nImO::TransportType::kUDP == theChannel._modes) && (! theChannel._inUse))"); //####
                                 }
                             }
                             else
@@ -7320,18 +7324,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
 
                                     if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
                                         (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
-                                        (nImO::TransportType::kAny == theChannel1._modes) && theChannel2._found &&
+                                        (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
                                         (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes))
+                                        (theChannel2._dataType == "only-blort") && (nImO::TransportType::kTCP == theChannel2._modes) &&
+                                        (! theChannel2._inUse))
                                     {
                                         result = 0;
                                     }
                                     else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
                                              (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
-                                             (nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found &&
+                                             (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
                                              (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
                                              theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
-                                             (nImO::TransportType::kTCP == theChannel1._modes))
+                                             (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
                                     {
                                         result = 0;
                                     }
@@ -7340,10 +7345,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                         ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                 "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
                                                 "(theChannel2._dataType == \"<chuckles>\") && " //####
-                                                "(nImO::TransportType::kAny == theChannel2._modes) && theChannel1._found && " //####
-                                                "(theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
-                                                "(nImO::TransportType::kTCP == theChannel1._modes))"); //####
+                                                "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                "theChannel1._found && (theChannel1._node == NODE_NAME_1) && " //####
+                                                "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                "(theChannel1._dataType == \"only-blort\") && " //####
+                                                "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                     }
                                 }
                                 else
@@ -7455,18 +7461,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
 
                                         if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
                                             (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>") &&
-                                            (nImO::TransportType::kUDP == theChannel1._modes) && theChannel2._found &&
+                                            (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
                                             (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
-                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kAny == theChannel2._modes))
+                                            (theChannel2._dataType == "only-blort") && (nImO::TransportType::kAny == theChannel2._modes) &&
+                                            (! theChannel2._inUse))
                                         {
                                             result = 0;
                                         }
                                         else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
                                                  (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>") &&
-                                                 (nImO::TransportType::kUDP == theChannel2._modes) && theChannel1._found &&
+                                                 (nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
                                                  (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
                                                  theChannel1._isOutput && (theChannel1._dataType == "only-blort") &&
-                                                 (nImO::TransportType::kAny == theChannel1._modes))
+                                                 (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))
                                         {
                                             result = 0;
                                         }
@@ -7475,10 +7482,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                             ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
                                                     "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
                                                     "(theChannel2._dataType == \"<chuckles>\") && " //####
-                                                    "(nImO::TransportType::kUDP == theChannel2._modes) && theChannel1._found && " //####
-                                                    "(theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) && " //####
-                                                    "theChannel1._isOutput && (theChannel1._dataType == \"only-blort\") && " //####
-                                                    "(nImO::TransportType::kAny == theChannel1._modes))"); //####
+                                                    "(nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                    "theChannel1._found && (theChannel1._node == NODE_NAME_2) && " //####
+                                                    "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                    "(theChannel1._dataType == \"only-blort\") && " //####
+                                                    "(nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                         }
                                     }
                                     else
@@ -7714,6 +7722,30 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
     ODL_EXIT_I(result); //####
     return result;
 } // doTestGetChannelSetWithBadMachineNameFromRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 350 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 351 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 352 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 353 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 360 ***
@@ -8249,6 +8281,22 @@ main
                     case 348 :
                         result = doTestGetChannelSetWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
                                                                                    commandLine);
+                        break;
+
+                    case 350 :
+//                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 351 :
+//                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 352 :
+//                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 353 :
+//                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 360 :

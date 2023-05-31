@@ -129,7 +129,7 @@ nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
                     ChannelInfo thisChannel;
 
                     thisChannel._found = false;
-                    if (5 < infoArray->size())
+                    if (6 < infoArray->size())
                     {
                         CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
                         CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
@@ -137,9 +137,10 @@ nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
                         CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
                         CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
                         CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
+                        CPtr(Logical)   inUsePtr{(*infoArray)[6]->asLogical()};
 
                         if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
-                            (nullptr != dataTypePtr))
+                            (nullptr != dataTypePtr) && (nullptr != inUsePtr))
                         {
                             thisChannel._found = foundPtr->getValue();
                             thisChannel._node = nodePtr->getValue();
@@ -147,11 +148,12 @@ nImO::InformationForAllChannelsOnNodeResponseHandler::doIt
                             thisChannel._isOutput = isOutputPtr->getValue();
                             thisChannel._dataType = dataTypePtr->getValue();
                             thisChannel._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
+                            thisChannel._inUse = inUsePtr->getValue();
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
-                                    "(nullptr != dataTypePtr))"); //####
+                                    "(nullptr != dataTypePtr) && (nullptr != inUsePtr))"); //####
                         }
                     }
                     if (thisChannel._found)

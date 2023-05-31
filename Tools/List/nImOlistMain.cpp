@@ -271,7 +271,8 @@ listChannels
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << node << ' ' << path << ' ' << dataType << ' ' << std::boolalpha << theInfo._isOutput << ' ' << modes;
+                            std::cout << node << ' ' << path << ' ' << dataType << ' ' << std::boolalpha << theInfo._isOutput << ' ' << modes <<
+                                        ' ' << std::boolalpha << theInfo._inUse;
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
@@ -279,11 +280,13 @@ listChannels
                                         CHAR_DOUBLEQUOTE_ "path" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << path << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << dataType << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "isOutput" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._isOutput << ", "
-                                        CHAR_DOUBLEQUOTE_ "modes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << modes << CHAR_DOUBLEQUOTE_ " }";
+                                        CHAR_DOUBLEQUOTE_ "modes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << modes << CHAR_DOUBLEQUOTE_ ", "
+                                        CHAR_DOUBLEQUOTE_ "inUse" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._inUse << " }";
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
-                            std::cout << node << '\t' << path << '\t' << dataType << '\t' << std::boolalpha << theInfo._isOutput << '\t' << modes;
+                            std::cout << node << '\t' << path << '\t' << dataType << '\t' << std::boolalpha << theInfo._isOutput << '\t' << modes <<
+                                        '\t' << std::boolalpha << theInfo._inUse;
                             break;
 
                         default :

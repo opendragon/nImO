@@ -87,7 +87,7 @@ namespace nImO
         std::string _path;
 
         /*! @brief @c true if the channel is for output from a service. */
-        bool _isOutput;
+        bool    _isOutput;
 
         /*! @brief The type of data carried by the channel. */
         std::string _dataType;
@@ -95,10 +95,13 @@ namespace nImO
         /*! @brief The allowed transport types for the channel. */
         TransportType   _modes;
 
+        /*! @brief @c true if the channel is connected to another channel. */
+        bool    _inUse;
+
         /*! @brief The constructor. */
         inline ChannelInfo
             (void) :
-                _found(false), _isOutput(false), _modes(TransportType::kAny)
+                _found(false), _isOutput(false), _modes(TransportType::kAny), _inUse(false)
         {
         }
 

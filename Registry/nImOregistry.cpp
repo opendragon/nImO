@@ -131,6 +131,9 @@
 /*! @brief The named parameter for the 'modes' column of the 'Channels' table. */
 #define CHANNEL_MODES_C_    "modes"
 
+/*! @brief The named parameter for the 'inUse' column of the 'Channels' table. */
+#define CHANNEL_IN_USE_C_   "inUse"
+
 /*! @brief The name of the index for the 'node' and 'path' columns of the 'Channels' table. */
 #define CHANNELS_I_ "Channels_idx"
 
@@ -160,19 +163,24 @@ struct ChannelInsertData
     /*! @brief The allowed transport types for the channel. */
     nImO::TransportType   _modes;
 
+    /*! @brief @c true if this channel is connected to another channel. */
+    bool    _inUse;
+
     /*! @brief The constructor.
      @param[in] node The name of the node for the channel.
      @param[in] path The path for the channel.
      @param[in] isOutput @c true if the channel is an output.
      @param[in] dataType The format for the data to be transferred over the channel.
-     @param[in] modes The allowed transport types for the channel. */
+     @param[in] modes The allowed transport types for the channel.
+     @param[in] inUse @c true if the channel is connected to another channel. */
     inline ChannelInsertData
         (const std::string &        node,
          const std::string &        path,
          const bool                 isOutput,
          const std::string &        dataType,
-         const nImO::TransportType  modes) :
-            _node(node), _path(path), _isOutput(isOutput), _dataType(dataType), _modes(modes)
+         const nImO::TransportType  modes,
+         const bool                 inUse) :
+            _node(node), _path(path), _isOutput(isOutput), _dataType(dataType), _modes(modes), _inUse(inUse)
     {
     }
 
@@ -746,8 +754,8 @@ createTables
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")",
                 "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " (" CHANNEL_NODE_C_ " TEXT NOT NULL DEFAULT _ COLLATE NOCASE, " CHANNEL_PATH_C_
                         " TEXT NOT NULL DEFAULT _ COLLATE BINARY, " CHANNEL_IS_OUTPUT_C_ " INTEGER, " CHANNEL_DATA_TYPE_C_
-                        " TEXT DEFAULT _ COLLATE BINARY, " CHANNEL_MODES_C_ " INTEGER, FOREIGN KEY (" CHANNEL_NODE_C_ ") REFERENCES "
-                        NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT)",
+                        " TEXT DEFAULT _ COLLATE BINARY, " CHANNEL_MODES_C_ " INTEGER, " CHANNEL_IN_USE_C_ " INTEGER, FOREIGN KEY (" CHANNEL_NODE_C_
+                        ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " CHANNELS_I_ " ON " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ")"
             };
             static const size_t numTables{A_SIZE(tableSQL)};
@@ -847,8 +855,9 @@ setupInsertIntoChannels
         int isOutputIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IS_OUTPUT_C_)};
         int dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_DATA_TYPE_C_)};
         int modesIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_MODES_C_)};
+        int inUseIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IN_USE_C_)};
 
-        if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex))
+        if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex) && (0 < inUseIndex))
         {
             auto                channelData{StaticCast(CPtr(ChannelInsertData), stuff)};
             std::string         node{channelData->_node};
@@ -856,6 +865,7 @@ setupInsertIntoChannels
             bool                isOutput{channelData->_isOutput};
             std::string         dataType{channelData->_dataType};
             nImO::TransportType modes{channelData->_modes};
+            bool                inUse{channelData->_inUse};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -874,6 +884,10 @@ setupInsertIntoChannels
             {
                 result = sqlite3_bind_int(statement, modesIndex, StaticCast(int, modes));
             }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_int(statement, inUseIndex, inUse ? 1 : 0);
+            }
             if (SQLITE_OK != result)
             {
                 ODL_S1("error description: ", sqlite3_errstr(result)); //####
@@ -881,7 +895,8 @@ setupInsertIntoChannels
         }
         else
         {
-            ODL_LOG("! ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex))"); //####
+            ODL_LOG("! ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex) && " //####
+                    "(0 < inUseIndex))"); //####
         }
     }
     catch (...)
@@ -1232,6 +1247,100 @@ setupSearchNodes
     return result;
 } // setupSearchNodes
 
+/*! @brief Extract the fields for the channel information from the strings retrieved from the table.
+ @param[out] info The data corresponding to the retrieved strings.
+ @param[in] values The retrieved strings. */
+static void
+extractChannelInfoFromVector
+    (nImO::ChannelInfo &        info,
+     const nImO::StringVector & values)
+{
+    ODL_ENTER(); //####
+    ODL_P1("info = ", &info); //####
+    if (5 < values.size())
+    {
+        size_t      pos;
+        uint32_t    scratch;
+
+        info._found = true;
+        info._node = values[0];
+        info._path = values[1];
+        scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+        else
+        {
+            info._isOutput = (0 != scratch);
+        }
+        info._dataType = values[3];
+        scratch = StaticCast(uint32_t, stoul(values[4], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+        else
+        {
+            info._modes = StaticCast(nImO::TransportType, scratch);
+        }
+        scratch = StaticCast(uint32_t, stoul(values[5], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+        else
+        {
+            info._inUse = (0 != scratch);
+        }
+    }
+    else
+    {
+        info._found = false;
+        ODL_LOG("! (5 < values.size())"); //####
+    }
+    ODL_EXIT(); //####
+} // extractChannelInfoFromVector
+
+/*! @brief Extract the fields for the node information from the strings retrieved from the table.
+ @param[out] info The data corresponding to the retrieved strings.
+ @param[in] values The retrieved strings. */
+static void
+extractNodeInfoFromVector
+    (nImO::NodeInfo &           info,
+     const nImO::StringVector & values)
+{
+    ODL_ENTER(); //####
+    ODL_P1("info = ", &info); //####
+    if (3 < values.size())
+    {
+        size_t  pos;
+
+        info._found = true;
+        info._name = values[0];
+        info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+        info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+        info._serviceType = StaticCast(nImO::ServiceType, stoul(values[3], &pos));
+        if (0 == pos)
+        {
+            info._found = false;
+        }
+    }
+    else
+    {
+        ODL_LOG("! (3 < values.size())"); //####
+    }
+    ODL_EXIT(); //####
+} // extractNodeInfoFromVector
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -1302,12 +1411,13 @@ nImO::Registry::addChannel
      const std::string &    path,
      const bool             isOutput,
      const std::string &    dataType,
-     const TransportType    modes)
+     const TransportType    modes,
+     const bool             inUse)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
-    ODL_B1("isOutput = ", isOutput); //####
+    ODL_B2("isOutput = ", isOutput, "inUse = ", inUse); //####
     ODL_I1("modes = ", StaticCast(int, modes)); //####
     RegSuccessOrFailure status;
 
@@ -1322,11 +1432,12 @@ nImO::Registry::addChannel
                 status = doBeginTransaction(_owner, _dbHandle);
                 if (status.first)
                 {
-                    ChannelInsertData   data{nodeName, path, isOutput, dataType, modes};
+                    ChannelInsertData   data{nodeName, path, isOutput, dataType, modes, inUse};
                     static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
-                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_
-                                                            ") VALUES (@" CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @" CHANNEL_IS_OUTPUT_C_
-                                                            ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ")"};
+                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_ ", "
+                                                            CHANNEL_IN_USE_C_ ") VALUES (@" CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
+                                                            CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ", @"
+                                                            CHANNEL_IN_USE_C_")"};
 
                     status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
                     doEndTransaction(_owner, _dbHandle, status.first);
@@ -1443,48 +1554,15 @@ nImO::Registry::getChannelInformation
             std::vector<StringVector>   results;
             ChannelSearchData           data{nodeName, path};
             static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                        "," CHANNEL_MODES_C_ "  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
-                                                        " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
+                                                        "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_"  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_
+                                                        " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
             {
                 if (0 < results.size())
                 {
-                    StringVector    values{results[0]};
-
-                    if (4 < values.size())
-                    {
-                        size_t      pos;
-                        uint32_t    scratch;
-
-                        info._found = true;
-                        info._node = values[0];
-                        info._path = values[1];
-                        scratch = StaticCast(uint32_t, stoul(values[2], &pos));
-                        if (0 == pos)
-                        {
-                            info._found = false;
-                        }
-                        else
-                        {
-                            info._isOutput = (0 != scratch);
-                        }
-                        info._dataType = values[3];
-                        scratch = StaticCast(uint32_t, stoul(values[4], &pos));
-                        if (0 == pos)
-                        {
-                            info._found = false;
-                        }
-                        else
-                        {
-                            info._modes = StaticCast(nImO::TransportType, scratch);
-                        }
-                    }
-                    else
-                    {
-                        ODL_LOG("! (4 < values.size())"); //####
-                    }
+                    extractChannelInfoFromVector(info, results[0]);
                 }
                 else
                 {
@@ -1524,55 +1602,23 @@ nImO::Registry::getInformationForAllChannels
     {
         std::vector<StringVector>   results;
         static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                   "," CHANNEL_MODES_C_ " FROM " CHANNELS_T_};
+                                                   "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels);
         if (status.first)
         {
+            ChannelInfo info;
+
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
-
-                if (4 < values.size())
+                extractChannelInfoFromVector(info, results[ii]);
+                if (info._found)
                 {
-                    ChannelInfo info;
-                    size_t      pos;
-                    uint32_t    scratch;
-
-                    info._found = true;
-                    info._node = values[0];
-                    info._path = values[1];
-                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._isOutput = (0 != scratch);
-                    }
-                    info._dataType = values[3];
-                    scratch = StaticCast(uint32_t, stoul(values[4], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._modes = StaticCast(nImO::TransportType, scratch);
-                    }
-                    if (info._found)
-                    {
-                        channelData.push_back(info);
-                    }
-                    else
-                    {
-                        ODL_LOG("! (info._found)"); //####
-                    }
+                    channelData.push_back(info);
                 }
                 else
                 {
-                    ODL_LOG("! (4 < values.size())"); //####
+                    ODL_LOG("! (info._found)"); //####
                 }
             }
         }
@@ -1600,58 +1646,27 @@ nImO::Registry::getInformationForAllChannelsOnMachine
     {
         std::vector<StringVector>   results;
         static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                    "," CHANNEL_MODES_C_ " FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_ " WHERE " NODES_T_ "."
-                                                    NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_
-                                                    " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ };
+                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_
+                                                    " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_ " AND " MACHINES_T_ "."
+                                                    MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_ "." MACHINE_NAME_C_
+                                                    " = @" MACHINE_NAME_C_ };
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
                                                               &machineName);
         if (status.first)
         {
+            ChannelInfo info;
+
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
-
-                if (4 < values.size())
+                extractChannelInfoFromVector(info, results[ii]);
+                if (info._found)
                 {
-                    ChannelInfo info;
-                    size_t      pos;
-                    uint32_t    scratch;
-
-                    info._found = true;
-                    info._node = values[0];
-                    info._path = values[1];
-                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._isOutput = (0 != scratch);
-                    }
-                    info._dataType = values[3];
-                    scratch = StaticCast(uint32_t, stoul(values[4], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._modes = StaticCast(nImO::TransportType, scratch);
-                    }
-                    if (info._found)
-                    {
-                        channelData.push_back(info);
-                    }
-                    else
-                    {
-                        ODL_LOG("! (info._found)"); //####
-                    }
+                    channelData.push_back(info);
                 }
                 else
                 {
-                    ODL_LOG("! (4 < values.size())"); //####
+                    ODL_LOG("! (info._found)"); //####
                 }
             }
         }
@@ -1683,55 +1698,24 @@ nImO::Registry::getInformationForAllChannelsOnNode
     {
         std::vector<StringVector>   results;
         static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                   "," CHANNEL_MODES_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ };
+                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
+                                                    CHANNEL_NODE_C_ };
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
         if (status.first)
         {
+            ChannelInfo info;
+
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
-
-                if (4 < values.size())
+                extractChannelInfoFromVector(info, results[ii]);
+                if (info._found)
                 {
-                    ChannelInfo info;
-                    size_t      pos;
-                    uint32_t    scratch;
-
-                    info._found = true;
-                    info._node = values[0];
-                    info._path = values[1];
-                    scratch = StaticCast(uint32_t, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._isOutput = (0 != scratch);
-                    }
-                    info._dataType = values[3];
-                    scratch = StaticCast(uint32_t, stoul(values[4], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    else
-                    {
-                        info._modes = StaticCast(nImO::TransportType, scratch);
-                    }
-                    if (info._found)
-                    {
-                        channelData.push_back(info);
-                    }
-                    else
-                    {
-                        ODL_LOG("! (info._found)"); //####
-                    }
+                    channelData.push_back(info);
                 }
                 else
                 {
-                    ODL_LOG("! (4 < values.size())"); //####
+                    ODL_LOG("! (info._found)"); //####
                 }
             }
         }
@@ -1768,7 +1752,7 @@ nImO::Registry::getInformationForAllMachines
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
+                StringVector &  values{results[ii]};
 
                 if (1 < values.size())
                 {
@@ -1825,44 +1809,18 @@ nImO::Registry::getInformationForAllNodes
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
         {
+            NodeInfo    info;
+
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
-
-                if (3 < values.size())
+                extractNodeInfoFromVector(info, results[ii]);
+                if (info._found)
                 {
-                    NodeInfo    info;
-                    size_t      pos;
-
-                    info._found = true;
-                    info._name = values[0];
-                    info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    info._serviceType = StaticCast(ServiceType, stoul(values[3], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    if (info._found)
-                    {
-                        nodeData.push_back(info);
-                    }
-                    else
-                    {
-                        ODL_LOG("! (info._found)"); //####
-                    }
+                    nodeData.push_back(info);
                 }
                 else
                 {
-                    ODL_LOG("! (3 < values.size())"); //####
+                    ODL_LOG("! (info._found)"); //####
                 }
             }
         }
@@ -1897,44 +1855,18 @@ nImO::Registry::getInformationForAllNodesOnMachine
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
         {
+            NodeInfo    info;
+
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
-
-                if (3 < values.size())
+                extractNodeInfoFromVector(info, results[ii]);
+                if (info._found)
                 {
-                    NodeInfo    info;
-                    size_t      pos;
-
-                    info._found = true;
-                    info._name = values[0];
-                    info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    info._serviceType = StaticCast(ServiceType, stoul(values[3], &pos));
-                    if (0 == pos)
-                    {
-                        info._found = false;
-                    }
-                    if (info._found)
-                    {
-                        nodeData.push_back(info);
-                    }
-                    else
-                    {
-                        ODL_LOG("! (info._found)"); //####
-                    }
+                    nodeData.push_back(info);
                 }
                 else
                 {
-                    ODL_LOG("! (3 < values.size())"); //####
+                    ODL_LOG("! (info._found)"); //####
                 }
             }
         }
@@ -1972,7 +1904,7 @@ nImO::Registry::getLaunchDetails
             {
                 if (0 < results.size())
                 {
-                    StringVector    values{results[0]};
+                    StringVector &  values{results[0]};
 
                     if (2 < values.size())
                     {
@@ -2035,7 +1967,7 @@ nImO::Registry::getMachineInformation
             {
                 if (0 < results.size())
                 {
-                    StringVector    values{results[0]};
+                    StringVector &  values{results[0]};
 
                     info._name = nodeName;
                     if (0 < values.size())
@@ -2165,7 +2097,7 @@ nImO::Registry::getNamesOfNodesOnMachine
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector    values{results[ii]};
+                StringVector &  values{results[ii]};
 
                 if (0 < values.size())
                 {
@@ -2211,7 +2143,7 @@ nImO::Registry::getNodeInformation
             {
                 if (0 < results.size())
                 {
-                    StringVector    values{results[0]};
+                    StringVector &  values{results[0]};
 
                     info._name = nodeName;
                     if (2 < values.size())

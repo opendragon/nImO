@@ -138,6 +138,7 @@ nImO::ChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
+                infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                 okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "channel information", infoArray);
             }
             else

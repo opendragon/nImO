@@ -163,24 +163,19 @@ struct ChannelInsertData
     /*! @brief The allowed transport types for the channel. */
     nImO::TransportType   _modes;
 
-    /*! @brief @c true if this channel is connected to another channel. */
-    bool    _inUse;
-
     /*! @brief The constructor.
      @param[in] node The name of the node for the channel.
      @param[in] path The path for the channel.
      @param[in] isOutput @c true if the channel is an output.
      @param[in] dataType The format for the data to be transferred over the channel.
-     @param[in] modes The allowed transport types for the channel.
-     @param[in] inUse @c true if the channel is connected to another channel. */
+     @param[in] modes The allowed transport types for the channel. */
     inline ChannelInsertData
         (const std::string &        node,
          const std::string &        path,
          const bool                 isOutput,
          const std::string &        dataType,
-         const nImO::TransportType  modes,
-         const bool                 inUse) :
-            _node(node), _path(path), _isOutput(isOutput), _dataType(dataType), _modes(modes), _inUse(inUse)
+         const nImO::TransportType  modes) :
+            _node(node), _path(path), _isOutput(isOutput), _dataType(dataType), _modes(modes)
     {
     }
 
@@ -754,8 +749,9 @@ createTables
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")",
                 "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " (" CHANNEL_NODE_C_ " TEXT NOT NULL DEFAULT _ COLLATE NOCASE, " CHANNEL_PATH_C_
                         " TEXT NOT NULL DEFAULT _ COLLATE BINARY, " CHANNEL_IS_OUTPUT_C_ " INTEGER, " CHANNEL_DATA_TYPE_C_
-                        " TEXT DEFAULT _ COLLATE BINARY, " CHANNEL_MODES_C_ " INTEGER, " CHANNEL_IN_USE_C_ " INTEGER, FOREIGN KEY (" CHANNEL_NODE_C_
-                        ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT)",
+                        " TEXT DEFAULT _ COLLATE BINARY, " CHANNEL_MODES_C_ " INTEGER, " CHANNEL_IN_USE_C_ " INTEGER DEFAULT 0, FOREIGN KEY ("
+                        CHANNEL_NODE_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_
+                        ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " CHANNELS_I_ " ON " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ")"
             };
             static const size_t numTables{A_SIZE(tableSQL)};
@@ -855,9 +851,8 @@ setupInsertIntoChannels
         int isOutputIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IS_OUTPUT_C_)};
         int dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_DATA_TYPE_C_)};
         int modesIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_MODES_C_)};
-        int inUseIndex{sqlite3_bind_parameter_index(statement, "@" CHANNEL_IN_USE_C_)};
 
-        if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex) && (0 < inUseIndex))
+        if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex))
         {
             auto                channelData{StaticCast(CPtr(ChannelInsertData), stuff)};
             std::string         node{channelData->_node};
@@ -865,7 +860,6 @@ setupInsertIntoChannels
             bool                isOutput{channelData->_isOutput};
             std::string         dataType{channelData->_dataType};
             nImO::TransportType modes{channelData->_modes};
-            bool                inUse{channelData->_inUse};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -884,10 +878,6 @@ setupInsertIntoChannels
             {
                 result = sqlite3_bind_int(statement, modesIndex, StaticCast(int, modes));
             }
-            if (SQLITE_OK == result)
-            {
-                result = sqlite3_bind_int(statement, inUseIndex, inUse ? 1 : 0);
-            }
             if (SQLITE_OK != result)
             {
                 ODL_S1("error description: ", sqlite3_errstr(result)); //####
@@ -895,8 +885,7 @@ setupInsertIntoChannels
         }
         else
         {
-            ODL_LOG("! ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex) && " //####
-                    "(0 < inUseIndex))"); //####
+            ODL_LOG("! ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex))"); //####
         }
     }
     catch (...)
@@ -1411,13 +1400,12 @@ nImO::Registry::addChannel
      const std::string &    path,
      const bool             isOutput,
      const std::string &    dataType,
-     const TransportType    modes,
-     const bool             inUse)
+     const TransportType    modes)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
-    ODL_B2("isOutput = ", isOutput, "inUse = ", inUse); //####
+    ODL_B1("isOutput = ", isOutput); //####
     ODL_I1("modes = ", StaticCast(int, modes)); //####
     RegSuccessOrFailure status;
 
@@ -1432,12 +1420,11 @@ nImO::Registry::addChannel
                 status = doBeginTransaction(_owner, _dbHandle);
                 if (status.first)
                 {
-                    ChannelInsertData   data{nodeName, path, isOutput, dataType, modes, inUse};
+                    ChannelInsertData   data{nodeName, path, isOutput, dataType, modes};
                     static CPtr(char)   insertIntoChannels{"INSERT INTO " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ", "
-                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_ ", "
-                                                            CHANNEL_IN_USE_C_ ") VALUES (@" CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
-                                                            CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ", @"
-                                                            CHANNEL_IN_USE_C_")"};
+                                                            CHANNEL_IS_OUTPUT_C_ ", " CHANNEL_DATA_TYPE_C_ ", " CHANNEL_MODES_C_ ") VALUES (@"
+                                                            CHANNEL_NODE_C_ ", @" CHANNEL_PATH_C_ ", @"
+                                                            CHANNEL_IS_OUTPUT_C_ ", @" CHANNEL_DATA_TYPE_C_ ", @" CHANNEL_MODES_C_ ")"};
 
                     status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoChannels, setupInsertIntoChannels, &data);
                     doEndTransaction(_owner, _dbHandle, status.first);
@@ -1554,7 +1541,7 @@ nImO::Registry::getChannelInformation
             std::vector<StringVector>   results;
             ChannelSearchData           data{nodeName, path};
             static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                        "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_"  FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_
+                                                        "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_
                                                         " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
@@ -1646,10 +1633,10 @@ nImO::Registry::getInformationForAllChannelsOnMachine
     {
         std::vector<StringVector>   results;
         static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_
+                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_
                                                     " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_ " AND " MACHINES_T_ "."
                                                     MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_ "." MACHINE_NAME_C_
-                                                    " = @" MACHINE_NAME_C_ };
+                                                    " = @" MACHINE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
                                                               &machineName);
@@ -1698,8 +1685,8 @@ nImO::Registry::getInformationForAllChannelsOnNode
     {
         std::vector<StringVector>   results;
         static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
-                                                    CHANNEL_NODE_C_ };
+                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
+                                                    CHANNEL_NODE_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
         if (status.first)

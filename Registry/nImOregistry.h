@@ -102,16 +102,14 @@ namespace nImO
              @param[in] isOutput @c true if the channel is an output.
              @param[in] dataType The format for the data to be transferred over the channel.
              @param[in] modes The allowed transport modes for the channel.
-             @param[in] inUse @c true if the channel is connected to another channel.
-             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+	             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
             RegSuccessOrFailure
             addChannel
                 (const std::string &    nodeName,
                  const std::string &    path,
                  const bool             isOutput = false,
                  const std::string &    dataType = "",
-                 const TransportType    modes = TransportType::kAny,
-                 const bool             inUse = false)
+                 const TransportType    modes = TransportType::kAny)
                 const;
 
             /*! @brief Add a machine to the Registry.

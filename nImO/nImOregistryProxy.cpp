@@ -145,12 +145,11 @@ nImO::RegistryProxy::addChannel
      const std::string &    path,
      const bool             isOutput,
      const std::string &    dataType,
-     const TransportType    modes,
-     const bool             inUse)
+     const TransportType    modes)
 {
     ODL_OBJENTER(); //####
     ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
-    ODL_B2("isOutput = ", isOutput, "inUse = ", inUse); //####
+    ODL_B1("isOutput = ", isOutput); //####
     ODL_I1("modes = ", StaticCast(int, modes)); //####
     SpArray                                     argArray{new Array};
     std::unique_ptr<AddChannelResponseHandler>  handler{new AddChannelResponseHandler};
@@ -160,7 +159,6 @@ nImO::RegistryProxy::addChannel
     argArray->addValue(std::make_shared<Logical>(isOutput));
     argArray->addValue(std::make_shared<String>(dataType));
     argArray->addValue(std::make_shared<Integer>(StaticCast(int, modes)));
-    argArray->addValue(std::make_shared<Logical>(inUse));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddChannelRequest,
                                                                            kAddChannelResponse)};
 

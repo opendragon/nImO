@@ -78,27 +78,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumberOfNodesOnMachineResponseHandler::NumberOfNodesOnMachineResponseHandler
+nImO::GetNumberOfNodesOnMachineResponseHandler::GetNumberOfNodesOnMachineResponseHandler
     (void) :
         inherited(), _result(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumberOfNodesOnMachineResponseHandler::NumberOfNodesOnMachineResponseHandler
+} // nImO::GetNumberOfNodesOnMachineResponseHandler::GetNumberOfNodesOnMachineResponseHandler
 
-nImO::NumberOfNodesOnMachineResponseHandler::~NumberOfNodesOnMachineResponseHandler
+nImO::GetNumberOfNodesOnMachineResponseHandler::~GetNumberOfNodesOnMachineResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfNodesOnMachineResponseHandler::~NumberOfNodesOnMachineResponseHandler
+} // nImO::GetNumberOfNodesOnMachineResponseHandler::~GetNumberOfNodesOnMachineResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NumberOfNodesOnMachineResponseHandler::doIt
+nImO::GetNumberOfNodesOnMachineResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -121,7 +121,7 @@ nImO::NumberOfNodesOnMachineResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfNodesOnMachineResponseHandler::doIt
+} // nImO::GetNumberOfNodesOnMachineResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'names of nodes on machine' command handler.
+//  Contains:   The class definition for the nImO 'get names of nodes on machine' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'names of nodes on machine' command handler. */
+ @brief The class definition for the %nImO 'get names of nodes on machine' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NamesOfNodesOnMachineCommandHandler::NamesOfNodesOnMachineCommandHandler
+nImO::GetNamesOfNodesOnMachineCommandHandler::GetNamesOfNodesOnMachineCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::NamesOfNodesOnMachineCommandHandler::NamesOfNodesOnMachineCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NamesOfNodesOnMachineCommandHandler::NamesOfNodesOnMachineCommandHandler
+} // nImO::GetNamesOfNodesOnMachineCommandHandler::GetNamesOfNodesOnMachineCommandHandler
 
-nImO::NamesOfNodesOnMachineCommandHandler::~NamesOfNodesOnMachineCommandHandler
+nImO::GetNamesOfNodesOnMachineCommandHandler::~GetNamesOfNodesOnMachineCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfNodesOnMachineCommandHandler::~NamesOfNodesOnMachineCommandHandler
+} // nImO::GetNamesOfNodesOnMachineCommandHandler::~GetNamesOfNodesOnMachineCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NamesOfNodesOnMachineCommandHandler::doIt
+nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::NamesOfNodesOnMachineCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("names of nodes on machine request received");
+    _owner->report("get names of nodes on machine request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -138,7 +138,7 @@ nImO::NamesOfNodesOnMachineCommandHandler::doIt
                 {
                     stringSet->addValue(std::make_shared<String>(*walker));
                 }
-                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "names of nodes on machine", stringSet);
+                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine", stringSet);
             }
             else
             {
@@ -152,7 +152,7 @@ nImO::NamesOfNodesOnMachineCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NamesOfNodesOnMachineCommandHandler::doIt
+} // nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

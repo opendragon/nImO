@@ -78,27 +78,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::MachinePresentResponseHandler::MachinePresentResponseHandler
+nImO::IsMachinePresentResponseHandler::IsMachinePresentResponseHandler
     (void) :
         inherited(), _result(false)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::MachinePresentResponseHandler::MachinePresentResponseHandler
+} // nImO::IsMachinePresentResponseHandler::IsMachinePresentResponseHandler
 
-nImO::MachinePresentResponseHandler::~MachinePresentResponseHandler
+nImO::IsMachinePresentResponseHandler::~IsMachinePresentResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::MachinePresentResponseHandler::~MachinePresentResponseHandler
+} // nImO::IsMachinePresentResponseHandler::~IsMachinePresentResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::MachinePresentResponseHandler::doIt
+nImO::IsMachinePresentResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -121,7 +121,7 @@ nImO::MachinePresentResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::MachinePresentResponseHandler::doIt
+} // nImO::IsMachinePresentResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

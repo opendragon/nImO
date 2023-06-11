@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'number of nodes on machine' command handler.
+//  Contains:   The class definition for the nImO 'get number of nodes on machine' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'number of nodes on machine' command handler. */
+ @brief The class definition for the %nImO 'get number of nodes on machine' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumberOfNodesOnMachineCommandHandler::NumberOfNodesOnMachineCommandHandler
+nImO::GetNumberOfNodesOnMachineCommandHandler::GetNumberOfNodesOnMachineCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -90,21 +90,21 @@ nImO::NumberOfNodesOnMachineCommandHandler::NumberOfNodesOnMachineCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumberOfNodesOnMachineCommandHandler::NumberOfNodesOnMachineCommandHandler
+} // nImO::GetNumberOfNodesOnMachineCommandHandler::GetNumberOfNodesOnMachineCommandHandler
 
-nImO::NumberOfNodesOnMachineCommandHandler::~NumberOfNodesOnMachineCommandHandler
+nImO::GetNumberOfNodesOnMachineCommandHandler::~GetNumberOfNodesOnMachineCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfNodesOnMachineCommandHandler::~NumberOfNodesOnMachineCommandHandler
+} // nImO::GetNumberOfNodesOnMachineCommandHandler::~GetNumberOfNodesOnMachineCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NumberOfNodesOnMachineCommandHandler::doIt
+nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -114,7 +114,7 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("number of nodes on machine request received");
+    _owner->report("get number of nodes on machine request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -132,7 +132,7 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
             {
                 SpInteger   count{new Integer{statusWithInt.second}};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "number of nodes on machine", count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine", count);
             }
             else
             {
@@ -146,7 +146,7 @@ nImO::NumberOfNodesOnMachineCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NumberOfNodesOnMachineCommandHandler::doIt
+} // nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

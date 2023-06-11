@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'machine information' command handler.
+//  Contains:   The class definition for the nImO 'get machine information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'machine information' command handler. */
+ @brief The class definition for the %nImO 'get machine information' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::MachineInformationCommandHandler::MachineInformationCommandHandler
+nImO::GetMachineInformationCommandHandler::GetMachineInformationCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::MachineInformationCommandHandler::MachineInformationCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::MachineInformationCommandHandler::MachineInformationCommandHandler
+} // nImO::GetMachineInformationCommandHandler::GetMachineInformationCommandHandler
 
-nImO::MachineInformationCommandHandler::~MachineInformationCommandHandler
+nImO::GetMachineInformationCommandHandler::~GetMachineInformationCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::MachineInformationCommandHandler::~MachineInformationCommandHandler
+} // nImO::GetMachineInformationCommandHandler::~GetMachineInformationCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::MachineInformationCommandHandler::doIt
+nImO::GetMachineInformationCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::MachineInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("machine information request received");
+    _owner->report("get machine information request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -137,7 +137,7 @@ nImO::MachineInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
-                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "machine information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information", infoArray);
             }
             else
             {
@@ -151,7 +151,7 @@ nImO::MachineInformationCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::MachineInformationCommandHandler::doIt
+} // nImO::GetMachineInformationCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

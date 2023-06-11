@@ -45,7 +45,9 @@
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddNodeResponseHandler.h>
+#include <ResponseHandlers/nImOclearChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
@@ -69,6 +71,7 @@
 #include <ResponseHandlers/nImOremoveChannelResponseHandler.h>
 #include <ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h>
 #include <ResponseHandlers/nImOremoveNodeResponseHandler.h>
+#include <ResponseHandlers/nImOsetChannelInUseResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
 
@@ -202,15 +205,34 @@ nImO::RegistryProxy::addNode
     return RegBoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::addNode
 
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::clearChannelInUse
+    (const std::string &    nodeName,
+     const std::string &    path)
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<ClearChannelInUseResponseHandler>   handler{new ClearChannelInUseResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kClearChannelInUseRequest, kClearChannelInUseResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::clearChannelInUse
+
 nImO::RegChannelInfoOrFailure
 nImO::RegistryProxy::getChannelInformation
     (const std::string &    nodeName,
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("machineName = ", nodeName); //####
-    SpArray                                             argArray{new Array};
-    std::unique_ptr<ChannelInformationResponseHandler>  handler{new ChannelInformationResponseHandler};
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<GetChannelInformationResponseHandler>   handler{new GetChannelInformationResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     argArray->addValue(std::make_shared<String>(path));
@@ -221,14 +243,33 @@ nImO::RegistryProxy::getChannelInformation
     return RegChannelInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getChannelInformation
 
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::getChannelInUse
+    (const std::string &    nodeName,
+     const std::string &    path)
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<GetChannelInUseResponseHandler> handler{new GetChannelInUseResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kGetChannelInUseRequest, kGetChannelInUseResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getChannelInUse
+
 nImO::RegChannelInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllChannels
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<InformationForAllChannelsResponseHandler>   handler{new InformationForAllChannelsResponseHandler};
-    RegSuccessOrFailure                                         status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
-                                                                                                                     handler.get(),
+    std::unique_ptr<GetInformationForAllChannelsResponseHandler>    handler{new GetInformationForAllChannelsResponseHandler};
+    RegSuccessOrFailure                                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                         handler.get(),
                                                                                                              kGetInformationForAllChannelsRequest,
                                                                                                              kGetInformationForAllChannelsResponse)};
 
@@ -241,8 +282,8 @@ nImO::RegistryProxy::getInformationForAllChannelsOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    SpArray                                                             argArray{new Array};
-    std::unique_ptr<InformationForAllChannelsOnMachineResponseHandler>  handler{new InformationForAllChannelsOnMachineResponseHandler};
+    SpArray                                                                 argArray{new Array};
+    std::unique_ptr<GetInformationForAllChannelsOnMachineResponseHandler>   handler{new GetInformationForAllChannelsOnMachineResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -258,8 +299,8 @@ nImO::RegistryProxy::getInformationForAllChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    SpArray                                                         argArray{new Array};
-    std::unique_ptr<InformationForAllChannelsOnNodeResponseHandler> handler{new InformationForAllChannelsOnNodeResponseHandler};
+    SpArray                                                             argArray{new Array};
+    std::unique_ptr<GetInformationForAllChannelsOnNodeResponseHandler>  handler{new GetInformationForAllChannelsOnNodeResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -275,9 +316,9 @@ nImO::RegistryProxy::getInformationForAllMachines
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<InformationForAllMachinesResponseHandler>   handler{new InformationForAllMachinesResponseHandler};
-    RegSuccessOrFailure                                         status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
-                                                                                                                     handler.get(),
+    std::unique_ptr<GetInformationForAllMachinesResponseHandler>    handler{new GetInformationForAllMachinesResponseHandler};
+    RegSuccessOrFailure                                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                         handler.get(),
                                                                                                              kGetInformationForAllMachinesRequest,
                                                                                                              kGetInformationForAllMachinesResponse)};
 
@@ -290,9 +331,9 @@ nImO::RegistryProxy::getInformationForAllNodes
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<InformationForAllNodesResponseHandler>  handler{new InformationForAllNodesResponseHandler};
-    RegSuccessOrFailure                                     status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
-                                                                                                                 handler.get(),
+    std::unique_ptr<GetInformationForAllNodesResponseHandler>   handler{new GetInformationForAllNodesResponseHandler};
+    RegSuccessOrFailure                                         status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                     handler.get(),
                                                                                                                  kGetInformationForAllNodesRequest,
                                                                                                                  kGetInformationForAllNodesResponse)};
 
@@ -306,8 +347,8 @@ nImO::RegistryProxy::getInformationForAllNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SpArray                                                         argArray{new Array};
-    std::unique_ptr<InformationForAllNodesOnMachineResponseHandler> handler{new InformationForAllNodesOnMachineResponseHandler};
+    SpArray                                                             argArray{new Array};
+    std::unique_ptr<GetInformationForAllNodesOnMachineResponseHandler>  handler{new GetInformationForAllNodesOnMachineResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -324,8 +365,8 @@ nImO::RegistryProxy::getLaunchDetails
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SpArray                                         argArray{new Array};
-    std::unique_ptr<LaunchDetailsResponseHandler>   handler{new LaunchDetailsResponseHandler};
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<GetLaunchDetailsResponseHandler>    handler{new GetLaunchDetailsResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -341,8 +382,8 @@ nImO::RegistryProxy::getMachineInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SpArray                                             argArray{new Array};
-    std::unique_ptr<MachineInformationResponseHandler>  handler{new MachineInformationResponseHandler};
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<GetMachineInformationResponseHandler>   handler{new GetMachineInformationResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -357,10 +398,10 @@ nImO::RegistryProxy::getNamesOfMachines
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<NamesOfMachinesResponseHandler> handler{new NamesOfMachinesResponseHandler};
-    RegSuccessOrFailure                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
-                                                                                                         kGetNamesOfMachinesRequest,
-                                                                                                         kGetNamesOfMachinesResponse)};
+    std::unique_ptr<GetNamesOfMachinesResponseHandler>  handler{new GetNamesOfMachinesResponseHandler};
+    RegSuccessOrFailure                                 status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
+                                                                                                             kGetNamesOfMachinesRequest,
+                                                                                                             kGetNamesOfMachinesResponse)};
 
     ODL_OBJEXIT(); //####
     return RegStringSetOrFailure{status, handler->result()};
@@ -371,7 +412,7 @@ nImO::RegistryProxy::getNamesOfNodes
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<NamesOfNodesResponseHandler>    handler{new NamesOfNodesResponseHandler};
+    std::unique_ptr<GetNamesOfNodesResponseHandler> handler{new GetNamesOfNodesResponseHandler};
     RegSuccessOrFailure                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
                                                                                                          kGetNamesOfNodesRequest,
                                                                                                          kGetNamesOfNodesResponse)};
@@ -386,8 +427,8 @@ nImO::RegistryProxy::getNamesOfNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SpArray                                                 argArray{new Array};
-    std::unique_ptr<NamesOfNodesOnMachineResponseHandler>   handler{new NamesOfNodesOnMachineResponseHandler};
+    SpArray                                                     argArray{new Array};
+    std::unique_ptr<GetNamesOfNodesOnMachineResponseHandler>    handler{new GetNamesOfNodesOnMachineResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -403,8 +444,8 @@ nImO::RegistryProxy::getNodeInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SpArray                                         argArray{new Array};
-    std::unique_ptr<NodeInformationResponseHandler> handler{new NodeInformationResponseHandler};
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<GetNodeInformationResponseHandler>  handler{new GetNodeInformationResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -419,7 +460,7 @@ nImO::RegistryProxy::getNumberOfChannels
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<NumberOfChannelsResponseHandler>    handler{new NumberOfChannelsResponseHandler};
+    std::unique_ptr<GetNumberOfChannelsResponseHandler> handler{new GetNumberOfChannelsResponseHandler};
     RegSuccessOrFailure                                 status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
                                                                                                              kGetNumberOfChannelsRequest,
                                                                                                              kGetNumberOfChannelsResponse)};
@@ -434,8 +475,8 @@ nImO::RegistryProxy::getNumberOfChannelsOnNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SpArray                                                 argArray{new Array};
-    std::unique_ptr<NumberOfChannelsOnNodeResponseHandler>  handler{new NumberOfChannelsOnNodeResponseHandler};
+    SpArray                                                     argArray{new Array};
+    std::unique_ptr<GetNumberOfChannelsOnNodeResponseHandler>   handler{new GetNumberOfChannelsOnNodeResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -450,7 +491,7 @@ nImO::RegistryProxy::getNumberOfMachines
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<NumberOfMachinesResponseHandler>    handler{new NumberOfMachinesResponseHandler};
+    std::unique_ptr<GetNumberOfMachinesResponseHandler> handler{new GetNumberOfMachinesResponseHandler};
     RegSuccessOrFailure                                 status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
                                                                                                              kGetNumberOfMachinesRequest,
                                                                                                              kGetNumberOfMachinesResponse)};
@@ -464,10 +505,10 @@ nImO::RegistryProxy::getNumberOfNodes
     (void)
 {
     ODL_OBJENTER(); //####
-    std::unique_ptr<NumberOfNodesResponseHandler>   handler{new NumberOfNodesResponseHandler};
-    RegSuccessOrFailure                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
-                                                                                                         kGetNumberOfNodesRequest,
-                                                                                                         kGetNumberOfNodesResponse)};
+    std::unique_ptr<GetNumberOfNodesResponseHandler>    handler{new GetNumberOfNodesResponseHandler};
+    RegSuccessOrFailure                                 status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
+                                                                                                             kGetNumberOfNodesRequest,
+                                                                                                             kGetNumberOfNodesResponse)};
 
     ODL_OBJEXIT(); //####
     return RegIntOrFailure{status, handler->result()};
@@ -479,8 +520,8 @@ nImO::RegistryProxy::getNumberOfNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SpArray                                                 argArray{new Array};
-    std::unique_ptr<NumberOfNodesOnMachineResponseHandler>  handler{new NumberOfNodesOnMachineResponseHandler};
+    SpArray                                                     argArray{new Array};
+    std::unique_ptr<GetNumberOfNodesOnMachineResponseHandler>   handler{new GetNumberOfNodesOnMachineResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -493,15 +534,15 @@ nImO::RegistryProxy::getNumberOfNodesOnMachine
 nImO::RegBoolOrFailure
 nImO::RegistryProxy::isChannelPresent
     (const std::string &    nodeName,
-     const std::string &    channelPath)
+     const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S2s("nodeName = ", nodeName, "channelPath = ", channelPath); //####
-    SpArray                                         argArray{new Array};
-    std::unique_ptr<ChannelPresentResponseHandler>  handler{new ChannelPresentResponseHandler};
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<IsChannelPresentResponseHandler>    handler{new IsChannelPresentResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
-    argArray->addValue(std::make_shared<String>(channelPath));
+    argArray->addValue(std::make_shared<String>(path));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
                                                                            kIsChannelPresentRequest, kIsChannelPresentResponse)};
 
@@ -515,8 +556,8 @@ nImO::RegistryProxy::isMachinePresent
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SpArray                                         argArray{new Array};
-    std::unique_ptr<MachinePresentResponseHandler>  handler{new MachinePresentResponseHandler};
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<IsMachinePresentResponseHandler>    handler{new IsMachinePresentResponseHandler};
 
     argArray->addValue(std::make_shared<String>(machineName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -532,8 +573,8 @@ nImO::RegistryProxy::isNodePresent
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SpArray                                     argArray{new Array};
-    std::unique_ptr<NodePresentResponseHandler> handler{new NodePresentResponseHandler};
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<IsNodePresentResponseHandler>   handler{new IsNodePresentResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
@@ -549,7 +590,7 @@ nImO::RegistryProxy::removeChannel
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     SpArray                                         argArray{new Array};
     std::unique_ptr<RemoveChannelResponseHandler>   handler{new RemoveChannelResponseHandler};
 
@@ -595,6 +636,25 @@ nImO::RegistryProxy::removeNode
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::removeNode
+
+nImO::RegBoolOrFailure
+nImO::RegistryProxy::setChannelInUse
+    (const std::string &    nodeName,
+     const std::string &    path)
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<SetChannelInUseResponseHandler> handler{new SetChannelInUseResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kSetChannelInUseRequest, kSetChannelInUseResponse)};
+
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::setChannelInUse
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -78,27 +78,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NamesOfNodesResponseHandler::NamesOfNodesResponseHandler
+nImO::GetNamesOfNodesResponseHandler::GetNamesOfNodesResponseHandler
     (void) :
         inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NamesOfNodesResponseHandler::NamesOfNodesResponseHandler
+} // nImO::GetNamesOfNodesResponseHandler::GetNamesOfNodesResponseHandler
 
-nImO::NamesOfNodesResponseHandler::~NamesOfNodesResponseHandler
+nImO::GetNamesOfNodesResponseHandler::~GetNamesOfNodesResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfNodesResponseHandler::~NamesOfNodesResponseHandler
+} // nImO::GetNamesOfNodesResponseHandler::~GetNamesOfNodesResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NamesOfNodesResponseHandler::doIt
+nImO::GetNamesOfNodesResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -131,7 +131,7 @@ nImO::NamesOfNodesResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfNodesResponseHandler::doIt
+} // nImO::GetNamesOfNodesResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

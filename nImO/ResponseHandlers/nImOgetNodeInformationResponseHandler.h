@@ -57,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class NodeInformationResponseHandler final : public ResponseHandler
+    class GetNodeInformationResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -77,12 +77,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
-            NodeInformationResponseHandler
+            GetNodeInformationResponseHandler
                 (void);
 
             /*! @brief The destructor. */
             virtual
-            ~NodeInformationResponseHandler
+            ~GetNodeInformationResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -120,7 +120,7 @@ namespace nImO
             /*! @brief The received value. */
             NodeInfo    _result;
 
-    }; // NodeInformationResponseHandler
+    }; // GetNodeInformationResponseHandler
 
 } // nImO
 

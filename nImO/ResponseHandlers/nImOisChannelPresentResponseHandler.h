@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class ChannelPresentResponseHandler final : public ResponseHandler
+    class IsChannelPresentResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -75,12 +75,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
-            ChannelPresentResponseHandler
+            IsChannelPresentResponseHandler
                 (void);
 
             /*! @brief The destructor. */
             virtual
-            ~ChannelPresentResponseHandler
+            ~IsChannelPresentResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -118,7 +118,7 @@ namespace nImO
             /*! @brief The received value. */
             bool    _result;
 
-    }; // ChannelPresentResponseHandler
+    }; // IsChannelPresentResponseHandler
 
 } // nImO
 

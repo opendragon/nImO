@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'machine present' command handler.
+//  Contains:   The class declaration for the nImO 'is machine present' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -49,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'machine present' command handler. */
+ @brief The class declaration for the %nImO 'is machine present' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'machine present' command. */
-    class MachinePresentCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide a handler for the 'is machine present' command. */
+    class IsMachinePresentCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -78,13 +78,13 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
-            MachinePresentCommandHandler
+            IsMachinePresentCommandHandler
                 (SpContextWithNetworking    owner,
                  SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~MachinePresentCommandHandler
+            ~IsMachinePresentCommandHandler
                 (void);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -113,7 +113,7 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // MachinePresentCommandHandler
+    }; // IsMachinePresentCommandHandler
 
 } // nImO
 

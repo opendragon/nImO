@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'information for all channels on machine' command handler.
+//  Contains:   The class definition for the nImO 'get information for all channels on machine' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'information for all channels on machine' command handler. */
+ @brief The class definition for the %nImO 'get information for all channels on machine' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::InformationForAllChannelsOnMachineCommandHandler::InformationForAllChannelsOnMachineCommandHandler
+nImO::GetInformationForAllChannelsOnMachineCommandHandler::GetInformationForAllChannelsOnMachineCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::InformationForAllChannelsOnMachineCommandHandler::InformationForAllChannel
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::InformationForAllChannelsOnMachineCommandHandler::InformationForAllChannelsOnMachineCommandHandler
+} // nImO::GetInformationForAllChannelsOnMachineCommandHandler::GetInformationForAllChannelsOnMachineCommandHandler
 
-nImO::InformationForAllChannelsOnMachineCommandHandler::~InformationForAllChannelsOnMachineCommandHandler
+nImO::GetInformationForAllChannelsOnMachineCommandHandler::~GetInformationForAllChannelsOnMachineCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::InformationForAllChannelsOnMachineCommandHandler::~InformationForAllChannelsOnMachineCommandHandler
+} // nImO::GetInformationForAllChannelsOnMachineCommandHandler::~GetInformationForAllChannelsOnMachineCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::InformationForAllChannelsOnMachineCommandHandler::doIt
+nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::InformationForAllChannelsOnMachineCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("information for all channels on machine request received");
+    _owner->report("get information for all channels on machine request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -148,7 +148,7 @@ nImO::InformationForAllChannelsOnMachineCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                     channelArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnMachineResponse, "information for all channels on machine",
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnMachineResponse, "get information for all channels on machine",
                                               channelArray);
             }
             else
@@ -163,7 +163,7 @@ nImO::InformationForAllChannelsOnMachineCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::InformationForAllChannelsOnMachineCommandHandler::doIt
+} // nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

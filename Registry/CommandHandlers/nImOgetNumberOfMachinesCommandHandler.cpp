@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'number of machines' command handler.
+//  Contains:   The class definition for the nImO 'get number of machines' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'number of machines' command handler. */
+ @brief The class definition for the %nImO 'get number of machines' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumberOfMachinesCommandHandler::NumberOfMachinesCommandHandler
+nImO::GetNumberOfMachinesCommandHandler::GetNumberOfMachinesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -90,21 +90,21 @@ nImO::NumberOfMachinesCommandHandler::NumberOfMachinesCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumberOfMachinesCommandHandler::NumberOfMachinesCommandHandler
+} // nImO::GetNumberOfMachinesCommandHandler::GetNumberOfMachinesCommandHandler
 
-nImO::NumberOfMachinesCommandHandler::~NumberOfMachinesCommandHandler
+nImO::GetNumberOfMachinesCommandHandler::~GetNumberOfMachinesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfMachinesCommandHandler::~NumberOfMachinesCommandHandler
+} // nImO::GetNumberOfMachinesCommandHandler::~GetNumberOfMachinesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NumberOfMachinesCommandHandler::doIt
+nImO::GetNumberOfMachinesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -114,7 +114,7 @@ nImO::NumberOfMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("number of machines request received");
+    _owner->report("get number of machines request received");
     if (0 < arguments.size())
     {
         RegIntOrFailure    statusWithInt{_registry->getNumberOfMachines()};
@@ -123,7 +123,7 @@ nImO::NumberOfMachinesCommandHandler::doIt
         {
             SpInteger   count{new Integer{statusWithInt.second}};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "number of machines", count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines", count);
         }
         else
         {
@@ -136,7 +136,7 @@ nImO::NumberOfMachinesCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NumberOfMachinesCommandHandler::doIt
+} // nImO::GetNumberOfMachinesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

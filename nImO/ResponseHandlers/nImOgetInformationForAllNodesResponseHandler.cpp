@@ -80,27 +80,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::InformationForAllNodesResponseHandler::InformationForAllNodesResponseHandler
+nImO::GetInformationForAllNodesResponseHandler::GetInformationForAllNodesResponseHandler
     (void) :
         inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::InformationForAllNodesResponseHandler::InformationForAllNodesResponseHandler
+} // nImO::GetInformationForAllNodesResponseHandler::GetInformationForAllNodesResponseHandler
 
-nImO::InformationForAllNodesResponseHandler::~InformationForAllNodesResponseHandler
+nImO::GetInformationForAllNodesResponseHandler::~GetInformationForAllNodesResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::InformationForAllNodesResponseHandler::~InformationForAllNodesResponseHandler
+} // nImO::GetInformationForAllNodesResponseHandler::~GetInformationForAllNodesResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::InformationForAllNodesResponseHandler::doIt
+nImO::GetInformationForAllNodesResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -167,7 +167,7 @@ nImO::InformationForAllNodesResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::InformationForAllNodesResponseHandler::doIt
+} // nImO::GetInformationForAllNodesResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

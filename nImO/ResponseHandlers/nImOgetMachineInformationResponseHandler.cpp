@@ -80,27 +80,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::MachineInformationResponseHandler::MachineInformationResponseHandler
+nImO::GetMachineInformationResponseHandler::GetMachineInformationResponseHandler
     (void) :
         inherited()
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::MachineInformationResponseHandler::MachineInformationResponseHandler
+} // nImO::GetMachineInformationResponseHandler::GetMachineInformationResponseHandler
 
-nImO::MachineInformationResponseHandler::~MachineInformationResponseHandler
+nImO::GetMachineInformationResponseHandler::~GetMachineInformationResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::MachineInformationResponseHandler::~MachineInformationResponseHandler
+} // nImO::GetMachineInformationResponseHandler::~GetMachineInformationResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::MachineInformationResponseHandler::doIt
+nImO::GetMachineInformationResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -144,7 +144,7 @@ nImO::MachineInformationResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::MachineInformationResponseHandler::doIt
+} // nImO::GetMachineInformationResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

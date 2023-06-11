@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'machine present' command handler.
+//  Contains:   The class definition for the nImO 'is machine present' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -52,7 +52,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'machine present' command handler. */
+ @brief The class definition for the %nImO 'is machine present' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +81,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::MachinePresentCommandHandler::MachinePresentCommandHandler
+nImO::IsMachinePresentCommandHandler::IsMachinePresentCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -89,21 +89,21 @@ nImO::MachinePresentCommandHandler::MachinePresentCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::MachinePresentCommandHandler::MachinePresentCommandHandler
+} // nImO::IsMachinePresentCommandHandler::IsMachinePresentCommandHandler
 
-nImO::MachinePresentCommandHandler::~MachinePresentCommandHandler
+nImO::IsMachinePresentCommandHandler::~IsMachinePresentCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::MachinePresentCommandHandler::~MachinePresentCommandHandler
+} // nImO::IsMachinePresentCommandHandler::~IsMachinePresentCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::MachinePresentCommandHandler::doIt
+nImO::IsMachinePresentCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -113,7 +113,7 @@ nImO::MachinePresentCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("machine present request received");
+    _owner->report("is machine present request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -129,7 +129,7 @@ nImO::MachinePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "machine present", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present", statusWithBool.second);
             }
             else
             {
@@ -143,7 +143,7 @@ nImO::MachinePresentCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::MachinePresentCommandHandler::doIt
+} // nImO::IsMachinePresentCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

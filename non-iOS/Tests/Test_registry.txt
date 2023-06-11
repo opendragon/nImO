@@ -236,6 +236,18 @@ add_test(NAME TestChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 351)
 add_test(NAME TestGetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 352)
 ## Test check set channel in use with bad node name
 add_test(NAME TestSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 353)
+## Test check clear channel in use with bad node name
+add_test(NAME TestClearChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 354)
+## Test check get channel in use with bad channel name
+add_test(NAME TestGetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 355)
+## Test check set channel in use with bad channel name
+add_test(NAME TestSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 356)
+## Test check clear channel in use with bad channel name
+add_test(NAME TestClearChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 357)
+## Test check two channel in use can be set
+add_test(NAME TestTwoChannelInUseCanBeSet COMMAND ${THIS_TARGET} 358)
+## Test check two channel in use can be cleared
+add_test(NAME TestTwoChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 359)
 
 ## Test check count channel connections with empty Registry
 add_test(NAME TestCountChannelConnectionsWithEmptyRegistry COMMAND ${THIS_TARGET} 360)

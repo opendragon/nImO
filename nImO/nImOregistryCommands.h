@@ -92,6 +92,12 @@ namespace nImO
     /*! @brief The 'addNode' response. */
     const std::string   kAddNodeResponse = "addNode=";
 
+    /*! @brief The request to reset the connection status on a channel from the Registry. */
+    const std::string   kClearChannelInUseRequest = "clearChannelInUse!";
+
+    /*! @brief The 'clearChannelInUse' response. */
+    const std::string   kClearChannelInUseResponse = "clearChannelInUse=";
+
     /*! @brief The request to connect two channels to the Registry. */
     const std::string   kConnectChannelsRequest = "connectChannels!";
 
@@ -109,6 +115,12 @@ namespace nImO
 
     /*! @brief The 'getChannelInformation' response. */
     const std::string   kGetChannelInformationResponse = "getChannelInformation=";
+
+    /*! @brief The request to get connection status on a channel from the Registry. */
+    const std::string   kGetChannelInUseRequest = "getChannelInUse?";
+
+    /*! @brief The 'getChannelInUse' response. */
+    const std::string   kGetChannelInUseResponse = "getChannelInUse=";
 
     /*! @brief The request to get information on all channels in the Registry. */
     const std::string   kGetInformationForAllChannelsRequest = "getInformationForAllChannels?";
@@ -247,6 +259,12 @@ namespace nImO
 
     /*! @brief The 'removeNode' response. */
     const std::string   kRemoveNodeResponse = "removeNode=";
+
+    /*! @brief The request to set the connection status on a channel from the Registry. */
+    const std::string   kSetChannelInUseRequest = "setChannelInUse!";
+
+    /*! @brief The 'setChannelInUse' response. */
+    const std::string   kSetChannelInUseResponse = "setChannelInUse=";
 
 } // nImO
 

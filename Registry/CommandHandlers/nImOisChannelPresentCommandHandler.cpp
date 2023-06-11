@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'channel present' command handler.
+//  Contains:   The class definition for the nImO 'is channel present' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -52,7 +52,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'channel present' command handler. */
+ @brief The class definition for the %nImO 'is channel present' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +81,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ChannelPresentCommandHandler::ChannelPresentCommandHandler
+nImO::IsChannelPresentCommandHandler::IsChannelPresentCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -89,21 +89,21 @@ nImO::ChannelPresentCommandHandler::ChannelPresentCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ChannelPresentCommandHandler::ChannelPresentCommandHandler
+} // nImO::IsChannelPresentCommandHandler::IsChannelPresentCommandHandler
 
-nImO::ChannelPresentCommandHandler::~ChannelPresentCommandHandler
+nImO::IsChannelPresentCommandHandler::~IsChannelPresentCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ChannelPresentCommandHandler::~ChannelPresentCommandHandler
+} // nImO::IsChannelPresentCommandHandler::~IsChannelPresentCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ChannelPresentCommandHandler::doIt
+nImO::IsChannelPresentCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -113,7 +113,7 @@ nImO::ChannelPresentCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("machine present request received");
+    _owner->report("is channel present request received");
     if (2 < arguments.size())
     {
         SpValue         element1{arguments[1]};
@@ -127,7 +127,7 @@ nImO::ChannelPresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "channel present", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "is channel present", statusWithBool.second);
             }
             else
             {
@@ -145,7 +145,7 @@ nImO::ChannelPresentCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ChannelPresentCommandHandler::doIt
+} // nImO::IsChannelPresentCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

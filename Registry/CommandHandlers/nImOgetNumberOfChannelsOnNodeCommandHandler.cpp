@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'number of channels' command handler.
+//  Contains:   The class definition for the nImO 'get number of channels on node' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'number of channels on node' command handler. */
+ @brief The class definition for the %nImO 'get number of channels on node' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumberOfChannelsOnNodeCommandHandler::NumberOfChannelsOnNodeCommandHandler
+nImO::GetNumberOfChannelsOnNodeCommandHandler::GetNumberOfChannelsOnNodeCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -90,21 +90,21 @@ nImO::NumberOfChannelsOnNodeCommandHandler::NumberOfChannelsOnNodeCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumberOfChannelsOnNodeCommandHandler::NumberOfChannelsOnNodeCommandHandler
+} // nImO::GetNumberOfChannelsOnNodeCommandHandler::GetNumberOfChannelsOnNodeCommandHandler
 
-nImO::NumberOfChannelsOnNodeCommandHandler::~NumberOfChannelsOnNodeCommandHandler
+nImO::GetNumberOfChannelsOnNodeCommandHandler::~GetNumberOfChannelsOnNodeCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfChannelsOnNodeCommandHandler::~NumberOfChannelsOnNodeCommandHandler
+} // nImO::GetNumberOfChannelsOnNodeCommandHandler::~GetNumberOfChannelsOnNodeCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NumberOfChannelsOnNodeCommandHandler::doIt
+nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -114,7 +114,7 @@ nImO::NumberOfChannelsOnNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("number of channels on node request received");
+    _owner->report("get number of channels on node request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -132,7 +132,7 @@ nImO::NumberOfChannelsOnNodeCommandHandler::doIt
             {
                 SpInteger   count{new Integer{statusWithInt.second}};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "number of channels on node", count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "get number of channels on node", count);
             }
             else
             {
@@ -146,7 +146,7 @@ nImO::NumberOfChannelsOnNodeCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NumberOfChannelsOnNodeCommandHandler::doIt
+} // nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

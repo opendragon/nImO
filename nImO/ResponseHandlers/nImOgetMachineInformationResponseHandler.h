@@ -57,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class MachineInformationResponseHandler final : public ResponseHandler
+    class GetMachineInformationResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -77,12 +77,12 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
-            MachineInformationResponseHandler
+            GetMachineInformationResponseHandler
                 (void);
 
             /*! @brief The destructor. */
             virtual
-            ~MachineInformationResponseHandler
+            ~GetMachineInformationResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -120,7 +120,7 @@ namespace nImO
             /*! @brief The received value. */
             MachineInfo    _result;
 
-    }; // MachineInformationResponseHandler
+    }; // GetMachineInformationResponseHandler
 
 } // nImO
 

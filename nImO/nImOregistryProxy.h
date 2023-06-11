@@ -124,6 +124,15 @@ namespace nImO
                  const ServiceType      serviceType = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Mark a channel is in the Registry as not in use.
+             @param[in] nodeName The name of the node to be updated.
+             @param[in] path The path of the channel to be updated.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            clearChannelInUse
+                (const std::string &    nodeName,
+                 const std::string &    path);
+
             /*! @brief Get information on the channel stored in the Registry.
              @param[in] nodeName The name of the node for the channel to be located in the Registry.
              @param[in] path The path of the channel.
@@ -133,6 +142,15 @@ namespace nImO
                 (const std::string &    nodeName,
                  const std::string &    path);
         
+            /*! @brief Check if a channel is in the Registry and is in use.
+             @param[in] nodeName The name of the node to be checked.
+             @param[in] path The path of the channel to be checked.
+             @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            getChannelInUse
+                (const std::string &    nodeName,
+                 const std::string &    path);
+
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
             RegChannelInfoVectorOrFailure
@@ -246,12 +264,12 @@ namespace nImO
 
             /*! @brief Check if a channel is in the Registry.
              @param[in] nodeName The name of the node to be checked.
-             @param[in] channelPath The path of the channel to be checked.
+             @param[in] path The path of the channel to be checked.
              @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
             RegBoolOrFailure
             isChannelPresent
                 (const std::string &    nodeName,
-                 const std::string &    channelPath);
+                 const std::string &    path);
 
             /*! @brief Check if a machine is in the Registry.
              @param[in] machineName The name of the machine to be checked.
@@ -304,6 +322,15 @@ namespace nImO
             RegBoolOrFailure
             removeNode
                 (const std::string &    nodeName);
+
+            /*! @brief Mark a channel is in the Registry in use.
+             @param[in] nodeName The name of the node to be updated.
+             @param[in] path The path of the channel to be updated.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            setChannelInUse
+                (const std::string &    nodeName,
+                 const std::string &    path);
 
         protected :
             // Protected methods.

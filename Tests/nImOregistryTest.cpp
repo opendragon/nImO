@@ -6664,18 +6664,11 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
 
                     if (statusWithInfo.first.first)
                     {
-                        if (statusWithInfo.second._found)
-                        {
-                            ODL_LOG("(statusWithInfo.second._found)"); //####
-                        }
-                        else
-                        {
-                            result = 0;
-                        }
+                        ODL_LOG("(statusWithInfo.first.first)"); //####
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        result = 0;
                     }
                 }
                 else
@@ -7727,25 +7720,796 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
 # pragma mark *** Test Case 350 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestChannelInUseCanBeSet
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            if (statusWithBool.second)
+                            {
+                                ODL_LOG("(statusWithBool.second)"); //####
+                            }
+                            else
+                            {
+                                status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                if (status.first)
+                                {
+                                    statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (statusWithBool.second)
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (statusWithBool.second)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestChannelInUseCanBeSet
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 351 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestChannelInUseCanBeCleared
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            if (statusWithBool.second)
+                            {
+                                ODL_LOG("(statusWithBool.second)"); //####
+                            }
+                            else
+                            {
+                                status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                if (status.first)
+                                {
+                                    statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (statusWithBool.second)
+                                        {
+                                            status = aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                            if (status.first)
+                                            {
+                                                statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                                if (statusWithBool.first.first)
+                                                {
+                                                    if (statusWithBool.second)
+                                                    {
+                                                        ODL_LOG("(statusWithBool.second)"); //####
+                                                    }
+                                                    else
+                                                    {
+                                                        result = 0;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (statusWithBool.first.first)"); //####
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (status.first)"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (statusWithBool.second)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithBool.first.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithBool.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestChannelInUseCanBeCleared
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 352 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInUseWithBadNodeName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUse(NODE_NAME_2, CHANNEL_PATH_1)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            ODL_LOG("(statusWithBool.first.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInUseWithBadNodeName
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 353 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSetChannelInUseWithBadNodeName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_2);
+                        if (status.first)
+                        {
+                            ODL_LOG("(status.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSetChannelInUseWithBadNodeName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 354 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearChannelInUseWithBadNodeName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_2);
+                        if (status.first)
+                        {
+                            ODL_LOG("(status.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearChannelInUseWithBadNodeName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 355 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetChannelInUseWithBadChannelName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_2)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            ODL_LOG("(statusWithBool.first.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInUseWithBadChannelName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 356 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSetChannelInUseWithBadChannelName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        status = aRegistry->setChannelInUse(NODE_NAME_2, CHANNEL_PATH_1);
+                        if (status.first)
+                        {
+                            ODL_LOG("(status.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSetChannelInUseWithBadChannelName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 357 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+    doTestClearChannelInUseWithBadChannelName
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string                 machineName{nImO::GetShortComputerName()};
+            nImO::RegSuccessOrFailure   status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearChannelInUse(NODE_NAME_2, CHANNEL_PATH_1);
+                        if (status.first)
+                        {
+                            ODL_LOG("(status.first)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearChannelInUseWithBadChannelName
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 358 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestTwoChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 359 ***
+#endif // defined(__APPLE__)
+
+//                        result = doTestTwoChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 360 ***
@@ -8284,19 +9048,43 @@ main
                         break;
 
                     case 350 :
-//                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 351 :
-//                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 352 :
-//                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 353 :
-//                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 354 :
+                        result = doTestClearChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 355 :
+                        result = doTestGetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 356 :
+                        result = doTestSetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 357 :
+                        result = doTestClearChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 358 :
+//                        result = doTestTwoChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 359 :
+//                        result = doTestTwoChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 360 :

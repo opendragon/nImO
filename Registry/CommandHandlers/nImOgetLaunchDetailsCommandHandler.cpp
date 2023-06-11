@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'launch details' command handler.
+//  Contains:   The class definition for the nImO 'get launch details' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'launch details' command handler. */
+ @brief The class definition for the %nImO 'get launch details' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::LaunchDetailsCommandHandler::LaunchDetailsCommandHandler
+nImO::GetLaunchDetailsCommandHandler::GetLaunchDetailsCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::LaunchDetailsCommandHandler::LaunchDetailsCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::LaunchDetailsCommandHandler::LaunchDetailsCommandHandler
+} // nImO::GetLaunchDetailsCommandHandler::GetLaunchDetailsCommandHandler
 
-nImO::LaunchDetailsCommandHandler::~LaunchDetailsCommandHandler
+nImO::GetLaunchDetailsCommandHandler::~GetLaunchDetailsCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::LaunchDetailsCommandHandler::~LaunchDetailsCommandHandler
+} // nImO::GetLaunchDetailsCommandHandler::~GetLaunchDetailsCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::LaunchDetailsCommandHandler::doIt
+nImO::GetLaunchDetailsCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::LaunchDetailsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("launch details request received");
+    _owner->report("get launch details request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -138,7 +138,7 @@ nImO::LaunchDetailsCommandHandler::doIt
                 detailsArray->addValue(std::make_shared<String>(theDetails._execPath));
                 detailsArray->addValue(std::make_shared<String>(theDetails._launchDirectory));
                 detailsArray->addValue(std::make_shared<String>(theDetails._commandLine));
-                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "launch details", detailsArray);
+                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details", detailsArray);
             }
             else
             {
@@ -152,7 +152,7 @@ nImO::LaunchDetailsCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::LaunchDetailsCommandHandler::doIt
+} // nImO::GetLaunchDetailsCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

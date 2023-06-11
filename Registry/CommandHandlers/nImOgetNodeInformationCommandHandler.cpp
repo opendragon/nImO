@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'node information' command handler.
+//  Contains:   The class definition for the nImO 'get node information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'node information' command handler. */
+ @brief The class definition for the %nImO 'get node information' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NodeInformationCommandHandler::NodeInformationCommandHandler
+nImO::GetNodeInformationCommandHandler::GetNodeInformationCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::NodeInformationCommandHandler::NodeInformationCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NodeInformationCommandHandler::NodeInformationCommandHandler
+} // nImO::GetNodeInformationCommandHandler::GetNodeInformationCommandHandler
 
-nImO::NodeInformationCommandHandler::~NodeInformationCommandHandler
+nImO::GetNodeInformationCommandHandler::~GetNodeInformationCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NodeInformationCommandHandler::~NodeInformationCommandHandler
+} // nImO::GetNodeInformationCommandHandler::~GetNodeInformationCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NodeInformationCommandHandler::doIt
+nImO::GetNodeInformationCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::NodeInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("node information request received");
+    _owner->report("get node information request received");
     if (1 < arguments.size())
     {
         SpValue         element{arguments[1]};
@@ -140,7 +140,7 @@ nImO::NodeInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
-                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "node information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "get node information", infoArray);
             }
             else
             {
@@ -154,7 +154,7 @@ nImO::NodeInformationCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NodeInformationCommandHandler::doIt
+} // nImO::GetNodeInformationCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

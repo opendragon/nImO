@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'names of machines' command handler.
+//  Contains:   The class definition for the nImO 'get names of machines' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'names of machines' command handler. */
+ @brief The class definition for the %nImO 'get names of machines' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NamesOfMachinesCommandHandler::NamesOfMachinesCommandHandler
+nImO::GetNamesOfMachinesCommandHandler::GetNamesOfMachinesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::NamesOfMachinesCommandHandler::NamesOfMachinesCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::NamesOfMachinesCommandHandler::NamesOfMachinesCommandHandler
+} // nImO::GetNamesOfMachinesCommandHandler::GetNamesOfMachinesCommandHandler
 
-nImO::NamesOfMachinesCommandHandler::~NamesOfMachinesCommandHandler
+nImO::GetNamesOfMachinesCommandHandler::~GetNamesOfMachinesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NamesOfMachinesCommandHandler::~NamesOfMachinesCommandHandler
+} // nImO::GetNamesOfMachinesCommandHandler::~GetNamesOfMachinesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::NamesOfMachinesCommandHandler::doIt
+nImO::GetNamesOfMachinesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::NamesOfMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("names of machines request received");
+    _owner->report("get names of machines request received");
     if (0 < arguments.size())
     {
         RegStringSetOrFailure   statusWithSet{_registry->getNamesOfMachines()};
@@ -129,7 +129,7 @@ nImO::NamesOfMachinesCommandHandler::doIt
             {
                 stringSet->addValue(std::make_shared<String>(*walker));
             }
-            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "names of machines", stringSet);
+            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines", stringSet);
         }
         else
         {
@@ -142,7 +142,7 @@ nImO::NamesOfMachinesCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::NamesOfMachinesCommandHandler::doIt
+} // nImO::GetNamesOfMachinesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

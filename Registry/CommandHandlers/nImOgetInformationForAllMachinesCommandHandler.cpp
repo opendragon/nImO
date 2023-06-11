@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'information for all machines' command handler.
+//  Contains:   The class definition for the nImO 'get information for all machines' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'information for all machines' command handler. */
+ @brief The class definition for the %nImO 'get information for all machines' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::InformationForAllMachinesCommandHandler::InformationForAllMachinesCommandHandler
+nImO::GetInformationForAllMachinesCommandHandler::GetInformationForAllMachinesCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::InformationForAllMachinesCommandHandler::InformationForAllMachinesCommandH
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::InformationForAllMachinesCommandHandler::InformationForAllMachinesCommandHandler
+} // nImO::GetInformationForAllMachinesCommandHandler::GetInformationForAllMachinesCommandHandler
 
-nImO::InformationForAllMachinesCommandHandler::~InformationForAllMachinesCommandHandler
+nImO::GetInformationForAllMachinesCommandHandler::~GetInformationForAllMachinesCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::InformationForAllMachinesCommandHandler::~InformationForAllMachinesCommandHandler
+} // nImO::GetInformationForAllMachinesCommandHandler::~GetInformationForAllMachinesCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::InformationForAllMachinesCommandHandler::doIt
+nImO::GetInformationForAllMachinesCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::InformationForAllMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("information for all machines request received");
+    _owner->report("get information for all machines request received");
     if (0 < arguments.size())
     {
         RegMachineInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllMachines()};
@@ -135,7 +135,7 @@ nImO::InformationForAllMachinesCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
                 machineArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "information for all machines", machineArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines", machineArray);
         }
         else
         {
@@ -148,7 +148,7 @@ nImO::InformationForAllMachinesCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::InformationForAllMachinesCommandHandler::doIt
+} // nImO::GetInformationForAllMachinesCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

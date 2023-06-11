@@ -78,27 +78,27 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::NumberOfChannelsResponseHandler::NumberOfChannelsResponseHandler
+nImO::GetNumberOfChannelsResponseHandler::GetNumberOfChannelsResponseHandler
     (void) :
         inherited(), _result(0)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::NumberOfChannelsResponseHandler::NumberOfChannelsResponseHandler
+} // nImO::GetNumberOfChannelsResponseHandler::GetNumberOfChannelsResponseHandler
 
-nImO::NumberOfChannelsResponseHandler::~NumberOfChannelsResponseHandler
+nImO::GetNumberOfChannelsResponseHandler::~GetNumberOfChannelsResponseHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfChannelsResponseHandler::~NumberOfChannelsResponseHandler
+} // nImO::GetNumberOfChannelsResponseHandler::~GetNumberOfChannelsResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 void
-nImO::NumberOfChannelsResponseHandler::doIt
+nImO::GetNumberOfChannelsResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -121,7 +121,7 @@ nImO::NumberOfChannelsResponseHandler::doIt
         ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
-} // nImO::NumberOfChannelsResponseHandler::doIt
+} // nImO::GetNumberOfChannelsResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -67,7 +67,7 @@ Tests:\
 	SELECT COUNT(*) FROM Channels WHERE node = "b_4";\
 	SELECT InUse FROM Channels WHERE node = "b_4" AND path = "/blort";\
 \
-	UPDATE Channels SET InUse = 1 WHERE node = "b_4" AND path = "/blort";\
+	UPDATE Channels SET InUse = 1 WHERE node = "b_4" AND path = "/blort" RETURNING InUse;\
 \
 	SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" AND Machines.address = Nodes.address;\
 	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\

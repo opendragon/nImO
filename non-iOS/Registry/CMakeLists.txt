@@ -54,7 +54,9 @@ include_directories("${nImO_SQLITE_DIR}")
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddChannelCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOclearChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp
@@ -79,6 +81,7 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelsForNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOregistry.cpp
                ${THIS_SOURCE_DIR}/nImOregistryContext.cpp
                ${THIS_SOURCE_DIR}/nImOregistryMain.cpp

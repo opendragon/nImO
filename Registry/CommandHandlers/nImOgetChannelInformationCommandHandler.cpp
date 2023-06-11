@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'channel information' command handler.
+//  Contains:   The class definition for the nImO 'get channel information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'channel information' command handler. */
+ @brief The class definition for the %nImO 'get channel information' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
+nImO::GetChannelInformationCommandHandler::GetChannelInformationCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ChannelInformationCommandHandler::ChannelInformationCommandHandler
+} // nImO::GetChannelInformationCommandHandler::GetChannelInformationCommandHandler
 
-nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+nImO::GetChannelInformationCommandHandler::~GetChannelInformationCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ChannelInformationCommandHandler::~ChannelInformationCommandHandler
+} // nImO::GetChannelInformationCommandHandler::~GetChannelInformationCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ChannelInformationCommandHandler::doIt
+nImO::GetChannelInformationCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::ChannelInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("machine information request received");
+    _owner->report("get channel information request received");
     if (2 < arguments.size())
     {
         SpValue         element1{arguments[1]};
@@ -139,7 +139,7 @@ nImO::ChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
                 infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
-                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "channel information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information", infoArray);
             }
             else
             {
@@ -157,7 +157,7 @@ nImO::ChannelInformationCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ChannelInformationCommandHandler::doIt
+} // nImO::GetChannelInformationCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

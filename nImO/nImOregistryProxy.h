@@ -151,6 +151,15 @@ namespace nImO
                 (const std::string &    nodeName,
                  const std::string &    path);
 
+            /*! @brief Get the current value of the in use state of a channel in the Registry and set it, returning the state prior to setting it.
+             @param[in] nodeName The name of the node to be checked.
+             @param[in] path The path of the channel to be checked.
+             @return @c true and if the channel was found and the operation was successfully performed, if it was in use,  and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            getChannelInUseAndSet
+                (const std::string &    nodeName,
+                 const std::string &    path);
+
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
             RegChannelInfoVectorOrFailure

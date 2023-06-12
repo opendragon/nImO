@@ -48,6 +48,7 @@
 #include <ResponseHandlers/nImOclearChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInUseResponseHandler.h>
+#include <ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
@@ -244,23 +245,23 @@ nImO::RegistryProxy::getChannelInformation
 } // nImO::RegistryProxy::getChannelInformation
 
 nImO::RegBoolOrFailure
-nImO::RegistryProxy::getChannelInUse
+nImO::RegistryProxy::getChannelInUseAndSet
     (const std::string &    nodeName,
      const std::string &    path)
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    SpArray                                         argArray{new Array};
-    std::unique_ptr<GetChannelInUseResponseHandler> handler{new GetChannelInUseResponseHandler};
+    SpArray                                                 argArray{new Array};
+    std::unique_ptr<GetChannelInUseAndSetResponseHandler>   handler{new GetChannelInUseAndSetResponseHandler};
 
     argArray->addValue(std::make_shared<String>(nodeName));
     argArray->addValue(std::make_shared<String>(path));
     RegSuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
-                                                                           kGetChannelInUseRequest, kGetChannelInUseResponse)};
+                                                                           kGetChannelInUseAndSetRequest, kGetChannelInUseAndSetResponse)};
 
     ODL_OBJEXIT(); //####
     return RegBoolOrFailure{status, handler->result()};
-} // nImO::RegistryProxy::getChannelInUse
+} // nImO::RegistryProxy::getChannelInUseAndSet
 
 nImO::RegChannelInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllChannels

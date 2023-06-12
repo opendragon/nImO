@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOgetChannelInUseCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'get channel inUse' command handler.
+//  Contains:   The class definition for the nImO 'get channel inUse and set' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-06-11
+//  Created:    2023-06-12
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOgetChannelInUseCommandHandler.h"
+#include "nImOgetChannelInUseAndSetCommandHandler.h"
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'get channel inUse' command handler. */
+ @brief The class definition for the %nImO 'get channel inUse and set' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetChannelInUseCommandHandler::GetChannelInUseCommandHandler
+nImO::GetChannelInUseAndSetCommandHandler::GetChannelInUseAndSetCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::GetChannelInUseCommandHandler::GetChannelInUseCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetChannelInUseCommandHandler::GetChannelInUseCommandHandler
+} // nImO::GetChannelInUseAndSetCommandHandler::GetChannelInUseAndSetCommandHandler
 
-nImO::GetChannelInUseCommandHandler::~GetChannelInUseCommandHandler
+nImO::GetChannelInUseAndSetCommandHandler::~GetChannelInUseAndSetCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::GetChannelInUseCommandHandler::~GetChannelInUseCommandHandler
+} // nImO::GetChannelInUseAndSetCommandHandler::~GetChannelInUseAndSetCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetChannelInUseCommandHandler::doIt
+nImO::GetChannelInUseAndSetCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,7 +115,7 @@ nImO::GetChannelInUseCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get channel in use request received");
+    _owner->report("get channel in use and set request received");
     if (2 < arguments.size())
     {
         SpValue         element1{arguments[1]};
@@ -125,11 +125,11 @@ nImO::GetChannelInUseCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            RegBoolOrFailure    statusWithBool{_registry->getChannelInUse(asString1->getValue(), asString2->getValue())};
+            RegBoolOrFailure    statusWithBool{_registry->getChannelInUseAndSet(asString1->getValue(), asString2->getValue())};
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kGetChannelInUseResponse, "get channel in use", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kGetChannelInUseAndSetResponse, "get channel in use and set", statusWithBool.second);
             }
             else
             {
@@ -147,7 +147,7 @@ nImO::GetChannelInUseCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetChannelInUseCommandHandler::doIt
+} // nImO::GetChannelInUseAndSetCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

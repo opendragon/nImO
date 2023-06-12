@@ -44,6 +44,7 @@
 #include "ResponseHandlers/nImOaddNodeResponseHandler.h"
 #include "ResponseHandlers/nImOclearChannelInUseResponseHandler.h"
 #include "ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
+#include "ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h"
 #include "ResponseHandlers/nImOgetChannelInUseResponseHandler.h"
 #include "ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h"
 #include "ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h"

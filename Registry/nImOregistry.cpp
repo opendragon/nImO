@@ -1619,6 +1619,80 @@ nImO::Registry::getChannelInformation
 } // nImO::Registry::getChannelInformation
 
 nImO::RegBoolOrFailure
+nImO::Registry::getChannelInUseAndSet
+    (const std::string &    nodeName,
+     const std::string &    path)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    bool                inUse{false};
+    RegSuccessOrFailure status;
+
+    if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
+    {
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            StringVector        results;
+            ChannelSearchData   data{nodeName, path};
+            static CPtr(char)   searchChannels{"SELECT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
+                                                " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
+
+            status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
+            if (status.first)
+            {
+                if (0 < results.size())
+                {
+                    size_t  pos;
+                    int     fieldValue = stoi(results[0], &pos);
+
+                    if (0 == pos)
+                    {
+                        inUse = false;
+                    }
+                    else
+                    {
+                        inUse = (1 == fieldValue);
+                        static CPtr(char)   updateChannel{"UPDATE " CHANNELS_T_ " SET " CHANNEL_IN_USE_C_ " = 1 WHERE " CHANNEL_NODE_C_ " = @"
+                                                            CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_ " RETURNING "
+                                                            CHANNEL_IN_USE_C_};
+
+                        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, updateChannel, setupSearchChannels, &data);
+                        if (0 == results.size())
+                        {
+                            ODL_LOG("(0 == results.size())"); //####
+                            status = RegSuccessOrFailure(false, "No such node or path");
+                        }
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (0 < results.size())"); //####
+                    status = RegSuccessOrFailure(false, "No such node or path");
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
+        status = RegSuccessOrFailure(false, "Invalid node name or path");
+    }
+    ODL_OBJEXIT(); //####
+    return RegBoolOrFailure{status, inUse};
+} // nImO::Registry::getChannelInUseAndSet
+
+nImO::RegBoolOrFailure
 nImO::Registry::getChannelInUse
     (const std::string &    nodeName,
      const std::string &    path)

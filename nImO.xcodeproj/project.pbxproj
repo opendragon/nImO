@@ -15,6 +15,10 @@
 		F60394F42986C14E004A7F8C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOannounceServiceData.cpp; path = nImO/nImOannounceServiceData.cpp; sourceTree = "<group>"; };
 		F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOannounceServiceData.h; path = nImO/nImOannounceServiceData.h; sourceTree = "<group>"; };
+		F608EFCD2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInUseAndSetResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp; sourceTree = "<group>"; };
+		F608EFCE2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInUseAndSetResponseHandler.h; path = nImO/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h; sourceTree = "<group>"; };
+		F608EFCF2A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInUseAndSetCommandHandler.h; path = Registry/CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.h; sourceTree = "<group>"; };
+		F608EFD02A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInUseAndSetCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.cpp; sourceTree = "<group>"; };
 		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOregistryProxy.h; path = nImO/nImOregistryProxy.h; sourceTree = "<group>"; };
@@ -492,6 +496,8 @@
 				F6E5109E2A19675800D52E80 /* nImOaddChannelResponseHandler.h */,
 				F6E5108A2A19675600D52E80 /* nImOaddNodeResponseHandler.cpp */,
 				F6E510842A19675600D52E80 /* nImOaddNodeResponseHandler.h */,
+				F608EFCD2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.cpp */,
+				F608EFCE2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.h */,
 				F6D1E6F92A366E7E00931F39 /* nImOclearChannelInUseResponseHandler.cpp */,
 				F6D1E6FA2A366E7E00931F39 /* nImOclearChannelInUseResponseHandler.h */,
 				F65F3A8F2A1A804E005BCE2B /* nImOgetChannelInformationResponseHandler.cpp */,
@@ -1393,6 +1399,8 @@
 				F6D1E6F32A3650ED00931F39 /* nImOclearChannelInUseCommandHandler.h */,
 				F65F3A902A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.cpp */,
 				F65F3A912A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.h */,
+				F608EFD02A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.cpp */,
+				F608EFCF2A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.h */,
 				F6D1E6F02A3650ED00931F39 /* nImOgetChannelInUseCommandHandler.cpp */,
 				F6D1E6F42A3650ED00931F39 /* nImOgetChannelInUseCommandHandler.h */,
 				F66E75442A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.cpp */,

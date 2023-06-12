@@ -163,9 +163,19 @@ namespace nImO
             /*! @brief Check if a channel is in the Registry and is in use.
              @param[in] nodeName The name of the node to be checked.
              @param[in] path The path of the channel to be checked.
-             @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
+             @return @c true and if the channel was found and the operation was successfully performed, if it is in use,  and @c false and an error string otherwise. */
             RegBoolOrFailure
             getChannelInUse
+                (const std::string &    nodeName,
+                 const std::string &    path)
+                const;
+
+            /*! @brief Get the current value of the in use state of a channel in the Registry and set it, returning the state prior to setting it.
+             @param[in] nodeName The name of the node to be checked.
+             @param[in] path The path of the channel to be checked.
+             @return @c true and if the channel was found and the operation was successfully performed, if it was in use,  and @c false and an error string otherwise. */
+            RegBoolOrFailure
+            getChannelInUseAndSet
                 (const std::string &    nodeName,
                  const std::string &    path)
                 const;

@@ -116,6 +116,12 @@ namespace nImO
     /*! @brief The 'getChannelInformation' response. */
     const std::string   kGetChannelInformationResponse = "getChannelInformation=";
 
+    /*! @brief The request to get connection status on a channel from the Registry and set it. */
+    const std::string   kGetChannelInUseAndSetRequest = "getChannelInUseAndSet#";
+
+    /*! @brief The 'getChannelInUseAndSet' response. */
+    const std::string   kGetChannelInUseAndSetResponse = "getChannelInUseAndSet=";
+
     /*! @brief The request to get connection status on a channel from the Registry. */
     const std::string   kGetChannelInUseRequest = "getChannelInUse?";
 

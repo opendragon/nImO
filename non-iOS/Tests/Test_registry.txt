@@ -228,28 +228,36 @@ add_test(NAME TestGetChannelSetWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET
 ## Test check get channel set with bad machine name from Registry
 add_test(NAME TestGetChannelSetWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 348)
 
+## Test check get channel in use with empty registry
+add_test(NAME TestGetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 350)
+## Test check set channel in use with empty registry
+add_test(NAME TestSetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 351)
+## Test check clear channel in use with empty registry
+add_test(NAME TestClearChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 352)
 ## Test check channel in use can be set
-add_test(NAME TestChannelInUseCanBeSet COMMAND ${THIS_TARGET} 350)
+add_test(NAME TestChannelInUseCanBeSet COMMAND ${THIS_TARGET} 353)
 ## Test check channel in use can be cleared
-add_test(NAME TestChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 351)
+add_test(NAME TestChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 354)
 ## Test check get channel in use with bad node name
-add_test(NAME TestGetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 352)
+add_test(NAME TestGetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 355)
 ## Test check set channel in use with bad node name
-add_test(NAME TestSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 353)
+add_test(NAME TestSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 356)
 ## Test check clear channel in use with bad node name
-add_test(NAME TestClearChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 354)
+add_test(NAME TestClearChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 357)
 ## Test check get channel in use with bad channel name
-add_test(NAME TestGetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 355)
+add_test(NAME TestGetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 358)
 ## Test check set channel in use with bad channel name
-add_test(NAME TestSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 356)
+add_test(NAME TestSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 359)
 ## Test check clear channel in use with bad channel name
-add_test(NAME TestClearChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 357)
+add_test(NAME TestClearChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 360)
 ## Test get and set channel in use
-add_test(NAME TestGetAndSetChannelInUse COMMAND ${THIS_TARGET} 358)
+add_test(NAME TestGetAndSetChannelInUse COMMAND ${THIS_TARGET} 361)
+## Test get and set channel in use with empty registry
+add_test(NAME TestGetAndSetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 362)
 ## Test get and set channel in use with bad node name
-add_test(NAME TestGetAndSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 359)
+add_test(NAME TestGetAndSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 363)
 ## Test get and set channel in use with bad channel name
-add_test(NAME TestGetAndSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 360)
+add_test(NAME TestGetAndSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 364)
 
 ## Test check count channel connections with empty Registry
 add_test(NAME TestCountChannelConnectionsWithEmptyRegistry COMMAND ${THIS_TARGET} 380)

@@ -7726,6 +7726,192 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestGetChannelInUseWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (statusWithBool.first.first)
+            {
+                ODL_LOG("(statusWithBool.first.first)"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetChannelInUseWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 351 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSetChannelInUseWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status{aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (status.first)
+            {
+                ODL_LOG("(statusWithBool.first.first)"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSetChannelInUseWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 352 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearChannelInUseWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegSuccessOrFailure   status{aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (status.first)
+            {
+                ODL_LOG("(status.first)"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearChannelInUseWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 353 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestChannelInUseCanBeSet
     (CPtr(char)                     launchPath,
      const int                      argc,
@@ -7835,7 +8021,7 @@ doTestChannelInUseCanBeSet
 } // doTestChannelInUseCanBeSet
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 351 ***
+# pragma mark *** Test Case 354 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -7976,7 +8162,7 @@ doTestChannelInUseCanBeCleared
 } // doTestChannelInUseCanBeCleared
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 352 ***
+# pragma mark *** Test Case 355 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8064,7 +8250,7 @@ doTestGetChannelInUseWithBadNodeName
 } // doTestGetChannelInUseWithBadNodeName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 353 ***
+# pragma mark *** Test Case 356 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8151,7 +8337,7 @@ doTestSetChannelInUseWithBadNodeName
 } // doTestSetChannelInUseWithBadNodeName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 354 ***
+# pragma mark *** Test Case 357 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8238,7 +8424,7 @@ doTestClearChannelInUseWithBadNodeName
 } // doTestClearChannelInUseWithBadNodeName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 355 ***
+# pragma mark *** Test Case 358 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8326,7 +8512,7 @@ doTestGetChannelInUseWithBadChannelName
 } // doTestGetChannelInUseWithBadChannelName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 356 ***
+# pragma mark *** Test Case 359 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8413,7 +8599,7 @@ doTestSetChannelInUseWithBadChannelName
 } // doTestSetChannelInUseWithBadChannelName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 357 ***
+# pragma mark *** Test Case 360 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8500,7 +8686,7 @@ static int
 } // doTestClearChannelInUseWithBadChannelName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 358 ***
+# pragma mark *** Test Case 361 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8610,7 +8796,69 @@ doTestGetAndSetChannelInUse
 } // doTestGetAndSetChannelInUse
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 359 ***
+# pragma mark *** Test Case 362 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetAndSetChannelInUseWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+       if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::RegBoolOrFailure  statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
+
+            if (statusWithBool.first.first)
+            {
+                ODL_LOG("(statusWithBool.first.first)"); //####
+            }
+            else
+            {
+                result = 0;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetAndSetChannelInUseWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 363 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -8698,7 +8946,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
 } // doTestGetAndSetChannelInUseWithBadNodeName
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 360 ***
+# pragma mark *** Test Case 364 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -9322,47 +9570,65 @@ main
                         break;
 
                     case 350 :
-                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelInUseWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 351 :
-                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestSetChannelInUseWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 352 :
-                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestClearChannelInUseWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 353 :
-                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestChannelInUseCanBeSet(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 354 :
-                        result = doTestClearChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestChannelInUseCanBeCleared(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 355 :
-                        result = doTestGetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 356 :
-                        result = doTestSetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 357 :
-                        result = doTestClearChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestClearChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 358 :
-                        result = doTestGetAndSetChannelInUse(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestGetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 359 :
-                        result = doTestGetAndSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestSetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 360 :
-                        result = doTestGetAndSetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        result = doTestClearChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 361 :
+                        result = doTestGetAndSetChannelInUse(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 362 :
+                        result = doTestGetAndSetChannelInUseWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                              commandLine);
+                        break;
+
+                    case 363 :
+                        result = doTestGetAndSetChannelInUseWithBadNodeName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 364 :
+                        result = doTestGetAndSetChannelInUseWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                               commandLine);
                         break;
 
                     case 380 :

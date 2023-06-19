@@ -101,7 +101,7 @@ namespace nImO
              @param[in] dataType The format for the data to be transferred over the channel.
              @param[in] modes The allowed transport modes for the channel.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             addChannel
                 (const std::string &    nodeName,
                  const std::string &    path,
@@ -116,7 +116,7 @@ namespace nImO
              @param[in] serviceType The nature of the service corresponding to the node.
              @param[in] nodeConnection The command address and port of the node.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             addNode
                 (const std::string &    nodeName,
                  const int              argc,
@@ -128,7 +128,7 @@ namespace nImO
              @param[in] nodeName The name of the node to be updated.
              @param[in] path The path of the channel to be updated.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             clearChannelInUse
                 (const std::string &    nodeName,
                  const std::string &    path);
@@ -137,7 +137,7 @@ namespace nImO
              @param[in] nodeName The name of the node for the channel to be located in the Registry.
              @param[in] path The path of the channel.
              @return @c true and if the channel was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
-            RegChannelInfoOrFailure
+            ChannelInfoOrFailure
             getChannelInformation
                 (const std::string &    nodeName,
                  const std::string &    path);
@@ -146,7 +146,7 @@ namespace nImO
              @param[in] nodeName The name of the node to be checked.
              @param[in] path The path of the channel to be checked.
              @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             getChannelInUse
                 (const std::string &    nodeName,
                  const std::string &    path);
@@ -155,119 +155,119 @@ namespace nImO
              @param[in] nodeName The name of the node to be checked.
              @param[in] path The path of the channel to be checked.
              @return @c true and if the channel was found and the operation was successfully performed, if it was in use,  and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             getChannelInUseAndSet
                 (const std::string &    nodeName,
                  const std::string &    path);
 
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
-            RegChannelInfoVectorOrFailure
+            ChannelInfoVectorOrFailure
             getInformationForAllChannels
                 (void);
 
             /*! @brief Get information for all channels on a machine in the Registry.
              @param[in] machineName The name of the node for the channels to be located in the Registry.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegChannelInfoVectorOrFailure
+            ChannelInfoVectorOrFailure
             getInformationForAllChannelsOnMachine
                 (const std::string &    machineName);
 
             /*! @brief Get information for all channels on a node in the Registry.
              @param[in] nodeName The name of the node for the channels to be located in the Registry.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegChannelInfoVectorOrFailure
+            ChannelInfoVectorOrFailure
             getInformationForAllChannelsOnNode
                 (const std::string &    nodeName);
 
             /*! @brief Get information for all machines in the Registry.
              @return @c true and the information for each machine if the operation was successfully performed and @c false and an error string otherwise. */
-            RegMachineInfoVectorOrFailure
+            MachineInfoVectorOrFailure
             getInformationForAllMachines
                 (void);
 
             /*! @brief Get information for all nodes in the Registry.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegNodeInfoVectorOrFailure
+            NodeInfoVectorOrFailure
             getInformationForAllNodes
                 (void);
 
             /*! @brief Get information for all nodes on a machine in the Registry.
              @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegNodeInfoVectorOrFailure
+            NodeInfoVectorOrFailure
             getInformationForAllNodesOnMachine
                 (const std::string &    machineName);
 
             /*! @brief Get information on how the node was launched.
              @param[in] nodeName The name of the node to be located in the Registry.
              @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
-            RegLaunchDetailsOrFailure
+            LaunchDetailsOrFailure
             getLaunchDetails
                 (const std::string &    nodeName);
 
             /*! @brief Get information on the machine stored in the Registry.
              @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and if the machine was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegMachineInfoOrFailure
+            MachineInfoOrFailure
             getMachineInformation
                 (const std::string &    machineName);
 
             /*! @brief Get the set of machines in the Registry.
              @return @c true and the set of machines if the operation was successfully performed and @c false and an error string otherwise. */
-            RegStringSetOrFailure
+            StringSetOrFailure
             getNamesOfMachines
                 (void);
 
             /*! @brief Get the set of nodes in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegStringSetOrFailure
+            StringSetOrFailure
             getNamesOfNodes
                 (void);
 
             /*! @brief Get the set of nodes on a machine in the Registry.
              @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegStringSetOrFailure
+            StringSetOrFailure
             getNamesOfNodesOnMachine
                 (const std::string &    machineName);
 
             /*! @brief Get information on the node stored in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegNodeInfoOrFailure
+            NodeInfoOrFailure
             getNodeInformation
                 (const std::string &    nodeName);
 
             /*! @brief Return the number of channels in the Registry.
              @return @c true and the number of channels if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
+            IntOrFailure
             getNumberOfChannels
                 (void);
 
             /*! @brief Return the number of channels associated with a node in the Registry.
              @param[in] nodeName The name of the node to be located in the Registry.
              @return @c true and the number of channels if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
+            IntOrFailure
             getNumberOfChannelsOnNode
                 (const std::string &    nodeName);
 
             /*! @brief Return the number of machines in the Registry.
              @return @c true and the number of machines if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
+            IntOrFailure
             getNumberOfMachines
                 (void);
 
             /*! @brief Return the number of nodes in the Registry.
              @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
+            IntOrFailure
             getNumberOfNodes
                 (void);
 
             /*! @brief Return the number of nodes on a machine in the Registry.
              @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and the number of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            RegIntOrFailure
+            IntOrFailure
             getNumberOfNodesOnMachine
                 (const std::string &    machineName);
 
@@ -275,7 +275,7 @@ namespace nImO
              @param[in] nodeName The name of the node to be checked.
              @param[in] path The path of the channel to be checked.
              @return @c true and if the channel was found,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             isChannelPresent
                 (const std::string &    nodeName,
                  const std::string &    path);
@@ -283,14 +283,14 @@ namespace nImO
             /*! @brief Check if a machine is in the Registry.
              @param[in] machineName The name of the machine to be checked.
              @return @c true and if the machine was found,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             isMachinePresent
                 (const std::string &    machineName);
 
             /*! @brief Check if a node is in the Registry.
              @param[in] nodeName The name of the node to be checked.
              @return @c true and if the node was found,  if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             isNodePresent
                 (const std::string &    nodeName);
 
@@ -313,7 +313,7 @@ namespace nImO
              @param[in] nodeName The name of the node for the channel to be removed.
              @param[in] path The path for the channel.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             removeChannel
                 (const std::string &    nodeName,
                  const std::string &    path);
@@ -321,14 +321,14 @@ namespace nImO
             /*! @brief Remove all channels for a node from the Registry.
              @param[in] nodeName The name of the node.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             removeChannelsForNode
                 (const std::string &    nodeName);
 
             /*! @brief Remove a node from the Registry.
              @param[in] nodeName The name of the node to be removed.
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             removeNode
                 (const std::string &    nodeName);
 
@@ -336,7 +336,7 @@ namespace nImO
              @param[in] nodeName The name of the node to be updated.
              @param[in] path The path of the channel to be updated.
              @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-            RegBoolOrFailure
+            BoolOrFailure
             setChannelInUse
                 (const std::string &    nodeName,
                  const std::string &    path);

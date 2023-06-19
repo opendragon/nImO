@@ -165,7 +165,7 @@ nImO::AddNodeCommandHandler::doIt
         {
             std::string         machineName{machineNameString->getValue()};
             uint32_t            address{theConnection._address};
-            RegSuccessOrFailure status{_registry->addMachine(machineName, address)};
+            SuccessOrFailure status{_registry->addMachine(machineName, address)};
 
             if (status.first)
             {

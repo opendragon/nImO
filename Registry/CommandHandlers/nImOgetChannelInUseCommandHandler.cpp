@@ -125,7 +125,7 @@ nImO::GetChannelInUseCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            RegBoolOrFailure    statusWithBool{_registry->getChannelInUse(asString1->getValue(), asString2->getValue())};
+            BoolOrFailure    statusWithBool{_registry->getChannelInUse(asString1->getValue(), asString2->getValue())};
 
             if (statusWithBool.first.first)
             {

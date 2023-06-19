@@ -127,7 +127,7 @@ nImO::GetInformationForAllNodesOnMachineCommandHandler::doIt
         }
         else
         {
-            RegNodeInfoVectorOrFailure  statusWithInfoVector{_registry->getInformationForAllNodesOnMachine(asString->getValue())};
+            NodeInfoVectorOrFailure  statusWithInfoVector{_registry->getInformationForAllNodesOnMachine(asString->getValue())};
 
             if (statusWithInfoVector.first.first)
             {

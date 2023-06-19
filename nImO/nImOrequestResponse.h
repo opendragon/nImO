@@ -64,7 +64,7 @@ namespace nImO
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data.
      @return Whether the request succeeded or failed. */
-    RegSuccessOrFailure
+    SuccessOrFailure
     SendRequestWithArgumentsAndNonEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
@@ -80,7 +80,7 @@ namespace nImO
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data.
      @return Whether the request succeeded or failed. */
-    inline RegSuccessOrFailure
+    inline SuccessOrFailure
     SendRequestWithArgumentsAndEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
@@ -97,7 +97,7 @@ namespace nImO
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data.
      @return Whether the request succeeded or failed. */
-    inline RegSuccessOrFailure
+    inline SuccessOrFailure
     SendRequestWithNoArgumentsAndEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,
@@ -114,7 +114,7 @@ namespace nImO
      @param[in] requestKey The request to be sent.
      @param[in] responseKey The expected response, which will have no data.
      @return Whether the request succeeded or failed. */
-    inline RegSuccessOrFailure
+    inline SuccessOrFailure
     SendRequestWithNoArgumentsAndNonEmptyResponse
         (SpContextWithNetworking    context,
          Connection &               connection,

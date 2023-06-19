@@ -121,7 +121,7 @@ main
             if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy     proxy{ourContext, registryConnection};
-                nImO::RegBoolOrFailure  statusWithBool{proxy.isNodePresent(nodeName)};
+                nImO::BoolOrFailure  statusWithBool{proxy.isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {

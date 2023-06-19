@@ -118,7 +118,7 @@ nImO::GetNamesOfNodesCommandHandler::doIt
     _owner->report("get names of nodes request received");
     if (0 < arguments.size())
     {
-        RegStringSetOrFailure   statusWithSet{_registry->getNamesOfNodes()};
+        StringSetOrFailure   statusWithSet{_registry->getNamesOfNodes()};
 
         if (statusWithSet.first.first)
         {

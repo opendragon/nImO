@@ -118,7 +118,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
     _owner->report("get names of machines request received");
     if (0 < arguments.size())
     {
-        RegStringSetOrFailure   statusWithSet{_registry->getNamesOfMachines()};
+        StringSetOrFailure   statusWithSet{_registry->getNamesOfMachines()};
 
         if (statusWithSet.first.first)
         {

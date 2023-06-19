@@ -118,7 +118,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
     _owner->report("get information for all machines request received");
     if (0 < arguments.size())
     {
-        RegMachineInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllMachines()};
+        MachineInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllMachines()};
 
         if (statusWithInfoVector.first.first)
         {

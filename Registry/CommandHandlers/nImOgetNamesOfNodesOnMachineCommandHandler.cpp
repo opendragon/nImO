@@ -127,7 +127,7 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
         }
         else
         {
-            RegStringSetOrFailure   statusWithSet{_registry->getNamesOfNodesOnMachine(asString->getValue())};
+            StringSetOrFailure   statusWithSet{_registry->getNamesOfNodesOnMachine(asString->getValue())};
 
             if (statusWithSet.first.first)
             {

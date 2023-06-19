@@ -117,7 +117,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
     _owner->report("get number of machines request received");
     if (0 < arguments.size())
     {
-        RegIntOrFailure    statusWithInt{_registry->getNumberOfMachines()};
+        IntOrFailure    statusWithInt{_registry->getNumberOfMachines()};
 
         if (statusWithInt.first.first)
         {

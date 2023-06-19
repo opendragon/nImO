@@ -137,7 +137,7 @@ nImO::AddChannelCommandHandler::doIt
             bool                isOutput{isOutputValue->getValue()};
             std::string         dataType{dataTypeString->getValue()};
             TransportType       modes{StaticCast(TransportType, modesString->getIntegerValue())};
-            RegSuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
+            SuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
 
             if (status.first)
             {

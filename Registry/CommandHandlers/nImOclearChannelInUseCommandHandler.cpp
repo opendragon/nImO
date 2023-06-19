@@ -125,7 +125,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            RegSuccessOrFailure status{_registry->clearChannelInUse(asString1->getValue(), asString2->getValue())};
+            SuccessOrFailure status{_registry->clearChannelInUse(asString1->getValue(), asString2->getValue())};
 
             if (status.first)
             {

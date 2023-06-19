@@ -125,7 +125,7 @@ nImO::IsMachinePresentCommandHandler::doIt
         }
         else
         {
-            RegBoolOrFailure    statusWithBool{_registry->isMachinePresent(asString->getValue())};
+            BoolOrFailure    statusWithBool{_registry->isMachinePresent(asString->getValue())};
 
             if (statusWithBool.first.first)
             {

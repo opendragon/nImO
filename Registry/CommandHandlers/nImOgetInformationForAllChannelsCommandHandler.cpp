@@ -118,7 +118,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
     _owner->report("get information for all channels request received");
     if (0 < arguments.size())
     {
-        RegChannelInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllChannels()};
+        ChannelInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllChannels()};
 
         if (statusWithInfoVector.first.first)
         {

@@ -127,7 +127,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
         }
         else
         {
-            RegLaunchDetailsOrFailure   statusWithDetails{_registry->getLaunchDetails(asString->getValue())};
+            LaunchDetailsOrFailure   statusWithDetails{_registry->getLaunchDetails(asString->getValue())};
 
             if (statusWithDetails.first.first)
             {

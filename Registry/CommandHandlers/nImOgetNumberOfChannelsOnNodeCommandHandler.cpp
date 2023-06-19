@@ -126,7 +126,7 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
         }
         else
         {
-            RegIntOrFailure    statusWithInt{_registry->getNumberOfChannelsOnNode(asString->getValue())};
+            IntOrFailure    statusWithInt{_registry->getNumberOfChannelsOnNode(asString->getValue())};
 
             if (statusWithInt.first.first)
             {

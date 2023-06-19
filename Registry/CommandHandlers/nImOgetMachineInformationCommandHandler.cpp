@@ -127,7 +127,7 @@ nImO::GetMachineInformationCommandHandler::doIt
         }
         else
         {
-            RegMachineInfoOrFailure statusWithInfo{_registry->getMachineInformation(asString->getValue())};
+            MachineInfoOrFailure statusWithInfo{_registry->getMachineInformation(asString->getValue())};
 
             if (statusWithInfo.first.first)
             {

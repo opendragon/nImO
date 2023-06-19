@@ -185,41 +185,26 @@ namespace nImO
     /*! @brief Contains a sequence of NodeInfo values. */
     typedef std::vector<NodeInfo>   NodeInfoVector;
 
-    /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<bool, std::string>    RegSuccessOrFailure;
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, ChannelInfo> ChannelInfoOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, int64_t> RegIntOrFailure;
-
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, bool> RegBoolOrFailure;
-
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, ChannelInfo> RegChannelInfoOrFailure;
-
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, ChannelInfoVector> RegChannelInfoVectorOrFailure;
+    typedef std::pair<SuccessOrFailure, ChannelInfoVector> ChannelInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, LaunchDetails> RegLaunchDetailsOrFailure;
+    typedef std::pair<SuccessOrFailure, LaunchDetails> LaunchDetailsOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, MachineInfo> RegMachineInfoOrFailure;
+    typedef std::pair<SuccessOrFailure, MachineInfo> MachineInfoOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, MachineInfoVector> RegMachineInfoVectorOrFailure;
+    typedef std::pair<SuccessOrFailure, MachineInfoVector> MachineInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, NodeInfo> RegNodeInfoOrFailure;
+    typedef std::pair<SuccessOrFailure, NodeInfo> NodeInfoOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, NodeInfoVector> RegNodeInfoVectorOrFailure;
-
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, StringSet>   RegStringSetOrFailure;
-
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<RegSuccessOrFailure, SpValue>   RegValueOrFailure;
+    typedef std::pair<SuccessOrFailure, NodeInfoVector> NodeInfoVectorOrFailure;
 
 } // nImO
 

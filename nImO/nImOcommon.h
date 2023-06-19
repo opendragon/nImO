@@ -764,6 +764,21 @@ namespace nImO
     /*! @brief A sequence of strings. */
     using StringVector = std::vector<std::string>;
 
+    /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<bool, std::string>    SuccessOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, bool> BoolOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, int64_t> IntOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, StringSet>   StringSetOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, SpValue>   ValueOrFailure;
+
     // Methods.
 
     /*! @brief Convert a set of bytes into a floating-point value.

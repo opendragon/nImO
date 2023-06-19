@@ -117,7 +117,7 @@ nImO::GetNumberOfNodesCommandHandler::doIt
     _owner->report("get number of nodes request received");
     if (0 < arguments.size())
     {
-        RegIntOrFailure    statusWithInt{_registry->getNumberOfNodes()};
+        IntOrFailure    statusWithInt{_registry->getNumberOfNodes()};
 
         if (statusWithInt.first.first)
         {

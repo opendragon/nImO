@@ -278,7 +278,7 @@ struct NodeInsertData
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 performSQLstatementWithMultipleColumnResults
     (nImO::SpContextWithNetworking      owner,
      Ptr(sqlite3)                       dbHandle,
@@ -291,14 +291,14 @@ performSQLstatementWithMultipleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -314,7 +314,7 @@ performSQLstatementWithMultipleColumnResults
                     ODL_I1("sqlRes <- ", sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 if (status.first)
@@ -362,7 +362,7 @@ performSQLstatementWithMultipleColumnResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -370,7 +370,7 @@ performSQLstatementWithMultipleColumnResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -389,7 +389,7 @@ performSQLstatementWithMultipleColumnResults
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 performSQLstatementWithNoResults
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
@@ -401,14 +401,14 @@ performSQLstatementWithNoResults
     ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -424,7 +424,7 @@ performSQLstatementWithNoResults
                     ODL_I1("sqlRes <- ", sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 if (status.first)
@@ -442,7 +442,7 @@ performSQLstatementWithNoResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -450,7 +450,7 @@ performSQLstatementWithNoResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && prepared)"); //####
-                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -468,7 +468,7 @@ performSQLstatementWithNoResults
  @param[in] dbHandle The database to be modified.
  @param[in] sqlStatement The operation to be performed.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 performSQLstatementWithNoResultsNoArgs
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
@@ -477,14 +477,14 @@ performSQLstatementWithNoResultsNoArgs
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -507,14 +507,14 @@ performSQLstatementWithNoResultsNoArgs
                 if (SQLITE_DONE != sqlRes)
                 {
                     ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                    status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                    status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                 }
                 sqlite3_finalize(prepared);
             }
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -534,7 +534,7 @@ performSQLstatementWithNoResultsNoArgs
  @param[in] doBinds A function that will fill in any parameters in the statement.
  @param[in] data The custom information used with the binding function.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 performSQLstatementWithSingleColumnResults
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
@@ -547,7 +547,7 @@ performSQLstatementWithSingleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     resultList.clear();
     try
@@ -555,7 +555,7 @@ performSQLstatementWithSingleColumnResults
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -571,7 +571,7 @@ performSQLstatementWithSingleColumnResults
                     ODL_I1("sqlRes <- ", sqlRes); //####
                     if (SQLITE_OK != sqlRes)
                     {
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 if (status.first)
@@ -609,7 +609,7 @@ performSQLstatementWithSingleColumnResults
                     if (SQLITE_DONE != sqlRes)
                     {
                         ODL_LOG("(SQLITE_DONE != sqlRes)"); //####
-                        status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                        status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
                     }
                 }
                 sqlite3_finalize(prepared);
@@ -617,7 +617,7 @@ performSQLstatementWithSingleColumnResults
             else
             {
                 ODL_LOG("! ((SQLITE_OK == sqlRes) && (nullptr != prepared))"); //####
-                status = nImO::RegSuccessOrFailure{false, sqlite3_errstr(sqlRes)};
+                status = nImO::SuccessOrFailure{false, sqlite3_errstr(sqlRes)};
             }
         }
     }
@@ -634,21 +634,21 @@ performSQLstatementWithSingleColumnResults
  @param[in] owner The object to be used for reporting.
  @param[in] dbHandle The database to be modified.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 doBeginTransaction
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle)
 {
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -671,7 +671,7 @@ doBeginTransaction
  @param[in] database The database to be modified.
  @param[in] wasOK @c true if the transaction was successful and @c false otherwise.
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 doEndTransaction
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
@@ -680,14 +680,14 @@ doEndTransaction
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("wasOK = ", wasOK); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::RegSuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"};
         }
         else
         {
@@ -711,7 +711,7 @@ doEndTransaction
  @param[in] logging @c true if operations are to be logged.
  @parm[in,out] dbHandle The database handle to use.
  @return @c true if all the tables were successfully created. */
-static nImO::RegSuccessOrFailure
+static nImO::SuccessOrFailure
 createTables
     (nImO::SpContextWithNetworking  owner,
      const bool                     logging,
@@ -720,12 +720,12 @@ createTables
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("logging = ", logging); //####
-    nImO::RegSuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure   status{true, ""};
 
     if (nullptr == dbHandle)
     {
         ODL_LOG("(nullptr == dbHandle)"); //####
-        status = nImO::RegSuccessOrFailure{false, "No open database"};
+        status = nImO::SuccessOrFailure{false, "No open database"};
     }
     else
     {
@@ -1355,7 +1355,7 @@ nImO::Registry::Registry
 
     if (SQLITE_OK == result)
     {
-        nImO::RegSuccessOrFailure   status{createTables(_owner, logging, _dbHandle)};
+        nImO::SuccessOrFailure   status{createTables(_owner, logging, _dbHandle)};
 
         if (! status.first)
         {
@@ -1394,7 +1394,7 @@ nImO::Registry::~Registry
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::addChannel
     (const std::string &    nodeName,
      const std::string &    path,
@@ -1407,11 +1407,11 @@ nImO::Registry::addChannel
     ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
     ODL_B1("isOutput = ", isOutput); //####
     ODL_I1("modes = ", StaticCast(int, modes)); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
-        RegBoolOrFailure    statusWithBool{isNodePresent(nodeName)};
+        BoolOrFailure    statusWithBool{isNodePresent(nodeName)};
 
         if (statusWithBool.first.first)
         {
@@ -1437,20 +1437,20 @@ nImO::Registry::addChannel
             else
             {
                 ODL_LOG("! (statusWithBool.second)"); //####
-                status = RegSuccessOrFailure(false, "Unknown node name");
+                status = SuccessOrFailure(false, "Unknown node name");
             }
         }
     }
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::addChannel
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::addMachine
     (const std::string &    machineName,
      const uint32_t         address)
@@ -1459,7 +1459,7 @@ nImO::Registry::addMachine
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
     ODL_I1("address = ", address); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -1478,7 +1478,7 @@ nImO::Registry::addMachine
     return status;
 } // nImO::Registry::addMachine
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::addNode
     (const std::string &    nodeName,
      const std::string &    execPath,
@@ -1492,7 +1492,7 @@ nImO::Registry::addNode
     ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
     ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -1516,13 +1516,13 @@ nImO::Registry::addNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::addNode
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::clearChannelInUse
     (const std::string &    nodeName,
      const std::string &    path)
@@ -1530,7 +1530,7 @@ nImO::Registry::clearChannelInUse
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1546,7 +1546,7 @@ nImO::Registry::clearChannelInUse
             if (0 == results.size())
             {
                 ODL_LOG("(0 == results.size())"); //####
-                status = RegSuccessOrFailure(false, "No such node or path");
+                status = SuccessOrFailure(false, "No such node or path");
             }
             doEndTransaction(_owner, _dbHandle, status.first);
         }
@@ -1558,13 +1558,13 @@ nImO::Registry::clearChannelInUse
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::clearChannelInUse
 
-nImO::RegChannelInfoOrFailure
+nImO::ChannelInfoOrFailure
 nImO::Registry::getChannelInformation
     (const std::string &    nodeName,
      const std::string &    path)
@@ -1572,7 +1572,7 @@ nImO::Registry::getChannelInformation
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
     ChannelInfo         info;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -1612,13 +1612,13 @@ nImO::Registry::getChannelInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
-    return RegChannelInfoOrFailure{status, info};
+    return ChannelInfoOrFailure{status, info};
 } // nImO::Registry::getChannelInformation
 
-nImO::RegBoolOrFailure
+nImO::BoolOrFailure
 nImO::Registry::getChannelInUseAndSet
     (const std::string &    nodeName,
      const std::string &    path)
@@ -1627,7 +1627,7 @@ nImO::Registry::getChannelInUseAndSet
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                inUse{false};
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1662,14 +1662,14 @@ nImO::Registry::getChannelInUseAndSet
                         if (0 == results.size())
                         {
                             ODL_LOG("(0 == results.size())"); //####
-                            status = RegSuccessOrFailure(false, "No such node or path");
+                            status = SuccessOrFailure(false, "No such node or path");
                         }
                     }
                 }
                 else
                 {
                     ODL_LOG("! (0 < results.size())"); //####
-                    status = RegSuccessOrFailure(false, "No such node or path");
+                    status = SuccessOrFailure(false, "No such node or path");
                 }
             }
             else
@@ -1686,13 +1686,13 @@ nImO::Registry::getChannelInUseAndSet
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, inUse};
+    return BoolOrFailure{status, inUse};
 } // nImO::Registry::getChannelInUseAndSet
 
-nImO::RegBoolOrFailure
+nImO::BoolOrFailure
 nImO::Registry::getChannelInUse
     (const std::string &    nodeName,
      const std::string &    path)
@@ -1701,7 +1701,7 @@ nImO::Registry::getChannelInUse
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                inUse{false};
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1733,7 +1733,7 @@ nImO::Registry::getChannelInUse
                 else
                 {
                     ODL_LOG("! (0 < results.size())"); //####
-                    status = RegSuccessOrFailure(false, "No such node or path");
+                    status = SuccessOrFailure(false, "No such node or path");
                 }
             }
             else
@@ -1750,19 +1750,19 @@ nImO::Registry::getChannelInUse
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, inUse};
+    return BoolOrFailure{status, inUse};
 } // nImO::Registry::getChannelInUse
 
-nImO::RegChannelInfoVectorOrFailure
+nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannels
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -1796,17 +1796,17 @@ nImO::Registry::getInformationForAllChannels
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegChannelInfoVectorOrFailure{status, channelData};
+    return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannels
 
-nImO::RegChannelInfoVectorOrFailure
+nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannelsOnMachine
     (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -1848,17 +1848,17 @@ nImO::Registry::getInformationForAllChannelsOnMachine
         ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
-    return RegChannelInfoVectorOrFailure{status, channelData};
+    return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannelsOnMachine
 
-nImO::RegChannelInfoVectorOrFailure
+nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannelsOnNode
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -1897,16 +1897,16 @@ nImO::Registry::getInformationForAllChannelsOnNode
         ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
-    return RegChannelInfoVectorOrFailure{status, channelData};
+    return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannelsOnNode
 
-nImO::RegMachineInfoVectorOrFailure
+nImO::MachineInfoVectorOrFailure
 nImO::Registry::getInformationForAllMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     MachineInfoVector   machineData;
 
     if (status.first)
@@ -1955,16 +1955,16 @@ nImO::Registry::getInformationForAllMachines
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegMachineInfoVectorOrFailure{status, machineData};
+    return MachineInfoVectorOrFailure{status, machineData};
 } // nImO::Registry::getInformationForAllMachines
 
-nImO::RegNodeInfoVectorOrFailure
+nImO::NodeInfoVectorOrFailure
 nImO::Registry::getInformationForAllNodes
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     if (status.first)
@@ -1998,17 +1998,17 @@ nImO::Registry::getInformationForAllNodes
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegNodeInfoVectorOrFailure{status, nodeData};
+    return NodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodes
 
-nImO::RegNodeInfoVectorOrFailure
+nImO::NodeInfoVectorOrFailure
 nImO::Registry::getInformationForAllNodesOnMachine
     (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     if (status.first)
@@ -2044,17 +2044,17 @@ nImO::Registry::getInformationForAllNodesOnMachine
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegNodeInfoVectorOrFailure{status, nodeData};
+    return NodeInfoVectorOrFailure{status, nodeData};
 } // nImO::Registry::getInformationForAllNodesOnMachine
 
-nImO::RegLaunchDetailsOrFailure
+nImO::LaunchDetailsOrFailure
 nImO::Registry::getLaunchDetails
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
     LaunchDetails       details;
 
     if (ChannelName::validNode(nodeName))
@@ -2104,20 +2104,20 @@ nImO::Registry::getLaunchDetails
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
-    return RegLaunchDetailsOrFailure{status, details};
+    return LaunchDetailsOrFailure{status, details};
 } // nImO::Registry::getLaunchDetails
 
-nImO::RegMachineInfoOrFailure
+nImO::MachineInfoOrFailure
 nImO::Registry::getMachineInformation
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
     MachineInfo         info;
 
     if (ChannelName::validNode(nodeName))
@@ -2172,19 +2172,19 @@ nImO::Registry::getMachineInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
-    return RegMachineInfoOrFailure{status, info};
+    return MachineInfoOrFailure{status, info};
 } // nImO::Registry::getMachineInformation
 
-nImO::RegStringSetOrFailure
+nImO::StringSetOrFailure
 nImO::Registry::getNamesOfMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
@@ -2207,16 +2207,16 @@ nImO::Registry::getNamesOfMachines
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
+    return StringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfMachines
 
-nImO::RegStringSetOrFailure
+nImO::StringSetOrFailure
 nImO::Registry::getNamesOfNodes
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
@@ -2239,17 +2239,17 @@ nImO::Registry::getNamesOfNodes
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
+    return StringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodes
 
-nImO::RegStringSetOrFailure
+nImO::StringSetOrFailure
 nImO::Registry::getNamesOfNodesOnMachine
     (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
@@ -2283,17 +2283,17 @@ nImO::Registry::getNamesOfNodesOnMachine
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return RegStringSetOrFailure{status, strings};
+    return StringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodesOnMachine
 
-nImO::RegNodeInfoOrFailure
+nImO::NodeInfoOrFailure
 nImO::Registry::getNodeInformation
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
     NodeInfo            info;
 
     if (ChannelName::validNode(nodeName))
@@ -2358,20 +2358,20 @@ nImO::Registry::getNodeInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
-    return RegNodeInfoOrFailure{status, info};
+    return NodeInfoOrFailure{status, info};
 } // nImO::Registry::getNodeInformation
 
-nImO::RegIntOrFailure
+nImO::IntOrFailure
 nImO::Registry::getNumberOfChannels
     (void)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2400,17 +2400,17 @@ nImO::Registry::getNumberOfChannels
         ODL_LOG("! (status.first)"); //####
     }
    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannels
 
-nImO::RegIntOrFailure
+nImO::IntOrFailure
 nImO::Registry::getNumberOfChannelsOnNode
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2439,17 +2439,17 @@ nImO::Registry::getNumberOfChannelsOnNode
         ODL_LOG("! (status.first)"); //####
     }
    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannelsOnNode
 
-nImO::RegIntOrFailure
+nImO::IntOrFailure
 nImO::Registry::getNumberOfMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2478,17 +2478,17 @@ nImO::Registry::getNumberOfMachines
         ODL_LOG("! (status.first)"); //####
     }
    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfMachines
 
-nImO::RegIntOrFailure
+nImO::IntOrFailure
 nImO::Registry::getNumberOfNodes
     (void)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2517,17 +2517,17 @@ nImO::Registry::getNumberOfNodes
         ODL_LOG("! (status.first)"); //####
     }
    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodes
 
-nImO::RegIntOrFailure
+nImO::IntOrFailure
 nImO::Registry::getNumberOfNodesOnMachine
     (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2557,10 +2557,10 @@ nImO::Registry::getNumberOfNodesOnMachine
         ODL_LOG("! (status.first)"); //####
     }
    ODL_OBJEXIT(); //####
-    return RegIntOrFailure{status, count};
+    return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodesOnMachine
 
-nImO::RegBoolOrFailure
+nImO::BoolOrFailure
 nImO::Registry::isChannelPresent
     (const std::string &    nodeName,
      const std::string &    path)
@@ -2569,7 +2569,7 @@ nImO::Registry::isChannelPresent
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                found{false};
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -2610,13 +2610,13 @@ nImO::Registry::isChannelPresent
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, found};
+    return BoolOrFailure{status, found};
 } // nImO::Registry::isChannelPresent
 
-nImO::RegBoolOrFailure
+nImO::BoolOrFailure
 nImO::Registry::isMachinePresent
     (const std::string &    machineName)
     const
@@ -2624,7 +2624,7 @@ nImO::Registry::isMachinePresent
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
     bool                found{false};
-    RegSuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2657,10 +2657,10 @@ nImO::Registry::isMachinePresent
         ODL_LOG("! (status.first)"); //####
     }
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, found};
+    return BoolOrFailure{status, found};
 } // nImO::Registry::isMachinePresent
 
-nImO::RegBoolOrFailure
+nImO::BoolOrFailure
 nImO::Registry::isNodePresent
     (const std::string &    nodeName)
     const
@@ -2668,7 +2668,7 @@ nImO::Registry::isNodePresent
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     bool                found{false};
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2707,13 +2707,13 @@ nImO::Registry::isNodePresent
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
-    return RegBoolOrFailure{status, found};
+    return BoolOrFailure{status, found};
 } // nImO::Registry::isNodePresent
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::removeChannel
     (const std::string &    nodeName,
      const std::string &    path)
@@ -2721,7 +2721,7 @@ nImO::Registry::removeChannel
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -2743,20 +2743,20 @@ nImO::Registry::removeChannel
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::removeChannel
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::removeChannelsForNode
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2776,20 +2776,20 @@ nImO::Registry::removeChannelsForNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::removeChannelsForNode
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2809,13 +2809,13 @@ nImO::Registry::removeNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name");
     }
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::removeNode
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::Registry::setChannelInUse
     (const std::string &    nodeName,
      const std::string &    path)
@@ -2823,7 +2823,7 @@ nImO::Registry::setChannelInUse
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    RegSuccessOrFailure status;
+    SuccessOrFailure status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -2839,7 +2839,7 @@ nImO::Registry::setChannelInUse
             if (0 == results.size())
             {
                 ODL_LOG("(0 == results.size())"); //####
-                status = RegSuccessOrFailure(false, "No such node or path");
+                status = SuccessOrFailure(false, "No such node or path");
             }
             doEndTransaction(_owner, _dbHandle, status.first);
         }
@@ -2851,7 +2851,7 @@ nImO::Registry::setChannelInUse
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = RegSuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path");
     }
     ODL_OBJEXIT(); //####
     return status;

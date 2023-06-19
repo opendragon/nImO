@@ -181,7 +181,7 @@ listChannels
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
-    nImO::RegChannelInfoVectorOrFailure statusWithAllChannels{proxy.getInformationForAllChannels()};
+    nImO::ChannelInfoVectorOrFailure statusWithAllChannels{proxy.getInformationForAllChannels()};
 
     if (statusWithAllChannels.first.first)
     {
@@ -357,7 +357,7 @@ listMachines
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
-    nImO::RegMachineInfoVectorOrFailure statusWithAllMachines{proxy.getInformationForAllMachines()};
+    nImO::MachineInfoVectorOrFailure statusWithAllMachines{proxy.getInformationForAllMachines()};
 
     if (statusWithAllMachines.first.first)
     {
@@ -492,7 +492,7 @@ listNodes
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool                                okSoFar{true};
-    nImO::RegNodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
+    nImO::NodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
 
     if (statusWithAllNodes.first.first)
     {
@@ -570,7 +570,7 @@ listNodes
                     }
                     if (options._expanded)
                     {
-                        nImO::RegLaunchDetailsOrFailure statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
+                        nImO::LaunchDetailsOrFailure statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
 
                         if (statusWithDetails.first.first)
                         {

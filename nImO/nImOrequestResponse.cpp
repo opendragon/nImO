@@ -177,7 +177,7 @@ handleResponse
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-nImO::RegSuccessOrFailure
+nImO::SuccessOrFailure
 nImO::SendRequestWithArgumentsAndNonEmptyResponse
     (SpContextWithNetworking    context,
      Connection &               connection,
@@ -191,7 +191,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
     SpArray             requestArray{new Array};
-    RegSuccessOrFailure status{true, ""};
+    SuccessOrFailure status{true, ""};
 
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));

@@ -125,7 +125,7 @@ nImO::GetChannelInformationCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            RegChannelInfoOrFailure statusWithInfo{_registry->getChannelInformation(asString1->getValue(), asString2->getValue())};
+            ChannelInfoOrFailure statusWithInfo{_registry->getChannelInformation(asString1->getValue(), asString2->getValue())};
 
             if (statusWithInfo.first.first)
             {

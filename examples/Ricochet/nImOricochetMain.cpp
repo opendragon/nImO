@@ -110,6 +110,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::MiscellaneousContext  ourContext{progName};
 
+std::cerr << "** Unimplemented **" << std::endl;
             for ( ; nImO::gKeepRunning; )
             {
                 this_thread::yield();

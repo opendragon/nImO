@@ -719,6 +719,7 @@ main
                     switch (match->second._choice)
                     {
                         case Choice::kApps :
+std::cerr << "** Unimplemented **" << std::endl;
                             // TBD
                             break;
 
@@ -730,6 +731,7 @@ main
                             break;
 
                         case Choice::kConn :
+std::cerr << "** Unimplemented **" << std::endl;
                             // TBD
                             break;
 

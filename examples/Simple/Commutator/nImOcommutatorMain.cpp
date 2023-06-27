@@ -210,6 +210,7 @@ main
                                 if (0 == exitCode)
                                 {
                                     ourContext->report("waiting for requests.");
+std::cerr << "** Unimplemented **" << std::endl;
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         this_thread::yield();

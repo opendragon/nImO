@@ -136,6 +136,7 @@ main
                         {
                             if (statusWithBool.second)
                             {
+std::cerr << "** Unimplemented **" << std::endl;
                                 ourContext->report("waiting for requests.");
                                 for ( ; nImO::gKeepRunning; )
                                 {

@@ -115,6 +115,7 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
+std::cerr << "** Unimplemented **" << std::endl;
                 // TBD
                 // Write out all nodes.
                 // Write out all running services and their command-line options.

@@ -4,7 +4,7 @@
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
 {\info
 {\author Norman Jaffe}
-{\*\company OpenDragon}}\margl1440\margr1440\vieww27600\viewh21400\viewkind0
+{\*\company OpenDragon}}\margl1440\margr1440\vieww27600\viewh25320\viewkind0
 \pard\tx1153\tx3003\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf2 Create tables:\
@@ -15,6 +15,8 @@
 	CREATE INDEX IF NOT EXISTS Nodes_name_idx ON Nodes (name);\
 	CREATE TABLE IF NOT EXISTS Channels (node TEXT NOT NULL DEFAULT _ COLLATE NOCASE, path TEXT NOT NULL DEFAULT _ COLLATE BINARY, isOutput INTEGER, dataType TEXT DEFAULT _ COLLATE BINARY, modes INTEGER, inUse INTEGER DEFAULT 0, FOREIGN KEY (node) REFERENCES Nodes (name), PRIMARY KEY (node, path) ON CONFLICT ABORT);\
 	CREATE INDEX IF NOT EXISTS Channels_idx ON Channels (node, path);\
+	CREATE TABLE IF NOT EXISTS Connections (fromNode TEXT NOT NULL DEFAULT _ COLLATE NOCASE, fromPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, toNode TEXT NOT NULL DEFAULT _ COLLATE NOCASE, toPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, dataType TEXT DEFAULT _ COLLATE BINARY, mode INTEGER, FOREIGN KEY (fromNode, fromPath) REFERENCES Channels (node, path), FOREIGN KEY (toNode, toPath) REFERENCES Channels (node, path), PRIMARY KEY (fromNode, fromPath, toNode, toPath) ON CONFLICT ABORT);\
+	CREATE INDEX IF NOT EXISTS Connections_idx ON Connections (fromNode, fromPath, toNode, toPath);\
 \
 Insertions:\
 	insertIntoMachines = INSERT INTO Machines (name, address) VALUES (@name, @address);\
@@ -22,6 +24,8 @@ Insertions:\
                                                 VALUES (@name, @address, @port, @serviceType, @execPath, @launchDirectory, @commandLine);\
 	insertIntoChannels = INSERT INTO Channels (node, path, isOutput, dataType, modes, inUse)\
 		VALUES (@node, @path, @isOutput, @dataType, @modes, @inUse);\
+	insertIntoConnections = INSERT INTO Connections (fromNode, fromPath, toNode, toPath, dataType, mode)\
+		VALUES (@fromNode, @fromPath, @toNode, @toPath, @dataType, @mode);\
 \
 Searches:\
 	getInformationForAllMachines = SELECT name, address FROM Machines;\
@@ -31,8 +35,10 @@ Searches:\
 	getNamesOfMachines = SELECT name FROM Machines;\
 	getNamesOfNodes = SELECT name FROM Nodes;\
 	getNodeInformation = SELECT address, port, serviceType FROM Nodes WHERE name = @name;\
+	getNumberOfChannels = SELECT COUNT (*) FROM Channels;\
 	getNumberOfMachines = SELECT COUNT (*) FROM Machines;\
 	getNumberOfNodes = SELECT COUNT (*) FROM  Nodes;\
+	getNumberOfConnections = SELECT COUNT (*) FROM Connections;\
 	isMachinePresent = SELECT COUNT (*) FROM Machines WHERE name = @name;\
 	isNodePresent = SELECT COUNT (*) FROM Nodes WHERE name = @name;\
 \
@@ -55,9 +61,12 @@ Tests:\
 	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b-3", "/blert", 0, "complex", 1);\
 	INSERT INTO Channels (node, path, isOutput, dataType, modes) VALUES ("b_4", "/blort", 0, "vector", 2);\
 \
+	INSERT INTO Connections (fromNode, fromPath, toNode, toPath, dataType, mode) VALUES ("b.2", "/blirt/out", "b_4", "/blort", "", 2);\
+\
 	SELECT * FROM Machines;\
 	SELECT * FROM Nodes;\
 	SELECT * FROM Channels;\
+	SELECT * FROM Connections;\
 \
 	SELECT execPath, launchDirectory, commandLine FROM Nodes WHERE name = "b_4";\
 	SELECT address FROM Machines WHERE name = "blurt";\

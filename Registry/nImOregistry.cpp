@@ -117,16 +117,16 @@
 #define CHANNELS_T_ "Channels"
 
 /*! @brief The named parameter for the 'node' column of the 'Channels' table. */
-#define CHANNEL_NODE_C_    "node"
+#define CHANNEL_NODE_C_ "node"
 
 /*! @brief The named parameter for the 'path' column of the 'Channels' table. */
-#define CHANNEL_PATH_C_    "path"
+#define CHANNEL_PATH_C_ "path"
 
 /*! @brief The named parameter for the 'isOutput' column of the 'Channels' table. */
-#define CHANNEL_IS_OUTPUT_C_   "isOutput"
+#define CHANNEL_IS_OUTPUT_C_    "isOutput"
 
 /*! @brief The named parameter for the 'dataType' column of the 'Channels' table. */
-#define CHANNEL_DATA_TYPE_C_   "dataType"
+#define CHANNEL_DATA_TYPE_C_    "dataType"
 
 /*! @brief The named parameter for the 'modes' column of the 'Channels' table. */
 #define CHANNEL_MODES_C_    "modes"
@@ -136,6 +136,30 @@
 
 /*! @brief The name of the index for the 'node' and 'path' columns of the 'Channels' table. */
 #define CHANNELS_I_ "Channels_idx"
+
+/*! @brief The name of the 'Connections' table. */
+#define CONNECTIONS_T_  "Connections"
+
+/*! @brief The named parameter for the 'fromNode' column of the 'Connecions' table. */
+#define CONNECTION_FROM_NODE_C_ "fromNode"
+
+/*! @brief The named parameter for the 'fromPath' column of the 'Connections' table. */
+#define CONNECTION_FROM_PATH_C_ "fromPath"
+
+/*! @brief The named parameter for the 'toNode' column of the 'Connecions' table. */
+#define CONNECTION_TO_NODE_C_   "toNode"
+
+/*! @brief The named parameter for the 'toPath' column of the 'Connections' table. */
+#define CONNECTION_TO_PATH_C_   "toPath"
+
+/*! @brief The named parameter for the 'dataType' column of the 'Connections' table. */
+#define CONNECTION_DATA_TYPE_C_ "dataType"
+
+/*! @brief The named parameter for the 'mode' column of the 'Connections' table. */
+#define CONNECTION_MODE_C_  "mode"
+
+/*! @brief The name of the index for the 'fromNode', 'fromPath', 'toNode' and 'toPath' columns of the 'Connections' table. */
+#define CONNECTIONS_I_ "Connections_idx"
 
 /*! @brief A function that provides bindings for parameters in an SQL statement.
  @param[in] statement The prepared statement that is to be updated.
@@ -747,12 +771,20 @@ createTables
                         " " TEXTNOTNULL_ " " BINARY_ ", " NODE_COMMAND_LINE_C_ " " TEXTNOTNULL_ " " BINARY_ ", PRIMARY KEY (" NODE_NAME_C_
                         ") ON CONFLICT ABORT, FOREIGN KEY (" MACHINE_ADDRESS_C_ ") REFERENCES " MACHINES_T_ " (" MACHINE_ADDRESS_C_ "))",
                 "CREATE INDEX IF NOT EXISTS " NODES_NAME_I_ " ON " NODES_T_ "(" NODE_NAME_C_ ")",
-                "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " (" CHANNEL_NODE_C_ " TEXT NOT NULL DEFAULT _ COLLATE NOCASE, " CHANNEL_PATH_C_
-                        " TEXT NOT NULL DEFAULT _ COLLATE BINARY, " CHANNEL_IS_OUTPUT_C_ " INTEGER, " CHANNEL_DATA_TYPE_C_
-                        " TEXT DEFAULT _ COLLATE BINARY, " CHANNEL_MODES_C_ " INTEGER, " CHANNEL_IN_USE_C_ " INTEGER DEFAULT 0, FOREIGN KEY ("
-                        CHANNEL_NODE_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_
-                        ") ON CONFLICT ABORT)",
-                "CREATE INDEX IF NOT EXISTS " CHANNELS_I_ " ON " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ")"
+                "CREATE TABLE IF NOT EXISTS " CHANNELS_T_ " (" CHANNEL_NODE_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " CHANNEL_PATH_C_ " " TEXTNOTNULL_
+                        " " BINARY_ ", " CHANNEL_IS_OUTPUT_C_ " INTEGER, " CHANNEL_DATA_TYPE_C_ " TEXT DEFAULT _ " BINARY_ ", " CHANNEL_MODES_C_
+                        " INTEGER, " CHANNEL_IN_USE_C_ " INTEGER DEFAULT 0, FOREIGN KEY (" CHANNEL_NODE_C_ ") REFERENCES " NODES_T_ " ("
+                        NODE_NAME_C_ "), PRIMARY KEY (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ") ON CONFLICT ABORT)",
+                "CREATE INDEX IF NOT EXISTS " CHANNELS_I_ " ON " CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ ")",
+                "CREATE TABLE IF NOT EXISTS " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " CONNECTION_FROM_PATH_C_
+                        " " TEXTNOTNULL_ " " BINARY_ ", " CONNECTION_TO_NODE_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " CONNECTION_TO_PATH_C_ " "
+                        TEXTNOTNULL_ " " BINARY_ ", " CONNECTION_DATA_TYPE_C_ " TEXT DEFAULT _ " BINARY_ ", " CONNECTION_MODE_C_
+                        " INTEGER, FOREIGN KEY (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ") REFERENCES " CHANNELS_T_ " ("
+                        CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ "), FOREIGN KEY (" CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ") REFERENCES "
+                        CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ "), PRIMARY KEY (" CONNECTION_FROM_NODE_C_ ", "
+                        CONNECTION_FROM_PATH_C_ ", " CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ") ON CONFLICT ABORT)",
+                "CREATE INDEX IF NOT EXISTS " CONNECTIONS_I_ " ON " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                            CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")"
             };
             static const size_t numTables{A_SIZE(tableSQL)};
 

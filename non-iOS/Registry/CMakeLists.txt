@@ -53,6 +53,7 @@ include_directories("${nImO_SQLITE_DIR}")
 # Set up our program
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddChannelCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddConnectionCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOclearChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp
@@ -61,6 +62,9 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllConnectionsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllConnectionsOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllConnectionsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.cpp
@@ -72,6 +76,7 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodeInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.cpp
@@ -81,6 +86,7 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOregistryCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveChannelsForNodeCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveConnectionCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOremoveNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/nImOregistry.cpp

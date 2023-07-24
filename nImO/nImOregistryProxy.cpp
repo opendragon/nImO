@@ -44,6 +44,7 @@
 #include <ContainerTypes/nImOarray.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
+#include <ResponseHandlers/nImOaddConnectionResponseHandler.h>
 #include <ResponseHandlers/nImOaddNodeResponseHandler.h>
 #include <ResponseHandlers/nImOclearChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
@@ -52,6 +53,9 @@
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllConnectionsOnNodeResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllConnectionsResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h>
@@ -63,6 +67,7 @@
 #include <ResponseHandlers/nImOgetNodeInformationResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h>
@@ -71,6 +76,7 @@
 #include <ResponseHandlers/nImOisNodePresentResponseHandler.h>
 #include <ResponseHandlers/nImOremoveChannelResponseHandler.h>
 #include <ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h>
+#include <ResponseHandlers/nImOremoveConnectionResponseHandler.h>
 #include <ResponseHandlers/nImOremoveNodeResponseHandler.h>
 #include <ResponseHandlers/nImOsetChannelInUseResponseHandler.h>
 #include <nImOregistryCommands.h>
@@ -169,6 +175,35 @@ nImO::RegistryProxy::addChannel
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::addChannel
+
+nImO::BoolOrFailure
+nImO::RegistryProxy::addConnection
+    (const std::string &    fromNodeName,
+     const std::string &    fromPath,
+     const std::string &    toNodeName,
+     const std::string &    toPath,
+     const std::string &    dataType,
+     const TransportType    mode)
+{
+    ODL_OBJENTER(); //####
+    ODL_S4s("fromNodeName = ", fromNodeName, "fromPath = ", fromPath, "toNodeName = ", toNodeName, "toPath = ", toPath); //####
+    ODL_S1s("dataType = ", dataType); //####
+    ODL_I1("mode = ", StaticCast(int, mode)); //####
+    SpArray                                         argArray{new Array};
+    std::unique_ptr<AddConnectionResponseHandler>   handler{new AddConnectionResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(fromNodeName));
+    argArray->addValue(std::make_shared<String>(fromPath));
+    argArray->addValue(std::make_shared<String>(toNodeName));
+    argArray->addValue(std::make_shared<String>(toPath));
+    argArray->addValue(std::make_shared<String>(dataType));
+    argArray->addValue(std::make_shared<Integer>(StaticCast(int, mode)));
+    SuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddConnectionRequest,
+                                                                        kAddConnectionResponse)};
+
+    ODL_OBJEXIT(); //####
+    return BoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::addConnection
 
 nImO::BoolOrFailure
 nImO::RegistryProxy::addNode
@@ -312,13 +347,64 @@ nImO::RegistryProxy::getInformationForAllChannelsOnNode
     return ChannelInfoVectorOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllChannelsOnNode
 
+nImO::ConnectionInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllConnections
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<GetInformationForAllConnectionsResponseHandler> handler{new GetInformationForAllConnectionsResponseHandler};
+    SuccessOrFailure                                                status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                         handler.get(),
+                                                                                                         kGetInformationForAllConnectionsRequest,
+                                                                                                         kGetInformationForAllConnectionsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllConnections
+
+nImO::ConnectionInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllConnectionsOnMachine
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", machineName);
+    SpArray                                                                     argArray{new Array};
+    std::unique_ptr<GetInformationForAllConnectionsOnMachineResponseHandler>    handler{new GetInformationForAllConnectionsOnMachineResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    SuccessOrFailure    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kGetInformationForAllConnectionsOnMachineRequest,
+                                                                           kGetInformationForAllConnectionsOnMachineResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllConnectionsOnMachine
+
+nImO::ConnectionInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllConnectionsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName);
+    SpArray                                                                 argArray{new Array};
+    std::unique_ptr<GetInformationForAllConnectionsOnNodeResponseHandler>   handler{new GetInformationForAllConnectionsOnNodeResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    SuccessOrFailure    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                           kGetInformationForAllConnectionsOnNodeRequest,
+                                                                           kGetInformationForAllConnectionsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllConnectionsOnNode
+
 nImO::MachineInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllMachines
     (void)
 {
     ODL_OBJENTER(); //####
     std::unique_ptr<GetInformationForAllMachinesResponseHandler>    handler{new GetInformationForAllMachinesResponseHandler};
-    SuccessOrFailure                                             status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+    SuccessOrFailure                                                status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
                                                                                                                          handler.get(),
                                                                                                              kGetInformationForAllMachinesRequest,
                                                                                                              kGetInformationForAllMachinesResponse)};
@@ -462,7 +548,8 @@ nImO::RegistryProxy::getNumberOfChannels
 {
     ODL_OBJENTER(); //####
     std::unique_ptr<GetNumberOfChannelsResponseHandler> handler{new GetNumberOfChannelsResponseHandler};
-    SuccessOrFailure                                 status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(),
+    SuccessOrFailure                                    status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                             handler.get(),
                                                                                                              kGetNumberOfChannelsRequest,
                                                                                                              kGetNumberOfChannelsResponse)};
 
@@ -486,6 +573,21 @@ nImO::RegistryProxy::getNumberOfChannelsOnNode
     ODL_OBJEXIT(); //####
     return IntOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNumberOfChannelsOnNode
+
+nImO::IntOrFailure
+nImO::RegistryProxy::getNumberOfConnections
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::unique_ptr<GetNumberOfConnectionsResponseHandler>  handler{new GetNumberOfConnectionsResponseHandler};
+    SuccessOrFailure                                        status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection,
+                                                                                                                 handler.get(),
+                                                                                                             kGetNumberOfConnectionsRequest,
+                                                                                                             kGetNumberOfConnectionsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfConnections
 
 nImO::IntOrFailure
 nImO::RegistryProxy::getNumberOfMachines
@@ -620,6 +722,28 @@ nImO::RegistryProxy::removeChannelsForNode
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::removeChannelsForNode
+
+nImO::BoolOrFailure
+nImO::RegistryProxy::removeConnection
+    (const std::string &    nodeName,
+     const std::string &    path,
+     const bool             fromIsSpecified)
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    SpArray                                             argArray{new Array};
+    std::unique_ptr<RemoveConnectionResponseHandler>    handler{new RemoveConnectionResponseHandler};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(path));
+    argArray->addValue(std::make_shared<Logical>(fromIsSpecified));
+    SuccessOrFailure status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                                        kRemoveConnectionRequest, kRemoveConnectionResponse)};
+
+    ODL_OBJEXIT(); //####
+    return BoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::removeConnection
 
 nImO::BoolOrFailure
 nImO::RegistryProxy::removeNode

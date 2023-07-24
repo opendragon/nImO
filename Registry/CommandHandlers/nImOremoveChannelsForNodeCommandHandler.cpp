@@ -126,7 +126,7 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
         else
         {
             std::string         nodeName{asString->getValue()};
-            SuccessOrFailure status{_registry->removeChannelsForNode(nodeName)};
+            SuccessOrFailure    status{_registry->removeChannelsForNode(nodeName)};
 
             if (status.first)
             {

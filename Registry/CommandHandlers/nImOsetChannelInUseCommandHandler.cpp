@@ -125,7 +125,7 @@ nImO::SetChannelInUseCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            SuccessOrFailure status{_registry->setChannelInUse(asString1->getValue(), asString2->getValue())};
+            SuccessOrFailure    status{_registry->setChannelInUse(asString1->getValue(), asString2->getValue())};
 
             if (status.first)
             {

@@ -36,6 +36,7 @@ Searches:\
 	getNamesOfNodes = SELECT name FROM Nodes;\
 	getNodeInformation = SELECT address, port, serviceType FROM Nodes WHERE name = @name;\
 	getNumberOfChannels = SELECT COUNT (*) FROM Channels;\
+	getNumberOfConnections = SELECT COUNT (*) FROM Connections;\
 	getNumberOfMachines = SELECT COUNT (*) FROM Machines;\
 	getNumberOfNodes = SELECT COUNT (*) FROM  Nodes;\
 	getNumberOfConnections = SELECT COUNT (*) FROM Connections;\
@@ -78,16 +79,20 @@ Tests:\
 \
 	UPDATE Channels SET InUse = 1 WHERE node = "b_4" AND path = "/blort" RETURNING InUse;\
 \
-	SELECT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" AND Machines.address = Nodes.address;\
-	SELECT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
+	SELECT DISTINCT Nodes.address, Nodes.name, port FROM Nodes, Machines WHERE Machines.name = "blort" AND Machines.address = Nodes.address;\
+	SELECT DISTINCT Nodes.name FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
 	SELECT COUNT(*) FROM Nodes, Machines WHERE Machines.name = "blurt" AND Machines.address = Nodes.address;\
 \
-	SELECT node, path, isOutput, dataType, modes, inUse FROM Channels WHERE node = "b_4";\
-	SELECT node, path, isOutput, dataType, modes, inUse FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
-	SELECT node, path, isOutput, dataType, modes, inUse FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
+	SELECT DISTINCT node, path, isOutput, dataType, modes, inUse FROM Channels WHERE node = "b_4";\
+	SELECT DISTINCT node, path, isOutput, dataType, modes, inUse FROM Channels, Nodes WHERE Nodes.address = 20000000 AND Nodes.name = Channels.node;\
+	SELECT DISTINCT node, path, isOutput, dataType, modes, inUse FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
+	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections WHERE fromNode = "b.2" OR toNode = "b.2";\
+	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections, Nodes, Machines WHERE (fromNode = Nodes.name OR toNode = Nodes.name) AND Machines.name = "blurt" AND Machines.address = Nodes.address;\
 \
 	DELETE FROM Nodes WHERE name = "b.2";\
 	DELETE FROM Channels WHERE node = "b_4" AND path = "/blort";\
-	DELETE FROM Channels WHERE node = "b1"; \
+	DELETE FROM Channels WHERE node = "b1";\
+	DELETE FROM Connections WHERE fromNode = "b.2" AND fromPath = "/blirt/out";\
+	DELETE FROM Connections WHERE toNode = "b_4" AND toPath = "/blort";\
 \
 }

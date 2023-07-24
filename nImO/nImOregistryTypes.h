@@ -107,6 +107,39 @@ namespace nImO
 
     }; // ChannelInfo
 
+    /*! @brief The data found in the Registry for a connection. */
+    struct ConnectionInfo
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found;
+
+        /*! @brief The name of the input node for the channel. */
+        std::string _fromNode;
+
+        /*! @brief The path of the input channel on the node. */
+        std::string _fromPath;
+
+        /*! @brief The name of the output node for the channel. */
+        std::string _toNode;
+
+        /*! @brief The path of the output channel on the node. */
+        std::string _toPath;
+
+        /*! @brief The type of data carried by the channel. */
+        std::string _dataType;
+
+        /*! @brief The allowed transport types for the channel. */
+        TransportType   _mode;
+
+        /*! @brief The constructor. */
+        inline ConnectionInfo
+            (void) :
+                _found(false), _mode(TransportType::kAny)
+        {
+        }
+
+    }; // ConnectionInfo
+
     /*! @brief The launch information for a node. */
     struct LaunchDetails
     {
@@ -176,10 +209,13 @@ namespace nImO
 
     }; // NodeInfo
 
-    /*! @brief Contains a sequence of NodeInfo values. */
+    /*! @brief Contains a sequence of ChannelInfo values. */
     typedef std::vector<ChannelInfo>    ChannelInfoVector;
 
-    /*! @brief Contains a sequence of NodeInfo values. */
+    /*! @brief Contains a sequence of ConnectionInfo values. */
+    typedef std::vector<ConnectionInfo> ConnectionInfoVector;
+
+    /*! @brief Contains a sequence of MachineInfo values. */
     typedef std::vector<MachineInfo>    MachineInfoVector;
 
     /*! @brief Contains a sequence of NodeInfo values. */
@@ -190,6 +226,12 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<SuccessOrFailure, ChannelInfoVector> ChannelInfoVectorOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, ConnectionInfo> ConnectionInfoOrFailure;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    typedef std::pair<SuccessOrFailure, ConnectionInfoVector>   ConnectionInfoVectorOrFailure;
 
     /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
     typedef std::pair<SuccessOrFailure, LaunchDetails> LaunchDetailsOrFailure;

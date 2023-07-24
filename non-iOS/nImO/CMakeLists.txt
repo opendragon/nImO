@@ -99,6 +99,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/Contexts/nImOtestContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp"
@@ -107,6 +108,9 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.cpp"
@@ -118,6 +122,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.cpp"
@@ -126,6 +131,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp"
@@ -260,6 +266,7 @@ install(FILES
 
 install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
@@ -268,6 +275,9 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h"
@@ -279,6 +289,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h"
@@ -287,6 +298,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h"
@@ -348,6 +360,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp
@@ -364,6 +378,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnNodeResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsOnNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllConnectionsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp
@@ -386,6 +406,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.cpp
@@ -402,6 +424,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h

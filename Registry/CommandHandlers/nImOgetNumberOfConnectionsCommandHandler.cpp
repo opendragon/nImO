@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOclearChannelInUseCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'clear channel inUse' command handler.
+//  Contains:   The class definition for the nImO 'get number of connections' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-06-11
+//  Created:    2023-07-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOclearChannelInUseCommandHandler.h"
+#include "nImOgetNumberOfConnectionsCommandHandler.h"
 
 #include <BasicTypes/nImOinteger.h>
-#include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
 #include <nImOregistryCommands.h>
@@ -54,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'clear channel inUse' command handler. */
+ @brief The class definition for the %nImO 'get number of connections' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +90,21 @@ nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+} // nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
 
-nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+nImO::GetNumberOfConnectionsCommandHandler::~GetNumberOfConnectionsCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+} // nImO::GetNumberOfConnectionsCommandHandler::~GetNumberOfConnectionsCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ClearChannelInUseCommandHandler::doIt
+nImO::GetNumberOfConnectionsCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,39 +114,29 @@ nImO::ClearChannelInUseCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("clear channel inUse request received");
-    if (2 < arguments.size())
+    _owner->report("get number of connections request received");
+    if (0 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        IntOrFailure    statusWithInt{_registry->getNumberOfConnections()};
 
-        if ((nullptr != asString1) && (nullptr != asString2))
+        if (statusWithInt.first.first)
         {
-            SuccessOrFailure    status{_registry->clearChannelInUse(asString1->getValue(), asString2->getValue())};
+            SpInteger   count{new Integer{statusWithInt.second}};
 
-            if (status.first)
-            {
-                okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse", true);
-            }
-            else
-            {
-                ODL_LOG("! (status.first)"); //####
-            }
+            okSoFar = sendComplexResponse(socket, kGetNumberOfConnectionsResponse, "get number of connections", count);
         }
         else
         {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            ODL_LOG("! (statusWithInt.first.first)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ClearChannelInUseCommandHandler::doIt
+} // nImO::GetNumberOfConnectionsCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

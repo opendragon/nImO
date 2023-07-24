@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOclearChannelInUseCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetInformationForAllConnectionsOnNodeCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'clear channel inUse' command handler.
+//  Contains:   The class definition for the nImO 'get information for all connections on node' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-06-11
+//  Created:    2023-07-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOclearChannelInUseCommandHandler.h"
+#include "nImOgetInformationForAllConnectionsOnNodeCommandHandler.h"
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'clear channel inUse' command handler. */
+ @brief The class definition for the %nImO 'get information for all connections on node' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +83,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+nImO::GetInformationForAllConnectionsOnNodeCommandHandler::GetInformationForAllConnectionsOnNodeCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
         inherited(owner, theRegistry)
@@ -91,21 +91,21 @@ nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+} // nImO::GetInformationForAllConnectionsOnNodeCommandHandler::GetInformationForAllConnectionsOnNodeCommandHandler
 
-nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+nImO::GetInformationForAllConnectionsOnNodeCommandHandler::~GetInformationForAllConnectionsOnNodeCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+} // nImO::GetInformationForAllConnectionsOnNodeCommandHandler::~GetInformationForAllConnectionsOnNodeCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ClearChannelInUseCommandHandler::doIt
+nImO::GetInformationForAllConnectionsOnNodeCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
@@ -115,39 +115,55 @@ nImO::ClearChannelInUseCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("clear channel inUse request received");
-    if (2 < arguments.size())
+    _owner->report("get information for all connections on node request received");
+    if (1 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        SpValue         element{arguments[1]};
+        CPtr(String)    asString{element->asString()};
 
-        if ((nullptr != asString1) && (nullptr != asString2))
+        if (nullptr == asString)
         {
-            SuccessOrFailure    status{_registry->clearChannelInUse(asString1->getValue(), asString2->getValue())};
-
-            if (status.first)
-            {
-                okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse", true);
-            }
-            else
-            {
-                ODL_LOG("! (status.first)"); //####
-            }
+            ODL_LOG("(nullptr == asString)"); //####
         }
         else
         {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            ConnectionInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllConnectionsOnNode(asString->getValue())};
+
+            if (statusWithInfoVector.first.first)
+            {
+                SpArray                 connectionArray{new Array};
+                ConnectionInfoVector &  theChannels{statusWithInfoVector.second};
+
+                for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
+                {
+                    ConnectionInfo &    theInfo{*walker};
+                    SpArray             infoArray{new Array};
+
+                    infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                    infoArray->addValue(std::make_shared<String>(theInfo._fromNode));
+                    infoArray->addValue(std::make_shared<String>(theInfo._fromPath));
+                    infoArray->addValue(std::make_shared<String>(theInfo._toNode));
+                    infoArray->addValue(std::make_shared<String>(theInfo._toPath));
+                    infoArray->addValue(std::make_shared<String>(theInfo._dataType));
+                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
+                    connectionArray->addValue(infoArray);
+                }
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsOnNodeResponse, "get information for all connections on node",
+                                              connectionArray);
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInfoVector.first.first)"); //####
+            }
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (1 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ClearChannelInUseCommandHandler::doIt
+} // nImO::GetInformationForAllConnectionsOnNodeCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

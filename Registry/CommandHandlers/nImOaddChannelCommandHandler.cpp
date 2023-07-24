@@ -137,7 +137,7 @@ nImO::AddChannelCommandHandler::doIt
             bool                isOutput{isOutputValue->getValue()};
             std::string         dataType{dataTypeString->getValue()};
             TransportType       modes{StaticCast(TransportType, modesString->getIntegerValue())};
-            SuccessOrFailure status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
+            SuccessOrFailure    status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
 
             if (status.first)
             {
@@ -160,7 +160,7 @@ nImO::AddChannelCommandHandler::doIt
     }
     else
     {
-        ODL_LOG("! (6 < arguments.size())"); //####
+        ODL_LOG("! (5 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

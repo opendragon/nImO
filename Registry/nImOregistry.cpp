@@ -226,6 +226,68 @@ struct ChannelSearchData
 
 }; // ChannelSearchData
 
+/*! @brief The data used to update the Connections table. */
+struct ConnectionInsertData
+{
+    /*! @brief The input node for this connection. */
+    std::string _fromNode;
+
+    /*! @brief The input path for this connection. */
+    std::string _fromPath;
+
+    /*! @brief The output node for this connection. */
+    std::string _toNode;
+
+    /*! @brief The output path for this connection. */
+    std::string _toPath;
+
+    /*! @brief The format of the data to be transferred over this connection. */
+    std::string _dataType;
+
+    /*! @brief The transport types for the connection. */
+    nImO::TransportType   _mode;
+
+    /*! @brief The constructor.
+     @param[in] fromNode The name of the input node for the connection.
+     @param[in] fromPath The input path for the connection.
+     @param[in] toNode The name of the output node for the connection.
+     @param[in] toPath The output path for the connection.
+     @param[in] dataType The format for the data to be transferred over the connection.
+     @param[in] mode The transport type for the connection. */
+    inline ConnectionInsertData
+        (const std::string &        fromNode,
+         const std::string &        fromPath,
+         const std::string &        toNode,
+         const std::string &        toPath,
+         const std::string &        dataType,
+         const nImO::TransportType  mode) :
+            _fromNode(fromNode), _fromPath(fromPath), _toNode(toNode), _toPath(toPath), _dataType(dataType), _mode(mode)
+    {
+    }
+
+}; // ConnectionInsertData
+
+/*! @brief The data used to search the Connections table. */
+struct ConnectionSearchData
+{
+    /*! @brief The input node for this connection. */
+    std::string _node;
+
+    /*! @brief The input path for this connection. */
+    std::string _path;
+
+    /*! @brief The constructor.
+     @param[in] node The name of the input or output node for the connection.
+     @param[in] path The input or output path for the connection. */
+    inline ConnectionSearchData
+        (const std::string &    node,
+         const std::string &    path) :
+            _node(node), _path(path)
+    {
+    }
+
+}; // ConnectionSearchData
+
 /*! @brief The data used to update the Machines table. */
 struct MachineInsertData
 {
@@ -315,7 +377,7 @@ performSQLstatementWithMultipleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     try
     {
@@ -425,7 +487,7 @@ performSQLstatementWithNoResults
     ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     try
     {
@@ -501,7 +563,7 @@ performSQLstatementWithNoResultsNoArgs
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     try
     {
@@ -571,7 +633,7 @@ performSQLstatementWithSingleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     resultList.clear();
     try
@@ -665,7 +727,7 @@ doBeginTransaction
 {
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     try
     {
@@ -704,7 +766,7 @@ doEndTransaction
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("wasOK = ", wasOK); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     try
     {
@@ -744,7 +806,7 @@ createTables
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("logging = ", logging); //####
-    nImO::SuccessOrFailure   status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""};
 
     if (nullptr == dbHandle)
     {
@@ -929,6 +991,79 @@ setupInsertIntoChannels
     return result;
 } // setupInsertIntoChannels
 
+/*! @brief Bind the values that are to be inserted into the Connections table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupInsertIntoConnections
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int fromNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        int fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
+        int toNodeNameIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+        int toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
+        int dataTypeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_DATA_TYPE_C_)};
+        int modeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_MODE_C_)};
+
+        if ((0 < fromNodeNameIndex) && (0 < fromPathIndex) && (0 < toNodeNameIndex) && (0 < toPathIndex) && (0 < dataTypeIndex) && (0 < modeIndex))
+        {
+            auto                connectionData{StaticCast(CPtr(ConnectionInsertData), stuff)};
+            std::string         fromNode{connectionData->_fromNode};
+            std::string         fromPath{connectionData->_fromPath};
+            std::string         toNode{connectionData->_toNode};
+            std::string         toPath{connectionData->_toPath};
+            std::string         dataType{connectionData->_dataType};
+            nImO::TransportType mode{connectionData->_mode};
+
+            result = sqlite3_bind_text(statement, fromNodeNameIndex, fromNode.c_str(), StaticCast(int, fromNode.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, fromPathIndex, fromPath.c_str(), StaticCast(int, fromPath.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, toNodeNameIndex, toNode.c_str(), StaticCast(int, toNode.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, toPathIndex, toPath.c_str(), StaticCast(int, toPath.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, dataTypeIndex, dataType.c_str(), StaticCast(int, dataType.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_int(statement, modeIndex, StaticCast(int, mode));
+            }
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((0 < fromNodeNameIndex) && (0 < fromPathIndex) && (0 < toNodeNameIndex) && (0 < toPathIndex) && " //####
+                    "(0 < dataTypeIndex) && (0 < modeIndex))"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupInsertIntoConnections
+
 /*! @brief Bind the values that are to be inserted into the Machines table.
  @param[in] statement The prepared statement that is to be updated.
  @param[in] stuff The source of data that is to be bound.
@@ -1092,7 +1227,7 @@ setupSearchChannels
         }
         else
         {
-            ODL_LOG("! ((0 < machineNameIndex) && (0 < channelPathIndex))"); //####
+            ODL_LOG("! ((0 < channelNodeIndex) && (0 < channelPathIndex))"); //####
         }
     }
     catch (...)
@@ -1186,6 +1321,102 @@ setupSearchChannelsNodeOnly
     return result;
 } // setupSearchChannelsNodeOnly
 
+/*! @brief Bind the values that are to be searched for in the Connections table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchConnectionsViaFrom
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        int fromPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_PATH_C_)};
+
+        if ((0 < fromNodeIndex) && (0 < fromPathIndex))
+        {
+            auto        connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
+            std::string node{connectionSearch->_node};
+            std::string path{connectionSearch->_path};
+
+            result = sqlite3_bind_text(statement, fromNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, fromPathIndex, path.c_str(), StaticCast(int, path.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((0 < fromNodeIndex) && (0 < fromPathIndex))"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchConnectionsViaFrom
+
+/*! @brief Bind the values that are to be searched for in the Connections table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchConnectionsViaTo
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+        int toPathIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_PATH_C_)};
+
+        if ((0 < toNodeIndex) && (0 < toPathIndex))
+        {
+            auto        connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
+            std::string node{connectionSearch->_node};
+            std::string path{connectionSearch->_path};
+
+            result = sqlite3_bind_text(statement, toNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, toPathIndex, path.c_str(), StaticCast(int, path.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((0 < toNodeIndex) && (0 < fromPathIndex))"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchConnectionsViaTo
+
 /*! @brief Bind the value that is to be searched for in the Machines table.
  @param[in] statement The prepared statement that is to be updated.
  @param[in] stuff The source of data that is to be bound.
@@ -1226,6 +1457,52 @@ setupSearchMachines
     ODL_EXIT_I(result);
     return result;
 } // setupSearchMachines
+
+/*! @brief Bind the value that is to be searched for in the Nodes table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchNodeConnections
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int fromNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_FROM_NODE_C_)};
+        int toNodeIndex{sqlite3_bind_parameter_index(statement, "@" CONNECTION_TO_NODE_C_)};
+
+        if ((0 < fromNodeIndex) && (0 < toNodeIndex))
+        {
+            std::string name{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, fromNodeIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, toNodeIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((0 < fromNodeIndex) && (0 < toNodeIndex))"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchNodeConnections
 
 /*! @brief Bind the value that is to be searched for in the Nodes table.
  @param[in] statement The prepared statement that is to be updated.
@@ -1387,7 +1664,7 @@ nImO::Registry::Registry
 
     if (SQLITE_OK == result)
     {
-        nImO::SuccessOrFailure   status{createTables(_owner, logging, _dbHandle)};
+        nImO::SuccessOrFailure  status{createTables(_owner, logging, _dbHandle)};
 
         if (! status.first)
         {
@@ -1439,11 +1716,11 @@ nImO::Registry::addChannel
     ODL_S3s("nodeName = ", nodeName, "path = ", path, "dataType = ", dataType); //####
     ODL_B1("isOutput = ", isOutput); //####
     ODL_I1("modes = ", StaticCast(int, modes)); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
-        BoolOrFailure    statusWithBool{isNodePresent(nodeName)};
+        BoolOrFailure   statusWithBool{isNodePresent(nodeName)};
 
         if (statusWithBool.first.first)
         {
@@ -1481,6 +1758,80 @@ nImO::Registry::addChannel
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::addChannel
+
+nImO::SuccessOrFailure
+nImO::Registry::addConnection
+    (const std::string &    fromNodeName,
+     const std::string &    fromPath,
+     const std::string &    toNodeName,
+     const std::string &    toPath,
+     const std::string &    dataType,
+     const TransportType    mode)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S4s("fromNodeName = ", fromNodeName, "fromPath = ", fromPath, "toNodeName = ", toNodeName, "toPath = ", toPath); //####
+    ODL_S1s("dataType = ", dataType); //####
+    ODL_I1("mode = ", StaticCast(int, mode)); //####
+    SuccessOrFailure    status;
+
+    if (ChannelName::validNode(fromNodeName) && ChannelName::validPath(fromPath) && ChannelName::validNode(toNodeName) &&
+        ChannelName::validPath(toPath))
+    {
+        BoolOrFailure   statusWithBool{isChannelPresent(fromNodeName, fromPath)};
+
+        if (statusWithBool.first.first)
+        {
+            if (statusWithBool.second)
+            {
+                statusWithBool = isChannelPresent(toNodeName, toPath);
+                if (statusWithBool.first.first)
+                {
+                    if (statusWithBool.second)
+                    {
+                        status = doBeginTransaction(_owner, _dbHandle);
+                        if (status.first)
+                        {
+                            ConnectionInsertData    data{fromNodeName, fromPath, toNodeName, toPath, dataType, mode};
+                            static CPtr(char)       insertIntoConnections{"INSERT INTO " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", "
+                                                                            CONNECTION_FROM_PATH_C_ ", " CONNECTION_TO_NODE_C_ ", "
+                                                                            CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                                            CONNECTION_MODE_C_ ") VALUES (@" CONNECTION_FROM_NODE_C_ ", @"
+                                                                            CONNECTION_FROM_PATH_C_ ", @" CONNECTION_TO_NODE_C_ ", @"
+                                                                            CONNECTION_TO_PATH_C_ ", @" CONNECTION_DATA_TYPE_C_ ", @"
+                                                                            CONNECTION_MODE_C_ ")"};
+
+                            status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoConnections, setupInsertIntoConnections, &data);
+                            doEndTransaction(_owner, _dbHandle, status.first);
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithBool.second)"); //####
+                        status = SuccessOrFailure(false, "Unknown 'to' channel");
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithBool.second)"); //####
+                status = SuccessOrFailure(false, "Unknown 'from' channel");
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(fromNodeName) && ChannelName::validPath(fromPath) && " //####
+                "ChannelName::validNode(toNodeName) && ChannelName::validPath(toPath))"); //####
+        status = SuccessOrFailure(false, "Invalid node name or path");
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::addConnection
 
 nImO::SuccessOrFailure
 nImO::Registry::addMachine
@@ -1524,7 +1875,7 @@ nImO::Registry::addNode
     ODL_S4s("nodeName = ", nodeName, "execPath = ", execPath, "launchDirectory = ", launchDirectory, "commandLine = ", commandLine); //####
     ODL_I1("serviceClass = ", StaticCast(int, serviceClass)); //####
     ODL_P1("nodeConnection = ", &nodeConnection); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -1562,7 +1913,7 @@ nImO::Registry::clearChannelInUse
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1604,7 +1955,7 @@ nImO::Registry::getChannelInformation
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
     ChannelInfo         info;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
@@ -1614,9 +1965,10 @@ nImO::Registry::getChannelInformation
         {
             std::vector<StringVector>   results;
             ChannelSearchData           data{nodeName, path};
-            static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                        "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_
-                                                        " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
+            static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                        CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_
+                                                        " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @"
+                                                        CHANNEL_PATH_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
@@ -1659,7 +2011,7 @@ nImO::Registry::getChannelInUseAndSet
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                inUse{false};
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1668,8 +2020,8 @@ nImO::Registry::getChannelInUseAndSet
         {
             StringVector        results;
             ChannelSearchData   data{nodeName, path};
-            static CPtr(char)   searchChannels{"SELECT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
-                                                " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
+            static CPtr(char)   searchChannels{"SELECT DISTINCT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
+                                                CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
@@ -1733,7 +2085,7 @@ nImO::Registry::getChannelInUse
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                inUse{false};
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -1742,8 +2094,8 @@ nImO::Registry::getChannelInUse
         {
             StringVector        results;
             ChannelSearchData   data{nodeName, path};
-            static CPtr(char)   searchChannels{"SELECT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
-                                                " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
+            static CPtr(char)   searchChannels{"SELECT DISTINCT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
+                                                CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
 
             status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
@@ -1794,14 +2146,14 @@ nImO::Registry::getInformationForAllChannels
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                   "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_};
+        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels);
         if (status.first)
@@ -1838,17 +2190,17 @@ nImO::Registry::getInformationForAllChannelsOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ "," NODES_T_ "," MACHINES_T_
-                                                    " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_ " AND " MACHINES_T_ "."
-                                                    MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_ "." MACHINE_NAME_C_
-                                                    " = @" MACHINE_NAME_C_};
+        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ "," NODES_T_
+                                                    "," MACHINES_T_ " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_
+                                                    " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_
+                                                    "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
                                                               &machineName);
@@ -1890,15 +2242,15 @@ nImO::Registry::getInformationForAllChannelsOnNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ "," CHANNEL_DATA_TYPE_C_
-                                                    "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
-                                                    CHANNEL_NODE_C_};
+        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE "
+                                                    CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
         if (status.first)
@@ -1932,19 +2284,217 @@ nImO::Registry::getInformationForAllChannelsOnNode
     return ChannelInfoVectorOrFailure{status, channelData};
 } // nImO::Registry::getInformationForAllChannelsOnNode
 
+nImO::ConnectionInfoVectorOrFailure
+nImO::Registry::getInformationForAllConnections
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    ConnectionInfoVector    connectionData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector &  values{results[ii]};
+
+                if (5 < values.size())
+                {
+                    ConnectionInfo  info;
+                    size_t          pos;
+
+                    info._found = true;
+                    info._fromNode = values[0];
+                    info._fromPath = values[1];
+                    info._toNode = values[2];
+                    info._toPath = values[3];
+                    info._dataType = values[4];
+                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    if (info._found)
+                    {
+                        connectionData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (5 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, connectionData};
+} // nImO::Registry::getInformationForAllConnections
+
+nImO::ConnectionInfoVectorOrFailure
+nImO::Registry::getInformationForAllConnectionsOnMachine
+    (const std::string &    machineName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    ConnectionInfoVector    connectionData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ ", " NODES_T_ ", " MACHINES_T_ " WHERE ("
+                                                        CONNECTION_FROM_NODE_C_ " = " NODES_T_ "." NODE_NAME_C_ " OR " CONNECTION_TO_NODE_C_ " = "
+                                                        NODES_T_ "." NODE_NAME_C_ ") AND " MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_
+                                                        " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchMachines, &machineName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector &  values{results[ii]};
+
+                if (5 < values.size())
+                {
+                    ConnectionInfo  info;
+                    size_t          pos;
+
+                    info._found = true;
+                    info._fromNode = values[0];
+                    info._fromPath = values[1];
+                    info._toNode = values[2];
+                    info._toPath = values[3];
+                    info._dataType = values[4];
+                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    if (info._found)
+                    {
+                        connectionData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (5 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, connectionData};
+} // nImO::Registry::getInformationForAllConnectionsOnNode
+
+nImO::ConnectionInfoVectorOrFailure
+nImO::Registry::getInformationForAllConnectionsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    ConnectionInfoVector    connectionData;
+
+    if (status.first)
+    {
+        std::vector<StringVector>   results;
+        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
+                                                        CONNECTION_FROM_NODE_C_ " OR " CONNECTION_TO_NODE_C_ " = @" CONNECTION_TO_NODE_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchNodeConnections, &nodeName);
+        if (status.first)
+        {
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                StringVector &  values{results[ii]};
+
+                if (5 < values.size())
+                {
+                    ConnectionInfo  info;
+                    size_t          pos;
+
+                    info._found = true;
+                    info._fromNode = values[0];
+                    info._fromPath = values[1];
+                    info._toNode = values[2];
+                    info._toPath = values[3];
+                    info._dataType = values[4];
+                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    if (0 == pos)
+                    {
+                        info._found = false;
+                    }
+                    if (info._found)
+                    {
+                        connectionData.push_back(info);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (info._found)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (5 < values.size())"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoVectorOrFailure{status, connectionData};
+} // nImO::Registry::getInformationForAllConnectionsOnNode
+
 nImO::MachineInfoVectorOrFailure
 nImO::Registry::getInformationForAllMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     MachineInfoVector   machineData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchMachines{"SELECT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_};
+        static CPtr(char)           searchMachines{"SELECT DISTINCT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
@@ -1996,14 +2546,14 @@ nImO::Registry::getInformationForAllNodes
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes{"SELECT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM "
-                                                NODES_T_};
+        static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
+                                                " FROM " NODES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
@@ -2040,16 +2590,16 @@ nImO::Registry::getInformationForAllNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     NodeInfoVector      nodeData;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines{"SELECT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ "," NODE_PORT_C_ ","
-                                                            NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "."
-                                                            MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_
-                                                            " = " NODES_T_ "." NODE_ADDRESS_C_};
+        static CPtr(char)           searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ ","
+                                                            NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+                                                            MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
+                                                            MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -2086,7 +2636,7 @@ nImO::Registry::getLaunchDetails
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
     LaunchDetails       details;
 
     if (ChannelName::validNode(nodeName))
@@ -2095,8 +2645,8 @@ nImO::Registry::getLaunchDetails
         if (status.first)
         {
             std::vector<StringVector>   results;
-            static CPtr(char)           searchNodes{"SELECT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_ " FROM "
-                                                    NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
+            static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_
+                                                    " FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
@@ -2149,7 +2699,7 @@ nImO::Registry::getMachineInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
     MachineInfo         info;
 
     if (ChannelName::validNode(nodeName))
@@ -2158,7 +2708,7 @@ nImO::Registry::getMachineInformation
         if (status.first)
         {
             std::vector<StringVector>   results;
-            static CPtr(char)           searchMachines{"SELECT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
+            static CPtr(char)           searchMachines{"SELECT DISTINCT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
                                                         MACHINE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
@@ -2216,13 +2766,13 @@ nImO::Registry::getNamesOfMachines
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchMachines{"SELECT " MACHINE_NAME_C_ " FROM " MACHINES_T_};
+        static CPtr(char)   searchMachines{"SELECT DISTINCT " MACHINE_NAME_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
@@ -2248,13 +2798,13 @@ nImO::Registry::getNamesOfNodes
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
     {
         StringVector        results;
-        static CPtr(char)   searchNodes{"SELECT " NODE_NAME_C_ " FROM " NODES_T_};
+        static CPtr(char)   searchNodes{"SELECT DISTINCT " NODE_NAME_C_ " FROM " NODES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
@@ -2281,13 +2831,13 @@ nImO::Registry::getNamesOfNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
     StringSet           strings;
 
     if (status.first)
     {
         std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines{"SELECT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+        static CPtr(char)           searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
                                                             MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
                                                             MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
@@ -2325,7 +2875,7 @@ nImO::Registry::getNodeInformation
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
     NodeInfo            info;
 
     if (ChannelName::validNode(nodeName))
@@ -2334,8 +2884,8 @@ nImO::Registry::getNodeInformation
         if (status.first)
         {
             std::vector<StringVector>   results;
-            static CPtr(char)           searchNodes{"SELECT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ " WHERE "
-                                                    NODE_NAME_C_ " = @" NODE_NAME_C_};
+            static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_
+                                                    " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
@@ -2403,7 +2953,7 @@ nImO::Registry::getNumberOfChannels
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2442,7 +2992,7 @@ nImO::Registry::getNumberOfChannelsOnNode
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2475,13 +3025,52 @@ nImO::Registry::getNumberOfChannelsOnNode
 } // nImO::Registry::getNumberOfChannelsOnNode
 
 nImO::IntOrFailure
+nImO::Registry::getNumberOfConnections
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    int                 count{-1};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StringVector        results;
+        static CPtr(char)   countMachines{"SELECT COUNT(*) FROM " CONNECTIONS_T_};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
+    return IntOrFailure{status, count};
+} // nImO::Registry::getNumberOfConnections
+
+nImO::IntOrFailure
 nImO::Registry::getNumberOfMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2520,7 +3109,7 @@ nImO::Registry::getNumberOfNodes
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2559,7 +3148,7 @@ nImO::Registry::getNumberOfNodesOnMachine
 {
     ODL_OBJENTER(); //####
     int                 count{-1};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2601,7 +3190,7 @@ nImO::Registry::isChannelPresent
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
     bool                found{false};
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -2656,7 +3245,7 @@ nImO::Registry::isMachinePresent
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
     bool                found{false};
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2700,7 +3289,7 @@ nImO::Registry::isNodePresent
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
     bool                found{false};
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2753,7 +3342,7 @@ nImO::Registry::removeChannel
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
@@ -2788,7 +3377,7 @@ nImO::Registry::removeChannelsForNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2815,13 +3404,93 @@ nImO::Registry::removeChannelsForNode
 } // nImO::Registry::removeChannelsForNode
 
 nImO::SuccessOrFailure
+nImO::Registry::removeConnection
+    (const std::string &    nodeName,
+     const std::string &    path,
+     const bool             fromIsSpecified)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SuccessOrFailure    status;
+
+    if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
+    {
+        BoolOrFailure   statusWithBool{isChannelPresent(nodeName, path)};
+
+        if (statusWithBool.first.first)
+        {
+            if (statusWithBool.second)
+            {
+                ConnectionSearchData    searchData{nodeName, path};
+
+                status = doBeginTransaction(_owner, _dbHandle);
+                if (status.first)
+                {
+
+                    if (fromIsSpecified)
+                    {
+                        static CPtr(char)   searchConnections{"DELETE FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
+                                                                CONNECTION_FROM_NODE_C_ " AND " CONNECTION_FROM_PATH_C_ " = @"
+                                                                CONNECTION_FROM_PATH_C_};
+
+                        status = performSQLstatementWithNoResults(_owner, _dbHandle, searchConnections, setupSearchConnectionsViaFrom, &searchData);
+                    }
+                    else
+                    {
+                        static CPtr(char)   searchConnections{"DELETE FROM " CONNECTIONS_T_ " WHERE " CONNECTION_TO_NODE_C_ " = @"
+                                                                CONNECTION_TO_NODE_C_ " AND " CONNECTION_TO_PATH_C_ " = @" CONNECTION_TO_PATH_C_};
+
+                        status = performSQLstatementWithNoResults(_owner, _dbHandle, searchConnections, setupSearchConnectionsViaTo, &searchData);
+                    }
+                    doEndTransaction(_owner, _dbHandle, status.first);
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithBool.second)"); //####
+                status = SuccessOrFailure(false, "Unknown 'from' channel");
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
+        status = SuccessOrFailure(false, "Invalid node name or path");
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::removeConnection
+#if 0
+/*! @brief The name of the 'Connections' table. */
+#define CONNECTIONS_T_  "Connections"
+
+/*! @brief The named parameter for the 'fromNode' column of the 'Connecions' table. */
+#define CONNECTION_FROM_NODE_C_ "fromNode"
+
+/*! @brief The named parameter for the 'fromPath' column of the 'Connections' table. */
+#define CONNECTION_FROM_PATH_C_ "fromPath"
+
+/*! @brief The named parameter for the 'toNode' column of the 'Connecions' table. */
+#define CONNECTION_TO_NODE_C_   "toNode"
+
+/*! @brief The named parameter for the 'toPath' column of the 'Connections' table. */
+#define CONNECTION_TO_PATH_C_   "toPath"
+
+#endif//0
+
+nImO::SuccessOrFailure
 nImO::Registry::removeNode
     (const std::string &    nodeName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName))
     {
@@ -2855,7 +3524,7 @@ nImO::Registry::setChannelInUse
 {
     ODL_OBJENTER(); //####
     ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    SuccessOrFailure status;
+    SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {

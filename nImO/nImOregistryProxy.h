@@ -109,6 +109,23 @@ namespace nImO
                  const std::string &    dataType = "",
                  const TransportType    modes = TransportType::kAny);
 
+            /*! @brief Add a connection to the Registry.
+             @param[in] fromNodeName The input node for the connection to be added.
+             @param[in] fromPath The input path for the connection.
+             @param[in] toNodeName The output node for the connection to be added.
+             @param[in] toPath The output path for the connection.
+             @param[in] dataType The format for the data to be transferred over the connection.
+             @param[in] mode The transport mode for the connection.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            BoolOrFailure
+            addConnection
+                (const std::string &    fromNodeName,
+                 const std::string &    fromPath,
+                 const std::string &    toNodeName,
+                 const std::string &    toPath,
+                 const std::string &    dataType = "",
+                 const TransportType    mode = TransportType::kAny);
+    
             /*! @brief Add a node to the Registry.
              @param[in] nodeName The name of the node to be added.
              @param[in] argc The number of arguments in 'argv'.
@@ -178,6 +195,26 @@ namespace nImO
              @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
             ChannelInfoVectorOrFailure
             getInformationForAllChannelsOnNode
+                (const std::string &    nodeName);
+
+            /*! @brief Get information for all connections in the Registry.
+             @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
+            ConnectionInfoVectorOrFailure
+            getInformationForAllConnections
+                (void);
+
+            /*! @brief Get information for all connections to a machine in the Registry.
+             @param[in] machineName The name of the machine for the connections to be located in the Registry.
+             @return @c true and the information for each machine if the operation was successfully performed and @c false and an error string otherwise. */
+            ConnectionInfoVectorOrFailure
+            getInformationForAllConnectionsOnMachine
+                (const std::string &    machineName);
+
+            /*! @brief Get information for all connections to a node in the Registry.
+             @param[in] nodeName The name of the node for the connections to be located in the Registry.
+             @return @c true and the information for each node if the operation was successfully performed and @c false and an error string otherwise. */
+            ConnectionInfoVectorOrFailure
+            getInformationForAllConnectionsOnNode
                 (const std::string &    nodeName);
 
             /*! @brief Get information for all machines in the Registry.
@@ -252,6 +289,12 @@ namespace nImO
             getNumberOfChannelsOnNode
                 (const std::string &    nodeName);
 
+            /*! @brief Return the number of connections in the Registry.
+             @return @c true and the number of connections if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfConnections
+                (void);
+
             /*! @brief Return the number of machines in the Registry.
              @return @c true and the number of machines if the operation was successfully performed and @c false and an error string otherwise. */
             IntOrFailure
@@ -324,6 +367,17 @@ namespace nImO
             BoolOrFailure
             removeChannelsForNode
                 (const std::string &    nodeName);
+
+            /*! @brief Remove a connection from the Registry.
+             @param[in] nodeName The name of the node for the connection to be removed.
+             @param[in] path The path for the connection.
+             @param[in] fromIsSpecified @c true if the node and path are for the input to the connection and @c false if the output for the connection is specified.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            BoolOrFailure
+            removeConnection
+                (const std::string &    nodeName,
+                 const std::string &    path,
+                 const bool             fromIsSpecified);
 
             /*! @brief Remove a node from the Registry.
              @param[in] nodeName The name of the node to be removed.

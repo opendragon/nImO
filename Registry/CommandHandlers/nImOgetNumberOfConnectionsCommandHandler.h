@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOaddChannelCommandHandler.h
+//  File:       nImO/Registry/CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'add channel' command handler.
+//  Contains:   The class declaration for the nImO 'get number of connections' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-05-20
+//  Created:    2023-07-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOaddChannelCommandHandler_H_))
-# define nImOaddChannelCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetNumberOfConnectionsCommandHandler_H_))
+# define nImOgetNumberOfConnectionsCommandHandler_H_ /* Header guard */
 
 # include "nImOregistryCommandHandler.h"
 
@@ -49,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'add channel' command handler. */
+ @brief The class declaration for the %nImO 'get number of connections' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'add channel' command. */
-    class AddChannelCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide a handler for the 'get number of connections' command. */
+    class GetNumberOfConnectionsCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -77,16 +77,14 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context.
-             @param[in] theRegistry The Registry to use when processing a request.
-             @param[in] statusConnection Where to report status changes. */
-            AddChannelCommandHandler
+             @param[in] theRegistry The Registry to use when processing a request. */
+            GetNumberOfConnectionsCommandHandler
                 (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry,
-                 const Connection &         statusConnection);
+                 SpRegistry                 theRegistry);
 
             /*! @brief The destructor. */
             virtual
-            ~AddChannelCommandHandler
+            ~GetNumberOfConnectionsCommandHandler
                 (void);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -115,11 +113,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The multicast connection used for status reports. */
-            Connection  _statusConnection;
-
-    }; // AddChannelCommandHandler
+    }; // GetNumberOfConnectionsCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOaddChannelCommandHandler_H_)
+#endif // not defined(nImOgetNumberOfConnectionsCommandHandler_H_)

@@ -191,7 +191,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
     SpArray             requestArray{new Array};
-    SuccessOrFailure status{true, ""};
+    SuccessOrFailure    status{true, ""};
 
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));

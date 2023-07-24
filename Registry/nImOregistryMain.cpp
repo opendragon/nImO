@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include "CommandHandlers/nImOaddChannelCommandHandler.h"
+#include "CommandHandlers/nImOaddConnectionCommandHandler.h"
 #include "CommandHandlers/nImOaddNodeCommandHandler.h"
 #include "CommandHandlers/nImOclearChannelInUseCommandHandler.h"
 #include "CommandHandlers/nImOgetChannelInformationCommandHandler.h"
@@ -44,6 +45,9 @@
 #include "CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllConnectionsCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllConnectionsOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllConnectionsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllNodesOnMachineCommandHandler.h"
@@ -55,6 +59,7 @@
 #include "CommandHandlers/nImOgetNodeInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.h"
@@ -63,6 +68,7 @@
 #include "CommandHandlers/nImOisNodePresentCommandHandler.h"
 #include "CommandHandlers/nImOremoveChannelCommandHandler.h"
 #include "CommandHandlers/nImOremoveChannelsForNodeCommandHandler.h"
+#include "CommandHandlers/nImOremoveConnectionCommandHandler.h"
 #include "CommandHandlers/nImOremoveNodeCommandHandler.h"
 #include "CommandHandlers/nImOsetChannelInUseCommandHandler.h"
 #include "nImOregistry.h"
@@ -162,6 +168,8 @@ main
 
                     asRegistryContext->addHandler(nImO::kAddChannelRequest,
                                                   new nImO::AddChannelCommandHandler(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kAddConnectionRequest,
+                                                  new nImO::AddConnectionCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kClearChannelInUseRequest,
                                                   new nImO::ClearChannelInUseCommandHandler(ourContext, theRegistry));
@@ -175,6 +183,12 @@ main
                                                   new nImO::GetInformationForAllChannelsOnNodeCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsRequest,
                                                   new nImO::GetInformationForAllChannelsCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsOnMachineRequest,
+                                                  new nImO::GetInformationForAllConnectionsOnMachineCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsOnNodeRequest,
+                                                  new nImO::GetInformationForAllConnectionsOnNodeCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsRequest,
+                                                  new nImO::GetInformationForAllConnectionsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
                                                   new nImO::GetInformationForAllMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesOnMachineRequest,
@@ -195,6 +209,8 @@ main
                                                   new nImO::GetNumberOfChannelsOnNodeCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsRequest,
                                                   new nImO::GetNumberOfChannelsCommandHandler(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfConnectionsRequest,
+                                                  new nImO::GetNumberOfConnectionsCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
                                                   new nImO::GetNumberOfMachinesCommandHandler(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesOnMachineRequest,
@@ -207,6 +223,8 @@ main
                                                   new nImO::RemoveChannelCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveChannelsForNodeRequest,
                                                   new nImO::RemoveChannelsForNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kRemoveConnectionRequest,
+                                                  new nImO::RemoveConnectionCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest,
                                                   new nImO::RemoveNodeCommandHandler(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kSetChannelInUseRequest,

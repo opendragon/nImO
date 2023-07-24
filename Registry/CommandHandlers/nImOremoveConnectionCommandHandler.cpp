@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOclearChannelInUseCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOremoveConnectionCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'clear channel inUse' command handler.
+//  Contains:   The class definition for the nImO 'remove connection' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-06-11
+//  Created:    2023-07-23
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOclearChannelInUseCommandHandler.h"
+#include "nImOremoveConnectionCommandHandler.h"
 
-#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
@@ -54,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'clear channel inUse' command handler. */
+ @brief The class definition for the %nImO 'remove connection' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,53 +82,63 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
     (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
-        inherited(owner, theRegistry)
+     SpRegistry                 theRegistry,
+     const Connection &         statusConnection) :
+        inherited(owner, theRegistry), _statusConnection(statusConnection)
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
+} // nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
 
-nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+nImO::RemoveConnectionCommandHandler::~RemoveConnectionCommandHandler
     (void)
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT(); //####
-} // nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
+} // nImO::RemoveConnectionCommandHandler::~RemoveConnectionCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ClearChannelInUseCommandHandler::doIt
+nImO::RemoveConnectionCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("clear channel inUse request received");
-    if (2 < arguments.size())
+    _owner->report("remove channel request received");
+    if (3 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
+        SpValue         element3{arguments[3]};
         CPtr(String)    asString1{element1->asString()};
         CPtr(String)    asString2{element2->asString()};
+        CPtr(Logical)   asLogical{element3->asLogical()};
 
-        if ((nullptr != asString1) && (nullptr != asString2))
+        if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
         {
-            SuccessOrFailure    status{_registry->clearChannelInUse(asString1->getValue(), asString2->getValue())};
+            std::string         nodeName{asString1->getValue()};
+            std::string         path{asString2->getValue()};
+            bool                fromIsSpecified{asLogical->getValue()};
+            SuccessOrFailure    status{_registry->removeConnection(nodeName, path, fromIsSpecified)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse", true);
+                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel", true);
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kConnectionRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path +
+                                     kStatusSeparator + (fromIsSpecified ? "true" : "false"));
+                }
             }
             else
             {
@@ -138,16 +147,16 @@ nImO::ClearChannelInUseCommandHandler::doIt
         }
         else
         {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (3 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ClearChannelInUseCommandHandler::doIt
+} // nImO::RemoveConnectionCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

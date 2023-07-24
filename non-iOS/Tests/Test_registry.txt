@@ -295,12 +295,3 @@ add_test(NAME TestGetConnectionsForMachineFromRegistryWithTwoConnections COMMAND
 add_test(NAME TestGetConnectionsWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 396)
 ## Test get connections with bad machine name from Registry
 add_test(NAME TestGetConnectionsWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 397)
-
-## Test get channel details for input channel on connection from Registry
-add_test(NAME TestGetChannelDetailsForInputChannelFromRegistry COMMAND ${THIS_TARGET} 410)
-## Test get channel details for output channel on connection from Registry
-add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistry COMMAND ${THIS_TARGET} 411)
-## Test get channel details for input channel on connection from Registry with bad channel name
-add_test(NAME TestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 412)
-## Test get channel details for output channel on connection from Registry with bad channel name
-add_test(NAME TestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName COMMAND ${THIS_TARGET} 413)

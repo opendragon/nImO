@@ -65,11 +65,14 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A bad machine name for testing. */
+#define BAD_MACHINE_NAME   "bad_machine____"
+
 /*! @brief A bad node name for testing. */
-#define BAD_NODE_NAME   "bad_node"
+#define BAD_NODE_NAME   "bad_node____"
 
 /*! @brief A bad channel path for testing. */
-#define BAD_CHANNEL_PATH    "/bad_path"
+#define BAD_CHANNEL_PATH    "/bad_path____"
 
 /*! @brief The first channel path for testing. */
 #define CHANNEL_PATH_1  "/blart/input/1"
@@ -11110,43 +11113,143 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
 # pragma mark *** Test Case 396 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                        commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionsWithBadNodeNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::ConnectionInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllConnectionsOnNode(BAD_NODE_NAME)};
+
+            if (statusWithInformation.first.first)
+            {
+                nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+
+                if (0 == infoVector.size())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == infoVector.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInformation.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionsWithBadNodeNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 397 ***
 #endif // defined(__APPLE__)
 
-//                        result = doTestGetConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                           currentDir, commandLine);
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionsWithBadMachineNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
 
-#if defined(__APPLE__)
-# pragma mark *** Test Case 410 ***
-#endif // defined(__APPLE__)
+    try
+    {
+        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
 
-//                        result = doTestGetChannelDetailsForInputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                    commandLine);
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            nImO::ConnectionInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllConnectionsOnMachine(BAD_MACHINE_NAME)};
 
-#if defined(__APPLE__)
-# pragma mark *** Test Case 411 ***
-#endif // defined(__APPLE__)
+            if (statusWithInformation.first.first)
+            {
+                nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
 
-//                        result = doTestGetChannelDetailsForOutputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                     commandLine);
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 412 ***
-#endif // defined(__APPLE__)
-
-//                        result = doTestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                      currentDir, commandLine);
-
-#if defined(__APPLE__)
-# pragma mark *** Test Case 413 ***
-#endif // defined(__APPLE__)
-
-//                        result = doTestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext,
-//                                                                                                       execPath, currentDir, commandLine);
+                if (0 == infoVector.size())
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == infoVector.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInformation.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionsWithBadMachineNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -11683,33 +11786,13 @@ main
                         break;
 
                     case 396 :
-//                        result = doTestGetConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                        commandLine);
+                        result = doTestGetConnectionsWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                        commandLine);
                         break;
 
                     case 397 :
-//                        result = doTestGetConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                           currentDir, commandLine);
-                        break;
-
-                    case 410 :
-//                        result = doTestGetChannelDetailsForInputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                    commandLine);
-                        break;
-
-                    case 411 :
-//                        result = doTestGetChannelDetailsForOutputChannelFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
-//                                                                                     commandLine);
-                        break;
-
-                    case 412 :
-//                        result = doTestGetChannelDetailsForInputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext, execPath,
-//                                                                                                      currentDir, commandLine);
-                        break;
-
-                    case 413 :
-//                        result = doTestGetChannelDetailsForOutputChannelFromRegistryWithBadChannelName(*argv, argc - 1, argv + 2, ourContext,
-//                                                                                                       execPath, currentDir, commandLine);
+                        result = doTestGetConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                           currentDir, commandLine);
                         break;
 
                     default :

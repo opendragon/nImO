@@ -78,7 +78,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~RegistryCommandHandler
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

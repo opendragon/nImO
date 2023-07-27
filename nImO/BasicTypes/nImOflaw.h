@@ -76,7 +76,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Flaw
-                (void);
+                (void)
+                override;
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */

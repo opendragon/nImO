@@ -96,7 +96,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Logical
-                (void);
+                (void)
+                override;
 
             /*! @brief Return non-@c nullptr if the object is a Logical.
              @return Non-@c nullptr if the object is a Logical and @c nullptr otherwise. */

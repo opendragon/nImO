@@ -87,7 +87,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~RemoveNodeCommandHandler
-                (void);
+                (void)
+                override;
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.

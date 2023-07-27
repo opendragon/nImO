@@ -96,7 +96,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Integer
-                (void);
+                (void)
+                override;
 
             /*! @brief Return non-@c nullptr if the object is an Integer.
              @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */

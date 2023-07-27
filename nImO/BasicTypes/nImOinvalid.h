@@ -98,7 +98,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Invalid
-                (void);
+                (void)
+                override;
 
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */

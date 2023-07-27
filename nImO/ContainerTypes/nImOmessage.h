@@ -98,7 +98,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Message
-                (void);
+                (void)
+                override;
 
             /*! @brief Add some bytes to the buffer.
             @param[in] data The bytes to be added.

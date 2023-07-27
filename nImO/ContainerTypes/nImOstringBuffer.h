@@ -91,7 +91,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~StringBuffer
-                (void);
+                (void)
+                override;
 
             /*! @brief Add a boolean value to the buffer.
              @param[in] aBool The value to add.

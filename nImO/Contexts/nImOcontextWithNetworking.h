@@ -99,7 +99,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~ContextWithNetworking
-                (void);
+                (void)
+                override;
 
             /*! @brief Is this a ServiceContext?
              @return @c nullptr. */

@@ -76,7 +76,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Atom
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

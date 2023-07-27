@@ -120,7 +120,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Set
-                (void);
+                (void)
+                override;
 
             /*! @brief Override the standard insert operation to ignore inserting incompatible values.
              @param[in] val Value to be inserted.

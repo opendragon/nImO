@@ -96,7 +96,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~ServiceContext
-                (void);
+                (void)
+                override;
 
             /*! @brief Add a command handler to the set of handlers.
              @param[in] commandName The name of the command to be handled.

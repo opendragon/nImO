@@ -116,7 +116,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Array
-                (void);
+                (void)
+                override;
 
             /*! @brief Add the entries from another Array.
               @param[in] other The object to be copied from. */

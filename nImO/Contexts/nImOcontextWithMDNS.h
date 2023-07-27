@@ -113,7 +113,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~ContextWithMDNS
-                (void);
+                (void)
+                override;
 
             /*! @brief Find the Registry if it's running.
              @param[out] connection The IP address and port of the Registry, if found.

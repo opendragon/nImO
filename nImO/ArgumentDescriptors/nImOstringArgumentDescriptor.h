@@ -104,7 +104,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~StringArgumentDescriptor
-                (void);
+                (void)
+                override;
 
             /*! @brief Return the current value.
             @return The current value. */

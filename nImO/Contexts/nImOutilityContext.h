@@ -87,7 +87,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~UtilityContext
-                (void);
+                (void)
+                override;
 
             /*! @brief Is this a UtilityContext?
              @return @c this. */

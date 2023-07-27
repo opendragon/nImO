@@ -59,196 +59,196 @@ namespace nImO
     {
 
         public :
-        // Public type definitions.
+            // Public type definitions.
 
         protected :
-        // Protected type definitions.
+            // Protected type definitions.
 
         private :
-        // Private type definitions.
+            // Private type definitions.
 
         public :
-        // Public methods.
+            // Public methods.
 
-        /*! @brief The constructor. */
-        ChannelName
-        (void);
+            /*! @brief The constructor. */
+            ChannelName
+                (void);
 
-        /*! @brief The destructor. */
-        virtual
-        ~ChannelName
-        (void);
+            /*! @brief The destructor. */
+            virtual
+            ~ChannelName
+                (void);
 
-        /*! @brief The copy constructor.
-         @param[in] other The object to be copied. */
-        ChannelName
-        (const ChannelName &  other);
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            ChannelName
+                (const ChannelName &  other);
 
-        /*! @brief The move constructor.
-         @param[in] other The object to be moved. */
-        ChannelName
-        (ChannelName &&	other)
-        noexcept;
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            ChannelName
+                (ChannelName &&	other)
+                noexcept;
 
-        /*! @brief Generate the path component of a ChannelName.
-         @param[in] base The base name of the path, which can be blank.
-         @param[in] forOutput @c true if this is an output channel and @c false otherwise.
-         @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
-         @param[in] channelNumber The index for the channel (1-origin).
-         @param[out] path The generated path.
-         @return @c true if the base name was valid so that the path could be generated. */
-        static bool
-        generatePath
-        (const std::string &    base,
-         const bool             forOutput,
-         const uint16_t         numChannels,
-         const uint16_t         channelNumber,
-         std::string &          path);
+            /*! @brief Generate the path component of a ChannelName.
+             @param[in] base The base name of the path, which can be blank.
+             @param[in] forOutput @c true if this is an output channel and @c false otherwise.
+             @param[in] numChannels The total number of channels for output (forOutput=true) or input (forOutput=false).
+             @param[in] channelNumber The index for the channel (1-origin).
+             @param[out] path The generated path.
+             @return @c true if the base name was valid so that the path could be generated. */
+            static bool
+            generatePath
+                (const std::string &    base,
+                 const bool             forOutput,
+                 const uint16_t         numChannels,
+                 const uint16_t         channelNumber,
+                 std::string &          path);
 
-        /*! @brief Return the name in standard form.
-         @return The name in standard form. */
-        std::string
-        getName
-        (void)
-        const;
+            /*! @brief Return the name in standard form.
+             @return The name in standard form. */
+            std::string
+            getName
+                (void)
+                const;
 
-        /*! @brief Return the name of the network for the channel.
-         @return The network name for the channel. */
-        inline const std::string &
-        getNetwork
-        (void)
-        const
-        {
-            return _network;
-        }
+            /*! @brief Return the name of the network for the channel.
+             @return The network name for the channel. */
+            inline const std::string &
+            getNetwork
+                (void)
+                const
+                {
+                    return _network;
+                }
 
-        /*! @brief Return the name of the node for the channel.
-         @return The node name for the channel. */
-        inline const std::string &
-        getNode
-        (void)
-        const
-        {
-            return _node;
-        }
+            /*! @brief Return the name of the node for the channel.
+             @return The node name for the channel. */
+            inline const std::string &
+            getNode
+                (void)
+                const
+                {
+                    return _node;
+                }
 
-        /*! @brief Return the path for the channel.
-         @return The path for the channel. */
-        inline const std::string &
-        getPath
-        (void)
-        const
-        {
-            return _path;
-        }
+            /*! @brief Return the path for the channel.
+             @return The path for the channel. */
+            inline const std::string &
+            getPath
+                (void)
+                const
+                {
+                    return _path;
+                }
 
-        /*! @brief Return the transport mechanism for the channel.
-         @return The transport mechanism for the channel. */
-        inline TransportType
-        getTransport
-        (void)
-        const
-        {
-            return _transport;
-        }
+            /*! @brief Return the transport mechanism for the channel.
+             @return The transport mechanism for the channel. */
+            inline TransportType
+            getTransport
+                (void)
+                const
+                {
+                    return _transport;
+                }
 
-        /*! @brief The copy assignment operator.
-         @param[in] other The object to be copied.
-         @return The updated object. */
-        ChannelName &
-        operator=
-        (const ChannelName &  other);
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            ChannelName &
+            operator=
+                (const ChannelName &  other);
 
-        /*! @brief The move assignment operator.
-         @param[in] other The object to be moved.
-         @return The updated object. */
-        ChannelName &
-        operator=
-        (ChannelName &&  other)
-        noexcept;
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            ChannelName &
+            operator=
+                (ChannelName &&  other)
+                noexcept;
 
-        /*! @brief Extracts a ChannelName from a string.
-         @param[in] input The string being processed.
-         @param[out] problemDescription A description of the first problem with the input that was detected.
-         @return @c nullptr if the ChannelName could not be extracted or a non-@c nullptr ChannelName if extraction was successful. */
-        static SpChannelName
-        parse
-        (const std::string &    input,
-         std::string &          problemDescription);
+            /*! @brief Extracts a ChannelName from a string.
+             @param[in] input The string being processed.
+             @param[out] problemDescription A description of the first problem with the input that was detected.
+             @return @c nullptr if the ChannelName could not be extracted or a non-@c nullptr ChannelName if extraction was successful. */
+            static SpChannelName
+            parse
+                (const std::string &    input,
+                 std::string &          problemDescription);
 
-        /*! @brief Exchanges the contents of the object with those of other.
-         @param[in,out] other The object to be swapped with. */
-        void
-        swap
-        (ChannelName &  other);
+            /*! @brief Exchanges the contents of the object with those of other.
+             @param[in,out] other The object to be swapped with. */
+            void
+            swap
+                (ChannelName &  other);
 
-        /*! @brief Returns the set of names for TransportType values.
-         @return The standard names for the TransportType values. */
-        static StringSet
-        transportNames
-        (void);
+            /*! @brief Returns the set of names for TransportType values.
+             @return The standard names for the TransportType values. */
+            static StringSet
+            transportNames
+                (void);
 
-        /*! @brief Returns the name corresponding to a TransportType value.
-         @param[in] aValue The TransportType value to be converted.
-         @return The standard name for the TransportType value. */
-        static std::string
-        transportToName
-        (const TransportType    aValue);
+            /*! @brief Returns the name corresponding to a TransportType value.
+             @param[in] aValue The TransportType value to be converted.
+             @return The standard name for the TransportType value. */
+            static std::string
+            transportToName
+                (const TransportType    aValue);
 
-        /*! @brief Check if the provided string is a valid network name.
-         @parm[in] input The string being checked.
-         @return @c true if the string is in the correct format for a network name. */
-        static bool
-        validNetwork
-        (const std::string &    input);
+            /*! @brief Check if the provided string is a valid network name.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a network name. */
+            static bool
+            validNetwork
+                (const std::string &    input);
 
-        /*! @brief Check if the provided string is a valid node name.
-         @parm[in] input The string being checked.
-         @return @c true if the string is in the correct format for a node name. */
-        static bool
-        validNode
-        (const std::string &    input);
+            /*! @brief Check if the provided string is a valid node name.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a node name. */
+            static bool
+            validNode
+                (const std::string &    input);
 
-        /*! @brief Check if the provided string is a valid channel path.
-         @parm[in] input The string being checked.
-         @return @c true if the string is in the correct format for a channel path. */
-        static bool
-        validPath
-        (const std::string &    input);
+            /*! @brief Check if the provided string is a valid channel path.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a channel path. */
+            static bool
+            validPath
+                (const std::string &    input);
 
-        /*! @brief Check if the provided string is a valid transport.
-         @parm[in] input The string being checked.
-         @return @c true if the string is in the correct format for a transport. */
-        static bool
-        validTransport
-        (const std::string &    input);
+            /*! @brief Check if the provided string is a valid transport.
+             @parm[in] input The string being checked.
+             @return @c true if the string is in the correct format for a transport. */
+            static bool
+            validTransport
+                (const std::string &    input);
 
         protected :
-        // Protected methods.
+            // Protected methods.
 
         private :
-        // Private methods.
+            // Private methods.
 
         public :
-        // Public fields.
+            // Public fields.
 
         protected :
-        // Protected fields.
+            // Protected fields.
 
         private :
-        // Private fields.
+            // Private fields.
 
-        /*! @brief The associated network name. */
-        std::string _network;
+            /*! @brief The associated network name. */
+            std::string _network;
 
-        /*! @brief The associated node name. */
-        std::string _node;
+            /*! @brief The associated node name. */
+            std::string _node;
 
-        /*! @brief The associated path. */
-        std::string _path;
+            /*! @brief The associated path. */
+            std::string _path;
 
-        /*! @brief The associated transport mechanism. */
-        TransportType   _transport;
+            /*! @brief The associated transport mechanism. */
+            TransportType   _transport;
 
     }; // ChannelName
 

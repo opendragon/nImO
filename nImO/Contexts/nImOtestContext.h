@@ -83,7 +83,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~TestContext
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

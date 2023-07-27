@@ -98,7 +98,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Blob
-                (void);
+                (void)
+                override;
 
             /*! @brief Return non-@c nullptr if the object is a Blob.
              @return Non-@c nullptr if the object is a Blob and @c nullptr otherwise. */

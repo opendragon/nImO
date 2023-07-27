@@ -91,7 +91,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~InputOutputContext
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

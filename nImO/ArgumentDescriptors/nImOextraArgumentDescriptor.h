@@ -105,7 +105,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~ExtraArgumentDescriptor
-                (void);
+                (void)
+                override;
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.

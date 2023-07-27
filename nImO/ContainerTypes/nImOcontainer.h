@@ -79,7 +79,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Container
-                (void);
+                (void)
+                override;
 
             /*! @brief The move constructor.
             @param[in] other The object to be moved. */

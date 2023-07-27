@@ -106,7 +106,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~StringsArgumentDescriptor
-                (void);
+                (void)
+                override;
 
             /*! @brief Return the allowed values.
             @return The allowed values. */

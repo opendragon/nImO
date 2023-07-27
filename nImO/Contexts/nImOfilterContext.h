@@ -91,7 +91,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~FilterContext
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

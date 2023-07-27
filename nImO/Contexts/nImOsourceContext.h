@@ -91,7 +91,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~SourceContext
-                (void);
+                (void)
+                override;
 
         protected :
             // Protected methods.

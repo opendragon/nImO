@@ -85,7 +85,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~GetNumberOfMachinesCommandHandler
-                (void);
+                (void)
+                override;
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.

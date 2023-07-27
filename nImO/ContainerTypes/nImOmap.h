@@ -123,7 +123,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~Map
-                (void);
+                (void)
+                override;
 
             /*! @brief Override the standard insert operation to ignore inserting incompatible values.
              @param[in] newKey The key for the Value.

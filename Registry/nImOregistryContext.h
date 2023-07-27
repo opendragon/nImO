@@ -89,7 +89,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~RegistryContext
-                (void);
+                (void)
+                override;
 
             /*! @brief Send a port announcement via mDNS.
              @param[in] port The port number being announced.

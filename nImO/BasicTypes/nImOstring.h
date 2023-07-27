@@ -101,7 +101,8 @@ namespace nImO
             /*! @brief The destructor. */
             virtual
             ~String
-                (void);
+                (void)
+                override;
 
             /*! @brief Return non-@c nullptr if the object is a String.
              @return Non-@c nullptr if the object is a String and @c nullptr otherwise. */

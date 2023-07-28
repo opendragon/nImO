@@ -78,7 +78,7 @@
 
 nImO::Invalid::Invalid
     (const std::string &    description) :
-        inherited(), _description(description)
+        inherited{}, _description{description}
 {
     ODL_ENTER(); //####
     ODL_S1s("description = ", description); //####
@@ -88,7 +88,7 @@ nImO::Invalid::Invalid
 nImO::Invalid::Invalid
     (const std::string &    description,
      const int64_t          position) :
-        inherited(), _description(description)
+        inherited{}, _description{description}
 {
     std::stringstream   restOfDescription;
 
@@ -103,7 +103,7 @@ nImO::Invalid::Invalid
 nImO::Invalid::Invalid
     (Invalid && other)
     noexcept :
-        inherited(std::move(other)), _description(other._description)
+        inherited{std::move(other)}, _description{other._description}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

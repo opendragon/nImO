@@ -114,8 +114,9 @@ announcementServiceCallback
         {
             const nImO::AnnounceServiceData &   serviceData{*servicePtr};
             size_t                              offset{nameOffset};
-            mDNS::string_t                      name{mDNS::mDNSPrivate::string_extract(data, size, offset, nImO::ContextWithMDNS::gNameBuffer,
-                                                                                       sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+            mDNS::string_t                      name{mDNS::mDNSPrivate::string_extract(data, size, offset,
+                                                                                    nImO::ContextWithMDNS::gNameBuffer,
+                                                                        sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
             {
@@ -136,12 +137,13 @@ announcementServiceCallback
                     if (unicast)
                     {
                         mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
-                                                   nullptr, 0, nullptr, 0);
+                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                   answer, nullptr, 0, nullptr, 0);
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, nullptr, 0);
+                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                     nullptr, 0);
                     }
                 }
             }
@@ -189,13 +191,13 @@ announcementServiceCallback
                     if (unicast)
                     {
                         mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
-                                                   nullptr, 0, additional, additionalCount);
+                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                   answer, nullptr, 0, additional, additionalCount);
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
-                                                     additionalCount);
+                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                     additional, additionalCount);
                     }
                 }
             }
@@ -238,13 +240,13 @@ announcementServiceCallback
                     if (unicast)
                     {
                         mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
-                                                   nullptr, 0, additional, additionalCount);
+                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                   answer, nullptr, 0, additional, additionalCount);
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
-                                                     additionalCount);
+                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                     additional, additionalCount);
                     }
                 }
             }
@@ -281,13 +283,13 @@ announcementServiceCallback
                     if (unicast)
                     {
                         mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
-                                                   nullptr, 0, additional, additionalCount);
+                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                   answer, nullptr, 0, additional, additionalCount);
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
-                                                     additionalCount);
+                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                     additional, additionalCount);
                     }
                 }
                 else if (((mDNS::kRecordTypeAAAA == rType) || (mDNS::kRecordTypeANY == rType)) &&
@@ -320,13 +322,13 @@ announcementServiceCallback
                     if (unicast)
                     {
                         mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length, answer,
-                                                   nullptr, 0, additional, additionalCount);
+                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                   answer, nullptr, 0, additional, additionalCount);
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0, additional,
-                                                     additionalCount);
+                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                     additional, additionalCount);
                     }
                 }
             }
@@ -354,8 +356,8 @@ nImO::RegistryContext::RegistryContext
      const std::string &    executableName,
      const bool             logging,
      const bool             startAnnouncer) :
-        inherited(argc, argv, executableName, "registry", logging, true, ""), _announcerThread(nullptr), _announceData(nullptr),
-        _startAnnouncer(startAnnouncer)
+        inherited{argc, argv, executableName, "registry", logging, true, ""}, _announcerThread{nullptr},
+        _announceData{nullptr}, _startAnnouncer{startAnnouncer}
 {
     ODL_ENTER(); //####
     ODL_S1s("executableName = ", executableName); //####
@@ -505,15 +507,17 @@ nImO::RegistryContext::makePortAnnouncement
         _pool.add_thread(_announcerThread);
         if (nImO::ContextWithMDNS::gHasIpv4)
         {
-            mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer), nImO::ContextWithMDNS::gServiceAddressIpv4,
-                                                                  sizeof(nImO::ContextWithMDNS::gServiceAddressIpv4))};
+            mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
+                                                                  nImO::ContextWithMDNS::gServiceAddressIpv4,
+                                                            sizeof(nImO::ContextWithMDNS::gServiceAddressIpv4))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);
         }
         else if (nImO::ContextWithMDNS::gHasIpv6)
         {
-            mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer), nImO::ContextWithMDNS::gServiceAddressIpv6,
+            mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
+                                                                  nImO::ContextWithMDNS::gServiceAddressIpv6,
                                                                   sizeof(nImO::ContextWithMDNS::gServiceAddressIpv6))};
 
             hostAddress = addressString.str;

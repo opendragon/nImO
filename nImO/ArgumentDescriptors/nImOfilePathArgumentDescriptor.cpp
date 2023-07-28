@@ -157,12 +157,13 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
      const std::string &    pathSuffix,
      const bool             forOutput,
      const bool             useRandomPath) :
-        inherited(argName, argDescription, argMode, pathPrefix),
-        _pathPrefix(pathPrefix), _pathSuffix(pathSuffix), _defaultSet(false), _forOutput(forOutput),
-        _useRandomPath(useRandomPath)
+        inherited{argName, argDescription, argMode, pathPrefix},
+        _pathPrefix{pathPrefix}, _pathSuffix{pathSuffix}, _defaultSet{false}, _forOutput{forOutput},
+        _useRandomPath{useRandomPath}
 {
     ODL_ENTER(); //####
-    ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", pathPrefix, "pathSuffix = ", pathSuffix); //####
+    ODL_S4s("argName = ", argName, "argDescription = ", argDescription, "pathPrefix = ", pathPrefix, //####
+            "pathSuffix = ", pathSuffix); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_B2("forOutput = ", forOutput, "useRandomPath = ", useRandomPath); //####
     getDefaultValue();
@@ -171,8 +172,8 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (const FilePathArgumentDescriptor & other) :
-        inherited(other), _pathPrefix(other._pathPrefix), _pathSuffix(other._pathSuffix),
-        _defaultSet(false), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+        inherited{other}, _pathPrefix{other._pathPrefix}, _pathSuffix{other._pathSuffix},
+        _defaultSet{false}, _forOutput{other._forOutput}, _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -182,8 +183,9 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 FilePathArgumentDescriptor::FilePathArgumentDescriptor
     (FilePathArgumentDescriptor &&  other)
     noexcept :
-        inherited(std::move(other)), _pathPrefix(std::move(other._pathPrefix)), _pathSuffix(std::move(other._pathSuffix)),
-        _defaultSet(other._defaultSet), _forOutput(other._forOutput), _useRandomPath(other._useRandomPath)
+        inherited{std::move(other)}, _pathPrefix{std::move(other._pathPrefix)},
+        _pathSuffix{std::move(other._pathSuffix)}, _defaultSet{other._defaultSet}, _forOutput{other._forOutput},
+        _useRandomPath{other._useRandomPath}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

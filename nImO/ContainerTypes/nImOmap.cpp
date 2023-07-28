@@ -84,7 +84,7 @@
 
 nImO::Map::Map
     (void) :
-        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+        inherited1{}, inherited2{}, _keyKind{Enumerable::Unknown}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -92,7 +92,7 @@ nImO::Map::Map
 
 nImO::Map::Map
     (const Map &    other) :
-        inherited1(), inherited2(), _keyKind(Enumerable::Unknown)
+        inherited1{}, inherited2{}, _keyKind{Enumerable::Unknown}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -103,7 +103,7 @@ nImO::Map::Map
 nImO::Map::Map
     (Map && other)
     noexcept:
-        inherited1(std::move(other)), inherited2(std::move(other)), _keyKind(other._keyKind)
+        inherited1{std::move(other)}, inherited2{std::move(other)}, _keyKind{other._keyKind}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

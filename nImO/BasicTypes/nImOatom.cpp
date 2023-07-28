@@ -78,7 +78,7 @@
 
 nImO::Atom::Atom
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -87,7 +87,7 @@ nImO::Atom::Atom
 nImO::Atom::Atom
     (Atom &&    other)
     noexcept :
-        inherited(std::move(other))
+        inherited{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

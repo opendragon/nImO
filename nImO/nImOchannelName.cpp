@@ -112,7 +112,7 @@ const std::string    nImO::kProtocolUnknownName{"unknown"};
 
 nImO::ChannelName::ChannelName
     (void) :
-        _transport(TransportType::kUnknown)
+        _transport{TransportType::kUnknown}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -120,7 +120,7 @@ nImO::ChannelName::ChannelName
 
 nImO::ChannelName::ChannelName
     (const ChannelName &  other) :
-        _network(other._network), _node(other._node), _path(other._path), _transport(other._transport)
+        _network{other._network}, _node{other._node}, _path{other._path}, _transport{other._transport}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -130,8 +130,8 @@ nImO::ChannelName::ChannelName
 nImO::ChannelName::ChannelName
     (ChannelName && other)
     noexcept :
-        _network(std::move(other._network)), _node(std::move(other._node)), _path(std::move(other._path)),
-        _transport(other._transport)
+        _network{std::move(other._network)}, _node{std::move(other._node)}, _path{std::move(other._path)},
+        _transport{other._transport}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

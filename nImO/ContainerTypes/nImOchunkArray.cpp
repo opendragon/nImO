@@ -84,7 +84,7 @@ using namespace nImO;
 
 nImO::ChunkArray::ChunkArray
     (const bool padWithNull) :
-        _buffers(new Ptr(BufferChunk)[1]), _buffersArePadded(padWithNull), _cachedString(), _numChunks(1)
+        _buffers{new Ptr(BufferChunk)[1]}, _buffersArePadded{padWithNull}, _cachedString{}, _numChunks{1}
 {
     ODL_ENTER(); //####
     ODL_B1("padWithNull = ", padWithNull); //####
@@ -98,8 +98,8 @@ nImO::ChunkArray::ChunkArray
 nImO::ChunkArray::ChunkArray
     (ChunkArray &&  other)
     noexcept :
-        _buffers(other._buffers), _buffersArePadded(other._buffersArePadded), _cachedString(other._cachedString),
-        _numChunks(other._numChunks)
+        _buffers{other._buffers}, _buffersArePadded{other._buffersArePadded}, _cachedString{other._cachedString},
+        _numChunks{other._numChunks}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

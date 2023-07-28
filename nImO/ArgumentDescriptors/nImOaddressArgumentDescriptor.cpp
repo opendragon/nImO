@@ -86,7 +86,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
      const ArgumentMode     argMode,
      const std::string &    defaultValue,
      Ptr(struct in_addr)    addrBuff) :
-        inherited(argName, argDescription, argMode, defaultValue), _addrBuff(addrBuff)
+        inherited{argName, argDescription, argMode, defaultValue}, _addrBuff{addrBuff}
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
@@ -101,7 +101,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 
 AddressArgumentDescriptor::AddressArgumentDescriptor
     (const AddressArgumentDescriptor &  other) :
-        inherited(other), _addrBuff(nullptr)
+        inherited{other}, _addrBuff{nullptr}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -111,7 +111,7 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 AddressArgumentDescriptor::AddressArgumentDescriptor
     (AddressArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _addrBuff(other._addrBuff)
+        inherited{std::move(other)}, _addrBuff{other._addrBuff}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

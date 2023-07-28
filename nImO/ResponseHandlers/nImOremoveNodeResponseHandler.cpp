@@ -80,7 +80,7 @@
 
 nImO::RemoveNodeResponseHandler::RemoveNodeResponseHandler
     (void) :
-        inherited(), _result(false)
+        inherited{}, _result{false}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

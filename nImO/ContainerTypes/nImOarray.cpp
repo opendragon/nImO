@@ -84,7 +84,7 @@
 
 nImO::Array::Array
     (void) :
-        inherited1(), inherited2()
+        inherited1{}, inherited2{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -92,7 +92,7 @@ nImO::Array::Array
 
 nImO::Array::Array
     (const Array &  other) :
-        inherited1(), inherited2()
+        inherited1{}, inherited2{}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -103,7 +103,7 @@ nImO::Array::Array
 nImO::Array::Array
     (Array &&   other)
     noexcept :
-        inherited1(std::move(other)), inherited2(std::move(other))
+        inherited1{std::move(other)}, inherited2{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

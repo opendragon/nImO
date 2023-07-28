@@ -97,7 +97,7 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription,
      const ArgumentMode     argMode) :
-        _argDescription(argDescription), _argMode(argMode), _argName(argName), _valid(true)
+        _argDescription{argDescription}, _argMode{argMode}, _argName{argName}, _valid{true}
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -107,8 +107,8 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 
 BaseArgumentDescriptor::BaseArgumentDescriptor
     (const BaseArgumentDescriptor & other) :
-        _argDescription(other._argDescription), _argMode(other._argMode), _argName(other._argName),
-        _valid(other._valid)
+        _argDescription{other._argDescription}, _argMode{other._argMode}, _argName{other._argName},
+        _valid{other._valid}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -118,8 +118,8 @@ BaseArgumentDescriptor::BaseArgumentDescriptor
 BaseArgumentDescriptor::BaseArgumentDescriptor
     (BaseArgumentDescriptor &&  other)
     noexcept :
-        _argDescription(other._argDescription), _argMode(other._argMode), _argName(other._argName),
-        _valid(other._valid)
+        _argDescription{other._argDescription}, _argMode{other._argMode}, _argName{other._argName},
+        _valid{other._valid}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

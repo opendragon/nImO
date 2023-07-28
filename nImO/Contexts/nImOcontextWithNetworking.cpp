@@ -110,8 +110,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
      const bool             logging,
      const int              numReservedThreads,
      const std::string &    nodeName) :
-        inherited(executableName, nodeName), _logConnection(kDefaultLogConnection), _statusConnection(kDefaultStatusConnection),
-        _loggingEnabled(logging), _logger(nullptr)
+        inherited{executableName, nodeName}, _logConnection{kDefaultLogConnection},
+        _statusConnection{kDefaultStatusConnection}, _loggingEnabled{logging}, _logger{nullptr}
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####

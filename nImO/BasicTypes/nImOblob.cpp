@@ -161,7 +161,7 @@ compareBytes
 
 nImO::Blob::Blob
     (void) :
-        inherited(), _value(), _size(0)
+        inherited{}, _value{}, _size{0}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -170,7 +170,7 @@ nImO::Blob::Blob
 nImO::Blob::Blob
     (CPtr(uint8_t)  data,
      const size_t   size) :
-        inherited(), _value(), _size(0)
+        inherited{}, _value{}, _size{0}
 {
     ODL_ENTER(); //####
     ODL_P1("datat = ", data); //####
@@ -186,7 +186,7 @@ nImO::Blob::Blob
 
 nImO::Blob::Blob
     (const Blob &   other) :
-        inherited(), _value(), _size(0)
+        inherited{}, _value{}, _size{0}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -202,7 +202,7 @@ nImO::Blob::Blob
 nImO::Blob::Blob
     (Blob &&    other)
     noexcept :
-        inherited(std::move(other)), _value(std::move(other._value)), _size(other._size)
+        inherited{std::move(other)}, _value{std::move(other._value)}, _size{other._size}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

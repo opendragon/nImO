@@ -82,7 +82,7 @@
 
 nImO::GetLaunchDetailsResponseHandler::GetLaunchDetailsResponseHandler
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

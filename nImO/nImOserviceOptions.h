@@ -79,7 +79,7 @@ namespace nImO
         /*! @brief The constructor. */
         ServiceOptions
             (void) :
-                inherited()
+                inherited{}
         {
         }
 

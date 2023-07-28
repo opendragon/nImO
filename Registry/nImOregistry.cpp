@@ -1650,7 +1650,7 @@ extractNodeInfoFromVector
 nImO::Registry::Registry
     (SpContextWithNetworking    owner,
      const bool                 logging) :
-        _dbHandle(nullptr), _owner(owner)
+        _dbHandle{nullptr}, _owner{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
@@ -1660,7 +1660,8 @@ nImO::Registry::Registry
         sqlite3_config(SQLITE_CONFIG_LOG, sqlLogger, _owner.get());
     }
     int result{sqlite3_open_v2("nImO_registry", &_dbHandle,
-                               SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE, nullptr)};
+                            SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY | SQLITE_OPEN_PRIVATECACHE,
+                               nullptr)};
 
     if (SQLITE_OK == result)
     {

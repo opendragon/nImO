@@ -591,8 +591,8 @@ nImO::ContextWithMDNS::ContextWithMDNS
      const bool             logging,
      const bool             startBrowser,
      const std::string &    nodeName) :
-        inherited(executableName, tagForLogging, logging, 2 /* browse + announce */, nodeName), _numSockets(0),
-        _buffer(new char[kBufferCapacity]), _startBrowser(startBrowser), _browserThread(nullptr)
+        inherited{executableName, tagForLogging, logging, 2 /* browse + announce */, nodeName}, _numSockets{0},
+        _buffer{new char[kBufferCapacity]}, _startBrowser{startBrowser}, _browserThread{nullptr}
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####

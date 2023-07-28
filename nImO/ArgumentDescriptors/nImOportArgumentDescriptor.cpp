@@ -86,9 +86,9 @@ PortArgumentDescriptor::PortArgumentDescriptor
      const ArgumentMode     argMode,
      const int              defaultValue,
      const bool             isSystemPort) :
-        inherited(argName, argDescription, argMode, defaultValue, true,
-                  isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_),
-        _isSystemPort(isSystemPort)
+        inherited{argName, argDescription, argMode, defaultValue, true,
+                    isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_},
+        _isSystemPort{isSystemPort}
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -99,7 +99,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
 
 PortArgumentDescriptor::PortArgumentDescriptor
     (const PortArgumentDescriptor & other) :
-        inherited(other), _isSystemPort(other._isSystemPort)
+        inherited{other}, _isSystemPort{other._isSystemPort}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -109,7 +109,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
 PortArgumentDescriptor::PortArgumentDescriptor
     (PortArgumentDescriptor &&  other)
     noexcept :
-        inherited(std::move(other)), _isSystemPort(other._isSystemPort)
+        inherited{std::move(other)}, _isSystemPort{other._isSystemPort}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

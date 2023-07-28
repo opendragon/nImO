@@ -85,7 +85,7 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const bool             defaultValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -96,7 +96,7 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
 BooleanArgumentDescriptor::BooleanArgumentDescriptor
     (const BooleanArgumentDescriptor & other) :
-        inherited(other), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
+        inherited{other}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -106,7 +106,7 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 BooleanArgumentDescriptor::BooleanArgumentDescriptor
     (BooleanArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _defaultValue(other._defaultValue), _currentValue(other._currentValue)
+        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

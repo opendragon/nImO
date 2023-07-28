@@ -74,7 +74,7 @@ namespace nImO
             inline ComparisonStatus
                 (const bool result = true,
                  const bool valid = true) :
-                    _result(result), _valid(valid)
+                    _result{result}, _valid{valid}
             {
             }
 

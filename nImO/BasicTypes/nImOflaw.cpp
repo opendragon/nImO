@@ -78,7 +78,7 @@
 
 nImO::Flaw::Flaw
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -87,7 +87,7 @@ nImO::Flaw::Flaw
 nImO::Flaw::Flaw
     (Flaw &&    other)
     noexcept:
-        inherited(std::move(other))
+        inherited{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

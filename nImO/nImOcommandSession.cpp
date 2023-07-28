@@ -168,7 +168,7 @@ processRequest
 
 nImO::CommandSession::CommandSession
     (SpContextWithNetworking    owner) :
-        _owner(owner)
+        _owner{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

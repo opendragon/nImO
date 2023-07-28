@@ -81,7 +81,7 @@
 
 nImO::ShutdownCommandHandler::ShutdownCommandHandler
     (SpContextWithNetworking    owner) :
-        inherited(owner)
+        inherited{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

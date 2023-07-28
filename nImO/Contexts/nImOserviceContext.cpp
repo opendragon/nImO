@@ -91,8 +91,8 @@ nImO::ServiceContext::ServiceContext
      const bool             logging,
      const bool             startBrowser,
      const std::string &    nodeName) :
-        inherited(executableName, tagForLogging, logging, startBrowser, nodeName), _acceptor(*getService()), _commandLine(new Array),
-        _keepGoing(true)
+        inherited{executableName, tagForLogging, logging, startBrowser, nodeName}, _acceptor{*getService()},
+        _commandLine{new Array}, _keepGoing{true}
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####

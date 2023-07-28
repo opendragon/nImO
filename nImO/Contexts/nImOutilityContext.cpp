@@ -81,7 +81,7 @@ nImO::UtilityContext::UtilityContext
      const std::string &    tagForLogging,
      const bool             logging,
      const std::string &    nodeName) :
-        inherited(executableName, tagForLogging, logging, true, nodeName)
+        inherited{executableName, tagForLogging, logging, true, nodeName}
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####

@@ -88,7 +88,7 @@ static const std::string kCanonicalTrue{"true"};
 
 nImO::Logical::Logical
     (void) :
-        inherited(), _value(false)
+        inherited{}, _value{false}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -96,7 +96,7 @@ nImO::Logical::Logical
 
 nImO::Logical::Logical
     (const bool initialValue) :
-        inherited(), _value(initialValue)
+        inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
     ODL_B1("initialValue = ", initialValue); //####
@@ -105,7 +105,7 @@ nImO::Logical::Logical
 
 nImO::Logical::Logical
     (const Logical &    other) :
-        inherited(), _value(other._value)
+        inherited{}, _value{other._value}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -115,7 +115,7 @@ nImO::Logical::Logical
 nImO::Logical::Logical
     (Logical && other)
     noexcept :
-        inherited(std::move(other)), _value(other._value)
+        inherited{std::move(other)}, _value{other._value}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

@@ -82,7 +82,7 @@
 
 nImO::GetInformationForAllChannelsOnNodeResponseHandler::GetInformationForAllChannelsOnNodeResponseHandler
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

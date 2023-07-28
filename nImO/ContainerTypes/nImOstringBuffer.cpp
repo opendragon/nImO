@@ -124,7 +124,7 @@ static CPtr(char)   kCanonicalControl[]
 
 nImO::StringBuffer::StringBuffer
     (void) :
-        inherited(true)
+        inherited{true}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -133,7 +133,7 @@ nImO::StringBuffer::StringBuffer
 nImO::StringBuffer::StringBuffer
     (StringBuffer &&    other)
     noexcept :
-        inherited(std::move(other))
+        inherited{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

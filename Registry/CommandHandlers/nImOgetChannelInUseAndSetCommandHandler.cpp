@@ -86,7 +86,7 @@
 nImO::GetChannelInUseAndSetCommandHandler::GetChannelInUseAndSetCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry) :
-        inherited(owner, theRegistry)
+        inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

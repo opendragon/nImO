@@ -144,7 +144,7 @@ namespace nImO
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _expanded(false), _flavour(OutputFlavour::kFlavourNormal), _logging(loggingOnByDefault)
+                _expanded{false}, _flavour{OutputFlavour::kFlavourNormal}, _logging{loggingOnByDefault}
         {
         }
 

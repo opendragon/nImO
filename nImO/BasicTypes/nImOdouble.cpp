@@ -84,7 +84,7 @@
 
 nImO::Double::Double
     (void) :
-        inherited(), _floatValue(0)
+        inherited{}, _floatValue{0}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -92,7 +92,7 @@ nImO::Double::Double
 
 nImO::Double::Double
     (const double   initialValue) :
-        inherited(), _floatValue(initialValue)
+        inherited{}, _floatValue{initialValue}
 {
     ODL_ENTER(); //####
     ODL_D1("initialValue = ", initialValue); //####
@@ -101,7 +101,7 @@ nImO::Double::Double
 
 nImO::Double::Double
     (const Double & other) :
-        inherited(), _floatValue(other._floatValue)
+        inherited{}, _floatValue{other._floatValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -111,7 +111,7 @@ nImO::Double::Double
 nImO::Double::Double
     (Double &&  other)
     noexcept :
-        inherited(std::move(other)), _floatValue(other._floatValue)
+        inherited{std::move(other)}, _floatValue{other._floatValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

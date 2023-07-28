@@ -89,9 +89,9 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
      const int              minimumValue,
      const bool             hasMaximumValue,
      const int              maximumValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue),
-        _maximumValue(maximumValue), _minimumValue(minimumValue), _hasMaximumValue(hasMaximumValue),
-        _hasMinimumValue(hasMinimumValue)
+        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue},
+        _maximumValue{maximumValue}, _minimumValue{minimumValue}, _hasMaximumValue{hasMaximumValue},
+        _hasMinimumValue{hasMinimumValue}
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -103,9 +103,9 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
 IntegerArgumentDescriptor::IntegerArgumentDescriptor
     (const IntegerArgumentDescriptor &  other) :
-        inherited(other), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
-        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
-        _hasMinimumValue(other._hasMinimumValue)
+        inherited{other}, _defaultValue{other._defaultValue}, _maximumValue{other._maximumValue},
+        _minimumValue{other._minimumValue}, _hasMaximumValue{other._hasMaximumValue},
+        _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -115,9 +115,9 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
 IntegerArgumentDescriptor::IntegerArgumentDescriptor
     (IntegerArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _defaultValue(other._defaultValue), _maximumValue(other._maximumValue),
-        _minimumValue(other._minimumValue), _hasMaximumValue(other._hasMaximumValue),
-        _hasMinimumValue(other._hasMinimumValue)
+        inherited{std::move(other)}, _defaultValue{other._defaultValue}, _maximumValue{other._maximumValue},
+        _minimumValue{other._minimumValue}, _hasMaximumValue{other._hasMaximumValue},
+        _hasMinimumValue{other._hasMinimumValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

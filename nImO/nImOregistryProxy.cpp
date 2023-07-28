@@ -123,7 +123,7 @@
 nImO::RegistryProxy::RegistryProxy
     (SpContextWithNetworking    context,
      const Connection &         connection) :
-        _context(context), _connection(connection)
+        _context{context}, _connection{connection}
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", &context, "connection = ", &connection); //####

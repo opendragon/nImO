@@ -85,7 +85,7 @@ StringArgumentDescriptor::StringArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
@@ -95,7 +95,7 @@ StringArgumentDescriptor::StringArgumentDescriptor
 
 StringArgumentDescriptor::StringArgumentDescriptor
     (const StringArgumentDescriptor &   other) :
-        inherited(other), _currentValue(other._currentValue), _defaultValue(other._defaultValue)
+        inherited{other}, _currentValue{other._currentValue}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -105,7 +105,8 @@ StringArgumentDescriptor::StringArgumentDescriptor
 StringArgumentDescriptor::StringArgumentDescriptor
     (StringArgumentDescriptor &&    other)
     noexcept :
-        inherited(std::move(other)), _currentValue(std::move(other._currentValue)), _defaultValue(std::move(other._defaultValue))
+        inherited{std::move(other)}, _currentValue{std::move(other._currentValue)},
+        _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

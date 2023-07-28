@@ -83,7 +83,7 @@ using namespace nImO;
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription) :
-        inherited(argName, argDescription, ArgumentMode::Optional)
+        inherited{argName, argDescription, ArgumentMode::Optional}
 {
     ODL_ENTER(); //####
     ODL_S2s("argName = ", argName, "argDescription = ", argDescription); //####
@@ -92,7 +92,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
     (const ExtraArgumentDescriptor &    other) :
-        inherited(other)
+        inherited{other}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -102,7 +102,7 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
 ExtraArgumentDescriptor::ExtraArgumentDescriptor
     (ExtraArgumentDescriptor && other)
     noexcept :
-        inherited(std::move(other))
+        inherited{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

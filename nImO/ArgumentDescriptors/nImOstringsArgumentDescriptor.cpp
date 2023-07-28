@@ -86,7 +86,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
      const ArgumentMode     argMode,
      const std::string &    defaultValue,
      const StringSet        allowedValues) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue), _allowedValues(allowedValues)
+        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}, _allowedValues{allowedValues}
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
@@ -96,7 +96,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (const StringsArgumentDescriptor &   other) :
-        inherited(other), _defaultValue(other._defaultValue), _allowedValues(other._allowedValues)
+        inherited{other}, _defaultValue{other._defaultValue}, _allowedValues{other._allowedValues}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -106,7 +106,8 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _defaultValue(std::move(other._defaultValue)), _allowedValues(std::move(other._allowedValues))
+        inherited{std::move(other)}, _defaultValue{std::move(other._defaultValue)},
+        _allowedValues{std::move(other._allowedValues)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

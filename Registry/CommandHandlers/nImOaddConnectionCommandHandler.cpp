@@ -87,7 +87,7 @@ nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
     (SpContextWithNetworking    owner,
      SpRegistry                 theRegistry,
      const Connection &         statusConnection) :
-        inherited(owner, theRegistry), _statusConnection(statusConnection)
+        inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

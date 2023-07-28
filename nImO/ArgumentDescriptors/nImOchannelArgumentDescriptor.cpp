@@ -87,7 +87,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue) :
-        inherited(argName, argDescription, argMode), _defaultValue(defaultValue)
+        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
@@ -97,7 +97,7 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
     (const ChannelArgumentDescriptor &  other) :
-        inherited(other), _defaultValue(other._defaultValue)
+        inherited{other}, _defaultValue{other._defaultValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -107,7 +107,8 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
 ChannelArgumentDescriptor::ChannelArgumentDescriptor
     (ChannelArgumentDescriptor &&   other)
     noexcept :
-        inherited(std::move(other)), _currentValue(std::move(other._currentValue)), _defaultValue(std::move(other._defaultValue))
+        inherited{std::move(other)}, _currentValue{std::move(other._currentValue)},
+        _defaultValue{std::move(other._defaultValue)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

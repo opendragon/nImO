@@ -82,7 +82,7 @@
 
 nImO::OutChannel::OutChannel
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -91,7 +91,7 @@ nImO::OutChannel::OutChannel
 nImO::OutChannel::OutChannel
     (OutChannel &&  other)
     noexcept :
-        inherited()
+        inherited{}
 {
     NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####

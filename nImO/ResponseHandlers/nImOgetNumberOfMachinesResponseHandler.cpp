@@ -80,7 +80,7 @@
 
 nImO::GetNumberOfMachinesResponseHandler::GetNumberOfMachinesResponseHandler
     (void) :
-        inherited(), _result(0)
+        inherited{}, _result{0}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

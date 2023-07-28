@@ -83,7 +83,7 @@
 
 nImO::Integer::Integer
     (void) :
-        inherited(), _intValue(0)
+        inherited{}, _intValue{0}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -91,7 +91,7 @@ nImO::Integer::Integer
 
 nImO::Integer::Integer
     (const int64_t  initialValue) :
-        inherited(), _intValue(initialValue)
+        inherited{}, _intValue{initialValue}
 {
     ODL_ENTER(); //####
     ODL_I1("initialValue = ", initialValue); //####
@@ -100,7 +100,7 @@ nImO::Integer::Integer
 
 nImO::Integer::Integer
     (const Integer &    other) :
-        inherited(), _intValue(other._intValue)
+        inherited{}, _intValue{other._intValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -110,7 +110,7 @@ nImO::Integer::Integer
 nImO::Integer::Integer
     (Integer && other)
     noexcept :
-        inherited(std::move(other)), _intValue(other._intValue)
+        inherited{std::move(other)}, _intValue{other._intValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

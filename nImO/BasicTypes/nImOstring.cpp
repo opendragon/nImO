@@ -82,7 +82,7 @@
 
 nImO::String::String
     (void) :
-        inherited(), _value()
+        inherited{}, _value{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -90,7 +90,7 @@ nImO::String::String
 
 nImO::String::String
     (const std::string &    initialValue) :
-        inherited(), _value(initialValue)
+        inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
     ODL_S1s("initialValue = ", initialValue); //####
@@ -99,7 +99,7 @@ nImO::String::String
 
 nImO::String::String
     (CPtr(char) initialValue) :
-        inherited(), _value(initialValue)
+        inherited{}, _value{initialValue}
 {
     ODL_ENTER(); //####
     ODL_S1("initialValue = ", initialValue); //####
@@ -108,7 +108,7 @@ nImO::String::String
 
 nImO::String::String
     (const String & other) :
-        inherited(), _value(other._value)
+        inherited{}, _value{other._value}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -118,7 +118,7 @@ nImO::String::String
 nImO::String::String
     (String &&  other)
     noexcept :
-        inherited(std::move(other)), _value(std::move(other._value))
+        inherited{std::move(other)}, _value{std::move(other._value)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####

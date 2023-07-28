@@ -78,7 +78,7 @@
 
 nImO::InChannel::InChannel
     (void) :
-        inherited()
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
@@ -87,7 +87,7 @@ nImO::InChannel::InChannel
 nImO::InChannel::InChannel
     (InChannel &&  other)
     noexcept :
-        inherited()
+        inherited{}
 {
     NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####

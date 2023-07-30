@@ -120,7 +120,7 @@ main
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
                 // TBD
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
             }
             else
             {

@@ -115,7 +115,7 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                 // TBD
                 // Read node list and confirm that all expected nodes have launched and stop if a node is missing.
                 // Send launch commands to each node for the expected running services and stop if a service failed to launch.

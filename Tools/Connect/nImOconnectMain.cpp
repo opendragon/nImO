@@ -85,10 +85,10 @@ helpForConnect
 {
     nImO::StringSet modes(nImO::ChannelName::transportNames());
 
-    outStream << "Available modes:" << std::endl;
+    outStream << "Available modes:\n";
     for (auto & walker : modes)
     {
-        outStream << "  " << walker << std::endl;
+        outStream << "  " << walker << '\n';
     }
 } // helpForConnect
 
@@ -136,7 +136,7 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                 // TBD
             }
             else

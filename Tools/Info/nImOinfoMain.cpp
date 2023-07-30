@@ -116,7 +116,7 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                 // TBD
             }
             else

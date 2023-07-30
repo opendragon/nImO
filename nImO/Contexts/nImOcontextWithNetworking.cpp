@@ -124,7 +124,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 #if (! MAC_OR_LINUX_)
     if (0 != WSAStartup(versionWanted, &_wsaData))
     {
-        std::cerr << "Failed to initialize WinSock" << std::endl;
+        std::cerr << "Failed to initialize WinSock\n";
         throw "WinSock problem";
 
     }
@@ -170,7 +170,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid address in configuration file; using default address." << std::endl;
+                    std::cerr << "Invalid address in configuration file; using default address.\n";
                 }
             }
         }
@@ -190,7 +190,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid port in configuration file; using default port." << std::endl;
+                    std::cerr << "Invalid port in configuration file; using default port.\n";
                 }
             }
         }
@@ -210,7 +210,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid address in configuration file; using default address." << std::endl;
+                    std::cerr << "Invalid address in configuration file; using default address.\n";
                 }
             }
         }
@@ -230,7 +230,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                 }
                 else
                 {
-                    std::cerr << "Invalid port in configuration file; using default port." << std::endl;
+                    std::cerr << "Invalid port in configuration file; using default port.\n";
                 }
             }
         }

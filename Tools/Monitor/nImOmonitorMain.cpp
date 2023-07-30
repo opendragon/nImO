@@ -349,7 +349,7 @@ main
                             {
                                 std::cout << asString->getValue();
                             }
-                            std::cout << std::endl;
+                            std::cout << '\n';
                         }
                         else
                         {
@@ -367,7 +367,7 @@ main
                                 {
                                     std::cout << asString->getValue();
                                 }
-                                std::cout << std::endl;
+                                std::cout << '\n';
                             }
                         }
                     }
@@ -463,7 +463,7 @@ main
                                 {
                                     std::cout << asString->getValue();
                                 }
-                                std::cout << std::endl;
+                                std::cout << '\n';
                             }
                             else
                             {
@@ -481,7 +481,7 @@ main
                                     {
                                         std::cout << asString->getValue();
                                     }
-                                    std::cout << std::endl;
+                                    std::cout << '\n';
                                 }
                             }
                         }

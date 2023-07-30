@@ -313,13 +313,13 @@ nImO::ProcessStandardOptions
         std::string nImOversionString{SanitizeString(nImO_VERSION_, true)};
 
         std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
-                    copyrightHolder << "." << std::endl;
+                    copyrightHolder << ".\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
     {
-        std::cout << "Utility\t" << utilityDescription << std::endl;
+        std::cout << "Utility\t" << utilityDescription << '\n';
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
@@ -364,7 +364,7 @@ nImO::ProcessStandardOptions
     }
     else
     {
-        std::cout << "One or more invalid or missing arguments (" << badArgs << ")." << std::endl;
+        std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

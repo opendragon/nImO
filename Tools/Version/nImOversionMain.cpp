@@ -140,7 +140,7 @@ main
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
                     std::cout << nImOversionString << "\t" << odlVersionString << "\t" << mdnsVersionString << "\t" <<
-                                getBoostVersion() << "\t" << ifVersionString << std::endl;
+                                getBoostVersion() << "\t" << ifVersionString << '\n';
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
@@ -156,7 +156,7 @@ main
                                                         CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                 getBoostVersion() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "IF"
                                                         CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                ifVersionString << CHAR_DOUBLEQUOTE_ " }" << std::endl;
+                                ifVersionString << CHAR_DOUBLEQUOTE_ " }\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourNormal :
@@ -166,8 +166,7 @@ main
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
                     std::cout << "nImO Version: " << nImOversionString << ", ODL Version: " <<
                                 odlVersionString << ", mdns_plusplus Version: " << mdnsVersionString <<
-                                ", Boost Version: " << getBoostVersion() << ", IF Version: " << ifVersionString <<
-                                std::endl;
+                                ", Boost Version: " << getBoostVersion() << ", IF Version: " << ifVersionString << '\n';
                     break;
 
                 default :

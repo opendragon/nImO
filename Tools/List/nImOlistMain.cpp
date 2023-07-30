@@ -149,7 +149,7 @@ helpForList
 {
     size_t  choiceWidth{0};
 
-    outStream << "Available choices:" << std::endl;
+    outStream << "Available choices:\n";
     for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
     {
         size_t  thisWidth{walker->first.length()};
@@ -165,7 +165,7 @@ helpForList
         std::string padding;
 
         padding.append(choiceWidth - walker->first.length(), ' ');
-        outStream << "  " << walker->first << padding << walker->second._description << std::endl;
+        outStream << "  " << walker->first << padding << walker->second._description << '\n';
     }
 } // helpForList
 
@@ -202,7 +202,7 @@ listChannels
         }
         else
         {
-            std::cout << "Channels:" << std::endl;
+            std::cout << "Channels:\n";
         }
         nImO::ChannelInfoVector &   channels{statusWithAllChannels.second};
 
@@ -214,7 +214,7 @@ listChannels
             }
             else
             {
-                std::cout << "** No channels **" << std::endl;
+                std::cout << "** No channels **\n";
             }
         }
         else
@@ -298,12 +298,12 @@ listChannels
                     {
                         if (channels.end() != walker)
                         {
-                            std::cout << "," << std::endl;
+                            std::cout << ",\n";
                         }
                     }
                     else
                     {
-                        std::cout << std::endl;
+                        std::cout << '\n';
                     }
                 }
                 else
@@ -334,12 +334,12 @@ listChannels
                     break;
 
             }
-            std::cout << std::endl;
+            std::cout << '\n';
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << std::endl;
+        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << '\n';
         okSoFar = false;
     }
     return okSoFar;
@@ -378,7 +378,7 @@ listMachines
         }
         else
         {
-            std::cout << "Machines:" << std::endl;
+            std::cout << "Machines:\n";
         }
         nImO::MachineInfoVector &   machines{statusWithAllMachines.second};
 
@@ -390,7 +390,7 @@ listMachines
             }
             else
             {
-                std::cout << "** No machines **" << std::endl;
+                std::cout << "** No machines **\n";
             }
         }
         else
@@ -433,12 +433,12 @@ listMachines
                     {
                         if (machines.end() != walker)
                         {
-                            std::cout << "," << std::endl;
+                            std::cout << ",\n";
                         }
                     }
                     else
                     {
-                        std::cout << std::endl;
+                        std::cout << '\n';
                     }
                 }
                 else
@@ -469,12 +469,12 @@ listMachines
                     break;
 
             }
-            std::cout << std::endl;
+            std::cout << '\n';
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << std::endl;
+        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << '\n';
         okSoFar = false;
     }
     return okSoFar;
@@ -515,7 +515,7 @@ listNodes
         }
         else
         {
-            std::cout << "Nodes:" << std::endl;
+            std::cout << "Nodes:\n";
         }
         if (nodes.empty())
         {
@@ -525,7 +525,7 @@ listNodes
             }
             else
             {
-                std::cout << "** No nodes **" << std::endl;
+                std::cout << "** No nodes **\n";
             }
         }
         else
@@ -601,7 +601,7 @@ listNodes
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << std::endl;
+                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << '\n';
                             okSoFar = false;
                         }
                     }
@@ -610,12 +610,12 @@ listNodes
                     {
                         if (nodes.end() != walker)
                         {
-                            std::cout << "," << std::endl;
+                            std::cout << ",\n";
                         }
                     }
                     else
                     {
-                        std::cout << std::endl;
+                        std::cout << '\n';
                     }
                 }
                 else
@@ -646,12 +646,12 @@ listNodes
                     break;
 
             }
-            std::cout << std::endl;
+            std::cout << '\n';
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << std::endl;
+        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << '\n';
         okSoFar = false;
     }
     return okSoFar;
@@ -719,7 +719,7 @@ main
                     switch (match->second._choice)
                     {
                         case Choice::kApps :
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                             // TBD
                             break;
 
@@ -731,7 +731,7 @@ std::cerr << "** Unimplemented **" << std::endl;
                             break;
 
                         case Choice::kConn :
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                             // TBD
                             break;
 

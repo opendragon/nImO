@@ -125,7 +125,7 @@ main
                     if (statusWithBool.second)
                     {
                         ourContext->report(nodeName + " already running.");
-                        std::cerr << nodeName << " already running." << std::endl;
+                        std::cerr << nodeName << " already running.\n";
                         exitCode = 1;
                     }
                     else
@@ -136,7 +136,7 @@ main
                         {
                             if (statusWithBool.second)
                             {
-std::cerr << "** Unimplemented **" << std::endl;
+std::cerr << "** Unimplemented **\n";
                                 ourContext->report("waiting for requests.");
                                 for ( ; nImO::gKeepRunning; )
                                 {
@@ -150,33 +150,33 @@ std::cerr << "** Unimplemented **" << std::endl;
                                     if (! statusWithBool.second)
                                     {
                                         ourContext->report(nodeName + " already unregistered.");
-                                        std::cerr << nodeName << " already unregistered." << std::endl;
+                                        std::cerr << nodeName << " already unregistered.\n";
                                         exitCode = 1;
                                     }
                                 }
                                 else
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << std::endl;
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << '\n';
                                     exitCode = 1;
                                 }
                             }
                             else
                             {
                                 ourContext->report(nodeName + " already registered.");
-                                std::cerr << nodeName << " already registered." << std::endl;
+                                std::cerr << nodeName << " already registered.\n";
                                 exitCode = 1;
                             }
                         }
                         else
                         {
-                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << std::endl;
+                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << '\n';
                             exitCode = 1;
                         }
                     }
                 }
                 else
                 {
-                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << std::endl;
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << '\n';
                     exitCode = 1;
                 }
             }

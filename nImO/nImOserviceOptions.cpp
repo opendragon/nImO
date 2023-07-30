@@ -308,14 +308,14 @@ nImO::ProcessServiceOptions
                 std::cout << anArg->toString().c_str();
             }
         }
-        std::cout << std::endl;
+        std::cout << '\n';
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
     {
         std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " <<
-                    copyrightHolder << "." << std::endl;
+                    copyrightHolder << ".\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
@@ -420,7 +420,7 @@ nImO::ProcessServiceOptions
         {
             std::cout << "\t";
         }
-        std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << std::endl;
+        std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << '\n';
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
@@ -470,7 +470,7 @@ nImO::ProcessServiceOptions
     }
     else
     {
-        std::cout << "One or more invalid or missing arguments (" << badArgs << ")." << std::endl;
+        std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

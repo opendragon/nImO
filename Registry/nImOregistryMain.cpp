@@ -152,7 +152,7 @@ main
             if (ourContext->asServiceContext()->findRegistry(true))
             {
                 ourContext->report("Registry already running.");
-                std::cerr << "Registry already running." << std::endl;
+                std::cerr << "Registry already running.\n";
             }
             else
             {

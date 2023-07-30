@@ -430,8 +430,8 @@ nImO::DumpMemoryToStandardError
         size_t          bytesInNextRow{std::min(numBytes, bytesPerRow)};
 
         std::cerr << "**** address: " << std::hex << ReinterpretCast(intptr_t, address) << ", size: " << std::dec <<
-                    numBytes << " ****" << std::endl;
-        std::cerr << "____ | 00 01 02 03 | 04 05 06 07 | 08 09 0A 0B | 0C 0D 0E 0F |" << std::endl;
+                    numBytes << " ****\n";
+        std::cerr << "____ | 00 01 02 03 | 04 05 06 07 | 08 09 0A 0B | 0C 0D 0E 0F |\n";
         for ( ; offset < numBytes; offset += bytesPerRow)
         {
             std::cerr << std::hex << std::setw(4) << std::setfill('0') << offset << " : ";
@@ -475,7 +475,7 @@ nImO::DumpMemoryToStandardError
                     std::cerr << " ";
                 }
             }
-            std::cerr << std::endl;
+            std::cerr << '\n';
             if ((offset + bytesPerRow) < numBytes)
             {
                 bytesInNextRow = std::min(numBytes - (offset + bytesPerRow), bytesPerRow);
@@ -782,14 +782,14 @@ nImO::OutputDescription
         {
             std::string piece{description.substr(pieceStart, ii - pieceStart)};
 
-            outStream << indent << piece.c_str() << std::endl;
+            outStream << indent << piece.c_str() << '\n';
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
     std::string piece{description.substr(pieceStart, descriptionLength - pieceStart)};
 
-    outStream << indent << piece.c_str() << std::endl;
+    outStream << indent << piece.c_str() << '\n';
 } // nImO::OutputDescription
 
 uint32_t
@@ -811,7 +811,7 @@ nImO::ReportVersions
 
     std::cout << "nImO Version: " << nImO::SanitizeString(nImO_VERSION_, true) << ", ODL Version: " << nImO::SanitizeString(ODL_VERSION_, true) <<
                 ", mdns_plusplus Version: " << nImO::SanitizeString(mdns_plusplus_VERSION_, true) << ", Boost Version: " <<
-                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << std::endl;
+                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << '\n';
 #endif /* defined(nImO_ChattyStart) */
 } // nImO::ReportVersions
 

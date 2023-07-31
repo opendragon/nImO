@@ -88,7 +88,7 @@ helpForConnect
     outStream << "Available modes:\n";
     for (auto & walker : modes)
     {
-        outStream << "  " << walker << '\n';
+        outStream << "  " << walker << "\n";
     }
 } // helpForConnect
 

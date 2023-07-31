@@ -308,7 +308,7 @@ nImO::ProcessServiceOptions
                 std::cout << anArg->toString().c_str();
             }
         }
-        std::cout << '\n';
+        std::cout << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
@@ -420,7 +420,7 @@ nImO::ProcessServiceOptions
         {
             std::cout << "\t";
         }
-        std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << '\n';
+        std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

@@ -165,7 +165,7 @@ helpForList
         std::string padding;
 
         padding.append(choiceWidth - walker->first.length(), ' ');
-        outStream << "  " << walker->first << padding << walker->second._description << '\n';
+        outStream << "  " << walker->first << padding << walker->second._description << "\n";
     }
 } // helpForList
 
@@ -303,7 +303,7 @@ listChannels
                     }
                     else
                     {
-                        std::cout << '\n';
+                        std::cout << "\n";
                     }
                 }
                 else
@@ -334,12 +334,12 @@ listChannels
                     break;
 
             }
-            std::cout << '\n';
+            std::cout << "\n";
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << '\n';
+        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << "\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -438,7 +438,7 @@ listMachines
                     }
                     else
                     {
-                        std::cout << '\n';
+                        std::cout << "\n";
                     }
                 }
                 else
@@ -469,12 +469,12 @@ listMachines
                     break;
 
             }
-            std::cout << '\n';
+            std::cout << "\n";
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << '\n';
+        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << "\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -601,7 +601,7 @@ listNodes
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << '\n';
+                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << "\n";
                             okSoFar = false;
                         }
                     }
@@ -615,7 +615,7 @@ listNodes
                     }
                     else
                     {
-                        std::cout << '\n';
+                        std::cout << "\n";
                     }
                 }
                 else
@@ -646,12 +646,12 @@ listNodes
                     break;
 
             }
-            std::cout << '\n';
+            std::cout << "\n";
         }
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << '\n';
+        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
         okSoFar = false;
     }
     return okSoFar;

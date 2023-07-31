@@ -475,7 +475,7 @@ nImO::DumpMemoryToStandardError
                     std::cerr << " ";
                 }
             }
-            std::cerr << '\n';
+            std::cerr << "\n";
             if ((offset + bytesPerRow) < numBytes)
             {
                 bytesInNextRow = std::min(numBytes - (offset + bytesPerRow), bytesPerRow);
@@ -782,14 +782,14 @@ nImO::OutputDescription
         {
             std::string piece{description.substr(pieceStart, ii - pieceStart)};
 
-            outStream << indent << piece.c_str() << '\n';
+            outStream << indent << piece.c_str() << "\n";
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
     std::string piece{description.substr(pieceStart, descriptionLength - pieceStart)};
 
-    outStream << indent << piece.c_str() << '\n';
+    outStream << indent << piece.c_str() << "\n";
 } // nImO::OutputDescription
 
 uint32_t
@@ -811,7 +811,7 @@ nImO::ReportVersions
 
     std::cout << "nImO Version: " << nImO::SanitizeString(nImO_VERSION_, true) << ", ODL Version: " << nImO::SanitizeString(ODL_VERSION_, true) <<
                 ", mdns_plusplus Version: " << nImO::SanitizeString(mdns_plusplus_VERSION_, true) << ", Boost Version: " <<
-                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << '\n';
+                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << "\n";
 #endif /* defined(nImO_ChattyStart) */
 } // nImO::ReportVersions
 

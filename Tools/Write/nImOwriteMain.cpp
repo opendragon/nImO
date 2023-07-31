@@ -158,7 +158,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << '\n';
+                                        std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -192,7 +192,7 @@ std::cerr << "** Unimplemented **\n";
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << '\n';
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -209,7 +209,7 @@ std::cerr << "** Unimplemented **\n";
                                 }
                                 else
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << '\n';
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
                                     exitCode = 1;
                                 }
                             }
@@ -222,14 +222,14 @@ std::cerr << "** Unimplemented **\n";
                         }
                         else
                         {
-                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << '\n';
+                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << "\n";
                             exitCode = 1;
                         }
                     }
                 }
                 else
                 {
-                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << '\n';
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << "\n";
                     exitCode = 1;
                 }
             }

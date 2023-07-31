@@ -319,7 +319,7 @@ nImO::ProcessStandardOptions
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
     {
-        std::cout << "Utility\t" << utilityDescription << '\n';
+        std::cout << "Utility\t" << utilityDescription << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

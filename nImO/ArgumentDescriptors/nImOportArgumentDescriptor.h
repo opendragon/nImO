@@ -171,7 +171,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief @c true if the value can be a system port and @c false otherwise. */
-            bool    _isSystemPort;
+            bool    _isSystemPort{false};
 
 # if MAC_OR_LINUX_
 #  pragma clang diagnostic push

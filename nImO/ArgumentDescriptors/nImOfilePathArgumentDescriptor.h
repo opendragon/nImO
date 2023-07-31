@@ -220,20 +220,20 @@ namespace nImO
             // Private fields.
 
             /*! @brief The prefix value to use for constructing the default value. */
-            std::string _pathPrefix;
+            std::string _pathPrefix{};
 
             /*! @brief The suffix value to use for constructing the default value. */
-            std::string _pathSuffix;
+            std::string _pathSuffix{};
 
             /*! @brief @c true if the default value is available and @c false otherwise. */
-            bool    _defaultSet;
+            bool    _defaultSet{false};
 
             /*! @brief @c true if the file path will be used for output and @c false otherwise. */
-            bool    _forOutput;
+            bool    _forOutput{false};
 
             /*! @brief @c true if the file path will be constructed with a random number
             and @c false if the file path is fixed. */
-            bool    _useRandomPath;
+            bool    _useRandomPath{false};
 
 # if MAC_OR_LINUX_
 #  pragma clang diagnostic push

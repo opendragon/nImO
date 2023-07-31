@@ -124,13 +124,13 @@ namespace nImO
 
             /*! @brief The socket used for request and response. */
             //asio::ip::tcp::socket   _socket;
-            SPsocketTCP _socket;
+            SPsocketTCP _socket{};
 
             /*! @brief The context that created this session. */
-            SpContextWithNetworking _owner;
+            SpContextWithNetworking _owner{};
 
             /*! @brief A buffer to hold the received request. */
-            asio::streambuf _buffer;
+            asio::streambuf _buffer{};
 
     }; // CommandSession
 

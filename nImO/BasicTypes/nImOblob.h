@@ -292,10 +292,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value. */
-            UpAuint8_t  _value;
+            UpAuint8_t  _value{};
 
             /*! @brief The size of the associated value. */
-            size_t  _size;
+            size_t  _size{0};
 
     }; // Blob
 

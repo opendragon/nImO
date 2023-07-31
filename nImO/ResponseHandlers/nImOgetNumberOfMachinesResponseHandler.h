@@ -117,7 +117,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            int64_t    _result;
+            int64_t    _result{0};
 
     }; // GetNumberOfMachinesResponseHandler
 

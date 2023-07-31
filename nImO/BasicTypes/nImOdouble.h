@@ -314,7 +314,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value, if it is an integer. */
-            double  _floatValue;
+            double  _floatValue{0};
 
     }; // Double
 

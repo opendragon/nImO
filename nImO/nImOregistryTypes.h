@@ -78,30 +78,29 @@ namespace nImO
     struct ChannelInfo
     {
         /*! @brief @c true if the data is valid. */
-        bool    _found;
+        bool    _found{false};
 
         /*! @brief The name of the node for the channel. */
-        std::string _node;
+        std::string _node{};
 
         /*! @brief The path of the channel on the node. */
-        std::string _path;
+        std::string _path{};
 
         /*! @brief @c true if the channel is for output from a service. */
-        bool    _isOutput;
+        bool    _isOutput{false};
 
         /*! @brief The type of data carried by the channel. */
-        std::string _dataType;
+        std::string _dataType{};
 
         /*! @brief The allowed transport types for the channel. */
-        TransportType   _modes;
+        TransportType   _modes{TransportType::kAny};
 
         /*! @brief @c true if the channel is connected to another channel. */
-        bool    _inUse;
+        bool    _inUse{false};
 
         /*! @brief The constructor. */
         inline ChannelInfo
-            (void) :
-                _found(false), _isOutput(false), _modes(TransportType::kAny), _inUse(false)
+            (void)
         {
         }
 
@@ -111,30 +110,29 @@ namespace nImO
     struct ConnectionInfo
     {
         /*! @brief @c true if the data is valid. */
-        bool    _found;
+        bool    _found{false};
 
         /*! @brief The name of the input node for the channel. */
-        std::string _fromNode;
+        std::string _fromNode{};
 
         /*! @brief The path of the input channel on the node. */
-        std::string _fromPath;
+        std::string _fromPath{};
 
         /*! @brief The name of the output node for the channel. */
-        std::string _toNode;
+        std::string _toNode{};
 
         /*! @brief The path of the output channel on the node. */
-        std::string _toPath;
+        std::string _toPath{};
 
         /*! @brief The type of data carried by the channel. */
-        std::string _dataType;
+        std::string _dataType{};
 
         /*! @brief The allowed transport types for the channel. */
-        TransportType   _mode;
+        TransportType   _mode{TransportType::kAny};
 
         /*! @brief The constructor. */
         inline ConnectionInfo
-            (void) :
-                _found(false), _mode(TransportType::kAny)
+            (void)
         {
         }
 
@@ -144,21 +142,20 @@ namespace nImO
     struct LaunchDetails
     {
         /*! @brief @c true if the data is valid. */
-        bool    _found;
+        bool    _found{false};
 
         /*! @brief The path to the executable for the node. */
-        std::string _execPath;
+        std::string _execPath{};
 
         /*! @brief The path to the directory where the executable for the node was launched. */
-        std::string _launchDirectory;
+        std::string _launchDirectory{};
 
         /*! @brief The command line used to launch the executable for the node. */
-        std::string _commandLine;
+        std::string _commandLine{};
 
         /*! @brief The constructor. */
         inline LaunchDetails
-            (void) :
-                _found(false)
+            (void)
         {
         }
 
@@ -168,18 +165,17 @@ namespace nImO
     struct MachineInfo
     {
         /*! @brief @c true if the data is valid. */
-        bool    _found;
+        bool    _found{false};
 
         /*! @brief The name of the machine. */
-        std::string _name;
+        std::string _name{};
 
         /*! @brief The address of the machine. */
-        uint32_t _address;
+        uint32_t _address{0};
 
         /*! @brief The constructor. */
         inline MachineInfo
-            (void) :
-                _found(false)
+            (void)
         {
         }
 
@@ -189,21 +185,20 @@ namespace nImO
     struct NodeInfo
     {
         /*! @brief @c true if the data is valid. */
-        bool    _found;
+        bool    _found{false};
 
         /*! @brief The command IP address and port that was found.*/
-        Connection  _connection;
+        Connection  _connection{};
 
         /*! @brief The name of the node. */
-        std::string _name;
+        std::string _name{};
         
         /*! @brief The nature of the service associated with the node. */
-        ServiceType _serviceType;
+        ServiceType _serviceType{ServiceType::GenericService};
 
         /*! @brief The constructor. */
         inline NodeInfo
-            (void) :
-                _found(false), _serviceType(ServiceType::GenericService)
+            (void)
         {
         }
 

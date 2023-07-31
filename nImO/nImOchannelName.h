@@ -239,16 +239,16 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated network name. */
-            std::string _network;
+            std::string _network{};
 
             /*! @brief The associated node name. */
-            std::string _node;
+            std::string _node{};
 
             /*! @brief The associated path. */
-            std::string _path;
+            std::string _path{};
 
             /*! @brief The associated transport mechanism. */
-            TransportType   _transport;
+            TransportType   _transport{TransportType::kUnknown};
 
     }; // ChannelName
 

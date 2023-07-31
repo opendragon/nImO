@@ -132,13 +132,13 @@ namespace nImO
             // Private fields.
 
             /*! @brief The thread which executes the announcer code. */
-            Ptr(boost::thread)  _announcerThread;
+            Ptr(boost::thread)  _announcerThread{nullptr};
 
             /*! @brief Data to be used with the announcer thread. */
-            Ptr(AnnounceServiceData)    _announceData;
+            Ptr(AnnounceServiceData)    _announceData{nullptr};
 
             /*! @brief @c true if the announcer thread is to be launched. */
-            bool  _startAnnouncer;
+            bool  _startAnnouncer{false};
 
     }; // RegistryContext
 

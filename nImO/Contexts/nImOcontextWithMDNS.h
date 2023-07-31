@@ -210,31 +210,31 @@ namespace nImO
             // Private fields.
 
             /*! @brief Set to @c true to initiate a new scan of announcements. */
-            std::atomic<bool>   _requestNewScan;
+            std::atomic<bool>   _requestNewScan{false};
 
             /*! @brief The active query identifiers. */
             int _queryId[8];
 
             /*! @brief @c true if the browser thread is to be launched. */
-            bool  _startBrowser;
+            bool  _startBrowser{false};
 
             /*! @brief The identifying tag for the Registry process. */
-            std::string _registryTag;
+            std::string _registryTag{};
 
             /*! @brief The IP port for connections to the Registry process. */
-            uint16_t    _registryPort;
+            uint16_t    _registryPort{0};
 
             /*! @brief The preferred address for connections to the Registry process. */
-            std::string _registryPreferredAddress;
+            std::string _registryPreferredAddress{};
 
             /*! @brief Set to @c true when the Registry has reported its address. */
-            std::atomic<bool>   _haveAddress;
+            std::atomic<bool>   _haveAddress{false};
 
             /*! @brief Set to @c true when the Registry has reported its port. */
-            std::atomic<bool>   _havePort;
+            std::atomic<bool>   _havePort{false};
 
             /*! @brief The thread which executes the browser code. */
-            Ptr(boost::thread)  _browserThread;
+            Ptr(boost::thread)  _browserThread{nullptr};
 
     }; // ContextWithMDNS
 

@@ -193,10 +193,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The comparison result; @c true if successful. */
-            bool    _result;
+            bool    _result{false};
 
             /*! @brief The validity of the comparison; @c true if all comparisons were allowed. */
-            bool    _valid;
+            bool    _valid{false};
 
     }; // ComparisonStatus
 

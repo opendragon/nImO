@@ -204,7 +204,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            SpContextWithNetworking _owner;
+            SpContextWithNetworking _owner{};
 
         private :
             // Private fields.

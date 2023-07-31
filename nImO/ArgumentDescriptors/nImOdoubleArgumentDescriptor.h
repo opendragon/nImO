@@ -230,23 +230,23 @@ namespace nImO
             // Private fields.
 
             /*! @brief The current value of the command-line argument. */
-            double  _currentValue;
+            double  _currentValue{0};
 
             /*! @brief The default value for the command-line argument. */
-            double  _defaultValue;
+            double  _defaultValue{0};
 
             /*! @brief The maximum value that is acceptable. */
-            double  _maximumValue;
+            double  _maximumValue{0};
 
             /*! @brief The minimum value that is acceptable. */
-            double  _minimumValue;
+            double  _minimumValue{0};
 
             /*! @brief @c true if the value must be less than or equal to the specified maximum. */
-            bool    _hasMaximumValue;
+            bool    _hasMaximumValue{false};
 
             /*! @brief @c true if the value must be greater than or equal to the specified minimum
             or @c false otherwise. */
-            bool    _hasMinimumValue;
+            bool    _hasMinimumValue{false};
 
 # if MAC_OR_LINUX_
 #  pragma clang diagnostic push

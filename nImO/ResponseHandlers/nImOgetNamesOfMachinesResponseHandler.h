@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            StringSet   _result;
+            StringSet   _result{};
 
     }; // GetNamesOfMachinesResponseHandler
 

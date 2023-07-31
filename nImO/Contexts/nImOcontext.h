@@ -158,16 +158,16 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The name of the executing program. */
-            std::string _executableName;
+            std::string _executableName{};
 
             /*! @brief The @nImO-visible name of the executing program. */
-            std::string _nodeName;
+            std::string _nodeName{};
 
         private :
             // Private fields.
 
             /*! @brief The service object to be used for asynchronous operations. */
-            SPservice   _service;
+            SPservice   _service{};
 
     }; // Context
 

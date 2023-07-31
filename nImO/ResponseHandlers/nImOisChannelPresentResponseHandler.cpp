@@ -81,7 +81,7 @@
 
 nImO::IsChannelPresentResponseHandler::IsChannelPresentResponseHandler
     (void) :
-        inherited{}, _result{false}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

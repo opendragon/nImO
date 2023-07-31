@@ -88,7 +88,7 @@ static const std::string kCanonicalTrue{"true"};
 
 nImO::Logical::Logical
     (void) :
-        inherited{}, _value{false}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

@@ -220,10 +220,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The default value for the command-line argument. */
-            bool    _defaultValue;
+            bool    _defaultValue{false};
 
             /*! @brief The current value of the command-line argument. */
-            bool    _currentValue;
+            bool    _currentValue{false};
 
 # if MAC_OR_LINUX_
 #  pragma clang diagnostic push

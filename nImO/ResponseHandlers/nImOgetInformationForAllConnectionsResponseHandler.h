@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            ConnectionInfoVector    _result;
+            ConnectionInfoVector    _result{};
 
     }; // GetInformationForAllConnectionsResponseHandler
 

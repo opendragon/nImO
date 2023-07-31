@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            MachineInfoVector   _result;
+            MachineInfoVector   _result{};
 
     }; // GetInformationForAllMachinesResponseHandler
 

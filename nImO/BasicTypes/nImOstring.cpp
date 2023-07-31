@@ -82,7 +82,7 @@
 
 nImO::String::String
     (void) :
-        inherited{}, _value{}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

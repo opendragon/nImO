@@ -446,10 +446,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief A pointer to the database context. */
-            Ptr(sqlite3)    _dbHandle;
+            Ptr(sqlite3)    _dbHandle{nullptr};
 
             /*! @brief The owning Context. */
-            SpContextWithNetworking _owner;
+            SpContextWithNetworking _owner{};
 
     }; // Registry
 

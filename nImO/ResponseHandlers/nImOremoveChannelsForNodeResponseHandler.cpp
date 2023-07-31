@@ -80,7 +80,7 @@
 
 nImO::RemoveChannelsForNodeResponseHandler::RemoveChannelsForNodeResponseHandler
     (void) :
-        inherited{}, _result{false}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

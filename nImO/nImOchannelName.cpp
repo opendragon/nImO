@@ -111,8 +111,7 @@ const std::string    nImO::kProtocolUnknownName{"unknown"};
 #endif // defined(__APPLE__)
 
 nImO::ChannelName::ChannelName
-    (void) :
-        _transport{TransportType::kUnknown}
+    (void)
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

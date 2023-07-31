@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            bool    _result;
+            bool    _result{false};
 
     }; // GetChannelInUseAndSetResponseHandler
 

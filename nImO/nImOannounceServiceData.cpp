@@ -79,7 +79,7 @@
 nImO::AnnounceServiceData::AnnounceServiceData
     (const struct sockaddr_in &     addressIpv4,
      const struct sockaddr_in6 &    addressIpv6) :
-        _addressIpv4{addressIpv4}, _addressIpv6{addressIpv6}, _serviceNameBuffer{nullptr}
+        _addressIpv4{addressIpv4}, _addressIpv6{addressIpv6}
 {
     ODL_ENTER(); //####
     ODL_P2("addressIpv4 = ", &addressIpv4, "addressIpv6 = ", &addressIpv6); //####

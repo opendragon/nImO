@@ -317,7 +317,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value of the object. */
-            bool    _value;
+            bool    _value{false};
 
     }; // Logical
 

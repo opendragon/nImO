@@ -206,25 +206,25 @@ namespace nImO
             // Private fields.
 
             /*! @brief A 'dummy' operation to keep the service queue alive. */
-            UPwork  _work;
+            UPwork  _work{};
 
             /*! @brief The multicast connection used for logging. */
-            Connection  _logConnection;
+            Connection  _logConnection{};
 
             /*! @brief The multicast connection used for status changes. */
-            Connection  _statusConnection;
+            Connection  _statusConnection{};
 
             /*! @brief @c true if logging has been enabled. */
-            bool _loggingEnabled;
+            bool _loggingEnabled{false};
 
             /*! @brief The active logger. */
-            Ptr(Logger) _logger;
+            Ptr(Logger) _logger{nullptr};
 
             /*! @brief Mutex to protect against simultaneous access to the logger. */
             mutable std::mutex  _loggerLock;
 
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
-            int _registrySearchTimeout;
+            int _registrySearchTimeout{0};
 
 # if (! MAC_OR_LINUX_)
             /*! @brief Required for Windows networking. */

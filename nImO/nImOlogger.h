@@ -148,22 +148,22 @@ namespace nImO
             // Private fields.
 
             /*! @brief The multicast connection used for logging. */
-            Connection  _connection;
+            Connection  _connection{};
 
             /*! @brief The endpoint for a multicast transmission. */
-            asio::ip::udp::endpoint _endpoint;
+            asio::ip::udp::endpoint _endpoint{};
         
             /*! @brief The socket for a multicast transmission. */
             asio::ip::udp::socket _socket;
 
             /*! @brief The symbolic name for the current process. */
-            SpString    _tag;
+            SpString    _tag{};
 
             /*! @brief The name of the computer. */
-            SpString    _computerName;
+            SpString    _computerName{};
 
             /*! @brief The command port for the requesting Context. */
-            SpInteger   _commandPort;
+            SpInteger   _commandPort{};
 
     }; // Logger
 

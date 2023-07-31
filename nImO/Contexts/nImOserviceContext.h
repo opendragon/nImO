@@ -229,22 +229,22 @@ namespace nImO
             asio::ip::tcp::acceptor _acceptor;
 
             /*! @brief The command-line provided to the application. */
-            SpArray _commandLine;
+            SpArray _commandLine{};
 
             /*! @brief The command address. */
-            uint32_t    _commandAddress;
+            uint32_t    _commandAddress{0};
 
             /*! @brief The command port. */
-            uint16_t    _commandPort;
+            uint16_t    _commandPort{0};
 
             /*! @brief Set to @c false to stop asynchronous operations. */
-            std::atomic<bool>   _keepGoing;
+            std::atomic<bool>   _keepGoing{false};
 
             /*! @brief The active sessions. */
-            std::set<Ptr(CommandSession)>   _sessions;
+            std::set<Ptr(CommandSession)>   _sessions{};
 
             /*! @brief The command handlers. */
-            std::map<std::string, Ptr(CommandHandler)>    _commandHandlers;
+            std::map<std::string, Ptr(CommandHandler)>    _commandHandlers{};
 
     }; // ServiceContext
 

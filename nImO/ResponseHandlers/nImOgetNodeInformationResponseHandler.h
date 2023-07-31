@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            NodeInfo    _result;
+            NodeInfo    _result{};
 
     }; // GetNodeInformationResponseHandler
 

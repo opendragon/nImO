@@ -1650,7 +1650,7 @@ extractNodeInfoFromVector
 nImO::Registry::Registry
     (SpContextWithNetworking    owner,
      const bool                 logging) :
-        _dbHandle{nullptr}, _owner{owner}
+        _owner{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####

@@ -106,10 +106,10 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The IP address, port and mode for the communication. */
-            Connection  _connection;
+            Connection  _connection{};
 
             /*! @brief The name to be used when connecting or disconnecting. */
-            std::string _name;
+            std::string _name{};
 
         private :
             // Private fields.

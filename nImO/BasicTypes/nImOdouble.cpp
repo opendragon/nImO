@@ -84,7 +84,7 @@
 
 nImO::Double::Double
     (void) :
-        inherited{}, _floatValue{0}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

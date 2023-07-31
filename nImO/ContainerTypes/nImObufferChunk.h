@@ -173,16 +173,16 @@ namespace nImO
             // Private fields.
 
             /*! @brief The internal buffer used to hold the assembled data. */
-            UpAuint8_t  _buffer;
+            UpAuint8_t  _buffer{};
 
             /*! @brief The byte just past the end of the internal buffer. */
-            Ptr(uint8_t)    _bufferEnd;
+            Ptr(uint8_t)    _bufferEnd{nullptr};
 
             /*! @brief The next byte to write in the internal buffer. */
-            Ptr(uint8_t)    _write;
+            Ptr(uint8_t)    _write{nullptr};
 
             /*! @brief @c true if the buffer has an extra byte. */
-            bool    _padded;
+            bool    _padded{false};
 
     }; // BufferChunk
 

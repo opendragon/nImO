@@ -426,7 +426,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The kind of key being used. */
-            Enumerable  _keyKind;
+            Enumerable  _keyKind{Enumerable::Unknown};
 
     }; // Map
 

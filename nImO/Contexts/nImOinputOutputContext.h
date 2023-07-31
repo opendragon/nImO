@@ -125,10 +125,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The input channels for the service. */
-            InChannelVector _inputChannels;
+            InChannelVector _inputChannels{};
 
             /*! @brief The output channels for the service. */
-            OutChannelVector    _outputChannels;
+            OutChannelVector    _outputChannels{};
 
     }; // InputOutputContext
 

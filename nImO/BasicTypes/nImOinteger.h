@@ -306,7 +306,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value, if it is floating point. */
-            int64_t _intValue;
+            int64_t _intValue{0};
 
     }; // Integer
 

@@ -411,10 +411,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The application context to use. */
-            SpContextWithNetworking _context;
+            SpContextWithNetworking _context{};
 
             /*! @brief The IP address and port of the Registry. */
-            Connection  _connection;
+            Connection  _connection{};
 
     }; // RegistryProxy
 

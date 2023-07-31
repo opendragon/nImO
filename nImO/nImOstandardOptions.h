@@ -124,27 +124,27 @@ namespace nImO
 
     /*! @brief Convenience structure for standard options. */
     struct StandardOptions
-    {
+{
         /*! @brief The configuration file path set by a command-line option. */
-        std::string _configFilePath;
+        std::string _configFilePath{};
 
         /*! @brief @c true is a command-line option requested more details. */
-        bool    _expanded;
+        bool    _expanded{false};
 
         /*! @brief The flavour set by a command-line option. */
-        OutputFlavour   _flavour;
+        OutputFlavour   _flavour{OutputFlavour::kFlavourNormal};
 
         /*! @brief @c true if a command-line option enabled logging. */
-        bool    _logging;
+        bool    _logging{false};
 
         /*! @brief The machine name set by a command-line option. */
-        std::string _machine;
+        std::string _machine{};
 
         /*! @brief The constructor.
          @param[in] loggingOnByDefault @c true if logging should be enabled. */
         StandardOptions
             (const bool loggingOnByDefault = false) :
-                _expanded{false}, _flavour{OutputFlavour::kFlavourNormal}, _logging{loggingOnByDefault}
+                _logging{loggingOnByDefault}
         {
         }
 

@@ -210,17 +210,17 @@ namespace nImO
             // Private fields.
 
             /*! @brief The internal buffers used to hold the assembled text. */
-            Ptr(Ptr(BufferChunk))   _buffers;
+            Ptr(Ptr(BufferChunk))   _buffers{nullptr};
 
             /*! @brief @c true if the buffers will have an extra byte for @c NULL termination and
             @c false otherwise. */
-            bool    _buffersArePadded;
+            bool    _buffersArePadded{false};
 
             /*! @brief The cached value of the buffer. */
-            std::string _cachedString;
+            std::string _cachedString{};
 
             /*! @brief The number of buffer chunks being used. */
-            size_t  _numChunks;
+            size_t  _numChunks{0};
 
     }; // ChunkArray
 

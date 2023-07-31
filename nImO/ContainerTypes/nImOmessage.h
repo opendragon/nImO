@@ -217,16 +217,16 @@ namespace nImO
             mutable std::mutex  _lock;
 
             /*! @brief The cached value of the buffer for transmission. */
-            std::string _cachedTransmissionString;
+            std::string _cachedTransmissionString{};
 
             /*! @brief The position of the next byte being read. */
-            size_t  _readPosition;
+            size_t  _readPosition{0};
 
             /*! @brief The state of the object. */
-            MessageState    _state;
+            MessageState    _state{MessageState::Unknown};
 
             /*! @brief @c true if the initial header bytes are present in the buffer. */
-            bool    _headerAdded;
+            bool    _headerAdded{false};
 
     }; // Message
 

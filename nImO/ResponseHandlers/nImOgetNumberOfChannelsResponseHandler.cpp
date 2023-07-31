@@ -80,7 +80,7 @@
 
 nImO::GetNumberOfChannelsResponseHandler::GetNumberOfChannelsResponseHandler
     (void) :
-        inherited{}, _result{0}
+        inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            LaunchDetails   _result;
+            LaunchDetails   _result{};
 
     }; // GetLaunchDetailsResponseHandler
 

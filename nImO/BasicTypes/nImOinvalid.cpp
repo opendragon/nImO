@@ -77,6 +77,14 @@
 #endif // defined(__APPLE__)
 
 nImO::Invalid::Invalid
+    (void) :
+        inherited{}
+{
+    ODL_ENTER(); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Invalid::Invalid
+
+nImO::Invalid::Invalid
     (const std::string &    description) :
         inherited{}, _description{description}
 {

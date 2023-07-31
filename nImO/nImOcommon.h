@@ -558,13 +558,13 @@ namespace nImO
     struct Connection
     {
         /*! @brief The IP address of the connection.*/
-        uint32_t    _address;
+        uint32_t    _address{0};
 
         /*! @brief The port of the connection. */
-        uint16_t    _port;
+        uint16_t    _port{0};
 
         /*! @brief The transport mechanism of the connection. */
-        TransportType   _transport;
+        TransportType   _transport{TransportType::kTCP};
 
         /*! @brief The constructor.
          @param[in] address The IP address for the connection.

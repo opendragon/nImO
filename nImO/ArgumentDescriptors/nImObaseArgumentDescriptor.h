@@ -438,19 +438,19 @@ namespace nImO
             // Private fields.
 
             /*! @brief The description of the command-line argument for the adapter. */
-            std::string _argDescription;
+            std::string _argDescription{};
 
             /*! @brief The mode of the command-line argument. */
-            ArgumentMode _argMode;
+            ArgumentMode _argMode{ArgumentMode::Unknown};
 
             /*! @brief The name of the command-line argument. */
-            std::string _argName;
+            std::string _argName{};
 
             /*! @brief The separator string to use when converting to a string. */
             static std::string _parameterSeparator;
 
             /*! @brief @c true if the argument was valid and @c false otherwise. */
-            bool _valid;
+            bool _valid{false};
 
 # if MAC_OR_LINUX_
 #  pragma clang diagnostic push

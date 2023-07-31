@@ -224,10 +224,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The current value of the command-line argument. */
-            std::string _currentValue;
+            std::string _currentValue{};
 
             /*! @brief The default value for the command-line argument. */
-            std::string _defaultValue;
+            std::string _defaultValue{};
 
     }; // StringArgumentDescriptor
 

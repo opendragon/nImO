@@ -62,19 +62,19 @@ namespace nImO
         using inherited = StandardOptions;
 
         /*! @brief The base name for channels. */
-        std::string _base;
+        std::string _base{};
 
         /*! @brief The data type for input channels. */
-        std::string _inType;
+        std::string _inType{};
 
         /*! @brief The node name set by a command-line option. */
-        std::string _node;
+        std::string _node{};
 
         /*! @brief The data type for output channels. */
-        std::string _outType;
+        std::string _outType{};
 
         /*! @brief The tag modifier set by a command-line option. */
-        std::string _tag;
+        std::string _tag{};
 
         /*! @brief The constructor. */
         ServiceOptions

@@ -84,7 +84,7 @@
 
 nImO::Map::Map
     (void) :
-        inherited1{}, inherited2{}, _keyKind{Enumerable::Unknown}
+        inherited1{}, inherited2{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####

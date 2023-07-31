@@ -178,7 +178,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The variable to be filled in with the actual address. */
-            Ptr(struct in_addr) _addrBuff;
+        Ptr(struct in_addr) _addrBuff{nullptr};
 
     }; // AddressArgumentDescriptor
 

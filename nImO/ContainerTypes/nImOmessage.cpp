@@ -118,8 +118,7 @@ const std::string   nImO::kMessageSentinel{MIME_MESSAGE_TERMINATOR_};
 
 nImO::Message::Message
     (void) :
-        inherited{false}, _lock{}, _cachedTransmissionString{}, _readPosition{0},
-        _state{MessageState::Unknown}, _headerAdded{false}
+        inherited{false}, _lock{}
 {
     ODL_ENTER(); //####
     ODL_I2("_readPosition <- ", _readPosition, "_state <- ", toUType(_state)); //####

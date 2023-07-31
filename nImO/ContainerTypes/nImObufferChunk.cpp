@@ -115,9 +115,6 @@ nImO::BufferChunk::BufferChunk
     ODL_EXIT_P(this); //####
 } // nImO::BufferChunk::BufferChunk
 
-/*! @brief @c true if the buffer has an extra byte. */
-bool    _padded;
-
 nImO::BufferChunk::~BufferChunk
     (void)
 {

@@ -98,13 +98,6 @@ nImO::Number::Number
     ODL_EXIT_P(this); //####
 } // nImO::Number::Number
 
-nImO::Number::~Number
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Number::~Number
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

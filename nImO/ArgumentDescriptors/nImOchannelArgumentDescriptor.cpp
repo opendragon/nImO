@@ -115,13 +115,6 @@ ChannelArgumentDescriptor::ChannelArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // ChannelArgumentDescriptor::ChannelArgumentDescriptor
 
-ChannelArgumentDescriptor::~ChannelArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // ChannelArgumentDescriptor::~ChannelArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

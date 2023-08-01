@@ -91,13 +91,6 @@ nImO::IsChannelPresentCommandHandler::IsChannelPresentCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::IsChannelPresentCommandHandler::IsChannelPresentCommandHandler
 
-nImO::IsChannelPresentCommandHandler::~IsChannelPresentCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::IsChannelPresentCommandHandler::~IsChannelPresentCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

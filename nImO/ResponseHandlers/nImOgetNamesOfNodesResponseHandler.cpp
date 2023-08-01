@@ -86,13 +86,6 @@ nImO::GetNamesOfNodesResponseHandler::GetNamesOfNodesResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetNamesOfNodesResponseHandler::GetNamesOfNodesResponseHandler
 
-nImO::GetNamesOfNodesResponseHandler::~GetNamesOfNodesResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNamesOfNodesResponseHandler::~GetNamesOfNodesResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

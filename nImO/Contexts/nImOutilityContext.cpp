@@ -101,13 +101,6 @@ nImO::UtilityContext::UtilityContext
     ODL_EXIT_P(this); //####
 } // nImO::UtilityContext::UtilityContext
 
-nImO::UtilityContext::~UtilityContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::UtilityContext::~UtilityContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -103,12 +103,6 @@ namespace nImO
                 (StringsArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~StringsArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief Return the allowed values.
             @return The allowed values. */
             inline const StringSet &

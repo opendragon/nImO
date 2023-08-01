@@ -94,13 +94,6 @@ nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
 
-nImO::AddConnectionCommandHandler::~AddConnectionCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::AddConnectionCommandHandler::~AddConnectionCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

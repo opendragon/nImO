@@ -95,12 +95,6 @@ namespace nImO
                 (Message && other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~Message
-                (void)
-                override;
-
             /*! @brief Add some bytes to the buffer.
             @param[in] data The bytes to be added.
             @param[in] numBytes The number of bytes to add. */

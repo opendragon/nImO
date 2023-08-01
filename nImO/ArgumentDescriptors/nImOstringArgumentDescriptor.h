@@ -101,12 +101,6 @@ namespace nImO
                 (StringArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~StringArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief Return the current value.
             @return The current value. */
             inline const std::string &

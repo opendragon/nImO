@@ -109,13 +109,6 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // ExtraArgumentDescriptor::ExtraArgumentDescriptor
 
-ExtraArgumentDescriptor::~ExtraArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // ExtraArgumentDescriptor::~ExtraArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

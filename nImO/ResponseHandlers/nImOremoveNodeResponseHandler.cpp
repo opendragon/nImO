@@ -86,13 +86,6 @@ nImO::RemoveNodeResponseHandler::RemoveNodeResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::RemoveNodeResponseHandler::RemoveNodeResponseHandler
 
-nImO::RemoveNodeResponseHandler::~RemoveNodeResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::RemoveNodeResponseHandler::~RemoveNodeResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

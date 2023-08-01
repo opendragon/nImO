@@ -94,13 +94,6 @@ nImO::Container::Container
     ODL_EXIT_P(this); //####
 } // nImO::Container::Container
 
-nImO::Container::~Container
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Container::~Container
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

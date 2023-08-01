@@ -98,13 +98,6 @@ nImO::OutChannel::OutChannel
     ODL_EXIT_P(this); //####
 } // nImO::OutChannel::OutChannel
 
-nImO::OutChannel::~OutChannel
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::OutChannel::~OutChannel
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

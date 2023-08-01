@@ -100,13 +100,6 @@ nImO::SourceContext::SourceContext
     ODL_EXIT_P(this); //####
 } // nImO::SourceContext::SourceContext
 
-nImO::SourceContext::~SourceContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::SourceContext::~SourceContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -88,13 +88,6 @@ nImO::GetMachineInformationResponseHandler::GetMachineInformationResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetMachineInformationResponseHandler::GetMachineInformationResponseHandler
 
-nImO::GetMachineInformationResponseHandler::~GetMachineInformationResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetMachineInformationResponseHandler::~GetMachineInformationResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

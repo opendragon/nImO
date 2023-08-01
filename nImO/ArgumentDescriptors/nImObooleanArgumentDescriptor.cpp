@@ -114,13 +114,6 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // BooleanArgumentDescriptor::BooleanArgumentDescriptor
 
-BooleanArgumentDescriptor::~BooleanArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // BooleanArgumentDescriptor::~BooleanArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -77,12 +77,6 @@ namespace nImO
             OutChannel
                 (void);
 
-            /*! @brief The destructor. */
-            virtual
-            ~OutChannel
-                (void)
-                override;
-
         protected :
             // Protected methods.
 

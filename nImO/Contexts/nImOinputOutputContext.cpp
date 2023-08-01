@@ -100,13 +100,6 @@ nImO::InputOutputContext::InputOutputContext
     ODL_EXIT_P(this); //####
 } // nImO::InputOutputContext::InputOutputContext
 
-nImO::InputOutputContext::~InputOutputContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::InputOutputContext::~InputOutputContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -117,13 +117,6 @@ PortArgumentDescriptor::PortArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // PortArgumentDescriptor::PortArgumentDescriptor
 
-PortArgumentDescriptor::~PortArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // PortArgumentDescriptor::~PortArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

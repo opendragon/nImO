@@ -126,13 +126,6 @@ IntegerArgumentDescriptor::IntegerArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // IntegerArgumentDescriptor::IntegerArgumentDescriptor
 
-IntegerArgumentDescriptor::~IntegerArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // IntegerArgumentDescriptor::~IntegerArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

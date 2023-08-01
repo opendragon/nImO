@@ -142,13 +142,6 @@ nImO::Message::Message
     ODL_EXIT_P(this); //####
 } // nImO::Message::Message
 
-nImO::Message::~Message
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Message::~Message
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

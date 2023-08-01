@@ -86,13 +86,6 @@ nImO::IsMachinePresentResponseHandler::IsMachinePresentResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::IsMachinePresentResponseHandler::IsMachinePresentResponseHandler
 
-nImO::IsMachinePresentResponseHandler::~IsMachinePresentResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::IsMachinePresentResponseHandler::~IsMachinePresentResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

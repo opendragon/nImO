@@ -100,13 +100,6 @@ nImO::FilterContext::FilterContext
     ODL_EXIT_P(this); //####
 } // nImO::FilterContext::FilterContext
 
-nImO::FilterContext::~FilterContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::FilterContext::~FilterContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -93,13 +93,6 @@ nImO::GetLaunchDetailsCommandHandler::GetLaunchDetailsCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetLaunchDetailsCommandHandler::GetLaunchDetailsCommandHandler
 
-nImO::GetLaunchDetailsCommandHandler::~GetLaunchDetailsCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetLaunchDetailsCommandHandler::~GetLaunchDetailsCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

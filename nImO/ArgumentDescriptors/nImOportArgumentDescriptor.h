@@ -106,12 +106,6 @@ namespace nImO
                 (PortArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~PortArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */

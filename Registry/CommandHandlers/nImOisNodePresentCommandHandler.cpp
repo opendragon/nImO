@@ -91,13 +91,6 @@ nImO::IsNodePresentCommandHandler::IsNodePresentCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::IsNodePresentCommandHandler::IsNodePresentCommandHandler
 
-nImO::IsNodePresentCommandHandler::~IsNodePresentCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::IsNodePresentCommandHandler::~IsNodePresentCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

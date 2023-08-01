@@ -104,12 +104,6 @@ namespace nImO
                 (AddressArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~AddressArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */

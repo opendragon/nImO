@@ -93,13 +93,6 @@ nImO::GetInformationForAllConnectionsCommandHandler::GetInformationForAllConnect
     ODL_EXIT_P(this); //####
 } // nImO::GetInformationForAllConnectionsCommandHandler::GetInformationForAllConnectionsCommandHandler
 
-nImO::GetInformationForAllConnectionsCommandHandler::~GetInformationForAllConnectionsCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetInformationForAllConnectionsCommandHandler::~GetInformationForAllConnectionsCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

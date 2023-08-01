@@ -94,13 +94,6 @@ nImO::AddChannelCommandHandler::AddChannelCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::AddChannelCommandHandler::AddChannelCommandHandler
 
-nImO::AddChannelCommandHandler::~AddChannelCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::AddChannelCommandHandler::~AddChannelCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

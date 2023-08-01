@@ -193,13 +193,6 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // FilePathArgumentDescriptor::FilePathArgumentDescriptor
 
-FilePathArgumentDescriptor::~FilePathArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // FilePathArgumentDescriptor::~FilePathArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

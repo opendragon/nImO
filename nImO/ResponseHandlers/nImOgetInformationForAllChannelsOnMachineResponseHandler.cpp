@@ -88,13 +88,6 @@ nImO::GetInformationForAllChannelsOnMachineResponseHandler::GetInformationForAll
     ODL_EXIT_P(this); //####
 } // nImO::GetInformationForAllChannelsOnMachineResponseHandler::GetInformationForAllChannelsOnMachineResponseHandler
 
-nImO::GetInformationForAllChannelsOnMachineResponseHandler::~GetInformationForAllChannelsOnMachineResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetInformationForAllChannelsOnMachineResponseHandler::~GetInformationForAllChannelsOnMachineResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

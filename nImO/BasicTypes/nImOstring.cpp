@@ -125,13 +125,6 @@ nImO::String::String
     ODL_EXIT_P(this); //####
 } // nImO::String::String
 
-nImO::String::~String
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::String::~String
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

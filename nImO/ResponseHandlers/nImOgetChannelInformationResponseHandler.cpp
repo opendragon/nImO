@@ -88,13 +88,6 @@ nImO::GetChannelInformationResponseHandler::GetChannelInformationResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetChannelInformationResponseHandler::GetChannelInformationResponseHandler
 
-nImO::GetChannelInformationResponseHandler::~GetChannelInformationResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetChannelInformationResponseHandler::~GetChannelInformationResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

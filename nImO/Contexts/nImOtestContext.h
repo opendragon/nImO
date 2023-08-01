@@ -80,12 +80,6 @@ namespace nImO
                 (const std::string &    executableName,
                  const std::string &    nodeName = "");
 
-            /*! @brief The destructor. */
-            virtual
-            ~TestContext
-                (void)
-                override;
-
         protected :
             // Protected methods.
 

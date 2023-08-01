@@ -86,13 +86,6 @@ nImO::GetNumberOfNodesOnMachineResponseHandler::GetNumberOfNodesOnMachineRespons
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfNodesOnMachineResponseHandler::GetNumberOfNodesOnMachineResponseHandler
 
-nImO::GetNumberOfNodesOnMachineResponseHandler::~GetNumberOfNodesOnMachineResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNumberOfNodesOnMachineResponseHandler::~GetNumberOfNodesOnMachineResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

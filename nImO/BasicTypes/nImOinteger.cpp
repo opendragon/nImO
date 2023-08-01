@@ -118,13 +118,6 @@ nImO::Integer::Integer
     ODL_EXIT_P(this); //####
 } // nImO::Integer::Integer
 
-nImO::Integer::~Integer
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Integer::~Integer
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

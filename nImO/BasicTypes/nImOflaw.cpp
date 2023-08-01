@@ -94,13 +94,6 @@ nImO::Flaw::Flaw
     ODL_EXIT_P(this); //####
 } // nImO::Flaw::Flaw
 
-nImO::Flaw::~Flaw
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Flaw::~Flaw
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

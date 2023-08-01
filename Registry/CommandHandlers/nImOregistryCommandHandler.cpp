@@ -86,13 +86,6 @@ nImO::RegistryCommandHandler::RegistryCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::RegistryCommandHandler::RegistryCommandHandler
 
-nImO::RegistryCommandHandler::~RegistryCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::RegistryCommandHandler::~RegistryCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

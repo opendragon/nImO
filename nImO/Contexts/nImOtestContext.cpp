@@ -95,13 +95,6 @@ nImO::TestContext::TestContext
     ODL_EXIT_P(this); //####
 } // nImO::TestContext::TestContext
 
-nImO::TestContext::~TestContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::TestContext::~TestContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

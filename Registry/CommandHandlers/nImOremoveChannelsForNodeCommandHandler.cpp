@@ -92,13 +92,6 @@ nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
 
-nImO::RemoveChannelsForNodeCommandHandler::~RemoveChannelsForNodeCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::RemoveChannelsForNodeCommandHandler::~RemoveChannelsForNodeCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

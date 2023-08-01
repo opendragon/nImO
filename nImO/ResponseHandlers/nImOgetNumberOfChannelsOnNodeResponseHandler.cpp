@@ -86,13 +86,6 @@ nImO::GetNumberOfChannelsOnNodeResponseHandler::GetNumberOfChannelsOnNodeRespons
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfChannelsOnNodeResponseHandler::GetNumberOfChannelsOnNodeResponseHandler
 
-nImO::GetNumberOfChannelsOnNodeResponseHandler::~GetNumberOfChannelsOnNodeResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNumberOfChannelsOnNodeResponseHandler::~GetNumberOfChannelsOnNodeResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

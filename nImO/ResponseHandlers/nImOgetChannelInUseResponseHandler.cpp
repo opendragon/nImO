@@ -88,13 +88,6 @@ nImO::GetChannelInUseResponseHandler::GetChannelInUseResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetChannelInUseResponseHandler::GetChannelInUseResponseHandler
 
-nImO::GetChannelInUseResponseHandler::~GetChannelInUseResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetChannelInUseResponseHandler::~GetChannelInUseResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

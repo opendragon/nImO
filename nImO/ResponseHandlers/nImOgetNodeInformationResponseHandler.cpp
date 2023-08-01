@@ -88,13 +88,6 @@ nImO::GetNodeInformationResponseHandler::GetNodeInformationResponseHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetNodeInformationResponseHandler::GetNodeInformationResponseHandler
 
-nImO::GetNodeInformationResponseHandler::~GetNodeInformationResponseHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNodeInformationResponseHandler::~GetNodeInformationResponseHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

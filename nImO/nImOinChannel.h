@@ -77,12 +77,6 @@ namespace nImO
             InChannel
                 (void);
 
-            /*! @brief The destructor. */
-            virtual
-            ~InChannel
-                (void)
-                override;
-
         protected :
             // Protected methods.
 

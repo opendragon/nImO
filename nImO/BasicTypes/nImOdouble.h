@@ -93,12 +93,6 @@ namespace nImO
                 (Double &&  other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~Double
-                (void)
-                override;
-
             /*! @brief Return non-@c nullptr if the object is a Double.
              @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
             virtual CPtr(Double)

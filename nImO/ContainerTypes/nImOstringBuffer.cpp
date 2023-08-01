@@ -140,13 +140,6 @@ nImO::StringBuffer::StringBuffer
     ODL_EXIT_P(this); //####
 } // nImO::StringBuffer::StringBuffer
 
-nImO::StringBuffer::~StringBuffer
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::StringBuffer::~StringBuffer
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

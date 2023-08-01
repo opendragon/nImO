@@ -88,12 +88,6 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The destructor. */
-            virtual
-            ~InputOutputContext
-                (void)
-                override;
-
         protected :
             // Protected methods.
 

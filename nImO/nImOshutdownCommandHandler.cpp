@@ -88,13 +88,6 @@ nImO::ShutdownCommandHandler::ShutdownCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::ShutdownCommandHandler::ShutdownCommandHandler
 
-nImO::ShutdownCommandHandler::~ShutdownCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::ShutdownCommandHandler::~ShutdownCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

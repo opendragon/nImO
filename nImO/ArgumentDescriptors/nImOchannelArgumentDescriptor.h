@@ -101,12 +101,6 @@ namespace nImO
                 (ChannelArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~ChannelArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief Return the current value.
             @return The current value. */
             inline SpChannelName

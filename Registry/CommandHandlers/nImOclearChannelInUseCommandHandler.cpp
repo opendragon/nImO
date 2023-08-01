@@ -93,13 +93,6 @@ nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::ClearChannelInUseCommandHandler::ClearChannelInUseCommandHandler
 
-nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::ClearChannelInUseCommandHandler::~ClearChannelInUseCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

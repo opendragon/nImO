@@ -88,12 +88,6 @@ namespace nImO
                 (StringBuffer &&    other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~StringBuffer
-                (void)
-                override;
-
             /*! @brief Add a boolean value to the buffer.
              @param[in] aBool The value to add.
              @return The StringBuffer object so that cascading can be done. */

@@ -95,12 +95,6 @@ namespace nImO
                 (Invalid &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~Invalid
-                (void)
-                override;
-
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */
             virtual std::string

@@ -119,13 +119,6 @@ nImO::Invalid::Invalid
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 
-nImO::Invalid::~Invalid
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Invalid::~Invalid
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

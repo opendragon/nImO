@@ -88,12 +88,6 @@ namespace nImO
                  const bool             logging = false,
                  const std::string &    nodeName = "");
 
-            /*! @brief The destructor. */
-            virtual
-            ~FilterContext
-                (void)
-                override;
-
         protected :
             // Protected methods.
 

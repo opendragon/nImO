@@ -119,12 +119,6 @@ namespace nImO
                 (DoubleArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~DoubleArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief Return the current value.
             @return The current value. */
             inline double

@@ -101,12 +101,6 @@ namespace nImO
                 (BooleanArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~BooleanArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief Return the current value.
              @return The current value. */
             inline bool

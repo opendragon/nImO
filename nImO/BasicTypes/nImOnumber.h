@@ -77,12 +77,6 @@ namespace nImO
             Number
                 (void);
 
-            /*! @brief The destructor. */
-            virtual
-            ~Number
-                (void)
-                override;
-
             /*! @brief Return non-@c nullptr if the object is a Number.
             @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
             virtual CPtr(Number)

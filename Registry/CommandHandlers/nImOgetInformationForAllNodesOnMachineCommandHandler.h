@@ -82,12 +82,6 @@ namespace nImO
                 (SpContextWithNetworking    owner,
                  SpRegistry                 theRegistry);
 
-            /*! @brief The destructor. */
-            virtual
-            ~GetInformationForAllNodesOnMachineCommandHandler
-                (void)
-                override;
-
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
              @param[in] arguments The arguments to the command, with the first element being the command received.

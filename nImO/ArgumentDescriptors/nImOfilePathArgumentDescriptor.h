@@ -116,12 +116,6 @@ namespace nImO
                 (FilePathArgumentDescriptor &&	other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~FilePathArgumentDescriptor
-                (void)
-                override;
-
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */

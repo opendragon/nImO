@@ -91,13 +91,6 @@ nImO::IsMachinePresentCommandHandler::IsMachinePresentCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::IsMachinePresentCommandHandler::IsMachinePresentCommandHandler
 
-nImO::IsMachinePresentCommandHandler::~IsMachinePresentCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::IsMachinePresentCommandHandler::~IsMachinePresentCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

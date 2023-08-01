@@ -113,13 +113,6 @@ StringArgumentDescriptor::StringArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // StringArgumentDescriptor::StringArgumentDescriptor
 
-StringArgumentDescriptor::~StringArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // StringArgumentDescriptor::~StringArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

@@ -80,12 +80,6 @@ namespace nImO
             GetNamesOfMachinesResponseHandler
                 (void);
 
-            /*! @brief The destructor. */
-            virtual
-            ~GetNamesOfMachinesResponseHandler
-                (void)
-                override;
-
             /*! @brief Handle the response, returning @c true if successful.
              @param[in] stuff The data included in the response. */
             virtual void

@@ -84,12 +84,6 @@ namespace nImO
                  const bool             logging = false,
                  const std::string &    nodeName = "");
 
-            /*! @brief The destructor. */
-            virtual
-            ~UtilityContext
-                (void)
-                override;
-
             /*! @brief Is this a UtilityContext?
              @return @c this. */
             virtual Ptr(UtilityContext)

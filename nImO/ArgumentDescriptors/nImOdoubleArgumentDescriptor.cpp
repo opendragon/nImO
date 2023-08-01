@@ -126,13 +126,6 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // DoubleArgumentDescriptor::DoubleArgumentDescriptor
 
-DoubleArgumentDescriptor::~DoubleArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // DoubleArgumentDescriptor::~DoubleArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

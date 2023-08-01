@@ -93,12 +93,6 @@ namespace nImO
                 (Integer && other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            virtual
-            ~Integer
-                (void)
-                override;
-
             /*! @brief Return non-@c nullptr if the object is an Integer.
              @return Non-@c nullptr if the object is an Integer and @c nullptr otherwise. */
             virtual CPtr(Integer)

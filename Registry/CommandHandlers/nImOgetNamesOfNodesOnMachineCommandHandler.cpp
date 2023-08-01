@@ -93,13 +93,6 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::GetNamesOfNodesOnMachineCommandHan
     ODL_EXIT_P(this); //####
 } // nImO::GetNamesOfNodesOnMachineCommandHandler::GetNamesOfNodesOnMachineCommandHandler
 
-nImO::GetNamesOfNodesOnMachineCommandHandler::~GetNamesOfNodesOnMachineCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNamesOfNodesOnMachineCommandHandler::~GetNamesOfNodesOnMachineCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

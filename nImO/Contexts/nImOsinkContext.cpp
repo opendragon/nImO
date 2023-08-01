@@ -100,13 +100,6 @@ nImO::SinkContext::SinkContext
     ODL_EXIT_P(this); //####
 } // nImO::SinkContext::SinkContext
 
-nImO::SinkContext::~SinkContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::SinkContext::~SinkContext
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

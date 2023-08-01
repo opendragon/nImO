@@ -92,13 +92,6 @@ nImO::GetNumberOfChannelsCommandHandler::GetNumberOfChannelsCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfChannelsCommandHandler::GetNumberOfChannelsCommandHandler
 
-nImO::GetNumberOfChannelsCommandHandler::~GetNumberOfChannelsCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNumberOfChannelsCommandHandler::~GetNumberOfChannelsCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

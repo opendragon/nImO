@@ -119,13 +119,6 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
 
-AddressArgumentDescriptor::~AddressArgumentDescriptor
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // AddressArgumentDescriptor::~AddressArgumentDescriptor
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

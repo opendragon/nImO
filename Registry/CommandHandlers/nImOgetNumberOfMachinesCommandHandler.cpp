@@ -92,13 +92,6 @@ nImO::GetNumberOfMachinesCommandHandler::GetNumberOfMachinesCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfMachinesCommandHandler::GetNumberOfMachinesCommandHandler
 
-nImO::GetNumberOfMachinesCommandHandler::~GetNumberOfMachinesCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNumberOfMachinesCommandHandler::~GetNumberOfMachinesCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

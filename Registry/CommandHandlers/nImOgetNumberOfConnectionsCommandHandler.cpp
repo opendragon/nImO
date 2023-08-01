@@ -92,13 +92,6 @@ nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
     ODL_EXIT_P(this); //####
 } // nImO::GetNumberOfConnectionsCommandHandler::GetNumberOfConnectionsCommandHandler
 
-nImO::GetNumberOfConnectionsCommandHandler::~GetNumberOfConnectionsCommandHandler
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::GetNumberOfConnectionsCommandHandler::~GetNumberOfConnectionsCommandHandler
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

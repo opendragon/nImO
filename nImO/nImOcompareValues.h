@@ -89,7 +89,6 @@ namespace nImO
                 noexcept = default;
 
             /*! @brief The destructor. */
-            virtual
             ~CompareValues
                 (void);
 

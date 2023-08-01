@@ -92,7 +92,6 @@ namespace nImO
                 (Registry &&	other) = delete;
 
             /*! @brief The destructor. */
-            virtual
             ~Registry
                 (void);
 

@@ -88,7 +88,6 @@ namespace nImO
                  const struct sockaddr_in6 &    addressIpv6);
 
             /*! @brief The destructor. */
-            virtual
             ~AnnounceServiceData
                 (void);
 

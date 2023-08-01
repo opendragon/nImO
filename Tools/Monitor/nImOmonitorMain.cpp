@@ -109,10 +109,10 @@ struct ReceivedData final
         // Public fields.
 
         /*! @brief The message from the sender. */
-        nImO::SpValue   _receivedMessage;
+        nImO::SpValue   _receivedMessage{};
 
         /*! @brief The IP address of the sender. */
-        uint32_t    _receivedAddress;
+        uint32_t    _receivedAddress{};
 
     protected :
         // Protected fields.
@@ -231,10 +231,10 @@ class ReceiveOnMessagePort final
         asio::ip::udp::socket   _socket;
 
         /*! @brief The sender's endpoint. */
-        asio::ip::udp::endpoint _senderEndpoint;
+        asio::ip::udp::endpoint _senderEndpoint{};
 
         /*! @brief A buffer for the raw message data. */
-        std::array<char, 2048>  _data;
+        std::array<char, 2048>  _data{};
 
 }; // ReceiveOnMessagePort
 

@@ -109,13 +109,13 @@ enum class Choice
 }; // Choice
 
 /*! @brief Convenience structure for choices. */
-struct ChoiceInfo
+struct ChoiceInfo final
 {
     /*! @brief A particular choice. */
-    Choice  _choice;
+    Choice  _choice{Choice::kAll};
 
     /*! @brief The description of the choice. */
-    std::string _description;
+    std::string _description{};
 
     /*! @brief The constructor.
      @param[in] choice The choice value associated with the description.

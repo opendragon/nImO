@@ -75,7 +75,7 @@ namespace nImO
     }; // ServiceType
 
     /*! @brief The data found in the Registry for a channel. */
-    struct ChannelInfo
+    struct ChannelInfo final
     {
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
@@ -107,7 +107,7 @@ namespace nImO
     }; // ChannelInfo
 
     /*! @brief The data found in the Registry for a connection. */
-    struct ConnectionInfo
+    struct ConnectionInfo final
     {
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
@@ -139,7 +139,7 @@ namespace nImO
     }; // ConnectionInfo
 
     /*! @brief The launch information for a node. */
-    struct LaunchDetails
+    struct LaunchDetails final
     {
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
@@ -162,7 +162,7 @@ namespace nImO
     }; // LaunchDetails
 
     /*! @brief The data found in the Registry for a machine. */
-    struct MachineInfo
+    struct MachineInfo final
     {
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
@@ -182,7 +182,7 @@ namespace nImO
     }; // MachineInfo
 
     /*! @brief The data found in the Registry for a node. */
-    struct NodeInfo
+    struct NodeInfo final
     {
         /*! @brief @c true if the data is valid. */
         bool    _found{false};

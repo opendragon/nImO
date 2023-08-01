@@ -90,7 +90,6 @@ namespace nImO
                 noexcept = delete;
 
             /*! @brief The destructor. */
-            virtual
             ~RegistryProxy
                 (void);
 

@@ -75,7 +75,6 @@ namespace nImO
                 (void);
 
             /*! @brief The destructor. */
-            virtual
             ~ChannelName
                 (void);
 

@@ -88,7 +88,6 @@ namespace nImO
                 noexcept;
 
             /*! @brief The destructor. */
-            virtual
             ~BufferChunk
                 (void);
 

@@ -94,7 +94,6 @@ namespace nImO
                  const Connection &     logConnection);
 
             /*! @brief The destructor. */
-            virtual
             ~Logger
                 (void);
 

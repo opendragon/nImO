@@ -56,7 +56,7 @@ namespace nImO
 {
 
     /*! @brief Convenience structure for standard options. */
-    struct ServiceOptions : StandardOptions
+    struct ServiceOptions final : StandardOptions
     {
         /*! @brief The struct that this struct is derived from. */
         using inherited = StandardOptions;

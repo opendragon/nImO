@@ -88,7 +88,7 @@ namespace nImO
             asContainer
                 (void)
                 const
-                override;
+                final override;
 
             /*! @brief Remove all entries from the Container. */
             virtual void

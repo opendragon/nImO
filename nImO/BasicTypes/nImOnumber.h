@@ -83,7 +83,7 @@ namespace nImO
             asNumber
                 (void)
                 const
-                override;
+                final override;
 
             /*! @brief Return the characters that can appear as the start of a Number.
             @return The characters that can appear as the start of a Number. */

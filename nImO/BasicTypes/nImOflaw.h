@@ -85,7 +85,7 @@ namespace nImO
             asFlaw
                 (void)
                 const
-                override;
+                final override;
 
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */

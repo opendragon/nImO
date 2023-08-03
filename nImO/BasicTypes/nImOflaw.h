@@ -81,11 +81,11 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Flaw.
             @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
-            virtual CPtr(Flaw)
+            CPtr(Flaw)
             asFlaw
                 (void)
                 const
-                final override;
+                final;
 
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */
@@ -105,7 +105,7 @@ namespace nImO
             @param[in,out] out The stream to be added to.
             @param[in] aValue The object to be printed.
             @return The modified stream. */
-            virtual std::ostream &
+            std::ostream &
             operator<<
                 (std::ostream & out)
                 const

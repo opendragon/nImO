@@ -86,14 +86,14 @@ namespace nImO
 
             /*! @brief Is this a UtilityContext?
              @return @c this. */
-            virtual Ptr(UtilityContext)
+            Ptr(UtilityContext)
             asUtilityContext
                 (void)
                 override;
 
             /*! @brief Is this a UtilityContext?
              @return @c this. */
-            virtual CPtr(UtilityContext)
+            CPtr(UtilityContext)
             asUtilityContext
                 (void)
                 const

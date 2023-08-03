@@ -118,7 +118,6 @@ namespace nImO
                 noexcept;
 
             /*! @brief The destructor. */
-            virtual
             ~Set
                 (void)
                 override;
@@ -133,14 +132,14 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Set.
              @return Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
-            virtual CPtr(Set)
+            CPtr(Set)
             asSet
                 (void)
                 const
                 override;
 
             /*! @brief Remove all entries from the Set. */
-            virtual void
+            void
             clear
                 (void)
                 override;
@@ -148,14 +147,14 @@ namespace nImO
             /*! @brief Return @c true if two Values are structurally identical.
              @param[in] other The Value to be compared with.
              @return @c true if the two Values are structurally identical. */
-            virtual bool
+            bool
             deeplyEqualTo
                 (const Value &  other)
                 const
                 override;
 
             /*! @brief Return @c true if the Set is empty. */
-            virtual bool
+            bool
             empty
                 (void)
                 const
@@ -164,7 +163,7 @@ namespace nImO
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
-            virtual ComparisonStatus
+            ComparisonStatus
             equalTo
                 (const Value &  other)
                 const
@@ -247,7 +246,7 @@ namespace nImO
 
             /*! @brief Return the type tag for the Value for use with Messages.
              @return The type tag for the Value for use with Messages. */
-            virtual DataKind
+            DataKind
             getTypeTag
                 (void)
                 const
@@ -256,7 +255,7 @@ namespace nImO
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
-            virtual ComparisonStatus
+            ComparisonStatus
             greaterThan
                 (const Value &  other)
                 const
@@ -265,7 +264,7 @@ namespace nImO
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
-            virtual ComparisonStatus
+            ComparisonStatus
             greaterThanOrEqual
                 (const Value &  other)
                 const
@@ -274,7 +273,7 @@ namespace nImO
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
-            virtual ComparisonStatus
+            ComparisonStatus
             lessThan
                 (const Value &  other)
                 const
@@ -283,7 +282,7 @@ namespace nImO
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
-            virtual ComparisonStatus
+            ComparisonStatus
             lessThanOrEqual
                 (const Value &  other)
                 const
@@ -316,7 +315,7 @@ namespace nImO
              @param[in,out] outBuffer The buffer to be appended to.
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible. */
-            virtual void
+            void
             printToStringBuffer
                 (StringBuffer & outBuffer,
                  const bool     squished = false)
@@ -327,7 +326,7 @@ namespace nImO
              @param[in,out] outBuffer The buffer to be appended to.
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible. */
-            virtual void
+            void
             printToStringBufferAsJSON
                 (StringBuffer & outBuffer,
                  const bool     squished = false)
@@ -355,7 +354,7 @@ namespace nImO
                  size_t &               position);
 
             /*! @brief Returns the number of elements in the Set. */
-            virtual size_t
+            size_t
             size
                 (void)
                 const
@@ -363,7 +362,7 @@ namespace nImO
 
             /*! @brief Add a binary representation of the object to the message.
              @param[in,out] outMessage The Message to be appended to. */
-            virtual void
+            void
             writeToMessage
                 (Message &  outMessage)
                 const
@@ -376,7 +375,7 @@ namespace nImO
              @param[in,out] out The stream to be added to.
              @param[in] aValue The object to be printed.
              @return The modified stream. */
-            virtual std::ostream &
+            std::ostream &
             operator<<
                 (std::ostream & out)
                 const

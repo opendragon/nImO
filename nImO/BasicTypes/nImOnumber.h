@@ -79,11 +79,11 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Number.
             @return Non-@c nullptr if the object is a Number and @c nullptr otherwise. */
-            virtual CPtr(Number)
+            CPtr(Number)
             asNumber
                 (void)
                 const
-                final override;
+                final;
 
             /*! @brief Return the characters that can appear as the start of a Number.
             @return The characters that can appear as the start of a Number. */

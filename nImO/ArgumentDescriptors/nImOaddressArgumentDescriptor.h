@@ -140,7 +140,7 @@ namespace nImO
 
             /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
              @return A copy of the descriptor, with only non-pointer types duplicated. */
-            virtual SpBaseArgumentDescriptor
+            SpBaseArgumentDescriptor
             clone
                 (void)
                 const
@@ -148,7 +148,7 @@ namespace nImO
 
             /*! @brief Convert to a printable representation.
              @return A printable representation of the descriptor. */
-            virtual std::string
+            std::string
             toString
                 (void)
                 override;
@@ -157,7 +157,7 @@ namespace nImO
              @param[in] value The value to be checked.
              @return @c true if the value is within the domain of the descriptor and @c false
              otherwise. */
-            virtual bool
+            bool
             validate
                 (const std::string &    value)
                 override;

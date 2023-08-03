@@ -87,7 +87,6 @@ namespace nImO
                  const bool             startAnnouncer = false);
 
             /*! @brief The destructor. */
-            virtual
             ~RegistryContext
                 (void)
                 override;

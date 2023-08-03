@@ -152,7 +152,7 @@ namespace nImO
 
             /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
             @return A copy of the descriptor, with only non-pointer types duplicated. */
-            virtual SpBaseArgumentDescriptor
+            SpBaseArgumentDescriptor
             clone
                 (void)
                 const
@@ -160,14 +160,14 @@ namespace nImO
 
             /*! @brief Return the default value.
             @return The default value. */
-            virtual std::string
+            std::string
             getDefaultValue
                 (void)
                 override;
 
             /*! @brief Return the default value as a human-readable string.
             @return The default value as a human-readable string. */
-            virtual std::string
+            std::string
             getPrintableDefaultValue
                 (void)
                 override;
@@ -176,21 +176,21 @@ namespace nImO
             @param[out] isForOutput Set to @c true if the argument is for output files and @c false
             otherwise.
             @return @c true if the argument is for file paths and @c false otherwise. */
-            virtual bool
+            bool
             isForFiles
                 (bool & isForOutput)
                 const
                 override;
 
             /*! @brief Set the associated variable to the default value. */
-            virtual void
+            void
             setToDefaultValue
                 (void)
                 override;
 
             /*! @brief Convert to a printable representation.
             @return A printable representation of the descriptor. */
-            virtual std::string
+            std::string
             toString
                 (void)
                 override;
@@ -199,7 +199,7 @@ namespace nImO
             @param[in] value The value to be checked.
             @return @c true if the value is within the domain of the descriptor and @c false
             otherwise. */
-            virtual bool
+            bool
             validate
                 (const std::string &    value)
                 override;

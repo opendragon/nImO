@@ -94,7 +94,6 @@ namespace nImO
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
-            virtual
             ~ServiceContext
                 (void)
                 override;
@@ -116,14 +115,14 @@ namespace nImO
 
             /*! @brief Is this a ServiceContext?
              @return @c this. */
-            virtual Ptr(ServiceContext)
+            Ptr(ServiceContext)
             asServiceContext
                 (void)
                 override;
 
             /*! @brief Is this a ServiceContext?
              @return @c this. */
-            virtual CPtr(ServiceContext)
+            CPtr(ServiceContext)
             asServiceContext
                 (void)
                 const

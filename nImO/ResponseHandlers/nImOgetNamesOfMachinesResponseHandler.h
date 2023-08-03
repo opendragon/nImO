@@ -82,7 +82,7 @@ namespace nImO
 
             /*! @brief Handle the response, returning @c true if successful.
              @param[in] stuff The data included in the response. */
-            virtual void
+            void
             doIt
                 (const nImO::Array &    stuff)
                 override;

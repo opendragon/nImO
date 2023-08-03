@@ -111,7 +111,6 @@ namespace nImO
                  const std::string &    nodeName = "");
 
             /*! @brief The destructor. */
-            virtual
             ~ContextWithMDNS
                 (void)
                 override;

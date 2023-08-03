@@ -97,7 +97,7 @@ namespace nImO
 
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */
-            virtual std::string
+            std::string
             getDescription
                 (void)
                 const

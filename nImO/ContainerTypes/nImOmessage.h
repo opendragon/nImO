@@ -98,7 +98,7 @@ namespace nImO
             /*! @brief Add some bytes to the buffer.
             @param[in] data The bytes to be added.
             @param[in] numBytes The number of bytes to add. */
-            virtual void
+            void
             appendBytes
                 (CPtr(uint8_t)  data,
                  const size_t   numBytes)
@@ -123,14 +123,14 @@ namespace nImO
 
             /*! @brief Return a copy of the bytes in the buffer.
             @return A copy of the bytes in the buffer. */
-            virtual std::string
+            std::string
             getBytes
                 (void)
                 override;
 
             /*! @brief Return the number of valid bytes in the buffer.
             @return The number of valid bytes in the buffer. */
-            virtual size_t
+            size_t
             getLength
                 (void)
                 const

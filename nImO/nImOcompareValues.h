@@ -88,10 +88,6 @@ namespace nImO
                 (CompareValues &&	other)
                 noexcept = default;
 
-            /*! @brief The destructor. */
-            ~CompareValues
-                (void);
-
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */

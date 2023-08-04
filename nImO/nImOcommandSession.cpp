@@ -184,13 +184,6 @@ nImO::CommandSession::CommandSession
     ODL_EXIT_P(this); //####
 } // nImO::CommandSession::CommandSession
 
-nImO::CommandSession::~CommandSession
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::CommandSession::~CommandSession
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

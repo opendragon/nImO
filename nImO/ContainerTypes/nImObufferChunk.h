@@ -87,10 +87,6 @@ namespace nImO
                 (BufferChunk && other)
                 noexcept;
 
-            /*! @brief The destructor. */
-            ~BufferChunk
-                (void);
-
             /*! @brief Add a sequence of bytes to the chunk.
              @param[in] data The bytes to be added.
              @param[in] numBytes The number of bytes to add.

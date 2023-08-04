@@ -93,10 +93,6 @@ namespace nImO
                  const std::string &    tagForLogging,
                  const Connection &     logConnection);
 
-            /*! @brief The destructor. */
-            ~Logger
-                (void);
-
             /*! @brief Log a simple message.
              @param[in] stringToSend The message to be logged.
              @return @c true if the message was successfully logged. */

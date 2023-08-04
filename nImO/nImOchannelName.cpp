@@ -138,13 +138,6 @@ nImO::ChannelName::ChannelName
     ODL_EXIT_P(this); //####
 } // nImO::ChannelName::ChannelName
 
-nImO::ChannelName::~ChannelName
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::ChannelName::~ChannelName
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

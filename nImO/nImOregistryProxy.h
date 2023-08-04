@@ -89,10 +89,6 @@ namespace nImO
                 (RegistryProxy &&  other)
                 noexcept = delete;
 
-            /*! @brief The destructor. */
-            ~RegistryProxy
-                (void);
-
             /*! @brief Add a channel to the Registry.
              @param[in] nodeName The node for the channel to be added.
              @param[in] path The path for the channel.

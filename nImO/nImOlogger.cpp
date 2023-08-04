@@ -118,13 +118,6 @@ nImO::Logger::Logger
     ODL_EXIT_P(this); //####
 } // nImO::Logger::Logger
 
-nImO::Logger::~Logger
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::Logger::~Logger
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

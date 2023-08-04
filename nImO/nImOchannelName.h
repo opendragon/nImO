@@ -74,10 +74,6 @@ namespace nImO
             ChannelName
                 (void);
 
-            /*! @brief The destructor. */
-            ~ChannelName
-                (void);
-
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
             ChannelName

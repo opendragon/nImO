@@ -138,13 +138,6 @@ nImO::RegistryProxy::RegistryProxy
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
 
-nImO::RegistryProxy::~RegistryProxy
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::RegistryProxy::~~RegistryProxy
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

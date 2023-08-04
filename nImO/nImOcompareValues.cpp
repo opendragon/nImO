@@ -83,13 +83,6 @@ nImO::CompareValues::CompareValues
     ODL_EXIT_P(this); //####
 } // nImO::CompareValues::CompareValues
 
-nImO::CompareValues::~CompareValues
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
-} // nImO::CompareValues::~CompareValues
-
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)

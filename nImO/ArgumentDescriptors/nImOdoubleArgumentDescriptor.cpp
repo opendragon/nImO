@@ -130,13 +130,13 @@ DoubleArgumentDescriptor::DoubleArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 DoubleArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<DoubleArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<DoubleArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

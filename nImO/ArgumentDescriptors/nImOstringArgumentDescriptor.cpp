@@ -117,13 +117,13 @@ StringArgumentDescriptor::StringArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 StringArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<StringArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<StringArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

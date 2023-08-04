@@ -118,13 +118,13 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 BooleanArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<BooleanArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<BooleanArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

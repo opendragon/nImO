@@ -229,7 +229,7 @@ namespace nImO
 
             /*! @brief Return a copy of the descriptor, with only non-pointer types duplicated.
              @return A copy of the descriptor, with only non-pointer types duplicated. */
-            virtual SpBaseArgumentDescriptor
+            virtual UpBaseArgumentDescriptor
             clone
                 (void)
                 const = 0;

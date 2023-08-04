@@ -113,13 +113,13 @@ ExtraArgumentDescriptor::ExtraArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 ExtraArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<ExtraArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<ExtraArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

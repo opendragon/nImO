@@ -121,13 +121,13 @@ PortArgumentDescriptor::PortArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 PortArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<PortArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<PortArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

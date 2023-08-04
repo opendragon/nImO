@@ -197,13 +197,13 @@ FilePathArgumentDescriptor::FilePathArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 FilePathArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<FilePathArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<FilePathArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

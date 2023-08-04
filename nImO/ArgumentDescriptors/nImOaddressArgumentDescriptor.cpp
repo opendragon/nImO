@@ -123,13 +123,13 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-SpBaseArgumentDescriptor
+UpBaseArgumentDescriptor
 AddressArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_shared<AddressArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<AddressArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;

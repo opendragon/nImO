@@ -194,7 +194,7 @@ AddressArgumentDescriptor::parseArgString
 #endif // ! MAC_OR_LINUX_
         if (okSoFar)
         {
-            result.reset(new AddressArgumentDescriptor(name, description, argMode, defaultString));
+            result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);
         }
     }
     ODL_EXIT_P(result.get()); //####

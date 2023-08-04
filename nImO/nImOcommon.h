@@ -212,22 +212,6 @@ toUType
     return StaticCast(typename std::underlying_type<Type>::type, enumerator);
 }
 
-/*! @brief Return a ponter for a freshly-allocated object.
- { From Effective Modern C++. }
- @tparam Type The type of value being allocated.
- @tparam Types The types of arguments for the constructor.
- @param[in] params The arguments for the constructor.
- @return A pointer  to the newly-allocated object. */
-template
-    <typename       Type,
-     typename...    Types>
-std::unique_ptr<Type>
-make_unique
-    (Types &&...   params)
-{
-    return std::unique_ptr<Type>(new Type(std::forward<Types>(params)...));
-}
-
 using namespace boost;
 
 # define UnaryAndBinaryOperators(Type_) \

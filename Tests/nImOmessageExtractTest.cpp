@@ -213,7 +213,7 @@ doTestExtractEmptyMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -318,7 +318,7 @@ doTestExtractLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -401,7 +401,7 @@ doTestExtractTinyIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -504,7 +504,7 @@ doTestExtractSmallIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -589,7 +589,7 @@ doTestExtractMediumIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -676,7 +676,7 @@ doTestExtractBigIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -765,7 +765,7 @@ doTestExtractEmptyStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -829,7 +829,7 @@ doTestExtractShortStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -896,7 +896,7 @@ doTestExtractMediumStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -982,7 +982,7 @@ doTestExtractEmptyBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1046,7 +1046,7 @@ doTestExtractSmallBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1118,7 +1118,7 @@ doTestExtractMediumBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1215,7 +1215,7 @@ doTestExtractSingleDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1308,7 +1308,7 @@ doTestExtractEmptyArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1376,7 +1376,7 @@ doTestExtractEmptyMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1444,7 +1444,7 @@ doTestExtractEmptySetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1512,7 +1512,7 @@ doTestExtractArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1589,7 +1589,7 @@ doTestExtractArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1666,7 +1666,7 @@ doTestExtractArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1748,7 +1748,7 @@ doTestExtractArrayOneStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1826,7 +1826,7 @@ doTestExtractArrayOneBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1904,7 +1904,7 @@ doTestExtractArrayOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1986,7 +1986,7 @@ doTestExtractArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2068,7 +2068,7 @@ doTestExtractArrayOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2150,7 +2150,7 @@ doTestExtractArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2231,7 +2231,7 @@ doTestExtractArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2312,7 +2312,7 @@ doTestExtractArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2399,7 +2399,7 @@ doTestExtractArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2482,7 +2482,7 @@ doTestExtractArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2565,7 +2565,7 @@ doTestExtractArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2656,7 +2656,7 @@ doTestExtractArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2747,7 +2747,7 @@ doTestExtractArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2838,7 +2838,7 @@ doTestExtractArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2929,7 +2929,7 @@ doTestExtractArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3020,7 +3020,7 @@ doTestExtractArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3111,7 +3111,7 @@ doTestExtractArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3365,7 +3365,7 @@ doTestExtractLogicalMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3445,7 +3445,7 @@ doTestExtractIntegerMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3525,7 +3525,7 @@ doTestExtractStringMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3606,7 +3606,7 @@ doTestExtractLogicalSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3683,7 +3683,7 @@ doTestExtractIntegerSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3760,7 +3760,7 @@ doTestExtractStringSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3838,7 +3838,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3847,7 +3847,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
         else
         {
             static const size_t kNumValues = 18;
-            SpArray             arrayWithIntegers{new Array};
+            auto                arrayWithIntegers{std::make_shared<Array>()};
             int64_t             posValue = 1;
 
             for (size_t ii = 0; kNumValues > ii; ++ii)

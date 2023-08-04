@@ -108,9 +108,9 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "bridge", optionValues._logging,
-                                                                                firstArg.getCurrentValue()}};
-            nImO::Connection                registryConnection;
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge", optionValues._logging,
+                                                                                  firstArg.getCurrentValue())};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

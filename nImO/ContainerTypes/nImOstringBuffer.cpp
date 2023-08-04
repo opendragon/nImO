@@ -271,7 +271,7 @@ nImO::StringBuffer::convertToValue
             {
                 if (nullptr == holder)
                 {
-                    holder.reset(new Array);
+                    holder = std::make_shared<Array>();
                     ODL_P1("holder <- ", holder.get()); //####
                 }
                 holder->addValue(result);

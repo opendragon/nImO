@@ -111,10 +111,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "junction", optionValues._tag)};
-            nImO::SpContextWithNetworking   ourContext{new nImO::FilterContext{argc, argv, progName, "Junction", optionValues._logging, nodeName}};
-            nImO::Connection                registryConnection;
-            Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
+            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "junction", optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction", optionValues._logging,
+                                                                                 nodeName)};
+            nImO::Connection    registryConnection;
+            auto                asServiceContext{ourContext->asServiceContext()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))

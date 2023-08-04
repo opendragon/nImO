@@ -282,7 +282,7 @@ nImO::Message::getValue
                 else
                 {
                     ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                    result.reset(new Invalid("Empty Message with incorrect end tag", _readPosition));
+                    result = std::make_shared<Invalid>("Empty Message with incorrect end tag", _readPosition);
                 }
             }
             else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
@@ -312,7 +312,7 @@ nImO::Message::getValue
                         ODL_I1("_readPosition <- ", _readPosition); //####
                         if (nullptr == result)
                         {
-                            result.reset(new Invalid("Null Value read", _readPosition));
+                            result = std::make_shared<Invalid>("Null Value read", _readPosition);
                         }
                         else if (! result->asFlaw())
                         {
@@ -340,28 +340,28 @@ nImO::Message::getValue
                                 else
                                 {
                                     ODL_LOG("! (nextTag == initTag)"); //####
-                                    result.reset(new Invalid("Message with mismatched end Value tag", _readPosition));
+                                    result = std::make_shared<Invalid>("Message with mismatched end Value tag", _readPosition);
                                 }
                             }
                             else
                             {
                                 ODL_LOG("! (kTermNonEmptyMessageValue == " //####
                                         "(aByte & kInitTermMessageMask))"); //####
-                                result.reset(new Invalid("Message with incorrect end tag", _readPosition));
+                                result = std::make_shared<Invalid>("Message with incorrect end tag", _readPosition);
                             }
                         }
                     }
                     else
                     {
                         ODL_LOG("! (nextTag == initTag)"); //####
-                        result.reset(new Invalid("Message with mismatched initial Value tag", _readPosition));
+                        result = std::make_shared<Invalid>("Message with mismatched initial Value tag", _readPosition);
                     }
                 }
             }
             else
             {
                 ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                result.reset(new Invalid("Message with incorrect start tag", _readPosition));
+                result = std::make_shared<Invalid>("Message with incorrect start tag", _readPosition);
             }
         }
     }
@@ -369,7 +369,7 @@ nImO::Message::getValue
     {
         ODL_LOG("! ((MessageState::OpenForReading == _state) || (allowClosed && " //####
                 "(MessageState::Closed == _state)))"); //####
-        result.reset(new Invalid("Message is not open for reading or is not closed"));
+        result = std::make_shared<Invalid>("Message is not open for reading or is not closed");
     }
     ODL_OBJEXIT_P(result.get()); //####
     return result;

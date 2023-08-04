@@ -703,7 +703,7 @@ doTestMIMEInsertEmptyMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -787,7 +787,7 @@ doTestMIMEExtractEmptyMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -882,7 +882,7 @@ doTestMIMEInsertLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -890,8 +890,8 @@ doTestMIMEInsertLogicalMessage
         }
         else
         {
-            SpValue         falseValue{new Logical(false)};
-            SpValue         trueValue{new Logical(true)};
+            auto            falseValue{std::make_shared<Logical>(false)};
+            auto            trueValue{std::make_shared<Logical>(true)};
             std::string     expectedTrueLines[]{ "98H/" };
             const size_t    expectedTrueLinesCount{A_SIZE(expectedTrueLines)};
             std::string     expectedFalseLines[]{ "98D/" };
@@ -939,7 +939,7 @@ doTestMIMEExtractLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -996,7 +996,7 @@ doTestMIMEInsertTinyIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1004,9 +1004,9 @@ doTestMIMEInsertTinyIntegerMessage
         }
         else
         {
-            SpValue         minus12Value{new Integer(-12)};
-            SpValue         zeroValue{new Integer};
-            SpValue         plus12Value{new Integer(12)};
+            auto            minus12Value{std::make_shared<Integer>(-12)};
+            auto            zeroValue{std::make_shared<Integer>()};
+            auto            plus12Value{std::make_shared<Integer>(12)};
             std::string     expectedMinus12Lines[]{ "9BT8" };
             const size_t    expectedMinus12LinesCount{A_SIZE(expectedMinus12Lines)};
             std::string     expectedZeroLines[]{ "9AD8" };
@@ -1060,7 +1060,7 @@ doTestMIMEExtractTinyIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1124,7 +1124,7 @@ doTestMIMEInsertSmallIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1132,8 +1132,8 @@ doTestMIMEInsertSmallIntegerMessage
         }
         else
         {
-            SpValue         minus144Value{new Integer(-144)};
-            SpValue         plus144Value{new Integer(144)};
+            auto            minus144Value{std::make_shared<Integer>(-144)};
+            auto            plus144Value{std::make_shared<Integer>(144)};
             std::string     expectedMinus144Lines[]{ "9CH/cPw=" };
             const size_t    expectedMinus144LinesCount{A_SIZE(expectedMinus144Lines)};
             std::string     expectedPlus144Lines[]{ "9CEAkPw=" };
@@ -1181,7 +1181,7 @@ doTestMIMEExtractSmallIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1238,7 +1238,7 @@ doTestMIMEInsertMediumIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1246,8 +1246,8 @@ doTestMIMEInsertMediumIntegerMessage
         }
         else
         {
-            SpValue         minus1234567Value{new Integer(-1234567)};
-            SpValue         plus1234567Value{new Integer(1234567)};
+            auto            minus1234567Value{std::make_shared<Integer>(-1234567)};
+            auto            plus1234567Value{std::make_shared<Integer>(1234567)};
             std::string     expectedMinus1234567Lines[]{ "9CLtKXn8" };
             const size_t    expectedMinus1234567LinesCount{A_SIZE(expectedMinus1234567Lines)};
             std::string     expectedPlus1234567Lines[]{ "9CIS1of8" };
@@ -1295,7 +1295,7 @@ doTestMIMEExtractMediumIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1352,7 +1352,7 @@ doTestMIMEInsertBigIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1360,8 +1360,8 @@ doTestMIMEInsertBigIntegerMessage
         }
         else
         {
-            SpValue         minusBigNumberValue{new Integer(-20015998343868)};
-            SpValue         plusBigNumberValue{new Integer(20015998343868)};
+            auto            minusBigNumberValue{std::make_shared<Integer>(-20015998343868)};
+            auto            plusBigNumberValue{std::make_shared<Integer>(20015998343868)};
             std::string     expectedMinusBigNumberLines[]{ "9CXty6mHZUT8" };
             const size_t    expectedMinusBigNumberLinesCount{A_SIZE(expectedMinusBigNumberLines)};
             std::string     expectedPlusBigNumberLines[]{ "9CUSNFZ4mrz8" };
@@ -1409,7 +1409,7 @@ doTestMIMEExtractBigIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1466,7 +1466,7 @@ doTestMIMEInsertEmptyStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1474,7 +1474,7 @@ doTestMIMEInsertEmptyStringMessage
         }
         else
         {
-            SpValue         emptyStringValue{new String};
+            auto            emptyStringValue{std::make_shared<String>()};
             std::string     expectedEmptyStringLines[]{ "9oD+" };
             const size_t    expectedEmptyStringLinesCount{A_SIZE(expectedEmptyStringLines)};
 
@@ -1516,7 +1516,7 @@ doTestMIMEExtractEmptyStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1566,7 +1566,7 @@ doTestMIMEInsertShortStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1574,7 +1574,7 @@ doTestMIMEInsertShortStringMessage
         }
         else
         {
-            SpValue         shortStringValue{new String("abcdef")};
+            auto            shortStringValue{std::make_shared<String>("abcdef")};
             std::string     expectedShortStringLines[]{ "9oZhYmNkZWb+" };
             const size_t    expectedShortStringLinesCount{A_SIZE(expectedShortStringLines)};
 
@@ -1616,7 +1616,7 @@ doTestMIMEExtractShortStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1666,7 +1666,7 @@ doTestMIMEInsertMediumStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1674,7 +1674,7 @@ doTestMIMEInsertMediumStringMessage
         }
         else
         {
-            SpValue         mediumStringValue{new String("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
+            auto            mediumStringValue{std::make_shared<String>("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
             std::string     expectedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g==" };
             const size_t    expectedMediumStringLinesCount{A_SIZE(expectedMediumStringLines)};
 
@@ -1716,7 +1716,7 @@ doTestMIMEExtractMediumStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1766,7 +1766,7 @@ doTestMIMEInsertEmptyBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1774,7 +1774,7 @@ doTestMIMEInsertEmptyBlobMessage
         }
         else
         {
-            SpValue         emptyBlobValue{new Blob};
+            auto            emptyBlobValue{std::make_shared<Blob>()};
             std::string     expectedEmptyBlobLines[]{ "9qD+" };
             const size_t    expectedEmptyBlobLinesCount{A_SIZE(expectedEmptyBlobLines)};
 
@@ -1816,7 +1816,7 @@ doTestMIMEExtractEmptyBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1866,7 +1866,7 @@ doTestMIMEInsertSmallBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1879,7 +1879,7 @@ doTestMIMEInsertSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            SpValue                 smallBlobValue{new Blob(actualData, actualDataCount)};
+            auto                    smallBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
             std::string             expectedSmallBlobLines[]{ "9qYSIzRFVmf+" };
             const size_t            expectedSmallBlobLinesCount{A_SIZE(expectedSmallBlobLines)};
 
@@ -1921,7 +1921,7 @@ doTestMIMEExtractSmallBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1976,7 +1976,7 @@ doTestMIMEInsertMediumBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1995,7 +1995,7 @@ doTestMIMEInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            SpValue                 mediumBlobValue{new Blob(actualData, actualDataCount)};
+            auto                    mediumBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
             std::string             expectedMediumBlobLines[]{ "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g==" };
             const size_t            expectedMediumBlobLinesCount{A_SIZE(expectedMediumBlobLines)};
 
@@ -2037,7 +2037,7 @@ doTestMIMEExtractMediumBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2098,7 +2098,7 @@ doTestMIMEInsertSingleDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2106,8 +2106,8 @@ doTestMIMEInsertSingleDoubleMessage
         }
         else
         {
-            SpValue         plus42Point5Value{new Double(42.5)};
-            SpValue         minus42Point5Value{new Double(-42.5)};
+            auto            plus42Point5Value{std::make_shared<Double>(42.5)};
+            auto            minus42Point5Value{std::make_shared<Double>(-42.5)};
             std::string     expectedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0=" };
             const size_t    expectedPlus42Point5LinesCount{A_SIZE(expectedPlus42Point5Lines)};
             std::string     expectedMinus42Point5Lines[]{ "9UDARUAAAAAAAP0=" };
@@ -2155,7 +2155,7 @@ doTestMIMEExtractSingleDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2212,7 +2212,7 @@ doTestMIMEInsertEmptyArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2220,7 +2220,7 @@ doTestMIMEInsertEmptyArrayMessage
         }
         else
         {
-            SpArray         emptyArray{new Array};
+            auto            emptyArray{std::make_shared<Array>()};
             std::string     expectedEmptyArrayLines[]{ "99Dg/w==" };
             const size_t    expectedEmptyArrayLinesCount{A_SIZE(expectedEmptyArrayLines)};
 
@@ -2262,7 +2262,7 @@ doTestMIMEExtractEmptyArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2312,7 +2312,7 @@ doTestMIMEInsertEmptyMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2320,7 +2320,7 @@ doTestMIMEInsertEmptyMapMessage
         }
         else
         {
-            SpValue         emptyMap{new Map};
+            auto            emptyMap{std::make_shared<Map>()};
             std::string     expectedEmptyMapLines[]{ "99Tk/w==" };
             const size_t    expectedEmptyMapLinesCount{A_SIZE(expectedEmptyMapLines)};
 
@@ -2362,7 +2362,7 @@ doTestMIMEExtractEmptyMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2412,7 +2412,7 @@ doTestMIMEInsertEmptySetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2420,7 +2420,7 @@ doTestMIMEInsertEmptySetMessage
         }
         else
         {
-            SpValue         emptySet{new Set};
+            auto            emptySet{std::make_shared<Set>()};
             std::string     expectedEmptySetLines[]{ "99jo/w==" };
             const size_t    expectedEmptySetLinesCount{A_SIZE(expectedEmptySetLines)};
 
@@ -2462,7 +2462,7 @@ doTestMIMEExtractEmptySetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2512,7 +2512,7 @@ doTestMIMEInsertArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2520,7 +2520,7 @@ doTestMIMEInsertArrayOneLogicalMessage
         }
         else
         {
-            SpArray         arrayOneLogical{new Array};
+            auto            arrayOneLogical{std::make_shared<Array>()};
             std::string     expectedArrayOneLogicalLines[]{ "99EQwOH/" };
             const size_t    expectedArrayOneLogicalLinesCount{A_SIZE(expectedArrayOneLogicalLines)};
 
@@ -2563,7 +2563,7 @@ doTestMIMEExtractArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2614,7 +2614,7 @@ doTestMIMEInsertArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2622,7 +2622,7 @@ doTestMIMEInsertArrayOneIntegerMessage
         }
         else
         {
-            SpArray         arrayOneInteger{new Array};
+            auto            arrayOneInteger{std::make_shared<Array>()};
             std::string     expectedArrayOneIntegerLines[]{ "99EQAOH/" };
             const size_t    expectedArrayOneIntegerLinesCount{A_SIZE(expectedArrayOneIntegerLines)};
 
@@ -2665,7 +2665,7 @@ doTestMIMEExtractArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2716,7 +2716,7 @@ doTestMIMEInsertArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2724,7 +2724,7 @@ doTestMIMEInsertArrayOneDoubleMessage
         }
         else
         {
-            SpArray         arrayOneDouble{new Array};
+            auto            arrayOneDouble{std::make_shared<Array>()};
             std::string     expectedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8=" };
             const size_t    expectedArrayOneDoubleLinesCount{A_SIZE(expectedArrayOneDoubleLines)};
 
@@ -2767,7 +2767,7 @@ doTestMIMEExtractArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2818,7 +2818,7 @@ doTestMIMEInsertArrayOneStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2826,7 +2826,7 @@ doTestMIMEInsertArrayOneStringMessage
         }
         else
         {
-            SpArray         arrayOneString{new Array};
+            auto            arrayOneString{std::make_shared<Array>()};
             std::string     expectedArrayOneStringLines[]{ "99EQgOH/" };
             const size_t    expectedArrayOneStringLinesCount{A_SIZE(expectedArrayOneStringLines)};
 
@@ -2869,7 +2869,7 @@ doTestMIMEExtractArrayOneStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2920,7 +2920,7 @@ doTestMIMEInsertArrayOneBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2928,7 +2928,7 @@ doTestMIMEInsertArrayOneBlobMessage
         }
         else
         {
-            SpArray         arrayOneBlob{new Array};
+            auto            arrayOneBlob{std::make_shared<Array>()};
             std::string     expectedArrayOneBlobLines[]{ "99EQoOH/" };
             const size_t    expectedArrayOneBlobLinesCount{A_SIZE(expectedArrayOneBlobLines)};
 
@@ -2971,7 +2971,7 @@ doTestMIMEExtractArrayOneBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3022,7 +3022,7 @@ doTestMIMEInsertArrayOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3030,7 +3030,7 @@ doTestMIMEInsertArrayOneArrayMessage
         }
         else
         {
-            SpArray         arrayOneArray{new Array};
+            auto            arrayOneArray{std::make_shared<Array>()};
             std::string     expectedArrayOneArrayLines[]{ "99EQ0ODh/w==" };
             const size_t    expectedArrayOneArrayLinesCount{A_SIZE(expectedArrayOneArrayLines)};
 
@@ -3073,7 +3073,7 @@ doTestMIMEExtractArrayOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3124,7 +3124,7 @@ doTestMIMEInsertArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3132,7 +3132,7 @@ doTestMIMEInsertArrayOneMapMessage
         }
         else
         {
-            SpArray         arrayOneMap{new Array};
+            auto            arrayOneMap{std::make_shared<Array>()};
             std::string     expectedArrayOneMapLines[]{ "99EQ1OTh/w==" };
             const size_t    expectedArrayOneMapLinesCount{A_SIZE(expectedArrayOneMapLines)};
 
@@ -3175,7 +3175,7 @@ doTestMIMEExtractArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3226,7 +3226,7 @@ doTestMIMEInsertArrayOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3234,7 +3234,7 @@ doTestMIMEInsertArrayOneSetMessage
         }
         else
         {
-            SpArray         arrayOneSet{new Array};
+            auto            arrayOneSet{std::make_shared<Array>()};
             std::string     expectedArrayOneSetLines[]{ "99EQ2Ojh/w==" };
             const size_t    expectedArrayOneSetLinesCount{A_SIZE(expectedArrayOneSetLines)};
 
@@ -3277,7 +3277,7 @@ doTestMIMEExtractArrayOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3328,7 +3328,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3336,7 +3336,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
         }
         else
         {
-            SpArray         arrayTwoLogicals{new Array};
+            auto            arrayTwoLogicals{std::make_shared<Array>()};
             std::string     expectedArrayTwoLogicalsLines[]{ "99ERwMDh/w==" };
             const size_t    expectedArrayTwoLogicalsLinesCount{A_SIZE(expectedArrayTwoLogicalsLines)};
 
@@ -3380,7 +3380,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3432,7 +3432,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3440,7 +3440,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
         }
         else
         {
-            SpArray         arrayTwoIntegers{new Array};
+            auto            arrayTwoIntegers{std::make_shared<Array>()};
             std::string     expectedArrayTwoIntegersLines[]{ "99ERAADh/w==" };
             const size_t    expectedArrayTwoIntegersLinesCount{A_SIZE(expectedArrayTwoIntegersLines)};
 
@@ -3484,7 +3484,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3536,7 +3536,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3544,7 +3544,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
         }
         else
         {
-            SpArray         arrayTwoDoubles{new Array};
+            auto            arrayTwoDoubles{std::make_shared<Array>()};
             std::string     expectedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w==" };
             const size_t    expectedArrayTwoDoublesLinesCount{A_SIZE(expectedArrayTwoDoublesLines)};
 
@@ -3588,7 +3588,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3640,7 +3640,7 @@ doTestMIMEInsertArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3648,7 +3648,7 @@ doTestMIMEInsertArrayTwoStringsMessage
         }
         else
         {
-            SpArray         arrayTwoStrings{new Array};
+            auto            arrayTwoStrings{std::make_shared<Array>()};
             std::string     expectedArrayTwoStringsLines[]{ "99ERgIDh/w==" };
             const size_t    expectedArrayTwoStringsLinesCount{A_SIZE(expectedArrayTwoStringsLines)};
 
@@ -3692,7 +3692,7 @@ doTestMIMEExtractArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3744,7 +3744,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3752,7 +3752,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
         }
         else
         {
-            SpArray         arrayTwoBlobs{new Array};
+            auto            arrayTwoBlobs{std::make_shared<Array>()};
             std::string     expectedArrayTwoBlobsLines[]{ "99ERoKDh/w==" };
             const size_t    expectedArrayTwoBlobsLinesCount{A_SIZE(expectedArrayTwoBlobsLines)};
 
@@ -3796,7 +3796,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3848,7 +3848,7 @@ doTestMIMEInsertArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3856,7 +3856,7 @@ doTestMIMEInsertArrayTwoArraysMessage
         }
         else
         {
-            SpArray         arrayTwoArrays{new Array};
+            auto            arrayTwoArrays{std::make_shared<Array>()};
             std::string     expectedArrayTwoArraysLines[]{ "99ER0ODQ4OH/" };
             const size_t    expectedArrayTwoArraysLinesCount{A_SIZE(expectedArrayTwoArraysLines)};
 
@@ -3900,7 +3900,7 @@ doTestMIMEExtractArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3952,7 +3952,7 @@ doTestMIMEInsertArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3960,7 +3960,7 @@ doTestMIMEInsertArrayTwoMapsMessage
         }
         else
         {
-            SpArray         arrayTwoMaps{new Array};
+            auto            arrayTwoMaps{std::make_shared<Array>()};
             std::string     expectedArrayTwoMapsLines[]{ "99ER1OTU5OH/" };
             const size_t    expectedArrayTwoMapsLinesCount{A_SIZE(expectedArrayTwoMapsLines)};
 
@@ -4004,7 +4004,7 @@ doTestMIMEExtractArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4056,7 +4056,7 @@ doTestMIMEInsertArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4064,7 +4064,7 @@ doTestMIMEInsertArrayTwoSetsMessage
         }
         else
         {
-            SpArray         arrayTwoSets{new Array};
+            auto            arrayTwoSets{std::make_shared<Array>()};
             std::string     expectedArrayTwoSetsLines[]{ "99ER2OjY6OH/" };
             const size_t    expectedArrayTwoSetsLinesCount{A_SIZE(expectedArrayTwoSetsLines)};
 
@@ -4108,7 +4108,7 @@ doTestMIMEExtractArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4160,7 +4160,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4168,7 +4168,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
         }
         else
         {
-            SpArray         arrayOneArrayOneMap{new Array};
+            auto            arrayOneArrayOneMap{std::make_shared<Array>()};
             std::string     expectedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/" };
             const size_t    expectedArrayOneArrayOneMapLinesCount{A_SIZE(expectedArrayOneArrayOneMapLines)};
 
@@ -4212,7 +4212,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4264,7 +4264,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4272,7 +4272,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
         }
         else
         {
-            SpArray         arrayOneMapOneSet{new Array};
+            auto            arrayOneMapOneSet{std::make_shared<Array>()};
             std::string     expectedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/" };
             const size_t    expectedArrayOneMapOneSetLinesCount{A_SIZE(expectedArrayOneMapOneSetLines)};
 
@@ -4316,7 +4316,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4368,7 +4368,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4376,7 +4376,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
         }
         else
         {
-            SpArray         arrayOneSetOneArray{new Array};
+            auto            arrayOneSetOneArray{std::make_shared<Array>()};
             std::string     expectedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/" };
             const size_t    expectedArrayOneSetOneArrayLinesCount{A_SIZE(expectedArrayOneSetOneArrayLines)};
 
@@ -4420,7 +4420,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4472,7 +4472,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4481,7 +4481,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
         else
         {
             const size_t    numValues{43};
-            SpArray         arrayManyDoubles{new Array};
+            auto            arrayManyDoubles{std::make_shared<Array>()};
             std::string     expectedArrayManyDoublesLines[]{
                                     "99EgGmArAAAAAAAAAAA/8AAAAAAAAEAAAAAAAAAAQAgAAAAAAABAEAAAAAAAAEAUAAAAAAAA",
                                     "QBgAAAAAAABAHAAAAAAAAEAgAAAAAAAAQCIAAAAAAABAJAAAAAAAAEAmAAAAAAAAQCgAAAAA",
@@ -4534,7 +4534,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4596,7 +4596,7 @@ doTestMIMEInsertLogicalMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4604,7 +4604,7 @@ doTestMIMEInsertLogicalMapMessage
         }
         else
         {
-            SpMap           logicalMap{new Map};
+            auto            logicalMap{std::make_shared<Map>()};
             std::string     expectedLogicalMapLines[]{ "99UQwA3l/w==" };
             const size_t    expectedLogicalMapLinesCount{A_SIZE(expectedLogicalMapLines)};
 
@@ -4647,7 +4647,7 @@ doTestMIMEExtractLogicalMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4698,7 +4698,7 @@ doTestMIMEInsertIntegerMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4706,7 +4706,7 @@ doTestMIMEInsertIntegerMapMessage
         }
         else
         {
-            SpMap           integerMap{new Map};
+            auto            integerMap{std::make_shared<Map>()};
             std::string     expectedIntegerMapLines[]{ "99UQAA3l/w==" };
             const size_t    expectedIntegerMapLinesCount{A_SIZE(expectedIntegerMapLines)};
 
@@ -4749,7 +4749,7 @@ doTestMIMEExtractIntegerMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4800,7 +4800,7 @@ doTestMIMEInsertStringMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4808,7 +4808,7 @@ doTestMIMEInsertStringMapMessage
         }
         else
         {
-            SpMap           stringMap{new Map};
+            auto            stringMap{std::make_shared<Map>()};
             std::string     expectedStringMapLines[]{ "99UQgA3l/w==" };
             const size_t    expectedStringMapLinesCount{A_SIZE(expectedStringMapLines)};
 
@@ -4851,7 +4851,7 @@ doTestMIMEExtractStringMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4902,7 +4902,7 @@ doTestMIMEInsertLogicalSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -4910,7 +4910,7 @@ doTestMIMEInsertLogicalSetMessage
         }
         else
         {
-            SpSet           logicalSet{new Set};
+            auto            logicalSet{std::make_shared<Set>()};
             std::string     expectedLogicalSetLines[]{ "99kQwOn/" };
             const size_t    expectedLogicalSetLinesCount{A_SIZE(expectedLogicalSetLines)};
 
@@ -4953,7 +4953,7 @@ doTestMIMEExtractLogicalSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5004,7 +5004,7 @@ doTestMIMEInsertIntegerSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5012,7 +5012,7 @@ doTestMIMEInsertIntegerSetMessage
         }
         else
         {
-            SpSet           integerSet{new Set};
+            auto            integerSet{std::make_shared<Set>()};
             std::string     expectedIntegerSetLines[]{ "99kQAOn/" };
             const size_t    expectedIntegerSetLinesCount{A_SIZE(expectedIntegerSetLines)};
 
@@ -5055,7 +5055,7 @@ doTestMIMEExtractIntegerSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5106,7 +5106,7 @@ doTestMIMEInsertStringSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5114,7 +5114,7 @@ doTestMIMEInsertStringSetMessage
         }
         else
         {
-            SpSet           stringSet{new Set};
+            auto            stringSet{std::make_shared<Set>()};
             std::string     expectedStringSetLines[]{ "99kQgOn/" };
             const size_t    expectedStringSetLinesCount{A_SIZE(expectedStringSetLines)};
 
@@ -5157,7 +5157,7 @@ doTestMIMEExtractStringSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5208,7 +5208,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -5216,7 +5216,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
         }
         else
         {
-            SpArray         arrayWithRangeOfIntegers{new Array};
+            auto            arrayWithRangeOfIntegers{std::make_shared<Array>()};
             std::string     expectedArrayWithRangeOfIntegersLines[]{
                                 "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl",
                                 "EAAlCRhOcqAAJVrzEHpAACYDjX6kxoAAJiOG8m/BAAAnAWNFeF2KAAAfFiCcIfwYIdjwIv55",
@@ -5299,7 +5299,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {

@@ -290,7 +290,7 @@ nImO::ChannelName::parse
         {
             protocol = TransportType::kTCP;
         }
-        result = SpChannelName(new ChannelName());
+        result = std::make_shared<ChannelName>();
         result->_network = networkName;
         result->_node = nodeName;
         result->_path = path;

@@ -107,9 +107,9 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::GetShortComputerName()};
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "storeSetup", optionValues._logging}};
-            nImO::Connection                registryConnection;
+            std::string         nodeName{nImO::GetShortComputerName()};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "storeSetup", optionValues._logging)};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

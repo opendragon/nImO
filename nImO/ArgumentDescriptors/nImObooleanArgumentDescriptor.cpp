@@ -246,7 +246,7 @@ BooleanArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            result.reset(new BooleanArgumentDescriptor(name, description, argMode, defaultValue));
+            result = std::make_shared<BooleanArgumentDescriptor>(name, description, argMode, defaultValue);
         }
     }
     ODL_EXIT_P(result.get()); //####

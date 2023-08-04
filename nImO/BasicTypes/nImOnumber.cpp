@@ -376,11 +376,11 @@ nImO::Number::readFromStringBuffer
             {
                 fullNumber = (integerPart * std::pow(10.0, exponent)) + fractionPart;
             }
-            result.reset(new Double(sawInitialMinus ? -fullNumber : fullNumber));
+            result = std::make_shared<Double>(sawInitialMinus ? -fullNumber : fullNumber);
         }
         else
         {
-            result.reset(new Integer(sawInitialMinus ? -integerPart : integerPart));
+            result = std::make_shared<Integer>(sawInitialMinus ? -integerPart : integerPart);
         }
         position = localIndex;
     }

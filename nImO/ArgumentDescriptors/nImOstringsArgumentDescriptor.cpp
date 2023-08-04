@@ -242,7 +242,7 @@ StringsArgumentDescriptor::parseArgString
             }
         }
         // Copy the values in stringList into allowedValues
-        result.reset(new StringsArgumentDescriptor(name, description, argMode, defaultString, allowedValues));
+        result = std::make_shared<StringsArgumentDescriptor>(name, description, argMode, defaultString, allowedValues);
     }
     ODL_EXIT_P(result.get()); //####
     return result;

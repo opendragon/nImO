@@ -346,8 +346,8 @@ FilePathArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            result.reset(new FilePathArgumentDescriptor(name, description, argMode, defaultString,
-                                                        suffixValue, forOutput, usesRandom));
+            result = std::make_shared<FilePathArgumentDescriptor>(name, description, argMode, defaultString, suffixValue, forOutput,
+                                                                  usesRandom);
         }
     }
     ODL_EXIT_P(result.get()); //####

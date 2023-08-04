@@ -362,13 +362,13 @@ nImO::Blob::extractValue
         }
         if (okSoFar)
         {
-            result.reset(new Blob(holder.get(), numBytes));
+            result = std::make_shared<Blob>(holder.get(), numBytes);
             ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     else
     {
-        result.reset(new Blob);
+        result = std::make_shared<Blob>();
     }
     if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {

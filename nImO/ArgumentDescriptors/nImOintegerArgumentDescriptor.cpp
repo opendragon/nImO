@@ -280,9 +280,9 @@ IntegerArgumentDescriptor::parseArgString
             bool    hasMaximumValue{0 < maxValString.length()};
             bool    hasMinimumValue{0 < minValString.length()};
 
-            result.reset(new IntegerArgumentDescriptor(name, description, argMode, defaultValue,
-                                                       hasMinimumValue, hasMinimumValue ? minValue : 0,
-                                                       hasMaximumValue, hasMaximumValue ? maxValue : 0));
+            result = std::make_shared<IntegerArgumentDescriptor>(name, description, argMode, defaultValue, hasMinimumValue,
+                                                                 hasMinimumValue ? minValue : 0, hasMaximumValue,
+                                                                 hasMaximumValue ? maxValue : 0);
         }
     }
     ODL_EXIT_P(result.get()); //####

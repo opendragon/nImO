@@ -220,7 +220,7 @@ ChannelArgumentDescriptor::parseArgString
 
         if (ChannelName::parse(defaultString, failReason))
         {
-            result.reset(new ChannelArgumentDescriptor(name, description, argMode, defaultString));
+            result = std::make_shared<ChannelArgumentDescriptor>(name, description, argMode, defaultString);
         }
     }
     ODL_EXIT_P(result.get()); //####

@@ -125,7 +125,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
             if (statusWithDetails.first.first)
             {
                 LaunchDetails & theDetails{statusWithDetails.second};
-                SpArray         detailsArray{new Array};
+                auto            detailsArray{std::make_shared<Array>()};
 
                 detailsArray->addValue(std::make_shared<Logical>(theDetails._found));
                 detailsArray->addValue(std::make_shared<String>(theDetails._execPath));

@@ -115,13 +115,13 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            SpArray             machineArray{new Array};
+            auto                machineArray{std::make_shared<Array>()};
             MachineInfoVector & theMachines{statusWithInfoVector.second};
 
             for (auto walker = theMachines.begin(); walker != theMachines.end(); ++walker)
             {
                 MachineInfo &   theInfo{*walker};
-                SpArray         infoArray{new Array};
+                auto            infoArray{std::make_shared<Array>()};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));

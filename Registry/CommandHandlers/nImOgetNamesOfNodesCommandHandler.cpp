@@ -116,7 +116,7 @@ nImO::GetNamesOfNodesCommandHandler::doIt
         if (statusWithSet.first.first)
         {
             StringSet & theStrings{statusWithSet.second};
-            SpSet       stringSet{new Set};
+            auto        stringSet{std::make_shared<Set>()};
 
             for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
             {

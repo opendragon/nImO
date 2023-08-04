@@ -164,7 +164,7 @@ doTestInsertEmptyMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -241,7 +241,7 @@ doTestInsertLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -279,8 +279,8 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedFalseByteCount{A_SIZE(expectedFalseBytes)};
-            SpValue                 falseValue{new Logical(false)};
-            SpValue                 trueValue{new Logical(true)};
+            auto                    falseValue{std::make_shared<Logical>(false)};
+            auto                    trueValue{std::make_shared<Logical>(true)};
 
             result = setValueAndCheck(*stuff, trueValue, expectedTrueBytes, expectedTrueByteCount);
             if (0 == result)
@@ -324,7 +324,7 @@ doTestInsertTinyIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -377,9 +377,9 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus12ByteCount{A_SIZE(expectedPlus12Bytes)};
-            SpValue                 minus12Value{new Integer(-12)};
-            SpValue                 zeroValue{new Integer(0)};
-            SpValue                 plus12Value{new Integer(12)};
+            auto                    minus12Value{std::make_shared<Integer>(-12)};
+            auto                    zeroValue{std::make_shared<Integer>(0)};
+            auto                    plus12Value{std::make_shared<Integer>(12)};
 
             result = setValueAndCheck(*stuff, minus12Value, expectedMinus12Bytes, expectedMinus12ByteCount);
             if (0 == result)
@@ -427,7 +427,7 @@ doTestInsertSmallIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -467,8 +467,8 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus144ByteCount{A_SIZE(expectedPlus144Bytes)};
-            SpValue                 minus144Value{new Integer(-144)};
-            SpValue                 plus144Value{new Integer(144)};
+            auto                    minus144Value{std::make_shared<Integer>(-144)};
+            auto                    plus144Value{std::make_shared<Integer>(144)};
 
             result = setValueAndCheck(*stuff, minus144Value, expectedMinus144Bytes, expectedMinus144ByteCount);
             if (0 == result)
@@ -512,7 +512,7 @@ doTestInsertMediumIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -554,8 +554,8 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlus1234567ByteCount{A_SIZE(expectedPlus1234567Bytes)};
-            SpValue                 minus1234567Value{new Integer(-1234567)};
-            SpValue                 plus1234567Value{new Integer(1234567)};
+            auto                    minus1234567Value{std::make_shared<Integer>(-1234567)};
+            auto                    plus1234567Value{std::make_shared<Integer>(1234567)};
 
             result = setValueAndCheck(*stuff, minus1234567Value, expectedMinus1234567Bytes, expectedMinus1234567ByteCount);
             if (0 == result)
@@ -599,7 +599,7 @@ doTestInsertBigIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -643,8 +643,8 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageExpectedIntegerValue
             };
             const size_t            expectedPlusBigNumberByteCount{A_SIZE(expectedPlusBigNumberBytes)};
-            SpValue                 minusBigNumberValue{new Integer(-20015998343868)};
-            SpValue                 plusBigNumberValue{new Integer(20015998343868)};
+            auto                    minusBigNumberValue{std::make_shared<Integer>(-20015998343868)};
+            auto                    plusBigNumberValue{std::make_shared<Integer>(20015998343868)};
 
             result = setValueAndCheck(*stuff, minusBigNumberValue, expectedMinusBigNumberBytes, expectedMinusBigNumberByteCount);
             if (0 == result)
@@ -688,7 +688,7 @@ doTestInsertEmptyStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -712,7 +712,7 @@ doTestInsertEmptyStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyStringByteCount{A_SIZE(expectedEmptyStringBytes)};
-            SpValue                 emptyStringValue{new String};
+            auto                    emptyStringValue{std::make_shared<String>()};
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount);
         }
@@ -752,7 +752,7 @@ doTestInsertShortStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -779,7 +779,7 @@ doTestInsertShortStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedShortStringByteCount{A_SIZE(expectedShortStringBytes)};
-            SpValue                 shortStringValue{new String("abcdef")};
+            auto                    shortStringValue{std::make_shared<String>("abcdef")};
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount);
         }
@@ -819,7 +819,7 @@ doTestInsertMediumStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -865,7 +865,7 @@ doTestInsertMediumStringMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedMediumStringByteCount{A_SIZE(expectedMediumStringBytes)};
-            SpValue                 mediumStringValue{new String("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
+            auto                    mediumStringValue{std::make_shared<String>("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount);
         }
@@ -905,7 +905,7 @@ doTestInsertEmptyBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -929,7 +929,7 @@ doTestInsertEmptyBlobMessage
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
             const size_t            expectedEmptyBlobByteCount{A_SIZE(expectedEmptyBlobBytes)};
-            SpValue                 emptyBlobValue{new Blob};
+            auto                    emptyBlobValue{std::make_shared<Blob>()};
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount);
         }
@@ -969,7 +969,7 @@ doTestInsertSmallBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1001,7 +1001,7 @@ doTestInsertSmallBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            SpValue                 smallBlobValue{new Blob(actualData, actualDataCount)};
+            auto                    smallBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
 
             result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount);
         }
@@ -1041,7 +1041,7 @@ doTestInsertMediumBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1098,7 +1098,7 @@ doTestInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
             const size_t            actualDataCount{A_SIZE(actualData)};
-            SpValue                 mediumBlobValue{new Blob(actualData, actualDataCount)};
+            auto                    mediumBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount);
         }
@@ -1138,7 +1138,7 @@ doTestInsertSingleDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1186,8 +1186,8 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue
             };
             const size_t            expectedMinus42Point5ByteCount{A_SIZE(expectedMinus42Point5Bytes)};
-            SpValue                 plus42Point5Value{new Double(42.5)};
-            SpValue                 minus42Point5Value{new Double(-42.5)};
+            auto                    plus42Point5Value{std::make_shared<Double>(42.5)};
+            auto                    minus42Point5Value{std::make_shared<Double>(-42.5)};
 
             result = setValueAndCheck(*stuff, plus42Point5Value, expectedPlus42Point5Bytes,
                                       expectedPlus42Point5ByteCount);
@@ -1236,7 +1236,7 @@ doTestInsertEmptyArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1264,7 +1264,7 @@ doTestInsertEmptyArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyArrayByteCount{A_SIZE(expectedEmptyArrayBytes)};
-            SpValue                 emptyArray{new Array};
+            auto                    emptyArray{std::make_shared<Array>()};
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount);
         }
@@ -1304,7 +1304,7 @@ doTestInsertEmptyMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1332,7 +1332,7 @@ doTestInsertEmptyMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptyMapByteCount{A_SIZE(expectedEmptyMapBytes)};
-            SpMap                   emptyMap{new Map};
+            auto                    emptyMap{std::make_shared<Map>()};
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount);
         }
@@ -1372,7 +1372,7 @@ doTestInsertEmptySetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1400,7 +1400,7 @@ doTestInsertEmptySetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedEmptySetByteCount{A_SIZE(expectedEmptySetBytes)};
-            SpSet                   emptySet{new Set};
+            auto                    emptySet{std::make_shared<Set>()};
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount);
         }
@@ -1440,7 +1440,7 @@ doTestInsertArrayOneLogicalMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1476,7 +1476,7 @@ doTestInsertArrayOneLogicalMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneLogicalByteCount{A_SIZE(expectedArrayOneLogicalBytes)};
-            SpArray                 arrayOneLogical{new Array};
+            auto                    arrayOneLogical{std::make_shared<Array>()};
 
             arrayOneLogical->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalBytes, expectedArrayOneLogicalByteCount);
@@ -1517,7 +1517,7 @@ doTestInsertArrayOneIntegerMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1553,7 +1553,7 @@ doTestInsertArrayOneIntegerMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneIntegerByteCount{A_SIZE(expectedArrayOneIntegerBytes)};
-            SpArray                 arrayOneInteger{new Array};
+            auto                    arrayOneInteger{std::make_shared<Array>()};
 
             arrayOneInteger->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerBytes, expectedArrayOneIntegerByteCount);
@@ -1594,7 +1594,7 @@ doTestInsertArrayOneDoubleMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1635,7 +1635,7 @@ doTestInsertArrayOneDoubleMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneDoubleByteCount{A_SIZE(expectedArrayOneDoubleBytes)};
-            SpArray                 arrayOneDouble{new Array};
+            auto                    arrayOneDouble{std::make_shared<Array>()};
 
             arrayOneDouble->addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleBytes, expectedArrayOneDoubleByteCount);
@@ -1676,7 +1676,7 @@ doTestInsertArrayOneStringMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1713,7 +1713,7 @@ doTestInsertArrayOneStringMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneStringByteCount{A_SIZE(expectedArrayOneStringBytes)};
-            SpArray                 arrayOneString{new Array};
+            auto                    arrayOneString{std::make_shared<Array>()};
 
             arrayOneString->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringBytes, expectedArrayOneStringByteCount);
@@ -1754,7 +1754,7 @@ doTestInsertArrayOneBlobMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1791,7 +1791,7 @@ doTestInsertArrayOneBlobMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneBlobByteCount{A_SIZE(expectedArrayOneBlobBytes)};
-            SpArray                 arrayOneBlob{new Array};
+            auto                    arrayOneBlob{std::make_shared<Array>()};
 
             arrayOneBlob->addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobBytes, expectedArrayOneBlobByteCount);
@@ -1832,7 +1832,7 @@ doTestInsertArrayOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1873,7 +1873,7 @@ doTestInsertArrayOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayByteCount{A_SIZE(expectedArrayOneArrayBytes)};
-            SpArray                 arrayOneArray{new Array};
+            auto                    arrayOneArray{std::make_shared<Array>()};
 
             arrayOneArray->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayBytes, expectedArrayOneArrayByteCount);
@@ -1914,7 +1914,7 @@ doTestInsertArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1955,7 +1955,7 @@ doTestInsertArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapByteCount{A_SIZE(expectedArrayOneMapBytes)};
-            SpArray                 arrayOneMap{new Array};
+            auto                    arrayOneMap{std::make_shared<Array>()};
 
             arrayOneMap->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapBytes, expectedArrayOneMapByteCount);
@@ -1996,7 +1996,7 @@ doTestInsertArrayOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2037,7 +2037,7 @@ doTestInsertArrayOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetByteCount{A_SIZE(expectedArrayOneSetBytes)};
-            SpArray                 arrayOneSet{new Array};
+            auto                    arrayOneSet{std::make_shared<Array>()};
 
             arrayOneSet->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetBytes, expectedArrayOneSetByteCount);
@@ -2078,7 +2078,7 @@ doTestInsertArrayTwoLogicalsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2117,7 +2117,7 @@ doTestInsertArrayTwoLogicalsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoLogicalsByteCount{A_SIZE(expectedArrayTwoLogicalsBytes)};
-            SpArray                 arrayTwoLogicals{new Array};
+            auto                    arrayTwoLogicals{std::make_shared<Array>()};
 
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
@@ -2159,7 +2159,7 @@ doTestInsertArrayTwoIntegersMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2198,7 +2198,7 @@ doTestInsertArrayTwoIntegersMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoIntegersByteCount{A_SIZE(expectedArrayTwoIntegersBytes)};
-            SpArray                 arrayTwoIntegers{new Array};
+            auto                    arrayTwoIntegers{std::make_shared<Array>()};
 
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
@@ -2240,7 +2240,7 @@ doTestInsertArrayTwoDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2285,7 +2285,7 @@ doTestInsertArrayTwoDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoDoublesByteCount{A_SIZE(expectedArrayTwoDoublesBytes)};
-            SpArray                 arrayTwoDoubles{new Array};
+            auto                    arrayTwoDoubles{std::make_shared<Array>()};
 
             arrayTwoDoubles->addValue(std::make_shared<Double>());
             arrayTwoDoubles->addValue(std::make_shared<Double>());
@@ -2327,7 +2327,7 @@ doTestInsertArrayTwoStringsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2368,7 +2368,7 @@ doTestInsertArrayTwoStringsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoStringsByteCount{A_SIZE(expectedArrayTwoStringsBytes)};
-            SpArray                 arrayTwoStrings{new Array};
+            auto                    arrayTwoStrings{std::make_shared<Array>()};
 
             arrayTwoStrings->addValue(std::make_shared<String>());
             arrayTwoStrings->addValue(std::make_shared<String>());
@@ -2410,7 +2410,7 @@ doTestInsertArrayTwoBlobsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2451,7 +2451,7 @@ doTestInsertArrayTwoBlobsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoBlobsByteCount{A_SIZE(expectedArrayTwoBlobsBytes)};
-            SpArray                 arrayTwoBlobs{new Array};
+            auto                    arrayTwoBlobs{std::make_shared<Array>()};
 
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
@@ -2493,7 +2493,7 @@ doTestInsertArrayTwoArraysMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2542,7 +2542,7 @@ doTestInsertArrayTwoArraysMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoArraysByteCount{A_SIZE(expectedArrayTwoArraysBytes)};
-            SpArray                 arrayTwoArrays{new Array};
+            auto                    arrayTwoArrays{std::make_shared<Array>()};
 
             arrayTwoArrays->addValue(std::make_shared<Array>());
             arrayTwoArrays->addValue(std::make_shared<Array>());
@@ -2584,7 +2584,7 @@ doTestInsertArrayTwoMapsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2633,7 +2633,7 @@ doTestInsertArrayTwoMapsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoMapsByteCount{A_SIZE(expectedArrayTwoMapsBytes)};
-            SpArray                 arrayTwoMaps{new Array};
+            auto                    arrayTwoMaps{std::make_shared<Array>()};
 
             arrayTwoMaps->addValue(std::make_shared<Map>());
             arrayTwoMaps->addValue(std::make_shared<Map>());
@@ -2675,7 +2675,7 @@ doTestInsertArrayTwoSetsMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2724,7 +2724,7 @@ doTestInsertArrayTwoSetsMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayTwoSetsByteCount{A_SIZE(expectedArrayTwoSetsBytes)};
-            SpArray                 arrayTwoSets{new Array};
+            auto                    arrayTwoSets{std::make_shared<Array>()};
 
             arrayTwoSets->addValue(std::make_shared<Set>());
             arrayTwoSets->addValue(std::make_shared<Set>());
@@ -2766,7 +2766,7 @@ doTestInsertArrayOneArrayOneMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2815,7 +2815,7 @@ doTestInsertArrayOneArrayOneMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneArrayOneMapByteCount{A_SIZE(expectedArrayOneArrayOneMapBytes)};
-            SpArray                 arrayOneArrayOneMap{new Array};
+            auto                    arrayOneArrayOneMap{std::make_shared<Array>()};
 
             arrayOneArrayOneMap->addValue(std::make_shared<Array>());
             arrayOneArrayOneMap->addValue(std::make_shared<Map>());
@@ -2857,7 +2857,7 @@ doTestInsertArrayOneMapOneSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2906,7 +2906,7 @@ doTestInsertArrayOneMapOneSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneMapOneSetByteCount{A_SIZE(expectedArrayOneMapOneSetBytes)};
-            SpArray                 arrayOneMapOneSet{new Array};
+            auto                    arrayOneMapOneSet{std::make_shared<Array>()};
 
             arrayOneMapOneSet->addValue(std::make_shared<Map>());
             arrayOneMapOneSet->addValue(std::make_shared<Set>());
@@ -2948,7 +2948,7 @@ doTestInsertArrayOneSetOneArrayMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2997,7 +2997,7 @@ doTestInsertArrayOneSetOneArrayMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayOneSetOneArrayByteCount{A_SIZE(expectedArrayOneSetOneArrayBytes)};
-            SpArray                 arrayOneSetOneArray{new Array};
+            auto                    arrayOneSetOneArray{std::make_shared<Array>()};
 
             arrayOneSetOneArray->addValue(std::make_shared<Set>());
             arrayOneSetOneArray->addValue(std::make_shared<Array>());
@@ -3039,7 +3039,7 @@ doTestInsertArrayWithManyDoublesMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3249,7 +3249,7 @@ doTestInsertArrayWithManyDoublesMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedArrayManyDoublesByteCount{A_SIZE(expectedArrayManyDoublesBytes)};
-            SpArray                 arrayManyDoubles{new Array};
+            auto                    arrayManyDoubles{std::make_shared<Array>()};
 
             for (size_t ii = 0; numValues > ii; ++ii)
             {
@@ -3293,7 +3293,7 @@ doTestInsertLogicalMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3332,7 +3332,7 @@ doTestInsertLogicalMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalMapByteCount{A_SIZE(expectedLogicalMapBytes)};
-            SpMap                   logicalMap{new Map};
+            auto                    logicalMap{std::make_shared<Map>()};
 
             logicalMap->addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapBytes, expectedLogicalMapByteCount);
@@ -3373,7 +3373,7 @@ doTestInsertIntegerMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3412,7 +3412,7 @@ doTestInsertIntegerMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerMapByteCount{A_SIZE(expectedIntegerMapBytes)};
-            SpMap                   integerMap{new Map};
+            auto                    integerMap{std::make_shared<Map>()};
 
             integerMap->addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapBytes, expectedIntegerMapByteCount);
@@ -3453,7 +3453,7 @@ doTestInsertStringMapMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3493,7 +3493,7 @@ doTestInsertStringMapMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringMapByteCount{A_SIZE(expectedStringMapBytes)};
-            SpMap                   stringMap{new Map};
+            auto                    stringMap{std::make_shared<Map>()};
 
             stringMap->addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapBytes, expectedStringMapByteCount);
@@ -3534,7 +3534,7 @@ doTestInsertLogicalSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3570,7 +3570,7 @@ doTestInsertLogicalSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedLogicalSetByteCount{A_SIZE(expectedLogicalSetBytes)};
-            SpSet                   logicalSet{new Set};
+            auto                    logicalSet{std::make_shared<Set>()};
 
             logicalSet->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetBytes, expectedLogicalSetByteCount);
@@ -3611,7 +3611,7 @@ doTestInsertIntegerSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3647,7 +3647,7 @@ doTestInsertIntegerSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedIntegerSetByteCount{A_SIZE(expectedIntegerSetBytes)};
-            SpSet                   integerSet{new Set};
+            auto                    integerSet{std::make_shared<Set>()};
 
             integerSet->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetBytes, expectedIntegerSetByteCount);
@@ -3688,7 +3688,7 @@ doTestInsertStringSetMessage
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -3725,7 +3725,7 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageExpectedOtherValue
             };
             const size_t            expectedStringSetByteCount{A_SIZE(expectedStringSetBytes)};
-            SpSet                   stringSet{new Set};
+            auto                    stringSet{std::make_shared<Set>()};
 
             stringSet->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount);

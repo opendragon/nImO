@@ -270,7 +270,7 @@ nImO::Double::extractValue
 
         if (! okSoFar)
         {
-            result.reset(new Invalid("Bad count for Double", position));
+            result = std::make_shared<Invalid>("Bad count for Double", position);
         }
         for (int64_t ii = 0; okSoFar && (howMany > ii); ++ii)
         {
@@ -293,7 +293,7 @@ nImO::Double::extractValue
             }
             if (okSoFar)
             {
-                result.reset(new Double(B2D(holder)));
+                result = std::make_shared<Double>(B2D(holder));
                 if ((nullptr != parentValue) && (nullptr != result))
                 {
                     ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####

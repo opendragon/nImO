@@ -115,13 +115,13 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            SpArray                 connectionArray{new Array};
+            auto                    connectionArray{std::make_shared<Array>()};
             ConnectionInfoVector &  theChannels{statusWithInfoVector.second};
 
             for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
             {
                 ConnectionInfo &    theInfo{*walker};
-                SpArray             infoArray{new Array};
+                auto                infoArray{std::make_shared<Array>()};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._fromNode));

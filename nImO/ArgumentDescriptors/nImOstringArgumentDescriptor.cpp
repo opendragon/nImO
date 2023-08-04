@@ -209,7 +209,7 @@ StringArgumentDescriptor::parseArgString
         std::string defaultString{inVector[0]};
         std::string description{inVector[1]};
 
-        result.reset(new StringArgumentDescriptor(name, description, argMode, defaultString));
+        result = std::make_shared<StringArgumentDescriptor>(name, description, argMode, defaultString);
     }
     ODL_EXIT_P(result.get()); //####
     return result;

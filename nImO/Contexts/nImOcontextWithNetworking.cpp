@@ -139,7 +139,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         {
             numThreadsInPool -= numReservedThreads;
         }
-        _work.reset(new asio::io_service::work(*getService()));
+        _work = std::make_unique<asio::io_service::work>(*getService());
         ODL_P1("_work <- ", _work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {

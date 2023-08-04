@@ -173,7 +173,7 @@ doTestMessageInitialEndTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -229,7 +229,7 @@ doTestMessageTerminalStartTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -285,7 +285,7 @@ doTestEmptyMessageWithContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -344,7 +344,7 @@ doTestNonEmptyMessageWithoutContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -404,7 +404,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -467,7 +467,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -530,7 +530,7 @@ doTestNonEmptyMessageWithInvalidContentTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -592,7 +592,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -656,7 +656,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -721,7 +721,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -786,7 +786,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -854,7 +854,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -922,7 +922,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -993,7 +993,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1066,7 +1066,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1138,7 +1138,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1217,7 +1217,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1299,7 +1299,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1391,7 +1391,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1459,7 +1459,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1527,7 +1527,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1598,7 +1598,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1671,7 +1671,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1743,7 +1743,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1828,7 +1828,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1913,7 +1913,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -1995,7 +1995,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2063,7 +2063,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2131,7 +2131,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2202,7 +2202,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2275,7 +2275,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2347,7 +2347,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {
@@ -2426,7 +2426,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
 
     try
     {
-        auto    stuff{make_unique<Message>()};
+        auto    stuff{std::make_unique<Message>()};
 
         if (nullptr == stuff)
         {

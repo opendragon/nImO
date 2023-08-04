@@ -329,14 +329,14 @@ nImO::Map::extractValue
             if (toUType(endMarker) == aByte)
             {
                 ODL_LOG("(toUType(endMarker) == aByte)"); //####
-                result.reset(new Map);
+                result = std::make_shared<Map>();
                 ++position;
                 ODL_I1("position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Map with incorrect end tag", position));
+                result = std::make_shared<Invalid>("Empty Map with incorrect end tag", position);
             }
         }
     }
@@ -364,7 +364,7 @@ nImO::Map::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Map with zero or negative count", position));
+                    result = std::make_shared<Invalid>("Map with zero or negative count", position);
                 }
                 else
                 {
@@ -374,7 +374,7 @@ nImO::Map::extractValue
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        result.reset(new Invalid("Could not allocate a Map"));
+                        result = std::make_shared<Invalid>("Could not allocate a Map");
                     }
                     else
                     {
@@ -398,7 +398,7 @@ nImO::Map::extractValue
                                 if (nullptr == keyValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null key Value read", position));
+                                    result = std::make_shared<Invalid>("Null key Value read", position);
                                     okSoFar = false;
                                 }
                                 else if (keyValue->asFlaw())
@@ -426,7 +426,7 @@ nImO::Map::extractValue
                                         if (nullptr == vValue)
                                         {
                                             ODL_LOG("(nullptr == aValue)"); //####
-                                            result.reset(new Invalid("Null value Value read", position));
+                                            result = std::make_shared<Invalid>("Null value Value read", position);
                                             okSoFar = false;
                                         }
                                         else if (vValue->asFlaw())
@@ -471,7 +471,7 @@ nImO::Map::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Map with incorrect end tag", position));
+                                    result = std::make_shared<Invalid>("Non-empty Map with incorrect end tag", position);
                                     okSoFar = false;
                                 }
                             }

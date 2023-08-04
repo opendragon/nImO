@@ -108,11 +108,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "launcher", optionValues._tag)};
-            nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName, "Launcher", optionValues._logging, true,
-                                                                                nodeName}};
-            nImO::Connection                registryConnection;
-            Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
+            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "launcher", optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher", optionValues._logging, true,
+                                                                                  nodeName)};
+            nImO::Connection    registryConnection;
+            auto                asServiceContext{ourContext->asServiceContext()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))

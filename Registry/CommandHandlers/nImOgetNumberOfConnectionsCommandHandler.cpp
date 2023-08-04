@@ -114,7 +114,7 @@ nImO::GetNumberOfConnectionsCommandHandler::doIt
 
         if (statusWithInt.first.first)
         {
-            SpInteger   count{new Integer{statusWithInt.second}};
+            auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfConnectionsResponse, "get number of connections", count);
         }

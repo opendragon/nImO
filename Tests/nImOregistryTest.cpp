@@ -155,7 +155,7 @@ doTestCreateRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -208,7 +208,7 @@ doTestEmptyRegistryForMachines
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -277,7 +277,7 @@ doTestMachineSetWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -348,7 +348,7 @@ doTestFindMachineWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -432,7 +432,7 @@ doTestAddMachineToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -494,7 +494,7 @@ doTestCountMachinesWithRegistryWithOneMachine
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -572,7 +572,7 @@ doTestMachineSetWithRegistryWithOneMachine
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -652,7 +652,7 @@ doTestFindMachineWithRegistryWithOneMachine
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -745,7 +745,7 @@ doTestAddTwoDistinctMachinesToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -815,7 +815,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -901,7 +901,7 @@ doTestAddTwoIdenticalMachinesToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -987,7 +987,7 @@ doTestEmptyRegistryForNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1056,7 +1056,7 @@ doTestNodeSetWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1127,7 +1127,7 @@ doTestFindNodeWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1208,7 +1208,7 @@ doTestAddNodeToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1276,7 +1276,7 @@ doTestCountNodesWithRegistryWithOneNode
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1360,7 +1360,7 @@ doTestNodeSetWithRegistryWithOneNode
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1446,7 +1446,7 @@ doTestFindNodeWithRegistryWithOneNode
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1545,7 +1545,7 @@ doTestNodeDataAddedToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1644,7 +1644,7 @@ doTestRemoveNodeFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1720,7 +1720,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1812,7 +1812,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1906,7 +1906,7 @@ doTestFindNodeWithRegistryNodeRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -1998,7 +1998,7 @@ doTestAddTwoDistinctNodesToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2074,7 +2074,7 @@ doTestCountNodesWithRegistryWithTwoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2166,7 +2166,7 @@ doTestNodeSetWithRegistryWithTwoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2267,7 +2267,7 @@ doTestFindNodeWithRegistryWithTwoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2374,7 +2374,7 @@ doTestRemoveNodesFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
        if (nullptr == aRegistry)
         {
@@ -2466,7 +2466,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2574,7 +2574,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2684,7 +2684,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2807,7 +2807,7 @@ doTestAddTwoIdenticalNodesToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2904,7 +2904,7 @@ doTestNodeInfoWithRegistryWithNoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -2972,7 +2972,7 @@ doTestNodeInfoWithRegistryWithOneNode
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3073,7 +3073,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3247,7 +3247,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3315,7 +3315,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3412,7 +3412,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3562,7 +3562,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3640,7 +3640,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3726,7 +3726,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3830,7 +3830,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -3908,7 +3908,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4009,7 +4009,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4142,7 +4142,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4218,7 +4218,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4302,7 +4302,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4397,7 +4397,7 @@ doTestCountChannelsWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4466,7 +4466,7 @@ doTestFindChannelWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4550,7 +4550,7 @@ doTestAddChannelToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4629,7 +4629,7 @@ doTestCountChannelsInRegistryWithOneChannel
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4724,7 +4724,7 @@ doTestFindChannelInRegistryWithOneChannel
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4834,7 +4834,7 @@ doTestAddTwoChannelsToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -4929,7 +4929,7 @@ doTestCountChannelsInRegistryWithTwoChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5040,7 +5040,7 @@ doTestFindChannelsInRegistryWithTwoChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5166,7 +5166,7 @@ doTestAddTwoIdenticalChannelsToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5250,7 +5250,7 @@ doTestAddChannelWithBadNodeNameToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5326,7 +5326,7 @@ doTestAddChannelWithBadChannelNameToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5405,7 +5405,7 @@ doTestRemoveAllChannelsFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5500,7 +5500,7 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5611,7 +5611,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5737,7 +5737,7 @@ doTestRemoveOneChannelFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5832,7 +5832,7 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -5943,7 +5943,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6069,7 +6069,7 @@ doTestRemoveNonexistentChannelFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6156,7 +6156,7 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6243,7 +6243,7 @@ doTestGetChannelInfoFromEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6312,7 +6312,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6420,7 +6420,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6566,7 +6566,7 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6652,7 +6652,7 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6732,7 +6732,7 @@ doTestGetChannelSetFromEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6800,7 +6800,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -6908,7 +6908,7 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7041,7 +7041,7 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7182,7 +7182,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7290,7 +7290,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7423,7 +7423,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7565,7 +7565,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7659,7 +7659,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7757,7 +7757,7 @@ doTestGetChannelInUseWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7819,7 +7819,7 @@ doTestSetChannelInUseWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7881,7 +7881,7 @@ doTestClearChannelInUseWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -7943,7 +7943,7 @@ doTestChannelInUseCanBeSet
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8061,7 +8061,7 @@ doTestChannelInUseCanBeCleared
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8202,7 +8202,7 @@ doTestGetChannelInUseWithBadNodeName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8290,7 +8290,7 @@ doTestSetChannelInUseWithBadNodeName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8377,7 +8377,7 @@ doTestClearChannelInUseWithBadNodeName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8464,7 +8464,7 @@ doTestGetChannelInUseWithBadChannelName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8552,7 +8552,7 @@ doTestSetChannelInUseWithBadChannelName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8639,7 +8639,7 @@ static int
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8726,7 +8726,7 @@ doTestGetAndSetChannelInUse
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8836,7 +8836,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8898,7 +8898,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -8986,7 +8986,7 @@ doTestGetAndSetChannelInUseWithBadChannelName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9074,7 +9074,7 @@ doTestCountConnectionsWithEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
        if (nullptr == aRegistry)
         {
@@ -9143,7 +9143,7 @@ doTestAddConnectionToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9247,7 +9247,7 @@ doTestCountConnectionsInRegistryWithOneConnection
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9367,7 +9367,7 @@ doTestAddTwoConnectionsToRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9497,7 +9497,7 @@ doTestCountConnectionsInRegistryWithTwoConnections
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9643,7 +9643,7 @@ doTestRemoveOneConnectionFromRegistryViaFrom
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9755,7 +9755,7 @@ doTestRemoveOneConnectionFromRegistryViaTo
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9867,7 +9867,7 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -9995,7 +9995,7 @@ doTestConnectChannelsWithRegistryWithBadChannelName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10108,7 +10108,7 @@ doTestConnectChannelsWithRegistryWithBadNodeName
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10221,7 +10221,7 @@ doTestGetConnectionsFromEmptyRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10292,7 +10292,7 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10429,7 +10429,7 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10621,7 +10621,7 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10813,7 +10813,7 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -10950,7 +10950,7 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -11142,7 +11142,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -11213,7 +11213,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
 
     try
     {
-        std::unique_ptr<nImO::Registry> aRegistry{new nImO::Registry{context}};
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
         if (nullptr == aRegistry)
         {
@@ -11278,7 +11278,7 @@ main
     nImO::ReportVersions();
     try
     {
-        nImO::SpContextWithNetworking   ourContext{new nImO::ServiceContext{argc, argv, progName}};
+        auto    ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName)};
 
         if (0 < --argc)
         {

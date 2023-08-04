@@ -227,7 +227,7 @@ doTestEmptyArrayValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -298,7 +298,7 @@ doTestSingularArrayValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -374,7 +374,7 @@ doTestSmallArrayValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -459,7 +459,7 @@ doTestBigArrayValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -549,7 +549,7 @@ doTestEmptyArraySizeFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -602,7 +602,7 @@ doTestNonEmptyArraySizeFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -656,7 +656,7 @@ doTestEmptyArrayEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -709,7 +709,7 @@ doTestNonEmptyArrayEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -763,7 +763,7 @@ doTestEmptyArrayClearFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -817,7 +817,7 @@ doTestNonEmptyArrayClearFunction
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -872,7 +872,7 @@ doTestEmptyArrayRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -925,7 +925,7 @@ doTestNonEmptyArrayRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -985,7 +985,7 @@ doTestClearingNonEmptyArrayUsingRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -1056,7 +1056,7 @@ doTestEmptyMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1127,7 +1127,7 @@ doTestSingularLogicalMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1205,7 +1205,7 @@ doTestSingularIntegerMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1281,7 +1281,7 @@ doTestSingularStringMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1359,7 +1359,7 @@ doTestSmallLogicalMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1440,7 +1440,7 @@ doTestSmallIntegerMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1522,7 +1522,7 @@ doTestSmallStringMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1610,7 +1610,7 @@ doTestEmptyMapSizeFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1663,7 +1663,7 @@ doTestNonEmptyMapSizeFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1717,7 +1717,7 @@ doTestEmptyMapEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1770,7 +1770,7 @@ doTestNonEmptyMapEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1824,7 +1824,7 @@ doTestEmptyMapClearFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1878,7 +1878,7 @@ doTestNonEmptyMapClearFunction
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1933,7 +1933,7 @@ doTestEmptyMapRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -1986,7 +1986,7 @@ doTestNonEmptyMapRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -2045,7 +2045,7 @@ doTestClearingNonEmptyMapUsingRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -2115,7 +2115,7 @@ doTestEmptySetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2186,7 +2186,7 @@ doTestSingularLogicalSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2262,7 +2262,7 @@ doTestSingularIntegerSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2338,7 +2338,7 @@ doTestSingularStringSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2414,7 +2414,7 @@ doTestSmallLogicalSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2495,7 +2495,7 @@ doTestSmallIntegerSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2584,7 +2584,7 @@ doTestSmallStringSetValue
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2673,7 +2673,7 @@ doTestEmptySetSizeFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2726,7 +2726,7 @@ doTestNonEmptySetSizeFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2780,7 +2780,7 @@ doTestEmptySetEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2833,7 +2833,7 @@ doTestNonEmptySetEmptyFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2887,7 +2887,7 @@ doTestEmptySetClearFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2941,7 +2941,7 @@ doTestNonEmptySetClearFunction
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -2996,7 +2996,7 @@ doTestEmptySetRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -3049,7 +3049,7 @@ doTestNonEmptySetRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -3110,7 +3110,7 @@ doTestClearingNonEmptySetUsingRandomIterator
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -3182,7 +3182,7 @@ doTestArrayWithArrayValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -3258,7 +3258,7 @@ doTestArrayWithMapValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -3334,7 +3334,7 @@ doTestArrayWithSetValue
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -3410,7 +3410,7 @@ doTestMapWithArrayValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3488,7 +3488,7 @@ doTestMapWithMapValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3566,7 +3566,7 @@ doTestMapWithSetValue
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3644,7 +3644,7 @@ doTestLogicalMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3725,7 +3725,7 @@ doTestIntegerMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3804,7 +3804,7 @@ doTestStringMapValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -3885,7 +3885,7 @@ doTestLogicalSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -3964,7 +3964,7 @@ doTestIntegerSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -4043,7 +4043,7 @@ doTestStringSetValueWithIncompatibleKeys
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -7190,7 +7190,7 @@ doTestArrayIndices
         }
         if (0 == result)
         {
-            aBoolValue.reset(new Logical);
+            aBoolValue = std::make_shared<Logical>();
             stuff.addValue(aBoolValue);
             if (1 != stuff.size())
             {
@@ -7208,7 +7208,7 @@ doTestArrayIndices
         }
         if (0 == result)
         {
-            aNumberValue.reset(new Number);
+            aNumberValue = std::make_shared<Number>();
             stuff.addValue(aNumberValue);
             if (2 != stuff.size())
             {
@@ -7226,7 +7226,7 @@ doTestArrayIndices
         }
         if (0 == result)
         {
-            aStringValue.reset(new String);
+            aStringValue = std::make_shared<String>();
             stuff.addValue(aStringValue);
             if (3 != stuff.size())
             {
@@ -7316,7 +7316,7 @@ doTestLogicalMapSearches
         }
         if (0 == result)
         {
-            trueString.reset(new String("true"));
+            trueString = std::make_shared<String>("true");
             stuff.addValue(std::make_shared<Logical>(true), trueString);
             iter = stuff.find(std::make_shared<Logical>(true));
             if (stuff.end() == iter)
@@ -7421,7 +7421,7 @@ doTestIntegerMapSearches
         }
         if (0 == result)
         {
-            string12.reset(new String("12"));
+            string12 = std::make_shared<String>("12");
             stuff.addValue(std::make_shared<Integer>(12), string12);
             iter = stuff.find(std::make_shared<Integer>(12));
             if (stuff.end() == iter)
@@ -7526,7 +7526,7 @@ doTestStringMapSearches
         }
         if (0 == result)
         {
-            stringOneTwo.reset(new String("12"));
+            stringOneTwo = std::make_shared<String>("12");
             stuff.addValue(std::make_shared<String>("def"), stringOneTwo);
             iter = stuff.find(std::make_shared<String>("def"));
             if (stuff.end() == iter)
@@ -7870,7 +7870,7 @@ doTestEmptyArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -7941,7 +7941,7 @@ doTestSingularArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -8017,7 +8017,7 @@ doTestSmallArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -8102,7 +8102,7 @@ doTestBigArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -8193,7 +8193,7 @@ doTestEmptyMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8264,7 +8264,7 @@ doTestSingularLogicalMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8342,7 +8342,7 @@ doTestSingularIntegerMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8418,7 +8418,7 @@ doTestSingularStringMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8496,7 +8496,7 @@ doTestSmallLogicalMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8577,7 +8577,7 @@ doTestSmallIntegerMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8659,7 +8659,7 @@ doTestSmallStringMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -8747,7 +8747,7 @@ doTestEmptySetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -8818,7 +8818,7 @@ doTestSingularLogicalSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -8894,7 +8894,7 @@ doTestSingularIntegerSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -8970,7 +8970,7 @@ doTestSingularStringSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -9046,7 +9046,7 @@ doTestSmallLogicalSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -9127,7 +9127,7 @@ doTestSmallIntegerSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -9216,7 +9216,7 @@ doTestSmallStringSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Set>()};
+        auto    stuff{std::make_unique<Set>()};
 
         if (nullptr == stuff)
         {
@@ -9305,7 +9305,7 @@ doTestArrayWithArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -9381,7 +9381,7 @@ doTestArrayWithMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -9457,7 +9457,7 @@ doTestArrayWithSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Array>()};
+        auto    stuff{std::make_unique<Array>()};
 
         if (nullptr == stuff)
         {
@@ -9533,7 +9533,7 @@ doTestMapWithArrayValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -9611,7 +9611,7 @@ doTestMapWithMapValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {
@@ -9689,7 +9689,7 @@ doTestMapWithSetValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Map>()};
+        auto    stuff{std::make_unique<Map>()};
 
         if (nullptr == stuff)
         {

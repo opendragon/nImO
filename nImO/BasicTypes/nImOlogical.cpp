@@ -563,7 +563,7 @@ nImO::Logical::readFromStringBuffer
         }
         if (valid)
         {
-            result.reset(new Logical(candidateValue));
+            result = std::make_shared<Logical>(candidateValue);
         }
     }
     if (nullptr != result)

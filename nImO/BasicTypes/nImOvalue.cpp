@@ -411,7 +411,7 @@ nImO::Value::getValueFromMessage
     if (gExtractors.end() == match)
     {
         ODL_LOG("(gExtractors.end() == match)"); //####
-        result.reset(new Invalid("Unexpected character in Message", position));
+        result = std::make_shared<Invalid>("Unexpected character in Message", position);
     }
     else
     {
@@ -420,7 +420,7 @@ nImO::Value::getValueFromMessage
         if (nullptr == handler)
         {
             ODL_LOG("(nullptr == handler)"); //####
-            result.reset(new Invalid("No handler for character in Message", position));
+            result = std::make_shared<Invalid>("No handler for character in Message", position);
         }
         else
         {

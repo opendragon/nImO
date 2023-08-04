@@ -309,14 +309,14 @@ nImO::Set::extractValue
             if (toUType(endMarker) == aByte)
             {
                 ODL_LOG("(toUType(endMarker) == aByte)"); //####
-                result.reset(new Set);
+                result = std::make_shared<Set>();
                 ++position;
                 ODL_I1("position <- ", position); //####
             }
             else
             {
                 ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                result.reset(new Invalid("Empty Set with incorrect end tag", position));
+                result = std::make_shared<Invalid>("Empty Set with incorrect end tag", position);
             }
         }
     }
@@ -344,7 +344,7 @@ nImO::Set::extractValue
                 if (0 >= elementCount)
                 {
                     ODL_LOG("(0 >= elementCount)"); //####
-                    result.reset(new Invalid("Set with zero or negative count", position));
+                    result = std::make_shared<Invalid>("Set with zero or negative count", position);
                 }
                 else
                 {
@@ -354,7 +354,7 @@ nImO::Set::extractValue
                     if (nullptr == result)
                     {
                         ODL_LOG("(nullptr == result)"); //####
-                        result.reset(new Invalid("Could not allocate a Set"));
+                        result = std::make_shared<Invalid>("Could not allocate a Set");
                     }
                     else
                     {
@@ -378,7 +378,7 @@ nImO::Set::extractValue
                                 if (nullptr == aValue)
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
-                                    result.reset(new Invalid("Null Value read", position));
+                                    result = std::make_shared<Invalid>("Null Value read", position);
                                     okSoFar = false;
                                 }
                                 else if (aValue->asFlaw())
@@ -421,7 +421,7 @@ nImO::Set::extractValue
                                 else
                                 {
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
-                                    result.reset(new Invalid("Non-empty Set with incorrect end tag", position));
+                                    result = std::make_shared<Invalid>("Non-empty Set with incorrect end tag", position);
                                     okSoFar = false;
                                 }
                             }

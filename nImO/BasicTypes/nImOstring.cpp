@@ -282,13 +282,13 @@ nImO::String::extractValue
         if (okSoFar)
         {
             holder[numBytes] = kEndOfString;
-            result.reset(new String(holder.get()));
+            result = std::make_shared<String>(holder.get());
             ODL_I1("numBytes <- ", numBytes); //####
         }
     }
     else
     {
-        result.reset(new String);
+        result = std::make_shared<String>();
     }
     if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
     {
@@ -819,7 +819,7 @@ nImO::String::readFromStringBuffer
         }
         if (valid)
         {
-            result.reset(new String(holding.getString()));
+            result = std::make_shared<String>(holding.getString());
             if (nullptr != result)
             {
                 position = localIndex;

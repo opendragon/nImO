@@ -114,7 +114,7 @@ nImO::GetNumberOfNodesCommandHandler::doIt
 
         if (statusWithInt.first.first)
         {
-            SpInteger   count{new Integer{statusWithInt.second}};
+            auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfNodesResponse, "get number of nodes", count);
         }

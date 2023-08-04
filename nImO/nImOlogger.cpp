@@ -174,7 +174,7 @@ nImO::Logger::report
     {
         if (1 < stringsToSend.size())
         {
-            SpArray stringArray{new Array};
+            auto    stringArray{std::make_shared<Array>()};
 
             for (size_t ii = 0; ii < stringsToSend.size(); ++ii)
             {
@@ -210,7 +210,7 @@ nImO::Logger::report
     else
     {
         Message messageToSend;
-        SpMap   messageMap{new Map};
+        auto    messageMap{std::make_shared<Map>()};
 
         messageToSend.open(true);
         messageMap->addValue(std::make_shared<String>(kMessageKey), valueToSend);

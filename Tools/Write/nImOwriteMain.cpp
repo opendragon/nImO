@@ -108,10 +108,11 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                     nodeName{nImO::ConstructNodeName(optionValues._node, "write", optionValues._tag)};
-            nImO::SpContextWithNetworking   ourContext{new nImO::SourceContext{argc, argv, progName, "Write", optionValues._logging, nodeName}};
-            nImO::Connection                registryConnection;
-            Ptr(nImO::ServiceContext)       asServiceContext{ourContext->asServiceContext()};
+            std::string                 nodeName{nImO::ConstructNodeName(optionValues._node, "write", optionValues._tag)};
+            auto                        ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write", optionValues._logging,
+                                                                                         nodeName)};
+            nImO::Connection            registryConnection;
+            Ptr(nImO::ServiceContext)   asServiceContext{ourContext->asServiceContext()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))

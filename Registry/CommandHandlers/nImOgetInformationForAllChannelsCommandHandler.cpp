@@ -115,13 +115,13 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            SpArray             channelArray{new Array};
+            auto                channelArray{std::make_shared<Array>()};
             ChannelInfoVector & theChannels{statusWithInfoVector.second};
 
             for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
             {
                 ChannelInfo &   theInfo{*walker};
-                SpArray         infoArray{new Array};
+                auto            infoArray{std::make_shared<Array>()};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._node));

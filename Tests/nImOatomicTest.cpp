@@ -180,7 +180,7 @@ doTestEmptyBufferChunk
 
     try
     {
-        auto    stuff{make_unique<BufferChunk>(false)};
+        auto    stuff{std::make_unique<BufferChunk>(false)};
 
         if (nullptr == stuff)
         {
@@ -233,7 +233,7 @@ doTestBufferChunkWithSingleByte
 
     try
     {
-        auto    stuff{make_unique<BufferChunk>(false)};
+        auto    stuff{std::make_unique<BufferChunk>(false)};
 
         if (nullptr == stuff)
         {
@@ -298,7 +298,7 @@ doTestFilledBufferChunk
 
     try
     {
-        auto    stuff{make_unique<BufferChunk>(false)};
+        auto    stuff{std::make_unique<BufferChunk>(false)};
 
         if (nullptr == stuff)
         {
@@ -389,7 +389,7 @@ doTestOverfilledBufferChunk
 
     try
     {
-        auto    stuff{make_unique<BufferChunk>(false)};
+        auto    stuff{std::make_unique<BufferChunk>(false)};
 
         if (nullptr == stuff)
         {
@@ -480,7 +480,7 @@ doTestBufferChunkReset
 
     try
     {
-        auto    stuff{make_unique<BufferChunk>(false)};
+        auto    stuff{std::make_unique<BufferChunk>(false)};
 
         if (nullptr == stuff)
         {
@@ -544,7 +544,7 @@ doTestEmptyStringBuffer
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -610,7 +610,7 @@ doTestStringBufferWithCharacters
             CPtr(char)  inString{*argv};
             CPtr(char)  outString{argv[1]};
             size_t      outLength{strlen(outString)};
-            auto        stuff{make_unique<StringBuffer>()};
+            auto        stuff{std::make_unique<StringBuffer>()};
 
             if (nullptr == stuff)
             {
@@ -686,7 +686,7 @@ doTestStringBufferWithLogical
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{make_unique<StringBuffer>()};
+                auto    stuff{std::make_unique<StringBuffer>()};
 
                 if (nullptr == stuff)
                 {
@@ -759,7 +759,7 @@ doTestStringBufferWithInteger
 
             if (ConvertToInt64(*argv, value))
             {
-                auto    stuff{make_unique<StringBuffer>()};
+                auto    stuff{std::make_unique<StringBuffer>()};
 
                 if (nullptr == stuff)
                 {
@@ -828,7 +828,7 @@ doTestStringBufferWithString
             CPtr(char)  inString{*argv};
             CPtr(char)  outString{argv[1]};
             size_t      outLength{strlen(outString)};
-            auto        stuff{make_unique<StringBuffer>()};
+            auto        stuff{std::make_unique<StringBuffer>()};
 
             if (nullptr == stuff)
             {
@@ -901,7 +901,7 @@ doTestStringBufferWithSpecialCharacters
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
         CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
         size_t      outLength{strlen(outString)};
-        auto        stuff{make_unique<StringBuffer>()};
+        auto        stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -971,7 +971,7 @@ doTestStringBufferWithDouble
 
             if (ConvertToDouble(*argv, value))
             {
-                auto    stuff{make_unique<StringBuffer>()};
+                auto    stuff{std::make_unique<StringBuffer>()};
 
                 if (nullptr == stuff)
                 {
@@ -1046,7 +1046,7 @@ doTestBigStringBuffer
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -1119,7 +1119,7 @@ doTestStringBufferWithEmptyBlob
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -1176,7 +1176,7 @@ doTestStringBufferWithSmallBlob
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -1259,7 +1259,7 @@ doTestStringBufferWithBigBlob
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -1342,7 +1342,7 @@ doTestStringBufferReset
 
     try
     {
-        auto    stuff{make_unique<StringBuffer>()};
+        auto    stuff{std::make_unique<StringBuffer>()};
 
         if (nullptr == stuff)
         {
@@ -1408,7 +1408,7 @@ doTestDefaultLogicalValue
 
     try
     {
-        auto    stuff{make_unique<Logical>()};
+        auto    stuff{std::make_unique<Logical>()};
 
         if (nullptr == stuff)
         {
@@ -1466,7 +1466,7 @@ doTestLogicalValue
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{make_unique<Logical>(0 != value)};
+                auto    stuff{std::make_unique<Logical>(0 != value)};
 
                 if (nullptr == stuff)
                 {
@@ -1529,7 +1529,7 @@ doTestDefaultIntegerValue
 
     try
     {
-        auto    stuff{make_unique<Integer>()};
+        auto    stuff{std::make_unique<Integer>()};
 
         if (nullptr == stuff)
         {
@@ -1588,7 +1588,7 @@ doTestNumberValue
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto    stuff{make_unique<Integer>(intValue)};
+                auto    stuff{std::make_unique<Integer>(intValue)};
 
                 if (nullptr == stuff)
                 {
@@ -1612,7 +1612,7 @@ doTestNumberValue
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto    stuff{make_unique<Double>(floatValue)};
+                    auto    stuff{std::make_unique<Double>(floatValue)};
 
                     if (nullptr == stuff)
                     {
@@ -1676,7 +1676,7 @@ doTestDefaultStringValue
 
     try
     {
-        auto    stuff{make_unique<String>()};
+        auto    stuff{std::make_unique<String>()};
 
         if (nullptr == stuff)
         {
@@ -1729,7 +1729,7 @@ doTestStringValue
     {
         if (1 < argc)
         {
-            auto    stuff{make_unique<String>(*argv)};
+            auto    stuff{std::make_unique<String>(*argv)};
 
             if (nullptr == stuff)
             {
@@ -1789,7 +1789,7 @@ doTestStringValueWithEscapes
     {
         CPtr(char)  inString{"abc\tdef\f\rghi\302"};
         CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
-        auto        stuff{make_unique<String>(inString)};
+        auto        stuff{std::make_unique<String>(inString)};
 
         if (nullptr == stuff)
         {
@@ -1842,7 +1842,7 @@ doTestDefaultBlobValue
 
     try
     {
-        auto    stuff{make_unique<Blob>()};
+        auto    stuff{std::make_unique<Blob>()};
 
         if (nullptr == stuff)
         {
@@ -1905,7 +1905,7 @@ doTestSmallBlobValue
 
                 smallBlob[ii] = aByte;
             }
-            auto    stuff{make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
+            auto    stuff{std::make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
 
             if (nullptr == stuff)
             {
@@ -1986,7 +1986,7 @@ doTestBigBlobValue
 
                 bigBlob[ii] = aByte;
             }
-            auto    stuff{make_unique<Blob>(bigBlob.get(), kBigTestSize)};
+            auto    stuff{std::make_unique<Blob>(bigBlob.get(), kBigTestSize)};
 
             if (nullptr == stuff)
             {
@@ -3770,7 +3770,7 @@ doTestDefaultLogicalValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Logical>()};
+        auto    stuff{std::make_unique<Logical>()};
 
         if (nullptr == stuff)
         {
@@ -3828,7 +3828,7 @@ doTestLogicalValueAsJSON
 
             if (ConvertToInt64(*argv, value) && (0 <= value))
             {
-                auto    stuff{make_unique<Logical>(0 != value)};
+                auto    stuff{std::make_unique<Logical>(0 != value)};
 
                 if (nullptr == stuff)
                 {
@@ -3891,7 +3891,7 @@ doTestDefaultIntegerValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<Integer>()};
+        auto    stuff{std::make_unique<Integer>()};
 
         if (nullptr == stuff)
         {
@@ -3950,7 +3950,7 @@ doTestNumberValueAsJSON
 
             if (ConvertToInt64(*argv, intValue))
             {
-                auto    stuff{make_unique<Integer>(intValue)};
+                auto    stuff{std::make_unique<Integer>(intValue)};
 
                 if (nullptr == stuff)
                 {
@@ -3974,7 +3974,7 @@ doTestNumberValueAsJSON
 
                 if (ConvertToDouble(*argv, floatValue))
                 {
-                    auto    stuff{make_unique<Double>(floatValue)};
+                    auto    stuff{std::make_unique<Double>(floatValue)};
 
                     if (nullptr == stuff)
                     {
@@ -4038,7 +4038,7 @@ doTestDefaultStringValueAsJSON
 
     try
     {
-        auto    stuff{make_unique<String>()};
+        auto    stuff{std::make_unique<String>()};
 
         if (nullptr == stuff)
         {
@@ -4091,7 +4091,7 @@ doTestStringValueAsJSON
     {
         if (1 < argc)
         {
-            auto    stuff{make_unique<String>(*argv)};
+            auto    stuff{std::make_unique<String>(*argv)};
 
             if (nullptr == stuff)
             {

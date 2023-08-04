@@ -145,7 +145,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     ODL_B1("wasOK = ", wasOK); //####
     bool    okSoFar{false};
     Message responseToSend;
-    SpArray responseArray{new Array};
+    auto    responseArray{std::make_shared<Array>()};
 
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));
@@ -248,7 +248,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     ODL_B1("wasOK = ", wasOK); //####
     bool    okSoFar{false};
     Message responseToSend;
-    SpArray responseArray{new Array};
+    auto    responseArray{std::make_shared<Array>()};
 
     responseToSend.open(true);
     responseArray->addValue(std::make_shared<String>(responseKey));

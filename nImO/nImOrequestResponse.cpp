@@ -108,7 +108,7 @@ handleResponse
         // Ignore a request that can't be processed...
         if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
         {
-            auto    stuff{make_unique<nImO::Message>()};
+            auto    stuff{std::make_unique<nImO::Message>()};
 
             if ((nullptr != stuff) && (0 < rawStuff.size()))
             {
@@ -190,7 +190,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
-    SpArray             requestArray{new Array};
+    auto                requestArray{std::make_shared<Array>()};
     SuccessOrFailure    status{true, ""};
 
     requestToSend.open(true);
@@ -272,7 +272,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
 #if defined(nImO_ChattyTcpLogging)
                                                                 context->report("command sent");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                std::shared_ptr<asio::streambuf>    rB{new asio::streambuf};
+                                                                auto    rB{std::make_shared<asio::streambuf>()};
 
                                                                 asio::async_read_until(socket, *rB, MatchMessageSeparator,
                                                                                         [context, rB, handler, &keepGoing, &responseKey, &status]

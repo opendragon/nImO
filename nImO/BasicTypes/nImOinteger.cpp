@@ -224,7 +224,7 @@ nImO::Integer::extractValue
 
     if (IntStatus::Successful == numStatus)
     {
-        result.reset(new Integer(holder));
+        result = std::make_shared<Integer>(holder);
     }
     else
     {

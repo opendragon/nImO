@@ -212,7 +212,7 @@ ExtraArgumentDescriptor::parseArgString
         std::string defaultString{inVector[0]}; // ignored
         std::string description{inVector[1]};
 
-        result.reset(new ExtraArgumentDescriptor(name, description));
+        result = std::make_shared<ExtraArgumentDescriptor>(name, description);
     }
     ODL_EXIT_P(result.get()); //####
     return result;

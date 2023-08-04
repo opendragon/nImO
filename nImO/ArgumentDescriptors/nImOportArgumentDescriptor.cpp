@@ -209,7 +209,7 @@ PortArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            result.reset(new PortArgumentDescriptor(name, description, argMode, defaultValue, isSystemPort));
+            result = std::make_shared<PortArgumentDescriptor>(name, description, argMode, defaultValue, isSystemPort);
         }
     }
     ODL_EXIT_P(result.get()); //####

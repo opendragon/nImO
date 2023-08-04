@@ -110,9 +110,9 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::SpContextWithNetworking   ourContext{new nImO::UtilityContext{progName, "shutdown", optionValues._logging}};
-            std::string                     nodeName{firstArg.getCurrentValue()};
-            nImO::Connection                registryConnection;
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown", optionValues._logging)};
+            std::string         nodeName{firstArg.getCurrentValue()};
+            nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

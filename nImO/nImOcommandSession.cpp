@@ -100,7 +100,7 @@ processRequest
     // Ignore a request that can't be processed...
     if (nImO::DecodeMIMEToBytes(trimmed, rawStuff))
     {
-        auto    stuff{make_unique<nImO::Message>()};
+        auto    stuff{std::make_unique<nImO::Message>()};
 
         if ((nullptr != stuff) && (0 < rawStuff.size()))
         {
@@ -174,7 +174,7 @@ nImO::CommandSession::CommandSession
     ODL_P1("owner = ", owner.get()); //####
     try
     {
-        _socket.reset(new asio::ip::tcp::socket(*_owner->getService()));
+        _socket = std::make_shared<asio::ip::tcp::socket>(*_owner->getService());
     }
     catch (...)
     {

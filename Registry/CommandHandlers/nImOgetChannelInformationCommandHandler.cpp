@@ -123,7 +123,7 @@ nImO::GetChannelInformationCommandHandler::doIt
             if (statusWithInfo.first.first)
             {
                 ChannelInfo &   theInfo{statusWithInfo.second};
-                SpArray         infoArray{new Array};
+                auto            infoArray{std::make_shared<Array>()};
 
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._node));

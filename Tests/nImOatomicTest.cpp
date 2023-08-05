@@ -1184,7 +1184,7 @@ doTestStringBufferWithSmallBlob
         }
         else
         {
-            UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
+            auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
             if (nullptr != smallBlob)
             {
@@ -1267,7 +1267,7 @@ doTestStringBufferWithBigBlob
         }
         else
         {
-            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+            auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
             if (nullptr != bigBlob)
             {
@@ -1895,7 +1895,7 @@ doTestSmallBlobValue
 
     try
     {
-        UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
+        auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
         if (smallBlob)
         {
@@ -1976,7 +1976,7 @@ doTestBigBlobValue
 
     try
     {
-        UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+        auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
         if (nullptr != bigBlob)
         {
@@ -2386,8 +2386,8 @@ doTestBlobCopyAndAssign
 
     try
     {
-        UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
-        UpAuint8_t  smallBlob{new uint8_t[kSmallTestSize]};
+        auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
+        auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
         if ((nullptr != bigBlob) && (nullptr != smallBlob))
         {

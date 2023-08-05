@@ -123,7 +123,7 @@ processRequest
                     }
                     else
                     {
-                        Ptr(nImO::CommandHandler)   handler{owner->asServiceContext()->getHandler(request->getValue())};
+                        nImO::SpCommandHandler  handler{owner->asServiceContext()->getHandler(request->getValue())};
 
                         if (nullptr == handler)
                         {

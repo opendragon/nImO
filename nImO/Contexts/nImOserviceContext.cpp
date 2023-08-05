@@ -92,7 +92,7 @@ nImO::ServiceContext::ServiceContext
      const bool             startBrowser,
      const std::string &    nodeName) :
         inherited{executableName, tagForLogging, logging, startBrowser, nodeName}, _acceptor{*getService()},
-        _commandLine{new Array}, _keepGoing{true}
+        _commandLine{std::make_shared<Array>()}, _keepGoing{true}
 {
     ODL_ENTER(); //####
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
@@ -129,11 +129,11 @@ nImO::ServiceContext::~ServiceContext
 bool
 nImO::ServiceContext::addHandler
     (const std::string &    commandName,
-     Ptr(CommandHandler)    theHandler)
+     SpCommandHandler       theHandler)
 {
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
-    ODL_P1("theHandler = ", theHandler); //####
+    ODL_P1("theHandler = ", theHandler.get()); //####
     bool    okSoFar{false};
 
     if ((nullptr != theHandler) && (0 < commandName.size()))
@@ -157,12 +157,11 @@ nImO::ServiceContext::addStandardHandlers
     if (nullptr != actualContext)
     {
         bool    goAhead{true};
-        auto    newHandler{new ShutdownCommandHandler(context)};
+        auto    newHandler{std::make_shared<ShutdownCommandHandler>(context)};
 
         ODL_P1("newHandler <- ", newHandler); //####
         if (! actualContext->addHandler(kShutDownRequest, newHandler))
         {
-            delete newHandler;
             goAhead = false;
         }
         if (goAhead)
@@ -257,14 +256,14 @@ nImO::ServiceContext::getCommandConnection
     return serviceConnection;
 } // nImO::ServiceContext::getCommandConnection
 
-Ptr(nImO::CommandHandler)
+nImO::SpCommandHandler
 nImO::ServiceContext::getHandler
     (const std::string &    commandName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("commandName = ", commandName); //####
-    Ptr(CommandHandler) handler{nullptr};
+    SpCommandHandler    handler{};
 
     if (0 < commandName.size())
     {
@@ -275,7 +274,7 @@ nImO::ServiceContext::getHandler
             handler = match->second;
         }
     }
-    ODL_OBJEXIT_P(handler); //####
+    ODL_OBJEXIT_P(handler.get()); //####
     return handler;
 } // nImO::ServiceContext::getHandler
 
@@ -355,10 +354,7 @@ nImO::ServiceContext::removeHandler
 
         if (_commandHandlers.end() != match)
         {
-            auto    handler{match->second};
-            
             okSoFar = (1 == _commandHandlers.erase(commandName));
-            delete handler;
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -370,15 +366,6 @@ nImO::ServiceContext::removeHandlers
     (void)
 {
     ODL_OBJENTER(); //####
-    for (auto walker(_commandHandlers.begin()); _commandHandlers.end() != walker; ++walker)
-    {
-        auto    handler{walker->second};
-
-        if (nullptr != handler)
-        {
-            delete handler;
-        }
-    }
     _commandHandlers.clear();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::removeHandlers

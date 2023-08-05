@@ -40,6 +40,7 @@
 # define nImOserviceContext_H_ /* Header guard */
 
 # include <Contexts/nImOcontextWithMDNS.h>
+# include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -54,8 +55,11 @@
 
 namespace nImO
 {
-    class CommandHandler;
+    //class CommandHandler;
     class CommandSession;
+
+    /*! @brief A holder for a unique pointer to a CommandHandler. */
+    using SpCommandHandler = std::shared_ptr<CommandHandler>;
 
     /*! @brief A class to provide support for an application that uses a command port. */
     class ServiceContext : public ContextWithMDNS
@@ -105,7 +109,7 @@ namespace nImO
             bool
             addHandler
                 (const std::string &    commandName,
-                 Ptr(CommandHandler)    theHandler);
+                 SpCommandHandler       theHandler);
 
             /*! @brief Add the standard command handlers for a ServiceContext.
              @param[in] context The Context to be updated. */
@@ -174,7 +178,7 @@ namespace nImO
             /*! @brief Retrieve a command handler from the set of handlers.
              @param[in] commandName The name of the command to be retrieved.
              @return @c nullptr if the handler was not found else the handler with the provided name. */
-            Ptr(CommandHandler)
+            SpCommandHandler
             getHandler
                 (const std::string &    commandName)
                 const;
@@ -243,7 +247,7 @@ namespace nImO
             std::set<Ptr(CommandSession)>   _sessions{};
 
             /*! @brief The command handlers. */
-            std::map<std::string, Ptr(CommandHandler)>    _commandHandlers{};
+            std::map<std::string, SpCommandHandler> _commandHandlers{};
 
     }; // ServiceContext
 

@@ -238,8 +238,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         {
             std::lock_guard<std::mutex> loggerGuard(_loggerLock);
 
-            _logger = new Logger(getService(), tagForLogging, _logConnection);
-            ODL_P1("_logger <- ", _logger); //####
+            _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
+            ODL_P1("_logger <- ", _logger.get()); //####
         }
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
@@ -285,11 +285,7 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     {
         std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
-        if (nullptr != _logger)
-        {
-            delete _logger;
-            _logger = nullptr;
-        }
+        _logger.reset();
     }
     _work.reset(nullptr);
     _pool.join_all();

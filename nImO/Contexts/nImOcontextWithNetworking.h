@@ -217,7 +217,7 @@ namespace nImO
             bool _loggingEnabled{false};
 
             /*! @brief The active logger. */
-            Ptr(Logger) _logger{nullptr};
+            std::shared_ptr<Logger> _logger{nullptr};
 
             /*! @brief Mutex to protect against simultaneous access to the logger. */
             mutable std::mutex  _loggerLock;

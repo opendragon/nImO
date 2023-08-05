@@ -259,8 +259,8 @@ nImO::String::extractValue
     }
     if (0 < numBytes)
     {
-        std::unique_ptr<char[]> holder{new char[numBytes + 1]};
-        bool                    okSoFar{nullptr != holder};
+        auto    holder{std::make_unique<char[]>(numBytes + 1)};
+        bool    okSoFar{nullptr != holder};
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {

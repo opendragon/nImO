@@ -178,7 +178,7 @@ nImO::Blob::Blob
     if ((nullptr != data) && (0 < size))
     {
         _size = size;
-        _value.reset(new uint8_t[_size]);
+        _value = std::make_unique<uint8_t[]>(_size);
         memcpy(_value.get(), data, _size);
     }
     ODL_EXIT_P(this); //####
@@ -193,7 +193,7 @@ nImO::Blob::Blob
     if (0 < other._size)
     {
         _size = other._size;
-        _value.reset(new uint8_t[_size]);
+        _value = std::make_unique<uint8_t[]>(_size);
         memcpy(_value.get(), other._value.get(), _size);
     }
     ODL_EXIT_P(this); //####
@@ -340,8 +340,8 @@ nImO::Blob::extractValue
     }
     if (0 < numBytes)
     {
-        UpAuint8_t  holder{new uint8_t[numBytes]};
-        bool        okSoFar{nullptr != holder};
+        auto    holder{std::make_unique<uint8_t[]>(numBytes)};
+        bool    okSoFar{nullptr != holder};
 
         for (size_t ii = 0; okSoFar && (numBytes > ii); ++ii)
         {
@@ -557,7 +557,7 @@ nImO::Blob::operator=
         if (0 < other._size)
         {
             _size = other._size;
-            _value.reset(new uint8_t[_size]);
+            _value = std::make_unique<uint8_t[]>(_size);
             memcpy(_value.get(), other._value.get(), _size);
         }
     }

@@ -378,11 +378,6 @@ nImO::RegistryContext::~RegistryContext
 {
     ODL_OBJENTER(); //####
     removeAnnouncement();
-    if (nullptr != _announceData)
-    {
-        delete _announceData;
-        _announceData = nullptr;
-    }
     ODL_OBJEXIT(); //####
 } // nImO::RegistryContext::~RegistryContext
 
@@ -447,7 +442,7 @@ nImO::RegistryContext::executeAnnouncer
                     if (FD_ISSET(owner._sockets[isock], &readfs))
                     {
                         mDNS::socket_listen(owner._sockets[isock], owner._buffer, kBufferCapacity,
-                                            announcementServiceCallback, owner._announceData);
+                                            announcementServiceCallback, owner._announceData.get());
                     }
 #if (! MAC_OR_LINUX_)
 # pragma option push -w-csu
@@ -481,11 +476,7 @@ nImO::RegistryContext::makePortAnnouncement
     ODL_S3s("serviceName = ", serviceName, "hostName = ", hostName, "dataKey = ", dataKey); //####
     bool    okSoFar;
 
-    if (nullptr != _announceData)
-    {
-        delete _announceData;
-        _announceData = nullptr;
-    }
+    _announceData.reset();
     if (_startAnnouncer)
     {
         char        addressBuffer[64];
@@ -493,8 +484,8 @@ nImO::RegistryContext::makePortAnnouncement
 
         lAnnouncerThreadStop = false;
         ODL_B1("lAnnouncerThreadStop <- ", lAnnouncerThreadStop); //####
-        _announceData = new AnnounceServiceData(gServiceAddressIpv4, gServiceAddressIpv6);
-        ODL_P1("_announceData <- ", _announceData); //####
+        _announceData = std::make_unique<AnnounceServiceData>(gServiceAddressIpv4, gServiceAddressIpv6);
+        ODL_P1("_announceData <- ", _announceData.get()); //####
         _announcerThread = new boost::thread([this]
                                                 (void)
                                                 {

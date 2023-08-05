@@ -156,7 +156,7 @@ main
             }
             else
             {
-                nImO::SpRegistry    theRegistry{new nImO::Registry{ourContext, optionValues._logging}};
+                auto    theRegistry{std::make_shared<nImO::Registry>(ourContext, optionValues._logging)};
 
                 if (nullptr == theRegistry)
                 {
@@ -164,71 +164,82 @@ main
                 }
                 else
                 {
-                    Ptr(nImO::RegistryContext)  asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
+                    auto    asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
                     asRegistryContext->addHandler(nImO::kAddChannelRequest,
-                                                  new nImO::AddChannelCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::AddChannelCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kAddConnectionRequest,
-                                                  new nImO::AddConnectionCommandHandler(ourContext, theRegistry, statusConnection));
-                    asRegistryContext->addHandler(nImO::kAddNodeRequest, new nImO::AddNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::AddConnectionCommandHandler>(ourContext, theRegistry, statusConnection));
+                    asRegistryContext->addHandler(nImO::kAddNodeRequest,
+                                                  std::make_shared<nImO::AddNodeCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kClearChannelInUseRequest,
-                                                  new nImO::ClearChannelInUseCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::ClearChannelInUseCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetChannelInformationRequest,
-                                                  new nImO::GetChannelInformationCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetChannelInformationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetChannelInUseRequest,
-                                                  new nImO::GetChannelInUseCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetChannelInUseCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnMachineRequest,
-                                                  new nImO::GetInformationForAllChannelsOnMachineCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllChannelsOnMachineCommandHandler>(ourContext,
+                                                                                                                              theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnNodeRequest,
-                                                  new nImO::GetInformationForAllChannelsOnNodeCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllChannelsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsRequest,
-                                                  new nImO::GetInformationForAllChannelsCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllChannelsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsOnMachineRequest,
-                                                  new nImO::GetInformationForAllConnectionsOnMachineCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllConnectionsOnMachineCommandHandler>(ourContext,
+                                                                                                                                 theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsOnNodeRequest,
-                                                  new nImO::GetInformationForAllConnectionsOnNodeCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllConnectionsOnNodeCommandHandler>(ourContext,
+                                                                                                                              theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllConnectionsRequest,
-                                                  new nImO::GetInformationForAllConnectionsCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllConnectionsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllMachinesRequest,
-                                                  new nImO::GetInformationForAllMachinesCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllMachinesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesOnMachineRequest,
-                                                  new nImO::GetInformationForAllNodesOnMachineCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllNodesOnMachineCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllNodesRequest,
-                                                  new nImO::GetInformationForAllNodesCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest, new nImO::GetLaunchDetailsCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetInformationForAllNodesCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest,
+                                                  std::make_shared<nImO::GetLaunchDetailsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetMachineInformationRequest,
-                                                  new nImO::GetMachineInformationCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetMachineInformationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfMachinesRequest,
-                                                  new nImO::GetNamesOfMachinesCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNamesOfMachinesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfNodesOnMachineRequest,
-                                                  new nImO::GetNamesOfNodesOnMachineCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest, new nImO::GetNamesOfNodesCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNamesOfNodesOnMachineCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNamesOfNodesRequest,
+                                                  std::make_shared<nImO::GetNamesOfNodesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest,
-                                                  new nImO::GetNodeInformationCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNodeInformationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsOnNodeRequest,
-                                                  new nImO::GetNumberOfChannelsOnNodeCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNumberOfChannelsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsRequest,
-                                                  new nImO::GetNumberOfChannelsCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNumberOfChannelsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfConnectionsRequest,
-                                                  new nImO::GetNumberOfConnectionsCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNumberOfConnectionsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
-                                                  new nImO::GetNumberOfMachinesCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNumberOfMachinesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesOnMachineRequest,
-                                                  new nImO::GetNumberOfNodesOnMachineCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest, new nImO::GetNumberOfNodesCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kIsChannelPresentRequest, new nImO::IsChannelPresentCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kIsMachinePresentRequest, new nImO::IsMachinePresentCommandHandler(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kIsNodePresentRequest, new nImO::IsNodePresentCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::GetNumberOfNodesOnMachineCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest,
+                                                  std::make_shared<nImO::GetNumberOfNodesCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kIsChannelPresentRequest,
+                                                  std::make_shared<nImO::IsChannelPresentCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kIsMachinePresentRequest,
+                                                  std::make_shared<nImO::IsMachinePresentCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kIsNodePresentRequest,
+                                                  std::make_shared<nImO::IsNodePresentCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kRemoveChannelRequest,
-                                                  new nImO::RemoveChannelCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::RemoveChannelCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveChannelsForNodeRequest,
-                                                  new nImO::RemoveChannelsForNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::RemoveChannelsForNodeCommandHandler>(ourContext, theRegistry,
+                                                                                                              statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveConnectionRequest,
-                                                  new nImO::RemoveConnectionCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::RemoveConnectionCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kRemoveNodeRequest,
-                                                  new nImO::RemoveNodeCommandHandler(ourContext, theRegistry, statusConnection));
+                                                  std::make_shared<nImO::RemoveNodeCommandHandler>(ourContext, theRegistry, statusConnection));
                     asRegistryContext->addHandler(nImO::kSetChannelInUseRequest,
-                                                  new nImO::SetChannelInUseCommandHandler(ourContext, theRegistry));
+                                                  std::make_shared<nImO::SetChannelInUseCommandHandler>(ourContext, theRegistry));
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                                 nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
                     {

@@ -292,12 +292,12 @@ main
             nImO::ContextWithNetworking             ourContext{progName, "monitor", optionValues._logging};
             nImO::Connection                        loggingConnection{ourContext.getLoggingInfo()};
             nImO::Connection                        statusConnection{ourContext.getStatusInfo()};
-            std::shared_ptr<ReceiveOnMessagePort>   logReceiver{new ReceiveOnMessagePort{ourContext.getService(), loggingConnection}};
+            auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
             if (loggingConnection != statusConnection)
             {
-                statusReceiver.reset(new ReceiveOnMessagePort{ourContext.getService(), statusConnection});
+                statusReceiver = std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection);
             }
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )

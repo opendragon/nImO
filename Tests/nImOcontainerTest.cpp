@@ -467,7 +467,7 @@ doTestBigArrayValue
         }
         else
         {
-            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+            auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
             if (nullptr != bigBlob)
             {
@@ -8110,7 +8110,7 @@ doTestBigArrayValueAsJSON
         }
         else
         {
-            UpAuint8_t  bigBlob{new uint8_t[kBigTestSize]};
+            auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
             if (nullptr != bigBlob)
             {

@@ -274,11 +274,11 @@ nImO::ProcessServiceOptions
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
-    Option_::Stats          stats{usage, argcWork, argvWork};
-    Ptr(Option_::Option)    options{new Option_::Option[stats.options_max]};
-    Ptr(Option_::Option)    buffer{new Option_::Option[stats.buffer_max]};
-    Option_::Parser         parse{usage, argcWork, argvWork, options, buffer, 1};
-    std::string             badArgs;
+    Option_::Stats  stats{usage, argcWork, argvWork};
+    auto            options{std::make_unique<Option_::Option[]>(stats.options_max)};
+    auto            buffer{std::make_unique<Option_::Option[]>(stats.buffer_max)};
+    Option_::Parser parse{usage, argcWork, argvWork, options.get(), buffer.get(), 1};
+    std::string     badArgs;
 
     if (parse.error())
     {
@@ -474,8 +474,6 @@ nImO::ProcessServiceOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    delete[] options;
-    delete[] buffer;
     free(ConstCast(Ptr(char), firstDescriptor.help));
     delete[] usage;
     ODL_EXIT_B(keepGoing); //####

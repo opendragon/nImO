@@ -134,7 +134,7 @@ namespace nImO
             Ptr(boost::thread)  _announcerThread{nullptr};
 
             /*! @brief Data to be used with the announcer thread. */
-            Ptr(AnnounceServiceData)    _announceData{nullptr};
+            std::unique_ptr<AnnounceServiceData>    _announceData{nullptr};
 
             /*! @brief @c true if the announcer thread is to be launched. */
             bool  _startAnnouncer{false};

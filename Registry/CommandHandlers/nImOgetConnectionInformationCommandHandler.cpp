@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOremoveConnectionCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetConnectionInformationCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'remove connection' command handler.
+//  Contains:   The class definition for the nImO 'get connection information' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,12 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-07-23
+//  Created:    2023-08-06
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOremoveConnectionCommandHandler.h"
+#include "nImOgetConnectionInformationCommandHandler.h"
 
+#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
@@ -53,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'remove connection' command handler. */
+ @brief The class definition for the %nImO 'get connection information' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,32 +83,32 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
+nImO::GetConnectionInformationCommandHandler::GetConnectionInformationCommandHandler
     (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry,
-     const Connection &         statusConnection) :
-        inherited{owner, theRegistry}, _statusConnection{statusConnection}
+     SpRegistry                 theRegistry) :
+        inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
+} // nImO::GetConnectionInformationCommandHandler::GetConnectionInformationCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::RemoveConnectionCommandHandler::doIt
+nImO::GetConnectionInformationCommandHandler::doIt
     (asio::ip::tcp::socket &    socket,
      const Array &              arguments)
     const
 {
+    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("remove channel request received");
+    _owner->report("get connection information request received");
     if (3 < arguments.size())
     {
         SpValue         element1{arguments[1]};
@@ -119,23 +120,25 @@ nImO::RemoveConnectionCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
         {
-            std::string nodeName{asString1->getValue()};
-            std::string path{asString2->getValue()};
-            bool        fromIsSpecified{asLogical->getValue()};
-            auto        status{_registry->removeConnection(nodeName, path, fromIsSpecified)};
+            auto    statusWithInfo{_registry->getConnectionInformation(asString1->getValue(), asString2->getValue(), asLogical->getValue())};
 
-            if (status.first)
+            if (statusWithInfo.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel", true);
-                if (okSoFar)
-                {
-                    sendStatusReport(_owner, _statusConnection, kConnectionRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path +
-                                     kStatusSeparator + (fromIsSpecified ? "true" : "false"));
-                }
+                ConnectionInfo &    theInfo{statusWithInfo.second};
+                auto                infoArray{std::make_shared<Array>()};
+
+                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                infoArray->addValue(std::make_shared<String>(theInfo._fromNode));
+                infoArray->addValue(std::make_shared<String>(theInfo._fromPath));
+                infoArray->addValue(std::make_shared<String>(theInfo._toNode));
+                infoArray->addValue(std::make_shared<String>(theInfo._toPath));
+                infoArray->addValue(std::make_shared<String>(theInfo._dataType));
+                infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
+                okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information", infoArray);
             }
             else
             {
-                ODL_LOG("! (status.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
         else
@@ -149,7 +152,7 @@ nImO::RemoveConnectionCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::RemoveConnectionCommandHandler::doIt
+} // nImO::GetConnectionInformationCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

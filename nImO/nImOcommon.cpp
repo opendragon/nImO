@@ -841,17 +841,32 @@ nImO::ResolveTransport
             break;
 
         case TransportType::kTCP :
-            result = firstTransport;
-            break;
-
-        case TransportType::kUDP :
-            if (TransportType::kTCP == secondTransport)
+            if ((TransportType::kAny == secondTransport) || (TransportType::kUnknown == secondTransport))
             {
-                result = secondTransport;
+                result = firstTransport;
+            }
+            else if (TransportType::kUDP == secondTransport)
+            {
+                result = TransportType::kUnknown;
             }
             else
             {
+                result = defaultTransport;
+            }
+            break;
+
+        case TransportType::kUDP :
+            if ((TransportType::kAny == secondTransport) || (TransportType::kUnknown == secondTransport))
+            {
                 result = firstTransport;
+            }
+            else if (TransportType::kTCP == secondTransport)
+            {
+                result = TransportType::kUnknown;
+            }
+            else
+            {
+                result = defaultTransport;
             }
             break;
 
@@ -870,36 +885,6 @@ nImO::ResolveTransport
             else
             {
                 result = secondTransport;
-            }
-            break;
-
-    }
-    return result;
-} /* ResolveTransport */
-
-nImO::TransportType
-nImO::ResolveTransport
-    (const TransportType    firstTransport,
-     const TransportType    defaultTransport)
-{
-    TransportType   result;
-
-    switch (firstTransport)
-    {
-        case TransportType::kTCP :
-        case TransportType::kUDP :
-            result = firstTransport;
-            break;
-
-        case TransportType::kAny :
-        case TransportType::kUnknown :
-            if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
-            {
-                result = TransportType::kTCP;
-            }
-            else
-            {
-                result = defaultTransport;
             }
             break;
 

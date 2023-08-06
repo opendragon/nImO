@@ -120,7 +120,7 @@ nImO::GetMachineInformationCommandHandler::doIt
         }
         else
         {
-            MachineInfoOrFailure statusWithInfo{_registry->getMachineInformation(asString->getValue())};
+            auto    statusWithInfo{_registry->getMachineInformation(asString->getValue())};
 
             if (statusWithInfo.first.first)
             {

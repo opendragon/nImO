@@ -116,9 +116,9 @@ nImO::RemoveChannelCommandHandler::doIt
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
-            std::string         nodeName{asString1->getValue()};
-            std::string         path{asString2->getValue()};
-            SuccessOrFailure    status{_registry->removeChannel(nodeName, path)};
+            std::string nodeName{asString1->getValue()};
+            std::string path{asString2->getValue()};
+            auto        status{_registry->removeChannel(nodeName, path)};
 
             if (status.first)
             {

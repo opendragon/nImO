@@ -41,7 +41,9 @@
 #include "CommandHandlers/nImOaddNodeCommandHandler.h"
 #include "CommandHandlers/nImOclearChannelInUseCommandHandler.h"
 #include "CommandHandlers/nImOgetChannelInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.h"
 #include "CommandHandlers/nImOgetChannelInUseCommandHandler.h"
+#include "CommandHandlers/nImOgetConnectionInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.h"
@@ -176,8 +178,12 @@ main
                                                   std::make_shared<nImO::ClearChannelInUseCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetChannelInformationRequest,
                                                   std::make_shared<nImO::GetChannelInformationCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetChannelInUseAndSetRequest,
+                                                  std::make_shared<nImO::GetChannelInUseAndSetCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetChannelInUseRequest,
                                                   std::make_shared<nImO::GetChannelInUseCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetConnectionInformationRequest,
+                                                  std::make_shared<nImO::GetConnectionInformationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnMachineRequest,
                                                   std::make_shared<nImO::GetInformationForAllChannelsOnMachineCommandHandler>(ourContext,
                                                                                                                               theRegistry));

@@ -1665,7 +1665,7 @@ nImO::Registry::Registry
 
     if (SQLITE_OK == result)
     {
-        nImO::SuccessOrFailure  status{createTables(_owner, logging, _dbHandle)};
+        auto    status{createTables(_owner, logging, _dbHandle)};
 
         if (! status.first)
         {
@@ -1721,7 +1721,7 @@ nImO::Registry::addChannel
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
-        BoolOrFailure   statusWithBool{isNodePresent(nodeName)};
+        auto    statusWithBool{isNodePresent(nodeName)};
 
         if (statusWithBool.first.first)
         {
@@ -1779,7 +1779,7 @@ nImO::Registry::addConnection
     if (ChannelName::validNode(fromNodeName) && ChannelName::validPath(fromPath) && ChannelName::validNode(toNodeName) &&
         ChannelName::validPath(toPath))
     {
-        BoolOrFailure   statusWithBool{isChannelPresent(fromNodeName, fromPath)};
+        auto    statusWithBool{isChannelPresent(fromNodeName, fromPath)};
 
         if (statusWithBool.first.first)
         {
@@ -1843,7 +1843,7 @@ nImO::Registry::addMachine
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
     ODL_I1("address = ", address); //####
-    SuccessOrFailure status{doBeginTransaction(_owner, _dbHandle)};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2141,13 +2141,108 @@ nImO::Registry::getChannelInUse
     return BoolOrFailure{status, inUse};
 } // nImO::Registry::getChannelInUse
 
+nImO::ConnectionInfoOrFailure
+nImO::Registry::getConnectionInformation
+    (const std::string &    nodeName,
+     const std::string &    path,
+     const bool             fromIsSpecified)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
+    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
+    SuccessOrFailure    status;
+    ConnectionInfo      connectionData;
+
+    if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
+    {
+        ConnectionSearchData    searchData{nodeName, path};
+
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            std::vector<StringVector>   results;
+
+            if (fromIsSpecified)
+            {
+                static CPtr(char)   searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ "," CONNECTION_FROM_PATH_C_ ","
+                                                        CONNECTION_TO_NODE_C_ "," CONNECTION_TO_PATH_C_ "," CONNECTION_DATA_TYPE_C_ ","
+                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
+                                                        CONNECTION_FROM_NODE_C_ " AND " CONNECTION_FROM_PATH_C_ " = @" CONNECTION_FROM_PATH_C_};
+
+                status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchConnectionsViaFrom,
+                                                                      &searchData);
+            }
+            else
+            {
+                static CPtr(char)   searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ "," CONNECTION_FROM_PATH_C_ ","
+                                                        CONNECTION_TO_NODE_C_ "," CONNECTION_TO_PATH_C_ "," CONNECTION_DATA_TYPE_C_ ","
+                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ " WHERE " CONNECTION_TO_NODE_C_ " = @"
+                                                        CONNECTION_TO_NODE_C_ " AND " CONNECTION_TO_PATH_C_ " = @" CONNECTION_TO_PATH_C_};
+
+                status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchConnectionsViaTo,
+                                                                      &searchData);
+            }
+            if (status.first)
+            {
+                if (0 < results.size())
+                {
+                    StringVector &  values{results[0]};
+
+                    if (5 < values.size())
+                    {
+                        ConnectionInfo  info;
+                        size_t          pos;
+
+                        connectionData._found = true;
+                        connectionData._fromNode = values[0];
+                        connectionData._fromPath = values[1];
+                        connectionData._toNode = values[2];
+                        connectionData._toPath = values[3];
+                        connectionData._dataType = values[4];
+                        connectionData._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                        if (0 == pos)
+                        {
+                            connectionData._found = false;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (5 < values.size())"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (0 < results.size())"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
+        status = SuccessOrFailure(false, "Invalid node name or path");
+    }
+    ODL_OBJEXIT(); //####
+    return ConnectionInfoOrFailure{status, connectionData};
+} // nImO::Registry::getConnectionInformation
+
 nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannels
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -2191,7 +2286,7 @@ nImO::Registry::getInformationForAllChannelsOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -2243,7 +2338,7 @@ nImO::Registry::getInformationForAllChannelsOnNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
     ChannelInfoVector   channelData;
 
     if (status.first)
@@ -2291,7 +2386,7 @@ nImO::Registry::getInformationForAllConnections
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    auto                    status{doBeginTransaction(_owner, _dbHandle)};
     ConnectionInfoVector    connectionData;
 
     if (status.first)
@@ -2356,7 +2451,7 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    auto                    status{doBeginTransaction(_owner, _dbHandle)};
     ConnectionInfoVector    connectionData;
 
     if (status.first)
@@ -2424,7 +2519,7 @@ nImO::Registry::getInformationForAllConnectionsOnNode
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
-    SuccessOrFailure        status{doBeginTransaction(_owner, _dbHandle)};
+    auto                    status{doBeginTransaction(_owner, _dbHandle)};
     ConnectionInfoVector    connectionData;
 
     if (status.first)
@@ -2489,7 +2584,7 @@ nImO::Registry::getInformationForAllMachines
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    auto                status{doBeginTransaction(_owner, _dbHandle)};
     MachineInfoVector   machineData;
 
     if (status.first)
@@ -2547,8 +2642,8 @@ nImO::Registry::getInformationForAllNodes
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
-    NodeInfoVector      nodeData;
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    NodeInfoVector  nodeData;
 
     if (status.first)
     {
@@ -2591,8 +2686,8 @@ nImO::Registry::getInformationForAllNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
-    NodeInfoVector      nodeData;
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    NodeInfoVector  nodeData;
 
     if (status.first)
     {
@@ -2767,8 +2862,8 @@ nImO::Registry::getNamesOfMachines
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet           strings;
+    auto        status{doBeginTransaction(_owner, _dbHandle)};
+    StringSet   strings;
 
     if (status.first)
     {
@@ -2799,8 +2894,8 @@ nImO::Registry::getNamesOfNodes
     const
 {
     ODL_OBJENTER(); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet           strings;
+    auto        status{doBeginTransaction(_owner, _dbHandle)};
+    StringSet   strings;
 
     if (status.first)
     {
@@ -2832,8 +2927,8 @@ nImO::Registry::getNamesOfNodesOnMachine
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet           strings;
+    auto        status{doBeginTransaction(_owner, _dbHandle)};
+    StringSet   strings;
 
     if (status.first)
     {
@@ -2953,8 +3048,8 @@ nImO::Registry::getNumberOfChannels
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -2992,8 +3087,8 @@ nImO::Registry::getNumberOfChannelsOnNode
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3031,8 +3126,8 @@ nImO::Registry::getNumberOfConnections
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3070,8 +3165,8 @@ nImO::Registry::getNumberOfMachines
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3109,8 +3204,8 @@ nImO::Registry::getNumberOfNodes
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3148,8 +3243,8 @@ nImO::Registry::getNumberOfNodesOnMachine
     const
 {
     ODL_OBJENTER(); //####
-    int                 count{-1};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3245,8 +3340,8 @@ nImO::Registry::isMachinePresent
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    bool                found{false};
-    SuccessOrFailure    status{doBeginTransaction(_owner, _dbHandle)};
+    bool    found{false};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
 
     if (status.first)
     {
@@ -3413,11 +3508,12 @@ nImO::Registry::removeConnection
 {
     ODL_OBJENTER(); //####
     ODL_S1s("nodeName = ", nodeName); //####
+    ODL_B1("fromIsSpecified = ", fromIsSpecified); //####
     SuccessOrFailure    status;
 
     if (ChannelName::validNode(nodeName) && ChannelName::validPath(path))
     {
-        BoolOrFailure   statusWithBool{isChannelPresent(nodeName, path)};
+        auto    statusWithBool{isChannelPresent(nodeName, path)};
 
         if (statusWithBool.first.first)
         {
@@ -3428,7 +3524,6 @@ nImO::Registry::removeConnection
                 status = doBeginTransaction(_owner, _dbHandle);
                 if (status.first)
                 {
-
                     if (fromIsSpecified)
                     {
                         static CPtr(char)   searchConnections{"DELETE FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
@@ -3466,23 +3561,6 @@ nImO::Registry::removeConnection
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::removeConnection
-#if 0
-/*! @brief The name of the 'Connections' table. */
-#define CONNECTIONS_T_  "Connections"
-
-/*! @brief The named parameter for the 'fromNode' column of the 'Connecions' table. */
-#define CONNECTION_FROM_NODE_C_ "fromNode"
-
-/*! @brief The named parameter for the 'fromPath' column of the 'Connections' table. */
-#define CONNECTION_FROM_PATH_C_ "fromPath"
-
-/*! @brief The named parameter for the 'toNode' column of the 'Connecions' table. */
-#define CONNECTION_TO_NODE_C_   "toNode"
-
-/*! @brief The named parameter for the 'toPath' column of the 'Connections' table. */
-#define CONNECTION_TO_PATH_C_   "toPath"
-
-#endif//0
 
 nImO::SuccessOrFailure
 nImO::Registry::removeNode

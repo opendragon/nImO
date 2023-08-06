@@ -120,7 +120,7 @@ nImO::GetInformationForAllConnectionsOnNodeCommandHandler::doIt
         }
         else
         {
-            ConnectionInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllConnectionsOnNode(asString->getValue())};
+            auto    statusWithInfoVector{_registry->getInformationForAllConnectionsOnNode(asString->getValue())};
 
             if (statusWithInfoVector.first.first)
             {

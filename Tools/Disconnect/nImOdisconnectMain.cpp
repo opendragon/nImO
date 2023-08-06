@@ -38,6 +38,7 @@
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <Contexts/nImOutilityContext.h>
+#include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
@@ -90,8 +91,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from", "'Sending' channel", nImO::ArgumentMode::Required, "/out"};
-    nImO::ChannelArgumentDescriptor secondArg{"to", "'Receiving' channel", nImO::ArgumentMode::Required, "/in"};
+    nImO::ChannelArgumentDescriptor firstArg{"from/to", "'Sending'or 'Receiving' channel", nImO::ArgumentMode::Required, "/out"};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};
@@ -102,7 +102,6 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
@@ -116,6 +115,107 @@ main
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto                channel{firstArg.getCurrentValue()};
+                std::string         nodeName{channel->getNode()};
+                std::string         path{channel->getPath()};
+                std::string         fromNode;
+                std::string         fromPath;
+                std::string         toNode;
+                std::string         toPath;
+                auto                statusWithInfo{proxy.getConnectionInformation(nodeName, path, false)};
+
+                if (statusWithInfo.first.first)
+                {
+                    nImO::ConnectionInfo &  connection1{statusWithInfo.second};
+
+                    if (connection1._found)
+                    {
+                        fromNode = connection1._fromNode;
+                        fromPath = connection1._fromPath;
+                        toNode = connection1._toNode;
+                        toPath = connection1._toPath;
+                        auto    statusWithBool{proxy.removeConnection(nodeName, path, false)};
+
+                        if (statusWithBool.first.first)
+                        {
+                            if (! statusWithBool.second)
+                            {
+                                ourContext->report("channel '" + nodeName + " " + path + "' could not be disconnected.");
+                                std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        statusWithInfo = proxy.getConnectionInformation(nodeName, path, true);
+                        if (statusWithInfo.first.first)
+                        {
+                            nImO::ConnectionInfo &  connection2{statusWithInfo.second};
+
+                            if (connection2._found)
+                            {
+                                fromNode = connection2._fromNode;
+                                fromPath = connection2._fromPath;
+                                toNode = connection2._toNode;
+                                toPath = connection2._toPath;
+                                auto    statusWithBool{proxy.removeConnection(nodeName, path, true)};
+
+                                if (statusWithBool.first.first)
+                                {
+                                    if (! statusWithBool.second)
+                                    {
+                                        ourContext->report("channel '" + nodeName + " " + path + "' could not be disconnected.");
+                                        std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
+                                        exitCode = 1;
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
+                                    exitCode = 1;
+                                }
+                            }
+                            else
+                            {
+                                ourContext->report("channel '" + nodeName + " " + path + "' could not be found.");
+                                std::cerr << "channel '" << nodeName << " " << path << "' could not be found.\n";
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
+                            exitCode = 1;
+                        }
+                    }
+                }
+                else
+                {
+                    std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
+                    exitCode = 1;
+                }
+                if (0 == exitCode)
+                {
+                    auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
+
+                    if (! statusWithBool.first.first)
+                    {
+                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
+                    statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                    if (! statusWithBool.first.first)
+                    {
+                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
+                }
 
 std::cerr << "** Unimplemented **\n";
                 // TBD

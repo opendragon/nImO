@@ -110,7 +110,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
     _owner->report("get number of channels request received");
     if (0 < arguments.size())
     {
-        IntOrFailure    statusWithInt{_registry->getNumberOfChannels()};
+        auto    statusWithInt{_registry->getNumberOfChannels()};
 
         if (statusWithInt.first.first)
         {

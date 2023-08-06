@@ -120,7 +120,7 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
         }
         else
         {
-            ChannelInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllChannelsOnNode(asString->getValue())};
+            auto    statusWithInfoVector{_registry->getInformationForAllChannelsOnNode(asString->getValue())};
 
             if (statusWithInfoVector.first.first)
             {

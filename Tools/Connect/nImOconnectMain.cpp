@@ -135,9 +135,255 @@ main
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto                fromChannel{firstArg.getCurrentValue()};
+                auto                toChannel{secondArg.getCurrentValue()};
+                auto                modeRequested{thirdArg.getCurrentValue()};
+                std::string         fromNode{fromChannel->getNode()};
+                std::string         fromPath{fromChannel->getPath()};
+                std::string         toNode{toChannel->getNode()};
+                std::string         toPath{toChannel->getPath()};
+                std::string         dataType{};
+                auto                statusWithBool{proxy.isChannelPresent(fromNode, fromPath)};
+                bool                previousStateForFrom{false};
+                bool                previousStateForTo{false};
+                bool                needToRestoreFromState{false};
+                bool                needToRestoreToState{false};
+
+                if (statusWithBool.first.first)
+                {
+                    if (! statusWithBool.second)
+                    {
+                        ourContext->report("channel '" + fromNode + " " + fromPath + "' not registered.");
+                        std::cerr << "channel '" << fromNode << " " << fromPath << "' not registered.\n";
+                        exitCode = 1;
+                    }
+                }
+                else
+                {
+                    std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << "\n";
+                    exitCode = 1;
+                }
+                if (0 == exitCode)
+                {
+                    statusWithBool = proxy.isChannelPresent(toNode, toPath);
+                    if (statusWithBool.first.first)
+                    {
+                        if (! statusWithBool.second)
+                        {
+                            ourContext->report("channel '" + toNode + " " + toPath + "' not registered.");
+                            std::cerr << "channel '" << toNode << " " << toPath << "' not registered.\n";
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
+                }
+                if (0 == exitCode)
+                {
+                    // Grab the 'from' channel.
+                    statusWithBool = proxy.getChannelInUseAndSet(fromNode, fromPath);
+                    if (statusWithBool.first.first)
+                    {
+                        previousStateForFrom = statusWithBool.second;
+                        needToRestoreFromState = true;
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
+                }
+                if (0 == exitCode)
+                {
+                    // Grab the 'to' channel.
+                    statusWithBool = proxy.getChannelInUseAndSet(toNode, toPath);
+                    if (statusWithBool.first.first)
+                    {
+                        previousStateForTo = statusWithBool.second;
+                        needToRestoreToState = true;
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
+                }
+                if (0 == exitCode)
+                {
+                    // Check if we now have exclusive access to the two channels.
+                    if (previousStateForFrom)
+                    {
+                        ourContext->report("channel '" + fromNode + " " + fromPath + "' is already connected.");
+                        std::cerr << "channel '" << fromNode << " " << fromPath << "' is already connected.\n";
+                        exitCode = 1;
+                    }
+                    else if (previousStateForTo)
+                    {
+                        ourContext->report("channel '" + toNode + " " + toPath + "' is already connected.");
+                        std::cerr << "channel '" << toNode << " " << toPath << "' is already connected.\n";
+                        exitCode = 1;
+                    }
+                }
+                // We now 'own' the two channels, so we need to resolve if they can be connected.
+                bool                fromIsOutput{false};
+                bool                toIsOutput{false};
+                std::string         fromDataType{};
+                std::string         toDataType{};
+                nImO::TransportType fromModes{nImO::TransportType::kUnknown};
+                nImO::TransportType toModes{nImO::TransportType::kUnknown};
+                nImO::TransportType resolvedMode{nImO::ChannelName::transportFromName(modeRequested)};
+
+                if (0 == exitCode)
+                {
+                    auto    statusWithInfo{proxy.getChannelInformation(fromNode, fromPath)};
+
+                    if (statusWithInfo.first.first)
+                    {
+                        if (statusWithInfo.second._found)
+                        {
+                            fromIsOutput = statusWithInfo.second._isOutput;
+                            fromDataType = statusWithInfo.second._dataType;
+                            fromModes = statusWithInfo.second._modes;
+                        }
+                        else
+                        {
+                            ourContext->report("channel '" + fromNode + " " + fromPath + "' was not found.");
+                            std::cerr << "channel '" << fromNode << " " << fromPath << "' was not found.\n";
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getChannelInformation': " << statusWithInfo.first.second << "\n";
+                        exitCode = 1;
+                    }
+                    if (0 == exitCode)
+                    {
+                        statusWithInfo = proxy.getChannelInformation(toNode, toPath);
+                        if (statusWithInfo.first.first)
+                        {
+                            if (statusWithInfo.second._found)
+                            {
+                                toIsOutput = statusWithInfo.second._isOutput;
+                                toDataType = statusWithInfo.second._dataType;
+                                toModes = statusWithInfo.second._modes;
+                            }
+                            else
+                            {
+                                ourContext->report("channel '" + toNode + " " + toPath + "' was not found.");
+                                std::cerr << "channel '" << toNode << " " << toPath << "' was not found.\n";
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getChannelInformation': " << statusWithInfo.first.second << "\n";
+                            exitCode = 1;
+                        }
+                    }
+                    if (0 == exitCode)
+                    {
+                        if (toIsOutput)
+                        {
+                            ourContext->report("channel '" + toNode + " " + toPath + "' is an output!");
+                            std::cerr << "channel '" << toNode << " " << toPath << "' is an output!\n";
+                            exitCode = 1;
+                        }
+                        else if (! fromIsOutput)
+                        {
+                            ourContext->report("channel '" + fromNode + " " + fromPath + "' is an input!");
+                            std::cerr << "channel '" << fromNode << " " << fromPath << "' is an input!\n";
+                            exitCode = 1;
+                        }
+                        else
+                        {
+                            // Do the data types match up? Set 'dataType'.
+                            if (fromDataType.empty())
+                            {
+                                dataType = toDataType;
+                            }
+                            else
+                            {
+                                if (toDataType.empty())
+                                {
+                                    dataType = fromDataType;
+                                }
+                                else if (fromDataType != toDataType)
+                                {
+                                    ourContext->report("channel '" + fromNode + " " + fromPath + "(" + fromDataType + ")' does not match '"  +
+                                                       toNode + " " + toPath + "(" + toDataType + ")'.");
+                                    std::cerr << "channel '" << fromNode << " " << fromPath << "(" << fromDataType << ")' does not match '" <<
+                                                toNode << " " << toPath << "(" << toDataType << ")'.\n";
+                                    exitCode = 1;
+                                }
+                            }
+                            if (0 == exitCode)
+                            {
+                                // Do the modes match up? Set 'resolvedMode'.
+                                resolvedMode = nImO::ResolveTransport(fromModes, toModes);
+                                if (nImO::TransportType::kUnknown == resolvedMode)
+                                {
+                                    ourContext->report("channel '" + fromNode + " " + fromPath + "' has incompatible transport mode with '"  +
+                                                       toNode + " " + toPath + "'.");
+                                    std::cerr << "channel '" << fromNode << " " << fromPath << "' has incompatible transport mode with '" << toNode <<
+                                                " " << toPath << "'.\n";
+                                    exitCode = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (0 == exitCode)
+                {
+                    // Everything is fine, record the connection!
+                    statusWithBool = proxy.addConnection(fromNode, fromPath, toNode, toPath, dataType, resolvedMode);
+                    if (statusWithBool.first.first)
+                    {
+                        if (! statusWithBool.second)
+                        {
+                            ourContext->report("channel '" + fromNode + " " + fromPath + "' could not be connected to '"  + toNode + " " + toPath +
+                                               "'.");
+                            std::cerr << "channel '" << fromNode << " " << fromPath << "' could not be connected to '" << toNode << " " << toPath <<
+                                        "'.\n";
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'addConnection': " << statusWithBool.first.second << "\n";
+                        exitCode = 1;
+                    }
 
 std::cerr << "** Unimplemented **\n";
-                // TBD
+                }
+                if (0 != exitCode)
+                {
+                    if (needToRestoreFromState)
+                    {
+                        if (! previousStateForFrom)
+                        {
+                            statusWithBool = proxy.clearChannelInUse(fromNode, fromPath);
+                            if (! statusWithBool.first.first)
+                            {
+                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                            }
+                        }
+                    }
+                    if (needToRestoreToState)
+                    {
+                        if (! previousStateForTo)
+                        {
+                            statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                            if (! statusWithBool.first.first)
+                            {
+                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                            }
+                        }
+                    }
+                }
             }
             else
             {

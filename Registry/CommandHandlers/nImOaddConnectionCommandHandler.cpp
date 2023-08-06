@@ -127,13 +127,13 @@ nImO::AddConnectionCommandHandler::doIt
         if ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && (nullptr != toPathString) &&
             (nullptr != dataTypeString) && (nullptr != modeString))
         {
-            std::string         fromNodeName{fromNodeNameString->getValue()};
-            std::string         fromPath{fromPathString->getValue()};
-            std::string         toNodeName{toNodeNameString->getValue()};
-            std::string         toPath{toPathString->getValue()};
-            std::string         dataType{dataTypeString->getValue()};
-            TransportType       mode{StaticCast(TransportType, modeString->getIntegerValue())};
-            SuccessOrFailure    status{_registry->addConnection(fromNodeName, fromPath, toNodeName, toPath, dataType, mode)};
+            std::string     fromNodeName{fromNodeNameString->getValue()};
+            std::string     fromPath{fromPathString->getValue()};
+            std::string     toNodeName{toNodeNameString->getValue()};
+            std::string     toPath{toPathString->getValue()};
+            std::string     dataType{dataTypeString->getValue()};
+            TransportType   mode{StaticCast(TransportType, modeString->getIntegerValue())};
+            auto            status{_registry->addConnection(fromNodeName, fromPath, toNodeName, toPath, dataType, mode)};
 
             if (status.first)
             {

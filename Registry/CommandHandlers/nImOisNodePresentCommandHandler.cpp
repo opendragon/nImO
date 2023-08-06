@@ -118,7 +118,7 @@ nImO::IsNodePresentCommandHandler::doIt
         }
         else
         {
-            BoolOrFailure    statusWithBool{_registry->isNodePresent(asString->getValue())};
+            auto    statusWithBool{_registry->isNodePresent(asString->getValue())};
 
             if (statusWithBool.first.first)
             {

@@ -263,7 +263,6 @@ nImO::ChannelName::parse
     std::string     networkName;
     std::string     nodeName;
     std::string     path;
-    std::string     protocolName;
     std::smatch     matches;
     TransportType   protocol = TransportType::kUnknown;
     bool            okSoFar = std::regex_match(input, matches, lChannelNameMatch);
@@ -277,19 +276,7 @@ nImO::ChannelName::parse
         // Submatch 6 = path
         path = matches[6].str();
         // Submatch 10 = transport [can be empty]
-        protocolName = matches[10].str();
-        if (protocolName == transportToName(TransportType::kAny))
-        {
-            protocol = TransportType::kAny;
-        }
-        else if (protocolName == transportToName(TransportType::kUDP))
-        {
-            protocol = TransportType::kUDP;
-        }
-        else if (protocolName == transportToName(TransportType::kTCP))
-        {
-            protocol = TransportType::kTCP;
-        }
+        protocol = transportFromName(matches[10].str());
         result = std::make_shared<ChannelName>();
         result->_network = networkName;
         result->_node = nodeName;
@@ -315,6 +302,30 @@ nImO::ChannelName::swap
     std::swap(_transport, other._transport);
     ODL_EXIT(); //####
 } // nImO::ChannelName::swap
+
+nImO::TransportType
+nImO::ChannelName::transportFromName
+    (const std::string &    aName)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("aName = ", aName); //####
+    TransportType   protocol = TransportType::kUnknown;
+
+    if (aName == transportToName(TransportType::kAny))
+    {
+        protocol = TransportType::kAny;
+    }
+    else if (aName == transportToName(TransportType::kUDP))
+    {
+        protocol = TransportType::kUDP;
+    }
+    else if (aName == transportToName(TransportType::kTCP))
+    {
+        protocol = TransportType::kTCP;
+    }
+    ODL_EXIT_I(StaticCast(int, protocol)); //####
+    return protocol;
+} // nImO::ChannelName::transportFromName
 
 nImO::StringSet
 nImO::ChannelName::transportNames

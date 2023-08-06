@@ -113,9 +113,9 @@ namespace nImO
             getNetwork
                 (void)
                 const
-                {
-                    return _network;
-                }
+            {
+                return _network;
+            }
 
             /*! @brief Return the name of the node for the channel.
              @return The node name for the channel. */
@@ -123,9 +123,9 @@ namespace nImO
             getNode
                 (void)
                 const
-                {
-                    return _node;
-                }
+            {
+                return _node;
+            }
 
             /*! @brief Return the path for the channel.
              @return The path for the channel. */
@@ -133,9 +133,9 @@ namespace nImO
             getPath
                 (void)
                 const
-                {
-                    return _path;
-                }
+            {
+                return _path;
+            }
 
             /*! @brief Return the transport mechanism for the channel.
              @return The transport mechanism for the channel. */
@@ -143,9 +143,9 @@ namespace nImO
             getTransport
                 (void)
                 const
-                {
-                    return _transport;
-                }
+            {
+                return _transport;
+            }
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
@@ -176,6 +176,13 @@ namespace nImO
             void
             swap
                 (ChannelName &  other);
+
+            /*! @brief Returns TransportType value corresponding to a name.
+             @param[in] aName The name of the TransportType to be converted.
+             @return The TransportType value corresponding to the name. */
+            static TransportType
+            transportFromName
+                (const std::string &    aName);
 
             /*! @brief Returns the set of names for TransportType values.
              @return The standard names for the TransportType values. */

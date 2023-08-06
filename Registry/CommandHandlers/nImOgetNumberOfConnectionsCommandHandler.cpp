@@ -110,7 +110,7 @@ nImO::GetNumberOfConnectionsCommandHandler::doIt
     _owner->report("get number of connections request received");
     if (0 < arguments.size())
     {
-        IntOrFailure    statusWithInt{_registry->getNumberOfConnections()};
+        auto    statusWithInt{_registry->getNumberOfConnections()};
 
         if (statusWithInt.first.first)
         {

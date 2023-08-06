@@ -187,7 +187,7 @@ namespace nImO
                  const std::string &    path)
                 const;
 
-            /*! @brief Get the current value of the in use state of a channel in the Registry and set it, returning the state prior to setting it.
+            /*! @brief Get the current value of the in-use state of a channel in the Registry and set it, returning the state prior to setting it.
              @param[in] nodeName The name of the node to be checked.
              @param[in] path The path of the channel to be checked.
              @return @c true and if the channel was found and the operation was successfully performed, if it was in use,  and @c false and an error string otherwise. */
@@ -195,6 +195,18 @@ namespace nImO
             getChannelInUseAndSet
                 (const std::string &    nodeName,
                  const std::string &    path)
+                const;
+
+            /*! @brief Get information for a connection in the Registry.
+             @param[in] nodeName The name of the node for the connection to be removed.
+             @param[in] path The path for the connection.
+             @param[in] fromIsSpecified @c true if the node and path are for the input to the connection and @c false if the output for the connection is specified.
+             @return @c true and the information for the connection if the operation was successfully performed and @c false and an error string otherwise. */
+            ConnectionInfoOrFailure
+            getConnectionInformation
+                (const std::string &    nodeName,
+                 const std::string &    path,
+                 const bool             fromIsSpecified)
                 const;
 
             /*! @brief Get information for all channels in the Registry.

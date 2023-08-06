@@ -118,8 +118,8 @@ nImO::RemoveNodeCommandHandler::doIt
         }
         else
         {
-            std::string         nodeName{asString->getValue()};
-            SuccessOrFailure    status{_registry->removeNode(nodeName)};
+            std::string nodeName{asString->getValue()};
+            auto        status{_registry->removeNode(nodeName)};
 
             if (status.first)
             {

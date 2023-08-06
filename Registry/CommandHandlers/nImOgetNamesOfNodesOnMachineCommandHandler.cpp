@@ -120,7 +120,7 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
         }
         else
         {
-            StringSetOrFailure   statusWithSet{_registry->getNamesOfNodesOnMachine(asString->getValue())};
+            auto    statusWithSet{_registry->getNamesOfNodesOnMachine(asString->getValue())};
 
             if (statusWithSet.first.first)
             {

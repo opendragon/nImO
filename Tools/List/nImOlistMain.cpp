@@ -180,8 +180,8 @@ listChannels
      nImO::StandardOptions &    options,
      const Placement            thePlacement = Placement::kSolitary)
 {
-    bool                                okSoFar{true};
-    nImO::ChannelInfoVectorOrFailure statusWithAllChannels{proxy.getInformationForAllChannels()};
+    bool    okSoFar{true};
+    auto    statusWithAllChannels{proxy.getInformationForAllChannels()};
 
     if (statusWithAllChannels.first.first)
     {
@@ -208,20 +208,30 @@ listChannels
 
         if (channels.empty())
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (options._flavour)
             {
-                std::cout << "[ ]";
-            }
-            else
-            {
-                std::cout << "** No channels **\n";
+                case nImO::OutputFlavour::kFlavourNormal :
+                    std::cout << "\t** No channels **\n";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourJSON :
+                    std::cout << "\t[ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourTabs :
+                    std::cout << "** No channels **\n";
+                    break;
+
+                default :
+                    break;
+
             }
         }
         else
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ";
+                std::cout << "\t[ ";
             }
             for (auto walker = channels.begin(); walker != channels.end(); )
             {
@@ -258,9 +268,9 @@ listChannels
                                 modes = nImO::kProtocolTcpName;
                                 if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))
                                 {
-                                    modes += '+' + nImO::kProtocolUdpName;
+                                    modes += "+" + nImO::kProtocolUdpName;
                                 }
-                           }
+                            }
                             else if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))
                             {
                                 modes = nImO::kProtocolUdpName;
@@ -271,8 +281,8 @@ listChannels
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << node << ' ' << path << ' ' << dataType << ' ' << std::boolalpha << theInfo._isOutput << ' ' << modes <<
-                                        ' ' << std::boolalpha << theInfo._inUse;
+                            std::cout << "\t" << node << " " << path << " " << dataType << " " << std::boolalpha << theInfo._isOutput << " " <<
+                                        modes << " " << std::boolalpha << theInfo._inUse;
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
@@ -285,8 +295,8 @@ listChannels
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
-                            std::cout << node << '\t' << path << '\t' << dataType << '\t' << std::boolalpha << theInfo._isOutput << '\t' << modes <<
-                                        '\t' << std::boolalpha << theInfo._inUse;
+                            std::cout << node << "\t" << path << "\t" << dataType << "\t" << std::boolalpha << theInfo._isOutput << "\t" << modes <<
+                                        "\t" << std::boolalpha << theInfo._inUse;
                             break;
 
                         default :
@@ -345,6 +355,194 @@ listChannels
     return okSoFar;
 } // listChannels
 
+/*! @brief Output the known connections.
+ @param[in] proxy The connection to the Registry.
+ @param[in] options The options to apply.
+ @param[in] thePlacement Where the output is in a sequence.
+ @return @c true if no errors encountered or @c false if there was a problem. */
+static bool
+listConnections
+    (nImO::RegistryProxy &      proxy,
+     nImO::StandardOptions &    options,
+     const Placement            thePlacement = Placement::kSolitary)
+{
+    bool    okSoFar{true};
+    auto    statusWithAllConnections{proxy.getInformationForAllConnections()};
+
+    if (statusWithAllConnections.first.first)
+    {
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+        {
+            switch (thePlacement)
+            {
+                case Placement::kSolitary :
+                case Placement::kFirst :
+                    std::cout << "{ ";
+                    break;
+
+                default :
+                    break;
+
+            }
+            std::cout << CHAR_DOUBLEQUOTE_ "connections" CHAR_DOUBLEQUOTE_ ": ";
+        }
+        else
+        {
+            std::cout << "Connections:\n";
+        }
+        nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
+
+        if (connections.empty())
+        {
+            switch (options._flavour)
+            {
+                case nImO::OutputFlavour::kFlavourNormal :
+                    std::cout << "\t** No connections **\n";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourJSON :
+                    std::cout << "\t[ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourTabs :
+                    std::cout << "** No connections **\n";
+                    break;
+
+                default :
+                    break;
+
+            }
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << "[ ";
+            }
+            for (auto walker = connections.begin(); walker != connections.end(); )
+            {
+                auto    theInfo{*walker};
+
+                if (theInfo._found)
+                {
+                    std::string fromNode{nImO::SanitizeString(theInfo._fromNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    std::string fromPath{nImO::SanitizeString(theInfo._fromPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    std::string toNode{nImO::SanitizeString(theInfo._toNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    std::string toPath{nImO::SanitizeString(theInfo._toPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    std::string dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    std::string mode;
+
+                    switch (theInfo._mode)
+                    {
+                        case nImO::TransportType::kAny :
+                            mode = nImO::kProtocolAnyName;
+                            break;
+
+                        case nImO::TransportType::kUnknown :
+                            mode = nImO::kProtocolUnknownName;
+                            break;
+
+                        case nImO::TransportType::kTCP :
+                            mode = nImO::kProtocolTcpName;
+                            break;
+
+                        case nImO::TransportType::kUDP :
+                            mode = nImO::kProtocolUdpName;
+                            break;
+
+                        default :
+                            if (nImO::TransportType::kTCP == (theInfo._mode & nImO::TransportType::kTCP))
+                            {
+                                mode = nImO::kProtocolTcpName;
+                                if (nImO::TransportType::kUDP == (theInfo._mode & nImO::TransportType::kUDP))
+                                {
+                                    mode += '+' + nImO::kProtocolUdpName;
+                                }
+                            }
+                            else if (nImO::TransportType::kUDP == (theInfo._mode & nImO::TransportType::kUDP))
+                            {
+                                mode = nImO::kProtocolUdpName;
+                            }
+                            break;
+
+                    }
+                    switch (options._flavour)
+                    {
+                        case nImO::OutputFlavour::kFlavourNormal :
+                            std::cout << "\t" << fromNode << " " << fromPath << " " << toNode << " " << toPath << " " << dataType << " " << mode;
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourJSON :
+                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "fromNode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << fromNode <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "fromPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << fromPath <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "toNode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << toNode <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "toPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << toPath <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << dataType <<
+                                        CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << mode <<
+                                        CHAR_DOUBLEQUOTE_ " }";
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourTabs :
+                            std::cout << fromNode << "\t" << fromPath << "\t" << toNode << "\t" << toPath << "\t" << dataType << "\t" << mode;
+                            break;
+
+                        default :
+                            break;
+
+                    }
+                    ++walker;
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                    {
+                        if (connections.end() != walker)
+                        {
+                            std::cout << ",\n";
+                        }
+                    }
+                    else
+                    {
+                        std::cout << "\n";
+                    }
+
+                }
+                else
+                {
+                    ++walker;
+                }
+            }
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << " ]";
+            }
+        }
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+        {
+            switch (thePlacement)
+            {
+                case Placement::kSolitary :
+                case Placement::kLast :
+                    std::cout << " }";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kFirst :
+                    std::cout << ",";
+                    break;
+
+                default :
+                    break;
+
+            }
+            std::cout << "\n";
+        }
+    }
+    else
+    {
+        std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << "\n";
+        okSoFar = false;
+    }
+    return okSoFar;
+} // listConnections
+
 /*! @brief Output the known machines.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
@@ -356,8 +554,8 @@ listMachines
      nImO::StandardOptions &    options,
      const Placement            thePlacement = Placement::kSolitary)
 {
-    bool                                okSoFar{true};
-    nImO::MachineInfoVectorOrFailure statusWithAllMachines{proxy.getInformationForAllMachines()};
+    bool    okSoFar{true};
+    auto    statusWithAllMachines{proxy.getInformationForAllMachines()};
 
     if (statusWithAllMachines.first.first)
     {
@@ -384,20 +582,30 @@ listMachines
 
         if (machines.empty())
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (options._flavour)
             {
-                std::cout << "[ ]";
-            }
-            else
-            {
-                std::cout << "** No machines **\n";
+                case nImO::OutputFlavour::kFlavourNormal :
+                    std::cout << "\t** No machines **\n";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourJSON :
+                    std::cout << "\t[ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourTabs :
+                    std::cout << "** No machines **\n";
+                    break;
+
+                default :
+                    break;
+
             }
         }
         else
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ";
+                std::cout << "\t[ ";
             }
             for (auto walker = machines.begin(); walker != machines.end(); )
             {
@@ -411,7 +619,7 @@ listMachines
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << machineName << ' ' << address.to_string();
+                            std::cout << "\t" << machineName << " " << address.to_string();
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
@@ -421,7 +629,7 @@ listMachines
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
-                            std::cout << machineName << '\t' << address.to_string();
+                            std::cout << machineName << "\t" << address.to_string();
                             break;
 
                         default :
@@ -491,8 +699,8 @@ listNodes
      nImO::StandardOptions &    options,
      const Placement            thePlacement = Placement::kSolitary)
 {
-    bool                                okSoFar{true};
-    nImO::NodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
+    bool    okSoFar{true};
+    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
 
     if (statusWithAllNodes.first.first)
     {
@@ -519,20 +727,30 @@ listNodes
         }
         if (nodes.empty())
         {
-            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            switch (options._flavour)
             {
-                std::cout << "[ ]";
-            }
-            else
-            {
-                std::cout << "** No nodes **\n";
+                case nImO::OutputFlavour::kFlavourNormal :
+                    std::cout << "\t** No nodes **\n";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourJSON :
+                    std::cout << "\t[ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourTabs :
+                    std::cout << "** No nodes **\n";
+                    break;
+
+                default :
+                    break;
+
             }
         }
         else
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ";
+                std::cout << "\t[ ";
             }
             for (auto walker = nodes.begin(); walker != nodes.end(); )
             {
@@ -546,7 +764,7 @@ listNodes
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << nodeName << ' ' << address.to_string() << ' ' << theInfo._connection._port;
+                            std::cout << "\t" << nodeName << " " << address.to_string() << " " << theInfo._connection._port;
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
@@ -561,7 +779,7 @@ listNodes
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
-                            std::cout << nodeName << '\t' << address.to_string() << '\t' << theInfo._connection._port;
+                            std::cout << nodeName << "\t" << address.to_string() << "\t" << theInfo._connection._port;
                             break;
 
                         default :
@@ -570,7 +788,7 @@ listNodes
                     }
                     if (options._expanded)
                     {
-                        nImO::LaunchDetailsOrFailure statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
+                        auto    statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
 
                         if (statusWithDetails.first.first)
                         {
@@ -579,7 +797,7 @@ listNodes
                             switch (options._flavour)
                             {
                                 case nImO::OutputFlavour::kFlavourNormal :
-                                    std::cout << ' ' << details._execPath << ' ' << details._launchDirectory << ' ' << details._commandLine;
+                                    std::cout << " " << details._execPath << " " << details._launchDirectory << " " << details._commandLine;
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourJSON :
@@ -591,7 +809,7 @@ listNodes
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourTabs :
-                                    std::cout << '\t' << details._execPath << '\t' << details._launchDirectory << '\t' << details._commandLine;
+                                    std::cout << "\t" << details._execPath << "\t" << details._launchDirectory << "\t" << details._commandLine;
                                     break;
 
                                 default :
@@ -731,8 +949,10 @@ std::cerr << "** Unimplemented **\n";
                             break;
 
                         case Choice::kConn :
-std::cerr << "** Unimplemented **\n";
-                            // TBD
+                            if (! listConnections(proxy, optionValues))
+                            {
+                                exitCode = 1;
+                            }
                             break;
 
                         case Choice::kMach :
@@ -751,7 +971,7 @@ std::cerr << "** Unimplemented **\n";
 
                         case Choice::kAll :
                             if (! (listMachines(proxy, optionValues, Placement::kFirst) && listNodes(proxy, optionValues, Placement::kMiddle) &&
-                                listChannels(proxy, optionValues, Placement::kLast)))
+                                listChannels(proxy, optionValues, Placement::kMiddle) && listConnections(proxy, optionValues, Placement::kLast)))
                             {
                                 exitCode = 1;
                             }

@@ -88,6 +88,8 @@ Tests:\
 	SELECT DISTINCT node, path, isOutput, dataType, modes, inUse FROM Channels, Nodes, Machines WHERE Nodes.name = Channels.node AND Machines.address = Nodes.address AND Machines.name = "blort";\
 	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections WHERE fromNode = "b.2" OR toNode = "b.2";\
 	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections, Nodes, Machines WHERE (fromNode = Nodes.name OR toNode = Nodes.name) AND Machines.name = "blurt" AND Machines.address = Nodes.address;\
+	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections WHERE fromNode = "b.2" AND fromPath = "/blirt/out";\
+	SELECT DISTINCT fromNode, fromPath, toNode, toPath, dataType, mode FROM Connections WHERE toNode = "b_4" AND toPath = "/blort";\
 \
 	DELETE FROM Nodes WHERE name = "b.2";\
 	DELETE FROM Channels WHERE node = "b_4" AND path = "/blort";\

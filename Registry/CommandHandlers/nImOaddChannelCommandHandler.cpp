@@ -125,12 +125,12 @@ nImO::AddChannelCommandHandler::doIt
         if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) &&
             (nullptr != dataTypeString) && (nullptr != modesString))
         {
-            std::string         nodeName{nodeNameString->getValue()};
-            std::string         path{pathString->getValue()};
-            bool                isOutput{isOutputValue->getValue()};
-            std::string         dataType{dataTypeString->getValue()};
-            TransportType       modes{StaticCast(TransportType, modesString->getIntegerValue())};
-            SuccessOrFailure    status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
+            std::string     nodeName{nodeNameString->getValue()};
+            std::string     path{pathString->getValue()};
+            bool            isOutput{isOutputValue->getValue()};
+            std::string     dataType{dataTypeString->getValue()};
+            TransportType   modes{StaticCast(TransportType, modesString->getIntegerValue())};
+            auto            status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
 
             if (status.first)
             {

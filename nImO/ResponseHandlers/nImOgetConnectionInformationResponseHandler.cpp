@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOremoveConnectionCommandHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'remove connection' command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,17 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-07-23
+//  Created:    2023-08-06
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOremoveConnectionCommandHandler.h"
+#include <ResponseHandlers/nImOgetConnectionInformationResponseHandler.h>
 
+#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <nImOregistryCommands.h>
-#include <nImOregistryTypes.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -53,7 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'remove connection' command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,74 +80,74 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry,
-     const Connection &         statusConnection) :
-        inherited{owner, theRegistry}, _statusConnection{statusConnection}
+nImO::GetConnectionInformationResponseHandler::GetConnectionInformationResponseHandler
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
+} // nImO::GetConnectionInformationResponseHandler::GetConnectionInformationResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::RemoveConnectionCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
-    const
+void
+nImO::GetConnectionInformationResponseHandler::doIt
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    bool    okSoFar{false};
-
-    _owner->report("remove channel request received");
-    if (3 < arguments.size())
+    _result._found = false;
+    if (1 < stuff.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
-        CPtr(Logical)   asLogical{element3->asLogical()};
+        SpValue     element{stuff[1]};
+        CPtr(Array) infoArray{element->asArray()};
 
-        if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
+        if (nullptr == infoArray)
         {
-            std::string nodeName{asString1->getValue()};
-            std::string path{asString2->getValue()};
-            bool        fromIsSpecified{asLogical->getValue()};
-            auto        status{_registry->removeConnection(nodeName, path, fromIsSpecified)};
-
-            if (status.first)
+            ODL_LOG("(nullptr == infoArray)"); //####
+        }
+        else
+        {
+            if (6 < infoArray->size())
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel", true);
-                if (okSoFar)
+                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
+                CPtr(String)    fromNodePtr{(*infoArray)[1]->asString()};
+                CPtr(String)    fromPathPtr{(*infoArray)[2]->asString()};
+                CPtr(String)    toNodePtr{(*infoArray)[3]->asString()};
+                CPtr(String)    toPathPtr{(*infoArray)[4]->asString()};
+                CPtr(String)    dataTypePtr{(*infoArray)[5]->asString()};
+                CPtr(Integer)   modePtr{(*infoArray)[6]->asInteger()};
+
+                if ((nullptr != foundPtr) && (nullptr != fromNodePtr) && (nullptr != fromPathPtr) && (nullptr != toNodePtr) &&
+                    (nullptr != toPathPtr) && (nullptr != dataTypePtr) && (nullptr != modePtr))
                 {
-                    sendStatusReport(_owner, _statusConnection, kConnectionRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path +
-                                     kStatusSeparator + (fromIsSpecified ? "true" : "false"));
+                    _result._found = foundPtr->getValue();
+                    _result._fromNode = fromNodePtr->getValue();
+                    _result._fromPath = fromPathPtr->getValue();
+                    _result._toNode = toNodePtr->getValue();
+                    _result._toPath = toPathPtr->getValue();
+                    _result._dataType = dataTypePtr->getValue();
+                    _result._mode = StaticCast(TransportType, modePtr->getIntegerValue());
+                }
+                else
+                {
+                    ODL_LOG("! ((nullptr != foundPtr) && (nullptr != fromNodePtr) && (nullptr != fromPathPtr) && " //####
+                            "(nullptr != toNodePtr) && (nullptr != toPathPtr) && (nullptr != dataTypePtr) && (nullptr != modePtr))"); //####
                 }
             }
             else
             {
-                ODL_LOG("! (status.first)"); //####
+                ODL_LOG("! (6 < infoArray->size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (3 < arguments.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::RemoveConnectionCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::GetConnectionInformationResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

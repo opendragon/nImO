@@ -111,7 +111,7 @@ nImO::GetInformationForAllNodesCommandHandler::doIt
     _owner->report("get information for all nodes request received");
     if (0 < arguments.size())
     {
-        NodeInfoVectorOrFailure  statusWithInfoVector{_registry->getInformationForAllNodes()};
+        auto    statusWithInfoVector{_registry->getInformationForAllNodes()};
 
         if (statusWithInfoVector.first.first)
         {

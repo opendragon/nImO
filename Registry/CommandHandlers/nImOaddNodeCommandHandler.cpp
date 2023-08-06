@@ -156,9 +156,9 @@ nImO::AddNodeCommandHandler::doIt
         if ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) &&
             (nullptr != commandLineString) && (nullptr != connArray))
         {
-            std::string         machineName{machineNameString->getValue()};
-            uint32_t            address{theConnection._address};
-            SuccessOrFailure    status{_registry->addMachine(machineName, address)};
+            std::string machineName{machineNameString->getValue()};
+            uint32_t    address{theConnection._address};
+            auto        status{_registry->addMachine(machineName, address)};
 
             if (status.first)
             {

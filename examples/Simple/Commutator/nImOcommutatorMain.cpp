@@ -121,8 +121,8 @@ main
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy     proxy{ourContext, registryConnection};
-                nImO::BoolOrFailure  statusWithBool{proxy.isNodePresent(nodeName)};
+                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto                statusWithBool{proxy.isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {

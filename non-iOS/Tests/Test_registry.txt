@@ -139,6 +139,8 @@ add_test(NAME TestLaunchDetailsWithRegistryWithNoNodes COMMAND ${THIS_TARGET} 12
 add_test(NAME TestLaunchDetailsWithRegistryWithOneNode COMMAND ${THIS_TARGET} 125)
 ## Test launch details with Registry with two nodes
 add_test(NAME TestLaunchDetailsWithRegistryWithTwoNodes COMMAND ${THIS_TARGET} 126)
+## Test node information with empty Registry
+add_test(NAME TestNodeInfoWithEmptyRegistry COMMAND ${THIS_TARGET} 127)
 
 ## Test node set with empty Registry via machine name
 add_test(NAME TestNodeSetWithEmptyRegistryViaMachineName COMMAND ${THIS_TARGET} 200)
@@ -228,35 +230,35 @@ add_test(NAME TestGetChannelSetWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET
 ## Test get channel set with bad machine name from Registry
 add_test(NAME TestGetChannelSetWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 348)
 
-## Test get channel in use with empty registry
+## Test get channel in-use with empty registry
 add_test(NAME TestGetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 350)
-## Test set channel in use with empty registry
+## Test set channel in-use with empty registry
 add_test(NAME TestSetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 351)
-## Test clear channel in use with empty registry
+## Test clear channel in-use with empty registry
 add_test(NAME TestClearChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 352)
-## Test channel in use can be set
+## Test channel in-use can be set
 add_test(NAME TestChannelInUseCanBeSet COMMAND ${THIS_TARGET} 353)
-## Test channel in use can be cleared
+## Test channel in-use can be cleared
 add_test(NAME TestChannelInUseCanBeCleared COMMAND ${THIS_TARGET} 354)
-## Test get channel in use with bad node name
+## Test get channel in-use with bad node name
 add_test(NAME TestGetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 355)
-## Test set channel in use with bad node name
+## Test set channel in-use with bad node name
 add_test(NAME TestSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 356)
-## Test clear channel in use with bad node name
+## Test clear channel in-use with bad node name
 add_test(NAME TestClearChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 357)
-## Test get channel in use with bad channel name
+## Test get channel in-use with bad channel name
 add_test(NAME TestGetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 358)
-## Test set channel in use with bad channel name
+## Test set channel in-use with bad channel name
 add_test(NAME TestSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 359)
-## Test clear channel in use with bad channel name
+## Test clear channel in-use with bad channel name
 add_test(NAME TestClearChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 360)
-## Test get and set channel in use
+## Test get and set channel in-use
 add_test(NAME TestGetAndSetChannelInUse COMMAND ${THIS_TARGET} 361)
-## Test get and set channel in use with empty registry
+## Test get and set channel in-use with empty registry
 add_test(NAME TestGetAndSetChannelInUseWithEmptyRegistry COMMAND ${THIS_TARGET} 362)
-## Test get and set channel in use with bad node name
+## Test get and set channel in-use with bad node name
 add_test(NAME TestGetAndSetChannelInUseWithBadNodeName COMMAND ${THIS_TARGET} 363)
-## Test get and set channel in use with bad channel name
+## Test get and set channel in-use with bad channel name
 add_test(NAME TestGetAndSetChannelInUseWithBadChannelName COMMAND ${THIS_TARGET} 364)
 
 ## Test count connections with empty Registry
@@ -295,3 +297,11 @@ add_test(NAME TestGetConnectionsForMachineFromRegistryWithTwoConnections COMMAND
 add_test(NAME TestGetConnectionsWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 396)
 ## Test get connections with bad machine name from Registry
 add_test(NAME TestGetConnectionsWithBadMachineNameFromRegistry COMMAND ${THIS_TARGET} 397)
+## Test get connection info with empty Registry
+add_test(NAME TestGetConnectionInfoWithEmptyRegistry COMMAND ${THIS_TARGET} 398)
+## Test get connection info in Registry with one connection
+add_test(NAME TestGetConnectionInfoInRegistryWithOneConnection COMMAND ${THIS_TARGET} 399)
+## Test get connection info with bad node name from Registry
+add_test(NAME TestGetConnectionInfoWithBadNodeNameFromRegistry COMMAND ${THIS_TARGET} 400)
+## Test get connection info with bad channel name from Registry
+add_test(NAME TestGetConnectionInfoWithBadChannelNameFromRegistry COMMAND ${THIS_TARGET} 401)

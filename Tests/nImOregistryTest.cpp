@@ -216,7 +216,7 @@ doTestEmptyRegistryForMachines
         }
         else
         {
-            nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
+            auto    statusWithInt{aRegistry->getNumberOfMachines()};
 
             if (statusWithInt.first.first)
             {
@@ -285,7 +285,7 @@ doTestMachineSetWithEmptyRegistry
         }
         else
         {
-            nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfMachines()};
+            auto    statusWithStrings{aRegistry->getNamesOfMachines()};
 
             if (statusWithStrings.first.first)
             {
@@ -356,7 +356,7 @@ doTestFindMachineWithEmptyRegistry
         }
         else
         {
-            nImO::BoolOrFailure  statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
+            auto    statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
 
             if (statusWithBool.first.first)
             {
@@ -440,7 +440,7 @@ doTestAddMachineToRegistry
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
@@ -502,11 +502,11 @@ doTestCountMachinesWithRegistryWithOneMachine
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
+                auto    statusWithInt{aRegistry->getNumberOfMachines()};
 
                 if (statusWithInt.first.first)
                 {
@@ -580,11 +580,11 @@ doTestMachineSetWithRegistryWithOneMachine
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfMachines()};
+                auto    statusWithStrings{aRegistry->getNamesOfMachines()};
 
                 if (statusWithStrings.first.first)
                 {
@@ -660,11 +660,11 @@ doTestFindMachineWithRegistryWithOneMachine
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
-                nImO::BoolOrFailure  statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
+                auto    statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
 
                 if (statusWithBool.first.first)
                 {
@@ -753,7 +753,7 @@ doTestAddTwoDistinctMachinesToRegistry
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
@@ -823,14 +823,14 @@ doTestCountMachinesWithRegistryWithTwoMachines
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
                 status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
                 if (status.first)
                 {
-                    nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
+                    auto    statusWithInt{aRegistry->getNumberOfMachines()};
 
                     if (statusWithInt.first.first)
                     {
@@ -909,14 +909,14 @@ doTestAddTwoIdenticalMachinesToRegistry
         }
         else
         {
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
 
             if (status.first)
             {
                 status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
                 if (status.first)
                 {
-                    nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfMachines()};
+                    auto    statusWithInt{aRegistry->getNumberOfMachines()};
 
                     if (statusWithInt.first.first)
                     {
@@ -995,7 +995,7 @@ doTestEmptyRegistryForNodes
         }
         else
         {
-            nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
+            auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
             if (statusWithInt.first.first)
             {
@@ -1064,7 +1064,7 @@ doTestNodeSetWithEmptyRegistry
         }
         else
         {
-            nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+            auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
             if (statusWithStrings.first.first)
             {
@@ -1135,7 +1135,7 @@ doTestFindNodeWithEmptyRegistry
         }
         else
         {
-            nImO::BoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+            auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
             if (statusWithBool.first.first)
             {
@@ -1216,8 +1216,8 @@ doTestAddNodeToRegistry
         }
         else
         {
-            std::string              machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1284,15 +1284,15 @@ doTestCountNodesWithRegistryWithOneNode
         }
         else
         {
-            std::string              machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
+                    auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
                     if (statusWithInt.first.first)
                     {
@@ -1368,15 +1368,15 @@ doTestNodeSetWithRegistryWithOneNode
         }
         else
         {
-            std::string              machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+                    auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
                     if (statusWithStrings.first.first)
                     {
@@ -1454,15 +1454,15 @@ doTestFindNodeWithRegistryWithOneNode
         }
         else
         {
-            std::string              machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure   status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::BoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                    auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                     if (statusWithBool.first.first)
                     {
@@ -1553,10 +1553,10 @@ doTestNodeDataAddedToRegistry
         }
         else
         {
-            uint32_t                randomAddress{nImO::RandomUnsigned()};
-            uint16_t                randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName, randomAddress)};
+            uint32_t    randomAddress{nImO::RandomUnsigned()};
+            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -1564,7 +1564,7 @@ doTestNodeDataAddedToRegistry
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::NodeInfoOrFailure  statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
+                    auto    statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
 
                     if (statusWithInfo.first.first)
                     {
@@ -1652,8 +1652,8 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1728,8 +1728,8 @@ doTestCountNodesWithRegistryWithNodeRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1739,7 +1739,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
+                        auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
                         if (statusWithInt.first.first)
                         {
@@ -1820,8 +1820,8 @@ doTestNodeSetWithRegistryWithNodeRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1831,7 +1831,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+                        auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
@@ -1914,8 +1914,8 @@ doTestFindNodeWithRegistryNodeRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1925,7 +1925,7 @@ doTestFindNodeWithRegistryNodeRemoved
                     status = aRegistry->removeNode(NODE_NAME_1);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                        auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -2006,8 +2006,8 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2082,8 +2082,8 @@ doTestCountNodesWithRegistryWithTwoNodes
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2093,7 +2093,7 @@ doTestCountNodesWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
+                        auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
                         if (statusWithInt.first.first)
                         {
@@ -2174,8 +2174,8 @@ doTestNodeSetWithRegistryWithTwoNodes
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2185,7 +2185,7 @@ doTestNodeSetWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+                        auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
@@ -2275,8 +2275,8 @@ doTestFindNodeWithRegistryWithTwoNodes
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2286,7 +2286,7 @@ doTestFindNodeWithRegistryWithTwoNodes
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                        auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -2382,8 +2382,8 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2474,8 +2474,8 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2491,7 +2491,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::IntOrFailure   statusWithInt{aRegistry->getNumberOfNodes()};
+                                auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
                                 if (statusWithInt.first.first)
                                 {
@@ -2582,8 +2582,8 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2599,7 +2599,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+                                auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
                                 if (statusWithStrings.first.first)
                                 {
@@ -2692,8 +2692,8 @@ doTestFindNodeWithRegistryAllNodesRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2709,7 +2709,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
                             status = aRegistry->removeNode(NODE_NAME_2);
                             if (status.first)
                             {
-                                nImO::BoolOrFailure  statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                                auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -2815,8 +2815,8 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2830,7 +2830,7 @@ doTestAddTwoIdenticalNodesToRegistry
                     }
                     else
                     {
-                        nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodes()};
+                        auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
                         if (statusWithStrings.first.first)
                         {
@@ -2912,11 +2912,11 @@ doTestNodeInfoWithRegistryWithNoNodes
         }
         else
         {
-            nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodes()};
+            auto    statusWithInfo{aRegistry->getInformationForAllNodes()};
 
-            if (statusWithInformation.first.first)
+            if (statusWithInfo.first.first)
             {
-                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                 if (0 == infoVector.size())
                 {
@@ -2929,7 +2929,7 @@ doTestNodeInfoWithRegistryWithNoNodes
             }
             else
             {
-                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
     }
@@ -2980,10 +2980,10 @@ doTestNodeInfoWithRegistryWithOneNode
         }
         else
         {
-            uint32_t                randomAddress{nImO::RandomUnsigned()};
-            uint16_t                randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName, randomAddress)};
+            uint32_t    randomAddress{nImO::RandomUnsigned()};
+            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -2991,11 +2991,11 @@ doTestNodeInfoWithRegistryWithOneNode
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodes()};
+                    auto    statusWithInfo{aRegistry->getInformationForAllNodes()};
 
-                    if (statusWithInformation.first.first)
+                    if (statusWithInfo.first.first)
                     {
-                        nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                        nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                         if (1 == infoVector.size())
                         {
@@ -3020,7 +3020,7 @@ doTestNodeInfoWithRegistryWithOneNode
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                     }
                 }
                 else
@@ -3081,10 +3081,10 @@ doTestNodeInfoWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t                randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t                randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName1{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName1, randomAddress1)};
+            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName1{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
@@ -3104,11 +3104,11 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodes()};
+                            auto    statusWithInfo{aRegistry->getInformationForAllNodes()};
 
-                            if (statusWithInformation.first.first)
+                            if (statusWithInfo.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                                 if (2 == infoVector.size())
                                 {
@@ -3181,7 +3181,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                ODL_LOG("! (statusWithInfo.first.first)"); //####
                             }
                         }
                         else
@@ -3255,7 +3255,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
         }
         else
         {
-            nImO::LaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+            auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
             if (statusWithDetails.first.first)
             {
@@ -3323,10 +3323,10 @@ doTestLaunchDetailsWithRegistryWithOneNode
         }
         else
         {
-            uint32_t                randomAddress{nImO::RandomUnsigned()};
-            uint16_t                randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName, randomAddress)};
+            uint32_t    randomAddress{nImO::RandomUnsigned()};
+            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -3334,7 +3334,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::LaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+                    auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
                     if (statusWithDetails.first.first)
                     {
@@ -3420,10 +3420,10 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t                randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t                randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName1{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName1, randomAddress1)};
+            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName1{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
@@ -3443,7 +3443,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
                                                     nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::LaunchDetailsOrFailure    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+                            auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
 
                             if (statusWithDetails.first.first)
                             {
@@ -3530,6 +3530,75 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
 } // doTestLaunchDetailsWithRegistryWithTwoNodes
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 127 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestNodeInfoWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
+
+            if (statusWithInfo.first.first)
+            {
+                if (statusWithInfo.second._found)
+                {
+                    ODL_LOG("(statusWithInfo.second._found)"); //####
+                }
+                else
+                {
+                    result = 0;
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestNodeInfoWithEmptyRegistry
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
@@ -3570,12 +3639,12 @@ doTestNodeSetWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
+                auto    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                 if (statusWithStrings.first.first)
                 {
@@ -3648,15 +3717,15 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::StringSetOrFailure    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
+                    auto    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                     if (statusWithStrings.first.first)
                     {
@@ -3734,8 +3803,8 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3745,7 +3814,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::StringSetOrFailure statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
+                        auto    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
 
                         if (statusWithStrings.first.first)
                         {
@@ -3838,16 +3907,16 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName)};
+                auto    statusWithInfo{aRegistry->getInformationForAllNodesOnMachine(machineName)};
 
-                if (statusWithInformation.first.first)
+                if (statusWithInfo.first.first)
                 {
-                    nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                    nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                     if (0 == infoVector.size())
                     {
@@ -3860,7 +3929,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
                 }
                 else
                 {
-                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                 }
             }
             else
@@ -3916,10 +3985,10 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            uint32_t                randomAddress{nImO::RandomUnsigned()};
-            uint16_t                randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName, randomAddress)};
+            uint32_t    randomAddress{nImO::RandomUnsigned()};
+            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
             {
@@ -3927,11 +3996,11 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName)};
+                    auto    statusWithInfo{aRegistry->getInformationForAllNodesOnMachine(machineName)};
 
-                    if (statusWithInformation.first.first)
+                    if (statusWithInfo.first.first)
                     {
-                        nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                        nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                         if (1 == infoVector.size())
                         {
@@ -3956,7 +4025,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
                     }
                     else
                     {
-                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                     }
                 }
                 else
@@ -4017,10 +4086,10 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            uint32_t                randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t                randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
-            std::string             machineName1{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName1, randomAddress1)};
+            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
+            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            std::string machineName1{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
@@ -4040,11 +4109,11 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            nImO::NodeInfoVectorOrFailure   statusWithInformation{aRegistry->getInformationForAllNodesOnMachine(machineName1)};
+                            auto    statusWithInfo{aRegistry->getInformationForAllNodesOnMachine(machineName1)};
 
-                            if (statusWithInformation.first.first)
+                            if (statusWithInfo.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector{statusWithInformation.second};
+                                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
 
                                 if (1 == infoVector.size())
                                 {
@@ -4076,7 +4145,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                ODL_LOG("! (statusWithInfo.first.first)"); //####
                             }
                         }
                         else
@@ -4150,12 +4219,12 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
-                nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
+                auto    statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                 if (statusWithInt.first.first)
                 {
@@ -4226,15 +4295,15 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
+                    auto    statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                     if (statusWithInt.first.first)
                     {
@@ -4310,8 +4379,8 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4321,7 +4390,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
                     status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
+                        auto    statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
 
                         if (statusWithInt.first.first)
                         {
@@ -4405,7 +4474,7 @@ doTestCountChannelsWithEmptyRegistry
         }
         else
         {
-            nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfChannels()};
+            auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
             if (statusWithInt.first.first)
             {
@@ -4474,7 +4543,7 @@ doTestFindChannelWithEmptyRegistry
         }
         else
         {
-            nImO::BoolOrFailure statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (statusWithBool.first.first)
             {
@@ -4558,8 +4627,8 @@ doTestAddChannelToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4637,8 +4706,8 @@ doTestCountChannelsInRegistryWithOneChannel
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4648,7 +4717,7 @@ doTestCountChannelsInRegistryWithOneChannel
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfChannels()};
+                        auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
                         if (statusWithInt.first.first)
                         {
@@ -4732,8 +4801,8 @@ doTestFindChannelInRegistryWithOneChannel
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4743,7 +4812,7 @@ doTestFindChannelInRegistryWithOneChannel
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -4842,8 +4911,8 @@ doTestAddTwoChannelsToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4937,8 +5006,8 @@ doTestCountChannelsInRegistryWithTwoChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4954,7 +5023,7 @@ doTestCountChannelsInRegistryWithTwoChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                             if (status.first)
                             {
-                                nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfChannels()};
+                                auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
                                 if (statusWithInt.first.first)
                                 {
@@ -5048,8 +5117,8 @@ doTestFindChannelsInRegistryWithTwoChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5065,7 +5134,7 @@ doTestFindChannelsInRegistryWithTwoChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                             if (status.first)
                             {
-                                nImO::BoolOrFailure statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -5174,8 +5243,8 @@ doTestAddTwoIdenticalChannelsToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5258,8 +5327,8 @@ doTestAddChannelWithBadNodeNameToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5334,8 +5403,8 @@ doTestAddChannelWithBadChannelNameToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5413,8 +5482,8 @@ doTestRemoveAllChannelsFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5508,8 +5577,8 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5525,7 +5594,7 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
                             status = aRegistry->removeChannelsForNode(NODE_NAME_1);
                             if (status.first)
                             {
-                                nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfChannels()};
+                                auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
                                 if (statusWithInt.first.first)
                                 {
@@ -5619,8 +5688,8 @@ doTestFindChannelWithRegistryAllChannelsRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5636,7 +5705,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
                             status = aRegistry->removeChannelsForNode(NODE_NAME_1);
                             if (status.first)
                             {
-                                nImO::BoolOrFailure statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -5745,8 +5814,8 @@ doTestRemoveOneChannelFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5840,8 +5909,8 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5857,7 +5926,7 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
                             status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
                             if (status.first)
                             {
-                                nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfChannels()};
+                                auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
                                 if (statusWithInt.first.first)
                                 {
@@ -5951,8 +6020,8 @@ doTestFindChannelWithRegistryOneChannelRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5968,7 +6037,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
                             status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
                             if (status.first)
                             {
-                                nImO::BoolOrFailure statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -6077,8 +6146,8 @@ doTestRemoveNonexistentChannelFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6164,8 +6233,8 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6251,7 +6320,7 @@ doTestGetChannelInfoFromEmptyRegistry
         }
         else
         {
-            nImO::ChannelInfoOrFailure  statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (statusWithInfo.first.first)
             {
@@ -6320,8 +6389,8 @@ doTestGetChannelInfoFromRegistryWithOneChannel
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6331,7 +6400,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        nImO::ChannelInfoOrFailure  statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
 
                         if (statusWithInfo.first.first)
                         {
@@ -6428,8 +6497,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6445,7 +6514,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                             if (status.first)
                             {
-                                nImO::ChannelInfoOrFailure  statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
 
                                 if (statusWithInfo.first.first)
                                 {
@@ -6574,8 +6643,8 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6583,7 +6652,7 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
                 if (status.first)
                 {
                     {
-                        nImO::ChannelInfoOrFailure  statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_2, "/arbitrary_path")};
+                        auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_2, "/arbitrary_path")};
 
                         if (statusWithInfo.first.first)
                         {
@@ -6660,15 +6729,15 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
                 status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    nImO::ChannelInfoOrFailure  statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
+                    auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
 
                     if (statusWithInfo.first.first)
                     {
@@ -6740,11 +6809,11 @@ doTestGetChannelSetFromEmptyRegistry
         }
         else
         {
-            nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannels()};
+            auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
 
-            if (statusWithInformation.first.first)
+            if (statusWithInfo.first.first)
             {
-                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                 if (0 == infoVector.size())
                 {
@@ -6757,7 +6826,7 @@ doTestGetChannelSetFromEmptyRegistry
             }
             else
             {
-                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
     }
@@ -6808,8 +6877,8 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6819,11 +6888,11 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannels()};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
 
-                        if (statusWithInformation.first.first)
+                        if (statusWithInfo.first.first)
                         {
-                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                            nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                             if (1 == infoVector.size())
                             {
@@ -6850,7 +6919,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
                         }
                     }
                     else
@@ -6916,8 +6985,8 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6930,11 +6999,11 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                         status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
                         if (status.first)
                         {
-                            nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannels()};
+                            auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
 
-                            if (statusWithInformation.first.first)
+                            if (statusWithInfo.first.first)
                             {
-                                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                                nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                                 if (2 == infoVector.size())
                                 {
@@ -6978,7 +7047,7 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                ODL_LOG("! (statusWithInfo.first.first)"); //####
                             }
                         }
                         else
@@ -7049,8 +7118,8 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7066,11 +7135,11 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannels()};
+                                auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
 
-                                if (statusWithInformation.first.first)
+                                if (statusWithInfo.first.first)
                                 {
-                                    nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                                    nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                                     if (2 == infoVector.size())
                                     {
@@ -7114,7 +7183,7 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                                 }
                             }
                             else
@@ -7190,8 +7259,8 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7201,11 +7270,11 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
 
-                        if (statusWithInformation.first.first)
+                        if (statusWithInfo.first.first)
                         {
-                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                            nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                             if (1 == infoVector.size())
                             {
@@ -7232,7 +7301,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
                         }
                     }
                     else
@@ -7298,8 +7367,8 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7312,11 +7381,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                         status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
                         if (status.first)
                         {
-                            nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+                            auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
 
-                            if (statusWithInformation.first.first)
+                            if (statusWithInfo.first.first)
                             {
-                                nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                                nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                                 if (2 == infoVector.size())
                                 {
@@ -7360,7 +7429,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                             }
                             else
                             {
-                                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                ODL_LOG("! (statusWithInfo.first.first)"); //####
                             }
                         }
                         else
@@ -7431,8 +7500,8 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7448,12 +7517,11 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                             status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
                             if (status.first)
                             {
-                                nImO::ChannelInfoVectorOrFailure
-                                                                statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
+                                auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
 
-                                if (statusWithInformation.first.first)
+                                if (statusWithInfo.first.first)
                                 {
-                                    nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                                    nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                                     if (2 == infoVector.size())
                                     {
@@ -7497,7 +7565,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                                 }
                             }
                             else
@@ -7573,8 +7641,8 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7584,11 +7652,11 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        nImO::ChannelInfoVectorOrFailure    statusWithInformation{aRegistry->getInformationForAllChannelsOnNode(NODE_NAME_2)};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnNode(NODE_NAME_2)};
 
-                        if (statusWithInformation.first.first)
+                        if (statusWithInfo.first.first)
                         {
-                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                            nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                             if (0 == infoVector.size())
                             {
@@ -7601,7 +7669,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
                         }
                     }
                     else
@@ -7667,8 +7735,8 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7678,12 +7746,11 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::ChannelInfoVectorOrFailure
-                                                        statusWithInformation{aRegistry->getInformationForAllChannelsOnMachine(machineName + "!!")};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName + "!!")};
 
-                        if (statusWithInformation.first.first)
+                        if (statusWithInfo.first.first)
                         {
-                            nImO::ChannelInfoVector &   infoVector{statusWithInformation.second};
+                            nImO::ChannelInfoVector &   infoVector{statusWithInfo.second};
 
                             if (0 == infoVector.size())
                             {
@@ -7696,7 +7763,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
                         }
                         else
                         {
-                            ODL_LOG("! (statusWithInformation.first.first)"); //####
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
                         }
                     }
                     else
@@ -7765,7 +7832,7 @@ doTestGetChannelInUseWithEmptyRegistry
         }
         else
         {
-            nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (statusWithBool.first.first)
             {
@@ -7827,7 +7894,7 @@ doTestSetChannelInUseWithEmptyRegistry
         }
         else
         {
-            nImO::SuccessOrFailure  status{aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    status{aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (status.first)
             {
@@ -7889,7 +7956,7 @@ doTestClearChannelInUseWithEmptyRegistry
         }
         else
         {
-            nImO::SuccessOrFailure  status{aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    status{aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (status.first)
             {
@@ -7951,8 +8018,8 @@ doTestChannelInUseCanBeSet
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7962,7 +8029,7 @@ doTestChannelInUseCanBeSet
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8069,8 +8136,8 @@ doTestChannelInUseCanBeCleared
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8080,7 +8147,7 @@ doTestChannelInUseCanBeCleared
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8210,8 +8277,8 @@ doTestGetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8221,7 +8288,7 @@ doTestGetChannelInUseWithBadNodeName
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUse(NODE_NAME_2, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_2, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8298,8 +8365,8 @@ doTestSetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8385,8 +8452,8 @@ doTestClearChannelInUseWithBadNodeName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8472,8 +8539,8 @@ doTestGetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8483,7 +8550,7 @@ doTestGetChannelInUseWithBadChannelName
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_2)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_2)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8560,8 +8627,8 @@ doTestSetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8647,8 +8714,8 @@ static int
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8734,8 +8801,8 @@ doTestGetAndSetChannelInUse
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8745,7 +8812,7 @@ doTestGetAndSetChannelInUse
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8844,7 +8911,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
         }
         else
         {
-            nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
 
             if (statusWithBool.first.first)
             {
@@ -8906,8 +8973,8 @@ doTestGetAndSetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8917,7 +8984,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_2, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_2, CHANNEL_PATH_1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8994,8 +9061,8 @@ doTestGetAndSetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9005,7 +9072,7 @@ doTestGetAndSetChannelInUseWithBadChannelName
                     status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        nImO::BoolOrFailure statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_2)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_2)};
 
                         if (statusWithBool.first.first)
                         {
@@ -9082,7 +9149,7 @@ doTestCountConnectionsWithEmptyRegistry
         }
         else
         {
-            nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfConnections()};
+            auto    statusWithInt{aRegistry->getNumberOfConnections()};
 
             if (statusWithInt.first.first)
             {
@@ -9151,8 +9218,8 @@ doTestAddConnectionToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9255,8 +9322,8 @@ doTestCountConnectionsInRegistryWithOneConnection
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9276,7 +9343,7 @@ doTestCountConnectionsInRegistryWithOneConnection
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfConnections()};
+                                    auto    statusWithInt{aRegistry->getNumberOfConnections()};
 
                                     if (statusWithInt.first.first)
                                     {
@@ -9375,8 +9442,8 @@ doTestAddTwoConnectionsToRegistry
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9505,8 +9572,8 @@ doTestCountConnectionsInRegistryWithTwoConnections
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9537,7 +9604,7 @@ doTestCountConnectionsInRegistryWithTwoConnections
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
-                                                nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfConnections()};
+                                                auto    statusWithInt{aRegistry->getNumberOfConnections()};
 
                                                 if (statusWithInt.first.first)
                                                 {
@@ -9651,8 +9718,8 @@ doTestRemoveOneConnectionFromRegistryViaFrom
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9763,8 +9830,8 @@ doTestRemoveOneConnectionFromRegistryViaTo
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9875,8 +9942,8 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9899,7 +9966,7 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
                                     status = aRegistry->removeConnection(NODE_NAME_2, CHANNEL_PATH_2, false);
                                     if (status.first)
                                     {
-                                        nImO::IntOrFailure  statusWithInt{aRegistry->getNumberOfConnections()};
+                                        auto    statusWithInt{aRegistry->getNumberOfConnections()};
 
                                         if (statusWithInt.first.first)
                                         {
@@ -10003,8 +10070,8 @@ doTestConnectChannelsWithRegistryWithBadChannelName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10116,8 +10183,8 @@ doTestConnectChannelsWithRegistryWithBadNodeName
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10229,11 +10296,11 @@ doTestGetConnectionsFromEmptyRegistry
         }
         else
         {
-            nImO::ConnectionInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllConnections()};
+            auto    statusWithInfo{aRegistry->getInformationForAllConnections()};
 
-            if (statusWithInformation.first.first)
+            if (statusWithInfo.first.first)
             {
-                nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                 if (0 == infoVector.size())
                 {
@@ -10246,7 +10313,7 @@ doTestGetConnectionsFromEmptyRegistry
             }
             else
             {
-                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
     }
@@ -10300,8 +10367,8 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10321,12 +10388,11 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    nImO::ConnectionInfoVectorOrFailure
-                                                                statusWithInformation{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
+                                    auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
 
-                                    if (statusWithInformation.first.first)
+                                    if (statusWithInfo.first.first)
                                     {
-                                        nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                                        nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                                         if (1 == infoVector.size())
                                         {
@@ -10353,7 +10419,7 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                                     }
                                 }
                                 else
@@ -10437,8 +10503,8 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10468,12 +10534,11 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
-                                                nImO::ConnectionInfoVectorOrFailure
-                                                                            statusWithInformation{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
+                                                auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
 
-                                                if (statusWithInformation.first.first)
+                                                if (statusWithInfo.first.first)
                                                 {
-                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                                                     if (2 == infoVector.size())
                                                     {
@@ -10530,7 +10595,7 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
                                                 }
                                                 else
                                                 {
-                                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                                                 }
                                             }
                                             else
@@ -10629,8 +10694,8 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10660,12 +10725,11 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
-                                                nImO::ConnectionInfoVectorOrFailure
-                                                                                statusWithInformation{aRegistry->getInformationForAllConnections()};
+                                                auto    statusWithInfo{aRegistry->getInformationForAllConnections()};
 
-                                                if (statusWithInformation.first.first)
+                                                if (statusWithInfo.first.first)
                                                 {
-                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                                                     if (2 == infoVector.size())
                                                     {
@@ -10722,7 +10786,7 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
                                                 }
                                                 else
                                                 {
-                                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                                                 }
                                             }
                                             else
@@ -10821,8 +10885,8 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10842,12 +10906,11 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    nImO::ConnectionInfoVectorOrFailure
-                                                            statusWithInformation{aRegistry->getInformationForAllConnectionsOnMachine(machineName)};
+                                    auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(machineName)};
 
-                                    if (statusWithInformation.first.first)
+                                    if (statusWithInfo.first.first)
                                     {
-                                        nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                                        nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                                         if (1 == infoVector.size())
                                         {
@@ -10874,7 +10937,7 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                        ODL_LOG("! (statusWithInfo.first.first)"); //####
                                     }
                                 }
                                 else
@@ -10958,8 +11021,8 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
         }
         else
         {
-            std::string             machineName{nImO::GetShortComputerName()};
-            nImO::SuccessOrFailure  status{aRegistry->addMachine(machineName)};
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10989,12 +11052,11 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
-                                                nImO::ConnectionInfoVectorOrFailure
-                                                                            statusWithInformation{aRegistry->getInformationForAllConnectionsOnMachine(machineName)};
+                                                auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(machineName)};
 
-                                                if (statusWithInformation.first.first)
+                                                if (statusWithInfo.first.first)
                                                 {
-                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                                                    nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                                                     if (2 == infoVector.size())
                                                     {
@@ -11051,7 +11113,7 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
                                                 }
                                                 else
                                                 {
-                                                    ODL_LOG("! (statusWithInformation.first.first)"); //####
+                                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
                                                 }
                                             }
                                             else
@@ -11150,11 +11212,11 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
         }
         else
         {
-            nImO::ConnectionInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllConnectionsOnNode(BAD_NODE_NAME)};
+            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(BAD_NODE_NAME)};
 
-            if (statusWithInformation.first.first)
+            if (statusWithInfo.first.first)
             {
-                nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                 if (0 == infoVector.size())
                 {
@@ -11167,7 +11229,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
             }
             else
             {
-                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
     }
@@ -11221,11 +11283,11 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
         }
         else
         {
-            nImO::ConnectionInfoVectorOrFailure statusWithInformation{aRegistry->getInformationForAllConnectionsOnMachine(BAD_MACHINE_NAME)};
+            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(BAD_MACHINE_NAME)};
 
-            if (statusWithInformation.first.first)
+            if (statusWithInfo.first.first)
             {
-                nImO::ConnectionInfoVector &    infoVector{statusWithInformation.second};
+                nImO::ConnectionInfoVector &    infoVector{statusWithInfo.second};
 
                 if (0 == infoVector.size())
                 {
@@ -11238,7 +11300,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
             }
             else
             {
-                ODL_LOG("! (statusWithInformation.first.first)"); //####
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
         }
     }
@@ -11250,6 +11312,482 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
     ODL_EXIT_I(result); //####
     return result;
 } // doTestGetConnectionsWithBadMachineNameFromRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 398 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionInfoWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, false)};
+
+            if (statusWithInfo.first.first)
+            {
+                nImO::ConnectionInfo &  info1{statusWithInfo.second};
+
+                if (info1._found)
+                {
+                    ODL_LOG("(info1._found)"); //####
+                }
+                else
+                {
+                    statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, true);
+                    if (statusWithInfo.first.first)
+                    {
+                        nImO::ConnectionInfo &  info2{statusWithInfo.second};
+
+                        if (info2._found)
+                        {
+                            ODL_LOG("(info2._found)"); //####
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (statusWithInfo.first.first)"); //####
+                    }
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInfo.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionInfoWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 399 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionInfoInRegistryWithOneConnection
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                                                  nImO::TransportType::kTCP);
+                                if (status.first)
+                                {
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, false)};
+
+                                    if (statusWithInfo.first.first)
+                                    {
+                                        nImO::ConnectionInfo &  connection1{statusWithInfo.second};
+
+                                        if (connection1._found)
+                                        {
+                                            ODL_LOG("(connection1._found)"); //####
+                                        }
+                                        else
+                                        {
+                                            statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, true);
+                                            if (statusWithInfo.first.first)
+                                            {
+                                                nImO::ConnectionInfo &  connection2{statusWithInfo.second};
+
+                                                if (connection2._found && (connection2._fromNode == NODE_NAME_1) &&
+                                                    (connection2._fromPath == CHANNEL_PATH_1) && (connection2._toNode == NODE_NAME_2) &&
+                                                    (connection2._toPath == CHANNEL_PATH_2) && (connection2._dataType == "") &&
+                                                    (connection2._mode == nImO::TransportType::kTCP))
+                                                {
+                                                    result = 0;
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (connection2._found && (connection2._fromNode == NODE_NAME_1) && " //####
+                                                            "(connection2._fromPath == CHANNEL_PATH_1) && " //####
+                                                            "(connection2._toNode == NODE_NAME_2) && " //####
+                                                            "(connection2._toPath == CHANNEL_PATH_2) && (connection2._dataType == \"\") && " //####
+                                                            "(connection2._mode == nImO::TransportType::kTCP))"); //####
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionInfoInRegistryWithOneConnection
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 400 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionInfoWithBadNodeNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                                                  nImO::TransportType::kTCP);
+                                if (status.first)
+                                {
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(BAD_NODE_NAME, CHANNEL_PATH_1, false)};
+
+                                    if (statusWithInfo.first.first)
+                                    {
+                                        ODL_LOG("(statusWithInfo.first.first)"); //####
+                                    }
+                                    else
+                                    {
+                                        statusWithInfo = aRegistry->getConnectionInformation(BAD_NODE_NAME, CHANNEL_PATH_1, true);
+                                        if (statusWithInfo.first.first)
+                                        {
+                                            ODL_LOG("(statusWithInfo.first.first)"); //####
+                                        }
+                                        else
+                                        {
+                                            result = 0;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionInfoWithBadNodeNameFromRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 401 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetConnectionInfoWithBadChannelNameFromRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            std::string machineName{nImO::GetShortComputerName()};
+            auto        status{aRegistry->addMachine(machineName)};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    if (status.first)
+                    {
+                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                                                  nImO::TransportType::kTCP);
+                                if (status.first)
+                                {
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, BAD_CHANNEL_PATH, false)};
+
+                                    if (statusWithInfo.first.first)
+                                    {
+                                        ODL_LOG("(statusWithInfo.first.first)"); //####
+                                    }
+                                    else
+                                    {
+                                        statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, BAD_CHANNEL_PATH, true);
+                                        if (statusWithInfo.first.first)
+                                        {
+                                            ODL_LOG("(statusWithInfo.first.first)"); //####
+                                        }
+                                        else
+                                        {
+                                            result = 0;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetConnectionInfoWithBadChannelNameFromRegistry
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -11447,6 +11985,10 @@ main
                     case 126 :
                         result = doTestLaunchDetailsWithRegistryWithTwoNodes(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
                                                                              commandLine);
+                        break;
+
+                    case 127 :
+                        result = doTestNodeInfoWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
                         break;
 
                     case 200 :
@@ -11793,6 +12335,25 @@ main
                     case 397 :
                         result = doTestGetConnectionsWithBadMachineNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
                                                                                            currentDir, commandLine);
+                        break;
+
+                    case 398 :
+                        result = doTestGetConnectionInfoWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 399 :
+                        result = doTestGetConnectionInfoInRegistryWithOneConnection(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                    commandLine);
+                        break;
+
+                    case 400 :
+                        result = doTestGetConnectionInfoWithBadNodeNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                    commandLine);
+                        break;
+
+                    case 401 :
+                        result = doTestGetConnectionInfoWithBadChannelNameFromRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                       commandLine);
                         break;
 
                     default :

@@ -111,7 +111,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
     _owner->report("get information for all connections request received");
     if (0 < arguments.size())
     {
-        ConnectionInfoVectorOrFailure   statusWithInfoVector{_registry->getInformationForAllConnections()};
+        auto    statusWithInfoVector{_registry->getInformationForAllConnections()};
 
         if (statusWithInfoVector.first.first)
         {

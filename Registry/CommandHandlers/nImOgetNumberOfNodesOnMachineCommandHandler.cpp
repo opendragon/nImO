@@ -119,7 +119,7 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
         }
         else
         {
-            IntOrFailure    statusWithInt{_registry->getNumberOfNodesOnMachine(asString->getValue())};
+            auto    statusWithInt{_registry->getNumberOfNodesOnMachine(asString->getValue())};
 
             if (statusWithInt.first.first)
             {

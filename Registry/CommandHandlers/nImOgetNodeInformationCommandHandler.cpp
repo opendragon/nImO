@@ -120,7 +120,7 @@ nImO::GetNodeInformationCommandHandler::doIt
         }
         else
         {
-            NodeInfoOrFailure    statusWithInfo{_registry->getNodeInformation(asString->getValue())};
+            auto    statusWithInfo{_registry->getNodeInformation(asString->getValue())};
 
             if (statusWithInfo.first.first)
             {

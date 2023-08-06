@@ -120,7 +120,7 @@ main
 
                 if (0 < optionValues._machine.length())
                 {
-                    nImO::NodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodesOnMachine(optionValues._machine)};
+                    auto    statusWithAllNodes{proxy.getInformationForAllNodesOnMachine(optionValues._machine)};
 
                     if (statusWithAllNodes.first.first)
                     {
@@ -178,7 +178,7 @@ main
                 }
                 else if (0 < nodeName.length())
                 {
-                    nImO::NodeInfoOrFailure  statusWithInfo{proxy.getNodeInformation(nodeName)};
+                    auto    statusWithInfo{proxy.getNodeInformation(nodeName)};
 
                     if (statusWithInfo.first.first)
                     {
@@ -211,7 +211,7 @@ main
                 }
                 else
                 {
-                    nImO::NodeInfoVectorOrFailure    statusWithAllNodes{proxy.getInformationForAllNodes()};
+                    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
 
                     if (statusWithAllNodes.first.first)
                     {

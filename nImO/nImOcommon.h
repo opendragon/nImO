@@ -760,9 +760,6 @@ namespace nImO
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     typedef std::pair<SuccessOrFailure, StringSet>   StringSetOrFailure;
 
-    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, SpValue>   ValueOrFailure;
-
     // Methods.
 
     /*! @brief Convert a set of bytes into a floating-point value.
@@ -954,15 +951,6 @@ namespace nImO
     ResolveTransport
         (const TransportType    firstTransport,
          const TransportType    secondTransport,
-         const TransportType    defaultTransport = TransportType::kUnknown);
-
-    /*! @brief Standardize the handling of TransportType value specifications.
-     @param[in] firstTransport A TransportType value.
-     @param[in] defaultTransport The TransportType value to use if nothing else is resolveable.
-     @return The TransportType value to be used. */
-    TransportType
-    ResolveTransport
-        (const TransportType    firstTransport,
          const TransportType    defaultTransport = TransportType::kUnknown);
 
     /*! @brief Return a string with special characters escaped.

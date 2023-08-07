@@ -21,6 +21,7 @@
 		F608EFD02A37277B003600A6 /* nImOgetChannelInUseAndSetCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInUseAndSetCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetChannelInUseAndSetCommandHandler.cpp; sourceTree = "<group>"; };
 		F60B49732104F760009D2CDA /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F60B49742104F787009D2CDA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F60D86142A80F18000FADAAA /* nImOinputOutputCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinputOutputCommands.h; path = nImO/nImOinputOutputCommands.h; sourceTree = "<group>"; };
 		F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOregistryProxy.h; path = nImO/nImOregistryProxy.h; sourceTree = "<group>"; };
 		F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryProxy.cpp; path = nImO/nImOregistryProxy.cpp; sourceTree = "<group>"; };
 		F613D15A288D82D9008712C9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Registry/resource.h; sourceTree = "<group>"; };
@@ -1342,6 +1343,7 @@
 				F6D00FB420D4915000C29946 /* nImOconverters.h */,
 				F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */,
 				F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */,
+				F60D86142A80F18000FADAAA /* nImOinputOutputCommands.h */,
 				F6943A582886C275002117FA /* nImOlogger.cpp */,
 				F6943A572886C275002117FA /* nImOlogger.h */,
 				F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */,

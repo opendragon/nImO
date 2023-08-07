@@ -39,6 +39,7 @@
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>

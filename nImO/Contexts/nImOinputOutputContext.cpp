@@ -38,6 +38,8 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
+#include <nImOinputOutputCommands.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 

@@ -40,6 +40,7 @@
 # define nImOinChannel_H_ /* Header guard */
 
 # include <nImObaseChannel.h>
+# include <nImOpackage.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

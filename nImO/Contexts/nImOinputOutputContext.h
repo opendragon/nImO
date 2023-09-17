@@ -124,6 +124,9 @@ namespace nImO
             /*! @brief The output channels for the service. */
             OutChannelVector    _outputChannels{};
 
+            /*! @brief The sequence of received packages. */
+            PackageQueue    _inputPackages{};
+
     }; // InputOutputContext
 
 } // nImO

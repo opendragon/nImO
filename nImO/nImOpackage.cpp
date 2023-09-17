@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOoutChannel.cpp
+//  File:       nImO/nImOpackage.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO outgoing connections to services.
+//  Contains:   The class definition for nImO received or sent data.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-14
+//  Created:    2023-09-17
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImOoutChannel.h>
-
-#include <BasicTypes/nImOdouble.h>
-#include <BasicTypes/nImOinteger.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <nImOpackage.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -51,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for %nImO outgoing connections to services. */
+ @brief The class definition for %nImO received or sent data. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -80,43 +76,58 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::OutChannel::OutChannel
-    (const int  index) :
-        inherited{index}
+nImO::Package::Package
+    (const int  tag,
+     SpMessage  value) :
+        _tag(tag), _value(value)
 {
     ODL_ENTER(); //####
-    ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
-} // nImO::OutChannel::OutChannel
+} // nImO::Package::Package
 
-nImO::OutChannel::OutChannel
-    (OutChannel &&  other)
+nImO::Package::Package
+    (Package &&  other)
     noexcept :
-        inherited{std::move(other)}
+        _tag(other._tag), _value(std::move(other._value))
 {
-    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::OutChannel::OutChannel
+} // nImO::package::package
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::OutChannel &
-nImO::OutChannel::operator=
-    (OutChannel &&    other)
+nImO::Package &
+nImO::Package::operator=
+    (const Package &    other)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("other = ", &other); //####
+    if (this != &other)
+    {
+        _tag = other._tag;
+        _value = other._value;
+    }
+    ODL_OBJEXIT_P(this); //####
+    return *this;
+} // nImO::Package::operator=
+
+nImO::Package &
+nImO::Package::operator=
+    (Package &&    other)
     noexcept
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        inherited::operator=(std::move(other));
+        _tag = other._tag;
+        _value = std::move(other._value);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::OutChannel::operator=
+} // nImO::Package::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

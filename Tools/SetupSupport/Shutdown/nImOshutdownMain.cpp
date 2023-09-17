@@ -145,8 +145,11 @@ main
                             }
                         }
 
+                        // TBD: Send 'stopSource' command to 'from' node for all connections on the machine.
+                        // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the machine.
+                        // TBD: Send 'stopDestination' command to 'to' node for all connections on the machine.
+                        // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the machine.
 
-                        // TBD: Close all connections for nodes on the machine.
                         if (optionValues._expanded)
                         {
                             ourContext->report("closing all connections");
@@ -189,7 +192,12 @@ main
                             {
                                 ourContext->report("closing all connections to " + nodeName);
                             }
-                            // TBD
+
+                            // TBD: Send 'stopSource' command to 'from' node for all connections on the node.
+                            // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the node.
+                            // TBD: Send 'stopDestination' command to 'to' node for all connections on the node.
+                            // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the node.
+
                             // Send Shutdown command to the node.
                             if (optionValues._expanded)
                             {
@@ -236,8 +244,9 @@ main
                             }
                         }
 
+                        // TBD: Send 'stopSource' command to 'from' node for all connections.
+                        // TBD: Send 'stopDestination' command to 'to' node for all connections.
 
-                        // TBD: Close all connections.
                         if (optionValues._expanded)
                         {
                             ourContext->report("closing all connections");

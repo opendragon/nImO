@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOoutChannel.h
+//  File:       nImO/nImOpackage.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO outgoing connections to services.
+//  Contains:   The class declaration for nImO received or sent data.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-14
+//  Created:    2023-09-17
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOoutChannel_H_))
-# define nImOoutChannel_H_ /* Header guard */
+#if (! defined(nImOpackage_H_))
+# define nImOpackage_H_ /* Header guard */
 
-# include <nImObaseChannel.h>
+# include <ContainerTypes/nImOmessage.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO outgoing connections to services. */
+ @brief The class declaration for %nImO received or sent data. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide outgoing connections to services. */
-    class OutChannel final : public BaseChannel
+    /*! @brief A class to provide received or sent data. */
+    class Package final
     {
 
         public :
@@ -67,33 +67,57 @@ namespace nImO
         private :
             // Private type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = BaseChannel;
-
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] index The index of the channel. */
-            OutChannel
-                (const int  index = 0);
-
-        protected :
-            // Protected methods.
+            /*! @brief The constructor. */
+            Package
+                (const int  tag = 0,
+                 SpMessage  value = nullptr);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            OutChannel
-                (OutChannel &&    other)
+            Package
+                (Package &&    other)
                 noexcept;
+
+            /*! @brief The copy assignment operator.
+             @param[in] other The object to be copied.
+             @return The updated object. */
+            Package &
+            operator=
+                (const Package &    other);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            OutChannel &
+            Package &
             operator=
-                (OutChannel && other)
+                (Package && other)
                 noexcept;
+
+            /*! @brief Return the tag associated with the Message.
+             @return The tag associated with the Message. */
+            inline int
+            tag
+                (void)
+                const
+            {
+                return _tag;
+            }
+
+            /*! @brief Return the contained Message.
+             @return The contained Message. */
+            inline SpMessage
+            value
+                (void)
+                const
+            {
+                return _value;
+            }
+        
+        protected :
+            // Protected methods.
 
         private :
             // Private methods.
@@ -106,9 +130,18 @@ namespace nImO
 
         private :
             // Private fields.
+        
+            /*! @brief The tag for the associated Message. */
+            int _tag;
 
-    }; // OutChannel
+            /*! @brief The Message being transferred. */
+            SpMessage   _value;
+
+    }; // Package
+
+    /*! @brief A sequence of Messages encapsulated in Packages. */
+    using PackageQueue = std::queue<Package>;
 
 } // nImO
 
-#endif // not defined(nImOoutChannel_H_)
+#endif // not defined(nImOpackage_H_)

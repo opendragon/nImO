@@ -184,6 +184,15 @@ main
                 }
                 if (0 == exitCode)
                 {
+                    if (fromNode == toNode)
+                    {
+                        ourContext->report("node '" + toNode + "' cannot be connected directly to itself.");
+                        std::cerr << "node '" << toNode << "' cannot be connected directly to itself.\n";
+                        exitCode = 1;
+                    }
+                }
+                if (0 == exitCode)
+                {
                     // Grab the 'from' channel.
                     statusWithBool = proxy.getChannelInUseAndSet(fromNode, fromPath);
                     if (statusWithBool.first.first)
@@ -357,8 +366,12 @@ main
                         std::cerr << "Problem with 'addConnection': " << statusWithBool.first.second << "\n";
                         exitCode = 1;
                     }
-
+                    if (0 == exitCode)
+                    {
+                        // Send 'startDestination' command to 'to' node.
+                        // Send 'startSource' command to 'from' node.
 std::cerr << "** Unimplemented **\n";
+                    }
                 }
                 if (0 != exitCode)
                 {

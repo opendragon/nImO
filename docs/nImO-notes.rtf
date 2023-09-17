@@ -15,6 +15,8 @@ The channel 'modes':\
 	'OUT' = a 'client' channel that can make a single connection to an 'IN' channel and is unidirectional 'out'; multiple logical 'out' connections are made via multiple physical connections\
 Note that the command/response port is not displayed in the GUI, as it is an implementation issue.\
 Command-line tools (and the GUI) can interact with the command/response ports, via code that uses the Registry mechanisms to interrogate the advertised ports.\
+Packages are placed on queues and handled by I/O services; a package has a tag (source or destination port number) and a pointer to a message.\
+Each channel records its index within the set of input or output channels and, for input channels, uses the index as the tag for the received message; I/O services can use the index of a package to determine what to do with the associated message, and output channels can ignore the index.\
 \
 nImO contexts manage the channels (and threads to support I/O with them) as well as the identity of the nImO node - a context is created before doing any nImO operations, such as searching for a channel, registering or deregistering a channel, et cetera, is passed to all nImO I/O operations and is destroyed when completing all nImO operations.\
 1) Create context/RAII\
@@ -94,4 +96,12 @@ The configuration file will specify the IP address and port for logging as well 
 Use boost::optional when retrieving a value for a key from the configuration.\
 \
 Note that the firewall daemon, firewalld, on Manjaro, blocks multicast; something on OpenBSD is interfering with mDNS but not multicast.\
+\
+Connecting:\
+1) Start input channel, reporting port\
+2) Start output channel with port\
+\
+Disconnecting:\
+1) Stop output channel\
+2) Stop input channel\
 }

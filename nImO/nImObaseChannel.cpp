@@ -79,15 +79,18 @@
 #endif // defined(__APPLE__)
 
 nImO::BaseChannel::BaseChannel
-    (void)
+    (const int  index) :
+        _index(index)
 {
     ODL_ENTER(); //####
+    ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
 } // nImO::BaseChannel::BaseChannel
 
 nImO::BaseChannel::BaseChannel
     (BaseChannel &&  other)
-    noexcept
+    noexcept :
+        _index(other._index)
 {
     NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
@@ -114,6 +117,7 @@ nImO::BaseChannel::operator=
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
+        _index = other._index;
     }
     ODL_OBJEXIT_P(this); //####
     return *this;

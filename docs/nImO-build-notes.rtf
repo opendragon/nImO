@@ -1,0 +1,105 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc4\levelnfcn4\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{lower-alpha\})}{\leveltext\leveltemplateid1\'02\'00);}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid3\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+{\info
+{\author Norman Jaffe}
+{\*\company OpenDragon}}\margl1440\margr1440\vieww17600\viewh22040\viewkind0
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f0\fs24 \cf0 {\listtext	a)	}Check the C++, ANTLR, CMake and Boost versions\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}Clang, C++14 at least\
+{\listtext	\uc0\u8259 	}ANTLR 4.9.3 specifically\
+{\listtext	\uc0\u8259 	}CMake version >= 3.12\
+{\listtext	\uc0\u8259 	}Boost version >= 1.71\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	b)	}For Linux, select the Clang compiler\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}set CC=clang\
+{\listtext	\uc0\u8259 	}set CXX=clang++\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	c)	}Create a directory to hold the source projects\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}mkdir git.repositories\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	d)	}Create the destination directory\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}sudo mkdir /opt\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	e)	}<steps to install ANTLR - expand the notes from IF-notes.rtf>\
+{\listtext	f)	}Clone the ODL repository and build it\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cd git.repositories\
+{\listtext	\uc0\u8259 	}git clone https://opendragon@github.com/opendragon/ODL.git\
+{\listtext	\uc0\u8259 	}cd ODL/non-iOS\
+{\listtext	\uc0\u8259 	}git pull\
+{\listtext	\uc0\u8259 	}ccmake .\
+\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2160\fi-2160\pardirnatural\partightenfactor0
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}Set the CMAKE_BUILD_TYPE to Release\
+{\listtext	\uc0\u8259 	}Set the CMAKE_INSTALL_PREFIX to /opt/odl\
+{\listtext	\uc0\u8259 	}Configure and generate\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cmake .\
+{\listtext	\uc0\u8259 	}make\
+{\listtext	\uc0\u8259 	}sudo make install\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	g)	}Clone the IF repository and build it\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cd git.repositories\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}git clone https://opendragon@github.com/opendragon/IF.git\
+{\listtext	\uc0\u8259 	}cd IF/non-iOS\
+{\listtext	\uc0\u8259 	}git pull\
+{\listtext	\uc0\u8259 	}ccmake .\
+\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2160\fi-2160\pardirnatural\partightenfactor0
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}Set the CMAKE_BUILD_TYPE to Release\
+{\listtext	\uc0\u8259 	}Set the CMAKE_INSTALL_PREFIX to /opt/if\
+{\listtext	\uc0\u8259 	}Configure and generate\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cmake .\
+{\listtext	\uc0\u8259 	}make\
+{\listtext	\uc0\u8259 	}sudo make install\
+{\listtext	\uc0\u8259 	}optional: make test\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	h)	}Clone the mdns_plusplus repository and build it\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cd git.repositories\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}git clone https://opendragon@github.com/opendragon/mdns_plusplus.git\
+{\listtext	\uc0\u8259 	}cd mdns_plusplus/non-iOS\
+{\listtext	\uc0\u8259 	}git pull\
+{\listtext	\uc0\u8259 	}ccmake .\
+\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2160\fi-2160\pardirnatural\partightenfactor0
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}Set the CMAKE_BUILD_TYPE to Release\
+{\listtext	\uc0\u8259 	}Set the CMAKE_INSTALL_PREFIX to /opt/mdns_plusplus\
+{\listtext	\uc0\u8259 	}Configure and generate\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cmake .\
+{\listtext	\uc0\u8259 	}make\
+{\listtext	\uc0\u8259 	}sudo make install\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	i)	}Clone the nImO repository and build it\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cd git.repositories\
+{\listtext	\uc0\u8259 	}git clone https://opendragon@github.com/opendragon/nImO.git\
+{\listtext	\uc0\u8259 	}cd nImO/non-iOS\
+{\listtext	\uc0\u8259 	}git pull\
+{\listtext	\uc0\u8259 	}ccmake .\
+\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2160\fi-2160\pardirnatural\partightenfactor0
+\ls1\ilvl2\cf0 {\listtext	\uc0\u8259 	}Set the CMAKE_BUILD_TYPE to Release\
+{\listtext	\uc0\u8259 	}Set the CMAKE_INSTALL_PREFIX to /opt/nImO\
+{\listtext	\uc0\u8259 	}Configure and generate\
+\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1440\fi-1440\pardirnatural\partightenfactor0
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}cmake .\
+{\listtext	\uc0\u8259 	}make\
+{\listtext	\uc0\u8259 	}sudo make install\
+{\listtext	\uc0\u8259 	}optional: make test\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	j)	}<describe the nImO configuration file>\
+{\listtext	k)	}<describe using nImOmonitor, nImOregistry, et cetera>\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+}

@@ -39,7 +39,7 @@
 #if (! defined(nImObaseChannel_H_))
 # define nImObaseChannel_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOpackage.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -70,10 +70,6 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
-            BaseChannel
-                (void);
-
             /*! @brief The destructor. */
             virtual
             ~BaseChannel
@@ -81,6 +77,11 @@ namespace nImO
 
         protected :
             // Protected methods.
+
+            /*! @brief The constructor.
+             @param[in] index The index of the channel. */
+            BaseChannel
+                (const int  index);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
@@ -110,6 +111,9 @@ namespace nImO
 
             /*! @brief The name to be used when connecting or disconnecting. */
             std::string _name{};
+
+            /*! @brief The index for the channel. */
+            int _index{0};
 
         private :
             // Private fields.

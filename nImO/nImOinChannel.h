@@ -73,9 +73,10 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
+            /*! @brief The constructor.
+             @param[in] index The index of the channel. */
             InChannel
-                (void);
+                (const int  index = 0);
 
         protected :
             // Protected methods.

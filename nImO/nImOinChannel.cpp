@@ -77,17 +77,18 @@
 #endif // defined(__APPLE__)
 
 nImO::InChannel::InChannel
-    (void) :
-        inherited{}
+    (const int  index) :
+        inherited{index}
 {
     ODL_ENTER(); //####
+    ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
 } // nImO::InChannel::InChannel
 
 nImO::InChannel::InChannel
     (InChannel &&  other)
     noexcept :
-        inherited{}
+        inherited{std::move(other)}
 {
     NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####

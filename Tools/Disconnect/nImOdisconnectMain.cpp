@@ -217,9 +217,12 @@ main
                         exitCode = 1;
                     }
                 }
-
+                if (0 == exitCode)
+                {
+                    // TBD: Send 'stopSource' command to 'from' node.
+                    // TBD: Send 'stopDestination' command to 'to' node.
 std::cerr << "** Unimplemented **\n";
-                // TBD
+                }
             }
             else
             {

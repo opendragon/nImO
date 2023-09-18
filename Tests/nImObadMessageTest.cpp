@@ -298,8 +298,8 @@ doTestEmptyMessageWithContent
                 // Start of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
@@ -419,8 +419,8 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -482,8 +482,8 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -941,8 +941,8 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
                   DataKind::OtherContainerTypeArray |
                   DataKind::OtherContainerEmptyValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1162,11 +1162,11 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
                   ((3 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1241,14 +1241,14 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
                   ((2 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1339,8 +1339,8 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00), // 2
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1546,8 +1546,8 @@ doTestNonEmptyMessageWithEmptyMapWithContent
                   DataKind::OtherContainerTypeMap |
                   DataKind::OtherContainerEmptyValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -1767,17 +1767,17 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
                   ((3 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -1852,17 +1852,17 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
                   ((1 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -1937,14 +1937,14 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
                   ((2 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -2150,8 +2150,8 @@ doTestNonEmptyMessageWithEmptySetWithContent
                   DataKind::OtherContainerTypeSet |
                   DataKind::OtherContainerEmptyValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |
@@ -2371,11 +2371,11 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
                   ((3 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |
@@ -2450,14 +2450,14 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
                   ((2 + DataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |

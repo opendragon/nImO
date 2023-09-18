@@ -215,7 +215,8 @@ nImO::Logical::extractValue
     ODL_ENTER(); //####
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
-    auto    result{std::make_shared<Logical>(DataKind::OtherLogicalTrueValue == (DataKind::OtherLogicalValueMask & leadByte))};
+    auto    result{std::make_shared<Logical>(DataKind::OtherMiscellaneousLogicalTrueValue ==
+                                             (DataKind::OtherMiscellaneousLogicalValueMask & leadByte))};
 
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
@@ -248,8 +249,8 @@ nImO::Logical::getExtractionInfo
 {
     ODL_ENTER(); //####
     ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
-    aByte = (DataKind::Other | DataKind::OtherLogical);
-    aMask = (DataKind::Mask | DataKind::OtherTypeMask);
+    aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
     theExtractor = extractValue;
     ODL_EXIT(); //####
 } // nImO::Logical::getExtractionInfo
@@ -581,8 +582,8 @@ nImO::Logical::writeToMessage
 {
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    DataKind    stuff{DataKind::Other | DataKind::OtherLogical | (_value ? DataKind::OtherLogicalTrueValue :
-                                                                  DataKind::OtherLogicalFalseValue)};
+    DataKind    stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                        (_value ? DataKind::OtherMiscellaneousLogicalTrueValue : DataKind::OtherMiscellaneousLogicalFalseValue)};
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     ODL_EXIT(); //####

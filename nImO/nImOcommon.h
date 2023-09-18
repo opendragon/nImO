@@ -316,8 +316,7 @@ namespace nImO
             /*! @brief The signed integer value follows this byte. */
             IntegerLongValue = 0x0020,
 
-                /*! @brief The mask for the count of the number of bytes (1..8) that contain
-                 the signed integer value.
+                /*! @brief The mask for the count of the number of bytes (1..8) that contain the signed integer value.
                  Note that the count contained in the byte is one less than the actual count. */
                 IntegerLongValueCountMask = 0x0007,
 
@@ -327,18 +326,15 @@ namespace nImO
             /*! @brief The mask for the size of the count of floating-point values. */
             DoubleCountMask = 0x0020,
 
-            /*! @brief The count of the number of floating-point values is in the range 1..16
-             and is contained within this byte.
+            /*! @brief The count of the number of floating-point values is in the range 1..16 and is contained within this byte.
              Note that the count contained in the byte is one less than the actual count. */
             DoubleShortCount = 0x0000,
 
                 /*! @brief The mask for the count of the number of floating-point values. */
                 DoubleShortCountMask = 0x001F,
 
-            /*! @brief The count of the number of floating-point values is contained in the
-             next byte(s) and the size of the count (1..8) is contained in this byte.
-             Note that the size of the count contained in the byte is one less than the actual
-             size of the count; the count itself is the actual count. */
+            /*! @brief The count of the number of floating-point values is contained in the next byte(s) and the size of the count (1..8) is contained in this byte.
+             Note that the size of the count contained in the byte is one less than the actual size of the count; the count itself is the actual count. */
             DoubleLongCount = 0x0020,
 
                 /*! @brief The mask for the size of the count of floating-point values. */
@@ -359,8 +355,7 @@ namespace nImO
             /*! @brief The mask for the length of the data that follows. */
             StringOrBlobLengthMask = 0x0010,
 
-            /*! @brief The length of the data is in the range 0..15 and is contained within
-             this byte. */
+            /*! @brief The length of the data is in the range 0..15 and is contained within this byte. */
             StringOrBlobShortLengthValue = 0x0000,
 
                 /*! @brief The mask for the length of the data. */
@@ -369,10 +364,8 @@ namespace nImO
             /*! @brief The length of the data is contained in the next byte(s). */
             StringOrBlobLongLengthValue = 0x0010,
 
-                /*! @brief The mask for the count of the number of bytes (1..8) that contain
-                 the length of the data.
-                 Note that the count contained in the byte is one less than the actual count;
-                 the length is the actual length. */
+                /*! @brief The mask for the count of the number of bytes (1..8) that contain the length of the data.
+                 Note that the count contained in the byte is one less than the actual count; the length is the actual length. */
                 StringOrBlobLongLengthMask = 0x0007,
 
         /*! @brief The data that follows is a Logical or a Container. */
@@ -381,17 +374,32 @@ namespace nImO
             /*! @brief The mask for the type of value that follows. */
             OtherTypeMask = 0x0030,
 
-            /*! @brief The value is a Logical. */
-            OtherLogical = 0x0000,
+            /*! @brief The value is Miscellaneous. */
+            OtherMiscellaneous = 0x0000,
 
-                /*! @brief The mask for the value of the Logical. */
-                OtherLogicalValueMask = 0x0001,
+                /*! @brief The mask for the type of Miscellaneous. */
+                OtherMiscellaneousTypeMask = 0x000C,
 
-                /*! @brief The value is @c false. */
-                OtherLogicalFalseValue = 0x0000,
+                /*! @brief The value is a Logical. */
+                OtherMiscellaneousTypeLogical = 0x0000,
 
-                /*! @brief The value is @c true. */
-                OtherLogicalTrueValue = 0x00001,
+                    /*! @brief The mask for the value of the Logical. */
+                    OtherMiscellaneousLogicalValueMask = 0x0001,
+
+                    /*! @brief The value is @c false. */
+                    OtherMiscellaneousLogicalFalseValue = 0x0000,
+
+                    /*! @brief The value is @c true. */
+                    OtherMiscellaneousLogicalTrueValue = 0x0001,
+
+                /*! @brief The value is an IPv4 address. */ //TBD!!!
+                OtherMiscellaneousTypeIPv4Address = 0x0004,
+
+                /*! @brief An unimplemented miscellaneous value. */
+                OtherMiscellaneousTypeReserved1 = 0x0008,
+
+                /*! @brief An unimplemented miscellaneous value. */
+                OtherMiscellanouesTypeReserved2 = 0x000C,
 
             /*! @brief The value that follows is a Container. */
             OtherContainerStart = 0x0010,
@@ -411,7 +419,7 @@ namespace nImO
             /*! @brief The Container is a Set. */
             OtherContainerTypeSet = 0x0008,
 
-            /*! @brief An illegal value for the Container type. */
+            /*! @brief An unimplemented value for the Container type. */
             OtherContainerTypeReserved = 0x000C,
 
             /*! @brief The mask for the empty / non-empty state of the Container. */
@@ -420,10 +428,8 @@ namespace nImO
             /*! @brief The Container is empty; no count of the number of elements follows. */
             OtherContainerEmptyValue = 0x0000,
 
-            /*! @brief The Container is non-empty and the count of the number of elements
-             follows, as a signed integer value, if this is the 'start' tag.
-             Note that the number of elements is offset by -17, as a negative count of
-             elements is not possible, and a count of zero is already handled. */
+            /*! @brief The Container is non-empty and the count of the number of elements follows, as a signed integer value, if this is the 'start' tag.
+             Note that the number of elements is offset by -17, as a negative count of elements is not possible, and a count of zero is already handled. */
             OtherContainerNonEmptyValue = 0x0001,
 
             /*! @brief The value that follows is a Message. */
@@ -444,18 +450,14 @@ namespace nImO
                 /*! @brief The Message is empty. */
                 OtherMessageEmptyValue = 0x0000,
 
-                /*! @brief The Message is non-empty; the type flag (top two-bits) of the first
-                 Value in the Message, if the start of the Message or of the last Value in the
-                 Message, if the end of the Message, is contained in the byte. */
+                /*! @brief The Message is non-empty; the type flag (top two-bits) of the first Value in the Message, if the start of the Message or of the last Value in the Message,
+                 if the end of the Message, is contained in the byte. */
                 OtherMessageNonEmptyValue = 0x0004,
 
-                /*! @brief The mask for the type of the immediately enclosed Value in the
-                 Message - the first Value, if the start of the Message, and the last Value if
-                 the end of the Message. */
+                /*! @brief The mask for the type of the immediately enclosed Value in the Message - the first Value, if the start of the Message, and the last Value if the end of the Message. */
                 OtherMessageExpectedTypeMask = 0x0003,
 
-                /*! @brief The number of positions to right-shift the type of a tag to align with
-                 the Message type value. */
+                /*! @brief The number of positions to right-shift the type of a tag to align with the Message type value. */
                 OtherMessageExpectedTypeShift = 6,
 
                 /*! @brief The enclosed value in the Message is a signed integer. */

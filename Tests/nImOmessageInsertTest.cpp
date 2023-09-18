@@ -256,8 +256,8 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalTrueValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalTrueValue,
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -271,8 +271,8 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Message
                 DataKind::EndOfMessageValue |
                   DataKind::OtherMessageNonEmptyValue |
@@ -1464,8 +1464,8 @@ doTestInsertArrayOneLogicalMessage
                   ((1 + DataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -2102,11 +2102,11 @@ doTestInsertArrayTwoLogicalsMessage
                   ((2 + DataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -3317,8 +3317,8 @@ doTestInsertLogicalMapMessage
                   ((1 + DataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
                   (13 & DataKind::IntegerShortValueValueMask),
@@ -3558,8 +3558,8 @@ doTestInsertLogicalSetMessage
                   ((1 + DataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
-                DataKind::Other | DataKind::OtherLogical |
-                  DataKind::OtherLogicalFalseValue,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
+                  DataKind::OtherMiscellaneousLogicalFalseValue,
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |

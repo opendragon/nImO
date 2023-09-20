@@ -69,6 +69,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp"
@@ -227,6 +228,7 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h"
@@ -333,6 +335,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h

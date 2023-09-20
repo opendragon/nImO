@@ -246,6 +246,8 @@
 		F6A684672A802ABA0023D8DF /* nImOgetConnectionInformationCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetConnectionInformationCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetConnectionInformationCommandHandler.cpp; sourceTree = "<group>"; };
 		F6A684682A802ABA0023D8DF /* nImOgetConnectionInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetConnectionInformationCommandHandler.h; path = Registry/CommandHandlers/nImOgetConnectionInformationCommandHandler.h; sourceTree = "<group>"; };
 		F6A8069A29C6005800567C55 /* nImOcommonCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommonCommands.h; path = nImO/nImOcommonCommands.h; sourceTree = "<group>"; };
+		F6AB47A72AB8DACA006A6446 /* nImOaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddress.h; path = nImO/BasicTypes/nImOaddress.h; sourceTree = "<group>"; };
+		F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddress.cpp; path = nImO/BasicTypes/nImOaddress.cpp; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B1E7A429B7B8BE00FDF4D6 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -687,6 +689,8 @@
 		F6263BFA29DCC5E00034A9F9 /* Basic Types */ = {
 			isa = PBXGroup;
 			children = (
+				F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */,
+				F6AB47A72AB8DACA006A6446 /* nImOaddress.h */,
 				F6E510E72A1968C600D52E80 /* nImOatom.cpp */,
 				F6E510ED2A1968C600D52E80 /* nImOatom.h */,
 				F6E510E62A1968C600D52E80 /* nImOblob.cpp */,

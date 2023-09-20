@@ -90,7 +90,7 @@ bit0..1\
 				bit5=1 Non-empty \{0x04\}\
 				bit6..7 Expected first / last value in message if non-empty [top two bits of value type]\
 \
-note that there is no explicit restriction on the elements; for a map, the elements are expected to be a key / value pair, with the key being an Enumerable, but the format does not add this as a constraint\
+note that there is no explicit restriction on the elements; for a map, the elements are expected to be a key / value pair, with the key being an Enumerable, but the format does not add this as a constraint.\
 the start / end of container entries are used for validation\
 \
 to assure correct start-of-message, the appearance of 11110yyy (0xF0-0xF7 [0360-0367]) bytes in a message are 'escaped' when sent; they are preceded by the escape byte, and have the high bit inverted; occurrences of the escape byte are preceded by the escape byte and have the high bit inverted.\

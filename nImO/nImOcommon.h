@@ -274,6 +274,7 @@ namespace nImO
 {
     // Forward declarations.
 
+    class Address;
     class Array;
     class BaseArgumentDescriptor;
     class BufferChunk;
@@ -392,7 +393,7 @@ namespace nImO
                     /*! @brief The value is @c true. */
                     OtherMiscellaneousLogicalTrueValue = 0x0001,
 
-                /*! @brief The value is an IPv4 address. */ //TBD!!!
+                /*! @brief The value is an IPv4 address. */
                 OtherMiscellaneousTypeIPv4Address = 0x0004,
 
                 /*! @brief An unimplemented miscellaneous value. */
@@ -469,7 +470,7 @@ namespace nImO
                 /*! @brief The enclosed value in the Message is a String or Blob. */
                 OtherMessageExpectedStringOrBlobValue = 0x0002,
 
-                /*! @brief The enclosed value in the Message is a Logical or Container. */
+                /*! @brief The enclosed value in the Message is a Miscellaneous or Container. */
                 OtherMessageExpectedOtherValue = 0x0003,
 
         /*! @brief The mask for detecting the start or end of a Message. */
@@ -491,6 +492,9 @@ namespace nImO
     {
         /*! @brief It is not known if the Value is enumerable. */
         Unknown,
+
+        /*! @brief The Value is an Address and therefore enumerable. */
+        Address,
 
         /*! @brief The Value is a Logical and therefore enumerable. */
         Logical,
@@ -982,6 +986,9 @@ namespace nImO
         return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) && (MAXIMUM_PORT_ALLOWED_ >= aPort));
     }
 
+    /*! @brief The character that is used with Address data formatting. */
+    extern const char   kAddressSeparator;
+
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char   kBlobSeparator;
 
@@ -1002,6 +1009,9 @@ namespace nImO
 
     /*! @brief A character that brackets a string value. */
     extern const char   kSingleQuote;
+
+    /*! @brief The character that starts an Address value. */
+    extern const char   kStartAddressChar;
 
     /*! @brief The character that starts an Array value. */
     extern const char   kStartArrayChar;

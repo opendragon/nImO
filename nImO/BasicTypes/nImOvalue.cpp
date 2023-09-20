@@ -38,6 +38,7 @@
 
 #include <BasicTypes/nImOvalue.h>
 
+#include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
@@ -149,6 +150,16 @@ nImO::Value::addToExtractionMap
     }
     ODL_EXIT(); //####
 } // addToExtractionMap
+
+CPtr(nImO::Address)
+nImO::Value::asAddress
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asAddress
 
 CPtr(nImO::Array)
 nImO::Value::asArray
@@ -468,8 +479,18 @@ nImO::Value::initialize
     (void)
 {
     ODL_ENTER(); //####
-    CPtr(char)  prefixes{Logical::getInitialCharacters()};
+    CPtr(char)  prefixes{Address::getInitialCharacters()};
 
+    if (nullptr != prefixes)
+    {
+        for ( ; kEndOfString != *prefixes; ++prefixes)
+        {
+            BufferReaderValue   aValue{*prefixes, &Address::readFromStringBuffer};
+
+            gReaders.emplace(aValue);
+        }
+    }
+    prefixes = Logical::getInitialCharacters();
     if (nullptr != prefixes)
     {
         for ( ; kEndOfString != *prefixes; ++prefixes)

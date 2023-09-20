@@ -108,6 +108,8 @@ static std::mt19937 lMt{lRd()};
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
+const char  nImO::kAddressSeparator{'.'};
+
 const char  nImO::kBlobSeparator{'%'};
 
 const char  nImO::kEndArrayChar{')'};
@@ -121,6 +123,8 @@ const char  nImO::kEndSetChar{']'};
 const char  nImO::kKeyValueSeparator{'>'};
 
 const char  nImO::kSingleQuote{'\''};
+
+const char  nImO::kStartAddressChar{'@'};
 
 const char  nImO::kStartArrayChar{'('};
 

@@ -11,6 +11,7 @@
 #include "ArgumentDescriptors/nImOportArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOstringArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOstringsArgumentDescriptor.h"
+#include "BasicTypes/nImOaddress.h"
 #include "BasicTypes/nImOatom.h"
 #include "BasicTypes/nImOblob.h"
 #include "BasicTypes/nImOdouble.h"

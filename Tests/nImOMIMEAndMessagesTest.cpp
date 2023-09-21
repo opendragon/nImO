@@ -51,6 +51,8 @@
 #include <Contexts/nImOtestContext.h>
 #include <nImOMIMESupport.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -70,6 +72,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -95,7 +98,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
+    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####

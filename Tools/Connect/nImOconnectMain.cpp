@@ -45,6 +45,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -65,6 +67,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -154,7 +158,7 @@ main
                 {
                     if (! statusWithBool.second)
                     {
-                        ourContext->report("channel '" + fromNode + " " + fromPath + "' not registered.");
+                        ourContext->report("channel '"s + fromNode + " "s + fromPath + "' not registered."s);
                         std::cerr << "channel '" << fromNode << " " << fromPath << "' not registered.\n";
                         exitCode = 1;
                     }
@@ -171,7 +175,7 @@ main
                     {
                         if (! statusWithBool.second)
                         {
-                            ourContext->report("channel '" + toNode + " " + toPath + "' not registered.");
+                            ourContext->report("channel '"s + toNode + " "s + toPath + "' not registered."s);
                             std::cerr << "channel '" << toNode << " " << toPath << "' not registered.\n";
                             exitCode = 1;
                         }
@@ -186,7 +190,7 @@ main
                 {
                     if (fromNode == toNode)
                     {
-                        ourContext->report("node '" + toNode + "' cannot be connected directly to itself.");
+                        ourContext->report("node '"s + toNode + "' cannot be connected directly to itself."s);
                         std::cerr << "node '" << toNode << "' cannot be connected directly to itself.\n";
                         exitCode = 1;
                     }
@@ -226,13 +230,13 @@ main
                     // Check if we now have exclusive access to the two channels.
                     if (previousStateForFrom)
                     {
-                        ourContext->report("channel '" + fromNode + " " + fromPath + "' is already connected.");
+                        ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is already connected."s);
                         std::cerr << "channel '" << fromNode << " " << fromPath << "' is already connected.\n";
                         exitCode = 1;
                     }
                     else if (previousStateForTo)
                     {
-                        ourContext->report("channel '" + toNode + " " + toPath + "' is already connected.");
+                        ourContext->report("channel '"s + toNode + " "s + toPath + "' is already connected."s);
                         std::cerr << "channel '" << toNode << " " << toPath << "' is already connected.\n";
                         exitCode = 1;
                     }
@@ -260,7 +264,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("channel '" + fromNode + " " + fromPath + "' was not found.");
+                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' was not found."s);
                             std::cerr << "channel '" << fromNode << " " << fromPath << "' was not found.\n";
                             exitCode = 1;
                         }
@@ -283,7 +287,7 @@ main
                             }
                             else
                             {
-                                ourContext->report("channel '" + toNode + " " + toPath + "' was not found.");
+                                ourContext->report("channel '"s + toNode + " "s + toPath + "' was not found."s);
                                 std::cerr << "channel '" << toNode << " " << toPath << "' was not found.\n";
                                 exitCode = 1;
                             }
@@ -298,13 +302,13 @@ main
                     {
                         if (toIsOutput)
                         {
-                            ourContext->report("channel '" + toNode + " " + toPath + "' is an output!");
+                            ourContext->report("channel '"s + toNode + " "s + toPath + "' is an output!"s);
                             std::cerr << "channel '" << toNode << " " << toPath << "' is an output!\n";
                             exitCode = 1;
                         }
                         else if (! fromIsOutput)
                         {
-                            ourContext->report("channel '" + fromNode + " " + fromPath + "' is an input!");
+                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
                             std::cerr << "channel '" << fromNode << " " << fromPath << "' is an input!\n";
                             exitCode = 1;
                         }
@@ -323,8 +327,8 @@ main
                                 }
                                 else if (fromDataType != toDataType)
                                 {
-                                    ourContext->report("channel '" + fromNode + " " + fromPath + "(" + fromDataType + ")' does not match '"  +
-                                                       toNode + " " + toPath + "(" + toDataType + ")'.");
+                                    ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
+                                                       toNode + " "s + toPath + "("s + toDataType + ")'."s);
                                     std::cerr << "channel '" << fromNode << " " << fromPath << "(" << fromDataType << ")' does not match '" <<
                                                 toNode << " " << toPath << "(" << toDataType << ")'.\n";
                                     exitCode = 1;
@@ -336,8 +340,8 @@ main
                                 resolvedMode = nImO::ResolveTransport(fromModes, toModes);
                                 if (nImO::TransportType::kUnknown == resolvedMode)
                                 {
-                                    ourContext->report("channel '" + fromNode + " " + fromPath + "' has incompatible transport mode with '"  +
-                                                       toNode + " " + toPath + "'.");
+                                    ourContext->report("channel '"s + fromNode + " "s + fromPath + "' has incompatible transport mode with '"s  +
+                                                       toNode + " "s + toPath + "'."s);
                                     std::cerr << "channel '" << fromNode << " " << fromPath << "' has incompatible transport mode with '" << toNode <<
                                                 " " << toPath << "'.\n";
                                     exitCode = 1;
@@ -354,8 +358,8 @@ main
                     {
                         if (! statusWithBool.second)
                         {
-                            ourContext->report("channel '" + fromNode + " " + fromPath + "' could not be connected to '"  + toNode + " " + toPath +
-                                               "'.");
+                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' could not be connected to '"s  + toNode + " "s +
+                                               toPath + "'."s);
                             std::cerr << "channel '" << fromNode << " " << fromPath << "' could not be connected to '" << toNode << " " << toPath <<
                                         "'.\n";
                             exitCode = 1;

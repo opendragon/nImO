@@ -56,28 +56,28 @@ namespace nImO
 {
 
     /*! @brief The 'startReceiver' request. */
-    const std::string   kStartReceiverRequest = "startReceiver.";
+    const std::string   kStartReceiverRequest{"startReceiver."};
 
     /*! @brief The 'startReceiver' response. */
-    const std::string   kStartReceiverResponse = "startReceiver=";
+    const std::string   kStartReceiverResponse{"startReceiver="};
 
     /*! @brief The 'startSender' request. */
-    const std::string   kStartSenderRequest = "startSender.";
+    const std::string   kStartSenderRequest{"startSender."};
 
     /*! @brief The 'startSender' response. */
-    const std::string   kStartSenderResponse = "startSender=";
+    const std::string   kStartSenderResponse{"startSender="};
 
     /*! @brief The 'stopReceiver' request. */
-    const std::string   kStopReceiverRequest = "stopReceiver.";
+    const std::string   kStopReceiverRequest{"stopReceiver."};
 
     /*! @brief The 'stopReceiver' response. */
-    const std::string   kStopReceiverResponse = "stopReceiver=";
+    const std::string   kStopReceiverResponse{"stopReceiver="};
 
     /*! @brief The 'stopSender' request. */
-    const std::string   kStopSenderRequest = "stopSender.";
+    const std::string   kStopSenderRequest{"stopSender."};
 
     /*! @brief The 'stopSender' response. */
-    const std::string   kStopSenderResponse = "stopSender=";
+    const std::string   kStopSenderResponse{"stopSender="};
 
 } // nImO
 

@@ -38,6 +38,8 @@
 
 #include <nImOannounceServiceData.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -55,6 +57,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -145,13 +149,13 @@ nImO::AnnounceServiceData::setServiceData
         // Build the service instance "<hostname>.<_service-name>._tcp.local." string
         std::string     serviceInstanceBuffer{hostNameString.str};
 
-        serviceInstanceBuffer += "-" + std::to_string(_port) + ".";
+        serviceInstanceBuffer += "-"s + std::to_string(_port) + "."s;
         serviceInstanceBuffer += serviceString.str;
         mDNS::string_t  serviceInstanceString{make_mdns_string(serviceInstanceBuffer.c_str())};
         // Build the "<hostname>.local." string
         std::string     qualifiedHostnameBuffer{hostNameString.str};
 
-        qualifiedHostnameBuffer += ".local.";
+        qualifiedHostnameBuffer += ".local."s;
         mDNS::string_t hostnameQualifiedQtring{make_mdns_string(qualifiedHostnameBuffer.c_str())};
 
         _serviceName = make_mdns_string(serviceString);

@@ -40,10 +40,11 @@
 
 #include <ContainerTypes/nImObufferChunk.h>
 
+#include <inttypes.h>
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include <inttypes.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -61,6 +62,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -105,7 +107,7 @@ nImO::ChunkArray::ChunkArray
     ODL_P1("other = ", &other); //####
     other._buffers = nullptr;
     other._buffersArePadded = false;
-    other._cachedString = "";
+    other._cachedString = ""s;
     other._numChunks = 0;
     ODL_EXIT_P(this); //####
 } // nImO::ChunkArray::ChunkArray
@@ -348,7 +350,7 @@ nImO::ChunkArray::operator=
         _numChunks = other._numChunks;
         other._buffers = nullptr;
         other._buffersArePadded = false;
-        other._cachedString = "";
+        other._cachedString = ""s;
         other._numChunks = 0;
     }
     ODL_OBJEXIT_P(this); //####

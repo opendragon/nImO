@@ -58,255 +58,255 @@ namespace nImO
     // Status reports
 
     /*! @brief The prefix for a channel added status report. */
-    const std::string   kChannelAddedStatus = "c+";
+    const std::string   kChannelAddedStatus{"c+"};
 
     /*! @brief The prefix for a channel removed status report. */
-    const std::string   kChannelRemovedStatus = "c-";
+    const std::string   kChannelRemovedStatus{"c-"};
 
     /*! @brief The prefix for a channels removed status report. */
-    const std::string   kChannelsRemovedStatus = "c^";
+    const std::string   kChannelsRemovedStatus{"c^"};
 
     /*! @brief The prefix for a connection added status report. */
-    const std::string   kConnectionAddedStatus = "c*";
+    const std::string   kConnectionAddedStatus{"c*"};
 
     /*! @brief The prefix for a connection removed status report. */
-    const std::string   kConnectionRemovedStatus = "c/";
+    const std::string   kConnectionRemovedStatus{"c/"};
 
     /*! @brief The prefix for a node added status report. */
-    const std::string   kNodeAddedStatus = "n+";
+    const std::string   kNodeAddedStatus{"n+"};
 
     /*! @brief The prefix for a node removed status report. */
-    const std::string   kNodeRemovedStatus = "n-";
+    const std::string   kNodeRemovedStatus{"n-"};
 
     // Requests and responses
 
     /*! @brief The request to add a channel to the Registry. */
-    const std::string   kAddChannelRequest = "addChannel!";
+    const std::string   kAddChannelRequest{"addChannel!"};
 
     /*! @brief The 'addChannel' response. */
-    const std::string   kAddChannelResponse = "addChannel=";
+    const std::string   kAddChannelResponse{"addChannel="};
 
     /*! @brief The request to connect two channels to the Registry. */
-    const std::string   kAddConnectionRequest = "addConnection!";
+    const std::string   kAddConnectionRequest{"addConnection!"};
 
     /*! @brief The 'addConnection' response. */
-    const std::string   kAddConnectionResponse = "addConnection=";
+    const std::string   kAddConnectionResponse{"addConnection="};
 
     /*! @brief The request to add a node to the Registry. */
-    const std::string   kAddNodeRequest = "addNode!";
+    const std::string   kAddNodeRequest{"addNode!"};
 
     /*! @brief The 'addNode' response. */
-    const std::string   kAddNodeResponse = "addNode=";
+    const std::string   kAddNodeResponse{"addNode="};
 
     /*! @brief The request to reset the connection status on a channel from the Registry. */
-    const std::string   kClearChannelInUseRequest = "clearChannelInUse!";
+    const std::string   kClearChannelInUseRequest{"clearChannelInUse!"};
 
     /*! @brief The 'clearChannelInUse' response. */
-    const std::string   kClearChannelInUseResponse = "clearChannelInUse=";
+    const std::string   kClearChannelInUseResponse{"clearChannelInUse="};
 
     /*! @brief The request to break the connection between two channels to the Registry. */
-    const std::string   kDisconnectChannelsRequest = "disconnectChannels!";
+    const std::string   kDisconnectChannelsRequest{"disconnectChannels!"};
 
     /*! @brief The 'disconnectChannels' response. */
-    const std::string   kDisconnectChannelsResponse = "disconnectChannels=";
+    const std::string   kDisconnectChannelsResponse{"disconnectChannels="};
 
     /*! @brief The request to get information on a channel from the Registry. */
-    const std::string   kGetChannelInformationRequest = "getChannelInformation?";
+    const std::string   kGetChannelInformationRequest{"getChannelInformation?"};
 
     /*! @brief The 'getChannelInformation' response. */
-    const std::string   kGetChannelInformationResponse = "getChannelInformation=";
+    const std::string   kGetChannelInformationResponse{"getChannelInformation="};
 
     /*! @brief The request to get connection status on a channel from the Registry and set it. */
-    const std::string   kGetChannelInUseAndSetRequest = "getChannelInUseAndSet#";
+    const std::string   kGetChannelInUseAndSetRequest{"getChannelInUseAndSet#"};
 
     /*! @brief The 'getChannelInUseAndSet' response. */
-    const std::string   kGetChannelInUseAndSetResponse = "getChannelInUseAndSet=";
+    const std::string   kGetChannelInUseAndSetResponse{"getChannelInUseAndSet="};
 
     /*! @brief The request to get connection status on a channel from the Registry. */
-    const std::string   kGetChannelInUseRequest = "getChannelInUse?";
+    const std::string   kGetChannelInUseRequest{"getChannelInUse?"};
 
     /*! @brief The 'getChannelInUse' response. */
-    const std::string   kGetChannelInUseResponse = "getChannelInUse=";
+    const std::string   kGetChannelInUseResponse{"getChannelInUse="};
 
     /*! @brief The request to get connection status on a channel from the Registry. */
-    const std::string   kGetConnectionInformationRequest = "getConnectionInformation?";
+    const std::string   kGetConnectionInformationRequest{"getConnectionInformation?"};
 
     /*! @brief The 'getChannelInUse' response. */
-    const std::string   kGetConnectionInformationResponse = "getConnectionInformation=";
+    const std::string   kGetConnectionInformationResponse{"getConnectionInformation="};
 
     /*! @brief The request to get information on all channels in the Registry. */
-    const std::string   kGetInformationForAllChannelsRequest = "getInformationForAllChannels?";
+    const std::string   kGetInformationForAllChannelsRequest{"getInformationForAllChannels?"};
 
     /*! @brief The 'getInformationForAllChannels' response. */
-    const std::string   kGetInformationForAllChannelsResponse = "getInformationForAllChannels=";
+    const std::string   kGetInformationForAllChannelsResponse{"getInformationForAllChannels="};
 
     /*! @brief The request to get information on all channels on a machine in the Registry. */
-    const std::string   kGetInformationForAllChannelsOnMachineRequest = "getInformationForAllChannelsOnMachine?";
+    const std::string   kGetInformationForAllChannelsOnMachineRequest{"getInformationForAllChannelsOnMachine?"};
 
     /*! @brief The 'getInformationForAllChannelsOnMachine' response. */
-    const std::string   kGetInformationForAllChannelsOnMachineResponse = "getInformationForAllChannelsOnMachine=";
+    const std::string   kGetInformationForAllChannelsOnMachineResponse{"getInformationForAllChannelsOnMachine="};
 
     /*! @brief The request to get information on all channels on a node in the Registry. */
-    const std::string   kGetInformationForAllChannelsOnNodeRequest = "getInformationForAllChannelsOnNode?";
+    const std::string   kGetInformationForAllChannelsOnNodeRequest{"getInformationForAllChannelsOnNode?"};
 
     /*! @brief The 'getInformationForAllChannelsOnNode' response. */
-    const std::string   kGetInformationForAllChannelsOnNodeResponse = "getInformationForAllChannelsOnNode=";
+    const std::string   kGetInformationForAllChannelsOnNodeResponse{"getInformationForAllChannelsOnNode="};
 
     /*! @brief The request to get information on all connections in the Registry. */
-    const std::string   kGetInformationForAllConnectionsRequest = "getInformationForAllConnections?";
+    const std::string   kGetInformationForAllConnectionsRequest{"getInformationForAllConnections?"};
 
     /*! @brief The 'getInformationForAllConnections' response. */
-    const std::string   kGetInformationForAllConnectionsResponse = "getInformationForAllConnections=";
+    const std::string   kGetInformationForAllConnectionsResponse{"getInformationForAllConnections="};
 
     /*! @brief The request to get information on all connections on a machine in the Registry. */
-    const std::string   kGetInformationForAllConnectionsOnMachineRequest = "getInformationForAllConnectionsOnMachine?";
+    const std::string   kGetInformationForAllConnectionsOnMachineRequest{"getInformationForAllConnectionsOnMachine?"};
 
     /*! @brief The 'getInformationForAllConnectionsOnMachine' response. */
-    const std::string   kGetInformationForAllConnectionsOnMachineResponse = "getInformationForAllConnectionsOnMachine=";
+    const std::string   kGetInformationForAllConnectionsOnMachineResponse{"getInformationForAllConnectionsOnMachine="};
 
     /*! @brief The request to get information on all connections on a node in the Registry. */
-    const std::string   kGetInformationForAllConnectionsOnNodeRequest = "getInformationForAllConnectionsOnNode?";
+    const std::string   kGetInformationForAllConnectionsOnNodeRequest{"getInformationForAllConnectionsOnNode?"};
 
     /*! @brief The 'getInformationForAllConnectionsOnNode' response. */
-    const std::string   kGetInformationForAllConnectionsOnNodeResponse = "getInformationForAllConnectionsOnNode=";
+    const std::string   kGetInformationForAllConnectionsOnNodeResponse{"getInformationForAllConnectionsOnNode="};
 
     /*! @brief The request to get information on all machines in the Registry. */
-    const std::string   kGetInformationForAllMachinesRequest = "getInformationForAllMachines?";
+    const std::string   kGetInformationForAllMachinesRequest{"getInformationForAllMachines?"};
 
     /*! @brief The 'getInformationForAllMachines' response. */
-    const std::string   kGetInformationForAllMachinesResponse = "getInformationForAllMachines=";
+    const std::string   kGetInformationForAllMachinesResponse{"getInformationForAllMachines="};
 
     /*! @brief The request to get information on all nodes in the Registry. */
-    const std::string   kGetInformationForAllNodesRequest = "getInformationForAllNodes?";
+    const std::string   kGetInformationForAllNodesRequest{"getInformationForAllNodes?"};
 
     /*! @brief The 'getInformationForAllNodes' response. */
-    const std::string   kGetInformationForAllNodesResponse = "getInformationForAllNodes=";
+    const std::string   kGetInformationForAllNodesResponse{"getInformationForAllNodes="};
 
     /*! @brief The request to get information on all nodes on a machine in the Registry. */
-    const std::string   kGetInformationForAllNodesOnMachineRequest = "getInformationForAllNodesOnMachine?";
+    const std::string   kGetInformationForAllNodesOnMachineRequest{"getInformationForAllNodesOnMachine?"};
 
     /*! @brief The 'getInformationForAllNodesOnMachine' response. */
-    const std::string   kGetInformationForAllNodesOnMachineResponse = "getInformationForAllNodesOnMachine=";
+    const std::string   kGetInformationForAllNodesOnMachineResponse{"getInformationForAllNodesOnMachine="};
 
     /*! @brief The request to get launch details in the Registry. */
-    const std::string   kGetLaunchDetailsRequest = "getLaunchDetails?";
+    const std::string   kGetLaunchDetailsRequest{"getLaunchDetails?"};
 
     /*! @brief The 'getLaunchDetails' response. */
-    const std::string   kGetLaunchDetailsResponse = "getLaunchDetails=";
+    const std::string   kGetLaunchDetailsResponse{"getLaunchDetails="};
 
     /*! @brief The request to get information on a machine from the Registry. */
-    const std::string   kGetMachineInformationRequest = "getMachineInformation?";
+    const std::string   kGetMachineInformationRequest{"getMachineInformation?"};
 
     /*! @brief The 'getMachineInformation' response. */
-    const std::string   kGetMachineInformationResponse = "getMachineInformation=";
+    const std::string   kGetMachineInformationResponse{"getMachineInformation="};
 
     /*! @brief The request to get the set of machines in the Registry. */
-    const std::string   kGetNamesOfMachinesRequest = "getNamesOfMachines?";
+    const std::string   kGetNamesOfMachinesRequest{"getNamesOfMachines?"};
 
     /*! @brief The 'getNamesOfMachines' response'. */
-    const std::string   kGetNamesOfMachinesResponse = "getNamesOfMachines=";
+    const std::string   kGetNamesOfMachinesResponse{"getNamesOfMachines="};
 
     /*! @brief The request to get the set of nodes in the Registry. */
-    const std::string   kGetNamesOfNodesRequest = "getNamesOfNodes?";
+    const std::string   kGetNamesOfNodesRequest{"getNamesOfNodes?"};
 
     /*! @brief The 'getNamesOfNodes' response'. */
-    const std::string   kGetNamesOfNodesResponse = "getNamesOfNodes=";
+    const std::string   kGetNamesOfNodesResponse{"getNamesOfNodes="};
 
     /*! @brief The request to get the set of nodes on a machine in the Registry. */
-    const std::string   kGetNamesOfNodesOnMachineRequest = "getNamesOfNodesOnMachine?";
+    const std::string   kGetNamesOfNodesOnMachineRequest{"getNamesOfNodesOnMachine?"};
 
     /*! @brief The 'getNamesOfNodesOnMachine' response'. */
-    const std::string   kGetNamesOfNodesOnMachineResponse = "getNamesOfNodesOnMachine=";
+    const std::string   kGetNamesOfNodesOnMachineResponse{"getNamesOfNodesOnMachine="};
 
     /*! @brief The request to get information on a node from the Registry. */
-    const std::string   kGetNodeInformationRequest = "getNodeInformation?";
+    const std::string   kGetNodeInformationRequest{"getNodeInformation?"};
 
     /*! @brief The 'getNodeInformation' response. */
-    const std::string   kGetNodeInformationResponse = "getNodeInformation=";
+    const std::string   kGetNodeInformationResponse{"getNodeInformation="};
 
     /*! @brief The request to get the number of channels on a node in the Registry. */
-    const std::string   kGetNumberOfChannelsOnNodeRequest = "getNumberOfChannelsOnNode?";
+    const std::string   kGetNumberOfChannelsOnNodeRequest{"getNumberOfChannelsOnNode?"};
 
     /*! @brief The 'getNumberOfChannelsOnNode' response. */
-    const std::string   kGetNumberOfChannelsOnNodeResponse = "getNumberOfChannelsOnNode=";
+    const std::string   kGetNumberOfChannelsOnNodeResponse{"getNumberOfChannelsOnNode="};
 
     /*! @brief The request to get the number of channels in the Registry. */
-    const std::string   kGetNumberOfChannelsRequest = "getNumberOfChannels?";
+    const std::string   kGetNumberOfChannelsRequest{"getNumberOfChannels?"};
 
     /*! @brief The 'getNumberOfChannels' response. */
-    const std::string   kGetNumberOfChannelsResponse = "getNumberOfChannels=";
+    const std::string   kGetNumberOfChannelsResponse{"getNumberOfChannels="};
 
     /*! @brief The request to get the number of channels in the Registry. */
-    const std::string   kGetNumberOfConnectionsRequest = "getNumberOfConnections?";
+    const std::string   kGetNumberOfConnectionsRequest{"getNumberOfConnections?"};
 
     /*! @brief The 'getNumberOfConnections' response. */
-    const std::string   kGetNumberOfConnectionsResponse = "getNumberOfConnections=";
+    const std::string   kGetNumberOfConnectionsResponse{"getNumberOfConnections="};
 
     /*! @brief The request to get the number of machines in the Registry. */
-    const std::string   kGetNumberOfMachinesRequest = "getNumberOfMachines?";
+    const std::string   kGetNumberOfMachinesRequest{"getNumberOfMachines?"};
 
     /*! @brief The 'getNumberOfMachines' response. */
-    const std::string   kGetNumberOfMachinesResponse = "getNumberOfMachines=";
+    const std::string   kGetNumberOfMachinesResponse{"getNumberOfMachines="};
 
     /*! @brief The request to get the number of nodes in the Registry. */
-    const std::string   kGetNumberOfNodesRequest = "getNumberOfNodes?";
+    const std::string   kGetNumberOfNodesRequest{"getNumberOfNodes?"};
 
     /*! @brief The 'getNumberOfNodes' response. */
-    const std::string   kGetNumberOfNodesResponse = "getNumberOfNodes=";
+    const std::string   kGetNumberOfNodesResponse{"getNumberOfNodes="};
 
     /*! @brief The request to get the number of nodes on a machine in the Registry. */
-    const std::string   kGetNumberOfNodesOnMachineRequest = "getNumberOfNodesOnMachine?";
+    const std::string   kGetNumberOfNodesOnMachineRequest{"getNumberOfNodesOnMachine?"};
 
     /*! @brief The 'getNumberOfNodesOnMachine' response. */
-    const std::string   kGetNumberOfNodesOnMachineResponse = "getNumberOfNodesOnMachine=";
+    const std::string   kGetNumberOfNodesOnMachineResponse{"getNumberOfNodesOnMachine="};
 
     /*! @brief The request to check if a channel is present in the Registry. */
-    const std::string   kIsChannelPresentRequest = "isChannelPresent?";
+    const std::string   kIsChannelPresentRequest{"isChannelPresent?"};
 
     /*! @brief The 'isChannelPresent' response. */
-    const std::string   kIsChannelPresentResponse = "isChannelPresent=";
+    const std::string   kIsChannelPresentResponse{"isChannelPresent="};
 
     /*! @brief The request to check if a machine is present in the Registry. */
-    const std::string   kIsMachinePresentRequest = "isMachinePresent?";
+    const std::string   kIsMachinePresentRequest{"isMachinePresent?"};
 
     /*! @brief The 'isMachinePresent' response. */
-    const std::string   kIsMachinePresentResponse = "isMachinePresent=";
+    const std::string   kIsMachinePresentResponse{"isMachinePresent="};
 
     /*! @brief The request to check if a node is present in the Registry. */
-    const std::string   kIsNodePresentRequest = "isNodePresent?";
+    const std::string   kIsNodePresentRequest{"isNodePresent?"};
 
     /*! @brief The 'isNodePresent' response. */
-    const std::string   kIsNodePresentResponse = "isNodePresent=";
+    const std::string   kIsNodePresentResponse{"isNodePresent="};
 
     /*! @brief The request to remove a channel from the Registry. */
-    const std::string   kRemoveChannelRequest = "removeChannel!";
+    const std::string   kRemoveChannelRequest{"removeChannel!"};
 
     /*! @brief The 'removeChannel' response. */
-    const std::string   kRemoveChannelResponse = "removeChannel=";
+    const std::string   kRemoveChannelResponse{"removeChannel="};
 
     /*! @brief The request to remove the channels for a node from the Registry. */
-    const std::string   kRemoveChannelsForNodeRequest = "removeChannelsForNode!";
+    const std::string   kRemoveChannelsForNodeRequest{"removeChannelsForNode!"};
 
     /*! @brief The 'removeChannelsForNode' response. */
-    const std::string   kRemoveChannelsForNodeResponse = "removeChannelsForNode=";
+    const std::string   kRemoveChannelsForNodeResponse{"removeChannelsForNode="};
 
     /*! @brief The request to remove a connection from the Registry. */
-    const std::string   kRemoveConnectionRequest = "removeConnection!";
+    const std::string   kRemoveConnectionRequest{"removeConnection!"};
 
     /*! @brief The 'removeConnection' response. */
-    const std::string   kRemoveConnectionResponse = "removeConnection=";
+    const std::string   kRemoveConnectionResponse{"removeConnection="};
 
     /*! @brief The request to remove a node from the Registry. */
-    const std::string   kRemoveNodeRequest = "removeNode!";
+    const std::string   kRemoveNodeRequest{"removeNode!"};
 
     /*! @brief The 'removeNode' response. */
-    const std::string   kRemoveNodeResponse = "removeNode=";
+    const std::string   kRemoveNodeResponse{"removeNode="};
 
     /*! @brief The request to set the connection status on a channel from the Registry. */
-    const std::string   kSetChannelInUseRequest = "setChannelInUse!";
+    const std::string   kSetChannelInUseRequest{"setChannelInUse!"};
 
     /*! @brief The 'setChannelInUse' response. */
-    const std::string   kSetChannelInUseResponse = "setChannelInUse=";
+    const std::string   kSetChannelInUseResponse{"setChannelInUse="};
 
 } // nImO
 

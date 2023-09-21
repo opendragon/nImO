@@ -45,6 +45,8 @@
 #include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -65,6 +67,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -133,7 +137,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
                             {
-                                ourContext->report("sending shutdown request to " + theInfo._name);
+                                ourContext->report("sending shutdown request to "s + theInfo._name);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -161,7 +165,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
                             {
-                                ourContext->report("sending shutdown request to " + nodeName);
+                                ourContext->report("sending shutdown request to "s + nodeName);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -190,7 +194,7 @@ main
                             // Close all connections for services on the node.
                             if (optionValues._expanded)
                             {
-                                ourContext->report("closing all connections to " + nodeName);
+                                ourContext->report("closing all connections to "s + nodeName);
                             }
 
                             // TBD: Send 'stopSource' command to 'from' node for all connections on the node.
@@ -201,14 +205,14 @@ main
                             // Send Shutdown command to the node.
                             if (optionValues._expanded)
                             {
-                                ourContext->report("sending shutdown request to " + nodeName);
+                                ourContext->report("sending shutdown request to "s + nodeName);
                             }
                             nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                                                                              nImO::kShutDownResponse);
                         }
                         else
                         {
-                            ourContext->report("Unknown node: '" + nodeName + "'");
+                            ourContext->report("Unknown node: '"s + nodeName + "'");
                         }
                     }
                     else
@@ -232,7 +236,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
                             {
-                                ourContext->report("sending shutdown request to " + nodeName);
+                                ourContext->report("sending shutdown request to "s + nodeName);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -258,7 +262,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
                             {
-                                ourContext->report("sending shutdown request to " + nodeName);
+                                ourContext->report("sending shutdown request to "s + nodeName);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.

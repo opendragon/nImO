@@ -44,6 +44,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -64,6 +66,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -141,7 +145,7 @@ main
                         {
                             if (! statusWithBool.second)
                             {
-                                ourContext->report("channel '" + nodeName + " " + path + "' could not be disconnected.");
+                                ourContext->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
                                 std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
                                 exitCode = 1;
                             }
@@ -171,7 +175,7 @@ main
                                 {
                                     if (! statusWithBool.second)
                                     {
-                                        ourContext->report("channel '" + nodeName + " " + path + "' could not be disconnected.");
+                                        ourContext->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
                                         std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
                                         exitCode = 1;
                                     }
@@ -184,7 +188,7 @@ main
                             }
                             else
                             {
-                                ourContext->report("channel '" + nodeName + " " + path + "' could not be found.");
+                                ourContext->report("channel '"s + nodeName + " "s + path + "' could not be found."s);
                                 std::cerr << "channel '" << nodeName << " " << path << "' could not be found.\n";
                                 exitCode = 1;
                             }

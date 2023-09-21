@@ -43,10 +43,10 @@
 #include <ContainerTypes/nImOarray.h>
 #include <ContainerTypes/nImObufferChunk.h>
 
+#include <inttypes.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include <inttypes.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

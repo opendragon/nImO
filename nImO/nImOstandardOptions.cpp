@@ -38,10 +38,13 @@
 
 #include <nImOstandardOptions.h>
 
-#include <fstream>
+#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+
 #include <initFile.h>
 #include <initFileObject.h>
-#include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+
+#include <fstream>
+#include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -62,6 +65,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -221,35 +225,35 @@ nImO::ProcessStandardOptions
     std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
     usageString += *argv;
-    usageString += " [options]";
+    usageString += " [options]"s;
     if (0 < argList.length())
     {
-        usageString += " " + argList;
+        usageString += " "s + argList;
     }
     if (0 < utilityDescription.length())
     {
-        usageString += "\n" + utilityDescription;
+        usageString += "\n"s + utilityDescription;
     }
     if (0 < utilityExample.length())
     {
-        usageString += "\n\nExample: " + utilityExample;
+        usageString += "\n\nExample: "s + utilityExample;
     }
     if (0 < argList.length())
     {
         StringVector    descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions);
-        usageString += "\n\n";
+        usageString += "\n\n"s;
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
         {
             if (0 < ii)
             {
-                usageString += "\n";
+                usageString += "\n"s;
             }
-            usageString += "  " + descriptions[ii];
+            usageString += "  "s + descriptions[ii];
         }
     }
-    usageString += "\n\nOptions:";
+    usageString += "\n\nOptions:"s;
 #if MAC_OR_LINUX_
     firstDescriptor.help = strdup(usageString.c_str());
 #else // ! MAC_OR_LINUX_

@@ -38,12 +38,13 @@
 
 #include <Contexts/nImOcontextWithMDNS.h>
 
-//#include <odlEnable.h>
-#include <odlInclude.h>
-
 #if MAC_OR_LINUX_
 # include <ifaddrs.h>
 #endif // MAC_OR_LINUX_
+#include <string>
+
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -59,6 +60,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -705,7 +708,7 @@ nImO::ContextWithMDNS::executeBrowser
             {
                 owner._requestNewScan = false;
                 ODL_B1("owner._requestNewScan <- ", owner._requestNewScan); //####
-                owner.report("Sending mDNS query: " + std::string(NIMO_REGISTRY_SERVICE_NAME));
+                owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME));
                 for (int isock = 0; isock < owner._numSockets; ++isock)
                 {
                     if (lBrowserThreadStop)
@@ -718,7 +721,7 @@ nImO::ContextWithMDNS::executeBrowser
                                                              nImO::ContextWithMDNS::kBufferCapacity, 0);
                     if (owner._queryId[isock] < 0)
                     {
-                        owner.report("Failed to send mDNS query: " + std::string(strerror(errno)));
+                        owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)));
                     }
                 }
             }
@@ -796,7 +799,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
                                                sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, _buffer, kBufferCapacity, 0);
             if (_queryId[isock] < 0)
             {
-                report("Failed to send mDNS query: " + std::string(strerror(errno)));
+                report("Failed to send mDNS query: "s + std::string(strerror(errno)));
                 okSoFar = false;
             }
         }
@@ -805,7 +808,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             std::atomic<bool>       timedOut{false};
             asio::deadline_timer    timeOutTimer{*getService()};
 
-            report("timeout = " + std::to_string(getRegistrySearchTimeout()));
+            report("timeout = "s + std::to_string(getRegistrySearchTimeout()));
             timeOutTimer.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
             timeOutTimer.async_wait([this, quietly, &timedOut]
                                    (const system::error_code &  error)
@@ -821,7 +824,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
                                    });
             if (! quietly)
             {
-                report("waiting...");
+                report("waiting..."s);
             }
             for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {

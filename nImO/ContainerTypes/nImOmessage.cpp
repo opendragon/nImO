@@ -45,10 +45,11 @@
 #include <ContainerTypes/nImObufferChunk.h>
 #include <nImOMIMESupport.h>
 
+#include <inttypes.h>
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
-
-#include <inttypes.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -75,6 +76,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -490,7 +492,7 @@ std::shared_ptr<std::string>
 nImO::PackageMessage
     (StringVector & outVec)
 {
-    return std::make_shared<std::string>(boost::algorithm::join(outVec, "\n") + "\n" + kMessageSentinel);
+    return std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s) + "\n"s + kMessageSentinel);
 } // nImO::PackageMessage
 
 std::string

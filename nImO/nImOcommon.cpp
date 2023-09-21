@@ -45,9 +45,11 @@
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 #include <BasicTypes/nImOvalue.h>
 #include <Contexts/nImOcontext.h>
+
 #include <fstream>
 #include <random>
 #include <regex>
+#include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -93,6 +95,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -282,11 +285,11 @@ nImO::ConstructNodeName
     }
     else
     {
-        nodeName = nImO::GetShortComputerName() + "-" + suffixIfNotFromOptions;
+        nodeName = nImO::GetShortComputerName() + "-"s + suffixIfNotFromOptions;
     }
     if (0 < tag.length())
     {
-        nodeName += "-" + tag;
+        nodeName += "-"s + tag;
     }
     ODL_EXIT_s(nodeName); //####
     return nodeName;
@@ -590,7 +593,7 @@ nImO::MakeStringFromComandLine
         result = args[0];
         for (int ii = 1; ii < numArgs; ++ii)
         {
-            result += "\t";
+            result += "\t"s;
             result += args[ii];
         }
     }

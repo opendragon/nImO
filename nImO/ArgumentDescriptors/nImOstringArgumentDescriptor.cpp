@@ -39,6 +39,8 @@
 
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -59,6 +61,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -145,7 +148,7 @@ StringArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{"\"" + getDefaultValue() + "\""};
+    std::string result{"\""s + getDefaultValue() + "\""s};
 
     ODL_OBJEXIT_s(result); //####
     return result;

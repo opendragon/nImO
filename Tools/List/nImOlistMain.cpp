@@ -43,6 +43,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -63,6 +65,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -268,7 +272,7 @@ listChannels
                                 modes = nImO::kProtocolTcpName;
                                 if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))
                                 {
-                                    modes += "+" + nImO::kProtocolUdpName;
+                                    modes += "+"s + nImO::kProtocolUdpName;
                                 }
                             }
                             else if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))

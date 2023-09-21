@@ -38,6 +38,8 @@
 
 #include <BasicTypes/nImOinvalid.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -55,6 +57,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -115,7 +119,7 @@ nImO::Invalid::Invalid
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._description = "";
+    other._description = ""s;
     ODL_EXIT_P(this); //####
 } // nImO::Invalid::Invalid
 

@@ -83,6 +83,8 @@
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -100,6 +102,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -135,7 +139,7 @@ nImO::RegistryProxy::RegistryProxy
     sock_addr.sin_addr.s_addr = htonl(connection._address);
     std::string regAddrStr{nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr))};
 
-    _context->report("Registry found at " + regAddrStr + ":" + std::to_string(_connection._port) + ".");
+    _context->report("Registry found at "s + regAddrStr + ":"s + std::to_string(_connection._port) + "."s);
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
 

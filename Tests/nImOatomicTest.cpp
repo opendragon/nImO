@@ -45,6 +45,8 @@
 #include <ContainerTypes/nImOstringBuffer.h>
 #include <Contexts/nImOtestContext.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -67,6 +69,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -97,7 +100,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal " + std::to_string(signal) + " = " + NameOfSignal(signal)};
+    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -1197,7 +1200,7 @@ doTestStringBufferWithSmallBlob
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
                 auto        resultString{stuff->getString()};
-                std::string expectedString{"%" + std::to_string(kSmallTestSize) + "%"};
+                std::string expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -1208,7 +1211,7 @@ doTestStringBufferWithSmallBlob
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
-                expectedString += "%";
+                expectedString += "%"s;
                 if (0 == resultString.compare(expectedString))
                 {
                     result = 0;
@@ -1280,7 +1283,7 @@ doTestStringBufferWithBigBlob
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
                 auto        resultString{stuff->getString()};
-                std::string expectedString{"%" + std::to_string(kBigTestSize) + "%"};
+                std::string expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -1291,7 +1294,7 @@ doTestStringBufferWithBigBlob
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
-                expectedString += "%";
+                expectedString += "%"s;
                 if (0 == resultString.compare(expectedString))
                 {
                     result = 0;
@@ -1913,7 +1916,7 @@ doTestSmallBlobValue
             }
             else
             {
-                std::string expectedString{"%" + std::to_string(kSmallTestSize) + "%"};
+                std::string expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -1924,7 +1927,7 @@ doTestSmallBlobValue
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
-                expectedString += "%";
+                expectedString += "%"s;
                 if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
@@ -1994,7 +1997,7 @@ doTestBigBlobValue
             }
             else
             {
-                std::string expectedString{"%" + std::to_string(kBigTestSize) + "%"};
+                std::string expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -2005,7 +2008,7 @@ doTestBigBlobValue
                     expectedString += highByte;
                     expectedString += lowByte;
                 }
-                expectedString += "%";
+                expectedString += "%"s;
                 if (0 == compareValueWithString(*stuff, expectedString.c_str()))
                 {
                     result = 0;
@@ -2317,7 +2320,7 @@ doTestStringCopyAndAssign
         String emptyString;
         String shortString{"alphabetagamma"};
 
-        if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"))
+        if ((0 == emptyString.getValue().length()) && (shortString.getValue() == "alphabetagamma"s))
         {
             String  emptyCopy{emptyString};
             String  shortCopy{shortString};

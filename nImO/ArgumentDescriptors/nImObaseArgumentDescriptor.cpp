@@ -50,6 +50,8 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -70,6 +72,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -422,11 +425,11 @@ nImO::ArgumentsToArgString
         {
             if (0 < ii)
             {
-                result += " ";
+                result += " "s;
             }
             if (anArg->isOptional())
             {
-                result += "[";
+                result += "["s;
                 ++numOptional;
             }
             result += anArg->argumentName();
@@ -498,7 +501,7 @@ nImO::ArgumentsToDescriptionArray
                     {
                         std::string anOption{anArg->getPrintableDefaultValue()};
 
-                        aLine += "(Optional, default=" + anOption + ")" + std::string(optionSize - anOption.length(), ' ');
+                        aLine += "(Optional, default="s + anOption + ")"s + std::string(optionSize - anOption.length(), ' ');
                     }
                     else
                     {
@@ -627,7 +630,7 @@ nImO::ProcessArguments
 
     ODL_I3("numArgs <- ", numArgs, "numValues <-", numValues, "numToCheck <- ", numToCheck); //####
     // Set all arguments to their default values, so that they are all defined.
-    badArgs = "";
+    badArgs = ""s;
     for (size_t ii = 0; numArgs > ii; ++ii)
     {
         Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
@@ -680,7 +683,7 @@ nImO::ProcessArguments
                 {
                     if (0 < badArgs.length())
                     {
-                        badArgs += ", ";
+                        badArgs += ", "s;
                     }
                     badArgs += anArg->argumentName();
                     result = false;
@@ -705,7 +708,7 @@ nImO::ProcessArguments
                 ODL_LOG("(! anArg->isOptional())"); //####
                 if (0 < badArgs.length())
                 {
-                    badArgs += ", ";
+                    badArgs += ", "s;
                 }
                 badArgs += anArg->argumentName();
                 result = false;

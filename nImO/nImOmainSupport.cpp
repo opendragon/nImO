@@ -40,6 +40,8 @@
 
 #include <Contexts/nImOcontextWithMDNS.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -57,6 +59,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -100,7 +104,7 @@ nImO::CatchSignal
     else
 #endif // defined(SIGINT)
     {
-        std::string message{"exiting due to signal " + std::to_string(signal) + " = " + nImO::NameOfSignal(signal)};
+        std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + nImO::NameOfSignal(signal)};
 
         NIMO_UNUSED_VAR_(message);
         ODL_EXIT_EXIT(1); //####

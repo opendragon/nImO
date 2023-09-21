@@ -40,6 +40,8 @@
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -59,6 +61,7 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -121,10 +124,10 @@ nImO::ProcessServiceOptions
     describePartText += serviceKindName + " options";
     if (isAdapter)
     {
-        describePartText += ", matching criteria";
+        describePartText += ", matching criteria"s;
     }
-    describePartText += " and description and exit";
-    tagPartText += serviceKindName + " name";
+    describePartText += " and description and exit"s;
+    tagPartText += serviceKindName + " name"s;
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         "  --args, -a\tReport the argument formats"};
@@ -160,23 +163,23 @@ nImO::ProcessServiceOptions
         arguments->clear();
     }
     usageString += *argv;
-    usageString += " [options]";
+    usageString += " [options]"s;
     if (0 < argList.length())
     {
         StringVector    descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
-        usageString += " " + argList + "\n\n";
+        usageString += " "s + argList + "\n\n"s;
         for (size_t ii = 0, mm = descriptions.size(); mm > ii; ++ii)
         {
             if (0 < ii)
             {
-                usageString += "\n";
+                usageString += "\n"s;
             }
-            usageString += "  " + descriptions[ii];
+            usageString += "  "s + descriptions[ii];
         }
     }
-    usageString += "\n\nOptions:";
+    usageString += "\n\nOptions:"s;
     // firstDescriptor, helpDescriptor, versionDescriptor, lastDescriptor
     size_t descriptorCount{4};
 

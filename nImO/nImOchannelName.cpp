@@ -39,6 +39,7 @@
 #include <nImOchannelName.h>
 
 #include <regex>
+#include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -57,6 +58,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -176,11 +179,11 @@ nImO::ChannelName::generatePath
         else
         {
             okSoFar = true;
-            path = "";
+            path = ""s;
         }
         if (okSoFar)
         {
-            path += (forOutput ? "/out" : "/in");
+            path += (forOutput ? "/out"s : "/in"s);
             if (1 < numChannels)
             {
                 path += std::to_string(channelNumber);
@@ -285,7 +288,7 @@ nImO::ChannelName::parse
     }
     else
     {
-        problemDescription = "Unable to parse channel name";
+        problemDescription = "Unable to parse channel name"s;
     }
     ODL_EXIT_P(result.get()); //####
     return result;

@@ -38,6 +38,8 @@
 
 #include <nImOMIMESupport.h>
 
+#include <string>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -64,6 +66,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -254,7 +258,7 @@ nImO::EncodeBytesAsMIME
                 if (kMaxMIMELine <= line.length())
                 {
                     outValue.push_back(line);
-                    line = "";
+                    line = ""s;
                 }
                 line += kMIMECharSet[group6[jj]];
             }
@@ -276,7 +280,7 @@ nImO::EncodeBytesAsMIME
             if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
-                line = "";
+                line = ""s;
             }
             line += kMIMECharSet[group6[ii]];
         }
@@ -285,7 +289,7 @@ nImO::EncodeBytesAsMIME
             if (kMaxMIMELine <= line.length())
             {
                 outValue.push_back(line);
-                line = "";
+                line = ""s;
             }
             line += kEqualsChar;
         }

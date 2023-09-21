@@ -46,11 +46,12 @@
 #include <nImOMIMESupport.h>
 #include <nImOstandardOptions.h>
 
-//#include <odlEnable.h>
-#include <odlInclude.h>
-
 #include <deque>
 #include <signal.h>
+#include <string>
+
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -69,6 +70,8 @@
 #if defined(__APPLE__)
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
+
+using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -327,7 +330,7 @@ main
                     CPtr(nImO::Map)         asMap{nextData->_receivedMessage->asMap()};
                     asio::ip::address_v4    sender{nextData->_receivedAddress};
                     char                    timeBuffer[80];
-                    std::string             addressString{"[" + sender.to_string() + "]"};
+                    std::string             addressString{"["s + sender.to_string() + "]"s};
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
@@ -427,7 +430,7 @@ main
 
                                 if (nullptr != asString)
                                 {
-                                    tagText = "#" + asString->getValue();
+                                    tagText = "#"s + asString->getValue();
                                 }
                             }
                             if (nullptr != theComputerName)
@@ -445,7 +448,7 @@ main
 
                                 if (nullptr != asInteger)
                                 {
-                                    commandPortText = "-" + std::to_string(asInteger->getIntegerValue());
+                                    commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
                             std::string prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};

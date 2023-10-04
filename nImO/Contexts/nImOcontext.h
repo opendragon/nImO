@@ -71,16 +71,16 @@ namespace nImO
 {
 
     /*! @brief A holder for a shared pointer to an Asio service . */
-    using SPservice = std::shared_ptr<asio::io_service>;
+    using SPservice = std::shared_ptr<boost::asio::io_service>;
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
-    using SPsocketTCP = std::shared_ptr<asio::ip::tcp::socket>;
+    using SPsocketTCP = std::shared_ptr<BTCP::socket>;
 
     /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
-    using SPsocketUDP = std::shared_ptr<asio::ip::udp::socket>;
+    using SPsocketUDP = std::shared_ptr<BUDP::socket>;
 
     /*! @brief A holder for a unique pointer to an Asio 'work' placeholder. */
-    using UPwork = std::unique_ptr<asio::io_service::work>;
+    using UPwork = std::unique_ptr<boost::asio::io_service::work>;
 
     /*! @brief A class to provide binary data with unknown structure. */
     class Context

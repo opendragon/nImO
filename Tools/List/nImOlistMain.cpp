@@ -133,7 +133,7 @@ struct ChoiceInfo final
 
 }; // ChoiceInfo
 
-typedef std::map<std::string, ChoiceInfo> ChoiceMap;
+using ChoiceMap = std::map<std::string, ChoiceInfo>;
 
 static ChoiceMap  lChoiceMap;
 
@@ -617,8 +617,8 @@ listMachines
 
                 if (theInfo._found)
                 {
-                    std::string             machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    asio::ip::address_v4    address{theInfo._address};
+                    std::string         machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    BAIP::address_v4    address{theInfo._address};
 
                     switch (options._flavour)
                     {
@@ -762,8 +762,8 @@ listNodes
 
                 if (theInfo._found)
                 {
-                    std::string             nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    asio::ip::address_v4    address{theInfo._connection._address};
+                    std::string         nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    BAIP::address_v4    address{theInfo._connection._address};
 
                     switch (options._flavour)
                     {

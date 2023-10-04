@@ -140,7 +140,7 @@ std::cerr << "** Unimplemented **\n";
                                 ourContext->report("waiting for requests.");
                                 for ( ; nImO::gKeepRunning; )
                                 {
-                                    this_thread::yield();
+                                    boost::this_thread::yield();
             //TBD
                                 }
                                 nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...

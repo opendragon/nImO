@@ -59,7 +59,7 @@ namespace nImO
     extern const std::string    kMessageSentinel;
 
     /*! @brief A shorter name for a useful type. */
-    typedef asio::buffers_iterator<asio::streambuf::const_buffers_type> BufferIterator;
+    using BufferIterator = boost::asio::buffers_iterator<boost::asio::streambuf::const_buffers_type>;
 
     /*! @brief The data constituting a Message. */
     class Message final : public ChunkArray

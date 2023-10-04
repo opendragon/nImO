@@ -100,8 +100,8 @@ nImO::AddConnectionCommandHandler::AddConnectionCommandHandler
 
 bool
 nImO::AddConnectionCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
+    (BTCP::socket & socket,
+     const Array &  arguments)
     const
 {
     ODL_OBJENTER(); //####

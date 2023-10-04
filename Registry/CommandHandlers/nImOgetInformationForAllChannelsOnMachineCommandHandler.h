@@ -88,8 +88,8 @@ namespace nImO
              @return @c true if a response was sent. */
             bool
             doIt
-                (asio::ip::tcp::socket &    socket,
-                 const Array &              arguments)
+                (BTCP::socket & socket,
+                 const Array &  arguments)
                 const
                 override;
 

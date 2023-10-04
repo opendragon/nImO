@@ -251,7 +251,7 @@ main
                     {
                         for ( ; nImO::gKeepRunning; )
                         {
-                            this_thread::yield();
+                            boost::this_thread::yield();
     //TBD
                         }
                         asRegistryContext->removeAnnouncement();

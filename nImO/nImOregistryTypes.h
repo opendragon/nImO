@@ -205,43 +205,43 @@ namespace nImO
     }; // NodeInfo
 
     /*! @brief Contains a sequence of ChannelInfo values. */
-    typedef std::vector<ChannelInfo>    ChannelInfoVector;
+    using ChannelInfoVector = std::vector<ChannelInfo>;
 
     /*! @brief Contains a sequence of ConnectionInfo values. */
-    typedef std::vector<ConnectionInfo> ConnectionInfoVector;
+    using ConnectionInfoVector = std::vector<ConnectionInfo>;
 
     /*! @brief Contains a sequence of MachineInfo values. */
-    typedef std::vector<MachineInfo>    MachineInfoVector;
+    using MachineInfoVector = std::vector<MachineInfo>;
 
     /*! @brief Contains a sequence of NodeInfo values. */
-    typedef std::vector<NodeInfo>   NodeInfoVector;
+    using NodeInfoVector = std::vector<NodeInfo>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, ChannelInfo> ChannelInfoOrFailure;
+    using ChannelInfoOrFailure = std::pair<SuccessOrFailure, ChannelInfo>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, ChannelInfoVector> ChannelInfoVectorOrFailure;
+    using ChannelInfoVectorOrFailure = std::pair<SuccessOrFailure, ChannelInfoVector>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, ConnectionInfo> ConnectionInfoOrFailure;
+    using ConnectionInfoOrFailure = std::pair<SuccessOrFailure, ConnectionInfo>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, ConnectionInfoVector>   ConnectionInfoVectorOrFailure;
+    using ConnectionInfoVectorOrFailure = std::pair<SuccessOrFailure, ConnectionInfoVector>;
 
     /*! @brief Contains @c true and the result if there was no problem ans @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, LaunchDetails> LaunchDetailsOrFailure;
+    using LaunchDetailsOrFailure = std::pair<SuccessOrFailure, LaunchDetails>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, MachineInfo> MachineInfoOrFailure;
+    using MachineInfoOrFailure = std::pair<SuccessOrFailure, MachineInfo>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, MachineInfoVector> MachineInfoVectorOrFailure;
+    using MachineInfoVectorOrFailure = std::pair<SuccessOrFailure, MachineInfoVector>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, NodeInfo> NodeInfoOrFailure;
+    using NodeInfoOrFailure = std::pair<SuccessOrFailure, NodeInfo>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, NodeInfoVector> NodeInfoVectorOrFailure;
+    using NodeInfoVectorOrFailure = std::pair<SuccessOrFailure, NodeInfoVector>;
 
 } // nImO
 

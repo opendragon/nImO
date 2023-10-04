@@ -119,14 +119,13 @@ namespace nImO
             // Private fields.
 
             /*! @brief The socket used for request and response. */
-            //asio::ip::tcp::socket   _socket;
             SPsocketTCP _socket{};
 
             /*! @brief The context that created this session. */
             SpContextWithNetworking _owner{};
 
             /*! @brief A buffer to hold the received request. */
-            asio::streambuf _buffer{};
+            boost::asio::streambuf  _buffer{};
 
     }; // CommandSession
 

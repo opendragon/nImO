@@ -90,6 +90,7 @@
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
+//# include <boost/asio/error.hpp>
 # include <boost/optional.hpp>
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
@@ -212,7 +213,12 @@ toUType
     return StaticCast(typename std::underlying_type<Type>::type, enumerator);
 }
 
-using namespace boost;
+namespace BAIP = boost::asio::ip;
+namespace BAErr = boost::asio::error;
+
+using BSErr = boost::system::error_code;
+using BTCP = BAIP::tcp;
+using BUDP = BAIP::udp;
 
 # define UnaryAndBinaryOperators(Type_) \
 inline constexpr Type_ \
@@ -755,16 +761,16 @@ namespace nImO
     using StringVector = std::vector<std::string>;
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<bool, std::string>    SuccessOrFailure;
+    using SuccessOrFailure = std::pair<bool, std::string>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, bool> BoolOrFailure;
+    using BoolOrFailure = std::pair<SuccessOrFailure, bool>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, int64_t> IntOrFailure;
+    using IntOrFailure = std::pair<SuccessOrFailure, int64_t>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    typedef std::pair<SuccessOrFailure, StringSet>   StringSetOrFailure;
+    using StringSetOrFailure = std::pair<SuccessOrFailure, StringSet>;
 
     // Methods.
 

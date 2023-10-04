@@ -84,7 +84,7 @@ static bool lContextCreated = false;
 nImO::Context::Context
     (const std::string &    executableName,
      const std::string &    nodeName) :
-        _executableName{executableName}, _nodeName{nodeName}, _service{std::make_shared<asio::io_service>()}
+        _executableName{executableName}, _nodeName{nodeName}, _service{std::make_shared<boost::asio::io_service>()}
 {
     ODL_ENTER(); //####
     ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####

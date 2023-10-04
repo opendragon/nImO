@@ -98,8 +98,8 @@ nImO::GetNumberOfMachinesCommandHandler::GetNumberOfMachinesCommandHandler
 
 bool
 nImO::GetNumberOfMachinesCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
+    (BTCP::socket & socket,
+     const Array &  arguments)
     const
 {
     NIMO_UNUSED_VAR_(arguments);

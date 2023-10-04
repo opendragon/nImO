@@ -100,8 +100,8 @@ nImO::AddChannelCommandHandler::AddChannelCommandHandler
 
 bool
 nImO::AddChannelCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
+    (BTCP::socket & socket,
+     const Array &  arguments)
     const
 {
     ODL_OBJENTER(); //####

@@ -98,8 +98,8 @@ nImO::RemoveNodeCommandHandler::RemoveNodeCommandHandler
 
 bool
 nImO::RemoveNodeCommandHandler::doIt
-    (asio::ip::tcp::socket &    socket,
-     const Array &              arguments)
+    (BTCP::socket & socket,
+     const Array &  arguments)
     const
 {
     ODL_OBJENTER(); //####

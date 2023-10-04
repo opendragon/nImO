@@ -755,7 +755,7 @@ nImO::ContextWithMDNS::findRegistry
     }
     if (_havePort && _haveAddress)
     {
-        connection._address = asio::ip::address_v4::from_string(_registryPreferredAddress).to_ulong();
+        connection._address = BAIP::address_v4::from_string(_registryPreferredAddress).to_ulong();
         connection._port = _registryPort;
         stopGatheringAnnouncements();
         found = true;
@@ -805,13 +805,13 @@ nImO::ContextWithMDNS::gatherAnnouncements
         }
         if (okSoFar)
         {
-            std::atomic<bool>       timedOut{false};
-            asio::deadline_timer    timeOutTimer{*getService()};
+            std::atomic<bool>           timedOut{false};
+            boost::asio::deadline_timer timeOutTimer{*getService()};
 
             report("timeout = "s + std::to_string(getRegistrySearchTimeout()));
-            timeOutTimer.expires_from_now(posix_time::seconds(getRegistrySearchTimeout()));
+            timeOutTimer.expires_from_now(boost::posix_time::seconds(getRegistrySearchTimeout()));
             timeOutTimer.async_wait([this, quietly, &timedOut]
-                                   (const system::error_code &  error)
+                                   (const BSErr &   error)
                                    {
                                        if (! error)
                                        {
@@ -828,7 +828,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             }
             for ( ; (! timedOut) && (! lStopRegistryLoop) && ((! _havePort) || (! _haveAddress)); )
             {
-                this_thread::yield();
+                boost::this_thread::yield();
             }
             if (! timedOut)
             {
@@ -891,7 +891,7 @@ nImO::ContextWithMDNS::stopGatheringAnnouncements
         {
             for ( ; ! lBrowserThreadStopped; )
             {
-                this_thread::yield();
+                boost::this_thread::yield();
             }
         }
         _browserThread->join();

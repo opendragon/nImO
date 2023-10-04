@@ -91,8 +91,8 @@ namespace nImO
              @return @c true if a response was sent. */
             virtual bool
             doIt
-                (asio::ip::tcp::socket &    socket,
-                 const Array &              arguments)
+                (BTCP::socket & socket,
+                 const Array &  arguments)
                 const = 0;
 
             /*! @brief The copy assignment operator.
@@ -133,10 +133,10 @@ namespace nImO
              @return @c true if a response was sent. */
             bool
             sendComplexResponse
-                (asio::ip::tcp::socket &    socket,
-                 const std::string          responseKey,
-                 const std::string          responseText,
-                 SpValue                    contents)
+                (BTCP::socket &     socket,
+                 const std::string  responseKey,
+                 const std::string  responseText,
+                 SpValue            contents)
                 const;
 
             /*! @brief Send a simple reponse for the command.
@@ -147,10 +147,10 @@ namespace nImO
              @return @c true if a response was sent. */
             bool
             sendSimpleResponse
-                (asio::ip::tcp::socket &    socket,
-                 const std::string          responseKey,
-                 const std::string          responseText,
-                 const bool                 wasOK = false)
+                (BTCP::socket &     socket,
+                 const std::string  responseKey,
+                 const std::string  responseText,
+                 const bool         wasOK = false)
                 const;
 
             /*! @brief Send a status report.
@@ -177,7 +177,7 @@ namespace nImO
             static bool
             sendComplexResponseWithContext
                 (SpContextWithNetworking    context,
-                 asio::ip::tcp::socket &    socket,
+                 BTCP::socket &             socket,
                  const std::string          responseKey,
                  const std::string          responseText,
                  SpValue                    contents);
@@ -192,7 +192,7 @@ namespace nImO
             static bool
             sendSimpleResponseWithContext
                 (SpContextWithNetworking    context,
-                 asio::ip::tcp::socket &    socket,
+                 BTCP::socket &             socket,
                  const std::string          responseKey,
                  const std::string          responseText,
                  const bool                 wasOK);

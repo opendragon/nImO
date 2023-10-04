@@ -146,10 +146,10 @@ namespace nImO
             Connection  _connection{};
 
             /*! @brief The endpoint for a multicast transmission. */
-            asio::ip::udp::endpoint _endpoint{};
+            BUDP::endpoint  _endpoint{};
         
             /*! @brief The socket for a multicast transmission. */
-            asio::ip::udp::socket _socket;
+            BUDP::socket    _socket;
 
             /*! @brief The symbolic name for the current process. */
             SpString    _tag{};

@@ -161,15 +161,15 @@ class ReceiveOnMessagePort final
              const nImO::Connection &   theConnection) :
                 _socket(*service)
         {
-            asio::ip::address_v4    listenAddress{0};
-            asio::ip::address_v4    multicastAddress{theConnection._address};
-            asio::ip::udp::endpoint listenEndpoint{listenAddress, theConnection._port};
+            BAIP::address_v4    listenAddress{0};
+            BAIP::address_v4    multicastAddress{theConnection._address};
+            BUDP::endpoint      listenEndpoint{listenAddress, theConnection._port};
 
             _socket.open(listenEndpoint.protocol());
-            _socket.set_option(asio::ip::udp::socket::reuse_address(true));
+            _socket.set_option(BUDP::socket::reuse_address(true));
             _socket.bind(listenEndpoint);
             // Join the multicast group.
-            _socket.set_option(asio::ip::multicast::join_group(multicastAddress));
+            _socket.set_option(BAIP::multicast::join_group(multicastAddress));
             receiveMessages();
         }
 
@@ -186,10 +186,10 @@ class ReceiveOnMessagePort final
         {
             if (nImO::gKeepRunning)
             {
-                _socket.async_receive_from(asio::buffer(_data), _senderEndpoint,
+                _socket.async_receive_from(boost::asio::buffer(_data), _senderEndpoint,
                                            [this]
-                                           (const system::error_code    ec,
-                                            const std::size_t           length)
+                                           (const BSErr         ec,
+                                            const std::size_t   length)
                                            {
                                                if (! ec)
                                                {
@@ -231,10 +231,10 @@ class ReceiveOnMessagePort final
         // Private fields.
 
         /*! @brief The socket for a multicast reception. */
-        asio::ip::udp::socket   _socket;
+        BUDP::socket    _socket;
 
         /*! @brief The sender's endpoint. */
-        asio::ip::udp::endpoint _senderEndpoint{};
+        BUDP::endpoint  _senderEndpoint{};
 
         /*! @brief A buffer for the raw message data. */
         std::array<char, 2048>  _data{};
@@ -307,14 +307,14 @@ main
             {
                 SpReceivedData  nextData;
 
-                this_thread::yield();
+                boost::this_thread::yield();
                 {
                     // Check for messages.
                     std::unique_lock<std::mutex>    lock{lReceivedLock};
 
                     for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
                     {
-                        this_thread::yield();
+                        boost::this_thread::yield();
                         lReceivedCondition.wait(lock);
                     }
                     if (nImO::gKeepRunning)
@@ -325,12 +325,12 @@ main
                 }
                 if (nImO::gKeepRunning)
                 {
-                    time_t                  rawTime;
-                    std::string             nowAsString;
-                    CPtr(nImO::Map)         asMap{nextData->_receivedMessage->asMap()};
-                    asio::ip::address_v4    sender{nextData->_receivedAddress};
-                    char                    timeBuffer[80];
-                    std::string             addressString{"["s + sender.to_string() + "]"s};
+                    time_t              rawTime;
+                    std::string         nowAsString;
+                    CPtr(nImO::Map)     asMap{nextData->_receivedMessage->asMap()};
+                    BAIP::address_v4    sender{nextData->_receivedAddress};
+                    char                timeBuffer[80];
+                    std::string         addressString{"["s + sender.to_string() + "]"s};
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));

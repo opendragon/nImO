@@ -110,7 +110,7 @@ nImO::Logger::Logger
     (SPservice              service,
      const std::string &    tagForLogging,
      const Connection &     logConnection):
-        _connection{logConnection}, _endpoint{asio::ip::address_v4(_connection._address), _connection._port},
+        _connection{logConnection}, _endpoint{BAIP::address_v4(_connection._address), _connection._port},
         _socket{*service, _endpoint.protocol()}, _commandPort{nullptr}
 {
     _computerName = std::make_shared<String>(GetShortComputerName());
@@ -234,10 +234,10 @@ nImO::Logger::report
                 auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
 
                 // send the encoded message to the logging ports
-                _socket.async_send_to(asio::buffer(*outString), _endpoint,
+                _socket.async_send_to(boost::asio::buffer(*outString), _endpoint,
                                       [outString]
-                                      (const system::error_code ec,
-                                       const std::size_t        length)
+                                      (const BSErr          ec,
+                                       const std::size_t    length)
                                       {
                                         NIMO_UNUSED_VAR_(ec);
                                         NIMO_UNUSED_VAR_(length);

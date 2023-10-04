@@ -211,8 +211,8 @@ namespace nImO
              @param[in] error The error status of the request. */
             void
             handleAccept
-                (Ptr(CommandSession)        newSession,
-                 const system::error_code & error);
+                (Ptr(CommandSession)    newSession,
+                 const BSErr &          error);
 
             /*! @brief Remvoe all the command handlers. */
             void
@@ -229,7 +229,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The acceptor for command port connections. */
-            asio::ip::tcp::acceptor _acceptor;
+            BTCP::acceptor  _acceptor;
 
             /*! @brief The command-line provided to the application. */
             SpArray _commandLine{};

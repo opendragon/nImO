@@ -133,13 +133,13 @@ nImO::ContextWithNetworking::ContextWithNetworking
     {
         // The number of threads requested should be one less than the number possible, to account for the main thread
         // and the reserved threads.
-        int numThreadsInPool{std::max(static_cast<int>(thread::hardware_concurrency()), 1) - 1};
+        int numThreadsInPool{std::max(static_cast<int>(boost::thread::hardware_concurrency()), 1) - 1};
 
         if ((0 < numReservedThreads) && ((numReservedThreads + 1) < numThreadsInPool))
         {
             numThreadsInPool -= numReservedThreads;
         }
-        _work = std::make_unique<asio::io_service::work>(*getService());
+        _work = std::make_unique<boost::asio::io_service::work>(*getService());
         ODL_P1("_work <- ", _work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {

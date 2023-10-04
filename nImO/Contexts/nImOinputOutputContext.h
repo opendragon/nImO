@@ -64,10 +64,10 @@ namespace nImO
     using SpOutChannel = std::shared_ptr<OutChannel>;
 
     /*! @brief An array of input channels. */
-    typedef std::vector<SpInChannel>    InChannelVector;
+    using InChannelVector = std::vector<SpInChannel>;
 
     /*! @brief An array of output channels. */
-    typedef std::vector<SpOutChannel>   OutChannelVector;
+    using OutChannelVector = std::vector<SpOutChannel>;
 
     /*! @brief A class to provide support for an 'inputOutput' application. */
     class InputOutputContext : public ServiceContext

@@ -171,7 +171,7 @@ nImO::ServiceContext::addStandardHandlers
             ODL_P1("newSession <- ", newSession); //####
             actualContext->_acceptor.async_accept(*newSession->getSocket(),
                                                    [actualContext, newSession]
-                                                   (const boost::system::error_code  ec)
+                                                   (const BSErr ec)
                                                    {
                                                         actualContext->handleAccept(newSession, ec);
                                                    });
@@ -208,7 +208,7 @@ nImO::ServiceContext::createCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
-    _acceptor.open(asio::ip::tcp::v4());
+    _acceptor.open(BTCP::v4());
     _acceptor.listen();
     _commandAddress = ntohl(gServiceAddressIpv4.sin_addr.s_addr);
     _commandPort = _acceptor.local_endpoint().port();
@@ -280,8 +280,8 @@ nImO::ServiceContext::getHandler
 
 void
 nImO::ServiceContext::handleAccept
-    (Ptr(CommandSession)        newSession,
-     const system::error_code & error)
+    (Ptr(CommandSession)    newSession,
+     const BSErr &          error)
 {
     ODL_OBJENTER(); //####
     ODL_P1("newSession = ", newSession); //####
@@ -290,12 +290,12 @@ nImO::ServiceContext::handleAccept
 
     if (error)
     {
-        if (asio::error::operation_aborted == error)
+        if (BAErr::operation_aborted == error)
         {
 #if defined(nImO_ChattyTcpLogging)
             report("async_accept() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
-            ODL_LOG("(asio::error::operation_aborted == ec)"); //####
+            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
         }
         else
         {
@@ -317,7 +317,7 @@ nImO::ServiceContext::handleAccept
             ODL_P1("newSession <- ", newSession); //####
             _acceptor.async_accept(*newSession->getSocket(),
                                    [this, newSession]
-                                   (const system::error_code  ec)
+                                   (const BSErr ec)
                                    {
                                         handleAccept(newSession, ec);
                                    });

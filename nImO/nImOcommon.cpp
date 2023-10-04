@@ -305,12 +305,12 @@ nImO::ConsumeSomeTime
     ODL_D1("factor = ", factor); //####
     if (nullptr != context)
     {
-        asio::deadline_timer    timer(*context->getService());
+        boost::asio::deadline_timer timer(*context->getService());
 
         timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
         timer.wait();
     }
-    this_thread::yield();
+    boost::this_thread::yield();
     ODL_EXIT(); //####
 } // nImO::ConsumeSomeTime
 
@@ -511,7 +511,7 @@ nImO::GetShortComputerName
     (void)
 {
     ODL_ENTER(); //####
-    std::string result{asio::ip::host_name()};
+    std::string result{BAIP::host_name()};
     size_t      dotPos{result.find('.')};
 
     if (std::string::npos != dotPos)

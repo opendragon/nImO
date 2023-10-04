@@ -174,7 +174,7 @@ nImO::CommandSession::CommandSession
     ODL_P1("owner = ", owner.get()); //####
     try
     {
-        _socket = std::make_shared<asio::ip::tcp::socket>(*_owner->getService());
+        _socket = std::make_shared<BTCP::socket>(*_owner->getService());
     }
     catch (...)
     {
@@ -198,42 +198,43 @@ nImO::CommandSession::start
 #if defined(nImO_ChattyTcpLogging)
     _owner->report("retrieving request");
 #endif /* defined(nImO_ChattyTcpLogging) */
-    asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
-                            [this, &keepGoing]
-                            (const system::error_code & ec,
-                             const std::size_t          size)
-                            {
-                                NIMO_UNUSED_VAR_(size);
-                                if (ec)
-                                {
-                                    if (asio::error::operation_aborted == ec)
+    boost::asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
+                                    [this, &keepGoing]
+                                    (const BSErr &      ec,
+                                     const std::size_t  size)
                                     {
+                                        NIMO_UNUSED_VAR_(size);
+                                        if (ec)
+                                        {
+                                            if (BAErr::operation_aborted == ec)
+                                            {
 #if defined(nImO_ChattyTcpLogging)
-                                        _owner->report("async_read_until() operation cancelled");
+                                                _owner->report("async_read_until() operation cancelled");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                        ODL_LOG("(asio::error::operation_aborted == ec)"); //####
-                                    }
-                                    else
-                                    {
-                                        _owner->report("async_read_until() failed");
-                                    }
-                                }
-                                else
-                                {
+                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                            }
+                                            else
+                                            {
+                                                _owner->report("async_read_until() failed");
+                                            }
+                                        }
+                                        else
+                                        {
 #if defined(nImO_ChattyTcpLogging)
-                                    _owner->report("got request");
+                                            _owner->report("got request");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                    if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())}))
-                                    {
-                                        CommandHandler::SendBadResponse(_owner, _socket);
-                                    }
-                                }
-                                keepGoing = false;
-                                ODL_B1("keepGoing <- ", keepGoing); //####
-                            });
+                                            if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
+                                                                    buffers_end(_buffer.data())}))
+                                            {
+                                                CommandHandler::SendBadResponse(_owner, _socket);
+                                            }
+                                        }
+                                        keepGoing = false;
+                                        ODL_B1("keepGoing <- ", keepGoing); //####
+                                    });
     for ( ; keepGoing && gKeepRunning; )
     {
-        this_thread::yield();
+        boost::this_thread::yield();
     }
     if (gPendingStop)
     {

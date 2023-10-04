@@ -487,12 +487,12 @@ nImO::RegistryContext::makePortAnnouncement
         _announceData = std::make_unique<AnnounceServiceData>(gServiceAddressIpv4, gServiceAddressIpv6);
         ODL_P1("_announceData <- ", _announceData.get()); //####
         _announcerThread = new boost::thread([this]
-                                                (void)
-                                                {
-                                                    ODL_LOG("announcer thread started"); //####
-                                                    executeAnnouncer(*this);
-                                                    ODL_LOG("announcer thread ended"); //####
-                                                });
+                                            (void)
+                                            {
+                                                ODL_LOG("announcer thread started"); //####
+                                                executeAnnouncer(*this);
+                                                ODL_LOG("announcer thread ended"); //####
+                                            });
         ODL_P1("announcer thread = ", _announcerThread); //####
         _pool.add_thread(_announcerThread);
         if (nImO::ContextWithMDNS::gHasIpv4)

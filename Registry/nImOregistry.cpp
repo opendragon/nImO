@@ -165,9 +165,9 @@
  @param[in] statement The prepared statement that is to be updated.
  @param[in] stuff The source of data that is to be bound.
  @return The SQLite error from the bind operation. */
-typedef int (*BindFunction)
-    (Ptr(sqlite3_stmt)  statement,
-     CPtr(void)         stuff);
+using BindFunction = int (*)
+   (Ptr(sqlite3_stmt)  statement,
+    CPtr(void)         stuff);
 
 /*! @brief The data used to update the Channels table. */
 struct ChannelInsertData

@@ -65,7 +65,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A convenience type. */
-typedef uint8_t AsBytes[4];
+using AsBytes = uint8_t[4];
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

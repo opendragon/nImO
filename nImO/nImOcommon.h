@@ -144,7 +144,7 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief A DOUBLEQUOTE character. */
+/*! @brief A double quote character. */
 # define CHAR_DOUBLEQUOTE_              "\""
 
 /*! @brief The default name for the root part of a channel name. */
@@ -601,9 +601,8 @@ namespace nImO
     /*! @brief A pointer to a function that can be invoked when help is requested, to
      provide more detailed information on the arguments to an application.
      @param[in,out] outStream The stream to write to. */
-    typedef void
-        (* HelpFunction)
-            (std::ostream & outStream);
+    using HelpFunction = void (*)
+       (std::ostream & outStream);
 
     namespace internal_
     {

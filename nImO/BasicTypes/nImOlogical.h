@@ -239,11 +239,13 @@ namespace nImO
 
             /*! @brief Add a JSON representation of the object to the buffer.
              @param[out] outBuffer The buffer to be appended to.
+             @param[in] asKey The value is a key.
              @param[in] squished @c true if the output has no unnecessary characters and @c false if it
              is as readable as possible. */
             void
             printToStringBufferAsJSON
                 (StringBuffer & outBuffer,
+                 const bool     asKey = false,
                  const bool     squished = false)
                 const
                 override;

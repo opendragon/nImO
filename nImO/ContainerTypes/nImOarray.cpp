@@ -607,12 +607,14 @@ nImO::Array::printToStringBuffer
 void
 nImO::Array::printToStringBufferAsJSON
     (StringBuffer & outBuffer,
+     const bool     asKey,
      const bool     squished)
     const
 {
+    NIMO_UNUSED_VAR_(asKey);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     bool    first{true};
 
     outBuffer.addChar(kStartArrayChar);
@@ -630,7 +632,7 @@ nImO::Array::printToStringBufferAsJSON
             {
                 outBuffer.addChar(' ');
             }
-            aValue->printToStringBufferAsJSON(outBuffer, squished);
+            aValue->printToStringBufferAsJSON(outBuffer, false, squished);
             first = false;
         }
     }

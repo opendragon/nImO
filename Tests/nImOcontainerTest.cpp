@@ -170,7 +170,7 @@ compareValueWithSquishedStringAsJSON
     StringBuffer    buff;
     int             result;
 
-    aValue.printToStringBufferAsJSON(buff, true);
+    aValue.printToStringBufferAsJSON(buff, false, true);
     auto    resultString{buff.getString()};
 
     result = resultString.compare(aString);

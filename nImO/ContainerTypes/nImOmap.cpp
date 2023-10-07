@@ -44,7 +44,7 @@
 #include <ContainerTypes/nImOmessage.h>
 #include <ContainerTypes/nImOstringBuffer.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -749,12 +749,14 @@ nImO::Map::printToStringBuffer
 void
 nImO::Map::printToStringBufferAsJSON
     (StringBuffer & outBuffer,
+     const bool     asKey,
      const bool     squished)
     const
 {
+    NIMO_UNUSED_VAR_(asKey);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     bool    first{true};
 
     outBuffer.addChar(kStartMapChar);
@@ -770,16 +772,7 @@ nImO::Map::printToStringBufferAsJSON
         }
         SpValue keyValue = walker.first;
 
-        if ((nullptr != keyValue->asString()) || (nullptr != keyValue->asAddress()))
-        {
-            keyValue->printToStringBufferAsJSON(outBuffer);
-        }
-        else if ((nullptr != keyValue->asNumber()) || (nullptr != keyValue->asLogical()))
-        {
-            outBuffer.addChar('"');
-            keyValue->printToStringBufferAsJSON(outBuffer);
-            outBuffer.addChar('"');
-        }
+        keyValue->printToStringBufferAsJSON(outBuffer, true);
         if (! squished)
         {
             outBuffer.addChar(' ');

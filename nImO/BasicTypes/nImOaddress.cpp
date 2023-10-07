@@ -42,7 +42,7 @@
 #include <ContainerTypes/nImOmessage.h>
 #include <ContainerTypes/nImOstringBuffer.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -509,13 +509,15 @@ nImO::Address::printToStringBuffer
 void
 nImO::Address::printToStringBufferAsJSON
     (StringBuffer & outBuffer,
+     const bool     asKey,
      const bool     squished)
     const
 {
+    NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);

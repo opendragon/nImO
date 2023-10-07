@@ -635,14 +635,16 @@ nImO::Value::printToStringBuffer
 void
 nImO::Value::printToStringBufferAsJSON
     (StringBuffer & outBuffer,
+     const bool     asKey,
      const bool     squished)
     const
 {
     NIMO_UNUSED_VAR_(outBuffer);
+    NIMO_UNUSED_VAR_(asKey);
     NIMO_UNUSED_VAR_(squished);
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
-    ODL_B1("squished = ", squished); //####
+    ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     ODL_OBJEXIT(); //####
 } // nImO::Value::printToStringBufferAsJSON
 

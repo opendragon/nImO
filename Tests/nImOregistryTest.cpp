@@ -1556,8 +1556,8 @@ doTestNodeDataAddedToRegistry
         }
         else
         {
-            uint32_t    randomAddress{nImO::RandomUnsigned()};
-            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
@@ -2983,8 +2983,8 @@ doTestNodeInfoWithRegistryWithOneNode
         }
         else
         {
-            uint32_t    randomAddress{nImO::RandomUnsigned()};
-            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
@@ -3084,15 +3084,15 @@ doTestNodeInfoWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
+                IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -3101,7 +3101,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
+                        IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));
@@ -3326,8 +3326,8 @@ doTestLaunchDetailsWithRegistryWithOneNode
         }
         else
         {
-            uint32_t    randomAddress{nImO::RandomUnsigned()};
-            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
@@ -3423,15 +3423,15 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
         }
         else
         {
-            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
+                IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -3440,7 +3440,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
+                        IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, "!"s + execPath, "?"s + currentDir, "^"s + commandLine,
                                                     nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
@@ -3988,8 +3988,8 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            uint32_t    randomAddress{nImO::RandomUnsigned()};
-            uint16_t    randomPort{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
@@ -4089,15 +4089,15 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            uint32_t    randomAddress1{StaticCast(uint32_t, nImO::RandomUnsigned())};
-            uint16_t    randomPort1{StaticCast(uint16_t, nImO::RandomUnsigned())};
+            IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
+            IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
             std::string machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
                 std::string machineName2{machineName1 + "_1"};
-                uint32_t    randomAddress2{StaticCast(uint32_t, nImO::RandomUnsigned())};
+                IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
@@ -4106,7 +4106,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
-                        uint16_t    randomPort2{StaticCast(uint16_t, nImO::RandomUnsigned())};
+                        IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
                         status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));

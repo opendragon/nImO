@@ -204,7 +204,7 @@ nImO::Integer::equalTo
             result = (_intValue == doublePtr->getDoubleValue());
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Integer::equalTo
 
@@ -308,7 +308,7 @@ nImO::Integer::greaterThan
             result = (_intValue > doublePtr->getDoubleValue());
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Integer::greaterThan
 
@@ -350,7 +350,7 @@ nImO::Integer::greaterThanOrEqual
             result = (_intValue >= doublePtr->getDoubleValue());
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Integer::greaterThanOrEqual
 
@@ -396,7 +396,7 @@ nImO::Integer::lessThan
             result = (_intValue < doublePtr->getDoubleValue());
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Integer::lessThan
 
@@ -438,7 +438,7 @@ nImO::Integer::lessThanOrEqual
             result = (_intValue <= doublePtr->getDoubleValue());
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Integer::lessThanOrEqual
 

@@ -343,7 +343,7 @@ nImO::ConvertToDouble
     Ptr(char)   endPtr;
     double      value{strtod(startPtr, &endPtr)};
 
-    if ((startPtr != endPtr) && (! *endPtr))
+    if ((startPtr != endPtr) && (kEndOfString == *endPtr))
     {
         result = value;
         ODL_D1("result <- ", result); //####
@@ -383,7 +383,7 @@ nImO::ConvertToInt64
     Ptr(char)   endPtr;
     int64_t     value{strtoll(startPtr, &endPtr, 10)};
 
-    if ((startPtr != endPtr) && (! *endPtr))
+    if ((startPtr != endPtr) && (kEndOfString == *endPtr))
     {
         result = value;
         ODL_I1("result <- ", result); //####

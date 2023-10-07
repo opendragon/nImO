@@ -157,7 +157,7 @@ nImO::AddNodeCommandHandler::doIt
             (nullptr != commandLineString) && (nullptr != connArray))
         {
             std::string machineName{machineNameString->getValue()};
-            uint32_t    address{theConnection._address};
+            IPv4Address address{theConnection._address};
             auto        status{_registry->addMachine(machineName, address)};
 
             if (status.first)

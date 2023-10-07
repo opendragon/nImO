@@ -99,7 +99,7 @@ namespace nImO
              @return @c true if the announcement was constructed and sent. */
             bool
             makePortAnnouncement
-                (const uint16_t         port,
+                (const IPv4Port         port,
                  const std::string &    serviceName,
                  const std::string &    hostName,
                  const std::string &    dataKey);

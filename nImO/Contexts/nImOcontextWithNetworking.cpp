@@ -65,10 +65,10 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The connection to be used for logging, if none is specified in the configuration file. */
-static nImO::Connection kDefaultLogConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1954};
+static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, IPV4_ADDR(239, 17, 12, 1)), 1954};
 
 /*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
-static nImO::Connection kDefaultStatusConnection{StaticCast(uint32_t, IPV4_ADDR(239, 17, 12, 1)), 1955};
+static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, IPV4_ADDR(239, 17, 12, 1)), 1955};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 static int kDefaultRegistryTimeout{5};
@@ -186,7 +186,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
-                    _logConnection._port = StaticCast(uint16_t, tempValue);
+                    _logConnection._port = StaticCast(IPv4Port, tempValue);
                 }
                 else
                 {
@@ -226,7 +226,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
-                    _statusConnection._port = StaticCast(uint16_t, tempValue);
+                    _statusConnection._port = StaticCast(IPv4Port, tempValue);
                 }
                 else
                 {
@@ -429,7 +429,7 @@ nImO::ContextWithNetworking::report
 
 void
 nImO::ContextWithNetworking::setCommandPort
-    (const uint16_t commandPort)
+    (const IPv4Port commandPort)
 {
     ODL_OBJENTER(); //####
     ODL_I1("commandPort = ", commandPort); //####

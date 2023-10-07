@@ -61,6 +61,9 @@ namespace nImO
         public :
             // Public type definitions.
 
+            /*! @brief A convenience type. */
+            using IPv4Bytes = uint8_t[4];
+
         protected :
             // Protected type definitions.
 
@@ -80,7 +83,12 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] initialValue The initial value for the object. */
             explicit Address
-                (const uint32_t initialValue);
+                (const IPv4Address  initialValue);
+
+            /*! @brief The constructor.
+             @param[in] initialValue The initial value for the object. */
+            Address
+                (const IPv4Bytes &  initialValue);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
@@ -129,7 +137,7 @@ namespace nImO
 
             /*! @brief Return the value of the object.
              @return The value of the object. */
-            inline uint32_t
+            inline IPv4Address
             getAddressValue
                 (void)
                 const
@@ -224,7 +232,7 @@ namespace nImO
              @return The updated object. */
             inline Address &
             operator=
-                (const uint32_t value)
+                (const IPv4Address  value)
             {
                 _addressValue = value;
                 return *this;
@@ -314,8 +322,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The associated value, if it is floating point. */
-            uint32_t    _addressValue{0};
+            /*! @brief The associated value. */
+            IPv4Address _addressValue{0};
 
     }; // Address
 

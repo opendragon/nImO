@@ -283,7 +283,7 @@ nImO::Blob::equalTo
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Blob::equalTo
 
@@ -438,7 +438,7 @@ nImO::Blob::greaterThan
             result = (0 < compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Blob::greaterThan
 
@@ -471,7 +471,7 @@ nImO::Blob::greaterThanOrEqual
             result = (0 <= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Blob::greaterThanOrEqual
 
@@ -508,7 +508,7 @@ nImO::Blob::lessThan
             result = (0 > compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Blob::lessThan
 
@@ -541,7 +541,7 @@ nImO::Blob::lessThanOrEqual
             result = (0 >= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Blob::lessThanOrEqual
 

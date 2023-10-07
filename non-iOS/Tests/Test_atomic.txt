@@ -123,12 +123,12 @@ add_test(NAME TestDefaultLogicalValue COMMAND ${THIS_TARGET} 50)
 add_test(NAME TestFalseLogicalValue COMMAND ${THIS_TARGET} 51 0 "false")
 # Test true logical value
 add_test(NAME TestTrueLogicalValue COMMAND ${THIS_TARGET} 51 1 "true")
-# Test default number value
+# Test default integer value
 add_test(NAME TestDefaultIntegerValue COMMAND ${THIS_TARGET} 52)
-# Test integer number value
-add_test(NAME TestIntegerNumberValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
-# Test double number value
-add_test(NAME TestDoubleNumberValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
+# Test integer value
+add_test(NAME TestIntegerValue COMMAND ${THIS_TARGET} 53 "12345" "12345")
+# Test double value
+add_test(NAME TestDoubleValue COMMAND ${THIS_TARGET} 53 "123.45" "123.45")
 # Test default string value
 add_test(NAME TestDefaultStringValue COMMAND ${THIS_TARGET} 54)
 # Test short string value
@@ -143,7 +143,7 @@ add_test(NAME TestSmallBlobValue COMMAND ${THIS_TARGET} 58)
 add_test(NAME TestBigBlobValue COMMAND ${THIS_TARGET} 59)
 # Test logical copy constructor and assignment operators
 add_test(NAME TestLogicalCopyAndAssign COMMAND ${THIS_TARGET} 60)
-# Test integer number copy constructor and assignment operators
+# Test integer copy constructor and assignment operators
 add_test(NAME TestIntegerCopyAndAssign COMMAND ${THIS_TARGET} 61)
 # Test double copy constructor and assignment operators
 add_test(NAME TestDoubleCopyAndAssign COMMAND ${THIS_TARGET} 62)
@@ -151,6 +151,12 @@ add_test(NAME TestDoubleCopyAndAssign COMMAND ${THIS_TARGET} 62)
 add_test(NAME TestStringCopyAndAssign COMMAND ${THIS_TARGET} 63)
 # Test blob copy constructor and assignment operator
 add_test(NAME TestBlobCopyAndAssign COMMAND ${THIS_TARGET} 64)
+# Test default address value
+add_test(NAME TestDefaultAddressValue COMMAND ${THIS_TARGET} 65)
+# Test address value
+add_test(NAME TestAddressValue COMMAND ${THIS_TARGET} 66 "1.2.3.4" "@1.2.3.4")
+# Test address copy constructor and assignment operators
+add_test(NAME TestAddressCopyAndAssign COMMAND ${THIS_TARGET} 67)
 
 # Test valid logical compares
 add_test(NAME TestValidLogicalCompares COMMAND ${THIS_TARGET} 80)
@@ -168,6 +174,10 @@ add_test(NAME TestInvalidNumberCompares COMMAND ${THIS_TARGET} 85)
 add_test(NAME TestInvalidStringCompares COMMAND ${THIS_TARGET} 86)
 # Test invalid blob compares
 add_test(NAME TestInvalidBlobCompares COMMAND ${THIS_TARGET} 87)
+# Test valid address compares
+add_test(NAME TestValidAddressCompares COMMAND ${THIS_TARGET} 88)
+# Test invalid address compares
+add_test(NAME TestInvalidAddressCompares COMMAND ${THIS_TARGET} 89)
 
 # Test default logical value as JSON
 add_test(NAME TestDefaultLogicalValueJSON COMMAND ${THIS_TARGET} 100)
@@ -175,13 +185,17 @@ add_test(NAME TestDefaultLogicalValueJSON COMMAND ${THIS_TARGET} 100)
 add_test(NAME TestFalseLogicalValueJSON COMMAND ${THIS_TARGET} 101 0 "false")
 # Test true logical value as JSON
 add_test(NAME TestTrueLogicalValueJSON COMMAND ${THIS_TARGET} 101 1 "true")
-# Test default number value as JSON
+# Test default integer value as JSON
 add_test(NAME TestDefaultIntegerValueJSON COMMAND ${THIS_TARGET} 102)
-# Test integer number value as JSON
-add_test(NAME TestIntegerNumberValueJSON COMMAND ${THIS_TARGET} 103 "12345" "12345")
-# Test double number value as JSON
-add_test(NAME TestDoubleNumberValueJSON COMMAND ${THIS_TARGET} 103 "123.45" "123.45")
+# Test integer value as JSON
+add_test(NAME TestIntegerValueJSON COMMAND ${THIS_TARGET} 103 "12345" "12345")
+# Test double value as JSON
+add_test(NAME TestDoubleValueJSON COMMAND ${THIS_TARGET} 103 "123.45" "123.45")
 # Test default string value as JSON
 add_test(NAME TestDefaultStringValueJSON COMMAND ${THIS_TARGET} 104)
 # Test short string value as JSON
 add_test(NAME TestShortStringValueJSON COMMAND ${THIS_TARGET} 105 "abcdef" "\"abcdef\"")
+# Test default address value as JSON
+add_test(NAME TestDefaultAddressValueJSON COMMAND ${THIS_TARGET} 106)
+# Test address value as JSON
+add_test(NAME TestAddressValueJSON COMMAND ${THIS_TARGET} 107 "1.2.3.4" "\"1.2.3.4\"")

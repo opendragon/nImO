@@ -295,15 +295,15 @@ struct MachineInsertData
     std::string _name;
 
     /*! @brief The IP address for this machine.*/
-    uint32_t    _address;
+    nImO::IPv4Address   _address;
 
     /*! @brief The constructor.
      @param[in] name The name of this node.
      @param[in] connection The command IP address and port for this node.
      @param[in] serviceType The type of service provided by this node. */
     inline MachineInsertData
-        (const std::string &    name,
-         const uint32_t         address) :
+        (const std::string &        name,
+         const nImO::IPv4Address    address) :
             _name(name), _address(address)
     {
     }
@@ -1084,9 +1084,9 @@ setupInsertIntoMachines
 
         if ((0 < machineNameIndex) && (0 < machineAddressIndex))
         {
-            auto        machineData{StaticCast(CPtr(MachineInsertData), stuff)};
-            std::string name{machineData->_name};
-            uint32_t    address{machineData->_address};
+            auto                machineData{StaticCast(CPtr(MachineInsertData), stuff)};
+            std::string         name{machineData->_name};
+            nImO::IPv4Address   address{machineData->_address};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1557,13 +1557,13 @@ extractChannelInfoFromVector
     ODL_P1("info = ", &info); //####
     if (5 < values.size())
     {
-        size_t      pos;
-        uint32_t    scratch;
+        size_t  pos;
+        int     scratch;
 
         info._found = true;
         info._node = values[0];
         info._path = values[1];
-        scratch = StaticCast(uint32_t, stoul(values[2], &pos));
+        scratch = StaticCast(int, stoul(values[2], &pos));
         if (0 == pos)
         {
             info._found = false;
@@ -1573,7 +1573,7 @@ extractChannelInfoFromVector
             info._isOutput = (0 != scratch);
         }
         info._dataType = values[3];
-        scratch = StaticCast(uint32_t, stoul(values[4], &pos));
+        scratch = StaticCast(int, stoul(values[4], &pos));
         if (0 == pos)
         {
             info._found = false;
@@ -1582,7 +1582,7 @@ extractChannelInfoFromVector
         {
             info._modes = StaticCast(nImO::TransportType, scratch);
         }
-        scratch = StaticCast(uint32_t, stoul(values[5], &pos));
+        scratch = StaticCast(int, stoul(values[5], &pos));
         if (0 == pos)
         {
             info._found = false;
@@ -1616,12 +1616,12 @@ extractNodeInfoFromVector
 
         info._found = true;
         info._name = values[0];
-        info._connection._address = StaticCast(uint32_t, stoul(values[1], &pos));
+        info._connection._address = StaticCast(nImO::IPv4Address, stoul(values[1], &pos));
         if (0 == pos)
         {
             info._found = false;
         }
-        info._connection._port = StaticCast(uint16_t, stoul(values[2], &pos));
+        info._connection._port = StaticCast(nImO::IPv4Port, stoul(values[2], &pos));
         if (0 == pos)
         {
             info._found = false;
@@ -1837,7 +1837,7 @@ nImO::Registry::addConnection
 nImO::SuccessOrFailure
 nImO::Registry::addMachine
     (const std::string &    machineName,
-     const uint32_t         address)
+     const IPv4Address      address)
     const
 {
     ODL_OBJENTER(); //####
@@ -2606,7 +2606,7 @@ nImO::Registry::getInformationForAllMachines
 
                     info._found = true;
                     info._name = values[0];
-                    info._address = StaticCast(uint32_t, stoul(values[1], &pos));
+                    info._address = StaticCast(IPv4Address, stoul(values[1], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
@@ -2820,7 +2820,7 @@ nImO::Registry::getMachineInformation
                         size_t  pos;
 
                         info._found = true;
-                        info._address = StaticCast(uint32_t, stoul(values[0], &pos));
+                        info._address = StaticCast(IPv4Address, stoul(values[0], &pos));
                         if (0 == pos)
                         {
                             info._found = false;
@@ -2996,12 +2996,12 @@ nImO::Registry::getNodeInformation
                         size_t  pos;
 
                         info._found = true;
-                        info._connection._address = StaticCast(uint32_t, stoul(values[0], &pos));
+                        info._connection._address = StaticCast(IPv4Address, stoul(values[0], &pos));
                         if (0 == pos)
                         {
                             info._found = false;
                         }
-                        info._connection._port = StaticCast(uint16_t, stoul(values[1], &pos));
+                        info._connection._port = StaticCast(IPv4Port, stoul(values[1], &pos));
                         if (0 == pos)
                         {
                             info._found = false;

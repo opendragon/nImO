@@ -150,7 +150,7 @@ namespace nImO
 
             /*! @brief Returns the address for the command port.
              @return The address of the command port. */
-            inline uint32_t
+            inline IPv4Address
             getCommandAddress
                 (void)
                 const
@@ -167,7 +167,7 @@ namespace nImO
 
             /*! @brief Returns the port number for the command port.
              @return The port number of the command port. */
-            inline uint16_t
+            inline IPv4Port
             getCommandPort
                 (void)
                 const
@@ -235,10 +235,10 @@ namespace nImO
             SpArray _commandLine{};
 
             /*! @brief The command address. */
-            uint32_t    _commandAddress{0};
+            IPv4Address _commandAddress{0};
 
             /*! @brief The command port. */
-            uint16_t    _commandPort{0};
+            IPv4Port    _commandPort{0};
 
             /*! @brief Set to @c false to stop asynchronous operations. */
             std::atomic<bool>   _keepGoing{false};

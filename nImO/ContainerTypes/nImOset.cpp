@@ -269,7 +269,7 @@ nImO::Set::equalTo
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Set::equalTo
 
@@ -521,7 +521,7 @@ nImO::Set::greaterThan
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Set::greaterThan
 
@@ -553,7 +553,7 @@ nImO::Set::greaterThanOrEqual
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Set::greaterThanOrEqual
 
@@ -586,7 +586,7 @@ nImO::Set::lessThan
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Set::lessThan
 
@@ -618,7 +618,7 @@ nImO::Set::lessThanOrEqual
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Set::lessThanOrEqual
 

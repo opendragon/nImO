@@ -221,7 +221,7 @@ namespace nImO
             std::string _registryTag{};
 
             /*! @brief The IP port for connections to the Registry process. */
-            uint16_t    _registryPort{0};
+            IPv4Port    _registryPort{0};
 
             /*! @brief The preferred address for connections to the Registry process. */
             std::string _registryPreferredAddress{};

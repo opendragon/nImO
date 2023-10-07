@@ -260,7 +260,7 @@ nImO::Logger::report
 
 void
 nImO::Logger::setCommandPort
-    (const uint16_t commandPort)
+    (const IPv4Port commandPort)
 {
     ODL_OBJENTER(); //####
     ODL_I1("commandPort = ", commandPort); //####

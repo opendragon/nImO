@@ -171,7 +171,7 @@ namespace nImO
         std::string _name{};
 
         /*! @brief The address of the machine. */
-        uint32_t _address{0};
+        IPv4Address _address{0};
 
         /*! @brief The constructor. */
         inline MachineInfo

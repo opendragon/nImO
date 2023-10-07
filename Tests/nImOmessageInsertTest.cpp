@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>

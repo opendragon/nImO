@@ -238,7 +238,7 @@ operator|\
 \
 inline constexpr Type_ \
 operator|\
-    (const Type_ leftValue,\
+    (const Type_    leftValue,\
      const uint8_t  rightValue)\
 {\
     return StaticCast(Type_, toUType(leftValue) | rightValue);\
@@ -247,7 +247,7 @@ operator|\
 inline constexpr Type_ \
 operator|\
     (const uint8_t  leftValue,\
-     const Type_ rightValue)\
+     const Type_    rightValue)\
 {\
     return StaticCast(Type_, leftValue | toUType(rightValue));\
 }\
@@ -262,7 +262,7 @@ operator&\
 \
 inline constexpr Type_ \
 operator&\
-    (const Type_ leftValue,\
+    (const Type_    leftValue,\
      const uint8_t  rightValue)\
 {\
     return StaticCast(Type_, toUType(leftValue) & rightValue);\
@@ -271,7 +271,7 @@ operator&\
 inline constexpr Type_ \
 operator&\
     (const uint8_t  leftValue,\
-     const Type_ rightValue)\
+     const Type_    rightValue)\
 {\
     return StaticCast(Type_, leftValue & toUType(rightValue));\
 }
@@ -550,14 +550,17 @@ namespace nImO
 
     }; // TransportType
 
+    using IPv4Address = uint32_t;
+    using IPv4Port = uint16_t;
+
     /*! @brief A network connection description. */
     struct Connection
     {
         /*! @brief The IP address of the connection.*/
-        uint32_t    _address{0};
+        IPv4Address _address{0};
 
         /*! @brief The port of the connection. */
-        uint16_t    _port{0};
+        IPv4Port    _port{0};
 
         /*! @brief The transport mechanism of the connection. */
         TransportType   _transport{TransportType::kTCP};
@@ -567,8 +570,8 @@ namespace nImO
          @param[in] port The port for the connection.
          @param[in] transport The transport mechanism for the connection. */
         inline Connection
-            (const uint32_t         address = 0,
-             const uint16_t         port = 0,
+            (const IPv4Address      address = 0,
+             const IPv4Port         port = 0,
              const TransportType    transport = TransportType::kTCP) :
                 _address(address), _port(port), _transport(transport)
         {

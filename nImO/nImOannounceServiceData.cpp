@@ -120,7 +120,7 @@ nImO::AnnounceServiceData::~AnnounceServiceData
 
 bool
 nImO::AnnounceServiceData::setServiceData
-    (const uint16_t         port,
+    (const IPv4Port         port,
      const std::string &    serviceName,
      const std::string &    hostName,
      const std::string &    dataKey,

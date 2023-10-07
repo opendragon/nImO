@@ -136,7 +136,7 @@ namespace nImO
             SuccessOrFailure
             addMachine
                 (const std::string &    machineName,
-                 const uint32_t         address = 0)
+                 const IPv4Address      address = 0)
                 const;
 
             /*! @brief Add a node to the Registry.

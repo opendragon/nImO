@@ -200,7 +200,7 @@ nImO::Logical::equalTo
             result = (_value == otherPtr->_value);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Logical::equalTo
 
@@ -311,7 +311,7 @@ nImO::Logical::greaterThan
             result = (_value > otherPtr->_value);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Logical::greaterThan
 
@@ -344,7 +344,7 @@ nImO::Logical::greaterThanOrEqual
             result = (_value >= otherPtr->_value);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Logical::greaterThanOrEqual
 
@@ -381,7 +381,7 @@ nImO::Logical::lessThan
             result = (_value < otherPtr->_value);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Logical::lessThan
 
@@ -414,7 +414,7 @@ nImO::Logical::lessThanOrEqual
             result = (_value <= otherPtr->_value);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Logical::lessThanOrEqual
 

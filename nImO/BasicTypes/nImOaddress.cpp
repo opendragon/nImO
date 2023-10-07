@@ -42,7 +42,7 @@
 #include <ContainerTypes/nImOmessage.h>
 #include <ContainerTypes/nImOstringBuffer.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -64,9 +64,6 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief A convenience type. */
-using AsBytes = uint8_t[4];
-
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -80,8 +77,8 @@ using AsBytes = uint8_t[4];
  @param[in] inValue The input value. */
 static void
 convertToByteArray
-    (AsBytes &      outValue,
-     const uint32_t inValue)
+    (nImO::Address::IPv4Bytes & outValue,
+     const nImO::IPv4Address    inValue)
 {
     outValue[0] = StaticCast(uint8_t, (inValue >> 24) & 0x0FF);
     outValue[1] = StaticCast(uint8_t, (inValue >> 16) & 0x0FF);
@@ -106,11 +103,22 @@ nImO::Address::Address
 } // nImO::Address::Address
 
 nImO::Address::Address
-    (const uint32_t initialValue) :
+    (const IPv4Address  initialValue) :
         inherited{}, _addressValue{initialValue}
 {
     ODL_ENTER(); //####
-    ODL_I1("initialValue = ", initialValue); //####
+    ODL_X1("initialValue = ", initialValue); //####
+    ODL_EXIT_P(this); //####
+} // nImO::Address::Address
+
+nImO::Address::Address
+    (const IPv4Bytes &  initialValue) :
+        inherited{}
+{
+    ODL_ENTER(); //####
+    ODL_P1("initialValue = ", &initialValue); //####
+    _addressValue = ((initialValue[0] << 24) | (initialValue[1] << 16) | (initialValue[2] << 8) | initialValue[3]);
+    ODL_X1("_addressValue = ", _addressValue); //####
     ODL_EXIT_P(this); //####
 } // nImO::Address::Address
 
@@ -211,7 +219,7 @@ nImO::Address::equalTo
             result = (_addressValue == otherPtr->_addressValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Address::equalTo
 
@@ -227,7 +235,7 @@ nImO::Address::extractValue
     ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
     ODL_X1("leadByte = ", leadByte); //####
     SpValue     result;
-    uint32_t    accumulator{0};
+    IPv4Address accumulator{0};
     bool        atEnd{false};
 
     ++position; // We will always accept the lead byte
@@ -334,7 +342,7 @@ nImO::Address::greaterThan
             result = (_addressValue > otherPtr->_addressValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Address::greaterThan
 
@@ -367,7 +375,7 @@ nImO::Address::greaterThanOrEqual
             result = (_addressValue >= otherPtr->_addressValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Address::greaterThanOrEqual
 
@@ -404,7 +412,7 @@ nImO::Address::lessThan
             result = (_addressValue < otherPtr->_addressValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Address::lessThan
 
@@ -437,7 +445,7 @@ nImO::Address::lessThanOrEqual
             result = (_addressValue <= otherPtr->_addressValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Address::lessThanOrEqual
 
@@ -465,7 +473,7 @@ nImO::Address::operator<<
 {
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
-    AsBytes bytes;
+    IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
     out << kStartAddressChar << bytes[0] << kAddressSeparator << bytes[1] << kAddressSeparator << bytes[2] << kAddressSeparator << bytes[3];
@@ -483,7 +491,7 @@ nImO::Address::printToStringBuffer
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    AsBytes bytes;
+    IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
     outBuffer.addChar(kStartAddressChar);
@@ -508,7 +516,7 @@ nImO::Address::printToStringBufferAsJSON
     ODL_OBJENTER(); //####
     ODL_P1("outBuffer = ", &outBuffer); //####
     ODL_B1("squished = ", squished); //####
-    AsBytes bytes;
+    IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
     outBuffer.addChar(kDoubleQuote);
@@ -541,7 +549,7 @@ nImO::Address::readFromStringBuffer
         uint64_t    collector{0};
         bool        okSoFar{true};
         bool        digitSeen{false};
-        uint32_t    totalValue{0};
+        IPv4Address totalValue{0};
 
         for (int ii = 0; ii <= 2; ++ii)
         {
@@ -558,7 +566,7 @@ nImO::Address::readFromStringBuffer
                 {
                     digitSeen = true;
                     collector = (collector << 10) + (aChar - '0');
-                    ODL_I1("collector = ", collector); //####
+                    ODL_X1("collector = ", collector); //####
                     ++localIndex;
                     ODL_I1("localIndex = ", localIndex); //####
                 }
@@ -582,11 +590,11 @@ nImO::Address::readFromStringBuffer
             }
             if (okSoFar)
             {
-                totalValue = (totalValue << 8) + StaticCast(uint32_t, collector);
+                totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
                 ODL_I1("totalValue = ", totalValue); //####
                 digitSeen = false;
                 collector = 0;
-                ODL_I1("collector = ", collector); //####
+                ODL_X1("collector = ", collector); //####
             }
             else
             {
@@ -614,7 +622,7 @@ nImO::Address::readFromStringBuffer
             {
                 digitSeen = true;
                 collector = (collector << 10) + (aChar - '0');
-                ODL_I1("collector = ", collector); //####
+                ODL_X1("collector = ", collector); //####
                 ++localIndex;
                 ODL_I1("localIndex = ", localIndex); //####
             }
@@ -625,8 +633,8 @@ nImO::Address::readFromStringBuffer
         }
         if (okSoFar)
         {
-            totalValue = (totalValue << 8) + StaticCast(uint32_t, collector);
-            ODL_I1("totalValue = ", totalValue); //####
+            totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
+            ODL_X1("totalValue = ", totalValue); //####
             result = std::make_shared<Address>(totalValue);
         }
     }
@@ -649,7 +657,7 @@ nImO::Address::writeToMessage
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     DataKind    stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address};
-    AsBytes     bytes;
+    IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
     outMessage.appendBytes(&stuff, sizeof(stuff));

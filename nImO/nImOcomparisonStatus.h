@@ -134,7 +134,7 @@ namespace nImO
             @param[in] value The status to be assigned.
             @return The modified status. */
             inline ComparisonStatus &
-                operator=
+            operator=
                 (const bool value)
             {
                 _result = value;
@@ -145,7 +145,7 @@ namespace nImO
             /*! @brief Clear the status.
             @return The modified status. */
             inline ComparisonStatus &
-                clear
+            clear
                 (void)
             {
                 _result = _valid = false;

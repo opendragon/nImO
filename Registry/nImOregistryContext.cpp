@@ -466,7 +466,7 @@ nImO::RegistryContext::executeAnnouncer
 
 bool
 nImO::RegistryContext::makePortAnnouncement
-    (const uint16_t         port,
+    (const IPv4Port         port,
      const std::string &    serviceName,
      const std::string &    hostName,
      const std::string &    dataKey)

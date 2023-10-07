@@ -205,7 +205,7 @@ nImO::Double::equalTo
             result = (_floatValue == doublePtr->_floatValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Double::equalTo
 
@@ -374,7 +374,7 @@ nImO::Double::greaterThan
             result = (_floatValue > doublePtr->_floatValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Double::greaterThan
 
@@ -416,7 +416,7 @@ nImO::Double::greaterThanOrEqual
             result = (_floatValue >= doublePtr->_floatValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Double::greaterThanOrEqual
 
@@ -462,7 +462,7 @@ nImO::Double::lessThan
             result = (_floatValue < doublePtr->_floatValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Double::lessThan
 
@@ -504,7 +504,7 @@ nImO::Double::lessThanOrEqual
             result = (_floatValue <= doublePtr->_floatValue);
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Double::lessThanOrEqual
 

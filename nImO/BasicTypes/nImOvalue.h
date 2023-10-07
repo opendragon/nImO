@@ -318,7 +318,7 @@ namespace nImO
             operator<
                 (const Value &  other)
             {
-                ComparisonStatus    result(lessThan(other));
+                ComparisonStatus    result{lessThan(other)};
 
                 return (result.Result() && result.IsValid());
             }
@@ -330,7 +330,7 @@ namespace nImO
             operator>
                 (const Value &  other)
             {
-                ComparisonStatus    result(greaterThan(other));
+                ComparisonStatus    result{greaterThan(other)};
 
                 return (result.Result() && result.IsValid());
             }
@@ -342,7 +342,7 @@ namespace nImO
             operator<=
                 (const Value &  other)
             {
-                ComparisonStatus    result(lessThanOrEqual(other));
+                ComparisonStatus    result{lessThanOrEqual(other)};
 
                 return (result.Result() && result.IsValid());
             }
@@ -354,7 +354,7 @@ namespace nImO
             operator>=
                 (const Value &  other)
             {
-                ComparisonStatus    result(greaterThanOrEqual(other));
+                ComparisonStatus    result{greaterThanOrEqual(other)};
 
                 return (result.Result() && result.IsValid());
             }
@@ -366,7 +366,7 @@ namespace nImO
             operator==
                 (const Value &  other)
             {
-                ComparisonStatus    result(equalTo(other));
+                ComparisonStatus    result{equalTo(other)};
 
                 return (result.Result() && result.IsValid());
             }
@@ -378,7 +378,7 @@ namespace nImO
             operator!=
                 (const Value &  other)
             {
-                ComparisonStatus    result(equalTo(other));
+                ComparisonStatus    result{equalTo(other)};
 
                 return ((! result.Result()) && result.IsValid());
             }
@@ -479,6 +479,14 @@ namespace nImO
 
         private :
             // Private methods.
+
+            /*! @brief Update the Reader map with the given values.
+             @param[in] prefixes The initial characters for the reader.
+             @param[in] reader The reader corresponding to the initial characters. */
+            static void
+            addToReaderMap
+                (CPtr(char)     prefixes,
+                 BufferReader   reader);
 
             /*! @brief Update the Extractor map with the given values.
              @param[in] aByte The basic value to be used as the index.

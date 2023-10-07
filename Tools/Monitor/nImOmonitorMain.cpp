@@ -96,8 +96,8 @@ struct ReceivedData final
          @param[in] receivedMessage The message from the sender.
          @param[in] receivedAddress The send IP address. */
         inline ReceivedData
-            (nImO::SpValue  receivedMessage,
-             const uint32_t receivedAddress) :
+            (nImO::SpValue              receivedMessage,
+             const nImO::IPv4Address    receivedAddress) :
                 _receivedMessage(receivedMessage), _receivedAddress(receivedAddress)
         {
         }
@@ -115,7 +115,7 @@ struct ReceivedData final
         nImO::SpValue   _receivedMessage{};
 
         /*! @brief The IP address of the sender. */
-        uint32_t    _receivedAddress{};
+        nImO::IPv4Address   _receivedAddress{};
 
     protected :
         // Protected fields.
@@ -199,8 +199,8 @@ class ReceiveOnMessagePort final
                                                    // We need to convert the raw data to a string!
                                                    if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
                                                    {
-                                                       auto     newMessage{std::make_shared<nImO::Message>()};
-                                                       uint32_t senderAddress{_senderEndpoint.address().to_v4().to_uint()};
+                                                       auto                 newMessage{std::make_shared<nImO::Message>()};
+                                                       nImO::IPv4Address    senderAddress{_senderEndpoint.address().to_v4().to_uint()};
 
                                                        newMessage->open(false);
                                                        newMessage->appendBytes(inBytes.data(), inBytes.size());

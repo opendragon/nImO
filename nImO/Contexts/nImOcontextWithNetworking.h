@@ -187,7 +187,7 @@ namespace nImO
              @param[in] port The command port number. */
             void
             setCommandPort
-                (const uint16_t commandPort);
+                (const IPv4Port commandPort);
 
         private :
             // Private methods.

@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
@@ -156,6 +157,50 @@ compareValueWithStringAsJSON
     ODL_EXIT_I(result); //####
     return result;
 } // compareValueWithStringAsJSON
+
+/*! @brief Extract the bytes of an IPv4 address from a string.
+ @param[out] asBytes The bytes for the address.
+ @param[in] inString The character string to process.
+ @return @c true on success and @c false on failure. */
+static bool
+getIPv4Bytes
+    (Address::IPv4Bytes &   asBytes,
+     CPtr(char)             inString)
+{
+    bool    okSoFar{true};
+
+    for (size_t ii = 0, mm = A_SIZE(asBytes); okSoFar && (ii < mm); ++ii)
+    {
+        Ptr(char)   endPtr;
+        int64_t     value{strtoll(inString, &endPtr, 10)};
+
+        if (inString == endPtr)
+        {
+            okSoFar = false;
+        }
+        else
+        {
+            if ((255 < value) || (0 > value))
+            {
+                okSoFar = false;
+            }
+            else if ((kEndOfString == *endPtr) && (ii == (mm - 1)))
+            {
+                asBytes[ii] = StaticCast(uint8_t, value);
+            }
+            else if ((kAddressSeparator == *endPtr) && (ii < (mm - 1)))
+            {
+                asBytes[ii] = StaticCast(uint8_t, value);
+                inString = endPtr + 1;
+            }
+            else
+            {
+                okSoFar = false;
+            }
+        }
+    }
+    return okSoFar;
+} // getIPv4Bytes
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 01 ***
@@ -2481,6 +2526,211 @@ doTestBlobCopyAndAssign
 } // doTestBlobCopyAndAssign
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 65 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultAddressValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Address>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            if ((0 == compareValueWithString(*stuff, "@0.0.0.0")) && (nullptr != stuff->asAddress()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0.0.0.0\")) && " //####
+                        "(nullptr != stuff->asAddress()))"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultAddressValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 66 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddressValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+//    ODL_S1("launchPath = ", launchPath); //####
+//    ODL_I1("argc = ", argc); //####
+//    ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Address::IPv4Bytes  asBytes;
+            CPtr(char)          outString{argv[1]};
+
+            if (getIPv4Bytes(asBytes, argv[0]))
+            {
+                auto    stuff{std::make_unique<Address>(asBytes)};
+
+                if (nullptr == stuff)
+                {
+                    ODL_LOG("(nullptr == stuff)"); //####
+                }
+                else
+                {
+                    if (0 == compareValueWithString(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
+                    }
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddressValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 67 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddressCopyAndAssign
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        static const IPv4Address    value1{0x12345678};
+        static const IPv4Address    value2{0x345678AB};
+        static const IPv4Address    value3{0x5678ABCD};
+        Address                     address1{value1};
+        Address                     address2{value2};
+        Address                     address3{value3};
+
+        if ((value1 == address1.getAddressValue()) &&
+            (value2 == address2.getAddressValue()) &&
+            (value3 == address3.getAddressValue()))
+        {
+            Address copy1{address1};
+            Address copy2{address2};
+            Address copy3{address3};
+
+            if ((copy1.getAddressValue() == address1.getAddressValue()) &&
+                (copy2.getAddressValue() == address2.getAddressValue()) &&
+                (copy3.getAddressValue() == address3.getAddressValue()))
+            {
+                copy1 = address2;
+                copy2 = address3;
+                copy3 = address1;
+                if ((copy1.getAddressValue() == address2.getAddressValue()) &&
+                    (copy2.getAddressValue() == address3.getAddressValue()) &&
+                    (copy3.getAddressValue() == address1.getAddressValue()))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! ((copy1.getAddressValue() == address2.getAddressValue()) && " //####
+                            "(copy2.getAddressValue() == address3.getAddressValue()) && " //####
+                            "(copy3.getAddressValue() == address1.getAddressValue()))"); //####
+                    result = 1;
+                }
+            }
+            else
+            {
+                ODL_LOG("! ((copy1.getAddressValue() == address1.getAddressValue()) && " //####
+                        "(copy2.getAddressValue() == address2.getAddressValue()) && " //####
+                        "(copy3.getAddressValue() == address3.getAddressValue()))"); //####
+                result = 1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((value1 == address1.getAddressValue()) && " //####
+                    "(value2 == address2.getAddressValue()) && " //####
+                    "(value3 == address3.getAddressValue()))"); //####
+            result = 1;
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddressCopyAndAssign
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 80 ***
 #endif // defined(__APPLE__)
 
@@ -2520,29 +2770,29 @@ doTestValidLogicalCompares
         const tests testSet[]
         {
             { false, false,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { false, true,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { true,  false,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { true,  true,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
         };
         const size_t    numTests{A_SIZE(testSet)};
 
@@ -2670,188 +2920,188 @@ doTestValidNumberCompares
         {
             // l   r
             { 0,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { 0,   1,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 0,  -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { -1,  0,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { -1, -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
         };
         const size_t    numTests1{A_SIZE(testSet1)};
         const testsI2R  testSet2[]
         {
             // l   r
             { 0,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { 0,   1,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 0,  -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { -1,  0,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { -1, -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
         };
         const size_t    numTests2{A_SIZE(testSet2)};
         const testsR2I  testSet3[]
         {
             // l   r
             { 0,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { 0,   1,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 0,  -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { -1,  0,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { -1, -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
         };
         const size_t    numTests3{A_SIZE(testSet3)};
         const testsR2R  testSet4[]
         {
             // l   r
             { 0,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { 0,   1,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 0,  -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { -1,  0,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { 1,   1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { -1, -1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
         };
         const size_t    numTests4{A_SIZE(testSet4)};
 
@@ -3078,53 +3328,53 @@ doTestValidStringCompares
         {
             // left  right
             { "",    "",
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { "",    "abc",
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { "abc",  "",
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { "abc",  "abc",
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { "abc",  "def",
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { "def",  "abc",
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { "abc",  "abcd",
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { "abcd", "abc",
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
         };
         const size_t    numTests{A_SIZE(testSet)};
 
@@ -3232,53 +3482,53 @@ doTestValidBlobCompares
         {
             // left   right
             { &blob0, &blob0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { &blob0, &blob1,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { &blob1, &blob0,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { &blob1, &blob1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(true) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
             { &blob1, &blob3,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { &blob3, &blob1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
             { &blob1, &blob2,
-                ComparisonStatus(true), // <
-                ComparisonStatus(false), // >
-                ComparisonStatus(true), // <=
-                ComparisonStatus(false), // >=
-                ComparisonStatus(false) }, // ==
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
             { &blob2, &blob1,
-                ComparisonStatus(false), // <
-                ComparisonStatus(true), // >
-                ComparisonStatus(false), // <=
-                ComparisonStatus(true), // >=
-                ComparisonStatus(false) } // ==
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
         };
         const size_t    numTests{A_SIZE(testSet)};
 
@@ -3366,7 +3616,8 @@ doTestInvalidLogicalCompares
         Number              rightValue1;
         String              rightValue2;
         Blob                rightValue3;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3 };
+        Address             rightValue4;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
         const size_t        numRightValues{A_SIZE(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3469,7 +3720,8 @@ doTestInvalidNumberCompares
         Logical             rightValue1;
         String              rightValue2;
         Blob                rightValue3;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3 };
+        Address             rightValue4;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
         const size_t        numRightValues{A_SIZE(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3572,7 +3824,8 @@ doTestInvalidStringCompares
         Logical             rightValue1;
         Number              rightValue2;
         Blob                rightValue3;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3 };
+        Address             rightValue4;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
         const size_t        numRightValues{A_SIZE(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3675,7 +3928,8 @@ doTestInvalidBlobCompares
         Logical             rightValue1;
         Number              rightValue2;
         String              rightValue3;
-        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3 };
+        Address             rightValue4;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
         const size_t        numRightValues{A_SIZE(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
@@ -3746,6 +4000,248 @@ doTestInvalidBlobCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidBlobCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 88 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidAddressCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        struct testsA2A
+        {
+            IPv4Address         _leftValue;
+            IPv4Address         _rightValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testsA2A
+
+        const testsA2A  testSet1[]
+        {
+            // l   r
+            { 0x00000000, 0x00000000,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { 0x00000000, 0x00000001,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { 0x12345678, 0x10000000,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { 0x00000001, 0x00000000,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { 0x10000000, 0x12345678,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { 0x00000001, 0x00000001,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} }, // ==
+            { 0x10000000, 0x10000000,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{true} } // ==
+        };
+        const size_t    numTests1{A_SIZE(testSet1)};
+
+        for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
+        {
+            Address leftValue{testSet1[ii]._leftValue};
+            Address rightValue{testSet1[ii]._rightValue};
+
+            if (testSet1[ii]._lessThan != leftValue.lessThan(rightValue))
+            {
+                ODL_LOG("(testSet1[ii]._lessThan != leftValue.lessThan(rightValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThan != leftValue.greaterThan(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._lessThanOrEqual != leftValue.lessThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._greaterThanOrEqual != leftValue.greaterThanOrEqual(rightValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1[ii]._equalTo != leftValue.equalTo(rightValue))
+                {
+                    ODL_LOG("(testSet1[ii]._equalTo != leftValue.equalTo(rightValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidAddressCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 89 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidAddressCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Address             leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Integer             rightValue4;
+        Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
+        const size_t        numRightValues{A_SIZE(rightValues)};
+
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.IsValid())
+            {
+                ODL_LOG("(status.IsValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.IsValid())
+                {
+                    ODL_LOG("(status.IsValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.IsValid())
+                {
+                    ODL_LOG("(status.IsValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.IsValid())
+                {
+                    ODL_LOG("(status.IsValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.IsValid())
+                {
+                    ODL_LOG("(status.IsValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidAddressCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -4127,6 +4623,124 @@ doTestStringValueAsJSON
 } // doTestStringValueAsJSON
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 106 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDefaultAddressValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Address>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            if ((0 == compareValueWithStringAsJSON(*stuff, "\"0.0.0.0\"")) && (nullptr != stuff->asAddress()))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\\\"0\\\"\")) && " //####
+                        "(nullptr != stuff->asAddress()))"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDefaultAddressValueJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 107 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddressValueJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        if (1 < argc)
+        {
+            Address::IPv4Bytes  asBytes;
+            CPtr(char)          outString{argv[1]};
+
+            if (getIPv4Bytes(asBytes, argv[0]))
+            {
+                auto    stuff{std::make_unique<Address>(asBytes)};
+
+                if (nullptr == stuff)
+                {
+                    ODL_LOG("(nullptr == stuff)"); //####
+                }
+                else
+                {
+                    if (0 == compareValueWithStringAsJSON(*stuff, outString))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
+                    }
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < argc)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doAddressValueJSON
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -4297,6 +4911,18 @@ main
                         result = doTestBlobCopyAndAssign(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 65 :
+                        result = doTestDefaultAddressValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 66 :
+                        result = doTestAddressValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 67 :
+                        result = doTestAddressCopyAndAssign(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 80 :
                         result = doTestValidLogicalCompares(*argv, argc - 1, argv + 2);
                         break;
@@ -4329,6 +4955,14 @@ main
                         result = doTestInvalidBlobCompares(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 88 :
+                        result = doTestValidAddressCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 89 :
+                        result = doTestInvalidAddressCompares(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestDefaultLogicalValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
@@ -4351,6 +4985,14 @@ main
 
                     case 105 :
                         result = doTestStringValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 106 :
+                        result = doTestDefaultAddressValueJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 107 :
+                        result = doTestAddressValueJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

@@ -88,6 +88,20 @@ std::string nImO::Value::gTerminators;
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+void
+nImO::Value::addToReaderMap
+    (CPtr(char)                 prefixes,
+     nImO::Value::BufferReader  reader)
+{
+    if (nullptr != prefixes)
+    {
+        for ( ; nImO::kEndOfString != *prefixes; ++prefixes)
+        {
+            gReaders.emplace(*prefixes, reader);
+        }
+    }
+} // nImO::Value::addToReaderMap
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -307,7 +321,7 @@ nImO::Value::equalTo
     {
         result.clear();
     }
-    ODL_OBJEXIT();
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::equalTo
 
@@ -453,7 +467,7 @@ nImO::Value::greaterThan
     ODL_P1("other = ", &other); //####
     ComparisonStatus    result{false, false};
 
-    ODL_OBJEXIT();
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::greaterThan
 
@@ -470,7 +484,7 @@ nImO::Value::greaterThanOrEqual
     {
         result.clear();
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::greaterThanOrEqual
 
@@ -479,77 +493,13 @@ nImO::Value::initialize
     (void)
 {
     ODL_ENTER(); //####
-    CPtr(char)  prefixes{Address::getInitialCharacters()};
-
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Address::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = Logical::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Logical::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = Number::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Number::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = String::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &String::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = Array::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Array::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = Map::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Map::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
-    prefixes = Set::getInitialCharacters();
-    if (nullptr != prefixes)
-    {
-        for ( ; kEndOfString != *prefixes; ++prefixes)
-        {
-            BufferReaderValue   aValue{*prefixes, &Set::readFromStringBuffer};
-
-            gReaders.emplace(aValue);
-        }
-    }
+    addToReaderMap(Address::getInitialCharacters(), &Address::readFromStringBuffer);
+    addToReaderMap(Logical::getInitialCharacters(), &Logical::readFromStringBuffer);
+    addToReaderMap(Number::getInitialCharacters(), &Number::readFromStringBuffer);
+    addToReaderMap(String::getInitialCharacters(), &String::readFromStringBuffer);
+    addToReaderMap(Array::getInitialCharacters(), &Array::readFromStringBuffer);
+    addToReaderMap(Map::getInitialCharacters(), &Map::readFromStringBuffer);
+    addToReaderMap(Set::getInitialCharacters(), &Set::readFromStringBuffer);
     CPtr(char)  suffixes{Array::getTerminalCharacters()};
 
     gTerminators = suffixes;
@@ -620,7 +570,7 @@ nImO::Value::lessThan
     ODL_P1("other = ", &other); //####
     ComparisonStatus    result{false, false};
 
-    ODL_OBJEXIT();
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::lessThan
 
@@ -637,7 +587,7 @@ nImO::Value::lessThanOrEqual
     {
         result.clear();
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::lessThanOrEqual
 

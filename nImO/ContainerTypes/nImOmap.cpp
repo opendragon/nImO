@@ -44,7 +44,7 @@
 #include <ContainerTypes/nImOmessage.h>
 #include <ContainerTypes/nImOstringBuffer.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -289,7 +289,7 @@ nImO::Map::equalTo
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Map::equalTo
 
@@ -571,7 +571,7 @@ nImO::Map::greaterThan
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Map::greaterThan
 
@@ -603,7 +603,7 @@ nImO::Map::greaterThanOrEqual
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Map::greaterThanOrEqual
 
@@ -636,7 +636,7 @@ nImO::Map::lessThan
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Map::lessThan
 
@@ -668,7 +668,7 @@ nImO::Map::lessThanOrEqual
             }
         }
     }
-    ODL_OBJEXIT(); //####
+    ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Map::lessThanOrEqual
 
@@ -770,7 +770,7 @@ nImO::Map::printToStringBufferAsJSON
         }
         SpValue keyValue = walker.first;
 
-        if (nullptr != keyValue->asString())
+        if ((nullptr != keyValue->asString()) || (nullptr != keyValue->asAddress()))
         {
             keyValue->printToStringBufferAsJSON(outBuffer);
         }

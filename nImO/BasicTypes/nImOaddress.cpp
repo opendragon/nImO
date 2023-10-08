@@ -567,7 +567,14 @@ nImO::Address::readFromStringBuffer
                 else if (isdigit(aChar))
                 {
                     digitSeen = true;
-                    collector = (collector << 10) + (aChar - '0');
+                    if (0 < collector)
+                    {
+                        collector = (collector * 10) + (aChar - '0');
+                    }
+                    else
+                    {
+                        collector = (aChar - '0');
+                    }
                     ODL_X1("collector = ", collector); //####
                     ++localIndex;
                     ODL_I1("localIndex = ", localIndex); //####
@@ -611,8 +618,7 @@ nImO::Address::readFromStringBuffer
             {
                 if (digitSeen && (255 >= collector))
                 {
-                    ++localIndex;
-                    ODL_I1("localIndex = ", localIndex); //####
+                    // unexpected character seen, but valid so far
                     break;
                 }
                 else
@@ -623,7 +629,14 @@ nImO::Address::readFromStringBuffer
             else if (isdigit(aChar))
             {
                 digitSeen = true;
-                collector = (collector << 10) + (aChar - '0');
+                if (0 < collector)
+                {
+                    collector = (collector * 10) + (aChar - '0');
+                }
+                else
+                {
+                    collector = (aChar - '0');
+                }
                 ODL_X1("collector = ", collector); //####
                 ++localIndex;
                 ODL_I1("localIndex = ", localIndex); //####

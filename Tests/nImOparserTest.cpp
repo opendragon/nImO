@@ -111,12 +111,11 @@ compareValueWithString
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
-    int             result;
 
     aValue.printToStringBuffer(buff);
     auto    resultString{buff.getString()};
+    int     result{resultString.compare(aString)};
 
-    result = resultString.compare(aString);
     ODL_S2("got: ", resultString.c_str(), "expected: ", aString); //####
     ODL_EXIT_I(result); //####
     return result;
@@ -360,6 +359,82 @@ doTestParseStringValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestParseAddressValue
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result{1};
+
+    try
+    {
+        StringBuffer    buff;
+
+        buff.addString(inString);
+        SpValue readValue{buff.convertToValue()};
+
+        if ((nullptr != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
+        }
+        if (nullptr == readValue)
+        {
+            ODL_LOG("(nullptr == readValue)"); //####
+        }
+        else
+        {
+            if (nullptr == readValue->asAddress())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestParseAddressValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 05 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestParseArrayValue
     (const bool expected,
      CPtr(char) inString,
@@ -427,7 +502,7 @@ doTestParseArrayValue
 } // doTestParseArrayValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 05 ***
+# pragma mark *** Test Case 06 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -503,7 +578,7 @@ doTestParseSetValue
 } // doTestParseSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 07 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -579,7 +654,7 @@ doTestParseMapValue
 } // doTestParseMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
+# pragma mark *** Test Case 08 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -708,18 +783,22 @@ main
                         break;
 
                     case 4 :
-                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseAddressValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 5 :
-                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 6 :
-                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 7 :
+                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+
+                    case 8 :
                         result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
                         break;
 

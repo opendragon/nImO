@@ -80,7 +80,7 @@ using namespace std::string_literals;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of tests of MIME sets. */
-static const int    kMaxMIMETests = 100;
+static constexpr int    kMaxMIMETests = 100;
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -128,7 +128,7 @@ setValueAndCheck
     stuff.open(true);
     stuff.setValue(aValue);
     stuff.close();
-    int     result{1};
+    int result{1};
 
     if (0 < stuff.getLength())
     {
@@ -144,9 +144,13 @@ setValueAndCheck
                 result = 0;
                 for (size_t ii = 0; (0 == result) && (ii < expectedSize); ++ii)
                 {
-                    if (expectedContents[ii] != outVec[ii])
+                    std::string expectedString{expectedContents[ii]};
+                    std::string outString{outVec[ii]};
+
+                    ODL_S2s("expectedString = ", expectedString, "outString = ", outString); //####
+                    if (expectedString != outString)
                     {
-                        ODL_LOG("(expectedContents[ii] != outVec[ii])"); //####
+                        ODL_LOG("(expectedString != outString)"); //####
                         result = 1;
                     }
                 }
@@ -2191,6 +2195,106 @@ doTestMIMEExtractSingleDoubleMessage
 } // doTestMIMEExtractSingleDoubleMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 126 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto            addressValue{std::make_shared<Address>(0x12345678)};
+            std::string     expectedAddressLines[]{ "98QSNFZ4/w==" };
+            const size_t    expectedAddressLinesCount{A_SIZE(expectedAddressLines)};
+
+            result = setValueAndCheck(*stuff, addressValue, expectedAddressLines, expectedAddressLinesCount);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 127 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            std::string     insertedAddressLines[]{ "98QSNFZ4/w==" };
+            const size_t    insertedAddressLinesCount{A_SIZE(insertedAddressLines)};
+            Address         addressValue{0x12345678};
+
+            result = extractValueAndCheck(*stuff, insertedAddressLines, insertedAddressLinesCount, addressValue);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractAddressMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 200 ***
 #endif // defined(__APPLE__)
 
@@ -3305,6 +3409,108 @@ doTestMIMEExtractArrayOneSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestMIMEExtractArrayOneSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 316 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto            arrayOneAddress{std::make_shared<Array>()};
+            std::string     expectedArrayOneAddressLines[]{ "99EQxDRWeKvh/w==" };
+            const size_t    expectedArrayOneAddressLinesCount{A_SIZE(expectedArrayOneAddressLines)};
+
+            arrayOneAddress->addValue(std::make_shared<Address>(0x345678AB));
+            result = setValueAndCheck(*stuff, arrayOneAddress, expectedArrayOneAddressLines, expectedArrayOneAddressLinesCount);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithOneAddressMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 317 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            std::string     insertedArrayOneAddressLines[]{ "99EQxDRWeKvh/w==" };
+            const size_t    insertedArrayOneAddressLinesCount{A_SIZE(insertedArrayOneAddressLines)};
+            Array           arrayOneAddress;
+
+            arrayOneAddress.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedArrayOneAddressLines, insertedArrayOneAddressLinesCount, arrayOneAddress);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithOneAddressMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 400 ***
@@ -4575,6 +4781,110 @@ doTestMIMEExtractArrayWithManyDoublesMessage
 } // doTestMIMEExtractArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 424 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertArrayWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto            arrayTwoAddresses{std::make_shared<Array>()};
+            std::string     expectedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/" };
+            const size_t    expectedArrayTwoAddressesLinesCount{A_SIZE(expectedArrayTwoAddressesLines)};
+
+            arrayTwoAddresses->addValue(std::make_shared<Address>(0x12345678));
+            arrayTwoAddresses->addValue(std::make_shared<Address>(0x345678AB));
+            result = setValueAndCheck(*stuff, arrayTwoAddresses, expectedArrayTwoAddressesLines, expectedArrayTwoAddressesLinesCount);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertArrayWithTwoAddressesMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 425 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractArrayWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            std::string     insertedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/" };
+            const size_t    insertedArrayTwoAddressesLinesCount{A_SIZE(insertedArrayTwoAddressesLines)};
+            Array           arrayTwoAddresses;
+
+            arrayTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
+            arrayTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedArrayTwoAddressesLines, insertedArrayTwoAddressesLinesCount, arrayTwoAddresses);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractArrayWithTwoAddressesMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 500 ***
 #endif // defined(__APPLE__)
 
@@ -5187,6 +5497,210 @@ doTestMIMEExtractStringSetMessage
 } // doTestMIMEExtractStringSetMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 512 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertAddressMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto            addressMap{std::make_shared<Map>()};
+            std::string     expectedAddressMapLines[]{ "99UQxAAAAAAN5f8=" };
+            const size_t    expectedAddressMapLinesCount{A_SIZE(expectedAddressMapLines)};
+
+            addressMap->addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
+            result = setValueAndCheck(*stuff, addressMap, expectedAddressMapLines, expectedAddressMapLinesCount);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertAddressMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 513 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractAddressMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            std::string     insertedAddressMapLines[]{ "99UQxAAAAAAN5f8=" };
+            const size_t    insertedAddressMapLinesCount{A_SIZE(insertedAddressMapLines)};
+            Map             addressMap;
+
+            addressMap.addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedAddressMapLines, insertedAddressMapLinesCount, addressMap);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractAddressMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 514 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEInsertAddressSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto            addressSet{std::make_shared<Set>()};
+            std::string     expectedAddressSetLines[]{ "99kQxAAAAADp/w==" };
+            const size_t    expectedAddressSetLinesCount{A_SIZE(expectedAddressSetLines)};
+
+            addressSet->addValue(std::make_shared<Address>());
+            result = setValueAndCheck(*stuff, addressSet, expectedAddressSetLines, expectedAddressSetLinesCount);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEInsertAddressSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 515 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestMIMEExtractAddressSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            std::string     insertedAddressSetLines[]{ "99kQxAAAAADp/w==" };
+            const size_t    insertedAddressSetLinesCount{A_SIZE(insertedAddressSetLines)};
+            Set             addressSet;
+
+            addressSet.addValue(std::make_shared<Address>());
+            result = extractValueAndCheck(*stuff, insertedAddressSetLines, insertedAddressSetLinesCount, addressSet);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestMIMEExtractAddressSetMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 600 ***
 #endif // defined(__APPLE__)
 
@@ -5630,6 +6144,14 @@ main
                         result = doTestMIMEExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 126 :
+                        result = doTestMIMEInsertAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 127 :
+                        result = doTestMIMEExtractAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 200 :
                         result = doTestMIMEInsertEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -5716,6 +6238,14 @@ main
 
                     case 315 :
                         result = doTestMIMEExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 316 :
+                        result = doTestMIMEInsertArrayWithOneAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 317 :
+                        result = doTestMIMEExtractArrayWithOneAddressMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 400 :
@@ -5814,6 +6344,14 @@ main
                         result = doTestMIMEExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 424 :
+                        result = doTestMIMEInsertArrayWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 425 :
+                        result = doTestMIMEExtractArrayWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 500 :
                         result = doTestMIMEInsertLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -5860,6 +6398,22 @@ main
 
                     case 511 :
                         result = doTestMIMEExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 512 :
+                        result = doTestMIMEInsertAddressMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 513 :
+                        result = doTestMIMEExtractAddressMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 514 :
+                        result = doTestMIMEInsertAddressSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 515 :
+                        result = doTestMIMEExtractAddressSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 600 :

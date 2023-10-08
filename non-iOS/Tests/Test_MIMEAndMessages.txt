@@ -122,6 +122,10 @@ add_test(NAME TestMIMEExtractMediumBlobMessage COMMAND ${THIS_TARGET} 123)
 add_test(NAME TestMIMEInsertSingleDoubleMessage COMMAND ${THIS_TARGET} 124)
 # Test message with single double
 add_test(NAME TestMIMEExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 125)
+# Test message with short string
+add_test(NAME TestMIMEInsertAddressMessage COMMAND ${THIS_TARGET} 126)
+# Test message with short string
+add_test(NAME TestMIMEExtractAddressMessage COMMAND ${THIS_TARGET} 127)
 
 # Test message with empty array
 add_test(NAME TestMIMEInsertEmptyArrayMessage COMMAND ${THIS_TARGET} 200)
@@ -168,6 +172,10 @@ add_test(NAME TestMIMEExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 
 add_test(NAME TestMIMEInsertArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 314)
 # Test message with array with one empty set
 add_test(NAME TestMIMEExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 315)
+# Test message with array with one address
+add_test(NAME TestMIMEInsertArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 316)
+# Test message with array with one address
+add_test(NAME TestMIMEExtractArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 317)
 
 # Test message with array with two logicals
 add_test(NAME TestMIMEInsertArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 400)
@@ -217,6 +225,10 @@ add_test(NAME TestMIMEExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THI
 add_test(NAME TestMIMEInsertArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 422)
 # Test message with array with many doubles
 add_test(NAME TestMIMEExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 423)
+# Test message with array with two strings
+add_test(NAME TestMIMEInsertArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 424)
+# Test message with array with two strings
+add_test(NAME TestMIMEExtractArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 425)
 
 # Test message with logical map
 add_test(NAME TestMIMEInsertLogicalMapMessage COMMAND ${THIS_TARGET} 500)
@@ -242,6 +254,14 @@ add_test(NAME TestMIMEExtractIntegerSetMessage COMMAND ${THIS_TARGET} 509)
 add_test(NAME TestMIMEInsertStringSetMessage COMMAND ${THIS_TARGET} 510)
 # Test message with string set
 add_test(NAME TestMIMEExtractStringSetMessage COMMAND ${THIS_TARGET} 511)
+# Test message with string map
+add_test(NAME TestMIMEInsertAddressMapMessage COMMAND ${THIS_TARGET} 512)
+# Test message with string map
+add_test(NAME TestMIMEExtractAddressMapMessage COMMAND ${THIS_TARGET} 513)
+# Test message with string set
+add_test(NAME TestMIMEInsertAddressSetMessage COMMAND ${THIS_TARGET} 514)
+# Test message with string set
+add_test(NAME TestMIMEExtractAddressSetMessage COMMAND ${THIS_TARGET} 515)
 
 # Test message with array with range of integers
 add_test(NAME TestMIMEInsertArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 600)

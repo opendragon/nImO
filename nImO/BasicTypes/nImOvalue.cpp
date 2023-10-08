@@ -517,6 +517,8 @@ nImO::Value::initialize
     DataKind    aMask{StaticCast(DataKind, 0)};
     Extractor   theExtractor{nullptr};
 
+    Address::getExtractionInfo(aByte, aMask, theExtractor);
+    addToExtractionMap(aByte, aMask, theExtractor);
     Array::getExtractionInfo(aByte, aMask, theExtractor);
     addToExtractionMap(aByte, aMask, theExtractor);
     Blob::getExtractionInfo(aByte, aMask, theExtractor);

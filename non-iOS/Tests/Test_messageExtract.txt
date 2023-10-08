@@ -83,6 +83,8 @@ add_test(NAME TestExtractSmallBlobMessage COMMAND ${THIS_TARGET} 11)
 add_test(NAME TestExtractMediumBlobMessage COMMAND ${THIS_TARGET} 12)
 # Test message with single double
 add_test(NAME TestExtractSingleDoubleMessage COMMAND ${THIS_TARGET} 13)
+# Test message with address
+add_test(NAME TestExtractAddressMessage COMMAND ${THIS_TARGET} 14)
 
 # Test message with empty array
 add_test(NAME TestExtractEmptyArrayMessage COMMAND ${THIS_TARGET} 100)
@@ -107,6 +109,8 @@ add_test(NAME TestExtractArrayWithOneEmptyArrayMessage COMMAND ${THIS_TARGET} 11
 add_test(NAME TestExtractArrayWithOneEmptyMapMessage COMMAND ${THIS_TARGET} 116)
 # Test message with array with one empty set
 add_test(NAME TestExtractArrayWithOneEmptySetMessage COMMAND ${THIS_TARGET} 117)
+# Test message with array with one address
+add_test(NAME TestExtractArrayWithOneAddressMessage COMMAND ${THIS_TARGET} 118)
 
 # Test message with array with two logicals
 add_test(NAME TestExtractArrayWithTwoLogicalsMessage COMMAND ${THIS_TARGET} 130)
@@ -132,6 +136,8 @@ add_test(NAME TestExtractArrayWithEmptyMapAndEmptySetMessage COMMAND ${THIS_TARG
 add_test(NAME TestExtractArrayWithEmptySetAndEmptyArrayMessage COMMAND ${THIS_TARGET} 140)
 # Test message with array with many doubles
 add_test(NAME TestExtractArrayWithManyDoublesMessage COMMAND ${THIS_TARGET} 141)
+# Test message with array with two addresses
+add_test(NAME TestExtractArrayWithTwoAddressesMessage COMMAND ${THIS_TARGET} 142)
 
 # Test message with logical map
 add_test(NAME TestExtractLogicalMapMessage COMMAND ${THIS_TARGET} 160)
@@ -145,6 +151,10 @@ add_test(NAME TestExtractLogicalSetMessage COMMAND ${THIS_TARGET} 163)
 add_test(NAME TestExtractIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
 add_test(NAME TestExtractStringSetMessage COMMAND ${THIS_TARGET} 165)
+# Test message with address map
+add_test(NAME TestExtractAddressMapMessage COMMAND ${THIS_TARGET} 166)
+# Test message with address set
+add_test(NAME TestExtractAddressSetMessage COMMAND ${THIS_TARGET} 167)
 
 # Test message with array with range of integers
 add_test(NAME TestMessageWithArrayWithRangeOfIntegers COMMAND ${THIS_TARGET} 180)

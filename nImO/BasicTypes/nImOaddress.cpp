@@ -252,6 +252,8 @@ nImO::Address::extractValue
         else
         {
             accumulator = ((accumulator << 8) | aByte);
+            ++position;
+            ODL_I1("position <- ", position); //####
         }
     }
     if (atEnd)

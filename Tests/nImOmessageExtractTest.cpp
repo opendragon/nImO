@@ -1287,6 +1287,72 @@ doTestExtractSingleDoubleMessage
 } // doTestExtractSingleDoubleMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 014 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            static const DataKind   insertedBytesForAddress[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0x12),
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedAddressCount{A_SIZE(insertedBytesForAddress)};
+            Address                 addressValue{0x12345678};
+
+            result = extractValueAndCheck(*stuff, insertedBytesForAddress, insertedAddressCount, addressValue);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractAddressMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
 #endif // defined(__APPLE__)
 
@@ -2127,6 +2193,86 @@ doTestExtractArrayOneSetMessage
     ODL_EXIT_I(result); //####
     return result;
 } // doTestExtractArrayOneSetMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 118 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractArrayWithOneAddressMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            static const DataKind   insertedBytesForArrayOneAddress[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0x12),
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayOneAddressCount{A_SIZE(insertedBytesForArrayOneAddress)};
+            Array                   arrayOneAddress;
+
+            arrayOneAddress.addValue(std::make_shared<Address>(0x12345678));
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayOneAddress, insertedArrayOneAddressCount, arrayOneAddress);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractArrayWithOneAddressMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 130 ***
@@ -3344,6 +3490,93 @@ doTestExtractArrayWithManyDoublesMessage
 } // doTestExtractArrayWithManyDoublesMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 142 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractArrayWithTwoAddressesMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            static const DataKind   insertedBytesForArrayTwoAddresses[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Array
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0x12),
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0x34),
+                    StaticCast(DataKind, 0x56),
+                    StaticCast(DataKind, 0x78),
+                    StaticCast(DataKind, 0xAB),
+                // End of Array
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeArray |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedArrayTwoAddressesCount{A_SIZE(insertedBytesForArrayTwoAddresses)};
+            Array                   arrayTwoAddresses;
+
+            arrayTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
+            arrayTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
+            result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoAddresses, insertedArrayTwoAddressesCount, arrayTwoAddresses);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractArrayWithTwoAddressesMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 160 ***
 #endif // defined(__APPLE__)
 
@@ -3817,6 +4050,169 @@ doTestExtractStringSetMessage
 } // doTestExtractStringSetMessage
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 166 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractAddressMapMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            static const DataKind   insertedBytesForAddressMap[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Map
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                // Signed Integer
+                DataKind::Integer | DataKind::IntegerShortValue |
+                  (13 & DataKind::IntegerShortValueValueMask),
+                // End of Map
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeMap |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedAddressMapCount{A_SIZE(insertedBytesForAddressMap)};
+            Map                     addressMap;
+
+            addressMap.addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
+            result = extractValueAndCheck(*stuff, insertedBytesForAddressMap, insertedAddressMapCount, addressMap);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractAddressMapMessage
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 167 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestExtractAddressSetMessage
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Message>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            static const DataKind   insertedBytesForAddressSet[]
+            {
+                // Start of Message
+                DataKind::StartOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue,
+                // Start of Set
+                DataKind::Other | DataKind::OtherContainerStart |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // Signed Integer
+                DataKind::Integer |
+                  DataKind::IntegerShortValue |
+                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                    DataKind::IntegerShortValueValueMask),
+                // Address
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                    StaticCast(DataKind, 0),
+                // End of Set
+                DataKind::Other | DataKind::OtherContainerEnd |
+                  DataKind::OtherContainerTypeSet |
+                  DataKind::OtherContainerNonEmptyValue,
+                // End of Message
+                DataKind::EndOfMessageValue |
+                  DataKind::OtherMessageNonEmptyValue |
+                  DataKind::OtherMessageExpectedOtherValue
+            };
+            const size_t            insertedAddressSetCount{A_SIZE(insertedBytesForAddressSet)};
+            Set                     addressSet;
+
+            addressSet.addValue(std::make_shared<Address>());
+            result = extractValueAndCheck(*stuff, insertedBytesForAddressSet, insertedAddressSetCount, addressSet);
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestExtractAddressSetMessage
+
+#if defined(__APPLE__)
 # pragma mark *** Test Case 180 ***
 #endif // defined(__APPLE__)
 
@@ -4246,6 +4642,10 @@ main
                         result = doTestExtractSingleDoubleMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 14 :
+                        result = doTestExtractAddressMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestExtractEmptyArrayMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -4288,6 +4688,10 @@ main
 
                     case 117 :
                         result = doTestExtractArrayOneSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 118 :
+                        result = doTestExtractArrayWithOneAddressMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 130 :
@@ -4338,6 +4742,10 @@ main
                         result = doTestExtractArrayWithManyDoublesMessage(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 142 :
+                        result = doTestExtractArrayWithTwoAddressesMessage(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 160 :
                         result = doTestExtractLogicalMapMessage(*argv, argc - 1, argv + 2);
                         break;
@@ -4360,6 +4768,14 @@ main
 
                     case 165 :
                         result = doTestExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 166 :
+                        result = doTestExtractAddressMapMessage(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 167 :
+                        result = doTestExtractAddressSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 180 :

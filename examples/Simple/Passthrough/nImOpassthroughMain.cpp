@@ -99,15 +99,15 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Passthrough example", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Passthrough example"s, ""s, 2023, kNiMoCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "passthrough", optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough", optionValues._logging,
+            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "passthrough"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s, optionValues._logging,
                                                                                  nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
@@ -122,7 +122,7 @@ main
                 {
                     if (statusWithBool.second)
                     {
-                        ourContext->report(nodeName + " already running.");
+                        ourContext->report(nodeName + " already running."s);
                         std::cerr << nodeName << " already running.\n";
                         exitCode = 1;
                     }
@@ -152,7 +152,7 @@ main
                                         }
                                         else
                                         {
-                                            ourContext->report(outChannelPath + " already registered.");
+                                            ourContext->report(outChannelPath + " already registered."s);
                                             std::cerr << outChannelPath << " already registered.\n";
                                             exitCode = 1;
                                         }
@@ -182,7 +182,7 @@ main
                                             }
                                             else
                                             {
-                                                ourContext->report(inChannelPath + " already registered.");
+                                                ourContext->report(inChannelPath + " already registered."s);
                                                 std::cerr << inChannelPath << " already registered.\n";
                                                 exitCode = 1;
                                             }
@@ -202,7 +202,7 @@ main
                                 if (0 == exitCode)
                                 {
 std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests.");
+                                    ourContext->report("waiting for requests."s);
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();
@@ -217,7 +217,7 @@ std::cerr << "** Unimplemented **\n";
                                     {
                                         if (! statusWithBool.second)
                                         {
-                                            ourContext->report(inChannelPath + " already unregistered.");
+                                            ourContext->report(inChannelPath + " already unregistered."s);
                                             std::cerr << inChannelPath << " already unregistered.\n";
                                             exitCode = 1;
                                         }
@@ -236,7 +236,7 @@ std::cerr << "** Unimplemented **\n";
                                     {
                                         if (! statusWithBool.second)
                                         {
-                                            ourContext->report(outChannelPath + " already unregistered.");
+                                            ourContext->report(outChannelPath + " already unregistered."s);
                                             std::cerr << outChannelPath << " already unregistered.\n";
                                             exitCode = 1;
                                         }
@@ -253,7 +253,7 @@ std::cerr << "** Unimplemented **\n";
                                 {
                                     if (! statusWithBool.second)
                                     {
-                                        ourContext->report(nodeName + " already unregistered.");
+                                        ourContext->report(nodeName + " already unregistered."s);
                                         std::cerr << nodeName << " already unregistered.\n";
                                         exitCode = 1;
                                     }
@@ -266,7 +266,7 @@ std::cerr << "** Unimplemented **\n";
                             }
                             else
                             {
-                                ourContext->report(nodeName + " already registered.");
+                                ourContext->report(nodeName + " already registered."s);
                                 std::cerr << nodeName << " already registered.\n";
                                 exitCode = 1;
                             }
@@ -286,10 +286,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

@@ -496,12 +496,12 @@ nImO::Address::printToStringBuffer
     IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
-    outBuffer.addChar(kStartAddressChar);
+    outBuffer.appendChar(kStartAddressChar);
     for (int ii = 0; ii <= 3; ++ii)
     {
         if (0 != ii)
         {
-            outBuffer.addChar(kAddressSeparator);
+            outBuffer.appendChar(kAddressSeparator);
         }
         outBuffer.addString(std::to_string(bytes[ii]));
     }
@@ -523,16 +523,16 @@ nImO::Address::printToStringBufferAsJSON
     IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
-    outBuffer.addChar(kDoubleQuote);
+    outBuffer.appendChar(kDoubleQuote);
     for (int ii = 0; ii <= 3; ++ii)
     {
         if (0 != ii)
         {
-            outBuffer.addChar(kAddressSeparator);
+            outBuffer.appendChar(kAddressSeparator);
         }
         outBuffer.addString(std::to_string(bytes[ii]));
     }
-    outBuffer.addChar(kDoubleQuote);
+    outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Address::printToStringBufferAsJSON
 

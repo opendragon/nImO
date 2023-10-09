@@ -848,7 +848,7 @@ createTables
                 "CREATE INDEX IF NOT EXISTS " CONNECTIONS_I_ " ON " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
                             CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")"
             };
-            static const size_t numTables{A_SIZE(tableSQL)};
+            constexpr size_t    numTables{numElementsInArray(tableSQL)};
 
             for (size_t ii = 0; status.first && (ii < numTables); ++ii)
             {
@@ -1669,7 +1669,7 @@ nImO::Registry::Registry
 
         if (! status.first)
         {
-            std::string prefix{"Problem creating tables in database: "};
+            std::string prefix{"Problem creating tables in database: "s};
 
             if ((nullptr != _owner) && logging)
             {
@@ -1681,7 +1681,7 @@ nImO::Registry::Registry
     else
     {
         std::string errorMessage(sqlite3_errstr(result));
-        std::string prefix{"Unable to open database: "};
+        std::string prefix{"Unable to open database: "s};
 
         if ((nullptr != _owner) && logging)
         {

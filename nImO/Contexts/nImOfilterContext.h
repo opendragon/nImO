@@ -84,9 +84,9 @@ namespace nImO
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
                  const std::string &    executableName,
-                 const std::string &    tagForLogging = "",
+                 const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
-                 const std::string &    nodeName = "");
+                 const std::string &    nodeName = ""s);
 
         protected :
             // Protected methods.

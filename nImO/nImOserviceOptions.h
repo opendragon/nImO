@@ -116,7 +116,7 @@ namespace nImO
          const std::string &    serviceDescription,
          const std::string &    matchingCriteria,
          const int              year,
-         CPtr(char)             copyrightHolder,
+         const std::string &    copyrightHolder,
          ServiceOptions &       optionValues,
          const OptionsMask      skipOptions,
          Ptr(StringVector)      arguments = nullptr);

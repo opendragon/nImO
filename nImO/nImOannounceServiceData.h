@@ -64,7 +64,7 @@
 namespace nImO
 {
     /*! @brief The maximum number of TXT records to send. */
-    static const size_t    kNumTxtRecords = 1;
+    static const size_t    kNumTxtRecords{1};
 
     /*! @brief A class to provide data for nImO announcments. */
     class AnnounceServiceData final

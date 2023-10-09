@@ -61,8 +61,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -254,7 +252,7 @@ namespace nImO
                 {
                     std::string keyString{mdns_string_to_std_string(keyData)};
 
-                    if (NIMO_REGISTRY_ADDRESS_KEY == keyString)
+                    if (kRegistryAddressKey == keyString)
                     {
                         _owner.report("TXT Data");
                         _owner._registryPreferredAddress = mdns_string_to_std_string(valueData);
@@ -338,7 +336,7 @@ getLocalAddresses
             {
                 struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr)};
 
-                if (IPV4_ADDR(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
+                if (BytesToIPv4Address(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
                 {
                     if (firstIpv4)
                     {
@@ -557,7 +555,7 @@ queryCallback
 
         case mDNS::kRecordTypeTXT:
         {
-            size_t    parsed{mDNS::record_parse_txt(data, size, recordOffset, recordLength, lTxtBuffer, A_SIZE(lTxtBuffer))};
+            size_t    parsed{mDNS::record_parse_txt(data, size, recordOffset, recordLength, lTxtBuffer, numElementsInArray(lTxtBuffer))};
 
             for (size_t itxt = 0; itxt < parsed; ++itxt)
             {

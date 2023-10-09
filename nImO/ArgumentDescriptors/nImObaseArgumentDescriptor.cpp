@@ -72,7 +72,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -82,7 +81,7 @@ using namespace std::string_literals;
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::string BaseArgumentDescriptor::_parameterSeparator{"\t"};
+std::string BaseArgumentDescriptor::_parameterSeparator{"\t"s};
 
 #if defined(__APPLE__)
 # pragma mark Local functions

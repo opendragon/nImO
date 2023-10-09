@@ -71,7 +71,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -191,7 +190,7 @@ doTestMessageInitialEndTag
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with incorrect start tag @0d/0x0");
@@ -247,7 +246,7 @@ doTestMessageTerminalStartTag
                 // End of Message
                 DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1d/0x1");
@@ -306,7 +305,7 @@ doTestEmptyMessageWithContent
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Message with incorrect end tag @1d/0x1");
@@ -366,7 +365,7 @@ doTestNonEmptyMessageWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1d/0x1");
@@ -429,7 +428,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched initial Value tag @1d/0x1");
@@ -492,7 +491,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Message with mismatched end Value tag @2d/0x2");
@@ -554,7 +553,7 @@ doTestNonEmptyMessageWithInvalidContentTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
@@ -618,7 +617,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Bad count for Double @2d/0x2");
@@ -683,7 +682,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4d/0x4");
@@ -748,7 +747,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Null Value read @4d/0x4");
@@ -816,7 +815,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
@@ -884,7 +883,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2d/0x2");
@@ -955,7 +954,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Array with incorrect end tag @2d/0x2");
@@ -1028,7 +1027,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
@@ -1100,7 +1099,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Array with zero or negative count @4d/0x4");
@@ -1179,7 +1178,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5d/0x5");
@@ -1261,7 +1260,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @5d/0x5");
@@ -1353,7 +1352,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Array with incorrect end tag @29d/0x1d");
@@ -1421,7 +1420,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
@@ -1489,7 +1488,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2d/0x2");
@@ -1560,7 +1559,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Map with incorrect end tag @2d/0x2");
@@ -1633,7 +1632,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
@@ -1705,7 +1704,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Map with zero or negative count @4d/0x4");
@@ -1790,7 +1789,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @7d/0x7");
@@ -1875,7 +1874,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Non-empty Map with incorrect end tag @5d/0x5");
@@ -1957,7 +1956,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6d/0x6");
@@ -2025,7 +2024,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @1d/0x1");
@@ -2093,7 +2092,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2d/0x2");
@@ -2164,7 +2163,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Empty Set with incorrect end tag @2d/0x2");
@@ -2237,7 +2236,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @3d/0x3");
@@ -2309,7 +2308,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Set with zero or negative count @4d/0x4");
@@ -2388,7 +2387,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @5d/0x5");
@@ -2470,7 +2469,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t    insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
 
             result = attemptExtractValueAndCheck(*stuff, bytesToInsert, insertionCount,
                                                  "Unexpected character in Message @6d/0x6");

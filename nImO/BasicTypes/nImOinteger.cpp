@@ -498,9 +498,9 @@ nImO::Integer::printToStringBufferAsJSON
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     if (asKey)
     {
-        outBuffer.addChar('"');
+        outBuffer.appendChar(kDoubleQuote);
         outBuffer.addLong(_intValue);
-        outBuffer.addChar('"');
+        outBuffer.appendChar(kDoubleQuote);
     }
     else
     {

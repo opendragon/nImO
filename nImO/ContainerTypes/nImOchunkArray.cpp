@@ -62,7 +62,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables

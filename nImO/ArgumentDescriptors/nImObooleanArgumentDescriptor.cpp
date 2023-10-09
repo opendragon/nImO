@@ -135,7 +135,7 @@ BooleanArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue ? "1" : "0"};
+    std::string result{_defaultValue ? "1"s : "0"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -146,7 +146,7 @@ BooleanArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue ? "true" : "false"};
+    std::string result{_defaultValue ? "true"s : "false"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -157,7 +157,7 @@ BooleanArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_currentValue ? "1" : "0"};
+    std::string result{_currentValue ? "1"s : "0"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;

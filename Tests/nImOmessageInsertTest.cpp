@@ -71,7 +71,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -183,7 +182,7 @@ doTestInsertEmptyMessage
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t            expectedEmptyByteCount{A_SIZE(expectedEmptyBytes)};
+            constexpr size_t        expectedEmptyByteCount{numElementsInArray(expectedEmptyBytes)};
             ODL_PACKET("expectedBytes", expectedEmptyBytes, expectedEmptyByteCount); //####
             auto                    contents{stuff->getBytes()};
             size_t                  length{contents.size()};
@@ -267,7 +266,7 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedTrueByteCount{A_SIZE(expectedTrueBytes)};
+            constexpr size_t        expectedTrueByteCount{numElementsInArray(expectedTrueBytes)};
             static const DataKind   expectedFalseBytes[]
             {
                 // Start of Message
@@ -282,7 +281,7 @@ doTestInsertLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedFalseByteCount{A_SIZE(expectedFalseBytes)};
+            constexpr size_t        expectedFalseByteCount{numElementsInArray(expectedFalseBytes)};
             auto                    falseValue{std::make_shared<Logical>(false)};
             auto                    trueValue{std::make_shared<Logical>(true)};
 
@@ -350,7 +349,7 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedMinus12ByteCount{A_SIZE(expectedMinus12Bytes)};
+            constexpr size_t        expectedMinus12ByteCount{numElementsInArray(expectedMinus12Bytes)};
             static const DataKind   expectedZeroBytes[]
             {
                 // Start of Message
@@ -365,7 +364,7 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedZeroByteCount{A_SIZE(expectedZeroBytes)};
+            constexpr size_t        expectedZeroByteCount{numElementsInArray(expectedZeroBytes)};
             static const DataKind   expectedPlus12Bytes[]
             {
                 // Start of Message
@@ -380,7 +379,7 @@ doTestInsertTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedPlus12ByteCount{A_SIZE(expectedPlus12Bytes)};
+            constexpr size_t        expectedPlus12ByteCount{numElementsInArray(expectedPlus12Bytes)};
             auto                    minus12Value{std::make_shared<Integer>(-12)};
             auto                    zeroValue{std::make_shared<Integer>(0)};
             auto                    plus12Value{std::make_shared<Integer>(12)};
@@ -454,7 +453,7 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedMinus144ByteCount{A_SIZE(expectedMinus144Bytes)};
+            constexpr size_t        expectedMinus144ByteCount{numElementsInArray(expectedMinus144Bytes)};
             static const DataKind   expectedPlus144Bytes[]
             {
                 // Start of Message
@@ -470,7 +469,7 @@ doTestInsertSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedPlus144ByteCount{A_SIZE(expectedPlus144Bytes)};
+            constexpr size_t        expectedPlus144ByteCount{numElementsInArray(expectedPlus144Bytes)};
             auto                    minus144Value{std::make_shared<Integer>(-144)};
             auto                    plus144Value{std::make_shared<Integer>(144)};
 
@@ -540,7 +539,7 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedMinus1234567ByteCount{A_SIZE(expectedMinus1234567Bytes)};
+            constexpr size_t        expectedMinus1234567ByteCount{numElementsInArray(expectedMinus1234567Bytes)};
             static const DataKind   expectedPlus1234567Bytes[]
             {
                 // Start of Message
@@ -557,7 +556,7 @@ doTestInsertMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedPlus1234567ByteCount{A_SIZE(expectedPlus1234567Bytes)};
+            constexpr size_t        expectedPlus1234567ByteCount{numElementsInArray(expectedPlus1234567Bytes)};
             auto                    minus1234567Value{std::make_shared<Integer>(-1234567)};
             auto                    plus1234567Value{std::make_shared<Integer>(1234567)};
 
@@ -628,7 +627,7 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedMinusBigNumberByteCount{A_SIZE(expectedMinusBigNumberBytes)};
+            constexpr size_t        expectedMinusBigNumberByteCount{numElementsInArray(expectedMinusBigNumberBytes)};
             static const DataKind   expectedPlusBigNumberBytes[]
             {
                 // Start of Message
@@ -646,7 +645,7 @@ doTestInsertBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            expectedPlusBigNumberByteCount{A_SIZE(expectedPlusBigNumberBytes)};
+            constexpr size_t        expectedPlusBigNumberByteCount{numElementsInArray(expectedPlusBigNumberBytes)};
             auto                    minusBigNumberValue{std::make_shared<Integer>(-20015998343868)};
             auto                    plusBigNumberValue{std::make_shared<Integer>(20015998343868)};
 
@@ -715,7 +714,7 @@ doTestInsertEmptyStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedEmptyStringByteCount{A_SIZE(expectedEmptyStringBytes)};
+            constexpr size_t        expectedEmptyStringByteCount{numElementsInArray(expectedEmptyStringBytes)};
             auto                    emptyStringValue{std::make_shared<String>()};
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringBytes, expectedEmptyStringByteCount);
@@ -782,7 +781,7 @@ doTestInsertShortStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedShortStringByteCount{A_SIZE(expectedShortStringBytes)};
+            constexpr size_t        expectedShortStringByteCount{numElementsInArray(expectedShortStringBytes)};
             auto                    shortStringValue{std::make_shared<String>("abcdef")};
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringBytes, expectedShortStringByteCount);
@@ -868,7 +867,7 @@ doTestInsertMediumStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedMediumStringByteCount{A_SIZE(expectedMediumStringBytes)};
+            constexpr size_t        expectedMediumStringByteCount{numElementsInArray(expectedMediumStringBytes)};
             auto                    mediumStringValue{std::make_shared<String>("abcdefabcdefabcdefabcdefabcdefabcdefabcdef")};
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringBytes, expectedMediumStringByteCount);
@@ -932,7 +931,7 @@ doTestInsertEmptyBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedEmptyBlobByteCount{A_SIZE(expectedEmptyBlobBytes)};
+            constexpr size_t        expectedEmptyBlobByteCount{numElementsInArray(expectedEmptyBlobBytes)};
             auto                    emptyBlobValue{std::make_shared<Blob>()};
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobBytes, expectedEmptyBlobByteCount);
@@ -999,12 +998,12 @@ doTestInsertSmallBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedSmallBlobByteCount{A_SIZE(expectedSmallBlobBytes)};
+            constexpr size_t        expectedSmallBlobByteCount{numElementsInArray(expectedSmallBlobBytes)};
             static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount{A_SIZE(actualData)};
+            constexpr size_t        actualDataCount{numElementsInArray(actualData)};
             auto                    smallBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
 
             result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobBytes, expectedSmallBlobByteCount);
@@ -1090,7 +1089,7 @@ doTestInsertMediumBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            expectedMediumBlobByteCount{A_SIZE(expectedMediumBlobBytes)};
+            constexpr size_t        expectedMediumBlobByteCount{numElementsInArray(expectedMediumBlobBytes)};
             static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1101,7 +1100,7 @@ doTestInsertMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount{A_SIZE(actualData)};
+            constexpr size_t        actualDataCount{numElementsInArray(actualData)};
             auto                    mediumBlobValue{std::make_shared<Blob>(actualData, actualDataCount)};
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobBytes, expectedMediumBlobByteCount);
@@ -1169,7 +1168,7 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t            expectedPlus42Point5ByteCount{A_SIZE(expectedPlus42Point5Bytes)};
+            constexpr size_t        expectedPlus42Point5ByteCount{numElementsInArray(expectedPlus42Point5Bytes)};
             static const DataKind   expectedMinus42Point5Bytes[]
             {
                 // Start of Message
@@ -1189,7 +1188,7 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t            expectedMinus42Point5ByteCount{A_SIZE(expectedMinus42Point5Bytes)};
+            constexpr size_t        expectedMinus42Point5ByteCount{numElementsInArray(expectedMinus42Point5Bytes)};
             auto                    plus42Point5Value{std::make_shared<Double>(42.5)};
             auto                    minus42Point5Value{std::make_shared<Double>(-42.5)};
 
@@ -1261,7 +1260,7 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedAddress1ByteCount{A_SIZE(expectedAddress1Bytes)};
+            constexpr size_t        expectedAddress1ByteCount{numElementsInArray(expectedAddress1Bytes)};
             static const DataKind   expectedAddress2Bytes[]
             {
                 // Start of Message
@@ -1279,7 +1278,7 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedAddress2ByteCount{A_SIZE(expectedAddress2Bytes)};
+            constexpr size_t        expectedAddress2ByteCount{numElementsInArray(expectedAddress2Bytes)};
             static const DataKind   expectedAddress3Bytes[]
             {
                 // Start of Message
@@ -1297,7 +1296,7 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedAddress3ByteCount{A_SIZE(expectedAddress3Bytes)};
+            constexpr size_t        expectedAddress3ByteCount{numElementsInArray(expectedAddress3Bytes)};
             auto                    address1Value{std::make_shared<Address>(0x12345678)};
             auto                    address2Value{std::make_shared<Address>(0x345678AB)};
             auto                    address3Value{std::make_shared<Address>(0x5678ABCD)};
@@ -1375,7 +1374,7 @@ doTestInsertEmptyArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedEmptyArrayByteCount{A_SIZE(expectedEmptyArrayBytes)};
+            constexpr size_t        expectedEmptyArrayByteCount{numElementsInArray(expectedEmptyArrayBytes)};
             auto                    emptyArray{std::make_shared<Array>()};
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayBytes, expectedEmptyArrayByteCount);
@@ -1443,7 +1442,7 @@ doTestInsertEmptyMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedEmptyMapByteCount{A_SIZE(expectedEmptyMapBytes)};
+            constexpr size_t        expectedEmptyMapByteCount{numElementsInArray(expectedEmptyMapBytes)};
             auto                    emptyMap{std::make_shared<Map>()};
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapBytes, expectedEmptyMapByteCount);
@@ -1511,7 +1510,7 @@ doTestInsertEmptySetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedEmptySetByteCount{A_SIZE(expectedEmptySetBytes)};
+            constexpr size_t        expectedEmptySetByteCount{numElementsInArray(expectedEmptySetBytes)};
             auto                    emptySet{std::make_shared<Set>()};
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetBytes, expectedEmptySetByteCount);
@@ -1587,7 +1586,7 @@ doTestInsertArrayOneLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneLogicalByteCount{A_SIZE(expectedArrayOneLogicalBytes)};
+            constexpr size_t        expectedArrayOneLogicalByteCount{numElementsInArray(expectedArrayOneLogicalBytes)};
             auto                    arrayOneLogical{std::make_shared<Array>()};
 
             arrayOneLogical->addValue(std::make_shared<Logical>());
@@ -1664,7 +1663,7 @@ doTestInsertArrayOneIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneIntegerByteCount{A_SIZE(expectedArrayOneIntegerBytes)};
+            constexpr size_t        expectedArrayOneIntegerByteCount{numElementsInArray(expectedArrayOneIntegerBytes)};
             auto                    arrayOneInteger{std::make_shared<Array>()};
 
             arrayOneInteger->addValue(std::make_shared<Integer>());
@@ -1746,7 +1745,7 @@ doTestInsertArrayOneDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneDoubleByteCount{A_SIZE(expectedArrayOneDoubleBytes)};
+            constexpr size_t        expectedArrayOneDoubleByteCount{numElementsInArray(expectedArrayOneDoubleBytes)};
             auto                    arrayOneDouble{std::make_shared<Array>()};
 
             arrayOneDouble->addValue(std::make_shared<Double>());
@@ -1824,7 +1823,7 @@ doTestInsertArrayOneStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneStringByteCount{A_SIZE(expectedArrayOneStringBytes)};
+            constexpr size_t        expectedArrayOneStringByteCount{numElementsInArray(expectedArrayOneStringBytes)};
             auto                    arrayOneString{std::make_shared<Array>()};
 
             arrayOneString->addValue(std::make_shared<String>());
@@ -1902,7 +1901,7 @@ doTestInsertArrayOneBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneBlobByteCount{A_SIZE(expectedArrayOneBlobBytes)};
+            constexpr size_t        expectedArrayOneBlobByteCount{numElementsInArray(expectedArrayOneBlobBytes)};
             auto                    arrayOneBlob{std::make_shared<Array>()};
 
             arrayOneBlob->addValue(std::make_shared<Blob>());
@@ -1984,7 +1983,7 @@ doTestInsertArrayOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneArrayByteCount{A_SIZE(expectedArrayOneArrayBytes)};
+            constexpr size_t        expectedArrayOneArrayByteCount{numElementsInArray(expectedArrayOneArrayBytes)};
             auto                    arrayOneArray{std::make_shared<Array>()};
 
             arrayOneArray->addValue(std::make_shared<Array>());
@@ -2066,7 +2065,7 @@ doTestInsertArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneMapByteCount{A_SIZE(expectedArrayOneMapBytes)};
+            constexpr size_t        expectedArrayOneMapByteCount{numElementsInArray(expectedArrayOneMapBytes)};
             auto                    arrayOneMap{std::make_shared<Array>()};
 
             arrayOneMap->addValue(std::make_shared<Map>());
@@ -2148,7 +2147,7 @@ doTestInsertArrayOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneSetByteCount{A_SIZE(expectedArrayOneSetBytes)};
+            constexpr size_t        expectedArrayOneSetByteCount{numElementsInArray(expectedArrayOneSetBytes)};
             auto                    arrayOneSet{std::make_shared<Array>()};
 
             arrayOneSet->addValue(std::make_shared<Set>());
@@ -2228,7 +2227,7 @@ doTestInsertArrayWithOneAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneAddressByteCount{A_SIZE(expectedArrayOneAddressBytes)};
+            constexpr size_t        expectedArrayOneAddressByteCount{numElementsInArray(expectedArrayOneAddressBytes)};
             auto                    arrayOneAddress{std::make_shared<Array>()};
 
             arrayOneAddress->addValue(std::make_shared<Address>(0x12345678));
@@ -2308,7 +2307,7 @@ doTestInsertArrayTwoLogicalsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoLogicalsByteCount{A_SIZE(expectedArrayTwoLogicalsBytes)};
+            constexpr size_t        expectedArrayTwoLogicalsByteCount{numElementsInArray(expectedArrayTwoLogicalsBytes)};
             auto                    arrayTwoLogicals{std::make_shared<Array>()};
 
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
@@ -2389,7 +2388,7 @@ doTestInsertArrayTwoIntegersMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoIntegersByteCount{A_SIZE(expectedArrayTwoIntegersBytes)};
+            constexpr size_t        expectedArrayTwoIntegersByteCount{numElementsInArray(expectedArrayTwoIntegersBytes)};
             auto                    arrayTwoIntegers{std::make_shared<Array>()};
 
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
@@ -2476,7 +2475,7 @@ doTestInsertArrayTwoDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoDoublesByteCount{A_SIZE(expectedArrayTwoDoublesBytes)};
+            constexpr size_t        expectedArrayTwoDoublesByteCount{numElementsInArray(expectedArrayTwoDoublesBytes)};
             auto                    arrayTwoDoubles{std::make_shared<Array>()};
 
             arrayTwoDoubles->addValue(std::make_shared<Double>());
@@ -2559,7 +2558,7 @@ doTestInsertArrayTwoStringsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoStringsByteCount{A_SIZE(expectedArrayTwoStringsBytes)};
+            constexpr size_t        expectedArrayTwoStringsByteCount{numElementsInArray(expectedArrayTwoStringsBytes)};
             auto                    arrayTwoStrings{std::make_shared<Array>()};
 
             arrayTwoStrings->addValue(std::make_shared<String>());
@@ -2642,7 +2641,7 @@ doTestInsertArrayTwoBlobsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoBlobsByteCount{A_SIZE(expectedArrayTwoBlobsBytes)};
+            constexpr size_t        expectedArrayTwoBlobsByteCount{numElementsInArray(expectedArrayTwoBlobsBytes)};
             auto                    arrayTwoBlobs{std::make_shared<Array>()};
 
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
@@ -2733,7 +2732,7 @@ doTestInsertArrayTwoArraysMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoArraysByteCount{A_SIZE(expectedArrayTwoArraysBytes)};
+            constexpr size_t        expectedArrayTwoArraysByteCount{numElementsInArray(expectedArrayTwoArraysBytes)};
             auto                    arrayTwoArrays{std::make_shared<Array>()};
 
             arrayTwoArrays->addValue(std::make_shared<Array>());
@@ -2824,7 +2823,7 @@ doTestInsertArrayTwoMapsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoMapsByteCount{A_SIZE(expectedArrayTwoMapsBytes)};
+            constexpr size_t        expectedArrayTwoMapsByteCount{numElementsInArray(expectedArrayTwoMapsBytes)};
             auto                    arrayTwoMaps{std::make_shared<Array>()};
 
             arrayTwoMaps->addValue(std::make_shared<Map>());
@@ -2915,7 +2914,7 @@ doTestInsertArrayTwoSetsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoSetsByteCount{A_SIZE(expectedArrayTwoSetsBytes)};
+            constexpr size_t        expectedArrayTwoSetsByteCount{numElementsInArray(expectedArrayTwoSetsBytes)};
             auto                    arrayTwoSets{std::make_shared<Array>()};
 
             arrayTwoSets->addValue(std::make_shared<Set>());
@@ -3006,7 +3005,7 @@ doTestInsertArrayOneArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneArrayOneMapByteCount{A_SIZE(expectedArrayOneArrayOneMapBytes)};
+            constexpr size_t        expectedArrayOneArrayOneMapByteCount{numElementsInArray(expectedArrayOneArrayOneMapBytes)};
             auto                    arrayOneArrayOneMap{std::make_shared<Array>()};
 
             arrayOneArrayOneMap->addValue(std::make_shared<Array>());
@@ -3097,7 +3096,7 @@ doTestInsertArrayOneMapOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneMapOneSetByteCount{A_SIZE(expectedArrayOneMapOneSetBytes)};
+            constexpr size_t        expectedArrayOneMapOneSetByteCount{numElementsInArray(expectedArrayOneMapOneSetBytes)};
             auto                    arrayOneMapOneSet{std::make_shared<Array>()};
 
             arrayOneMapOneSet->addValue(std::make_shared<Map>());
@@ -3188,7 +3187,7 @@ doTestInsertArrayOneSetOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayOneSetOneArrayByteCount{A_SIZE(expectedArrayOneSetOneArrayBytes)};
+            constexpr size_t        expectedArrayOneSetOneArrayByteCount{numElementsInArray(expectedArrayOneSetOneArrayBytes)};
             auto                    arrayOneSetOneArray{std::make_shared<Array>()};
 
             arrayOneSetOneArray->addValue(std::make_shared<Set>());
@@ -3239,7 +3238,7 @@ doTestInsertArrayWithManyDoublesMessage
         }
         else
         {
-            const size_t            numValues = 43;
+            constexpr size_t        numValues{43};
             static const DataKind   expectedArrayManyDoublesBytes[]
             {
                 // Start of Message
@@ -3440,7 +3439,7 @@ doTestInsertArrayWithManyDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayManyDoublesByteCount{A_SIZE(expectedArrayManyDoublesBytes)};
+            constexpr size_t        expectedArrayManyDoublesByteCount{numElementsInArray(expectedArrayManyDoublesBytes)};
             auto                    arrayManyDoubles{std::make_shared<Array>()};
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -3529,7 +3528,7 @@ doTestInsertArrayWithTwoAddressesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedArrayTwoAddressesByteCount{A_SIZE(expectedArrayTwoAddressesBytes)};
+            constexpr size_t        expectedArrayTwoAddressesByteCount{numElementsInArray(expectedArrayTwoAddressesBytes)};
             auto                    arrayTwoAddresses{std::make_shared<Array>()};
 
             arrayTwoAddresses->addValue(std::make_shared<Address>(0x12345678));
@@ -3610,7 +3609,7 @@ doTestInsertLogicalMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedLogicalMapByteCount{A_SIZE(expectedLogicalMapBytes)};
+            constexpr size_t        expectedLogicalMapByteCount{numElementsInArray(expectedLogicalMapBytes)};
             auto                    logicalMap{std::make_shared<Map>()};
 
             logicalMap->addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
@@ -3690,7 +3689,7 @@ doTestInsertIntegerMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedIntegerMapByteCount{A_SIZE(expectedIntegerMapBytes)};
+            constexpr size_t        expectedIntegerMapByteCount{numElementsInArray(expectedIntegerMapBytes)};
             auto                    integerMap{std::make_shared<Map>()};
 
             integerMap->addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
@@ -3771,7 +3770,7 @@ doTestInsertStringMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedStringMapByteCount{A_SIZE(expectedStringMapBytes)};
+            constexpr size_t        expectedStringMapByteCount{numElementsInArray(expectedStringMapBytes)};
             auto                    stringMap{std::make_shared<Map>()};
 
             stringMap->addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
@@ -3848,7 +3847,7 @@ doTestInsertLogicalSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedLogicalSetByteCount{A_SIZE(expectedLogicalSetBytes)};
+            constexpr size_t        expectedLogicalSetByteCount{numElementsInArray(expectedLogicalSetBytes)};
             auto                    logicalSet{std::make_shared<Set>()};
 
             logicalSet->addValue(std::make_shared<Logical>());
@@ -3925,7 +3924,7 @@ doTestInsertIntegerSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedIntegerSetByteCount{A_SIZE(expectedIntegerSetBytes)};
+            constexpr size_t        expectedIntegerSetByteCount{numElementsInArray(expectedIntegerSetBytes)};
             auto                    integerSet{std::make_shared<Set>()};
 
             integerSet->addValue(std::make_shared<Integer>());
@@ -4003,7 +4002,7 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedStringSetByteCount{A_SIZE(expectedStringSetBytes)};
+            constexpr size_t        expectedStringSetByteCount{numElementsInArray(expectedStringSetBytes)};
             auto                    stringSet{std::make_shared<Set>()};
 
             stringSet->addValue(std::make_shared<String>());
@@ -4086,7 +4085,7 @@ doTestInsertAddressMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedAddressMapByteCount{A_SIZE(expectedAddressMapBytes)};
+            constexpr size_t        expectedAddressMapByteCount{numElementsInArray(expectedAddressMapBytes)};
             auto                    addressMap{std::make_shared<Map>()};
 
             addressMap->addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
@@ -4166,7 +4165,7 @@ doTestInsertAddressSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            expectedAddressSetByteCount{A_SIZE(expectedAddressSetBytes)};
+            constexpr size_t        expectedAddressSetByteCount{numElementsInArray(expectedAddressSetBytes)};
             auto                    addressSet{std::make_shared<Set>()};
 
             addressSet->addValue(std::make_shared<Address>());

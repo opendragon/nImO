@@ -72,7 +72,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -232,9 +231,9 @@ doTestExtractEmptyMessage
                 // End of Message
                 DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
             };
-            const size_t            insertionCount{A_SIZE(bytesToInsert)};
+            constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
-            SpValue                 extractedValue{stuff->getValue()};
+            SpValue             extractedValue{stuff->getValue()};
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             if (stuff->readAtEnd())
@@ -344,7 +343,7 @@ doTestExtractLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedTrueCount{A_SIZE(insertedBytesForTrue)};
+            constexpr size_t        insertedTrueCount{numElementsInArray(insertedBytesForTrue)};
             static const DataKind   insertedBytesForFalse[]
             {
                 // Start of Message
@@ -359,7 +358,7 @@ doTestExtractLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedFalseCount{A_SIZE(insertedBytesForFalse)};
+            constexpr size_t        insertedFalseCount{numElementsInArray(insertedBytesForFalse)};
             Logical                 falseValue{false};
             Logical                 trueValue{true};
 
@@ -427,7 +426,7 @@ doTestExtractTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedMinus12Count{A_SIZE(insertedBytesForMinus12)};
+            constexpr size_t        insertedMinus12Count{numElementsInArray(insertedBytesForMinus12)};
             static const DataKind   insertedBytesForZero[]
             {
                 // Start of Message
@@ -442,7 +441,7 @@ doTestExtractTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedZeroCount{A_SIZE(insertedBytesForZero)};
+            constexpr size_t        insertedZeroCount{numElementsInArray(insertedBytesForZero)};
             static const DataKind   insertedBytesForPlus12[]
             {
                 // Start of Message
@@ -457,7 +456,7 @@ doTestExtractTinyIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedPlus12Count{A_SIZE(insertedBytesForPlus12)};
+            constexpr size_t        insertedPlus12Count{numElementsInArray(insertedBytesForPlus12)};
             Integer                 minus12Value{-12};
             Integer                 zeroValue{0};
             Integer                 plus12Value{12};
@@ -531,7 +530,7 @@ doTestExtractSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedMinus144Count{A_SIZE(insertedBytesForMinus144)};
+            constexpr size_t        insertedMinus144Count{numElementsInArray(insertedBytesForMinus144)};
             static const DataKind   insertedBytesForPlus144[]
             {
                 // Start of Message
@@ -547,7 +546,7 @@ doTestExtractSmallIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedPlus144Count{A_SIZE(insertedBytesForPlus144)};
+            constexpr size_t        insertedPlus144Count{numElementsInArray(insertedBytesForPlus144)};
             Integer                 minus144Value{-144};
             Integer                 plus144Value{144};
 
@@ -617,7 +616,7 @@ doTestExtractMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedMinus1234567Count{A_SIZE(insertedBytesForMinus1234567)};
+            constexpr size_t        insertedMinus1234567Count{numElementsInArray(insertedBytesForMinus1234567)};
             static const DataKind   insertedBytesForPlus1234567[]
             {
                 // Start of Message
@@ -634,7 +633,7 @@ doTestExtractMediumIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedPlus1234567Count{A_SIZE(insertedBytesForPlus1234567)};
+            constexpr size_t        insertedPlus1234567Count{numElementsInArray(insertedBytesForPlus1234567)};
             Integer                 minus1234567Value{-1234567};
             Integer                 plus1234567Value{1234567};
 
@@ -705,7 +704,7 @@ doTestExtractBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedMinusBigNumberCount{A_SIZE(insertedBytesForMinusBigNumber)};
+            constexpr size_t        insertedMinusBigNumberCount{numElementsInArray(insertedBytesForMinusBigNumber)};
             static const DataKind   insertedBytesForPlusBigNumber[]
             {
                 // Start of Message
@@ -723,7 +722,7 @@ doTestExtractBigIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedIntegerValue
             };
-            const size_t            insertedPlusBigNumberCount{A_SIZE(insertedBytesForPlusBigNumber)};
+            constexpr size_t        insertedPlusBigNumberCount{numElementsInArray(insertedBytesForPlusBigNumber)};
             Integer                 minusBigNumberValue{-20015998343868};
             Integer                 plusBigNumberValue{20015998343868};
 
@@ -792,7 +791,7 @@ doTestExtractEmptyStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedEmptyStringCount{A_SIZE(insertedBytesForEmptyString)};
+            constexpr size_t        insertedEmptyStringCount{numElementsInArray(insertedBytesForEmptyString)};
             String                  emptyStringValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
@@ -859,7 +858,7 @@ doTestExtractShortStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedShortStringCount{A_SIZE(insertedBytesForShortString)};
+            constexpr size_t        insertedShortStringCount{numElementsInArray(insertedBytesForShortString)};
             String                  shortStringValue{"abcdef"};
 
             result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
@@ -945,7 +944,7 @@ doTestExtractMediumStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedMediumStringCount{A_SIZE(insertedBytesForMediumString)};
+            constexpr size_t        insertedMediumStringCount{numElementsInArray(insertedBytesForMediumString)};
             String                  mediumStringValue{"abcdefabcdefabcdefabcdefabcdefabcdefabcdef"};
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
@@ -1009,7 +1008,7 @@ doTestExtractEmptyBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedEmptyBlobCount{A_SIZE(insertedBytesForEmptyBlob)};
+            constexpr size_t        insertedEmptyBlobCount{numElementsInArray(insertedBytesForEmptyBlob)};
             Blob                    emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
@@ -1076,12 +1075,12 @@ doTestExtractSmallBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedSmallBlobCount{A_SIZE(insertedBytesForSmallBlob)};
+            constexpr size_t        insertedSmallBlobCount{numElementsInArray(insertedBytesForSmallBlob)};
             static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount{A_SIZE(actualData)};
+            constexpr size_t        actualDataCount{numElementsInArray(actualData)};
             Blob                    smallBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, smallBlobValue);
@@ -1167,7 +1166,7 @@ doTestExtractMediumBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedStringOrBlobValue
             };
-            const size_t            insertedMediumBlobCount{A_SIZE(insertedBytesForMediumBlob)};
+            constexpr size_t        insertedMediumBlobCount{numElementsInArray(insertedBytesForMediumBlob)};
             static const uint8_t    actualData[]
             {
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
@@ -1178,7 +1177,7 @@ doTestExtractMediumBlobMessage
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67,
                 0x12, 0x23, 0x34, 0x45, 0x56, 0x67
             };
-            const size_t            actualDataCount{A_SIZE(actualData)};
+            constexpr size_t        actualDataCount{numElementsInArray(actualData)};
             Blob                    mediumBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
@@ -1246,7 +1245,7 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t            insertedPlus42Point5Count{A_SIZE(insertedBytesForPlus42Point5)};
+            constexpr size_t        insertedPlus42Point5Count{numElementsInArray(insertedBytesForPlus42Point5)};
             static const DataKind   insertedBytesForMinus42Point5[]
             {
                 // Start of Message
@@ -1266,7 +1265,7 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedDoubleValue
             };
-            const size_t            insertedMinus42Point5Count{A_SIZE(insertedBytesForMinus42Point5)};
+            constexpr size_t        insertedMinus42Point5Count{numElementsInArray(insertedBytesForMinus42Point5)};
             Double                  plus42Point5Value{42.5};
             Double                  minus42Point5Value{-42.5};
 
@@ -1337,7 +1336,7 @@ doTestExtractAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedAddressCount{A_SIZE(insertedBytesForAddress)};
+            constexpr size_t        insertedAddressCount{numElementsInArray(insertedBytesForAddress)};
             Address                 addressValue{0x12345678};
 
             result = extractValueAndCheck(*stuff, insertedBytesForAddress, insertedAddressCount, addressValue);
@@ -1405,7 +1404,7 @@ doTestExtractEmptyArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedEmptyArrayCount{A_SIZE(insertedBytesForEmptyArray)};
+            constexpr size_t        insertedEmptyArrayCount{numElementsInArray(insertedBytesForEmptyArray)};
             Array                   emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
@@ -1473,7 +1472,7 @@ doTestExtractEmptyMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedEmptyMapCount{A_SIZE(insertedBytesForEmptyMap)};
+            constexpr size_t        insertedEmptyMapCount{numElementsInArray(insertedBytesForEmptyMap)};
             Map                     emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
@@ -1541,7 +1540,7 @@ doTestExtractEmptySetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedEmptySetCount{A_SIZE(insertedBytesForEmptySet)};
+            constexpr size_t        insertedEmptySetCount{numElementsInArray(insertedBytesForEmptySet)};
             Set                     emptySet;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
@@ -1617,7 +1616,7 @@ doTestExtractArrayOneLogicalMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneLogicalCount{A_SIZE(insertedBytesForArrayOneLogical)};
+            constexpr size_t        insertedArrayOneLogicalCount{numElementsInArray(insertedBytesForArrayOneLogical)};
             Array                   arrayOneLogical;
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
@@ -1694,7 +1693,7 @@ doTestExtractArrayOneIntegerMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneIntegerCount{A_SIZE(insertedBytesForArrayOneInteger)};
+            constexpr size_t        insertedArrayOneIntegerCount{numElementsInArray(insertedBytesForArrayOneInteger)};
             Array                   arrayOneInteger;
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
@@ -1776,7 +1775,7 @@ doTestExtractArrayOneDoubleMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneDoubleCount{A_SIZE(insertedBytesForArrayOneDouble)};
+            constexpr size_t        insertedArrayOneDoubleCount{numElementsInArray(insertedBytesForArrayOneDouble)};
             Array                   arrayOneDouble;
 
             arrayOneDouble.addValue(std::make_shared<Double>());
@@ -1854,7 +1853,7 @@ doTestExtractArrayOneStringMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneStringCount{A_SIZE(insertedBytesForArrayOneString)};
+            constexpr size_t        insertedArrayOneStringCount{numElementsInArray(insertedBytesForArrayOneString)};
             Array                   arrayOneString;
 
             arrayOneString.addValue(std::make_shared<String>());
@@ -1932,7 +1931,7 @@ doTestExtractArrayOneBlobMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneBlobCount{A_SIZE(insertedBytesForArrayOneBlob)};
+            constexpr size_t        insertedArrayOneBlobCount{numElementsInArray(insertedBytesForArrayOneBlob)};
             Array                   arrayOneBlob;
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
@@ -2014,7 +2013,7 @@ doTestExtractArrayOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneArrayCount{A_SIZE(insertedBytesForArrayOneArray)};
+            constexpr size_t        insertedArrayOneArrayCount{numElementsInArray(insertedBytesForArrayOneArray)};
             Array                   arrayOneArray;
 
             arrayOneArray.addValue(std::make_shared<Array>());
@@ -2096,7 +2095,7 @@ doTestExtractArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneMapCount{A_SIZE(insertedBytesForArrayOneMap)};
+            constexpr size_t        insertedArrayOneMapCount{numElementsInArray(insertedBytesForArrayOneMap)};
             Array                   arrayOneMap;
 
             arrayOneMap.addValue(std::make_shared<Map>());
@@ -2178,7 +2177,7 @@ doTestExtractArrayOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneSetCount{A_SIZE(insertedBytesForArrayOneSet)};
+            constexpr size_t        insertedArrayOneSetCount{numElementsInArray(insertedBytesForArrayOneSet)};
             Array                   arrayOneSet;
 
             arrayOneSet.addValue(std::make_shared<Set>());
@@ -2258,7 +2257,7 @@ doTestExtractArrayWithOneAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneAddressCount{A_SIZE(insertedBytesForArrayOneAddress)};
+            constexpr size_t        insertedArrayOneAddressCount{numElementsInArray(insertedBytesForArrayOneAddress)};
             Array                   arrayOneAddress;
 
             arrayOneAddress.addValue(std::make_shared<Address>(0x12345678));
@@ -2338,7 +2337,7 @@ doTestExtractArrayTwoLogicalsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoLogicalsCount{A_SIZE(insertedBytesForArrayTwoLogicals)};
+            constexpr size_t        insertedArrayTwoLogicalsCount{numElementsInArray(insertedBytesForArrayTwoLogicals)};
             Array                   arrayTwoLogicals;
 
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
@@ -2419,7 +2418,7 @@ doTestExtractArrayTwoIntegersMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoIntegersCount{A_SIZE(insertedBytesForArrayTwoIntegers)};
+            constexpr size_t        insertedArrayTwoIntegersCount{numElementsInArray(insertedBytesForArrayTwoIntegers)};
             Array                   arrayTwoIntegers;
 
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
@@ -2506,7 +2505,7 @@ doTestExtractArrayTwoDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoDoublesCount{A_SIZE(insertedBytesForArrayTwoDoubles)};
+            constexpr size_t        insertedArrayTwoDoublesCount{numElementsInArray(insertedBytesForArrayTwoDoubles)};
             Array                   arrayTwoDoubles;
 
             arrayTwoDoubles.addValue(std::make_shared<Double>());
@@ -2589,7 +2588,7 @@ doTestExtractArrayTwoStringsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoStringsCount{A_SIZE(insertedBytesForArrayTwoStrings)};
+            constexpr size_t        insertedArrayTwoStringsCount{numElementsInArray(insertedBytesForArrayTwoStrings)};
             Array                   arrayTwoStrings;
 
             arrayTwoStrings.addValue(std::make_shared<String>());
@@ -2672,7 +2671,7 @@ doTestExtractArrayTwoBlobsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoBlobsCount{A_SIZE(insertedBytesForArrayTwoBlobs)};
+            constexpr size_t        insertedArrayTwoBlobsCount{numElementsInArray(insertedBytesForArrayTwoBlobs)};
             Array                   arrayTwoBlobs;
 
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
@@ -2763,7 +2762,7 @@ doTestExtractArrayTwoArraysMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoArraysCount{A_SIZE(insertedBytesForArrayTwoArrays)};
+            constexpr size_t        insertedArrayTwoArraysCount{numElementsInArray(insertedBytesForArrayTwoArrays)};
             Array                   arrayTwoArrays;
 
             arrayTwoArrays.addValue(std::make_shared<Array>());
@@ -2854,7 +2853,7 @@ doTestExtractArrayTwoMapsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoMapsCount{A_SIZE(insertedBytesForArrayTwoMaps)};
+            constexpr size_t        insertedArrayTwoMapsCount{numElementsInArray(insertedBytesForArrayTwoMaps)};
             Array                   arrayTwoMaps;
 
             arrayTwoMaps.addValue(std::make_shared<Map>());
@@ -2945,7 +2944,7 @@ doTestExtractArrayTwoSetsMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoSetsCount{A_SIZE(insertedBytesForArrayTwoSets)};
+            constexpr size_t        insertedArrayTwoSetsCount{numElementsInArray(insertedBytesForArrayTwoSets)};
             Array                   arrayTwoSets;
 
             arrayTwoSets.addValue(std::make_shared<Set>());
@@ -3036,7 +3035,7 @@ doTestExtractArrayOneArrayOneMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneArrayOneMapCount{A_SIZE(insertedBytesForArrayOneArrayOneMap)};
+            constexpr size_t        insertedArrayOneArrayOneMapCount{numElementsInArray(insertedBytesForArrayOneArrayOneMap)};
             Array                   arrayOneArrayOneMap;
 
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
@@ -3127,7 +3126,7 @@ doTestExtractArrayOneMapOneSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneMapOneSetCount{A_SIZE(insertedBytesForArrayOneMapOneSet)};
+            constexpr size_t        insertedArrayOneMapOneSetCount{numElementsInArray(insertedBytesForArrayOneMapOneSet)};
             Array                   arrayOneMapOneSet;
 
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
@@ -3218,7 +3217,7 @@ doTestExtractArrayOneSetOneArrayMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayOneSetOneArrayCount{A_SIZE(insertedBytesForArrayOneSetOneArray)};
+            constexpr size_t        insertedArrayOneSetOneArrayCount{numElementsInArray(insertedBytesForArrayOneSetOneArray)};
             Array                   arrayOneSetOneArray;
 
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
@@ -3269,7 +3268,7 @@ doTestExtractArrayWithManyDoublesMessage
         }
         else
         {
-            static const size_t     numValues = 43;
+            constexpr size_t        numValues{43};
             static const DataKind   insertedBytesForArrayManyDoubles[]
             {
                 // Start of Message
@@ -3470,7 +3469,7 @@ doTestExtractArrayWithManyDoublesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayManyDoublesCount{A_SIZE(insertedBytesForArrayManyDoubles)};
+            constexpr size_t        insertedArrayManyDoublesCount{numElementsInArray(insertedBytesForArrayManyDoubles)};
             Array                   arrayManyDoubles;
 
             for (size_t ii = 0; numValues > ii; ++ii)
@@ -3559,7 +3558,7 @@ doTestExtractArrayWithTwoAddressesMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedArrayTwoAddressesCount{A_SIZE(insertedBytesForArrayTwoAddresses)};
+            constexpr size_t        insertedArrayTwoAddressesCount{numElementsInArray(insertedBytesForArrayTwoAddresses)};
             Array                   arrayTwoAddresses;
 
             arrayTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
@@ -3640,7 +3639,7 @@ doTestExtractLogicalMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedLogicalMapCount{A_SIZE(insertedBytesForLogicalMap)};
+            constexpr size_t        insertedLogicalMapCount{numElementsInArray(insertedBytesForLogicalMap)};
             Map                     logicalMap;
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
@@ -3720,7 +3719,7 @@ doTestExtractIntegerMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedIntegerMapCount{A_SIZE(insertedBytesForIntegerMap)};
+            constexpr size_t        insertedIntegerMapCount{numElementsInArray(insertedBytesForIntegerMap)};
             Map                     integerMap;
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
@@ -3801,7 +3800,7 @@ doTestExtractStringMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedStringMapCount{A_SIZE(insertedBytesForStringMap)};
+            constexpr size_t        insertedStringMapCount{numElementsInArray(insertedBytesForStringMap)};
             Map                     stringMap;
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
@@ -3878,7 +3877,7 @@ doTestExtractLogicalSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedLogicalSetCount{A_SIZE(insertedBytesForLogicalSet)};
+            constexpr size_t        insertedLogicalSetCount{numElementsInArray(insertedBytesForLogicalSet)};
             Set                     logicalSet;
 
             logicalSet.addValue(std::make_shared<Logical>());
@@ -3955,7 +3954,7 @@ doTestExtractIntegerSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedIntegerSetCount{A_SIZE(insertedBytesForIntegerSet)};
+            constexpr size_t        insertedIntegerSetCount{numElementsInArray(insertedBytesForIntegerSet)};
             Set                     integerSet;
 
             integerSet.addValue(std::make_shared<Integer>());
@@ -4033,7 +4032,7 @@ doTestExtractStringSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedStringSetCount{A_SIZE(insertedBytesForStringSet)};
+            constexpr size_t        insertedStringSetCount{numElementsInArray(insertedBytesForStringSet)};
             Set                     stringSet;
 
             stringSet.addValue(std::make_shared<String>());
@@ -4116,7 +4115,7 @@ doTestExtractAddressMapMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedAddressMapCount{A_SIZE(insertedBytesForAddressMap)};
+            constexpr size_t        insertedAddressMapCount{numElementsInArray(insertedBytesForAddressMap)};
             Map                     addressMap;
 
             addressMap.addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
@@ -4196,7 +4195,7 @@ doTestExtractAddressSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            const size_t            insertedAddressSetCount{A_SIZE(insertedBytesForAddressSet)};
+            constexpr size_t        insertedAddressSetCount{numElementsInArray(insertedBytesForAddressSet)};
             Set                     addressSet;
 
             addressSet.addValue(std::make_shared<Address>());
@@ -4246,9 +4245,9 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
         }
         else
         {
-            static const size_t kNumValues = 18;
+            constexpr size_t    kNumValues{18};
             auto                arrayWithIntegers{std::make_shared<Array>()};
-            int64_t             posValue = 1;
+            int64_t             posValue{1};
 
             for (size_t ii = 0; kNumValues > ii; ++ii)
             {
@@ -4519,7 +4518,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                           DataKind::OtherMessageNonEmptyValue |
                           DataKind::OtherMessageExpectedOtherValue
                     };
-                    const size_t            expectedBytesForArrayWithIntegersCount{A_SIZE(expectedBytesForArrayWithIntegers)};
+                    constexpr size_t        expectedBytesForArrayWithIntegersCount{numElementsInArray(expectedBytesForArrayWithIntegers)};
                     auto                    contents{stuff->getBytes()};
                     size_t                  length{contents.size()};
 

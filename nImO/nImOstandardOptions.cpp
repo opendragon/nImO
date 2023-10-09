@@ -65,7 +65,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -73,9 +72,9 @@ using namespace std::string_literals;
 
 #if MAC_OR_LINUX_
 # define CONFIG_FILE_ROOT_PATH  "/etc/nImO/"
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
 # define CONFIG_FILE_ROOT_PATH  "C:/nImO/"
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
 
 /*! @brief The default path to the configuration file. */
 static const std::string    kDefaultConfigFilePath{CONFIG_FILE_ROOT_PATH "nimo-config.txt"};
@@ -139,9 +138,9 @@ nImO::LoadConfiguration
     }
 #if MAC_OR_LINUX_
     if (0 == access(workingPath.c_str(), R_OK))
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
     if (0 == _access(workingPath.c_str(), 4))
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
     {
         std::ifstream   inStream{workingPath.c_str()};
 
@@ -166,7 +165,7 @@ nImO::ProcessStandardOptions
      const std::string &    utilityDescription,
      const std::string &    utilityExample,
      const int              year,
-     CPtr(char)             copyrightHolder,
+     const std::string &    copyrightHolder,
      StandardOptions &      optionValues,
      HelpFunction           helper,
      const OptionsMask      optionsToIgnore,
@@ -177,8 +176,8 @@ nImO::ProcessStandardOptions
     ODL_P3("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues); //####
     ODL_X1("optionsToIgnore = ", StaticCast(int64_t, optionsToIgnore)); //####
     ODL_P1("arguments = ", arguments); //####
-    ODL_S2s("utilityDescription = ", utilityDescription, "utilityExample = ", utilityExample); //####
-    ODL_S1("copyrightHolder = ", copyrightHolder); //####
+    ODL_S3s("utilityDescription = ", utilityDescription, "utilityExample = ", utilityExample, //####
+            "copyrightHolder = ", copyrightHolder); //####
     enum class OptionIndex
     {
         kOptionUNKNOWN,
@@ -221,7 +220,7 @@ nImO::ProcessStandardOptions
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
-    std::string                 usageString{"USAGE: "};
+    std::string                 usageString{"USAGE: "s};
     std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
 
     usageString += *argv;
@@ -256,9 +255,9 @@ nImO::ProcessStandardOptions
     usageString += "\n\nOptions:"s;
 #if MAC_OR_LINUX_
     firstDescriptor.help = strdup(usageString.c_str());
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
     firstDescriptor.help = _strdup(usageString.c_str());
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
     if (0 == (kSkipConfigFileOption & optionsToIgnore))
     {
@@ -304,7 +303,7 @@ nImO::ProcessStandardOptions
     else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
              (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
     {
-        Option_::printUsage(std::cout, usage, HELP_LINE_LENGTH_);
+        Option_::printUsage(std::cout, usage, kHelpLineLength);
         if (nullptr != helper)
         {
             helper(std::cout);

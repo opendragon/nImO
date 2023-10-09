@@ -122,8 +122,8 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used", "nImOversion -t", 2016,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipExpandedOption |
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used"s, "nImOversion -t"s, 2016,
+                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipExpandedOption |
                                      nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         std::string ifVersionString;

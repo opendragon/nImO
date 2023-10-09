@@ -64,9 +64,6 @@
 /*! @brief The Registry service for MDNS queries. */
 # define NIMO_REGISTRY_SERVICE_NAME  "_nimo_registry._tcp.local."
 
-/*! @brief The key in the mDNS data for the Registry address. */
-# define NIMO_REGISTRY_ADDRESS_KEY  "registry_address"
-
 namespace nImO
 {
     // Forward references
@@ -81,7 +78,7 @@ namespace nImO
             // Public type definitions.
 
             /*! @brief The size of the MDNS I/O buffer. */
-            static const size_t kBufferCapacity = 2048;
+            static const size_t kBufferCapacity{2048};
 
         protected :
             // Protected type definitions.
@@ -105,10 +102,10 @@ namespace nImO
              @param[in] nodeName The @nImO-visible name of the executing program. */
             ContextWithMDNS
                 (const std::string &    executableName,
-                 const std::string &    tagForLogging = "",
+                 const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const bool             startBrowser = false,
-                 const std::string &    nodeName = "");
+                 const std::string &    nodeName = ""s);
 
             /*! @brief The destructor. */
             ~ContextWithMDNS
@@ -236,6 +233,9 @@ namespace nImO
             Ptr(boost::thread)  _browserThread{nullptr};
 
     }; // ContextWithMDNS
+
+    /*! @brief The key in the mDNS data for the Registry address. */
+    const std::string kRegistryAddressKey{"registry_address"};
 
     /*! @brief Don't wait for the Registry - used with the Registry and test programs.
      @param[in] allowOneCheck @c true if there a single scan for the Registry is done instead. */

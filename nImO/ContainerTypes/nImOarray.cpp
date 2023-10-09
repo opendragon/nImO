@@ -581,7 +581,7 @@ nImO::Array::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     bool    first{true};
 
-    outBuffer.addChar(kStartArrayChar);
+    outBuffer.appendChar(kStartArrayChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
@@ -590,7 +590,7 @@ nImO::Array::printToStringBuffer
         {
             if ((! squished) || (! first))
             {
-                outBuffer.addChar(' ');
+                outBuffer.appendChar(' ');
             }
             aValue->printToStringBuffer(outBuffer, squished);
             first = false;
@@ -598,9 +598,9 @@ nImO::Array::printToStringBuffer
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndArrayChar);
+    outBuffer.appendChar(kEndArrayChar);
     ODL_OBJEXIT(); //####
 } // nImO::Array::printToStringBuffer
 
@@ -617,7 +617,7 @@ nImO::Array::printToStringBufferAsJSON
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     bool    first{true};
 
-    outBuffer.addChar(kStartArrayChar);
+    outBuffer.appendChar(kStartArrayChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
@@ -626,11 +626,11 @@ nImO::Array::printToStringBufferAsJSON
         {
             if (! first)
             {
-                outBuffer.addChar(',');
+                outBuffer.appendChar(',');
             }
             if ((! squished) || (! first))
             {
-                outBuffer.addChar(' ');
+                outBuffer.appendChar(' ');
             }
             aValue->printToStringBufferAsJSON(outBuffer, false, squished);
             first = false;
@@ -638,9 +638,9 @@ nImO::Array::printToStringBufferAsJSON
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndArrayChar);
+    outBuffer.appendChar(kEndArrayChar);
     ODL_OBJEXIT(); //####
 } // nImO::Array::printToStringBufferAsJSON
 

@@ -92,9 +92,9 @@ AddressArgumentDescriptor::AddressArgumentDescriptor
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_P1("addrBuff = ", addrBuff); //####
-    if (SELF_ADDRESS_NAME_ == inherited::getDefaultValue())
+    if (kSelfAddressName == inherited::getDefaultValue())
     {
-        setDefaultValue(SELF_ADDRESS_IPADDR_);
+        setDefaultValue(kSelfAddressIpAddress);
     }
     ODL_EXIT_P(this); //####
 } // AddressArgumentDescriptor::AddressArgumentDescriptor
@@ -183,15 +183,15 @@ AddressArgumentDescriptor::parseArgString
         std::string     description{inVector[1]};
         struct in_addr  addrBuff;
 
-        if (defaultString == SELF_ADDRESS_NAME_)
+        if (kSelfAddressName == defaultString)
         {
-            defaultString = SELF_ADDRESS_IPADDR_;
+            defaultString = kSelfAddressIpAddress;
         }
 #if MAC_OR_LINUX_
         okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
         if (okSoFar)
         {
             result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);
@@ -231,9 +231,9 @@ AddressArgumentDescriptor::validate
     ODL_S1s("value = ", value); //####
     std::string testValue;
 
-    if (SELF_ADDRESS_NAME_ == value)
+    if (kSelfAddressName == value)
     {
-        testValue = SELF_ADDRESS_IPADDR_;
+        testValue = kSelfAddressIpAddress;
     }
     else
     {
@@ -243,9 +243,9 @@ AddressArgumentDescriptor::validate
     {
 #if MAC_OR_LINUX_
         setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
         ODL_B1("_valid <- ", isValid()); //####
     }
     else
@@ -254,9 +254,9 @@ AddressArgumentDescriptor::validate
 
 #if MAC_OR_LINUX_
         setValidity(0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
         ODL_B1("_valid <- ", isValid()); //####
     }
     if (isValid())

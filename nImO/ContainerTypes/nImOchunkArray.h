@@ -121,6 +121,18 @@ namespace nImO
                 appendBytes(ReinterpretCast(CPtr(uint8_t), data), numBytes);
             }
 
+            /*! @brief Add a character to the buffer.
+             @param[in] aChar The character to add.
+             @return The StringBuffer object so that cascading can be done. */
+            inline void
+            appendChar
+                (const char aChar)
+            {
+                uint8_t temp = aChar;
+
+                appendBytes(&temp, sizeof(temp));
+            }
+
             /*! @brief Return @c true if a particular index is past the end of the buffer.
             @param[in] index The zero-based location in the buffer.
             @return @c true if the index is past the end of the buffer. */

@@ -104,19 +104,6 @@ namespace nImO
                 (CPtr(uint8_t)  inBytes,
                  const size_t   numBytes);
 
-            /*! @brief Add a character to the buffer.
-             @param[in] aChar The character to add.
-             @return The StringBuffer object so that cascading can be done. */
-            inline StringBuffer &
-            addChar
-                (const char aChar)
-            {
-                uint8_t temp = aChar;
-
-                inherited::appendBytes(&temp, sizeof(temp));
-                return *this;
-            }
-
             /*! @brief Add a character string representation of a floating-point value to the buffer.
              @param[in] aDouble The value to add.
              @return The StringBuffer object so that cascading can be done. */
@@ -163,7 +150,7 @@ namespace nImO
             addTab
                 (void)
             {
-                addChar('\t');
+                appendChar('\t');
                 return *this;
             }
 

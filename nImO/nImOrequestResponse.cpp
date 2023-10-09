@@ -92,8 +92,8 @@
 static void
 handleResponse
     (Ptr(nImO::ResponseHandler) handler,
-     const std::string          incoming,
-     const std::string          expectedKey)
+     const std::string &        incoming,
+     const std::string &        expectedKey)
 {
     ODL_ENTER(); //####
     ODL_P1("handler = ", handler); //####
@@ -183,8 +183,8 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
      Connection &               connection,
      Ptr(ResponseHandler)       handler,
      Ptr(Array)                 arguments,
-     const std::string          requestKey,
-     const std::string          responseKey)
+     const std::string &        requestKey,
+     const std::string &        responseKey)
 {
     ODL_ENTER(); //####
     ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####

@@ -62,44 +62,43 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
 /*! @brief A bad machine name for testing. */
-#define BAD_MACHINE_NAME   "bad_machine____"
+static const std::string    kBadMachineName{"bad_machine____"s};
 
 /*! @brief A bad node name for testing. */
-#define BAD_NODE_NAME   "bad_node____"
+static const std::string    kBadNodeName{"bad_node____"s};
 
 /*! @brief A bad channel path for testing. */
-#define BAD_CHANNEL_PATH    "/bad_path____"
+static const std::string    kBadChannelPath{"/bad_path____"s};
 
 /*! @brief The first channel path for testing. */
-#define CHANNEL_PATH_1  "/blart/input/1"
+static const std::string    kChannelPath1{"/blart/input/1"s};
 
 /*! @brief The second channel path for testing. */
-#define CHANNEL_PATH_2  "/blert/output/2"
+static const std::string    kChannelPath2{"/blert/output/2"s};
 
 /*! @brief The firsts machine address for testing. */
-#define MACHINE_ADDRESS_1   IPV4_ADDR(192, 168, 100, 11)
+static const auto   kMachineAddress1{BytesToIPv4Address(192, 168, 100, 11)};
 
 /*! @brief The second machine address for testing. */
-#define MACHINE_ADDRESS_2   IPV4_ADDR(192, 168, 100, 12)
+static const auto   kMachineAddress2{BytesToIPv4Address(192, 168, 100, 12)};
 
 /*! @brief The first machine name for testing. */
-#define MACHINE_NAME_1 "Blort"
+static const std::string    kMachineName1{"Blort"s};
 
 /*! @brief The second machine name for testing. */
-#define MACHINE_NAME_2 "Blurt"
+static const std::string    kMachineName2{"Blurt"s};
 
 /*! @brief The first node name for testing. */
-#define NODE_NAME_1 "blort"
+static const std::string    kNodeName1{"blort"s};
 
 /*! @brief The second node name for testing. */
-#define NODE_NAME_2 "blurt"
+static const std::string    kNodeName2{"blurt"s};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -359,7 +358,7 @@ doTestFindMachineWithEmptyRegistry
         }
         else
         {
-            auto    statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
+            auto    statusWithBool{aRegistry->isMachinePresent(kMachineName1)};
 
             if (statusWithBool.first.first)
             {
@@ -369,7 +368,7 @@ doTestFindMachineWithEmptyRegistry
                 }
                 else
                 {
-                    statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_2);
+                    statusWithBool = aRegistry->isMachinePresent(kMachineName2);
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
@@ -443,7 +442,7 @@ doTestAddMachineToRegistry
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
@@ -505,7 +504,7 @@ doTestCountMachinesWithRegistryWithOneMachine
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
@@ -583,7 +582,7 @@ doTestMachineSetWithRegistryWithOneMachine
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
@@ -593,9 +592,9 @@ doTestMachineSetWithRegistryWithOneMachine
                 {
                     StringSet   machines = statusWithStrings.second;
 
-                    if (machines.end() == machines.find(MACHINE_NAME_1))
+                    if (machines.end() == machines.find(kMachineName1))
                     {
-                        ODL_LOG("(machines.end() == machines.find(MACHINE_NAME_1))"); //####
+                        ODL_LOG("(machines.end() == machines.find(kMachineName1))"); //####
                     }
                     else
                     {
@@ -663,17 +662,17 @@ doTestFindMachineWithRegistryWithOneMachine
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
-                auto    statusWithBool{aRegistry->isMachinePresent(MACHINE_NAME_1)};
+                auto    statusWithBool{aRegistry->isMachinePresent(kMachineName1)};
 
                 if (statusWithBool.first.first)
                 {
                     if (statusWithBool.second)
                     {
-                        statusWithBool = aRegistry->isMachinePresent(MACHINE_NAME_2);
+                        statusWithBool = aRegistry->isMachinePresent(kMachineName2);
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
@@ -756,11 +755,11 @@ doTestAddTwoDistinctMachinesToRegistry
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
-                status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
+                status = aRegistry->addMachine(kMachineName2, kMachineAddress2);
                 if (status.first)
                 {
                     result = 0;
@@ -826,11 +825,11 @@ doTestCountMachinesWithRegistryWithTwoMachines
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
-                status = aRegistry->addMachine(MACHINE_NAME_2, MACHINE_ADDRESS_2);
+                status = aRegistry->addMachine(kMachineName2, kMachineAddress2);
                 if (status.first)
                 {
                     auto    statusWithInt{aRegistry->getNumberOfMachines()};
@@ -912,11 +911,11 @@ doTestAddTwoIdenticalMachinesToRegistry
         }
         else
         {
-            auto    status{aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1)};
+            auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
             if (status.first)
             {
-                status = aRegistry->addMachine(MACHINE_NAME_1, MACHINE_ADDRESS_1);
+                status = aRegistry->addMachine(kMachineName1, kMachineAddress1);
                 if (status.first)
                 {
                     auto    statusWithInt{aRegistry->getNumberOfMachines()};
@@ -1138,7 +1137,7 @@ doTestFindNodeWithEmptyRegistry
         }
         else
         {
-            auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+            auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
             if (statusWithBool.first.first)
             {
@@ -1148,7 +1147,7 @@ doTestFindNodeWithEmptyRegistry
                 }
                 else
                 {
-                    statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                    statusWithBool = aRegistry->isNodePresent(kNodeName2);
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
@@ -1224,7 +1223,7 @@ doTestAddNodeToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     result = 0;
@@ -1292,7 +1291,7 @@ doTestCountNodesWithRegistryWithOneNode
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     auto    statusWithInt{aRegistry->getNumberOfNodes()};
@@ -1376,7 +1375,7 @@ doTestNodeSetWithRegistryWithOneNode
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     auto    statusWithStrings{aRegistry->getNamesOfNodes()};
@@ -1385,9 +1384,9 @@ doTestNodeSetWithRegistryWithOneNode
                     {
                         StringSet   nodes{statusWithStrings.second};
 
-                        if (nodes.end() == nodes.find(NODE_NAME_1))
+                        if (nodes.end() == nodes.find(kNodeName1))
                         {
-                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                            ODL_LOG("(nodes.end() == nodes.find(kNodeName1))"); //####
                         }
                         else
                         {
@@ -1462,16 +1461,16 @@ doTestFindNodeWithRegistryWithOneNode
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                    auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
                         {
-                            statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                            statusWithBool = aRegistry->isNodePresent(kNodeName2);
                             if (statusWithBool.first.first)
                             {
                                 if (statusWithBool.second)
@@ -1563,17 +1562,17 @@ doTestNodeDataAddedToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    auto    statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
+                    auto    statusWithInfo{aRegistry->getNodeInformation(kNodeName1)};
 
                     if (statusWithInfo.first.first)
                     {
                         if (statusWithInfo.second._found)
                         {
-                            if ((statusWithInfo.second._name == NODE_NAME_1) && (randomAddress == statusWithInfo.second._connection._address) &&
+                            if ((statusWithInfo.second._name == kNodeName1) && (randomAddress == statusWithInfo.second._connection._address) &&
                                 (randomPort == statusWithInfo.second._connection._port) &&
                                 (nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))
                             {
@@ -1581,7 +1580,7 @@ doTestNodeDataAddedToRegistry
                             }
                             else
                             {
-                                ODL_LOG("! ((statusWithInfo.second._name == NODE_NAME_1) && " //####
+                                ODL_LOG("! ((statusWithInfo.second._name == kNodeName1) && " //####
                                         "(randomAddress == statusWithInfo.second._connection._address) && " //####
                                         "(randomPort == statusWithInfo.second._connection._port) && " //####
                                         "(nImO::ServiceType::FilterService == statusWithInfo.second._serviceType))"); //####
@@ -1660,10 +1659,10 @@ doTestRemoveNodeFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->removeNode(kNodeName1);
                     if (status.first)
                     {
                         result = 0;
@@ -1736,10 +1735,10 @@ doTestCountNodesWithRegistryWithNodeRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->removeNode(kNodeName1);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfNodes()};
@@ -1828,10 +1827,10 @@ doTestNodeSetWithRegistryWithNodeRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->removeNode(kNodeName1);
                     if (status.first)
                     {
                         auto    statusWithStrings{aRegistry->getNamesOfNodes()};
@@ -1922,13 +1921,13 @@ doTestFindNodeWithRegistryNodeRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->removeNode(NODE_NAME_1);
+                    status = aRegistry->removeNode(kNodeName1);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                        auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -2014,10 +2013,10 @@ doTestAddTwoDistinctNodesToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         result = 0;
@@ -2090,10 +2089,10 @@ doTestCountNodesWithRegistryWithTwoNodes
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfNodes()};
@@ -2182,10 +2181,10 @@ doTestNodeSetWithRegistryWithTwoNodes
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         auto    statusWithStrings{aRegistry->getNamesOfNodes()};
@@ -2194,15 +2193,15 @@ doTestNodeSetWithRegistryWithTwoNodes
                         {
                             StringSet   nodes{statusWithStrings.second};
 
-                            if (nodes.end() == nodes.find(NODE_NAME_1))
+                            if (nodes.end() == nodes.find(kNodeName1))
                             {
-                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                                ODL_LOG("(nodes.end() == nodes.find(kNodeName1))"); //####
                             }
                             else
                             {
-                                if (nodes.end() == nodes.find(NODE_NAME_2))
+                                if (nodes.end() == nodes.find(kNodeName2))
                                 {
-                                    ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_2))"); //####
+                                    ODL_LOG("(nodes.end() == nodes.find(kNodeName2))"); //####
                                 }
                                 else
                                 {
@@ -2283,19 +2282,19 @@ doTestFindNodeWithRegistryWithTwoNodes
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                        auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
                             {
-                                statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                                statusWithBool = aRegistry->isNodePresent(kNodeName2);
                                 if (statusWithBool.first.first)
                                 {
                                     if (statusWithBool.second)
@@ -2390,16 +2389,16 @@ doTestRemoveNodesFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_1);
+                        status = aRegistry->removeNode(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->removeNode(NODE_NAME_2);
+                            status = aRegistry->removeNode(kNodeName2);
                             if (status.first)
                             {
                                 result = 0;
@@ -2482,16 +2481,16 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_1);
+                        status = aRegistry->removeNode(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->removeNode(NODE_NAME_2);
+                            status = aRegistry->removeNode(kNodeName2);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfNodes()};
@@ -2590,16 +2589,16 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_1);
+                        status = aRegistry->removeNode(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->removeNode(NODE_NAME_2);
+                            status = aRegistry->removeNode(kNodeName2);
                             if (status.first)
                             {
                                 auto    statusWithStrings{aRegistry->getNamesOfNodes()};
@@ -2700,19 +2699,19 @@ doTestFindNodeWithRegistryAllNodesRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->removeNode(NODE_NAME_1);
+                        status = aRegistry->removeNode(kNodeName1);
                         if (status.first)
                         {
-                            status = aRegistry->removeNode(NODE_NAME_2);
+                            status = aRegistry->removeNode(kNodeName2);
                             if (status.first)
                             {
-                                auto    statusWithBool{aRegistry->isNodePresent(NODE_NAME_1)};
+                                auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -2722,7 +2721,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
                                     }
                                     else
                                     {
-                                        statusWithBool = aRegistry->isNodePresent(NODE_NAME_2);
+                                        statusWithBool = aRegistry->isNodePresent(kNodeName2);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -2823,10 +2822,10 @@ doTestAddTwoIdenticalNodesToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         ODL_LOG("(status.first)"); //####
@@ -2839,9 +2838,9 @@ doTestAddTwoIdenticalNodesToRegistry
                         {
                             StringSet   nodes{statusWithStrings.second};
 
-                            if (nodes.end() == nodes.find(NODE_NAME_1))
+                            if (nodes.end() == nodes.find(kNodeName1))
                             {
-                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                                ODL_LOG("(nodes.end() == nodes.find(kNodeName1))"); //####
                             }
                             else
                             {
@@ -2990,7 +2989,7 @@ doTestNodeInfoWithRegistryWithOneNode
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
@@ -3004,14 +3003,14 @@ doTestNodeInfoWithRegistryWithOneNode
                         {
                             nImO::NodeInfo &    firstElem{infoVector[0]};
 
-                            if ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) &&
+                            if ((firstElem._name == kNodeName1) && (randomAddress == firstElem._connection._address) &&
                                 (randomPort == firstElem._connection._port) && (nImO::ServiceType::FilterService == firstElem._serviceType))
                             {
                                 result = 0;
                             }
                             else
                             {
-                                ODL_LOG("! ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) && " //####
+                                ODL_LOG("! ((firstElem._name == kNodeName1) && (randomAddress == firstElem._connection._address) && " //####
                                         "(randomPort == firstElem._connection._port) && " //####
                                         "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
                             }
@@ -3091,19 +3090,19 @@ doTestNodeInfoWithRegistryWithTwoNodes
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"};
+                std::string machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                    status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
                         IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
@@ -3118,9 +3117,9 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                     nImO::NodeInfo &    firstElem{infoVector[0]};
                                     nImO::NodeInfo &    secondElem{infoVector[1]};
 
-                                    if (firstElem._name == NODE_NAME_1)
+                                    if (firstElem._name == kNodeName1)
                                     {
-                                        if (secondElem._name == NODE_NAME_2)
+                                        if (secondElem._name == kNodeName2)
                                         {
                                             if ((randomAddress1 == firstElem._connection._address) && (randomPort1 == firstElem._connection._port) &&
                                                 (nImO::ServiceType::FilterService == firstElem._serviceType) &&
@@ -3142,12 +3141,12 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (secondElem._name == NODE_NAME_2)"); //####
+                                            ODL_LOG("! (secondElem._name == kNodeName2)"); //####
                                         }
                                     }
-                                    else if (secondElem._name == NODE_NAME_1)
+                                    else if (secondElem._name == kNodeName1)
                                     {
-                                        if (firstElem._name == NODE_NAME_2)
+                                        if (firstElem._name == kNodeName2)
                                         {
                                             if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
                                                 (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
@@ -3169,12 +3168,12 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (firstElem._name == NODE_NAME_2)"); //####
+                                            ODL_LOG("! (firstElem._name == kNodeName2)"); //####
                                         }
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (secondElem._name == NODE_NAME_1)"); //####
+                                        ODL_LOG("! (secondElem._name == kNodeName1)"); //####
                                     }
                                 }
                                 else
@@ -3258,7 +3257,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
         }
         else
         {
-            auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+            auto    statusWithDetails{aRegistry->getLaunchDetails(kNodeName1)};
 
             if (statusWithDetails.first.first)
             {
@@ -3333,11 +3332,11 @@ doTestLaunchDetailsWithRegistryWithOneNode
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
-                    auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+                    auto    statusWithDetails{aRegistry->getLaunchDetails(kNodeName1)};
 
                     if (statusWithDetails.first.first)
                     {
@@ -3430,23 +3429,23 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"};
+                std::string machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                    status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
                         IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
-                        status = aRegistry->addNode(NODE_NAME_2, "!"s + execPath, "?"s + currentDir, "^"s + commandLine,
+                        status = aRegistry->addNode(kNodeName2, "!"s + execPath, "?"s + currentDir, "^"s + commandLine,
                                                     nImO::ServiceType::LauncherService, nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
-                            auto    statusWithDetails{aRegistry->getLaunchDetails(NODE_NAME_1)};
+                            auto    statusWithDetails{aRegistry->getLaunchDetails(kNodeName1)};
 
                             if (statusWithDetails.first.first)
                             {
@@ -3457,7 +3456,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
                                     if ((execPath == details1._execPath) && (currentDir == details1._launchDirectory) &&
                                         (commandLine == details1._commandLine))
                                     {
-                                        statusWithDetails = aRegistry->getLaunchDetails(NODE_NAME_2);
+                                        statusWithDetails = aRegistry->getLaunchDetails(kNodeName2);
                                         if (statusWithDetails.first.first)
                                         {
                                             nImO::LaunchDetails details2{statusWithDetails.second};
@@ -3573,7 +3572,7 @@ doTestNodeInfoWithEmptyRegistry
         }
         else
         {
-            auto    statusWithInfo{aRegistry->getNodeInformation(NODE_NAME_1)};
+            auto    statusWithInfo{aRegistry->getNodeInformation(kNodeName1)};
 
             if (statusWithInfo.first.first)
             {
@@ -3725,7 +3724,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     auto    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
@@ -3734,9 +3733,9 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
                     {
                         StringSet   nodes{statusWithStrings.second};
 
-                        if (nodes.end() == nodes.find(NODE_NAME_1))
+                        if (nodes.end() == nodes.find(kNodeName1))
                         {
-                            ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                            ODL_LOG("(nodes.end() == nodes.find(kNodeName1))"); //####
                         }
                         else
                         {
@@ -3811,10 +3810,10 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         auto    statusWithStrings{aRegistry->getNamesOfNodesOnMachine(machineName)};
@@ -3823,15 +3822,15 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
                         {
                             StringSet   nodes{statusWithStrings.second};
 
-                            if (nodes.end() == nodes.find(NODE_NAME_1))
+                            if (nodes.end() == nodes.find(kNodeName1))
                             {
-                                ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_1))"); //####
+                                ODL_LOG("(nodes.end() == nodes.find(kNodeName1))"); //####
                             }
                             else
                             {
-                                if (nodes.end() == nodes.find(NODE_NAME_2))
+                                if (nodes.end() == nodes.find(kNodeName2))
                                 {
-                                    ODL_LOG("(nodes.end() == nodes.find(NODE_NAME_2))"); //####
+                                    ODL_LOG("(nodes.end() == nodes.find(kNodeName2))"); //####
                                 }
                                 else
                                 {
@@ -3995,7 +3994,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                             nImO::Connection(randomAddress, randomPort));
                 if (status.first)
                 {
@@ -4009,14 +4008,14 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
                         {
                             nImO::NodeInfo &    firstElem{infoVector[0]};
 
-                            if ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) &&
+                            if ((firstElem._name == kNodeName1) && (randomAddress == firstElem._connection._address) &&
                                 (randomPort == firstElem._connection._port) && (nImO::ServiceType::FilterService == firstElem._serviceType))
                             {
                                 result = 0;
                             }
                             else
                             {
-                                ODL_LOG("! ((firstElem._name == NODE_NAME_1) && (randomAddress == firstElem._connection._address) && " //####
+                                ODL_LOG("! ((firstElem._name == kNodeName1) && (randomAddress == firstElem._connection._address) && " //####
                                         "(randomPort == firstElem._connection._port) && " //####
                                         "(nImO::ServiceType::FilterService == firstElem._serviceType))"); //####
                             }
@@ -4096,19 +4095,19 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"};
+                std::string machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
+                    status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::FilterService,
                                                 nImO::Connection(randomAddress1, randomPort1));
                     if (status.first)
                     {
                         IPv4Port    randomPort2{StaticCast(IPv4Port, nImO::RandomUnsigned())};
 
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService,
                                                     nImO::Connection(randomAddress2, randomPort2));
                         if (status.first)
                         {
@@ -4122,7 +4121,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                                 {
                                     nImO::NodeInfo &    firstElem{infoVector[0]};
 
-                                    if (firstElem._name == NODE_NAME_1)
+                                    if (firstElem._name == kNodeName1)
                                     {
                                         if ((randomAddress1 == firstElem._connection._address) && (randomPort1 == firstElem._connection._port) &&
                                             (nImO::ServiceType::FilterService == firstElem._serviceType))
@@ -4138,7 +4137,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                                     }
                                     else
                                     {
-                                        ODL_LOG("! (firstElem._name == NODE_NAME_1)"); //####
+                                        ODL_LOG("! (firstElem._name == kNodeName1)"); //####
                                     }
                                 }
                                 else
@@ -4303,7 +4302,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     auto    statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
@@ -4387,10 +4386,10 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfNodesOnMachine(machineName)};
@@ -4546,7 +4545,7 @@ doTestFindChannelWithEmptyRegistry
         }
         else
         {
-            auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
             if (statusWithBool.first.first)
             {
@@ -4556,7 +4555,7 @@ doTestFindChannelWithEmptyRegistry
                 }
                 else
                 {
-                    statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                    statusWithBool = aRegistry->isChannelPresent(kNodeName2, kChannelPath2);
                     if (statusWithBool.first.first)
                     {
                         if (statusWithBool.second)
@@ -4635,10 +4634,10 @@ doTestAddChannelToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
                         result = 0;
@@ -4714,10 +4713,10 @@ doTestCountChannelsInRegistryWithOneChannel
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
                         auto    statusWithInt{aRegistry->getNumberOfChannels()};
@@ -4809,19 +4808,19 @@ doTestFindChannelInRegistryWithOneChannel
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
                             {
-                                statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                                statusWithBool = aRegistry->isChannelPresent(kNodeName2, kChannelPath2);
                                 if (statusWithBool.first.first)
                                 {
                                     if (statusWithBool.second)
@@ -4919,16 +4918,16 @@ doTestAddTwoChannelsToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
                                 result = 0;
@@ -5014,16 +5013,16 @@ doTestCountChannelsInRegistryWithTwoChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kAny);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfChannels()};
@@ -5125,25 +5124,25 @@ doTestFindChannelsInRegistryWithTwoChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kUDP);
                             if (status.first)
                             {
-                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
                                 if (statusWithBool.first.first)
                                 {
                                     if (statusWithBool.second)
                                     {
-                                        statusWithBool = aRegistry->isChannelPresent(NODE_NAME_2, CHANNEL_PATH_2);
+                                        statusWithBool = aRegistry->isChannelPresent(kNodeName2, kChannelPath2);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -5251,13 +5250,13 @@ doTestAddTwoIdenticalChannelsToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "only-blort", nImO::TransportType::kTCP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, "only-blort"s, nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -5335,10 +5334,10 @@ doTestAddChannelWithBadNodeNameToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_2, "/arbitrary_path", false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName2, "/arbitrary_path"s, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         ODL_LOG("(status.first)"); //####
@@ -5411,10 +5410,10 @@ doTestAddChannelWithBadChannelNameToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, "/arbitrary&path", false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, "/arbitrary&path"s, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
                         ODL_LOG("(status.first)"); //####
@@ -5490,16 +5489,16 @@ doTestRemoveAllChannelsFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kUDP);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannelsForNode(NODE_NAME_1);
+                            status = aRegistry->removeChannelsForNode(kNodeName1);
                             if (status.first)
                             {
                                 result = 0;
@@ -5585,16 +5584,16 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kTCP);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannelsForNode(NODE_NAME_1);
+                            status = aRegistry->removeChannelsForNode(kNodeName1);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfChannels()};
@@ -5696,19 +5695,19 @@ doTestFindChannelWithRegistryAllChannelsRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kAny);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannelsForNode(NODE_NAME_1);
+                            status = aRegistry->removeChannelsForNode(kNodeName1);
                             if (status.first)
                             {
-                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -5718,7 +5717,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
                                     }
                                     else
                                     {
-                                        statusWithBool = aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_2);
+                                        statusWithBool = aRegistry->isChannelPresent(kNodeName1, kChannelPath2);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -5822,16 +5821,16 @@ doTestRemoveOneChannelFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kUDP);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
+                            status = aRegistry->removeChannel(kNodeName1, kChannelPath1);
                             if (status.first)
                             {
                                 result = 0;
@@ -5917,16 +5916,16 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kTCP);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
+                            status = aRegistry->removeChannel(kNodeName1, kChannelPath1);
                             if (status.first)
                             {
                                 auto    statusWithInt{aRegistry->getNumberOfChannels()};
@@ -6028,19 +6027,19 @@ doTestFindChannelWithRegistryOneChannelRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kAny);
                         if (status.first)
                         {
-                            status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_1);
+                            status = aRegistry->removeChannel(kNodeName1, kChannelPath1);
                             if (status.first)
                             {
-                                auto    statusWithBool{aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
                                 if (statusWithBool.first.first)
                                 {
@@ -6050,7 +6049,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
                                     }
                                     else
                                     {
-                                        statusWithBool = aRegistry->isChannelPresent(NODE_NAME_1, CHANNEL_PATH_2);
+                                        statusWithBool = aRegistry->isChannelPresent(kNodeName1, kChannelPath2);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -6154,13 +6153,13 @@ doTestRemoveNonexistentChannelFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->removeChannel(NODE_NAME_1, CHANNEL_PATH_2);
+                        status = aRegistry->removeChannel(kNodeName1, kChannelPath2);
                         if (status.first)
                         {
                             result = 0;
@@ -6241,13 +6240,13 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->removeChannel(NODE_NAME_2, CHANNEL_PATH_1);
+                        status = aRegistry->removeChannel(kNodeName2, kChannelPath1);
                         if (status.first)
                         {
                             result = 0;
@@ -6323,7 +6322,7 @@ doTestGetChannelInfoFromEmptyRegistry
         }
         else
         {
-            auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName1, kChannelPath1)};
 
             if (statusWithInfo.first.first)
             {
@@ -6397,19 +6396,19 @@ doTestGetChannelInfoFromRegistryWithOneChannel
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName1, kChannelPath1)};
 
                         if (statusWithInfo.first.first)
                         {
                             if (statusWithInfo.second._found)
                             {
-                                if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                if ((statusWithInfo.second._node == kNodeName1) && (statusWithInfo.second._path == kChannelPath1) &&
                                     (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"s) &&
                                     (nImO::TransportType::kAny == statusWithInfo.second._modes))
                                 {
@@ -6417,8 +6416,8 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                                 }
                                 else
                                 {
-                                    ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
-                                            "(statusWithInfo.second._path == CHANNEL_PATH_1) && " //####
+                                    ODL_LOG("((statusWithInfo.second._node == kNodeName1) && " //####
+                                            "(statusWithInfo.second._path == kChannelPath1) && " //####
                                             "(! statusWithInfo.second._isOutput) && " //####
                                             "(statusWithInfo.second._dataType == \"<chuckles>\"s) && " //####
                                             "(nImO::TransportType::kAny == statusWithInfo.second._modes))"); //####
@@ -6505,35 +6504,35 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kUDP);
                             if (status.first)
                             {
-                                auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, CHANNEL_PATH_1)};
+                                auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName1, kChannelPath1)};
 
                                 if (statusWithInfo.first.first)
                                 {
                                     if (statusWithInfo.second._found)
                                     {
-                                        if ((statusWithInfo.second._node == NODE_NAME_1) && (statusWithInfo.second._path == CHANNEL_PATH_1) &&
+                                        if ((statusWithInfo.second._node == kNodeName1) && (statusWithInfo.second._path == kChannelPath1) &&
                                             (! statusWithInfo.second._isOutput) && (statusWithInfo.second._dataType == "<chuckles>"s) &&
                                             (nImO::TransportType::kTCP == statusWithInfo.second._modes))
                                         {
-                                            statusWithInfo = aRegistry->getChannelInformation(NODE_NAME_2, CHANNEL_PATH_2);
+                                            statusWithInfo = aRegistry->getChannelInformation(kNodeName2, kChannelPath2);
                                             if (statusWithInfo.first.first)
                                             {
                                                 if (statusWithInfo.second._found)
                                                 {
-                                                    if ((statusWithInfo.second._node == NODE_NAME_2) &&
-                                                        (statusWithInfo.second._path == CHANNEL_PATH_2) &&
+                                                    if ((statusWithInfo.second._node == kNodeName2) &&
+                                                        (statusWithInfo.second._path == kChannelPath2) &&
                                                         statusWithInfo.second._isOutput && (statusWithInfo.second._dataType == "only-blort"s) &&
                                                         (nImO::TransportType::kUDP == statusWithInfo.second._modes))
                                                     {
@@ -6541,8 +6540,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                                     }
                                                     else
                                                     {
-                                                        ODL_LOG("((statusWithInfo.second._node == NODE_NAME_2) && "  //####
-                                                                "(statusWithInfo.second._path == CHANNEL_PATH_2) && "  //####
+                                                        ODL_LOG("((statusWithInfo.second._node == kNodeName2) && "  //####
+                                                                "(statusWithInfo.second._path == kChannelPath2) && "  //####
                                                                 "statusWithInfo.second._isOutput && "  //####
                                                                 "(statusWithInfo.second._dataType == \"only-blort\"s) && " //####
                                                                 "(nImO::TransportType::kUDP == statusWithInfo.second._modes))"); //####
@@ -6556,8 +6555,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                                         }
                                         else
                                         {
-                                            ODL_LOG("((statusWithInfo.second._node == NODE_NAME_1) && " //####
-                                                    "(statusWithInfo.second._path == CHANNEL_PATH_1) && " //####
+                                            ODL_LOG("((statusWithInfo.second._node == kNodeName1) && " //####
+                                                    "(statusWithInfo.second._path == kChannelPath1) && " //####
                                                     "(! statusWithInfo.second._isOutput) && " //####
                                                     "(statusWithInfo.second._dataType == \"<chuckles>\"s) && " //####
                                                     "(nImO::TransportType::kTCP == statusWithInfo.second._modes))"); //####
@@ -6651,11 +6650,11 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
                     {
-                        auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_2, "/arbitrary_path")};
+                        auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName2, "/arbitrary_path")};
 
                         if (statusWithInfo.first.first)
                         {
@@ -6737,10 +6736,10 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    auto    statusWithInfo{aRegistry->getChannelInformation(NODE_NAME_1, "/arbitrary&path")};
+                    auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName1, "/arbitrary&path")};
 
                     if (statusWithInfo.first.first)
                     {
@@ -6885,10 +6884,10 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
                     if (status.first)
                     {
                         auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
@@ -6901,7 +6900,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                             {
                                 const ChannelInfo & theChannel{infoVector[0]};
 
-                                if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
+                                if (theChannel._found && (theChannel._node == kNodeName1) && (theChannel._path == kChannelPath1) &&
                                     (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"s) &&
                                     (nImO::TransportType::kAny == theChannel._modes) && (! theChannel._inUse))
                                 {
@@ -6909,8 +6908,8 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                                 }
                                 else
                                 {
-                                    ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
-                                            "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
+                                    ODL_LOG("(theChannel._found && (theChannel._node == kNodeName1) && " //####
+                                            "(theChannel._path == kChannelPath1) && (! theChannel._isOutput) && " //####
                                             "(theChannel._dataType == \"<chuckles>\"s) && " //####
                                             "(nImO::TransportType::kAny == theChannel._modes) && (! theChannel._inUse))"); //####
                                 }
@@ -6993,13 +6992,13 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kUDP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kUDP);
                         if (status.first)
                         {
                             auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
@@ -7013,19 +7012,19 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                     const ChannelInfo & theChannel1{infoVector[0]};
                                     const ChannelInfo & theChannel2{infoVector[1]};
 
-                                    if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                    if (theChannel1._found && (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath1) &&
                                         (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>"s) &&
                                         (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
-                                        (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                        (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath2) && theChannel2._isOutput &&
                                         (theChannel2._dataType == "only-blort"s) && (nImO::TransportType::kUDP == theChannel2._modes) &&
                                         (! theChannel2._inUse))
                                     {
                                         result = 0;
                                     }
-                                    else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                    else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
                                              (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
                                              (nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                             (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                             (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath2) &&
                                              theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
                                              (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))
                                     {
@@ -7033,12 +7032,12 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                     }
                                     else
                                     {
-                                        ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
-                                                "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                        ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
                                                 "(theChannel2._dataType == \"<chuckles>\"s) && " //####
                                                 "(nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                "theChannel1._found && (theChannel1._node == NODE_NAME_1) && " //####
-                                                "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
+                                                "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
                                                 "(theChannel1._dataType == \"only-blort\"s) && " //####
                                                 "(nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                     }
@@ -7126,16 +7125,16 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
                                 auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
@@ -7149,19 +7148,19 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                         const ChannelInfo & theChannel1{infoVector[0]};
                                         const ChannelInfo & theChannel2{infoVector[1]};
 
-                                        if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                        if (theChannel1._found && (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath1) &&
                                             (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>"s) &&
                                             (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
-                                            (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                            (theChannel2._node == kNodeName2) && (theChannel2._path == kChannelPath2) && theChannel2._isOutput &&
                                             (theChannel2._dataType == "only-blort"s) && (nImO::TransportType::kTCP == theChannel2._modes) &&
                                             (! theChannel2._inUse))
                                         {
                                             result = 0;
                                         }
-                                        else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                        else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
                                                  (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
                                                  (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                                 (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                                 (theChannel1._node == kNodeName2) && (theChannel1._path == kChannelPath2) &&
                                                  theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
                                                  (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
                                         {
@@ -7169,12 +7168,12 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                         }
                                         else
                                         {
-                                            ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
-                                                    "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
                                                     "(theChannel2._dataType == \"<chuckles>\"s) && " //####
                                                     "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                    "theChannel1._found && (theChannel1._node == NODE_NAME_2) && " //####
-                                                    "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                    "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
+                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
                                                     "(theChannel1._dataType == \"only-blort\"s) && " //####
                                                     "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                         }
@@ -7267,10 +7266,10 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
                         auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
@@ -7283,7 +7282,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                             {
                                 const ChannelInfo & theChannel{infoVector[0]};
 
-                                if (theChannel._found && (theChannel._node == NODE_NAME_1) && (theChannel._path == CHANNEL_PATH_1) &&
+                                if (theChannel._found && (theChannel._node == kNodeName1) && (theChannel._path == kChannelPath1) &&
                                     (! theChannel._isOutput) && (theChannel._dataType == "<chuckles>"s) &&
                                     (nImO::TransportType::kUDP == theChannel._modes) && (! theChannel._inUse))
                                 {
@@ -7291,8 +7290,8 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                                 }
                                 else
                                 {
-                                    ODL_LOG("(theChannel._found && (theChannel._node == NODE_NAME_1) && " //####
-                                            "(theChannel._path == CHANNEL_PATH_1) && (! theChannel._isOutput) && " //####
+                                    ODL_LOG("(theChannel._found && (theChannel._node == kNodeName1) && " //####
+                                            "(theChannel._path == kChannelPath1) && (! theChannel._isOutput) && " //####
                                             "(theChannel._dataType == \"<chuckles>\"s) && " //####
                                             "(nImO::TransportType::kUDP == theChannel._modes) && (! theChannel._inUse))"); //####
                                 }
@@ -7375,13 +7374,13 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kTCP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, "only-blort"s, nImO::TransportType::kTCP);
                         if (status.first)
                         {
                             auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
@@ -7395,19 +7394,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                     const ChannelInfo & theChannel1{infoVector[0]};
                                     const ChannelInfo & theChannel2{infoVector[1]};
 
-                                    if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                    if (theChannel1._found && (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath1) &&
                                         (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>"s) &&
                                         (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
-                                        (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                        (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath2) && theChannel2._isOutput &&
                                         (theChannel2._dataType == "only-blort"s) && (nImO::TransportType::kTCP == theChannel2._modes) &&
                                         (! theChannel2._inUse))
                                     {
                                         result = 0;
                                     }
-                                    else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                    else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
                                              (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
                                              (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                             (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                             (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath2) &&
                                              theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
                                              (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
                                     {
@@ -7415,12 +7414,12 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                     }
                                     else
                                     {
-                                        ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
-                                                "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                        ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
                                                 "(theChannel2._dataType == \"<chuckles>\"s) && " //####
                                                 "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                "theChannel1._found && (theChannel1._node == NODE_NAME_1) && " //####
-                                                "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
+                                                "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
                                                 "(theChannel1._dataType == \"only-blort\"s) && " //####
                                                 "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                     }
@@ -7508,16 +7507,16 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                     if (status.first)
                     {
-                        status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, true, "only-blort", nImO::TransportType::kAny);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, true, "only-blort"s, nImO::TransportType::kAny);
                             if (status.first)
                             {
                                 auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName)};
@@ -7531,19 +7530,19 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                         const ChannelInfo & theChannel1{infoVector[0]};
                                         const ChannelInfo & theChannel2{infoVector[1]};
 
-                                        if (theChannel1._found && (theChannel1._node == NODE_NAME_1) && (theChannel1._path == CHANNEL_PATH_1) &&
+                                        if (theChannel1._found && (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath1) &&
                                             (! theChannel1._isOutput) && (theChannel1._dataType == "<chuckles>"s) &&
                                             (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse) && theChannel2._found &&
-                                            (theChannel2._node == NODE_NAME_2) && (theChannel2._path == CHANNEL_PATH_2) && theChannel2._isOutput &&
+                                            (theChannel2._node == kNodeName2) && (theChannel2._path == kChannelPath2) && theChannel2._isOutput &&
                                             (theChannel2._dataType == "only-blort"s) && (nImO::TransportType::kAny == theChannel2._modes) &&
                                             (! theChannel2._inUse))
                                         {
                                             result = 0;
                                         }
-                                        else if (theChannel2._found && (theChannel2._node == NODE_NAME_1) && (theChannel2._path == CHANNEL_PATH_1) &&
+                                        else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
                                                  (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
                                                  (nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                                 (theChannel1._node == NODE_NAME_2) && (theChannel1._path == CHANNEL_PATH_2) &&
+                                                 (theChannel1._node == kNodeName2) && (theChannel1._path == kChannelPath2) &&
                                                  theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
                                                  (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))
                                         {
@@ -7551,12 +7550,12 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                         }
                                         else
                                         {
-                                            ODL_LOG("(theChannel2._found && (theChannel2._node == NODE_NAME_1) && " //####
-                                                    "(theChannel2._path == CHANNEL_PATH_1) && (! theChannel2._isOutput) && " //####
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
                                                     "(theChannel2._dataType == \"<chuckles>\"s) && " //####
                                                     "(nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                    "theChannel1._found && (theChannel1._node == NODE_NAME_2) && " //####
-                                                    "(theChannel1._path == CHANNEL_PATH_2) && theChannel1._isOutput && " //####
+                                                    "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
+                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
                                                     "(theChannel1._dataType == \"only-blort\"s) && " //####
                                                     "(nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))"); //####
                                         }
@@ -7649,13 +7648,13 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kTCP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kTCP);
                     if (status.first)
                     {
-                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnNode(NODE_NAME_2)};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnNode(kNodeName2)};
 
                         if (statusWithInfo.first.first)
                         {
@@ -7743,13 +7742,13 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName + "!!")};
+                        auto    statusWithInfo{aRegistry->getInformationForAllChannelsOnMachine(machineName + "!!"s)};
 
                         if (statusWithInfo.first.first)
                         {
@@ -7835,7 +7834,7 @@ doTestGetChannelInUseWithEmptyRegistry
         }
         else
         {
-            auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->getChannelInUse(kNodeName1, kChannelPath1)};
 
             if (statusWithBool.first.first)
             {
@@ -7897,7 +7896,7 @@ doTestSetChannelInUseWithEmptyRegistry
         }
         else
         {
-            auto    status{aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    status{aRegistry->setChannelInUse(kNodeName1, kChannelPath1)};
 
             if (status.first)
             {
@@ -7959,7 +7958,7 @@ doTestClearChannelInUseWithEmptyRegistry
         }
         else
         {
-            auto    status{aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    status{aRegistry->clearChannelInUse(kNodeName1, kChannelPath1)};
 
             if (status.first)
             {
@@ -8026,13 +8025,13 @@ doTestChannelInUseCanBeSet
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(kNodeName1, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8042,10 +8041,10 @@ doTestChannelInUseCanBeSet
                             }
                             else
                             {
-                                status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                status = aRegistry->setChannelInUse(kNodeName1, kChannelPath1);
                                 if (status.first)
                                 {
-                                    statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                    statusWithBool = aRegistry->getChannelInUse(kNodeName1, kChannelPath1);
                                     if (statusWithBool.first.first)
                                     {
                                         if (statusWithBool.second)
@@ -8144,13 +8143,13 @@ doTestChannelInUseCanBeCleared
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(kNodeName1, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8160,18 +8159,18 @@ doTestChannelInUseCanBeCleared
                             }
                             else
                             {
-                                status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                status = aRegistry->setChannelInUse(kNodeName1, kChannelPath1);
                                 if (status.first)
                                 {
-                                    statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                    statusWithBool = aRegistry->getChannelInUse(kNodeName1, kChannelPath1);
                                     if (statusWithBool.first.first)
                                     {
                                         if (statusWithBool.second)
                                         {
-                                            status = aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                            status = aRegistry->clearChannelInUse(kNodeName1, kChannelPath1);
                                             if (status.first)
                                             {
-                                                statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                                statusWithBool = aRegistry->getChannelInUse(kNodeName1, kChannelPath1);
                                                 if (statusWithBool.first.first)
                                                 {
                                                     if (statusWithBool.second)
@@ -8285,13 +8284,13 @@ doTestGetChannelInUseWithBadNodeName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_2, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(kNodeName2, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8373,13 +8372,13 @@ doTestSetChannelInUseWithBadNodeName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->setChannelInUse(NODE_NAME_1, CHANNEL_PATH_2);
+                        status = aRegistry->setChannelInUse(kNodeName1, kChannelPath2);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -8460,13 +8459,13 @@ doTestClearChannelInUseWithBadNodeName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->clearChannelInUse(NODE_NAME_1, CHANNEL_PATH_2);
+                        status = aRegistry->clearChannelInUse(kNodeName1, kChannelPath2);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -8547,13 +8546,13 @@ doTestGetChannelInUseWithBadChannelName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_2)};
+                        auto    statusWithBool{aRegistry->getChannelInUse(kNodeName1, kChannelPath2)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8635,13 +8634,13 @@ doTestSetChannelInUseWithBadChannelName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->setChannelInUse(NODE_NAME_2, CHANNEL_PATH_1);
+                        status = aRegistry->setChannelInUse(kNodeName2, kChannelPath1);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -8722,13 +8721,13 @@ static int
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        status = aRegistry->clearChannelInUse(NODE_NAME_2, CHANNEL_PATH_1);
+                        status = aRegistry->clearChannelInUse(kNodeName2, kChannelPath1);
                         if (status.first)
                         {
                             ODL_LOG("(status.first)"); //####
@@ -8809,13 +8808,13 @@ doTestGetAndSetChannelInUse
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(kNodeName1, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -8825,7 +8824,7 @@ doTestGetAndSetChannelInUse
                             }
                             else
                             {
-                                statusWithBool = aRegistry->getChannelInUse(NODE_NAME_1, CHANNEL_PATH_1);
+                                statusWithBool = aRegistry->getChannelInUse(kNodeName1, kChannelPath1);
                                 if (statusWithBool.first.first)
                                 {
                                     if (statusWithBool.second)
@@ -8914,7 +8913,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
         }
         else
         {
-            auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_1)};
+            auto    statusWithBool{aRegistry->getChannelInUseAndSet(kNodeName1, kChannelPath1)};
 
             if (statusWithBool.first.first)
             {
@@ -8981,13 +8980,13 @@ doTestGetAndSetChannelInUseWithBadNodeName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_2, CHANNEL_PATH_1)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(kNodeName2, kChannelPath1)};
 
                         if (statusWithBool.first.first)
                         {
@@ -9069,13 +9068,13 @@ doTestGetAndSetChannelInUseWithBadChannelName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, false, "<chuckles>", nImO::TransportType::kUDP);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, "<chuckles>"s, nImO::TransportType::kUDP);
                     if (status.first)
                     {
-                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(NODE_NAME_1, CHANNEL_PATH_2)};
+                        auto    statusWithBool{aRegistry->getChannelInUseAndSet(kNodeName1, kChannelPath2)};
 
                         if (statusWithBool.first.first)
                         {
@@ -9226,19 +9225,19 @@ doTestAddConnectionToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
@@ -9330,19 +9329,19 @@ doTestCountConnectionsInRegistryWithOneConnection
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
@@ -9450,30 +9449,30 @@ doTestAddTwoConnectionsToRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
 
                             if (status.first)
                             {
-                                status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, false, "blort", nImO::TransportType::kUDP);
+                                status = aRegistry->addChannel(kNodeName1, kChannelPath2, false, "blort"s, nImO::TransportType::kUDP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_1, true, "blort", nImO::TransportType::kAny);
+                                    status = aRegistry->addChannel(kNodeName2, kChannelPath1, true, "blort"s, nImO::TransportType::kAny);
                                     if (status.first)
                                     {
-                                        status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                        status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                           nImO::TransportType::kTCP);
                                         if (status.first)
                                         {
-                                            status = aRegistry->addConnection(NODE_NAME_2, CHANNEL_PATH_1, NODE_NAME_1, CHANNEL_PATH_2, "blort",
+                                            status = aRegistry->addConnection(kNodeName2, kChannelPath1, kNodeName1, kChannelPath2, "blort",
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
@@ -9580,30 +9579,30 @@ doTestCountConnectionsInRegistryWithTwoConnections
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
 
                             if (status.first)
                             {
-                                status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, false, "blort", nImO::TransportType::kUDP);
+                                status = aRegistry->addChannel(kNodeName1, kChannelPath2, false, "blort"s, nImO::TransportType::kUDP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_1, true, "blort", nImO::TransportType::kAny);
+                                    status = aRegistry->addChannel(kNodeName2, kChannelPath1, true, "blort"s, nImO::TransportType::kAny);
                                     if (status.first)
                                     {
-                                        status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                        status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                           nImO::TransportType::kTCP);
                                         if (status.first)
                                         {
-                                            status = aRegistry->addConnection(NODE_NAME_2, CHANNEL_PATH_1, NODE_NAME_1, CHANNEL_PATH_2, "blort",
+                                            status = aRegistry->addConnection(kNodeName2, kChannelPath1, kNodeName1, kChannelPath2, "blort",
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
@@ -9726,23 +9725,23 @@ doTestRemoveOneConnectionFromRegistryViaFrom
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->removeConnection(NODE_NAME_1, CHANNEL_PATH_1, true);
+                                    status = aRegistry->removeConnection(kNodeName1, kChannelPath1, true);
                                     if (status.first)
                                     {
                                         result = 0;
@@ -9838,23 +9837,23 @@ doTestRemoveOneConnectionFromRegistryViaTo
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->removeConnection(NODE_NAME_2, CHANNEL_PATH_2, false);
+                                    status = aRegistry->removeConnection(kNodeName2, kChannelPath2, false);
                                     if (status.first)
                                     {
                                         result = 0;
@@ -9950,23 +9949,23 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->removeConnection(NODE_NAME_2, CHANNEL_PATH_2, false);
+                                    status = aRegistry->removeConnection(kNodeName2, kChannelPath2, false);
                                     if (status.first)
                                     {
                                         auto    statusWithInt{aRegistry->getNumberOfConnections()};
@@ -10078,19 +10077,19 @@ doTestConnectChannelsWithRegistryWithBadChannelName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, BAD_CHANNEL_PATH, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kBadChannelPath, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
@@ -10098,7 +10097,7 @@ doTestConnectChannelsWithRegistryWithBadChannelName
                                 }
                                 else
                                 {
-                                    status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, BAD_CHANNEL_PATH, "",
+                                    status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kBadChannelPath, ""s,
                                                                       nImO::TransportType::kTCP);
                                     if (status.first)
                                     {
@@ -10191,19 +10190,19 @@ doTestConnectChannelsWithRegistryWithBadNodeName
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(BAD_NODE_NAME, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kBadNodeName, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
@@ -10211,7 +10210,7 @@ doTestConnectChannelsWithRegistryWithBadNodeName
                                 }
                                 else
                                 {
-                                    status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, BAD_NODE_NAME, CHANNEL_PATH_2, "",
+                                    status = aRegistry->addConnection(kNodeName1, kChannelPath1, kBadNodeName, kChannelPath2, ""s,
                                                                       nImO::TransportType::kTCP);
                                     if (status.first)
                                     {
@@ -10375,23 +10374,23 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
+                                    auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(kNodeName1)};
 
                                     if (statusWithInfo.first.first)
                                     {
@@ -10401,17 +10400,17 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
                                         {
                                             nImO::ConnectionInfo &  connection{infoVector[0]};
 
-                                            if ((connection._fromNode == NODE_NAME_1) && (connection._fromPath == CHANNEL_PATH_1) &&
-                                                (connection._toNode == NODE_NAME_2) && (connection._toPath == CHANNEL_PATH_2) &&
+                                            if ((connection._fromNode == kNodeName1) && (connection._fromPath == kChannelPath1) &&
+                                                (connection._toNode == kNodeName2) && (connection._toPath == kChannelPath2) &&
                                                 (connection._dataType == ""s) && (connection._mode == nImO::TransportType::kTCP))
                                             {
                                                 result = 0;
                                             }
                                             else
                                             {
-                                                ODL_LOG("! ((connection._fromNode == NODE_NAME_1) && " //####
-                                                        "(connection._fromPath == CHANNEL_PATH_1) && (connection._toNode == NODE_NAME_2) && " //####
-                                                        "(connection._toPath == CHANNEL_PATH_2) && (connection._dataType == \"\"s) && " //####
+                                                ODL_LOG("! ((connection._fromNode == kNodeName1) && " //####
+                                                        "(connection._fromPath == kChannelPath1) && (connection._toNode == kNodeName2) && " //####
+                                                        "(connection._toPath == kChannelPath2) && (connection._dataType == \"\"s) && " //####
                                                         "(connection._mode == nImO::TransportType::kTCP))"); //####
                                             }
                                         }
@@ -10511,33 +10510,33 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, false, "blort", nImO::TransportType::kUDP);
+                                status = aRegistry->addChannel(kNodeName1, kChannelPath2, false, "blort"s, nImO::TransportType::kUDP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_1, true, "blort", nImO::TransportType::kAny);
+                                    status = aRegistry->addChannel(kNodeName2, kChannelPath1, true, "blort"s, nImO::TransportType::kAny);
                                     if (status.first)
                                     {
-                                        status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                        status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                           nImO::TransportType::kTCP);
                                         if (status.first)
                                         {
-                                            status = aRegistry->addConnection(NODE_NAME_2, CHANNEL_PATH_1, NODE_NAME_1, CHANNEL_PATH_2, "blort",
+                                            status = aRegistry->addConnection(kNodeName2, kChannelPath1, kNodeName1, kChannelPath2, "blort",
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
-                                                auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(NODE_NAME_1)};
+                                                auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(kNodeName1)};
 
                                                 if (statusWithInfo.first.first)
                                                 {
@@ -10548,45 +10547,45 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
                                                         nImO::ConnectionInfo &  connection1{infoVector[0]};
                                                         nImO::ConnectionInfo &  connection2{infoVector[1]};
 
-                                                        if (((connection1._fromNode == NODE_NAME_1) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_2) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                        if (((connection1._fromNode == kNodeName1) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName2) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == ""s) && (connection1._mode == nImO::TransportType::kTCP) &&
-                                                            (connection2._fromNode == NODE_NAME_2) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_1) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            (connection2._fromNode == kNodeName2) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName1) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == "blort"s) && (connection2._mode == nImO::TransportType::kUDP)) ||
-                                                            ((connection2._fromNode == NODE_NAME_1) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_2) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            ((connection2._fromNode == kNodeName1) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName2) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == ""s) && (connection2._mode == nImO::TransportType::kTCP) &&
-                                                            (connection1._fromNode == NODE_NAME_2) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_1) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                            (connection1._fromNode == kNodeName2) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName1) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == "blort"s) && (connection1._mode == nImO::TransportType::kUDP)))
                                                         {
                                                             result = 0;
                                                         }
                                                         else
                                                         {
-                                                            ODL_LOG("! (((connection1._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                            ODL_LOG("! (((connection1._fromNode == kNodeName1) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName2) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"\"s) && "//####
                                                                     "(connection1._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection2._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection2._fromNode == kNodeName2) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName1) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"blort\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kUDP)) || " //####
-                                                                    "((connection2._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "((connection2._fromNode == kNodeName1) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName2) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection1._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection1._fromNode == kNodeName2) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName1) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"blort\"s) && " //####
                                                                     "(connection1._mode == nImO::TransportType::kUDP)))"); //####
                                                         }
@@ -10702,29 +10701,29 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, false, "blort", nImO::TransportType::kUDP);
+                                status = aRegistry->addChannel(kNodeName1, kChannelPath2, false, "blort"s, nImO::TransportType::kUDP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_1, true, "blort", nImO::TransportType::kAny);
+                                    status = aRegistry->addChannel(kNodeName2, kChannelPath1, true, "blort"s, nImO::TransportType::kAny);
                                     if (status.first)
                                     {
-                                        status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                        status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                           nImO::TransportType::kTCP);
                                         if (status.first)
                                         {
-                                            status = aRegistry->addConnection(NODE_NAME_2, CHANNEL_PATH_1, NODE_NAME_1, CHANNEL_PATH_2, "blort",
+                                            status = aRegistry->addConnection(kNodeName2, kChannelPath1, kNodeName1, kChannelPath2, "blort",
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
@@ -10739,45 +10738,45 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
                                                         nImO::ConnectionInfo &  connection1{infoVector[0]};
                                                         nImO::ConnectionInfo &  connection2{infoVector[1]};
 
-                                                        if (((connection1._fromNode == NODE_NAME_1) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_2) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                        if (((connection1._fromNode == kNodeName1) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName2) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == ""s) && (connection1._mode == nImO::TransportType::kTCP) &&
-                                                            (connection2._fromNode == NODE_NAME_2) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_1) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            (connection2._fromNode == kNodeName2) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName1) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == "blort"s) && (connection2._mode == nImO::TransportType::kUDP)) ||
-                                                            ((connection2._fromNode == NODE_NAME_1) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_2) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            ((connection2._fromNode == kNodeName1) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName2) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == ""s) && (connection2._mode == nImO::TransportType::kTCP) &&
-                                                            (connection1._fromNode == NODE_NAME_2) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_1) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                            (connection1._fromNode == kNodeName2) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName1) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == "blort"s) && (connection1._mode == nImO::TransportType::kUDP)))
                                                         {
                                                             result = 0;
                                                         }
                                                         else
                                                         {
-                                                            ODL_LOG("! (((connection1._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                            ODL_LOG("! (((connection1._fromNode == kNodeName1) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName2) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"\"s) && "//####
                                                                     "(connection1._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection2._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection2._fromNode == kNodeName2) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName1) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"blort\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kUDP)) || " //####
-                                                                    "((connection2._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "((connection2._fromNode == kNodeName1) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName2) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection1._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection1._fromNode == kNodeName2) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName1) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"blort\"s) && " //####
                                                                     "(connection1._mode == nImO::TransportType::kUDP)))"); //####
                                                         }
@@ -10893,19 +10892,19 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
@@ -10919,17 +10918,17 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
                                         {
                                             nImO::ConnectionInfo &  connection{infoVector[0]};
 
-                                            if ((connection._fromNode == NODE_NAME_1) && (connection._fromPath == CHANNEL_PATH_1) &&
-                                                (connection._toNode == NODE_NAME_2) && (connection._toPath == CHANNEL_PATH_2) &&
+                                            if ((connection._fromNode == kNodeName1) && (connection._fromPath == kChannelPath1) &&
+                                                (connection._toNode == kNodeName2) && (connection._toPath == kChannelPath2) &&
                                                 (connection._dataType == ""s) && (connection._mode == nImO::TransportType::kTCP))
                                             {
                                                 result = 0;
                                             }
                                             else
                                             {
-                                                ODL_LOG("! ((connection._fromNode == NODE_NAME_1) && " //####
-                                                        "(connection._fromPath == CHANNEL_PATH_1) && (connection._toNode == NODE_NAME_2) && " //####
-                                                        "(connection._toPath == CHANNEL_PATH_2) && (connection._dataType == \"\"s) && " //####
+                                                ODL_LOG("! ((connection._fromNode == kNodeName1) && " //####
+                                                        "(connection._fromPath == kChannelPath1) && (connection._toNode == kNodeName2) && " //####
+                                                        "(connection._toPath == kChannelPath2) && (connection._dataType == \"\"s) && " //####
                                                         "(connection._mode == nImO::TransportType::kTCP))"); //####
                                             }
                                         }
@@ -11029,29 +11028,29 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_2, false, "blort", nImO::TransportType::kUDP);
+                                status = aRegistry->addChannel(kNodeName1, kChannelPath2, false, "blort"s, nImO::TransportType::kUDP);
                                 if (status.first)
                                 {
-                                    status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_1, true, "blort", nImO::TransportType::kAny);
+                                    status = aRegistry->addChannel(kNodeName2, kChannelPath1, true, "blort"s, nImO::TransportType::kAny);
                                     if (status.first)
                                     {
-                                        status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                        status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                           nImO::TransportType::kTCP);
                                         if (status.first)
                                         {
-                                            status = aRegistry->addConnection(NODE_NAME_2, CHANNEL_PATH_1, NODE_NAME_1, CHANNEL_PATH_2, "blort",
+                                            status = aRegistry->addConnection(kNodeName2, kChannelPath1, kNodeName1, kChannelPath2, "blort",
                                                                               nImO::TransportType::kUDP);
                                             if (status.first)
                                             {
@@ -11066,45 +11065,45 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
                                                         nImO::ConnectionInfo &  connection1{infoVector[0]};
                                                         nImO::ConnectionInfo &  connection2{infoVector[1]};
 
-                                                        if (((connection1._fromNode == NODE_NAME_1) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_2) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                        if (((connection1._fromNode == kNodeName1) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName2) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == ""s) && (connection1._mode == nImO::TransportType::kTCP) &&
-                                                            (connection2._fromNode == NODE_NAME_2) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_1) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            (connection2._fromNode == kNodeName2) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName1) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == "blort"s) && (connection2._mode == nImO::TransportType::kUDP)) ||
-                                                            ((connection2._fromNode == NODE_NAME_1) && (connection2._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection2._toNode == NODE_NAME_2) && (connection2._toPath == CHANNEL_PATH_2) &&
+                                                            ((connection2._fromNode == kNodeName1) && (connection2._fromPath == kChannelPath1) &&
+                                                            (connection2._toNode == kNodeName2) && (connection2._toPath == kChannelPath2) &&
                                                             (connection2._dataType == ""s) && (connection2._mode == nImO::TransportType::kTCP) &&
-                                                            (connection1._fromNode == NODE_NAME_2) && (connection1._fromPath == CHANNEL_PATH_1) &&
-                                                            (connection1._toNode == NODE_NAME_1) && (connection1._toPath == CHANNEL_PATH_2) &&
+                                                            (connection1._fromNode == kNodeName2) && (connection1._fromPath == kChannelPath1) &&
+                                                            (connection1._toNode == kNodeName1) && (connection1._toPath == kChannelPath2) &&
                                                             (connection1._dataType == "blort"s) && (connection1._mode == nImO::TransportType::kUDP)))
                                                         {
                                                             result = 0;
                                                         }
                                                         else
                                                         {
-                                                            ODL_LOG("! (((connection1._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                            ODL_LOG("! (((connection1._fromNode == kNodeName1) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName2) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"\"s) && "//####
                                                                     "(connection1._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection2._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection2._fromNode == kNodeName2) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName1) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"blort\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kUDP)) || " //####
-                                                                    "((connection2._fromNode == NODE_NAME_1) && " //####
-                                                                    "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection2._toNode == NODE_NAME_2) && " //####
-                                                                    "(connection2._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "((connection2._fromNode == kNodeName1) && " //####
+                                                                    "(connection2._fromPath == kChannelPath1) && " //####
+                                                                    "(connection2._toNode == kNodeName2) && " //####
+                                                                    "(connection2._toPath == kChannelPath2) && " //####
                                                                     "(connection2._dataType == \"\"s) && " //####
                                                                     "(connection2._mode == nImO::TransportType::kTCP) && " //####
-                                                                    "(connection1._fromNode == NODE_NAME_2) && " //####
-                                                                    "(connection1._fromPath == CHANNEL_PATH_1) && " //####
-                                                                    "(connection1._toNode == NODE_NAME_1) && " //####
-                                                                    "(connection1._toPath == CHANNEL_PATH_2) && " //####
+                                                                    "(connection1._fromNode == kNodeName2) && " //####
+                                                                    "(connection1._fromPath == kChannelPath1) && " //####
+                                                                    "(connection1._toNode == kNodeName1) && " //####
+                                                                    "(connection1._toPath == kChannelPath2) && " //####
                                                                     "(connection1._dataType == \"blort\"s) && " //####
                                                                     "(connection1._mode == nImO::TransportType::kUDP)))"); //####
                                                         }
@@ -11215,7 +11214,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
         }
         else
         {
-            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(BAD_NODE_NAME)};
+            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(kBadNodeName)};
 
             if (statusWithInfo.first.first)
             {
@@ -11286,7 +11285,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
         }
         else
         {
-            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(BAD_MACHINE_NAME)};
+            auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(kBadMachineName)};
 
             if (statusWithInfo.first.first)
             {
@@ -11357,7 +11356,7 @@ doTestGetConnectionInfoWithEmptyRegistry
         }
         else
         {
-            auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, false)};
+            auto    statusWithInfo{aRegistry->getConnectionInformation(kNodeName1, kChannelPath1, false)};
 
             if (statusWithInfo.first.first)
             {
@@ -11369,7 +11368,7 @@ doTestGetConnectionInfoWithEmptyRegistry
                 }
                 else
                 {
-                    statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, true);
+                    statusWithInfo = aRegistry->getConnectionInformation(kNodeName1, kChannelPath1, true);
                     if (statusWithInfo.first.first)
                     {
                         nImO::ConnectionInfo &  info2{statusWithInfo.second};
@@ -11450,23 +11449,23 @@ doTestGetConnectionInfoInRegistryWithOneConnection
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, false)};
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(kNodeName1, kChannelPath1, false)};
 
                                     if (statusWithInfo.first.first)
                                     {
@@ -11478,24 +11477,24 @@ doTestGetConnectionInfoInRegistryWithOneConnection
                                         }
                                         else
                                         {
-                                            statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, CHANNEL_PATH_1, true);
+                                            statusWithInfo = aRegistry->getConnectionInformation(kNodeName1, kChannelPath1, true);
                                             if (statusWithInfo.first.first)
                                             {
                                                 nImO::ConnectionInfo &  connection2{statusWithInfo.second};
 
-                                                if (connection2._found && (connection2._fromNode == NODE_NAME_1) &&
-                                                    (connection2._fromPath == CHANNEL_PATH_1) && (connection2._toNode == NODE_NAME_2) &&
-                                                    (connection2._toPath == CHANNEL_PATH_2) && (connection2._dataType == ""s) &&
+                                                if (connection2._found && (connection2._fromNode == kNodeName1) &&
+                                                    (connection2._fromPath == kChannelPath1) && (connection2._toNode == kNodeName2) &&
+                                                    (connection2._toPath == kChannelPath2) && (connection2._dataType == ""s) &&
                                                     (connection2._mode == nImO::TransportType::kTCP))
                                                 {
                                                     result = 0;
                                                 }
                                                 else
                                                 {
-                                                    ODL_LOG("! (connection2._found && (connection2._fromNode == NODE_NAME_1) && " //####
-                                                            "(connection2._fromPath == CHANNEL_PATH_1) && " //####
-                                                            "(connection2._toNode == NODE_NAME_2) && " //####
-                                                            "(connection2._toPath == CHANNEL_PATH_2) && (connection2._dataType == \"\"s) && " //####
+                                                    ODL_LOG("! (connection2._found && (connection2._fromNode == kNodeName1) && " //####
+                                                            "(connection2._fromPath == kChannelPath1) && " //####
+                                                            "(connection2._toNode == kNodeName2) && " //####
+                                                            "(connection2._toPath == kChannelPath2) && (connection2._dataType == \"\"s) && " //####
                                                             "(connection2._mode == nImO::TransportType::kTCP))"); //####
                                                 }
                                             }
@@ -11596,23 +11595,23 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    auto    statusWithInfo{aRegistry->getConnectionInformation(BAD_NODE_NAME, CHANNEL_PATH_1, false)};
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(kBadNodeName, kChannelPath1, false)};
 
                                     if (statusWithInfo.first.first)
                                     {
@@ -11620,7 +11619,7 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
                                     }
                                     else
                                     {
-                                        statusWithInfo = aRegistry->getConnectionInformation(BAD_NODE_NAME, CHANNEL_PATH_1, true);
+                                        statusWithInfo = aRegistry->getConnectionInformation(kBadNodeName, kChannelPath1, true);
                                         if (statusWithInfo.first.first)
                                         {
                                             ODL_LOG("(statusWithInfo.first.first)"); //####
@@ -11717,23 +11716,23 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
 
             if (status.first)
             {
-                status = aRegistry->addNode(NODE_NAME_1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                 if (status.first)
                 {
-                    status = aRegistry->addChannel(NODE_NAME_1, CHANNEL_PATH_1, true, "", nImO::TransportType::kAny);
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kAny);
                     if (status.first)
                     {
-                        status = aRegistry->addNode(NODE_NAME_2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                        status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
                         if (status.first)
                         {
-                            status = aRegistry->addChannel(NODE_NAME_2, CHANNEL_PATH_2, false, "", nImO::TransportType::kTCP);
+                            status = aRegistry->addChannel(kNodeName2, kChannelPath2, false, ""s, nImO::TransportType::kTCP);
                             if (status.first)
                             {
-                                status = aRegistry->addConnection(NODE_NAME_1, CHANNEL_PATH_1, NODE_NAME_2, CHANNEL_PATH_2, "",
+                                status = aRegistry->addConnection(kNodeName1, kChannelPath1, kNodeName2, kChannelPath2, ""s,
                                                                   nImO::TransportType::kTCP);
                                 if (status.first)
                                 {
-                                    auto    statusWithInfo{aRegistry->getConnectionInformation(NODE_NAME_1, BAD_CHANNEL_PATH, false)};
+                                    auto    statusWithInfo{aRegistry->getConnectionInformation(kNodeName1, kBadChannelPath, false)};
 
                                     if (statusWithInfo.first.first)
                                     {
@@ -11741,7 +11740,7 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
                                     }
                                     else
                                     {
-                                        statusWithInfo = aRegistry->getConnectionInformation(NODE_NAME_1, BAD_CHANNEL_PATH, true);
+                                        statusWithInfo = aRegistry->getConnectionInformation(kNodeName1, kBadChannelPath, true);
                                         if (statusWithInfo.first.first)
                                         {
                                             ODL_LOG("(statusWithInfo.first.first)"); //####

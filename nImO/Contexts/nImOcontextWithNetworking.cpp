@@ -65,28 +65,28 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The connection to be used for logging, if none is specified in the configuration file. */
-static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, IPV4_ADDR(239, 17, 12, 1)), 1954};
+static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, BytesToIPv4Address(239, 17, 12, 1)), 1954};
 
 /*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
-static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, IPV4_ADDR(239, 17, 12, 1)), 1955};
+static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, BytesToIPv4Address(239, 17, 12, 1)), 1955};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
-static int kDefaultRegistryTimeout{5};
+constexpr int   kDefaultRegistryTimeout{5};
 
 /*! @brief The key for the logger address in the configuration file. */
-static std::string  kLoggerAddressKey{"logger address"};
+static const std::string    kLoggerAddressKey{"logger address"s};
 
 /*! @brief The key for the logger port in the configuration file. */
-static std::string  kLoggerPortKey{"logger port"};
+static const std::string    kLoggerPortKey{"logger port"s};
 
 /*! @brief The key for the maximum number of seconds to watch for a running Registry. */
-static std::string  kRegistryTimeoutKey{"registry search timeout"};
+static const std::string    kRegistryTimeoutKey{"registry search timeout"s};
 
 /*! @brief The key for the status address in the configuration file. */
-static std::string  kStatusAddressKey{"status address"};
+static const std::string    kStatusAddressKey{"status address"s};
 
 /*! @brief The key for the status port in the configuration file. */
-static std::string  kStatusPortKey{"status port"};
+static const std::string    kStatusPortKey{"status port"s};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

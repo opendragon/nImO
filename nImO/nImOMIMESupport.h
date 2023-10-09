@@ -54,7 +54,7 @@
 
 /*! @brief The string to follow a MIME message being sent via TCP/IP; UDP/IP MIME messages are
  contained within a single datagram so don't need this string. */
-# define MIME_MESSAGE_TERMINATOR_   "$$$"
+const std::string   kMiMeMessageTerminator{"$$$"s};
 
 namespace nImO
 {

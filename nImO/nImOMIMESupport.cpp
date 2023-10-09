@@ -67,28 +67,26 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
 /*! @brief The 'equals' character that is used to pad MIME data. */
-static const char   kEqualsChar{'='};
+constexpr char  kEqualsChar{'='};
 
 /*! @brief The set of characters to be used with MIME data. */
 static const char   kMIMECharSet[]{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"};
 
 /*! @brief The 'plus' character that is used in MIME data.
  This is a convenience declaration to simply validity checks. */
-static const char   kPlusChar{'+'};
+constexpr char  kPlusChar{'+'};
 
 /*! @brief The 'slash' character that is used in MIME data.
  This is a convenience declaration to simply validity checks. */
-static const char   kSlashChar{'/'};
+constexpr char  kSlashChar{'/'};
 
 /*! @brief The maximum line length when converting to a MIME representation of data. */
-static const size_t kMaxMIMELine{72}; // Must be divisible by 4!
+constexpr size_t    kMaxMIMELine{72}; // Must be divisible by 4!
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables

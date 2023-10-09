@@ -87,7 +87,7 @@ PortArgumentDescriptor::PortArgumentDescriptor
      const int              defaultValue,
      const bool             isSystemPort) :
         inherited{argName, argDescription, argMode, defaultValue, true,
-                    isSystemPort ? 0 : MINIMUM_PORT_ALLOWED_, true, MAXIMUM_PORT_ALLOWED_},
+                    isSystemPort ? 0 : kMinimumPortAllowed, true, kMaximumPortAllowed},
         _isSystemPort{isSystemPort}
 {
     ODL_ENTER(); //####
@@ -232,7 +232,7 @@ PortArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::PortTypeTag) + getParameterSeparator() + (_isSystemPort ? "s" : "r") +
+    std::string result{prefixFields(ArgumentTypeTag::PortTypeTag) + getParameterSeparator() + (_isSystemPort ? "s"s : "r"s) +
                         suffixFields(getDefaultValue())};
 
     ODL_OBJEXIT_s(result); //####

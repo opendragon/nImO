@@ -71,8 +71,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -284,7 +282,7 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO", "nImOmonitor", 2017, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO"s, "nImOmonitor"s, 2017, kNiMoCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -292,7 +290,7 @@ main
         {
             nImO::SetSpecialBreakFunction(doConditionNotify);
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{progName, "monitor", optionValues._logging};
+            nImO::ContextWithNetworking             ourContext{progName, "monitor"s, optionValues._logging};
             nImO::Connection                        loggingConnection{ourContext.getLoggingInfo()};
             nImO::Connection                        statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};

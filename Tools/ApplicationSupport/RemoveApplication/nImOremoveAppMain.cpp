@@ -100,7 +100,7 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application", "nImOremoveApp shortAppName", 2020, NIMO_COPYRIGHT_NAME_,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application"s, "nImOremoveApp shortAppName"s, 2020, kNiMoCopyrightName,
                                      optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -108,7 +108,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string         nodeName{nImO::GetShortComputerName()};
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "removeApp", optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "removeApp"s, optionValues._logging)};
             nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -120,10 +120,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

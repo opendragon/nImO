@@ -673,7 +673,7 @@ nImO::Set::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     bool first{true};
 
-    outBuffer.addChar(kStartSetChar);
+    outBuffer.appendChar(kStartSetChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
@@ -682,7 +682,7 @@ nImO::Set::printToStringBuffer
         {
             if ((! squished) || (! first))
             {
-                outBuffer.addChar(' ');
+                outBuffer.appendChar(' ');
             }
             aValue->printToStringBuffer(outBuffer);
             first = false;
@@ -690,9 +690,9 @@ nImO::Set::printToStringBuffer
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndSetChar);
+    outBuffer.appendChar(kEndSetChar);
     ODL_OBJEXIT(); //####
 } // nImO::Set::printToStringBuffer
 
@@ -709,7 +709,7 @@ nImO::Set::printToStringBufferAsJSON
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     bool first{true};
 
-    outBuffer.addChar(kStartArrayChar);
+    outBuffer.appendChar(kStartArrayChar);
     for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
@@ -718,11 +718,11 @@ nImO::Set::printToStringBufferAsJSON
         {
             if (! first)
             {
-                outBuffer.addChar(',');
+                outBuffer.appendChar(',');
             }
             if ((! squished) || (! first))
             {
-                outBuffer.addChar(' ');
+                outBuffer.appendChar(' ');
             }
             aValue->printToStringBufferAsJSON(outBuffer);
             first = false;
@@ -730,9 +730,9 @@ nImO::Set::printToStringBufferAsJSON
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndArrayChar);
+    outBuffer.appendChar(kEndArrayChar);
     ODL_OBJEXIT(); //####
 } // nImO::Set::printToStringBufferAsJSON
 

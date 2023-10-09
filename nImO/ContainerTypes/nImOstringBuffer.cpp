@@ -169,14 +169,17 @@ nImO::StringBuffer::addBytes
         '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
     };
 
-    addChar(kBlobSeparator).addLong(numBytes).addChar(kBlobSeparator);
+    appendChar(kBlobSeparator);
+    addLong(numBytes);
+    appendChar(kBlobSeparator);
     for (size_t ii = 0; numBytes > ii; ++ii)
     {
         uint8_t aByte{inBytes[ii]};
 
-        addChar(hexDigits[(aByte >> 4) & 0x0F]).addChar(hexDigits[aByte & 0x0F]);
+        appendChar(hexDigits[(aByte >> 4) & 0x0F]);
+        appendChar(hexDigits[aByte & 0x0F]);
     }
-    addChar(kBlobSeparator);
+    appendChar(kBlobSeparator);
     ODL_OBJEXIT_P(this); //####
     return *this;
 } // nImO::StringBuffer::addBytes
@@ -369,7 +372,7 @@ nImO::StringBuffer::processCharacters
 
             if ((0x20 > aByte) || (0 != (aByte &0x80)))
             {
-                inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
+                appendChar(kEscapeChar);
                 if (0x20 > aByte)
                 {
                     CPtr(char)  controlString{kCanonicalControl[aByte]};
@@ -419,7 +422,7 @@ nImO::StringBuffer::processCharacters
                         {
                             CPtr(char)  controlString{kCanonicalControl[aByte]};
 
-                            inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
+                            appendChar(kEscapeChar);
                             inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
                                                    strlen(controlString) * sizeof(*controlString));
                         }
@@ -435,7 +438,7 @@ nImO::StringBuffer::processCharacters
                 // Handle normal escapes - nested delimiters and the escape character
                 if ((delimiter == aByte) || (kEscapeChar == aByte))
                 {
-                    inherited::appendBytes(&kEscapeChar, sizeof(kEscapeChar));
+                    appendChar(kEscapeChar);
                 }
                 inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString + ii), sizeof(*aString));
             }
@@ -445,9 +448,9 @@ nImO::StringBuffer::processCharacters
     else
     {
         // Nothing special
-        inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
+        appendChar(kDoubleQuote);
         inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), aString), length * sizeof(*aString));
-        inherited::appendBytes(&kDoubleQuote, sizeof(kDoubleQuote));
+        appendChar(kDoubleQuote);
     }
     ODL_EXIT(); //####
 } // nImO::StringBuffer::processCharacters

@@ -61,7 +61,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -72,10 +71,10 @@ using namespace std::string_literals;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of random floating point numbers to convert. */
-static const int    kNumDoubleTests = 100;
+static const int    kNumDoubleTests{100};
 
 /*! @brief The expected maximum size of a buffer needed for conversion. */
-static const size_t kBufferSize = 20;
+static const size_t kBufferSize{20};
 
 #if defined(__APPLE__)
 # pragma mark Local functions

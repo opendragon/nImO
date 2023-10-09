@@ -601,14 +601,14 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            holding.addChar(aChar);
+                            holding.appendChar(aChar);
                         }
                         break;
 
                     case ScanState::SawEscape :
                         if (delimiter == aChar)
                         {
-                            holding.addChar(aChar);
+                            holding.appendChar(aChar);
                             state = ScanState::Normal;
                         }
                         else
@@ -654,7 +654,7 @@ nImO::String::readFromStringBuffer
                             {
                                 CPtr(char)  replacement{standardEscapesActual + (whichEscape - standardEscapes)};
 
-                                holding.addChar(*replacement);
+                                holding.appendChar(*replacement);
                                 state = ScanState::Normal;
                             }
                         }
@@ -697,7 +697,7 @@ nImO::String::readFromStringBuffer
                             case '7' :
                                 octalSum *= 8;
                                 octalSum += aChar - '0';
-                                holding.addChar(StaticCast(char, octalSum));
+                                holding.appendChar(StaticCast(char, octalSum));
                                 state = ScanState::Normal;
                                 break;
 
@@ -713,7 +713,7 @@ nImO::String::readFromStringBuffer
                         aChar = toupper(aChar);
                         if (('@' <= aChar) && ('_' >= aChar))
                         {
-                            holding.addChar(aChar - '@');
+                            holding.appendChar(aChar - '@');
                             state = ScanState::Normal;
                         }
                         else
@@ -739,7 +739,7 @@ nImO::String::readFromStringBuffer
                         aChar = toupper(aChar);
                         if (('@' <= aChar) && ('_' >= aChar))
                         {
-                            holding.addChar(aChar - '@');
+                            holding.appendChar(aChar - '@');
                             state = ScanState::Normal;
                         }
                         else
@@ -768,7 +768,7 @@ nImO::String::readFromStringBuffer
                         }
                         else
                         {
-                            holding.addChar(aChar | 0x080);
+                            holding.appendChar(aChar | 0x080);
                             state = ScanState::Normal;
                         }
                         break;
@@ -801,7 +801,7 @@ nImO::String::readFromStringBuffer
                         aChar = toupper(aChar);
                         if (('@' <= aChar) && ('_' >= aChar))
                         {
-                            holding.addChar((aChar - '@') | 0x080);
+                            holding.appendChar((aChar - '@') | 0x080);
                             state = ScanState::Normal;
                         }
                         else

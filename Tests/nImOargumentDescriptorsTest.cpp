@@ -69,7 +69,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -157,7 +156,7 @@ doTestAddressArgumentDescriptors
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
                 testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
-                                                                             SELF_ADDRESS_IPADDR_);
+                                                                             kSelfAddressIpAddress);
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -190,7 +189,7 @@ doTestAddressArgumentDescriptors
                 if (1 == argc)
                 {
                     testDescriptor = std::make_shared<AddressArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
-                                                                                 SELF_ADDRESS_IPADDR_);
+                                                                                 kSelfAddressIpAddress);
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;

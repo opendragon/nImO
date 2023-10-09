@@ -80,9 +80,9 @@ namespace nImO
              @param[in] nodeName The @nImO-visible name of the executing program. */
             UtilityContext
                 (const std::string &    executableName,
-                 const std::string &    tagForLogging = "",
+                 const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
-                 const std::string &    nodeName = "");
+                 const std::string &    nodeName = ""s);
 
             /*! @brief Is this a UtilityContext?
              @return @c this. */

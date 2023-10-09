@@ -61,7 +61,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -87,7 +86,7 @@ nImO::ProcessServiceOptions
      const std::string &    serviceDescription,
      const std::string &    matchingCriteria,
      const int              year,
-     CPtr(char)             copyrightHolder,
+     const std::string &    copyrightHolder,
      ServiceOptions &       optionValues,
      const OptionsMask      skipOptions,
      Ptr(StringVector)      arguments)
@@ -95,8 +94,7 @@ nImO::ProcessServiceOptions
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
-    ODL_S2s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria); //####
-    ODL_S1("copyrightHolder = ", copyrightHolder); //####
+    ODL_S3s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria, "copyrightHolder = ", copyrightHolder); //####
     ODL_X1("skipOptions = ", StaticCast(int64_t, skipOptions)); //####
     enum class OptionIndex
     {
@@ -117,11 +115,11 @@ nImO::ProcessServiceOptions
 
     bool        isAdapter{0 < matchingCriteria.length()};
     bool        keepGoing{true};
-    std::string serviceKindName{isAdapter ? "adapter" : "service"};
-    std::string describePartText{"  --describe, -d \tPrint executable type, supported "};
-    std::string tagPartText{"  --tag, -t \tSpecify the tag to be used as part of the "};
+    std::string serviceKindName{isAdapter ? "adapter"s : "service"s};
+    std::string describePartText{"  --describe, -d \tPrint executable type, supported "s};
+    std::string tagPartText{"  --tag, -t \tSpecify the tag to be used as part of the "s};
 
-    describePartText += serviceKindName + " options";
+    describePartText += serviceKindName + " options"s;
     if (isAdapter)
     {
         describePartText += ", matching criteria"s;
@@ -155,7 +153,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
-    std::string         usageString{"USAGE: "};
+    std::string         usageString{"USAGE: "s};
     std::string         argList{ArgumentsToArgString(argumentDescriptions)};
 
     if (nullptr != arguments)
@@ -228,9 +226,9 @@ nImO::ProcessServiceOptions
 
 #if MAC_OR_LINUX_
     firstDescriptor.help = strdup(usageString.c_str());
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
     firstDescriptor.help = _strdup(usageString.c_str());
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
     if (0 == (skipOptions & kSkipArgsOption))
     {
@@ -292,7 +290,7 @@ nImO::ProcessServiceOptions
     else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
              (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
     {
-        Option_::printUsage(std::cout, usage, HELP_LINE_LENGTH_);
+        Option_::printUsage(std::cout, usage, kHelpLineLength);
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

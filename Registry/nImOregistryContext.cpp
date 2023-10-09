@@ -515,7 +515,7 @@ nImO::RegistryContext::makePortAnnouncement
         }
         else
         {
-            hostAddress = SELF_ADDRESS_IPADDR_;
+            hostAddress = kSelfAddressIpAddress;
         }
         okSoFar = _announceData->setServiceData(port, serviceName, hostName, dataKey, hostAddress);
         if (okSoFar)

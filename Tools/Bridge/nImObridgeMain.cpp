@@ -101,14 +101,14 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two subnets", "", 2016, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two subnets"s, ""s, 2016, kNiMoCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge", optionValues._logging,
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge"s, optionValues._logging,
                                                                                   firstArg.getCurrentValue())};
             nImO::Connection    registryConnection;
 
@@ -121,10 +121,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

@@ -345,7 +345,7 @@ nImO::CommandHandler::sendStatusReport
             StringVector    outVec;
 
             EncodeBytesAsMIME(outVec, asString);
-            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
+            auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
 
             // send the encoded message to the logging ports
             theSocket.async_send_to(boost::asio::buffer(*outString), theEndpoint,

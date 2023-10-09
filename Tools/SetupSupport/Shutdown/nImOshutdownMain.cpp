@@ -68,8 +68,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -107,14 +105,14 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes", "nImOshutdown [node]", 2023,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipFlavoursOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown [node]"s, 2023,
+                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown", optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown"s, optionValues._logging)};
             std::string         nodeName{firstArg.getCurrentValue()};
             nImO::Connection    registryConnection;
 
@@ -156,7 +154,7 @@ main
 
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections");
+                            ourContext->report("closing all connections"s);
                         }
                         // Send Shutdown command to all other nodes on the machine.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
@@ -212,7 +210,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Unknown node: '"s + nodeName + "'");
+                            ourContext->report("Unknown node: '"s + nodeName + "'"s);
                         }
                     }
                     else
@@ -253,7 +251,7 @@ main
 
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections");
+                            ourContext->report("closing all connections"s);
                         }
                         // Send Shutdown command to all other nodes.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
@@ -281,17 +279,17 @@ main
                     }
                     // Give the Registry time to handle pending requests.
                     nImO::ConsumeSomeTime(ourContext.get(), 20);
-                    ourContext->report("sending shutdown request to Registry");
+                    ourContext->report("sending shutdown request to Registry"s);
                     // Send Shutdown command to Registry.
                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

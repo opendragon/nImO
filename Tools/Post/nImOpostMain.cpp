@@ -104,14 +104,14 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications", "nImOpost false \"aMessage\"", 2022,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications"s, "nImOpost false \"aMessage\""s, 2022,
+                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipLoggingOption | nImO::kSkipMachineOption, &arguments))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::ContextWithNetworking ourContext{progName, "post", optionValues._logging};
+            nImO::ContextWithNetworking ourContext{progName, "post"s, optionValues._logging};
             std::string                 header{secondArg.getCurrentValue()};
             bool                        readFromStdin{firstArg.getCurrentValue()};
 

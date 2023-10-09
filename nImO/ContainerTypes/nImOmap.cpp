@@ -718,31 +718,31 @@ nImO::Map::printToStringBuffer
     ODL_B1("squished = ", squished); //####
     bool    first{true};
 
-    outBuffer.addChar(kStartMapChar);
+    outBuffer.appendChar(kStartMapChar);
     for (auto & walker : *this)
     {
         if ((! squished) || (! first))
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
         walker.first->printToStringBuffer(outBuffer);
         if (! squished)
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
-        outBuffer.addChar(kKeyValueSeparator);
+        outBuffer.appendChar(kKeyValueSeparator);
         if (! squished)
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
         walker.second->printToStringBuffer(outBuffer);
         first = false;
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndMapChar);
+    outBuffer.appendChar(kEndMapChar);
     ODL_OBJEXIT(); //####
 } // nImO::Map::printToStringBuffer
 
@@ -759,37 +759,37 @@ nImO::Map::printToStringBufferAsJSON
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     bool    first{true};
 
-    outBuffer.addChar(kStartMapChar);
+    outBuffer.appendChar(kStartMapChar);
     for (auto & walker : *this)
     {
         if (! first)
         {
-            outBuffer.addChar(',');
+            outBuffer.appendChar(',');
         }
         if ((! squished) || (! first))
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
         SpValue keyValue = walker.first;
 
         keyValue->printToStringBufferAsJSON(outBuffer, true);
         if (! squished)
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
-        outBuffer.addChar(kKeyValueSeparator);
+        outBuffer.appendChar(kKeyValueSeparator);
         if (! squished)
         {
-            outBuffer.addChar(' ');
+            outBuffer.appendChar(' ');
         }
         walker.second->printToStringBufferAsJSON(outBuffer);
         first = false;
     }
     if (! squished)
     {
-        outBuffer.addChar(' ');
+        outBuffer.appendChar(' ');
     }
-    outBuffer.addChar(kEndMapChar);
+    outBuffer.appendChar(kEndMapChar);
     ODL_OBJEXIT(); //####
 } // nImO::Map::printToStringBufferAsJSON
 

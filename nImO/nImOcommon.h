@@ -85,6 +85,8 @@
 #  endif // not LINUX_
 # endif // not defined(MAC_OR_LINUX_)
 
+using namespace std::string_literals;
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -115,14 +117,14 @@
 #  include <sys/socket.h>
 #  define SOCKET         int /* Standard socket type in *nix. */
 #  define INVALID_SOCKET -1
-# else // ! MAC_OR_LINUX_
+# else // not MAC_OR_LINUX_
 #  pragma warning(push)
 #  pragma warning(disable: 4996)
 #  include <WinSock2.h>
 #  include <Ws2tcpip.h>
 #  include <iphlpapi.h>
 #  pragma warning(pop)
-# endif // ! MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -145,56 +147,51 @@
 # endif // defined(__APPLE__)
 
 /*! @brief A double quote character. */
-# define CHAR_DOUBLEQUOTE_              "\""
-
-/*! @brief The default name for the root part of a channel name. */
-# define DEFAULT_CHANNEL_ROOT_          "channel_"
+# define CHAR_DOUBLEQUOTE_  "\""
 
 /*! @brief The line length for command-line help output. */
-constexpr size_t    HELP_LINE_LENGTH_ = 250;
+constexpr size_t    kHelpLineLength{250};
 
 /*! @brief The largest IP port that is acceptable. */
-constexpr int   MAXIMUM_PORT_ALLOWED_ = 65535;
+constexpr int   kMaximumPortAllowed{65535};
 
 /*! @brief The smallest IP port that is acceptable. */
-constexpr int   MINIMUM_PORT_ALLOWED_ = 1024;
+constexpr int   kMinimumPortAllowed{1024};
 
 /*! @brief The character separating argument descriptors. */
-# define ARGUMENT_SEPARATOR_            "\v"
+# define ARGUMENT_SEPARATOR_    "\v"
 
 /*! @brief The standard copyright holder name to use for m+m-created executables. */
-# define NIMO_COPYRIGHT_NAME_           "OpenDragon"
+const std::string   kNiMoCopyrightName{"OpenDragon"s};
 
-/*! @brief The IP address for the loopback address for the machine that is running the
- executable. */
-# define SELF_ADDRESS_IPADDR_           "127.0.0.1"
+/*! @brief The IP address for the loopback address for the machine that is running the executable. */
+const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
 
-/*! @brief The IP name for the loopback address for the machine that is running the
- executable. */
-# define SELF_ADDRESS_NAME_             "localhost"
+/*! @brief The IP name for the loopback address for the machine that is running the executable. */
+const std::string   kSelfAddressName{"localhost"s};
 
 /*! @brief The signal to use for internally-detected timeouts. */
 # if MAC_OR_LINUX_
-#  define STANDARD_SIGNAL_TO_USE_       SIGUSR2
-# else // ! MAC_OR_LINUX_
-#  define STANDARD_SIGNAL_TO_USE_       42
-# endif // ! MAC_OR_LINUX_
-
-/*! @brief A simple macro to calculate the number of elements in an array. */
-# define A_SIZE(arr_)                   (sizeof(arr_) / sizeof(*arr_))
+#  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
+# else // not MAC_OR_LINUX_
+#  define STANDARD_SIGNAL_TO_USE_   42
+# endif // not MAC_OR_LINUX_
 
 /*! @brief A simple macro to make the pointer declarations a bit more readable. */
-# define Ptr(type_)                     type_ *
+# define Ptr(type_) type_ *
 
 /*! @brief A simple macro to make the pointer declarations a bit more readable. */
-# define CPtr(type_)                    const type_ *
+# define CPtr(type_)    const type_ *
 
 /*! @brief A macro to make 'casts' more legible. */
 # define StaticCast(type_,value_)       static_cast<type_>(value_)
+
 /*! @brief A macro to make 'casts' more legible. */
 # define ConstCast(type_,value_)        const_cast<type_>(value_)
+
 /*! @brief A macro to make 'casts' more legible. */
 # define DynamicCast(type_,value_)      dynamic_cast<type_>(value_)
+
 /*! @brief A macro to make 'casts' more legible. */
 # define ReinterpretCast(type_,value_)  reinterpret_cast<type_>(value_)
 
@@ -211,6 +208,20 @@ toUType
     noexcept
 {
     return StaticCast(typename std::underlying_type<Type>::type, enumerator);
+}
+
+/*! @brief Return the number of elements in a fixed array.
+ @tparam Type The type of the contents of the array.
+ @tparam Num The declared number of elements in the array.
+ @return The number of elements in the array. */
+template
+    <typename       Type,
+     std::size_t    Num>
+constexpr std::size_t
+numElementsInArray
+    (const Type (&)[Num])
+{
+    return Num;
 }
 
 namespace BAIP = boost::asio::ip;
@@ -625,22 +636,22 @@ namespace nImO
 # define NIMO_UNUSED_VAR_(var_)  nImO::internal_::ignore_unused_variable_(var_)
 
     /*! @brief The minimum count representable in a short floating point. */
-    const int   DataKindDoubleShortCountMinValue = 1;
+    constexpr int   DataKindDoubleShortCountMinValue{1};
 
     /*! @brief The maximum count representable in a short floating point. */
-    const int   DataKindDoubleShortCountMaxValue = 32;
+    constexpr int   DataKindDoubleShortCountMaxValue{32};
 
     /*! @brief The minimum value representable in a short signed integer. */
-    const int   DataKindIntegerShortValueMinValue = -16;
+    constexpr int   DataKindIntegerShortValueMinValue{-16};
 
     /*! @brief The maximum value representable in a short signed integer. */
-    const int   DataKindIntegerShortValueMaxValue = 15;
+    constexpr int   DataKindIntegerShortValueMaxValue{15};
 
     /*! @brief The minimum count representable in a short floating point. */
-    const int   DataKindStringOrBlobShortLengthMinValue = 0;
+    constexpr int   DataKindStringOrBlobShortLengthMinValue{0};
 
     /*! @brief The maximum count representable in a short floating point. */
-    const int   DataKindStringOrBlobShortLengthMaxValue = 15;
+    constexpr int   DataKindStringOrBlobShortLengthMaxValue{15};
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
@@ -991,7 +1002,7 @@ namespace nImO
         (const int  aPort,
          const bool systemAllowed = false)
     {
-        return (((systemAllowed ? 0 : MINIMUM_PORT_ALLOWED_) <= aPort) && (MAXIMUM_PORT_ALLOWED_ >= aPort));
+        return (((systemAllowed ? 0 : kMinimumPortAllowed) <= aPort) && (kMaximumPortAllowed >= aPort));
     }
 
     /*! @brief The character that is used with Address data formatting. */
@@ -1031,10 +1042,10 @@ namespace nImO
     extern const char   kStartSetChar;
 
     /*! @brief A character that brackets a string value. */
-    extern const uint8_t    kDoubleQuote;
+    extern const char   kDoubleQuote;
 
     /*! @brief The escape character. */
-    extern const uint8_t    kEscapeChar;
+    extern const char   kEscapeChar;
 
     /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;

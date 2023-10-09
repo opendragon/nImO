@@ -102,14 +102,14 @@ main
     ODL_ENTER(); //####
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on a channel", "nImOinfo chan", 2016, NIMO_COPYRIGHT_NAME_, optionValues,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on a channel"s, "nImOinfo chan"s, 2016, kNiMoCopyrightName, optionValues,
                                      nullptr, nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "info", optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "info"s, optionValues._logging)};
             nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -121,10 +121,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

@@ -101,7 +101,7 @@ namespace nImO
                 (const std::string &    nodeName,
                  const std::string &    path,
                  const bool             isOutput = false,
-                 const std::string &    dataType = "",
+                 const std::string &    dataType = ""s,
                  const TransportType    modes = TransportType::kAny);
 
             /*! @brief Add a connection to the Registry.
@@ -118,7 +118,7 @@ namespace nImO
                  const std::string &    fromPath,
                  const std::string &    toNodeName,
                  const std::string &    toPath,
-                 const std::string &    dataType = "",
+                 const std::string &    dataType = ""s,
                  const TransportType    mode = TransportType::kAny);
     
             /*! @brief Add a node to the Registry.

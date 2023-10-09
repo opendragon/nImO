@@ -193,7 +193,7 @@ namespace nImO
          const std::string &    utilityDescription,
          const std::string &    utilityExample,
          const int              year,
-         CPtr(char)             copyrightHolder,
+         const std::string &    copyrightHolder,
          StandardOptions &      optionValues,
          HelpFunction           helper = nullptr,
          const OptionsMask      optionsToIgnore = kSkipNone,

@@ -71,7 +71,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -82,7 +81,7 @@ using namespace std::string_literals;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of elements in a big test. */
-static const size_t kBigTestSize = 100000;
+constexpr size_t    kBigTestSize{100000};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -4641,7 +4640,7 @@ doTestValidArrayCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testLogicals testSet1r[]
         {
             { false,
@@ -4657,7 +4656,7 @@ doTestValidArrayCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
 
         stuff.addValue(std::make_shared<Logical>(true));
         stuff.addValue(std::make_shared<Logical>(true));
@@ -4763,7 +4762,7 @@ doTestValidArrayCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            constexpr size_t    numTestValues2l{numElementsInArray(testSet2l)};
             static testLogicals testSet2r[]
             {
                 { false,
@@ -4779,7 +4778,7 @@ doTestValidArrayCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2r{A_SIZE(testSet2r)};
+            constexpr size_t    numTestValues2r{numElementsInArray(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -4951,7 +4950,7 @@ doTestValidArrayCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues3l{A_SIZE(testSet3l)};
+            constexpr size_t    numTestValues3l{numElementsInArray(testSet3l)};
             static testNumbers  testSet3r[]
             {
                 { -300,
@@ -5021,7 +5020,7 @@ doTestValidArrayCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues3r{A_SIZE(testSet3r)};
+            constexpr size_t    numTestValues3r{numElementsInArray(testSet3r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Double>(123.45));
@@ -5159,7 +5158,7 @@ doTestValidArrayCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues4l{A_SIZE(testSet4l)};
+            constexpr size_t    numTestValues4l{numElementsInArray(testSet4l)};
             static testStrings  testSet4r[]
             {
                 { "aaa",
@@ -5193,7 +5192,7 @@ doTestValidArrayCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues4r{A_SIZE(testSet4r)};
+            constexpr size_t    numTestValues4r{numElementsInArray(testSet4r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<String>("abc"));
@@ -5329,7 +5328,7 @@ doTestValidArrayCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t            numTestValues5l{A_SIZE(testSet5l)};
+            constexpr size_t        numTestValues5l{numElementsInArray(testSet5l)};
             static testAddresses    testSet5r[]
             {
                 { 0x01020304,
@@ -5363,7 +5362,7 @@ doTestValidArrayCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues5r{A_SIZE(testSet5r)};
+            constexpr size_t    numTestValues5r{numElementsInArray(testSet5r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Address>(0x12345678));
@@ -5515,7 +5514,7 @@ doTestValidLogicalMapCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testLogicals testSet1r[]
         {
             { false,
@@ -5531,7 +5530,7 @@ doTestValidLogicalMapCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true), std::make_shared<String>("abc"));
@@ -5638,7 +5637,7 @@ doTestValidLogicalMapCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            constexpr size_t    numTestValues2l{numElementsInArray(testSet2l)};
             static testLogicals testSet2r[]
             {
                 { false,
@@ -5654,7 +5653,7 @@ doTestValidLogicalMapCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2r{A_SIZE(testSet2r)};
+            constexpr size_t    numTestValues2r{numElementsInArray(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false), std::make_shared<String>("abc"));
@@ -5860,7 +5859,7 @@ doTestValidIntegerMapCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testNumbers  testSet1r[]
         {
             { -300,
@@ -5930,7 +5929,7 @@ doTestValidIntegerMapCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123), std::make_shared<String>("abc"));
@@ -6101,7 +6100,7 @@ doTestValidStringMapCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testStrings  testSet1r[]
         {
             { "aaa",
@@ -6135,7 +6134,7 @@ doTestValidStringMapCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
@@ -6286,7 +6285,7 @@ doTestValidLogicalSetCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testLogicals testSet1r[]
         {
             { false,
@@ -6302,7 +6301,7 @@ doTestValidLogicalSetCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Logical>(true));
@@ -6409,7 +6408,7 @@ doTestValidLogicalSetCompares
                     ComparisonStatus{true}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2l{A_SIZE(testSet2l)};
+            constexpr size_t    numTestValues2l{numElementsInArray(testSet2l)};
             static testLogicals testSet2r[]
             {
                 { false,
@@ -6425,7 +6424,7 @@ doTestValidLogicalSetCompares
                     ComparisonStatus{false}, // >=
                     ComparisonStatus{false} } // ==
             };
-            const size_t        numTestValues2r{A_SIZE(testSet2r)};
+            constexpr size_t    numTestValues2r{numElementsInArray(testSet2r)};
 
             stuff.clear();
             stuff.addValue(std::make_shared<Logical>(false));
@@ -6631,7 +6630,7 @@ doTestValidIntegerSetCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testNumbers  testSet1r[]
         {
             { -300,
@@ -6701,7 +6700,7 @@ doTestValidIntegerSetCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Integer>(123));
@@ -6872,7 +6871,7 @@ doTestValidStringSetCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
         static testStrings  testSet1r[]
         {
             { "aaa",
@@ -6906,7 +6905,7 @@ doTestValidStringSetCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<String>("abc"));
@@ -7047,7 +7046,7 @@ doTestInvalidArrayCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
             &rightValue5, &rightValue6, &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>());
         leftValue.addValue(std::make_shared<Number>());
@@ -7162,7 +7161,7 @@ doTestInvalidLogicalMapCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>(false), std::make_shared<String>("false"));
         leftValue.addValue(std::make_shared<Logical>(true), std::make_shared<String>("true"));
@@ -7275,7 +7274,7 @@ doTestInvalidIntegerMapCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Integer>(17), std::make_shared<Double>(12.345));
@@ -7390,7 +7389,7 @@ doTestInvalidStringMapCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<String>("abc"), std::make_shared<String>("123"));
         leftValue.addValue(std::make_shared<String>("def"), std::make_shared<String>("456"));
@@ -7505,7 +7504,7 @@ doTestInvalidLogicalSetCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Logical>(false));
         leftValue.addValue(std::make_shared<Logical>(true));
@@ -7618,7 +7617,7 @@ doTestInvalidIntegerSetCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Integer>(42));
         leftValue.addValue(std::make_shared<Integer>(17));
@@ -7733,7 +7732,7 @@ doTestInvalidStringSetCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<String>("abc"));
         leftValue.addValue(std::make_shared<String>("def"));
@@ -7888,7 +7887,7 @@ doTestValidAddressMapCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t            numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t        numTestValues1l{numElementsInArray(testSet1l)};
         static testAddresses    testSet1r[]
         {
             { 0x01020304,
@@ -7934,7 +7933,7 @@ doTestValidAddressMapCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Map                 stuff;
 
         stuff.addValue(std::make_shared<Address>(0x12345678), std::make_shared<String>("abc"));
@@ -8116,7 +8115,7 @@ doTestValidAddressSetCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t            numTestValues1l{A_SIZE(testSet1l)};
+        constexpr size_t        numTestValues1l{numElementsInArray(testSet1l)};
         static testAddresses    testSet1r[]
         {
             { 0x01020304,
@@ -8162,7 +8161,7 @@ doTestValidAddressSetCompares
                 ComparisonStatus{false}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t        numTestValues1r{A_SIZE(testSet1r)};
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
         Set                 stuff;
 
         stuff.addValue(std::make_shared<Address>(0x12345678));
@@ -8304,7 +8303,7 @@ doTestInvalidAddressMapCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Address>(0x12345678), std::make_shared<Double>(123.45));
         leftValue.addValue(std::make_shared<Address>(0x345678AB), std::make_shared<Double>(12.345));
@@ -8419,7 +8418,7 @@ doTestInvalidAddressSetCompares
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
             &rightValue7, &rightValue8
         };
-        const size_t    numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         leftValue.addValue(std::make_shared<Address>(0x12345678));
         leftValue.addValue(std::make_shared<Address>(0x345678AB));

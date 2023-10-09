@@ -99,7 +99,7 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher", "", 2023, NIMO_COPYRIGHT_NAME_, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, kNiMoCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipTagOption))
@@ -108,8 +108,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "launcher", optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher", optionValues._logging, true,
+            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher"s, optionValues._logging, true,
                                                                                   nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
@@ -124,7 +124,7 @@ main
                 {
                     if (statusWithBool.second)
                     {
-                        ourContext->report(nodeName + " already running.");
+                        ourContext->report(nodeName + " already running."s);
                         std::cerr << nodeName << " already running.\n";
                         exitCode = 1;
                     }
@@ -137,7 +137,7 @@ main
                             if (statusWithBool.second)
                             {
 std::cerr << "** Unimplemented **\n";
-                                ourContext->report("waiting for requests.");
+                                ourContext->report("waiting for requests."s);
                                 for ( ; nImO::gKeepRunning; )
                                 {
                                     boost::this_thread::yield();
@@ -149,7 +149,7 @@ std::cerr << "** Unimplemented **\n";
                                 {
                                     if (! statusWithBool.second)
                                     {
-                                        ourContext->report(nodeName + " already unregistered.");
+                                        ourContext->report(nodeName + " already unregistered."s);
                                         std::cerr << nodeName << " already unregistered.\n";
                                         exitCode = 1;
                                     }
@@ -162,7 +162,7 @@ std::cerr << "** Unimplemented **\n";
                             }
                             else
                             {
-                                ourContext->report(nodeName + " already registered.");
+                                ourContext->report(nodeName + " already registered."s);
                                 std::cerr << nodeName << " already registered.\n";
                                 exitCode = 1;
                             }
@@ -182,10 +182,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

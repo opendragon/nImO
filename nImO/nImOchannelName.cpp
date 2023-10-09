@@ -59,8 +59,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -71,10 +69,10 @@ using namespace std::string_literals;
 #define TRANSPORT_MATCH_STRING  "([Uu][Dd][Pp]|[Tt][Cc][Pp]|[Aa][Nn][Yy])"
 
 /*! @brief The character that ends the network part of a ChannelName. */
-static const char   kEndNetwork{':'};
+constexpr char  kEndNetwork{':'};
 
 /*! @brief The character that starts the protocol part of a ChannelName. */
-static const char   kStartProtocol{'#'};
+constexpr char  kStartProtocol{'#'};
 
 /*! @brief A regular expression describing the syntax of a channel name. */
 static std::regex   lChannelNameMatch{"^((" NAME_MATCH_STRING ")?:)?(" NAME_MATCH_STRING ")?(" PATH_MATCH_STRING ")(#" TRANSPORT_MATCH_STRING ")?$",
@@ -93,13 +91,13 @@ static std::regex   lTransportMatch{"^" TRANSPORT_MATCH_STRING "$", std::regex::
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string    nImO::kProtocolAnyName{"any"};
+const std::string   nImO::kProtocolAnyName{"any"s};
 
-const std::string    nImO::kProtocolTcpName{"tcp"};
+const std::string   nImO::kProtocolTcpName{"tcp"s};
 
-const std::string    nImO::kProtocolUdpName{"udp"};
+const std::string   nImO::kProtocolUdpName{"udp"s};
 
-const std::string    nImO::kProtocolUnknownName{"unknown"};
+const std::string   nImO::kProtocolUnknownName{"unknown"s};
 
 #if defined(__APPLE__)
 # pragma mark Local functions

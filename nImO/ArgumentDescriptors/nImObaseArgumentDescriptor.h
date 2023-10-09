@@ -49,11 +49,11 @@
 # if (! MAC_OR_LINUX_)
 #  pragma warning(push)
 #  pragma warning(disable: 4512)
-# endif // ! MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_
 # include <optionparser.hpp>
 # if (! MAC_OR_LINUX_)
 #  pragma warning(pop)
-# endif // ! MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)

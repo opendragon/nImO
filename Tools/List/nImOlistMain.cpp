@@ -66,8 +66,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::string_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -919,14 +917,14 @@ main
     int                             exitCode{0};
 
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space", "nImOlist node", 2016,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space"s, "nImOlist node"s, 2016,
+                                     kNiMoCopyrightName, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "list", optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "list"s, optionValues._logging)};
             nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -986,10 +984,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

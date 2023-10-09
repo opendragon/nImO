@@ -103,8 +103,8 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Update an application", "nImOupdateApp /path-to-application [shortAppName]", 2023,
-                                     NIMO_COPYRIGHT_NAME_, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Update an application"s, "nImOupdateApp /path-to-application [shortAppName]"s, 2023,
+                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -112,7 +112,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string         nodeName{nImO::GetShortComputerName()};
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "updateApp", optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "updateApp"s, optionValues._logging)};
             nImO::Connection    registryConnection;
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -124,10 +124,10 @@ std::cerr << "** Unimplemented **\n";
             }
             else
             {
-                ourContext->report("Registry not found.");
+                ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

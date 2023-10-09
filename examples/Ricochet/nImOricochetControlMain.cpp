@@ -90,8 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::BooleanArgumentDescriptor firstArg{"random", "True if random path", nImO::ArgumentMode::Optional, false};
-    nImO::PortArgumentDescriptor    secondArg{"port", "Port for communication", nImO::ArgumentMode::Optional, 2020};
+    nImO::BooleanArgumentDescriptor firstArg{"random"s, "True if random path"s, nImO::ArgumentMode::Optional, false};
+    nImO::PortArgumentDescriptor    secondArg{"port"s, "Port for communication"s, nImO::ArgumentMode::Optional, 2020};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};
@@ -103,7 +103,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example", "", 2020, NIMO_COPYRIGHT_NAME_, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example"s, ""s, 2020, kNiMoCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

@@ -76,7 +76,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -104,7 +103,7 @@ static const DataKind   kTermNonEmptyMessageValue{nImO::DataKind::EndOfMessageVa
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kMessageSentinel{MIME_MESSAGE_TERMINATOR_};
+const std::string   nImO::kMessageSentinel{kMiMeMessageTerminator};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -182,7 +181,7 @@ nImO::Message::close
                     DataKind::StartOfMessageValue | DataKind::OtherMessageEmptyValue,
                     DataKind::EndOfMessageValue | DataKind::OtherMessageEmptyValue
                 };
-                const size_t    emptyMessageLength{A_SIZE(emptyMessage)};
+                constexpr size_t    emptyMessageLength{numElementsInArray(emptyMessage)};
 
                 appendBytes(emptyMessage, emptyMessageLength);
             }
@@ -480,7 +479,7 @@ nImO::MatchMessageSeparator
     {
         std::string checker{ii++, end};
 
-        if (checker == MIME_MESSAGE_TERMINATOR_)
+        if (kMiMeMessageTerminator == checker)
         {
             return std::make_pair(ii, true);
         }

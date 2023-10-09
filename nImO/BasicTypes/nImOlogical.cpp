@@ -65,10 +65,10 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The standard textual representation of a @c false value. */
-static const std::string kCanonicalFalse{"false"};
+static const std::string    kCanonicalFalse{"false"s};
 
 /*! @brief The standard textual representation of a @c true value. */
-static const std::string kCanonicalTrue{"true"};
+static const std::string    kCanonicalTrue{"true"s};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -502,9 +502,9 @@ nImO::Logical::printToStringBufferAsJSON
     ODL_B2("asKey = ", asKey, "squished = ", squished); //####
     if (asKey)
     {
-        outBuffer.addChar('"');
+        outBuffer.appendChar(kDoubleQuote);
         outBuffer.addBool(_value);
-        outBuffer.addChar('"');
+        outBuffer.appendChar(kDoubleQuote);
     }
     else
     {

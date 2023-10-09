@@ -70,7 +70,6 @@
 #endif // defined(__APPLE__)
 
 using namespace nImO;
-using namespace std::string_literals;
 
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
@@ -81,12 +80,12 @@ using namespace std::string_literals;
 #endif // defined(__APPLE__)
 
 /*! @brief The number of elements in a small test. */
-static const size_t kSmallTestSize = 100;
+constexpr size_t    kSmallTestSize{100};
 
 /*! @brief The number of elements in a big test. */
-static const size_t kBigTestSize = 100000;
+constexpr size_t    kBigTestSize{100000};
 
-static char kHexDigits[]{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+static const char kHexDigits[]{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -169,7 +168,7 @@ getIPv4Bytes
 {
     bool    okSoFar{true};
 
-    for (size_t ii = 0, mm = A_SIZE(asBytes); okSoFar && (ii < mm); ++ii)
+    for (size_t ii = 0, mm = numElementsInArray(asBytes); okSoFar && (ii < mm); ++ii)
     {
         Ptr(char)   endPtr;
         int64_t     value{strtoll(inString, &endPtr, 10)};
@@ -2794,7 +2793,7 @@ doTestValidLogicalCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests{A_SIZE(testSet)};
+        constexpr size_t    numTests{numElementsInArray(testSet)};
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
@@ -2916,7 +2915,7 @@ doTestValidNumberCompares
             ComparisonStatus    _equalTo;
         }; // testsR2R
 
-        const testsI2I  testSet1[]
+        const testsI2I      testSet1[]
         {
             // l   r
             { 0,   0,
@@ -2962,8 +2961,8 @@ doTestValidNumberCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests1{A_SIZE(testSet1)};
-        const testsI2R  testSet2[]
+        constexpr size_t    numTests1{numElementsInArray(testSet1)};
+        const testsI2R      testSet2[]
         {
             // l   r
             { 0,   0,
@@ -3009,8 +3008,8 @@ doTestValidNumberCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests2{A_SIZE(testSet2)};
-        const testsR2I  testSet3[]
+        constexpr size_t    numTests2{numElementsInArray(testSet2)};
+        const testsR2I      testSet3[]
         {
             // l   r
             { 0,   0,
@@ -3056,8 +3055,8 @@ doTestValidNumberCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests3{A_SIZE(testSet3)};
-        const testsR2R  testSet4[]
+        constexpr size_t    numTests3{numElementsInArray(testSet3)};
+        const testsR2R      testSet4[]
         {
             // l   r
             { 0,   0,
@@ -3103,7 +3102,7 @@ doTestValidNumberCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests4{A_SIZE(testSet4)};
+        constexpr size_t    numTests4{numElementsInArray(testSet4)};
 
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
@@ -3376,7 +3375,7 @@ doTestValidStringCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t    numTests{A_SIZE(testSet)};
+        constexpr size_t    numTests{numElementsInArray(testSet)};
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
@@ -3468,17 +3467,17 @@ doTestValidBlobCompares
             ComparisonStatus    _equalTo;
         }; // tests
 
-        const uint8_t   blobData1[]{ 1, 2, 3, 4, 5, 6 };
-        const uint8_t   blobData2[]{ 1, 2, 3, 4, 5, 6, 7 };
-        const uint8_t   blobData3[]{ 1, 2, 3, 4, 5, 7 };
-        const size_t    blobSize1{A_SIZE(blobData1)};
-        const size_t    blobSize2{A_SIZE(blobData2)};
-        const size_t    blobSize3{A_SIZE(blobData3)};
-        Blob            blob0;
-        Blob            blob1(blobData1, blobSize1);
-        Blob            blob2(blobData2, blobSize2);
-        Blob            blob3(blobData3, blobSize3);
-        const tests     testSet[]
+        const uint8_t       blobData1[]{ 1, 2, 3, 4, 5, 6 };
+        const uint8_t       blobData2[]{ 1, 2, 3, 4, 5, 6, 7 };
+        const uint8_t       blobData3[]{ 1, 2, 3, 4, 5, 7 };
+        constexpr size_t    blobSize1{numElementsInArray(blobData1)};
+        constexpr size_t    blobSize2{numElementsInArray(blobData2)};
+        constexpr size_t    blobSize3{numElementsInArray(blobData3)};
+        Blob                blob0;
+        Blob                blob1(blobData1, blobSize1);
+        Blob                blob2(blobData2, blobSize2);
+        Blob                blob3(blobData3, blobSize3);
+        const tests         testSet[]
         {
             // left   right
             { &blob0, &blob0,
@@ -3530,7 +3529,7 @@ doTestValidBlobCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{false} } // ==
         };
-        const size_t    numTests{A_SIZE(testSet)};
+        constexpr size_t    numTests{numElementsInArray(testSet)};
 
         for (size_t ii = 0; (0 == result) && (numTests > ii); ++ii)
         {
@@ -3618,7 +3617,7 @@ doTestInvalidLogicalCompares
         Blob                rightValue3;
         Address             rightValue4;
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
-        const size_t        numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -3722,7 +3721,7 @@ doTestInvalidNumberCompares
         Blob                rightValue3;
         Address             rightValue4;
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
-        const size_t        numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -3826,7 +3825,7 @@ doTestInvalidStringCompares
         Blob                rightValue3;
         Address             rightValue4;
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
-        const size_t        numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -3930,7 +3929,7 @@ doTestInvalidBlobCompares
         String              rightValue3;
         Address             rightValue4;
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
-        const size_t        numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {
@@ -4084,7 +4083,7 @@ doTestValidAddressCompares
                 ComparisonStatus{true}, // >=
                 ComparisonStatus{true} } // ==
         };
-        const size_t    numTests1{A_SIZE(testSet1)};
+        constexpr size_t    numTests1{numElementsInArray(testSet1)};
 
         for (size_t ii = 0; (0 == result) && (numTests1 > ii); ++ii)
         {
@@ -4172,7 +4171,7 @@ doTestInvalidAddressCompares
         Blob                rightValue3;
         Integer             rightValue4;
         Ptr(Value)          rightValues[]{ &rightValue1, &rightValue2, &rightValue3, &rightValue4 };
-        const size_t        numRightValues{A_SIZE(rightValues)};
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
         for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
         {

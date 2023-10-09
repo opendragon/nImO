@@ -50,9 +50,9 @@
 
 #if MAC_OR_LINUX_
 # include <unistd.h>
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
 # include <winsock.h>
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -86,13 +86,13 @@
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kCommandPortKey{"commandPort"};
+const std::string   nImO::kCommandPortKey{"commandPort"s};
 
-const std::string   nImO::kComputerNameKey{"computer"};
+const std::string   nImO::kComputerNameKey{"computer"s};
 
-const std::string   nImO::kMessageKey{"message"};
+const std::string   nImO::kMessageKey{"message"s};
 
-const std::string   nImO::kTagKey{"tag"};
+const std::string   nImO::kTagKey{"tag"s};
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -231,7 +231,7 @@ nImO::Logger::report
                 StringVector    outVec;
 
                 EncodeBytesAsMIME(outVec, asString);
-                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n")));
+                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
 
                 // send the encoded message to the logging ports
                 _socket.async_send_to(boost::asio::buffer(*outString), _endpoint,

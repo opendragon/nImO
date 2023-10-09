@@ -56,13 +56,13 @@ namespace nImO
 {
 
     /*! @brief The 'shutdown' request. */
-    const std::string   kShutDownRequest = "shutDown.";
+    const std::string   kShutDownRequest{"shutDown."s};
 
     /*! @brief The 'shutdown' response. */
-    const std::string   kShutDownResponse = "shutDown=";
+    const std::string   kShutDownResponse{"shutDown="s};
 
     /*! @brief A place-holder response for a bad command. */
-    const std::string   kBadResponse = "BAD!!!";
+    const std::string   kBadResponse{"BAD!!!"s};
 
 } // nImO
 

@@ -146,7 +146,7 @@ namespace nImO
             @param[in] nodeName The @nImO-visible name of the executing program. */
             Context
                 (const std::string &    executableName,
-                 const std::string &    nodeName = "");
+                 const std::string &    nodeName = ""s);
 
         private :
             // Private methods.

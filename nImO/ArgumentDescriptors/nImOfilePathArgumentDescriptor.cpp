@@ -44,9 +44,9 @@
 
 #if MAC_OR_LINUX_
 # include <unistd.h>
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
 # include <io.h>
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -105,9 +105,9 @@ checkFilePath
             {
 #if MAC_OR_LINUX_
                 okSoFar = (0 == access("..", W_OK));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
                 okSoFar = (0 == _access("..", 2));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
             }
             else
             {
@@ -119,9 +119,9 @@ checkFilePath
             dirPath = dirPath.substr(0, lastDelim);
 #if MAC_OR_LINUX_
             okSoFar = (0 == access(dirPath.c_str(), W_OK));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
             okSoFar = (0 == _access(dirPath.c_str(), 2));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
         }
     }
     else if (0 < strlen(thePath))
@@ -129,9 +129,9 @@ checkFilePath
         // The file must exist and be readable.
 #if MAC_OR_LINUX_
         okSoFar = (0 == access(thePath, R_OK));
-#else // ! MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_
         okSoFar = (0 == _access(thePath, 4));
-#endif // ! MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_
     }
     else
     {
@@ -385,8 +385,8 @@ FilePathArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     std::string oldDefault{inherited::getDefaultValue()};
-    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o" : "i") +
-                        getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1" : "0") +
+    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o"s : "i"s) +
+                        getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1"s : "0"s) +
                         suffixFields(_pathPrefix)};
 
     NIMO_UNUSED_VAR_(oldDefault);

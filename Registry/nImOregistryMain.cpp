@@ -137,7 +137,7 @@ main
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry", "", 2022, NIMO_COPYRIGHT_NAME_, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry"s, ""s, 2022, kNiMoCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipTagOption))
@@ -153,7 +153,7 @@ main
             nImO::ServiceContext::addStandardHandlers(ourContext);
             if (ourContext->asServiceContext()->findRegistry(true))
             {
-                ourContext->report("Registry already running.");
+                ourContext->report("Registry already running."s);
                 std::cerr << "Registry already running.\n";
             }
             else
@@ -162,7 +162,7 @@ main
 
                 if (nullptr == theRegistry)
                 {
-                    ourContext->report("Could not create Registry.");
+                    ourContext->report("Could not create Registry."s);
                 }
                 else
                 {
@@ -247,7 +247,7 @@ main
                     asRegistryContext->addHandler(nImO::kSetChannelInUseRequest,
                                                   std::make_shared<nImO::SetChannelInUseCommandHandler>(ourContext, theRegistry));
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
-                                                                nImO::GetShortComputerName(), NIMO_REGISTRY_ADDRESS_KEY))
+                                                                nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
                     {
                         for ( ; nImO::gKeepRunning; )
                         {
@@ -259,7 +259,7 @@ main
                 }
             }
             nImO::EnableWaitForRegistry();
-            ourContext->report("exiting.");
+            ourContext->report("exiting."s);
         }
         catch (...)
         {

@@ -112,7 +112,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] responseKey The expected response key. */
             ResponseHandler
-                (void);
+                (void) = default;
 
         private :
             // Private methods.

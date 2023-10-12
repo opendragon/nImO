@@ -110,23 +110,6 @@ nImO::Value::addToReaderMap
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::Value::Value
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::Value::Value
-
-nImO::Value::Value
-    (Value &&   other)
-    noexcept
-{
-    NIMO_UNUSED_VAR_(other);
-    ODL_ENTER(); //####
-    ODL_P1("other = ", &other); //####
-    ODL_EXIT_P(this); //####
-} // nImO::Value::Value
-
 nImO::Value::~Value
     (void)
 {
@@ -592,18 +575,6 @@ nImO::Value::lessThanOrEqual
     ODL_EXIT_B(result.Result()); //####
     return result;
 } // nImO::Value::lessThanOrEqual
-
-nImO::Value &
-nImO::Value::operator=
-    (Value &&   other)
-    noexcept
-{
-    NIMO_UNUSED_VAR_(other);
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::Value::operator=
 
 std::ostream &
 nImO::Value::operator<<

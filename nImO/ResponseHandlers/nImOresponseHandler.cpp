@@ -85,13 +85,6 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ResponseHandler::ResponseHandler
-    (void)
-{
-    ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::ResponseHandler::ResponseHandler
-
 nImO::ResponseHandler::~ResponseHandler
     (void)
 {

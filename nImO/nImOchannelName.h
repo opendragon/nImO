@@ -72,7 +72,7 @@ namespace nImO
 
             /*! @brief The constructor. */
             ChannelName
-                (void);
+                (void) = default;
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */

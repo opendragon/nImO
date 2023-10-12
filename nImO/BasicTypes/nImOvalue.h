@@ -144,7 +144,7 @@ namespace nImO
              @param[in] other The object to be moved. */
             Value
                 (Value &&	other)
-                noexcept;
+                noexcept = default;
 
             /*! @brief Return non-@c nullptr if the object is an Array.
              @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
@@ -431,7 +431,7 @@ namespace nImO
 
             /*! @brief The constructor. */
             Value
-                (void);
+                (void) = default;
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
@@ -439,7 +439,7 @@ namespace nImO
             Value &
             operator=
                 (Value && other)
-                noexcept;
+                noexcept = default;
 
             /*! @brief Insert a readable version of the object into an output stream.
              @param[in,out] out The stream to be added to.

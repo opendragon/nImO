@@ -113,7 +113,7 @@ compareValueWithSquishedString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
+    ODL_ENTER(); //####
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
@@ -138,7 +138,7 @@ compareValueWithString
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
+    ODL_ENTER(); //####
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
@@ -163,7 +163,7 @@ compareValueWithSquishedStringAsJSON
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
+    ODL_ENTER(); //####
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
@@ -188,7 +188,7 @@ compareValueWithStringAsJSON
     (const Value &  aValue,
      CPtr(char)     aString)
 {
-    ODL_ENTER(); //###
+    ODL_ENTER(); //####
     ODL_P1("aValue = ", &aValue); //####
     ODL_S1("aString = ", aString); //####
     StringBuffer    buff;
@@ -11645,6 +11645,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::Initialize();
     nImO::ReportVersions();
     try
     {

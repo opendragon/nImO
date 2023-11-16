@@ -39,9 +39,10 @@
 #include <nImOstandardOptions.h>
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
-
-#include <initFile.h>
-#include <initFileObject.h>
+#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOvalue.h>
+#include <ContainerTypes/nImOmap.h>
+#include <ContainerTypes/nImOstringBuffer.h>
 
 #include <fstream>
 #include <string>
@@ -80,7 +81,7 @@ using namespace nImO;
 static const std::string    kDefaultConfigFilePath{CONFIG_FILE_ROOT_PATH "nimo-config.txt"};
 
 /*! @brief The loaded configuration values. */
-static InitFile::SpBaseValue    lConfigurationValues;
+static nImO::SpValue    lConfigurationValues{};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -94,25 +95,25 @@ static InitFile::SpBaseValue    lConfigurationValues;
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-boost::optional<InitFile::SpBaseValue>
+boost::optional<nImO::SpValue>
 nImO::GetConfiguredValue
     (const std::string &    key)
 {
     ODL_ENTER(); //####
     ODL_S1s("key = ", key); //####
-    boost::optional<InitFile::SpBaseValue>  retVal;
+    boost::optional<SpValue>    retVal;
 
     if ((0 < key.length()) && (nullptr != lConfigurationValues))
     {
-        Ptr(InitFile::ObjectValue)  asObjectValue{lConfigurationValues->AsObject()};
+        CPtr(Map)   asMapValue{lConfigurationValues->asMap()};
 
-        if (nullptr != asObjectValue)
+        if (nullptr != asMapValue)
         {
-            InitFile::SpBaseValue   value{asObjectValue->GetValue(key)};
+            auto    iter{asMapValue->find(std::make_shared<String>(key))};
 
-            if (nullptr != value)
+            if (asMapValue->end() != iter)
             {
-                retVal = value;
+                retVal = iter->second;
             }
         }
     }
@@ -146,9 +147,12 @@ nImO::LoadConfiguration
 
         if (inStream)
         {
-            InitFile::SpBaseValue readValue{InitFile::GetValue(inStream)};
+            nImO::StringBuffer  readString{};
 
-            if ((nullptr != readValue) && (nullptr != readValue->AsObject()))
+            inStream >> readString;
+            nImO::SpValue   readValue{readString.convertToValue()};
+
+            if ((nullptr != readValue) && (nullptr != readValue->asMap()))
             {
                 lConfigurationValues = readValue;
             }
@@ -349,6 +353,10 @@ nImO::ProcessStandardOptions
         if ((0 == (kSkipConfigFileOption & optionsToIgnore)) && (nullptr != configOption) && (nullptr != configOption->arg))
         {
             optionValues._configFilePath = configOption->arg;
+        }
+        else
+        {
+            optionValues._configFilePath = kDefaultConfigFilePath;
         }
         Ptr(Option_::Option)    machineOption{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]};
 

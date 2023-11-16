@@ -100,6 +100,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanIn example"s, ""s, 2023, kNiMoCopyrightName, optionValues,

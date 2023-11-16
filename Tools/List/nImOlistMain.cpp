@@ -898,6 +898,7 @@ main
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
              kODLoggingOptionWriteToStderr); //####
     ODL_ENTER(); //####
+    nImO::Initialize();
     nImO::ReportVersions();
     lChoiceMap.insert({"apps", ChoiceInfo{Choice::kApps, "available applications"}});
     lChoiceMap.insert({"chan", ChoiceInfo{Choice::kChan, "available channels"}});

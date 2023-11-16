@@ -167,9 +167,6 @@ endif()
 
 list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 
-# Find ANTLR4
-find_package(antlr4-runtime REQUIRED)
-
 set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
@@ -201,17 +198,6 @@ if(ODL_FOUND)
     include_directories(${ODL_INCLUDE_DIRS})
 endif()
 
-# The following is to help CMake find IF...
-if(WIN32)
-    set(IF_DIR "C:/Program Files/IF/lib")
-else()
-    set(IF_DIR "/opt/if/lib")
-endif()
-find_package(IF 1.0.0 REQUIRED)
-if(IF_FOUND)
-    include_directories(${IF_INCLUDE_DIRS})
-endif()
-
 # The following is to help CMake find mdns_plusplus...
 if(WIN32)
     set(mdns_plusplus_DIR "C:/Program Files/mdns_plusplus/lib")
@@ -239,20 +225,7 @@ else()
     set(DL_LIB "")
 endif()
 
-if(WIN32)
-    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.lib)
-elseif(APPLE)
-    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.dylib)
-elseif(LINUX)
-    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.so)
-elseif(UNIX)
-    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.so)
-else()
-    set(ANTLR4_RUNTIME ${ANTLR4_LIB_DIR}/libantlr4-runtime.a)
-endif()
-
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS}
-    ${ANTLR4_RUNTIME} Threads::Threads ${DL_LIB})
+set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS} Threads::Threads ${DL_LIB})
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)
@@ -265,9 +238,6 @@ if(APPLE)
 
         add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                             ${ODL_LIBRARY_ROOT} "@rpath/${ODL_LIBRARY_ROOT}" ${target})
-
-        add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                            ${IF_LIBRARY_ROOT} "@rpath/${IF_LIBRARY_ROOT}" ${target})
 
     endfunction()
 elseif(UNIX)
@@ -294,7 +264,7 @@ install(FILES
 install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/nimo-config.txt
         DESTINATION ${nImO_RUN_CONFIG_DIR}
-        PERMISSIONS OWNER_WRITE OWNER_READ)
+        PERMISSIONS OWNER_WRITE WORLD_READ)
 
 install(PROGRAMS
         ${CMAKE_CURRENT_BINARY_DIR}/nimo.sh

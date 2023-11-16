@@ -478,7 +478,8 @@ nImO::Address::operator<<
     IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
-    out << kStartAddressChar << bytes[0] << kAddressSeparator << bytes[1] << kAddressSeparator << bytes[2] << kAddressSeparator << bytes[3];
+    out << kStartAddressChar << std::to_string(bytes[0]) << kAddressSeparator << std::to_string(bytes[1]) << kAddressSeparator <<
+            std::to_string(bytes[2]) << kAddressSeparator << std::to_string(bytes[3]);
     ODL_OBJEXIT_P(&out); //####
     return out;
 } // nImO::Address::operator<<

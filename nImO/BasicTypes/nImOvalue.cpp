@@ -533,13 +533,9 @@ nImO::Value::isLegalTerminator
     {
         result = true;
     }
-    else if (gTerminators.npos == gTerminators.find(aChar))
-    {
-        result = false;
-    }
     else
     {
-        result = true;
+        result = (gTerminators.npos != gTerminators.find(aChar));
     }
     ODL_EXIT_B(result); //####
     return result;

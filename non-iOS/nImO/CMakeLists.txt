@@ -159,7 +159,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOstandardOptions.cpp"
             "${THIS_SOURCE_DIR}/optionparser.cpp")
 
-target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${IF_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
 
 if(LINUX)
     target_link_libraries(${THIS_TARGET}
@@ -169,9 +169,6 @@ endif()
 if(APPLE)
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
                         ${ODL_LIBRARY_ROOT} ${ODL_LIBRARY} ${THIS_TARGET_LIB})
-
-    add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -change
-                        ${IF_LIBRARY_ROOT} ${IF_LIBRARY} ${THIS_TARGET_LIB})
 
     add_custom_command(TARGET ${THIS_TARGET} POST_BUILD COMMAND install_name_tool -id
                         ${THIS_TARGET_LIB} ${THIS_TARGET_LIB})

@@ -163,7 +163,7 @@ nImO::StringBuffer::addBytes
     ODL_OBJENTER(); //####
     ODL_P1("inBytes = ", inBytes); //####
     ODL_I1("numBytes = ", numBytes); //####
-    static const char hexDigits[16] =
+    static const char hexDigits[16]
     {
         '0', '1', '2', '3', '4', '5', '6', '7',
         '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
@@ -264,7 +264,7 @@ nImO::StringBuffer::convertToValue
             }
             if (atEnd)
             {
-                if (holder)
+                if (nullptr != holder)
                 {
                     holder->addValue(result);
                 }
@@ -280,7 +280,7 @@ nImO::StringBuffer::convertToValue
                 holder->addValue(result);
                 result = Value::readFromStringBuffer(*this, position);
                 ODL_P1("result <- ", result.get()); //####
-                if (! result)
+                if (nullptr == result)
                 {
                     ODL_LOG("(! result)"); //####
                     valid = false;
@@ -290,7 +290,7 @@ nImO::StringBuffer::convertToValue
         }
         if (valid)
         {
-            if (holder)
+            if (nullptr != holder)
             {
                 result = holder;
                 ODL_P1("result <- ", result.get()); //####
@@ -458,6 +458,23 @@ nImO::StringBuffer::processCharacters
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+std::istream &
+nImO::operator>>
+    (std::istream & in,
+     StringBuffer & aBuffer)
+{
+    ODL_ENTER(); //###
+    ODL_P2("in = ", &in, "aBuffer = ", &aBuffer); //####
+    aBuffer.reset();
+    for (std::string inLine; std::getline(in, inLine); )
+    {
+        aBuffer.addString(inLine);
+        aBuffer.appendChar('\n');
+    }
+    ODL_EXIT_P(&in); //###
+    return in;
+} // nImO::operator>>
 
 std::ostream &
 nImO::operator<<

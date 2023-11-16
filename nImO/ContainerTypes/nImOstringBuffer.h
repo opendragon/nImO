@@ -198,6 +198,11 @@ namespace nImO
                 (StringBuffer &&    other)
                 noexcept;
 
+            friend std::istream &
+            operator>>
+                (std::istream & in,
+                 StringBuffer & aBuffer);
+
             friend std::ostream &
             operator<<
                 (std::ostream &         out,
@@ -227,6 +232,15 @@ namespace nImO
             // Private fields.
 
     }; // StringBuffer
+
+    /*! @brief Extract a buffer from an input stream.
+     @param[in,out] in The stream to be extracted from.
+     @param[in] aBuffer The StringBuffer to be filled.
+     @return The modified stream. */
+    std::istream &
+    operator>>
+        (std::istream & in,
+         StringBuffer & aBuffer);
 
     /*! @brief Insert a readable version of the buffer into an
      output stream.

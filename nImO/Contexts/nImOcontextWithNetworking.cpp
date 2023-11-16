@@ -38,8 +38,8 @@
 
 #include <Contexts/nImOcontextWithNetworking.h>
 
-#include <initFileAddress.h>
-#include <initFileInteger.h>
+#include <BasicTypes/nImOaddress.h>
+#include <BasicTypes/nImOinteger.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
@@ -146,23 +146,23 @@ nImO::ContextWithNetworking::ContextWithNetworking
             Ptr(boost::thread)  aThread{new boost::thread([this]
                                                           (void)
                                                           {
-                                                            getService()->run();
-                                                          })};
+                getService()->run();
+            })};
 
             ODL_P1("service thread = ", aThread); //####
             _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.
-        boost::optional<InitFile::SpBaseValue>  retValue{GetConfiguredValue(kLoggerAddressKey)};
+        auto    retValue{GetConfiguredValue(kLoggerAddressKey)};
 
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue{*retValue};
-            Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
+            SpValue         actualValue(*retValue);
+            CPtr(Address)   asAddress{actualValue->asAddress()};
 
             if (nullptr != asAddress)
             {
-                uint64_t    tempValue{asAddress->GetValue()};
+                IPv4Address tempValue{asAddress->getAddressValue()};
 
                 if (239 == (tempValue >> 24))
                 {
@@ -177,12 +177,12 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kLoggerPortKey);
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue{*retValue};
-            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+            SpValue         actualValue(*retValue);
+            CPtr(Integer)   asInteger{actualValue->asInteger()};
 
             if (nullptr != asInteger)
             {
-                int64_t tempValue{asInteger->GetValue()};
+                int64_t tempValue{asInteger->getIntegerValue()};
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
@@ -197,12 +197,12 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kStatusAddressKey);
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue{*retValue};
-            Ptr(InitFile::AddressValue) asAddress{actualValue->AsAddress()};
+            SpValue         actualValue{*retValue};
+            CPtr(Address)   asAddress{actualValue->asAddress()};
 
             if (nullptr != asAddress)
             {
-                uint64_t    tempValue{asAddress->GetValue()};
+                IPv4Address tempValue{asAddress->getAddressValue()};
 
                 if (239 == (tempValue >> 24))
                 {
@@ -217,12 +217,12 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kStatusPortKey);
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue{*retValue};
-            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+            SpValue         actualValue{*retValue};
+            CPtr(Integer)   asInteger{actualValue->asInteger()};
 
             if (nullptr != asInteger)
             {
-                int64_t tempValue{asInteger->GetValue()};
+                int64_t tempValue{asInteger->getIntegerValue()};
 
                 if ((0 < tempValue) && (tempValue <= 0x0FFFF))
                 {
@@ -244,8 +244,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
         {
-            InitFile::SpBaseValue       actualValue(*retValue);
-            Ptr(InitFile::IntegerValue) asInteger{actualValue->AsInteger()};
+            SpValue         actualValue(*retValue);
+            CPtr(Integer)   asInteger{actualValue->asInteger()};
 
             if (nullptr == asInteger)
             {
@@ -253,7 +253,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
             }
             else
             {
-                int tempValue{StaticCast(int, asInteger->GetValue())};
+                int tempValue{StaticCast(int, asInteger->getIntegerValue())};
 
                 if (0 < tempValue)
                 {

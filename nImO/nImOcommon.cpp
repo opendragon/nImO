@@ -38,14 +38,11 @@
 
 #include <nImOcommon.h>
 
-#include <boost/version.hpp>
-#include <initFile.h>
-#include <initFileConfig.h>
-#include <initFileObject.h>
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 #include <BasicTypes/nImOvalue.h>
 #include <Contexts/nImOcontext.h>
 
+#include <boost/version.hpp>
 #include <fstream>
 #include <random>
 #include <regex>
@@ -105,6 +102,9 @@ static std::random_device   lRd;
 
 /*! @brief Mersenne Twister random number engine. */
 static std::mt19937 lMt{lRd()};
+
+/*! @brief Flag to prevent more than one initialization. */
+static bool lInitialized{false};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -577,6 +577,19 @@ nImO::I2B
     return length;
 } // nImO::I2B
 
+void
+nImO::Initialize
+    (void)
+{
+    ODL_ENTER(); //####
+    if (! lInitialized)
+    {
+        Value::initialize();
+        lInitialized = true;
+    }
+    ODL_EXIT(); //####
+} // nImO::Initialize
+
 std::string
 nImO::MakeStringFromComandLine
     (const int      numArgs,
@@ -817,7 +830,7 @@ nImO::ReportVersions
 
     std::cout << "nImO Version: " << nImO::SanitizeString(nImO_VERSION_, true) << ", ODL Version: " << nImO::SanitizeString(ODL_VERSION_, true) <<
                 ", mdns_plusplus Version: " << nImO::SanitizeString(mdns_plusplus_VERSION_, true) << ", Boost Version: " <<
-                std::regex_replace(source, exp, ".") << ", IF Version: " << nImO::SanitizeString(IF_VERSION_, true) << "\n";
+                std::regex_replace(source, exp, ".") << "\n";
 #endif /* defined(nImO_ChattyStart) */
 } // nImO::ReportVersions
 

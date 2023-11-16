@@ -40,7 +40,10 @@
 # define nImOcommon_H_ /* Header guard */
 
 # include <nImOconfig.h>
-# include <initFileBase.h>
+
+# include <istream>
+# include <memory>
+# include <ostream>
 
 // Make sure that a couple of critical macros are defined!
 # if (! defined(TRUE_))
@@ -924,6 +927,11 @@ namespace nImO
     I2B
         (const int64_t      inValue,
          NumberAsBytes &    outString);
+
+    /*! @brief Set up the nImO internal state. */
+    void
+    Initialize
+        (void);
 
     /*! @brief Construct a tab-delimited string from the command-line.
      @param[in] numArgs The number of arguments.

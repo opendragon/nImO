@@ -38,8 +38,6 @@
 
 #include <Contexts/nImOcontext.h>
 
-#include <BasicTypes/nImOvalue.h>
-
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -63,7 +61,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Flag to prevent more than one context per application. */
-static bool lContextCreated = false;
+static bool lContextCreated{false};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -97,7 +95,6 @@ nImO::Context::Context
     try
     {
         lContextCreated = true;
-        Value::initialize();
     }
     catch (...)
     {

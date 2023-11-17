@@ -306,18 +306,17 @@ nImO::Double::extractValue
     return result;
 } // nImO::Double::extractValue
 
-void
+nImO::Value::Extractor
 nImO::Double::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = DataKind::Double;
     aMask = DataKind::Mask;
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Double::getExtractionInfo
 
 nImO::DataKind

@@ -130,12 +130,11 @@ namespace nImO
             /*! @brief Get the extraction information for Integer objects.
              @param[out] aByte The byte value that indicates the start of an Integer value.
              @param[out] aMask The mask to apply to a lead byte.
-             @param[out] theExtractor The function to perform when the lead byte is seen. */
-            static void
+             @return The function to perform when the lead byte is seen. */
+            static Extractor
             getExtractionInfo
-                (DataKind &     aByte,
-                 DataKind &     aMask,
-                 Extractor &    theExtractor);
+                (DataKind & aByte,
+                 DataKind & aMask);
 
             /*! @brief Return the value of the object.
              @return The value of the object. */

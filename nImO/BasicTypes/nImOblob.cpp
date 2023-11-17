@@ -379,18 +379,17 @@ nImO::Blob::extractValue
     return result;
 } // nImO::Blob::extractValue
 
-void
+nImO::Value::Extractor
 nImO::Blob::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = (DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue);
     aMask = (DataKind::Mask | DataKind::StringOrBlobTypeMask);
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Blob::getExtractionInfo
 
 nImO::DataKind

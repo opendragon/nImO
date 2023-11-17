@@ -1019,6 +1019,12 @@ namespace nImO
     /*! @brief The character that is used with 'blob' data formatting. */
     extern const char   kBlobSeparator;
 
+    /*! @brief The character that starts a comment. */
+    extern const char   kCommentChar;
+
+    /*! @brief A character that brackets a string value. */
+    extern const char   kDoubleQuote;
+
     /*! @brief The character that ends an Array value. */
     extern const char   kEndArrayChar;
 
@@ -1030,6 +1036,9 @@ namespace nImO
 
     /*! @brief The character that ends a Set value. */
     extern const char   kEndSetChar;
+
+    /*! @brief The character that starts a special character sequence. */
+    extern const char   kEscapeChar;
 
     /*! @brief The character that separates a key from a value in a key/value pair. */
     extern const char   kKeyValueSeparator;
@@ -1048,12 +1057,6 @@ namespace nImO
 
     /*! @brief The character that starts a Set value. */
     extern const char   kStartSetChar;
-
-    /*! @brief A character that brackets a string value. */
-    extern const char   kDoubleQuote;
-
-    /*! @brief The escape character. */
-    extern const char   kEscapeChar;
 
     /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;

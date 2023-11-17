@@ -208,6 +208,17 @@ namespace nImO
                 (std::ostream &         out,
                  const StringBuffer &   aBuffer);
 
+            /*! @brief 'Eat' white space at the current position.
+             @param[in,out] position The location in the buffer to start at.
+             @param[in, out] aChar The character at the position.
+             @param[in, out] atEnd @c true if the final position is at the end of the buffer. */
+            void
+            skipOverWhiteSpace
+                (size_t &   position,
+                 int &      aChar,
+                 bool &     atEnd)
+                const;
+
         protected :
             // Protected methods.
 

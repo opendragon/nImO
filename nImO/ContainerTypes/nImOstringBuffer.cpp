@@ -243,25 +243,16 @@ nImO::StringBuffer::convertToValue
     ODL_P1("result <- ", result.get()); //####
     if (nullptr != result)
     {
-        bool    atEnd;
+        bool    atEnd{false};
         bool    done{false};
         bool    valid{true};
         SpArray holder;
 
         for ( ; ! done; )
         {
-            int aChar{getChar(position, atEnd)};
+            int aChar;
 
-            // Skip any whitespace after the value
-            ODL_C1("aChar <- ", aChar); //####
-            ODL_B1("atEnd <- ", atEnd); //####
-            for ( ; (! atEnd) && isspace(aChar); )
-            {
-                aChar = getChar(++position, atEnd);
-                ODL_C1("aChar <- ", aChar); //####
-                ODL_B1("atEnd <- ", atEnd); //####
-                ODL_I1("position <- ", position); //####
-            }
+            skipOverWhiteSpace(position, aChar, atEnd);
             if (atEnd)
             {
                 if (nullptr != holder)
@@ -454,6 +445,53 @@ nImO::StringBuffer::processCharacters
     }
     ODL_EXIT(); //####
 } // nImO::StringBuffer::processCharacters
+
+void
+nImO::StringBuffer::skipOverWhiteSpace
+    (size_t &   position,
+     int &      aChar,
+     bool &     atEnd)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P3("position = ", &position, "aChar = ", &aChar, "atEnd = ", &atEnd); //####
+    for (aChar = getChar(position, atEnd); ! atEnd; )
+    {
+        ODL_C1("aChar <- ", aChar); //####
+        ODL_I1("position <- ", position); //####
+        if (isspace(aChar) || (kCommentChar == aChar))
+        {
+            if (kCommentChar == aChar)
+            {
+                for (aChar = getChar(position, atEnd); ! atEnd; )
+                {
+                    ODL_C1("aChar <- ", aChar); //####
+                    ODL_I1("position <- ", position); //####
+                    if ('\n' == aChar)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        aChar = getChar(++position, atEnd);
+                    }
+                }
+            }
+            if (! atEnd)
+            {
+                aChar = getChar(++position, atEnd);
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+    ODL_C1("aChar <- ", aChar); //####
+    ODL_B1("atEnd <- ", atEnd); //####
+    ODL_I1("position <- ", position); //####
+    ODL_OBJEXIT(); //####
+} // nImO::StringBuffer::skipOverWhiteSpace
 
 #if defined(__APPLE__)
 # pragma mark Global functions

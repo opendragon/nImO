@@ -241,18 +241,17 @@ nImO::Logical::getCanonicalRepresentation
     return result;
 } // nImO::Logical::getCanonicalRepresentation
 
-void
+nImO::Value::Extractor
 nImO::Logical::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Logical::getExtractionInfo
 
 CPtr(char)

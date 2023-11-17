@@ -274,18 +274,17 @@ nImO::Address::extractValue
     return result;
 } // nImO::Address::extractValue
 
-void
+nImO::Value::Extractor
 nImO::Address::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Address::getExtractionInfo
 
 CPtr(char)

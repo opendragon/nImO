@@ -390,18 +390,17 @@ nImO::Array::extractValue
     return result;
 } // nImO::Array::extractValue
 
-void
+nImO::Value::Extractor
 nImO::Array::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = (DataKind::Other | DataKind::OtherContainerStart | DataKind::OtherContainerTypeArray);
     aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherContainerTypeMask);
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Array::getExtractionInfo
 
 CPtr(char)
@@ -705,15 +704,10 @@ nImO::Array::readFromStringBuffer
     {
         for ( ; ! done; )
         {
-            // Skip whitespace
-            for (aChar = inBuffer.getChar(localIndex, atEnd); (! atEnd) && isspace(aChar); aChar = inBuffer.getChar(++localIndex, atEnd))
-            {
-                ODL_I1("localIndex <- ", localIndex); //####
-                ODL_C1("aChar <- ", aChar); //####
-                ODL_B1("atEnd <- ", atEnd); //####
-            }
+            inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
             ODL_I1("localIndex = ", localIndex); //####
             ODL_C1("aChar = ", aChar); //####
+            ODL_B1("atEnd = ", atEnd); //####
             // Check for the closing bracket
             if (atEnd)
             {

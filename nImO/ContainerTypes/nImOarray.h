@@ -201,12 +201,11 @@ namespace nImO
             /*! @brief Get the extraction information for Array objects.
              @param[out] aByte The byte value that indicates the start of an Array value.
              @param[out] aMask The mask to apply to a lead byte.
-             @param[out] theExtractor The function to perform when the lead byte is seen. */
-            static void
+             @return The function to perform when the lead byte is seen. */
+            static Extractor
             getExtractionInfo
-                (DataKind &     aByte,
-                 DataKind &     aMask,
-                 Extractor &    theExtractor);
+                (DataKind & aByte,
+                 DataKind & aMask);
 
             /*! @brief Return the characters that can appear as the start of an Array.
              @return The characters that can appear as the start of an Array. */

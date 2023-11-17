@@ -498,25 +498,24 @@ nImO::Value::initialize
     }
     DataKind    aByte{StaticCast(DataKind, 0)};
     DataKind    aMask{StaticCast(DataKind, 0)};
-    Extractor   theExtractor{nullptr};
+    Extractor   theExtractor{Address::getExtractionInfo(aByte, aMask)};
 
-    Address::getExtractionInfo(aByte, aMask, theExtractor);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Array::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Array::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Blob::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Blob::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Double::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Double::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Integer::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Integer::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Logical::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Logical::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Map::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Map::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    Set::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = Set::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    String::getExtractionInfo(aByte, aMask, theExtractor);
+    theExtractor = String::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     ODL_EXIT(); //####
 } // nImO::Value::initialize
@@ -529,7 +528,7 @@ nImO::Value::isLegalTerminator
     ODL_C1("aChar = ", aChar); //####
     bool    result;
 
-    if (isspace(aChar))
+    if (isspace(aChar) || (kCommentChar == aChar))
     {
         result = true;
     }
@@ -626,14 +625,13 @@ nImO::Value::readFromStringBuffer
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
     size_t  localIndex{position};
-    bool    atEnd;
-    int     aChar{inBuffer.getChar(localIndex, atEnd)};
+    bool    atEnd{false};
+    int     aChar{kEndOfString};
 
-    // Skip over whitespace
-    for ( ; (! atEnd) && isspace(aChar); )
-    {
-        aChar = inBuffer.getChar(++localIndex, atEnd);
-    }
+    inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
+    ODL_I1("localIndex = ", localIndex); //####
+    ODL_C1("aChar = ", aChar); //####
+    ODL_B1("atEnd = ", atEnd); //####
     if (atEnd)
     {
         ODL_LOG("(atEnd)"); //####

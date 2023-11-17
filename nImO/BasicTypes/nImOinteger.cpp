@@ -240,18 +240,17 @@ nImO::Integer::extractValue
     return result;
 } // nImO::Integer::extractValue
 
-void
+nImO::Value::Extractor
 nImO::Integer::getExtractionInfo
-    (DataKind &                 aByte,
-     DataKind &                 aMask,
-     nImO::Value::Extractor &   theExtractor)
+    (DataKind & aByte,
+     DataKind & aMask)
 {
     ODL_ENTER(); //####
-    ODL_P3("aByte = ", &aByte, "aMask = ", &aMask, "theExtractor = ", &theExtractor); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
     aByte = DataKind::Integer;
     aMask = DataKind::Mask;
-    theExtractor = extractValue;
     ODL_EXIT(); //####
+    return extractValue;
 } // nImO::Integer::getExtractionInfo
 
 nImO::DataKind

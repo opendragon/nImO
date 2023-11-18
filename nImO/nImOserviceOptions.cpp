@@ -302,7 +302,7 @@ nImO::ProcessServiceOptions
 
             if (0 < ii)
             {
-                std::cout << ARGUMENT_SEPARATOR_;
+                std::cout << kArgumentSeparator;
             }
             if (anArg)
             {

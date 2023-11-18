@@ -610,7 +610,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((0 - DataKindDoubleShortCountMinValue) &
+                  ((0 - kDataKindDoubleShortCountMinValue) &
                   DataKind::DoubleShortCountMask),
                 // End of Message
                 DataKind::EndOfMessageValue |
@@ -1016,7 +1016,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
@@ -1089,7 +1089,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + kDataKindIntegerShortValueMinValue - 1),
                 // End of Array
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeArray |
@@ -1161,7 +1161,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((3 + DataKindIntegerShortValueMinValue - 1) &
+                  ((3 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1240,7 +1240,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1322,7 +1322,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
@@ -1621,7 +1621,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
@@ -1694,7 +1694,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + kDataKindIntegerShortValueMinValue - 1),
                 // End of Map
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeMap |
@@ -1766,7 +1766,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((3 + DataKindIntegerShortValueMinValue - 1) &
+                  ((3 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1851,7 +1851,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1936,7 +1936,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -2225,7 +2225,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
@@ -2298,7 +2298,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                StaticCast(DataKind, 0 + DataKindIntegerShortValueMinValue - 1),
+                StaticCast(DataKind, 0 + kDataKindIntegerShortValueMinValue - 1),
                 // End of Set
                 DataKind::Other | DataKind::OtherContainerEnd |
                   DataKind::OtherContainerTypeSet |
@@ -2370,7 +2370,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((3 + DataKindIntegerShortValueMinValue - 1) &
+                  ((3 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -2449,7 +2449,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                   DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |

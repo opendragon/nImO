@@ -100,7 +100,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, kNiMoCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipTagOption))

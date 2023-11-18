@@ -288,7 +288,7 @@ nImO::Array::extractValue
             if (IntStatus::Successful == numStatus)
             {
                 ODL_LOG("(IntStatus::Successful == status)"); //####
-                elementCount -= DataKindIntegerShortValueMinValue - 1;
+                elementCount -= kDataKindIntegerShortValueMinValue - 1;
                 ODL_I1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
@@ -783,7 +783,7 @@ nImO::Array::writeToMessage
         std::queue<double> doublesSeen;
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
-        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
         for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
         {
             SpValue aValue{*walker};

@@ -106,7 +106,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications"s, "nImOpost false \"aMessage\""s, 2022,
-                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipLoggingOption | nImO::kSkipMachineOption, &arguments))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

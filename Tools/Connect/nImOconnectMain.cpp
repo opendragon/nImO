@@ -126,7 +126,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, ""s, 2016, kNiMoCopyrightName, optionValues, helpForConnect,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, ""s, 2016, nImO::kCopyrightName, optionValues, helpForConnect,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

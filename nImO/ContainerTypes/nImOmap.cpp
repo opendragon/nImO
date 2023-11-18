@@ -359,7 +359,7 @@ nImO::Map::extractValue
             if (IntStatus::Successful == numStatus)
             {
                 ODL_LOG("(IntStatus::Successful == status)"); //####
-                elementCount -= DataKindIntegerShortValueMinValue - 1;
+                elementCount -= kDataKindIntegerShortValueMinValue - 1;
                 ODL_I1("elementCount <- ", elementCount); //####
                 if (0 >= elementCount)
                 {
@@ -981,7 +981,7 @@ nImO::Map::writeToMessage
                                 DataKind::OtherContainerNonEmptyValue};
 
         outMessage.appendBytes(&startMap, sizeof(startMap));
-        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + DataKindIntegerShortValueMinValue - 1);
+        writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
         for (auto & walker : *this)
         {
             walker.first->writeToMessage(outMessage);

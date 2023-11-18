@@ -851,9 +851,9 @@ nImO::String::writeToMessage
     if (0 < length)
     {
         ODL_LOG("(0 < length)"); //####
-        if (15 < length)
+        if (kDataKindStringOrBlobShortLengthMaxValue < length)
         {
-            ODL_LOG("(15 < length)"); //####
+            ODL_LOG("(kDataKindStringOrBlobShortLengthMaxValue < length)"); //####
             NumberAsBytes   numBuff;
             size_t          numBytes{I2B(length, numBuff)};
 
@@ -871,7 +871,7 @@ nImO::String::writeToMessage
         }
         else
         {
-            ODL_LOG("! (15 < length)"); //####
+            ODL_LOG("! (kDataKindStringOrBlobShortLengthMaxValue < length)"); //####
             DataKind    stuff{DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
                                 DataKind::StringOrBlobShortLengthValue |
                                 (DataKind::StringOrBlobShortLengthMask &

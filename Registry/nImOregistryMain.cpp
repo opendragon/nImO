@@ -138,7 +138,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry"s, ""s, 2022, kNiMoCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry"s, ""s, 2022, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipTagOption))

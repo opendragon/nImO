@@ -95,7 +95,7 @@ nImO::Value::addToReaderMap
 {
     if (nullptr != prefixes)
     {
-        for ( ; nImO::kEndOfString != *prefixes; ++prefixes)
+        for ( ; kEndOfString != *prefixes; ++prefixes)
         {
             gReaders.emplace(*prefixes, reader);
         }
@@ -678,11 +678,11 @@ nImO::Value::writeInt64ToMessage
     ODL_ENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
     ODL_I1("outValue = ", outValue); //####
-    if ((DataKindIntegerShortValueMinValue <= outValue) &&
-        (DataKindIntegerShortValueMaxValue >= outValue))
+    if ((kDataKindIntegerShortValueMinValue <= outValue) &&
+        (kDataKindIntegerShortValueMaxValue >= outValue))
     {
-        ODL_LOG("((DataKindIntegerShortValueMinValue <= outValue) && " //####
-                "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
+        ODL_LOG("((kDataKindIntegerShortValueMinValue <= outValue) && " //####
+                "(kDataKindIntegerShortValueMaxValue >= outValue))"); //####
         DataKind    stuff{DataKind::Integer | DataKind::IntegerShortValue |
                             (StaticCast(DataKind, outValue) &
                              DataKind::IntegerShortValueValueMask)};
@@ -691,8 +691,8 @@ nImO::Value::writeInt64ToMessage
     }
     else
     {
-        ODL_LOG("! ((DataKindIntegerShortValueMinValue <= outValue) && " //####
-                "(DataKindIntegerShortValueMaxValue >= outValue))"); //####
+        ODL_LOG("! ((kDataKindIntegerShortValueMinValue <= outValue) && " //####
+                "(kDataKindIntegerShortValueMaxValue >= outValue))"); //####
         NumberAsBytes   numBuff;
         size_t          numBytes{I2B(outValue, numBuff)};
 

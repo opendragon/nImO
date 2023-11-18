@@ -577,7 +577,7 @@ nImO::Double::writeToMessage
 
     D2B(_floatValue, numBuff);
     DataKind    stuff{DataKind::Double | DataKind::DoubleShortCount |
-                        ((1 - DataKindDoubleShortCountMinValue) & DataKind::DoubleShortCountMask)};
+                        ((1 - kDataKindDoubleShortCountMinValue) & DataKind::DoubleShortCountMask)};
 
     outMessage.appendBytes(&stuff, sizeof(stuff));
     outMessage.appendBytes(numBuff, sizeof(numBuff));
@@ -598,9 +598,9 @@ nImO::Double::writeValuesToMessage
     if (0 < numValues)
     {
         ODL_LOG("(0 < numValues)"); //####
-        if (StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)
+        if (StaticCast(size_t, kDataKindDoubleShortCountMaxValue) < numValues)
         {
-            ODL_LOG("(StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)"); //####
+            ODL_LOG("(StaticCast(size_t, kDataKindDoubleShortCountMaxValue) < numValues)"); //####
             size_t  numBytes{I2B(numValues, numBuff)};
 
             if (0 < numBytes)
@@ -616,9 +616,9 @@ nImO::Double::writeValuesToMessage
         }
         else
         {
-            ODL_LOG("! (StaticCast(size_t, DataKindDoubleShortCountMaxValue) < numValues)"); //####
+            ODL_LOG("! (StaticCast(size_t, kDataKindDoubleShortCountMaxValue) < numValues)"); //####
             DataKind    countTag{DataKind::Double | DataKind::DoubleShortCount |
-                                    (StaticCast(DataKind, numValues - DataKindDoubleShortCountMinValue) &
+                                    (StaticCast(DataKind, numValues - kDataKindDoubleShortCountMinValue) &
                                      DataKind::DoubleShortCountMask)};
 
             outMessage.appendBytes(&countTag, sizeof(countTag));

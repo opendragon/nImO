@@ -100,7 +100,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Passthrough example"s, ""s, 2023, kNiMoCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Passthrough example"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

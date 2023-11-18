@@ -919,7 +919,7 @@ main
 
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space"s, "nImOlist node"s, 2016,
-                                     kNiMoCopyrightName, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
+                                     nImO::kCopyrightName, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

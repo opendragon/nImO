@@ -104,7 +104,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example"s, ""s, 2020, kNiMoCopyrightName, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Ricochet control example"s, ""s, 2020, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

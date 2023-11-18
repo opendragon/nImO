@@ -224,7 +224,7 @@ StringsArgumentDescriptor::parseArgString
                 // Make sure to strip off any trailing newlines!
                 for (size_t ii = stringList.length(); 0 < ii; --ii)
                 {
-                    if ('\n' == stringList[ii - 1])
+                    if (kEndOfLine == stringList[ii - 1])
                     {
                         stringList = stringList.substr(0, ii - 1);
                     }

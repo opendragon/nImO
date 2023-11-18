@@ -467,7 +467,7 @@ nImO::StringBuffer::skipOverWhiteSpace
                 {
                     ODL_C1("aChar <- ", aChar); //####
                     ODL_I1("position <- ", position); //####
-                    if ('\n' == aChar)
+                    if (kEndOfLine == aChar)
                     {
                         break;
                     }
@@ -508,7 +508,7 @@ nImO::operator>>
     for (std::string inLine; std::getline(in, inLine); )
     {
         aBuffer.addString(inLine);
-        aBuffer.appendChar('\n');
+        aBuffer.appendChar(kEndOfLine);
     }
     ODL_EXIT_P(&in); //###
     return in;

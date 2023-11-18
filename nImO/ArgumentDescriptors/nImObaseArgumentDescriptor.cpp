@@ -305,7 +305,7 @@ BaseArgumentDescriptor::partitionString
                 // Make sure to strip off any trailing newlines!
                 for (size_t ii = workingCopy.length(); 0 < ii; --ii)
                 {
-                    if ('\n' == workingCopy[ii - 1])
+                    if (kEndOfLine == workingCopy[ii - 1])
                     {
                         workingCopy = workingCopy.substr(0, ii - 1);
                     }
@@ -733,7 +733,7 @@ nImO::PromptForValues
     if (isspace(inChar))
     {
         // Eat it.
-        if ('\n' == inChar)
+        if (kEndOfLine == inChar)
         {
             std::cin.get();
         }
@@ -758,7 +758,7 @@ nImO::PromptForValues
                 if (isspace(inChar))
                 {
                     // Eat it.
-                    if ('\n' == inChar)
+                    if (kEndOfLine == inChar)
                     {
                         break;
 

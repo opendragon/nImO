@@ -103,7 +103,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanIn example"s, ""s, 2023, kNiMoCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanIn example"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

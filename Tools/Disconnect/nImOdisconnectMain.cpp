@@ -106,7 +106,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels"s, ""s, 2016, kNiMoCopyrightName, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels"s, ""s, 2016, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

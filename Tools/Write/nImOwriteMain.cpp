@@ -102,7 +102,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel"s, ""s, 2016, kNiMoCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel"s, ""s, 2016, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

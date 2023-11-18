@@ -101,7 +101,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load applications"s, "nImOloadApps ourApplicationSet"s, 2023, kNiMoCopyrightName,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load applications"s, "nImOloadApps ourApplicationSet"s, 2023, nImO::kCopyrightName,
                                      optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

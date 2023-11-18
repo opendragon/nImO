@@ -1234,7 +1234,7 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
@@ -1254,7 +1254,7 @@ doTestExtractSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x45),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
@@ -1602,7 +1602,7 @@ doTestExtractArrayOneLogicalMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1679,7 +1679,7 @@ doTestExtractArrayOneIntegerMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -1756,11 +1756,11 @@ doTestExtractArrayOneDoubleMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
@@ -1838,7 +1838,7 @@ doTestExtractArrayOneStringMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -1916,7 +1916,7 @@ doTestExtractArrayOneBlobMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Blob
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
@@ -1994,7 +1994,7 @@ doTestExtractArrayOneArrayMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2076,7 +2076,7 @@ doTestExtractArrayOneMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2158,7 +2158,7 @@ doTestExtractArrayOneSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2240,7 +2240,7 @@ doTestExtractArrayWithOneAddressMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -2320,7 +2320,7 @@ doTestExtractArrayTwoLogicalsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -2401,7 +2401,7 @@ doTestExtractArrayTwoIntegersMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -2482,11 +2482,11 @@ doTestExtractArrayTwoDoublesMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((2 - DataKindDoubleShortCountMinValue) &
+                  ((2 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
@@ -2569,7 +2569,7 @@ doTestExtractArrayTwoStringsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -2652,7 +2652,7 @@ doTestExtractArrayTwoBlobsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Blob
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
@@ -2735,7 +2735,7 @@ doTestExtractArrayTwoArraysMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2826,7 +2826,7 @@ doTestExtractArrayTwoMapsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2917,7 +2917,7 @@ doTestExtractArrayTwoSetsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3008,7 +3008,7 @@ doTestExtractArrayOneArrayOneMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3099,7 +3099,7 @@ doTestExtractArrayOneMapOneSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3190,7 +3190,7 @@ doTestExtractArrayOneSetOneArrayMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3283,7 +3283,7 @@ doTestExtractArrayWithManyDoublesMessage
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
                 StaticCast(DataKind, StaticCast(int, numValues) +
-                    DataKindIntegerShortValueMinValue - 1),
+                    kDataKindIntegerShortValueMinValue - 1),
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
@@ -3535,7 +3535,7 @@ doTestExtractArrayWithTwoAddressesMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -3622,7 +3622,7 @@ doTestExtractLogicalMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -3702,7 +3702,7 @@ doTestExtractIntegerMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -3782,7 +3782,7 @@ doTestExtractStringMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -3863,7 +3863,7 @@ doTestExtractLogicalSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -3940,7 +3940,7 @@ doTestExtractIntegerSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -4017,7 +4017,7 @@ doTestExtractStringSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -4095,7 +4095,7 @@ doTestExtractAddressMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -4178,7 +4178,7 @@ doTestExtractAddressSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -4313,7 +4313,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerLongValue |
                           ((1 - 1) & DataKind::IntegerLongValueCountMask),
-                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) + DataKindIntegerShortValueMinValue - 1),
+                        StaticCast(DataKind, StaticCast(int, (2 * kNumValues) + 1) + kDataKindIntegerShortValueMinValue - 1),
                         // Signed Integer
                         DataKind::Integer | DataKind::IntegerShortValue |
                           0x01, // 1

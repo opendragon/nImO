@@ -1157,7 +1157,7 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x45),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
@@ -1177,7 +1177,7 @@ doTestInsertSingleDoubleMessage
                   DataKind::OtherMessageExpectedDoubleValue,
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0xC0), StaticCast(DataKind, 0x45),
                 StaticCast(DataKind, 0x40), StaticCast(DataKind, 0x00),
@@ -1572,7 +1572,7 @@ doTestInsertArrayOneLogicalMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -1649,7 +1649,7 @@ doTestInsertArrayOneIntegerMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -1726,11 +1726,11 @@ doTestInsertArrayOneDoubleMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((1 - DataKindDoubleShortCountMinValue) &
+                  ((1 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
@@ -1808,7 +1808,7 @@ doTestInsertArrayOneStringMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -1886,7 +1886,7 @@ doTestInsertArrayOneBlobMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Blob
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
@@ -1964,7 +1964,7 @@ doTestInsertArrayOneArrayMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2046,7 +2046,7 @@ doTestInsertArrayOneMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2128,7 +2128,7 @@ doTestInsertArrayOneSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2210,7 +2210,7 @@ doTestInsertArrayWithOneAddressMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -2290,7 +2290,7 @@ doTestInsertArrayTwoLogicalsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -2371,7 +2371,7 @@ doTestInsertArrayTwoIntegersMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -2452,11 +2452,11 @@ doTestInsertArrayTwoDoublesMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Double
                 DataKind::Double | DataKind::DoubleShortCount |
-                  ((2 - DataKindDoubleShortCountMinValue) &
+                  ((2 - kDataKindDoubleShortCountMinValue) &
                     DataKind::DoubleShortCountMask),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
                 StaticCast(DataKind, 0x00), StaticCast(DataKind, 0x00),
@@ -2539,7 +2539,7 @@ doTestInsertArrayTwoStringsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -2622,7 +2622,7 @@ doTestInsertArrayTwoBlobsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Blob
                 DataKind::StringOrBlob | DataKind::StringOrBlobBlobValue |
@@ -2705,7 +2705,7 @@ doTestInsertArrayTwoArraysMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2796,7 +2796,7 @@ doTestInsertArrayTwoMapsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2887,7 +2887,7 @@ doTestInsertArrayTwoSetsMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -2978,7 +2978,7 @@ doTestInsertArrayOneArrayOneMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Array
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3069,7 +3069,7 @@ doTestInsertArrayOneMapOneSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Map
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3160,7 +3160,7 @@ doTestInsertArrayOneSetOneArrayMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Start of Set
                 DataKind::Other | DataKind::OtherContainerStart |
@@ -3253,7 +3253,7 @@ doTestInsertArrayWithManyDoublesMessage
                 DataKind::Integer | DataKind::IntegerLongValue |
                   ((1 - 1) & DataKind::IntegerLongValueCountMask),
                 StaticCast(DataKind, StaticCast(int, numValues) +
-                                      DataKindIntegerShortValueMinValue - 1),
+                                      kDataKindIntegerShortValueMinValue - 1),
                 // Double
                 DataKind::Double | DataKind::DoubleLongCount |
                   ((1 - 1) & DataKind::DoubleLongCountMask),
@@ -3505,7 +3505,7 @@ doTestInsertArrayWithTwoAddressesMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((2 + DataKindIntegerShortValueMinValue - 1) &
+                  ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -3592,7 +3592,7 @@ doTestInsertLogicalMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -3672,7 +3672,7 @@ doTestInsertIntegerMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -3752,7 +3752,7 @@ doTestInsertStringMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -3833,7 +3833,7 @@ doTestInsertLogicalSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Logical
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeLogical |
@@ -3910,7 +3910,7 @@ doTestInsertIntegerSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Signed Integer
                 DataKind::Integer | DataKind::IntegerShortValue |
@@ -3987,7 +3987,7 @@ doTestInsertStringSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // String
                 DataKind::StringOrBlob | DataKind::StringOrBlobStringValue |
@@ -4065,7 +4065,7 @@ doTestInsertAddressMapMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
@@ -4148,7 +4148,7 @@ doTestInsertAddressSetMessage
                 // Signed Integer
                 DataKind::Integer |
                   DataKind::IntegerShortValue |
-                  ((1 + DataKindIntegerShortValueMinValue - 1) &
+                  ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
                 DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,

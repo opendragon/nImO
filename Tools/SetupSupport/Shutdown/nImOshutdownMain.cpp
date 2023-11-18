@@ -107,7 +107,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown [node]"s, 2023,
-                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

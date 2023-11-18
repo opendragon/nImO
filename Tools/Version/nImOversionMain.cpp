@@ -123,7 +123,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Reports the version number of the libraries used"s, "nImOversion -t"s, 2016,
-                                     kNiMoCopyrightName, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipExpandedOption |
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipConfigFileOption | nImO::kSkipExpandedOption |
                                      nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         std::string mdnsVersionString;

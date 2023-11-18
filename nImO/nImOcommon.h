@@ -152,27 +152,6 @@ using namespace std::string_literals;
 /*! @brief A double quote character. */
 # define CHAR_DOUBLEQUOTE_  "\""
 
-/*! @brief The line length for command-line help output. */
-constexpr size_t    kHelpLineLength{250};
-
-/*! @brief The largest IP port that is acceptable. */
-constexpr int   kMaximumPortAllowed{65535};
-
-/*! @brief The smallest IP port that is acceptable. */
-constexpr int   kMinimumPortAllowed{1024};
-
-/*! @brief The character separating argument descriptors. */
-# define ARGUMENT_SEPARATOR_    "\v"
-
-/*! @brief The standard copyright holder name to use for m+m-created executables. */
-const std::string   kNiMoCopyrightName{"OpenDragon"s};
-
-/*! @brief The IP address for the loopback address for the machine that is running the executable. */
-const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
-
-/*! @brief The IP name for the loopback address for the machine that is running the executable. */
-const std::string   kSelfAddressName{"localhost"s};
-
 /*! @brief The signal to use for internally-detected timeouts. */
 # if MAC_OR_LINUX_
 #  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
@@ -638,23 +617,89 @@ namespace nImO
 /*! @brief Suppress warnings about unused variables. */
 # define NIMO_UNUSED_VAR_(var_)  nImO::internal_::ignore_unused_variable_(var_)
 
-    /*! @brief The minimum count representable in a short floating point. */
-    constexpr int   DataKindDoubleShortCountMinValue{1};
+    /*! @brief The character that is used with Address data formatting. */
+    constexpr char  kAddressSeparator{'.'};
 
-    /*! @brief The maximum count representable in a short floating point. */
-    constexpr int   DataKindDoubleShortCountMaxValue{32};
+    /*! @brief The character separating argument descriptors. */
+    constexpr char  kArgumentSeparator{'\v'};
 
-    /*! @brief The minimum value representable in a short signed integer. */
-    constexpr int   DataKindIntegerShortValueMinValue{-16};
+    /*! @brief The character that is used with 'blob' data formatting. */
+    constexpr char  kBlobSeparator{'%'};
+
+    /*! @brief The character that starts a comment. */
+    constexpr char  kCommentChar{'#'};
+
+    /*! @brief A character that brackets a string value. */
+    constexpr char  kDoubleQuote{'"'};
+
+    /*! @brief The character that ends an Array value. */
+    constexpr char  kEndArrayChar{')'};
+
+    /*! @brief The character that ends a Map value. */
+    constexpr char  kEndMapChar{'}'};
+
+    /*! @brief The character that ends a line. */
+    constexpr char  kEndOfLine{'\n'};
+
+    /*! @brief The character that ends a string. */
+    constexpr char  kEndOfString{'\0'};
+
+    /*! @brief The character that ends a Set value. */
+    constexpr char  kEndSetChar{']'};
+
+    /*! @brief The character that starts a special character sequence. */
+    constexpr char  kEscapeChar{'\\'};
+
+    /*! @brief The character that separates a key from a value in a key/value pair. */
+    constexpr char  kKeyValueSeparator{'>'};
+
+    /*! @brief A character that brackets a string value. */
+    constexpr char  kSingleQuote{'\''};
+
+    /*! @brief The character that starts an Address value. */
+    constexpr char  kStartAddressChar{'@'};
+
+    /*! @brief The character that starts an Array value. */
+    constexpr char  kStartArrayChar{'('};
+
+    /*! @brief The character that starts a Map value. */
+    constexpr char  kStartMapChar{'{'};
+
+    /*! @brief The character that starts a Set value. */
+    constexpr char  kStartSetChar{'['};
+
+    /*! @brief The maximum count representable in a short integer for a sequence of floating point values. */
+    constexpr int   kDataKindDoubleShortCountMaxValue{32};
+
+    /*! @brief The minimum count representable in a short integer for a sequence of floating point values. */
+    constexpr int   kDataKindDoubleShortCountMinValue{1};
 
     /*! @brief The maximum value representable in a short signed integer. */
-    constexpr int   DataKindIntegerShortValueMaxValue{15};
+    constexpr int   kDataKindIntegerShortValueMaxValue{15};
 
-    /*! @brief The minimum count representable in a short floating point. */
-    constexpr int   DataKindStringOrBlobShortLengthMinValue{0};
+    /*! @brief The minimum value representable in a short signed integer. */
+    constexpr int   kDataKindIntegerShortValueMinValue{-16};
 
-    /*! @brief The maximum count representable in a short floating point. */
-    constexpr int   DataKindStringOrBlobShortLengthMaxValue{15};
+    /*! @brief The maximum count representable in a short integer for a blob or string. */
+    constexpr int   kDataKindStringOrBlobShortLengthMaxValue{15};
+
+    /*! @brief The largest IP port that is acceptable. */
+    constexpr int   kMaximumPortAllowed{65535};
+
+    /*! @brief The smallest IP port that is acceptable. */
+    constexpr int   kMinimumPortAllowed{1024};
+
+    /*! @brief The line length for command-line help output. */
+    constexpr size_t    kHelpLineLength{250};
+
+    /*! @brief The standard copyright holder name to use for m+m-created executables. */
+    const std::string   kCopyrightName{"OpenDragon"s};
+
+    /*! @brief The IP address for the loopback address for the machine that is running the executable. */
+    const std::string   kSelfAddressIpAddress{"127.0.0.1"s};
+
+    /*! @brief The IP name for the loopback address for the machine that is running the executable. */
+    const std::string   kSelfAddressName{"localhost"s};
 
     /*! @brief A byte array that is the same size as an integer. */
     using NumberAsBytes = uint8_t[sizeof(int64_t)];
@@ -1012,51 +1057,6 @@ namespace nImO
     {
         return (((systemAllowed ? 0 : kMinimumPortAllowed) <= aPort) && (kMaximumPortAllowed >= aPort));
     }
-
-    /*! @brief The character that is used with Address data formatting. */
-    extern const char   kAddressSeparator;
-
-    /*! @brief The character that is used with 'blob' data formatting. */
-    extern const char   kBlobSeparator;
-
-    /*! @brief The character that starts a comment. */
-    extern const char   kCommentChar;
-
-    /*! @brief A character that brackets a string value. */
-    extern const char   kDoubleQuote;
-
-    /*! @brief The character that ends an Array value. */
-    extern const char   kEndArrayChar;
-
-    /*! @brief The character that ends a Map value. */
-    extern const char   kEndMapChar;
-
-    /*! @brief The character that ends a string. */
-    extern const char   kEndOfString;
-
-    /*! @brief The character that ends a Set value. */
-    extern const char   kEndSetChar;
-
-    /*! @brief The character that starts a special character sequence. */
-    extern const char   kEscapeChar;
-
-    /*! @brief The character that separates a key from a value in a key/value pair. */
-    extern const char   kKeyValueSeparator;
-
-    /*! @brief A character that brackets a string value. */
-    extern const char   kSingleQuote;
-
-    /*! @brief The character that starts an Address value. */
-    extern const char   kStartAddressChar;
-
-    /*! @brief The character that starts an Array value. */
-    extern const char   kStartArrayChar;
-
-    /*! @brief The character that starts a Map value. */
-    extern const char   kStartMapChar;
-
-    /*! @brief The character that starts a Set value. */
-    extern const char   kStartSetChar;
 
     /*! @brief The directory separator string. */
     extern const std::string    kDirectorySeparator;

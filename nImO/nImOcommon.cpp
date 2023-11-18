@@ -110,22 +110,6 @@ static bool lInitialized{false};
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const char  nImO::kAddressSeparator{'.'};
-const char  nImO::kBlobSeparator{'%'};
-const char  nImO::kCommentChar{'#'};
-const char  nImO::kDoubleQuote{'"'};
-const char  nImO::kEndArrayChar{')'};
-const char  nImO::kEndMapChar{'}'};
-const char  nImO::kEndOfString{'\0'};
-const char  nImO::kEndSetChar{']'};
-const char  nImO::kEscapeChar{'\\'};
-const char  nImO::kKeyValueSeparator{'>'};
-const char  nImO::kSingleQuote{'\''};
-const char  nImO::kStartAddressChar{'@'};
-const char  nImO::kStartArrayChar{'('};
-const char  nImO::kStartMapChar{'{'};
-const char  nImO::kStartSetChar{'['};
-
 // Note that this MUST be a single-character string!!!
 #if MAC_OR_LINUX_
 const std::string   nImO::kDirectorySeparator{"/"s};
@@ -785,7 +769,7 @@ nImO::OutputDescription
 
     for (size_t ii = 0; ii < descriptionLength; ++ii)
     {
-        if ('\n' == description[ii])
+        if (kEndOfLine == description[ii])
         {
             std::string piece{description.substr(pieceStart, ii - pieceStart)};
 
@@ -922,16 +906,16 @@ nImO::SanitizeString
                     cc = 't';
                     break;
 
-                case '\n' :
+                case kEndOfLine :
                     outString += kEscapeChar;
                     cc = 'n';
                     break;
 
-                case '\\' :
+                case kEscapeChar :
                     outString += kEscapeChar;
                     break;
 
-                case '"' :
+                case kDoubleQuote :
                     if (! allowDoubleQuotes)
                     {
                         outString += kEscapeChar;

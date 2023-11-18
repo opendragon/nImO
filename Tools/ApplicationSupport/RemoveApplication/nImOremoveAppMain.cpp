@@ -101,7 +101,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application"s, "nImOremoveApp shortAppName"s, 2020, kNiMoCopyrightName,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Remove application"s, "nImOremoveApp shortAppName"s, 2020, nImO::kCopyrightName,
                                      optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

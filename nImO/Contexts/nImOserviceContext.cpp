@@ -39,11 +39,11 @@
 #include <Contexts/nImOserviceContext.h>
 
 #include <BasicTypes/nImOstring.h>
+#include <CommandHandlers/nImOshutdownCommandHandler.h>
 #include <ContainerTypes/nImOarray.h>
 #include <nImOcommandHandler.h>
 #include <nImOcommandSession.h>
 #include <nImOcommonCommands.h>
-#include <nImOshutdownCommandHandler.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

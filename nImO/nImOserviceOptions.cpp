@@ -113,7 +113,7 @@ nImO::ProcessServiceOptions
         kOptionVERSION
     }; // OptionIndex
 
-    bool        isAdapter{0 < matchingCriteria.length()};
+    bool        isAdapter{! matchingCriteria.empty()};
     bool        keepGoing{true};
     std::string serviceKindName{isAdapter ? "adapter"s : "service"s};
     std::string describePartText{"  --describe, -d \tPrint executable type, supported "s};
@@ -162,7 +162,7 @@ nImO::ProcessServiceOptions
     }
     usageString += *argv;
     usageString += " [options]"s;
-    if (0 < argList.length())
+    if (! argList.empty())
     {
         StringVector    descriptions;
 

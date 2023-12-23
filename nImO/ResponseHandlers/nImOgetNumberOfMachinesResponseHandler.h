@@ -82,7 +82,7 @@ namespace nImO
              @param[in] stuff The data included in the response. */
             void
             doIt
-                (const nImO::Array &    stuff)
+                (const Array &  stuff)
                 override;
 
             /*! @brief Return the received value.

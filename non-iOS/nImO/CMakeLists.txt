@@ -80,6 +80,12 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.cpp"
             "${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.cpp"
             "${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.cpp"
@@ -137,6 +143,10 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp"
             "${THIS_SOURCE_DIR}/nImObaseChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelName.cpp"
@@ -155,7 +165,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
             "${THIS_SOURCE_DIR}/nImOrequestResponse.cpp"
             "${THIS_SOURCE_DIR}/nImOserviceOptions.cpp"
-            "${THIS_SOURCE_DIR}/nImOshutdownCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOstandardOptions.cpp"
             "${THIS_SOURCE_DIR}/optionparser.cpp")
 
@@ -203,7 +212,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOregistryTypes.h"
         "${THIS_SOURCE_DIR}/nImOrequestResponse.h"
         "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
-        "${THIS_SOURCE_DIR}/nImOshutdownCommandHandler.h"
         "${THIS_SOURCE_DIR}/nImOstandardOptions.h"
         "${THIS_SOURCE_DIR}/optionparser.hpp"
         DESTINATION ${INCLUDE_DEST}
@@ -237,6 +245,16 @@ install(FILES
         "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h"
         DESTINATION ${INCLUDE_DEST}/BasicTypes
+        COMPONENT headers)
+
+install(FILES
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h"
+        DESTINATION ${INCLUDE_DEST}/CommandHandlers
         COMPONENT headers)
 
 install(FILES
@@ -305,6 +323,10 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.h"
         DESTINATION ${INCLUDE_DEST}/ResponseHandlers
         COMPONENT headers)
 
@@ -343,6 +365,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h
         ${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.h
         ${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.h
         ${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.h
@@ -437,6 +465,14 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp ${THIS_SOURCE_DIR}/nImOannounceServiceData.h
         ${THIS_SOURCE_DIR}/nImObaseChannel.cpp ${THIS_SOURCE_DIR}/nImObaseChannel.h
         ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
@@ -459,7 +495,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOregistryTypes.h
         ${THIS_SOURCE_DIR}/nImOrequestResponse.cpp ${THIS_SOURCE_DIR}/nImOrequestResponse.h
         ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
-        ${THIS_SOURCE_DIR}/nImOshutdownCommandHandler.cpp ${THIS_SOURCE_DIR}/nImOshutdownCommandHandler.h
         ${THIS_SOURCE_DIR}/nImOstandardOptions.cpp ${THIS_SOURCE_DIR}/nImOstandardOptions.h)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")

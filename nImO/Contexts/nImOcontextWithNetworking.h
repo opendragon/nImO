@@ -73,6 +73,7 @@ BytesToIPv4Address
 namespace nImO
 {
 
+    class InputOutputContext;
     class ServiceContext;
     class UtilityContext;
 
@@ -112,6 +113,19 @@ namespace nImO
             ~ContextWithNetworking
                 (void)
                 override;
+
+            /*! @brief Is this an InputOutputContext?
+             @return @c nullptr. */
+            virtual Ptr(InputOutputContext)
+            asInputOutputContext
+                (void);
+
+            /*! @brief Is this an InputOutputContext?
+             @return @c nullptr. */
+            virtual CPtr(InputOutputContext)
+            asInputOutputContext
+                (void)
+                const;
 
             /*! @brief Is this a ServiceContext?
              @return @c nullptr. */
@@ -244,7 +258,7 @@ namespace nImO
 
     }; // ContextWithNetworking
 
-    /*! @brief A holder for a shared pointer to a Flaw. */
+    /*! @brief A holder for a shared pointer to a Context. */
     using SpContextWithNetworking = std::shared_ptr<ContextWithNetworking>;
 
 } // nImO

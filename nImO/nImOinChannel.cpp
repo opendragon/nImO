@@ -77,8 +77,9 @@
 #endif // defined(__APPLE__)
 
 nImO::InChannel::InChannel
-    (const int  index) :
-        inherited{index}
+    (const std::string &    path,
+     const int              index) :
+        inherited{path, index}
 {
     ODL_ENTER(); //####
     ODL_I1("index = ", index); //####
@@ -94,6 +95,13 @@ nImO::InChannel::InChannel
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
 } // nImO::InChannel::InChannel
+
+nImO::InChannel::~InChannel
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::InChannel::~InChannel
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors

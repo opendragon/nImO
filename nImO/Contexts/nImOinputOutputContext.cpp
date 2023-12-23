@@ -38,6 +38,10 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
+#include <CommandHandlers/nImOstartReceiverCommandHandler.h>
+#include <CommandHandlers/nImOstartSenderCommandHandler.h>
+#include <CommandHandlers/nImOstopReceiverCommandHandler.h>
+#include <CommandHandlers/nImOstopSenderCommandHandler.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -105,6 +109,133 @@ nImO::InputOutputContext::InputOutputContext
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::InputOutputContext::addInputChannel
+    (const std::string &    path)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("path = ", path); //####
+    _inputChannels.push_back(std::make_shared<InChannel>(path, _inputChannels.size()));
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::addInputChannel
+
+void
+nImO::InputOutputContext::addInputOutputHandlers
+    (SpInputOutputContext    context)
+{
+    ODL_ENTER(); //####
+    ODL_P1("context = ", context.get()); //####
+    // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
+    Ptr(InputOutputContext) actualContext = context->asInputOutputContext();
+
+    if (nullptr != actualContext)
+    {
+        bool    goAhead{true};
+        auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
+
+        ODL_P1("newHandler <- ", newHandler); //####
+        if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
+        {
+            goAhead = false;
+        }
+        if (goAhead)
+        {
+            auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
+
+            if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
+
+            if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
+
+            if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            ServiceContext::addStandardHandlers(context);
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::addInputOutputHandlers
+
+void
+nImO::InputOutputContext::addOutputChannel
+    (const std::string &    path)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("path = ", path); //####
+    _outputChannels.push_back(std::make_shared<OutChannel>(path, _outputChannels.size()));
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::addOutputChannel
+
+Ptr(nImO::InputOutputContext)
+nImO::InputOutputContext::asInputOutputContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::ServiceContext::asInputOutputContext
+
+CPtr(nImO::InputOutputContext)
+nImO::InputOutputContext::asInputOutputContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(this); //####
+    return this;
+} // nImO::ServiceContext::asInputOutputContext
+
+void
+nImO::InputOutputContext::getInputChannelNames
+    (nImO::StringVector & names)
+    const
+{
+    ODL_ENTER(); //####
+    ODL_P1("names = ", &names); //####
+    names.clear();
+    for (auto walker{_inputChannels.begin()}; walker!= _inputChannels.end(); ++walker)
+    {
+        auto    aChannel{*walker};
+
+        names.push_back(aChannel->getName());
+    }
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::getInputChannelNames
+
+void
+nImO::InputOutputContext::getOutputChannelNames
+    (nImO::StringVector & names)
+    const
+{
+    ODL_ENTER(); //####
+    ODL_P1("names = ", &names); //####
+    names.clear();
+    for (auto walker{_outputChannels.begin()}; walker!= _outputChannels.end(); ++walker)
+    {
+        auto    aChannel{*walker};
+
+        names.push_back(aChannel->getName());
+    }
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::getOutputChannelNames
 
 #if defined(__APPLE__)
 # pragma mark Global functions

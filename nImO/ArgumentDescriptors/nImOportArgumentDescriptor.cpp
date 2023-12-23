@@ -194,7 +194,7 @@ PortArgumentDescriptor::parseArgString
         {
             okSoFar = false;
         }
-        if (okSoFar && (0 < defaultString.length()))
+        if (okSoFar && (! defaultString.empty()))
         {
             int64_t intValue;
 

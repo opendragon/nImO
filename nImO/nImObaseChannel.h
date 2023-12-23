@@ -75,13 +75,25 @@ namespace nImO
             ~BaseChannel
                 (void);
 
+            /*! @brief Return the name.
+            @return The name. */
+            inline std::string
+            getName
+                (void)
+                const
+            {
+                return _name;
+            }
+
         protected :
             // Protected methods.
 
             /*! @brief The constructor.
+             @param[in] path The path for the channel.
              @param[in] index The index of the channel. */
             BaseChannel
-                (const int  index);
+                (const std::string &    path,
+                 const int              index = 0);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */

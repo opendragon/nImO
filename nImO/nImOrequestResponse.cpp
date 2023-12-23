@@ -205,7 +205,12 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     {
         auto    asString{requestToSend.getBytes()};
 
-        if (0 < asString.length())
+        if (asString.empty())
+        {
+            ODL_LOG("(asString.empty())"); //####
+            status = std::make_pair(false, "asString.empty()");
+        }
+        else
         {
             StringVector        outVec;
             std::atomic<bool>   keepGoing{true};
@@ -324,11 +329,6 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                 boost::this_thread::yield();
             }
             socket.shutdown(BTCP::socket::shutdown_both);
-        }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
-            status = std::make_pair(false, "0 >= asString.length()");
         }
     }
     else

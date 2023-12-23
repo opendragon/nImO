@@ -299,6 +299,25 @@ nImO::ContextWithNetworking::~ContextWithNetworking
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+Ptr(nImO::InputOutputContext)
+nImO::ContextWithNetworking::asInputOutputContext
+    (void)
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asInputOutputContext
+
+CPtr(nImO::InputOutputContext)
+nImO::ContextWithNetworking::asInputOutputContext
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::ContextWithNetworking::asInputOutputContext
+
 Ptr(nImO::ServiceContext)
 nImO::ContextWithNetworking::asServiceContext
     (void)

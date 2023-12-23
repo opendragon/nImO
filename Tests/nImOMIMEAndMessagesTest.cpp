@@ -133,7 +133,11 @@ setValueAndCheck
     {
         auto    asString{stuff.getBytes()};
 
-        if (0 < asString.length())
+        if (asString.empty())
+        {
+            ODL_LOG("(asString.empty())"); //####
+        }
+        else
         {
             StringVector    outVec;
 
@@ -158,10 +162,6 @@ setValueAndCheck
             {
                 ODL_LOG("! (expectedSize == outVec.size())"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
         }
     }
     else
@@ -724,7 +724,11 @@ doTestMIMEInsertEmptyMessage
             {
                 auto    asString{stuff->getBytes()};
 
-                if (0 < asString.length())
+                if (asString.empty())
+                {
+                    ODL_LOG("(asString.empty())"); //####
+                }
+                else
                 {
                     std::string         expectedLines[]{ "8Pg="s };
                     constexpr size_t    expectedLinesCount{numElementsInArray(expectedLines)};
@@ -747,10 +751,6 @@ doTestMIMEInsertEmptyMessage
                     {
                         ODL_LOG("! (expectedLinesCount == outVec.size())"); //####
                     }
-                }
-                else
-                {
-                    ODL_LOG("! (0 < asString.length())"); //####
                 }
             }
             else

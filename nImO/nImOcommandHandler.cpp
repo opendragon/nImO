@@ -156,7 +156,11 @@ nImO::CommandHandler::sendComplexResponseWithContext
     {
         auto    asString{responseToSend.getBytes()};
 
-        if (0 < asString.length())
+        if (asString.empty())
+        {
+            ODL_LOG("(asString.empty())"); //####
+        }
+        else
         {
             std::atomic<bool>   keepGoing{true};
             StringVector        outVec;
@@ -202,10 +206,6 @@ nImO::CommandHandler::sendComplexResponseWithContext
             {
                 boost::this_thread::yield();
             }
-        }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
         }
     }
     else
@@ -259,7 +259,11 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     {
         auto    asString{responseToSend.getBytes()};
 
-        if (0 < asString.length())
+        if (asString.empty())
+        {
+            ODL_LOG("(asString.empty())"); //####
+        }
+        else
         {
             std::atomic<bool>   keepGoing{true};
             StringVector        outVec;
@@ -307,10 +311,6 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                 boost::this_thread::yield();
             }
         }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
-        }
     }
     else
     {
@@ -340,7 +340,11 @@ nImO::CommandHandler::sendStatusReport
     {
         auto    asString{messageToSend.getBytes()};
 
-        if (0 < asString.length())
+        if (asString.empty())
+        {
+            ODL_LOG("(asString.empty())"); //####
+        }
+        else
         {
             StringVector    outVec;
 
@@ -356,10 +360,6 @@ nImO::CommandHandler::sendStatusReport
                                         NIMO_UNUSED_VAR_(ec);
                                         NIMO_UNUSED_VAR_(length);
                                       });
-        }
-        else
-        {
-            ODL_LOG("! (0 < asString.length())"); //####
         }
     }
     else

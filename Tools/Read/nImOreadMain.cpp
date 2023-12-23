@@ -116,7 +116,7 @@ main
             nImO::Connection            registryConnection;
             Ptr(nImO::ServiceContext)   asServiceContext{ourContext->asServiceContext()};
 
-            nImO::ServiceContext::addStandardHandlers(ourContext);
+            nImO::InputOutputContext::addInputOutputHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
@@ -150,6 +150,7 @@ main
                                     {
                                         if (statusWithBool.second)
                                         {
+                                            ourContext->addInputChannel(inChannelPath);
                                             inValid = true;
                                         }
                                         else

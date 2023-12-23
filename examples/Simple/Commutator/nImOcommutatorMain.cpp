@@ -92,8 +92,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::IntegerArgumentDescriptor firstArg{"numOut", "Number of output channels", nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::BooleanArgumentDescriptor secondArg{"random", "True if random routing", nImO::ArgumentMode::Optional, false};
+    nImO::IntegerArgumentDescriptor firstArg{"numOut"s, "Number of output channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
+    nImO::BooleanArgumentDescriptor secondArg{"random"s, "True if random routing"s, nImO::ArgumentMode::Optional, false};
     nImO::DescriptorVector          argumentList;
     nImO::ServiceOptions            optionValues;
     int                             exitCode{0};
@@ -119,7 +119,7 @@ main
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
-            nImO::ServiceContext::addStandardHandlers(ourContext);
+            nImO::InputOutputContext::addInputOutputHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
@@ -141,10 +141,9 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                std::string         basePath{optionValues._base};
-                                std::string         inChannelPath;
-                                bool                inValid = false;
-                                nImO::StringVector  outChannelPaths;
+                                std::string basePath{optionValues._base};
+                                std::string inChannelPath;
+                                bool        inValid = false;
 
                                 if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
                                 {
@@ -154,6 +153,7 @@ main
                                     {
                                         if (statusWithBool.second)
                                         {
+                                            ourContext->addInputChannel(inChannelPath);
                                             inValid = true;
                                         }
                                         else
@@ -188,7 +188,7 @@ main
                                         {
                                             if (statusWithBool.second)
                                             {
-                                                outChannelPaths.push_back(scratch);
+                                                ourContext->addOutputChannel(scratch);
                                             }
                                             else
                                             {
@@ -238,6 +238,9 @@ std::cerr << "** Unimplemented **\n";
                                         exitCode = 1;
                                     }
                                 }
+                                nImO::StringVector  outChannelPaths;
+
+                                ourContext->getOutputChannelNames(outChannelPaths);
                                 for (auto walker{outChannelPaths.begin()}; walker != outChannelPaths.end(); ++walker)
                                 {
                                     std::string chanName{*walker};

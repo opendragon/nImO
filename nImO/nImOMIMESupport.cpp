@@ -292,7 +292,7 @@ nImO::EncodeBytesAsMIME
             line += kEqualsChar;
         }
     }
-    if (0 < line.length())
+    if (! line.empty())
     {
         outValue.push_back(line);
     }

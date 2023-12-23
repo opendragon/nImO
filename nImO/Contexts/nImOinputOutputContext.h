@@ -57,8 +57,13 @@
 
 namespace nImO
 {
+    class InputOutputContext; // needed due to circular references.
+
     /*! @brief A holder for a shared pointer to an input channel. */
     using SpInChannel = std::shared_ptr<InChannel>;
+
+    /*! @brief A holder for a shared pointer to an InputOutputContext. */
+    using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
 
     /*! @brief A holder for a shared pointer to an output channel. */
     using SpOutChannel = std::shared_ptr<OutChannel>;
@@ -88,6 +93,53 @@ namespace nImO
         public :
             // Public methods.
 
+            /*! @brief Add an input channel.
+             @param[in] path The path for the channel. */
+            void
+            addInputChannel
+                (const std::string &    path);
+
+            /*! @brief Add the standard command handlers for an InputOutputContext.
+             @param[in] context The Context to be updated. */
+            static void
+            addInputOutputHandlers
+                (SpInputOutputContext   context);
+
+            /*! @brief Add an output channel.
+             @param[in] path The path for the channel. */
+            void
+            addOutputChannel
+                (const std::string &    path);
+
+            /*! @brief Is this an InputOutputContext?
+             @return @c this. */
+            Ptr(InputOutputContext)
+            asInputOutputContext
+                (void)
+                override;
+
+            /*! @brief Is this a ServiceContext?
+             @return @c this. */
+            CPtr(InputOutputContext)
+            asInputOutputContext
+                (void)
+                const
+                override;
+
+            /*! @brief Generate a list of the names of the input channels.
+             @param[out] names A list of the names of the input channels. */
+            void
+            getInputChannelNames
+                (StringVector & names)
+                const;
+
+            /*! @brief Generate a list of the names of the output channels.
+             @param[out] names A list of the names of the output channels. */
+            void
+            getOutputChannelNames
+                (StringVector & names)
+                const;
+
         protected :
             // Protected methods.
 
@@ -115,14 +167,14 @@ namespace nImO
         protected :
             // Protected fields.
 
-        private :
-            // Private fields.
-
             /*! @brief The input channels for the service. */
             InChannelVector _inputChannels{};
 
             /*! @brief The output channels for the service. */
             OutChannelVector    _outputChannels{};
+
+        private :
+            // Private fields.
 
             /*! @brief The sequence of received packages. */
             PackageQueue    _inputPackages{};

@@ -232,7 +232,11 @@ IntegerArgumentDescriptor::parseArgString
         std::string defaultString{inVector[2]};
         std::string description{inVector[3]};
 
-        if (0 < defaultString.length())
+        if (defaultString.empty())
+        {
+            okSoFar = false;
+        }
+        else
         {
             int64_t intValue;
 
@@ -245,11 +249,7 @@ IntegerArgumentDescriptor::parseArgString
                 okSoFar = false;
             }
         }
-        else
-        {
-            okSoFar = false;
-        }
-        if (okSoFar && (0 < minValString.length()))
+        if (okSoFar && (! minValString.empty()))
         {
             int64_t intValue;
 
@@ -262,7 +262,7 @@ IntegerArgumentDescriptor::parseArgString
                 okSoFar = false;
             }
         }
-        if (okSoFar && (0 < maxValString.length()))
+        if (okSoFar && (! maxValString.empty()))
         {
             int64_t intValue;
 
@@ -277,8 +277,8 @@ IntegerArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            bool    hasMaximumValue{0 < maxValString.length()};
-            bool    hasMinimumValue{0 < minValString.length()};
+            bool    hasMaximumValue{! maxValString.empty()};
+            bool    hasMinimumValue{! minValString.empty()};
 
             result = std::make_shared<IntegerArgumentDescriptor>(name, description, argMode, defaultValue, hasMinimumValue,
                                                                  hasMinimumValue ? minValue : 0, hasMaximumValue,

@@ -283,7 +283,7 @@ listChannels
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << "\t" << node << " " << path << " " << dataType << " " << std::boolalpha << theInfo._isOutput << " " <<
+                            std::cout << "\t" << node << " " << path << " '" << dataType << "' " << std::boolalpha << theInfo._isOutput << " " <<
                                         modes << " " << std::boolalpha << theInfo._inUse;
                             break;
 
@@ -912,7 +912,7 @@ main
     {
         choiceSet.insert(walker.first);
     }
-    nImO::StringsArgumentDescriptor firstArg{"choice", "Objects to report", nImO::ArgumentMode::Optional, "all", choiceSet};
+    nImO::StringsArgumentDescriptor firstArg{"choice"s, "Objects to report"s, nImO::ArgumentMode::Optional, "all"s, choiceSet};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

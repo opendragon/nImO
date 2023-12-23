@@ -94,7 +94,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"node", "Node to be shutdown (if machine is not specified)", nImO::ArgumentMode::Optional, ""};
+    nImO::StringArgumentDescriptor  firstArg{"node"s, "Node to be shutdown (if machine is not specified)"s, nImO::ArgumentMode::Optional, ""s};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};
@@ -121,7 +121,113 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
 
-                if (0 < optionValues._machine.length())
+                if (optionValues._machine.empty())
+                {
+                    if (nodeName.empty())
+                    {
+                        auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
+
+                        if (statusWithAllNodes.first.first)
+                        {
+                            nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
+
+                            // Send Shutdown command to all launchers.
+                            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                            {
+                                auto    theInfo{*walker};
+
+                                if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
+                                {
+                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                     nImO::kShutDownResponse);
+                                    // Give the service time to inform the Registry.
+                                    nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
+                                }
+                            }
+
+                            // TBD: Send 'stopSender' command to 'from' node for all connections.
+                            // TBD: Send 'stopReceiver' command to 'to' node for all connections.
+
+                            if (optionValues._expanded)
+                            {
+                                ourContext->report("closing all connections"s);
+                            }
+                            // Send Shutdown command to all other nodes.
+                            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                            {
+                                auto    theInfo{*walker};
+
+                                if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
+                                {
+                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                                                                     nImO::kShutDownResponse);
+                                    // Give the service time to inform the Registry.
+                                    nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
+                                }
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
+                            exitCode = 1;
+                        }
+                        // Give the Registry time to handle pending requests.
+                        nImO::ConsumeSomeTime(ourContext.get(), 20);
+                        ourContext->report("sending shutdown request to Registry"s);
+                        // Send Shutdown command to Registry.
+                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest,
+                                                                         nImO::kShutDownResponse);
+                    }
+                    else
+                    {
+                        auto    statusWithInfo{proxy.getNodeInformation(nodeName)};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            if (statusWithInfo.second._found)
+                            {
+                                // Close all connections for services on the node.
+                                if (optionValues._expanded)
+                                {
+                                    ourContext->report("closing all connections to "s + nodeName);
+                                }
+
+                                // TBD: Send 'stopSender' command to the 'from' node for all connections on the node.
+                                // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the node.
+                                // TBD: Send 'stopReceiver' command to the 'to' node for all connections on the node.
+                                // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the node.
+
+                                // Send Shutdown command to the node.
+                                if (optionValues._expanded)
+                                {
+                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                }
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
+                                                                                 nImO::kShutDownResponse);
+                            }
+                            else
+                            {
+                                ourContext->report("Unknown node: '"s + nodeName + "'"s);
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
+                            exitCode = 1;
+                        }
+                    }
+                }
+                else
                 {
                     auto    statusWithAllNodes{proxy.getInformationForAllNodesOnMachine(optionValues._machine)};
 
@@ -129,7 +235,7 @@ main
                     {
                         nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
-                        // Send Shutdown command to all launchers on the machine.
+                        // Send Shutdown command to all the launchers on the machine.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
                         {
                             auto    theInfo{*walker};
@@ -148,9 +254,9 @@ main
                             }
                         }
 
-                        // TBD: Send 'stopSource' command to 'from' node for all connections on the machine.
+                        // TBD: Send 'stopSender' command to the 'from' node for all connections on the machine.
                         // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the machine.
-                        // TBD: Send 'stopDestination' command to 'to' node for all connections on the machine.
+                        // TBD: Send 'stopReceiver' command to the 'to' node for all connections on the machine.
                         // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the machine.
 
                         if (optionValues._expanded)
@@ -181,108 +287,6 @@ main
                         std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
                         exitCode = 1;
                     }
-                }
-                else if (0 < nodeName.length())
-                {
-                    auto    statusWithInfo{proxy.getNodeInformation(nodeName)};
-
-                    if (statusWithInfo.first.first)
-                    {
-                        if (statusWithInfo.second._found)
-                        {
-                            // Close all connections for services on the node.
-                            if (optionValues._expanded)
-                            {
-                                ourContext->report("closing all connections to "s + nodeName);
-                            }
-
-                            // TBD: Send 'stopSource' command to 'from' node for all connections on the node.
-                            // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the node.
-                            // TBD: Send 'stopDestination' command to 'to' node for all connections on the node.
-                            // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the node.
-
-                            // Send Shutdown command to the node.
-                            if (optionValues._expanded)
-                            {
-                                ourContext->report("sending shutdown request to "s + nodeName);
-                            }
-                            nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
-                                                                             nImO::kShutDownResponse);
-                        }
-                        else
-                        {
-                            ourContext->report("Unknown node: '"s + nodeName + "'"s);
-                        }
-                    }
-                    else
-                    {
-                        std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
-                        exitCode = 1;
-                    }
-                }
-                else
-                {
-                    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
-
-                    if (statusWithAllNodes.first.first)
-                    {
-                        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
-
-                        // Send Shutdown command to all launchers.
-                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
-                        {
-                            auto    theInfo{*walker};
-
-                            if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
-                            {
-                                ourContext->report("sending shutdown request to "s + nodeName);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
-                                                                                 nImO::kShutDownResponse);
-                                // Give the service time to inform the Registry.
-                                nImO::ConsumeSomeTime(ourContext.get(), 20);
-                            }
-                            else
-                            {
-                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
-                            }
-                        }
-
-                        // TBD: Send 'stopSource' command to 'from' node for all connections.
-                        // TBD: Send 'stopDestination' command to 'to' node for all connections.
-
-                        if (optionValues._expanded)
-                        {
-                            ourContext->report("closing all connections"s);
-                        }
-                        // Send Shutdown command to all other nodes.
-                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
-                        {
-                            auto    theInfo{*walker};
-
-                            if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
-                            {
-                                ourContext->report("sending shutdown request to "s + nodeName);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
-                                                                                 nImO::kShutDownResponse);
-                                // Give the service time to inform the Registry.
-                                nImO::ConsumeSomeTime(ourContext.get(), 20);
-                            }
-                            else
-                            {
-                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
-                            }
-                        }
-                    }
-                    else
-                    {
-                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
-                        exitCode = 1;
-                    }
-                    // Give the Registry time to handle pending requests.
-                    nImO::ConsumeSomeTime(ourContext.get(), 20);
-                    ourContext->report("sending shutdown request to Registry"s);
-                    // Send Shutdown command to Registry.
-                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest, nImO::kShutDownResponse);
                 }
             }
             else

@@ -90,8 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile", "Path to application", nImO::ArgumentMode::Required, "", ""};
-    nImO::StringArgumentDescriptor      secondArg{"name", "Application name", nImO::ArgumentMode::Optional, ""};
+    nImO::FilePathArgumentDescriptor    firstArg{"outFile"s, "Path to application"s, nImO::ArgumentMode::Required, ""s, ""s};
+    nImO::StringArgumentDescriptor      secondArg{"name"s, "Application name"s, nImO::ArgumentMode::Optional, ""s};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode{0};

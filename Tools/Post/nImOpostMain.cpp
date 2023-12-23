@@ -90,8 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::BooleanArgumentDescriptor firstArg{"stream", "Read standard input for text", nImO::ArgumentMode::Optional, false};
-    nImO::StringArgumentDescriptor  secondArg{"message", "Text to send to logging applications", nImO::ArgumentMode::Optional, ""};
+    nImO::BooleanArgumentDescriptor firstArg{"stream"s, "Read standard input for text"s, nImO::ArgumentMode::Optional, false};
+    nImO::StringArgumentDescriptor  secondArg{"message"s, "Text to send to logging applications"s, nImO::ArgumentMode::Optional, ""s};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues{true};
     nImO::StringVector              arguments;
@@ -120,7 +120,7 @@ main
             {
                 nImO::StringVector  stuffToSend;
 
-                if (0 < header.length())
+                if (! header.empty())
                 {
                     stuffToSend.push_back(header);
                 }
@@ -145,7 +145,7 @@ main
                     }
                 }
             }
-            else if (0 < header.length())
+            else if (! header.empty())
             {
                 if (! ourContext.report(header))
                 {

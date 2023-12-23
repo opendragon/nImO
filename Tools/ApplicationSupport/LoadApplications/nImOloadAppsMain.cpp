@@ -89,7 +89,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"inFile", "File to be read from", nImO::ArgumentMode::Required, "", ".txt"};
+    nImO::FilePathArgumentDescriptor    firstArg{"inFile"s, "File to be read from"s, nImO::ArgumentMode::Required, ""s, ".txt"s};
     nImO::DescriptorVector              argumentList;
     nImO::StandardOptions               optionValues;
     int                                 exitCode{0};

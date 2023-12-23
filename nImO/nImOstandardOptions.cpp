@@ -103,7 +103,7 @@ nImO::GetConfiguredValue
     ODL_S1s("key = ", key); //####
     boost::optional<SpValue>    retVal;
 
-    if ((0 < key.length()) && (nullptr != lConfigurationValues))
+    if ((! key.empty()) && (nullptr != lConfigurationValues))
     {
         CPtr(Map)   asMapValue{lConfigurationValues->asMap()};
 
@@ -129,13 +129,13 @@ nImO::LoadConfiguration
     ODL_S1s("configFilePath = ", configFilePath); //####
     std::string workingPath;
 
-    if (0 < configFilePath.length())
+    if (configFilePath.empty())
     {
-        workingPath = configFilePath;
+        workingPath = kDefaultConfigFilePath;
     }
     else
     {
-        workingPath = kDefaultConfigFilePath;
+        workingPath = configFilePath;
     }
 #if MAC_OR_LINUX_
     if (0 == access(workingPath.c_str(), R_OK))
@@ -229,19 +229,19 @@ nImO::ProcessStandardOptions
 
     usageString += *argv;
     usageString += " [options]"s;
-    if (0 < argList.length())
+    if (! argList.empty())
     {
         usageString += " "s + argList;
     }
-    if (0 < utilityDescription.length())
+    if (! utilityDescription.empty())
     {
         usageString += "\n"s + utilityDescription;
     }
-    if (0 < utilityExample.length())
+    if (! utilityExample.empty())
     {
         usageString += "\n\nExample: "s + utilityExample;
     }
-    if (0 < argList.length())
+    if (! argList.empty())
     {
         StringVector    descriptions;
 

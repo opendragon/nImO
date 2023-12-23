@@ -1109,7 +1109,7 @@ doTestBigStringBuffer
                 stuff->addString(bigString);
             }
             auto    resultString{stuff->getString()};
-            size_t  length = resultString.size();
+            size_t  length {resultString.size()};
 
             if ((bigLength * kBigTestSize) == length)
             {

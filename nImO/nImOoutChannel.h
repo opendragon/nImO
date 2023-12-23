@@ -74,9 +74,17 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] path The path for the channel.
              @param[in] index The index of the channel. */
             OutChannel
-                (const int  index = 0);
+                (const std::string &    path,
+                 const int              index = 0);
+
+            /*! @brief The destructor. */
+            virtual
+            ~OutChannel
+                (void)
+                override;
 
         protected :
             // Protected methods.

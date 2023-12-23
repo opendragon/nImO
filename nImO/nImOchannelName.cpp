@@ -152,7 +152,12 @@ nImO::ChannelName::generatePath
 
     if ((channelNumber > 0) && (channelNumber <= numChannels))
     {
-        if (0 < base.length())
+        if (base.empty())
+        {
+            okSoFar = true;
+            path = ""s;
+        }
+        else
         {
             std::string     problem;
             SpChannelName   parsed{parse(base, problem)};
@@ -166,11 +171,6 @@ nImO::ChannelName::generatePath
             {
                 okSoFar = false;
             }
-        }
-        else
-        {
-            okSoFar = true;
-            path = ""s;
         }
         if (okSoFar)
         {
@@ -197,11 +197,11 @@ nImO::ChannelName::getName
     ODL_OBJENTER(); //####
     std::string result;
 
-    if (0 < _network.length())
+    if (! _network.empty())
     {
         result += _network + kEndNetwork;
     }
-    if (0 < _node.length())
+    if (! _node.empty())
     {
         result += _node;
     }

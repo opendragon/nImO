@@ -149,7 +149,7 @@ BaseArgumentDescriptor::identifyDelimiter
     static const char possibles[]{"~!@#$%^&*_-+=|;\"'?./ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrtuvwxyz0123456789"};
     char              charToUse{possibles[0]};
 
-    if (0 < valueToCheck.length())
+    if (! valueToCheck.empty())
     {
         // Determine an appropriate delimiter
         for (size_t ii = 0, mm = sizeof(possibles); mm > ii; ++ii)
@@ -263,37 +263,33 @@ BaseArgumentDescriptor::partitionString
             char    innerChar{workingCopy[0]};
 
             workingCopy = workingCopy.substr(1);
-            if (0 < workingCopy.length())
+            if (workingCopy.empty())
             {
-                size_t  innerIndx{workingCopy.find(innerChar, 0)};
+                break;
+            }
+            size_t  innerIndx{workingCopy.find(innerChar, 0)};
 
-                if (workingCopy.npos == innerIndx)
+            if (workingCopy.npos == innerIndx)
+            {
+                // Badly formatted - the matching delimiter is missing!
+                break;
+
+            }
+            result.emplace_back(workingCopy.substr(0, innerIndx));
+            workingCopy = workingCopy.substr(innerIndx + 1);
+            if (! workingCopy.empty())
+            {
+                if (0 == workingCopy.find(_parameterSeparator))
                 {
-                    // Badly formatted - the matching delimiter is missing!
+                    workingCopy = workingCopy.substr(1);
+                    okSoFar = true;
+                }
+                else
+                {
+                    // Badly formatted - the delimiter is not followed by the separator!
                     break;
 
                 }
-                result.emplace_back(workingCopy.substr(0, innerIndx));
-                workingCopy = workingCopy.substr(innerIndx + 1);
-                if (0 < workingCopy.length())
-                {
-                    if (0 == workingCopy.find(_parameterSeparator))
-                    {
-                        workingCopy = workingCopy.substr(1);
-                        okSoFar = true;
-                    }
-                    else
-                    {
-                        // Badly formatted - the delimiter is not followed by the separator!
-                        break;
-
-                    }
-                }
-            }
-            else
-            {
-                break;
-
             }
         }
         else
@@ -680,7 +676,7 @@ nImO::ProcessArguments
                 ODL_LOG("((nullptr != anArg) && (! anArg->isExtra()))"); //####
                 if (! anArg->validate(parseResult.nonOption(StaticCast(int, ii))))
                 {
-                    if (0 < badArgs.length())
+                    if (! badArgs.empty())
                     {
                         badArgs += ", "s;
                     }
@@ -705,7 +701,7 @@ nImO::ProcessArguments
             if (! anArg->isOptional())
             {
                 ODL_LOG("(! anArg->isOptional())"); //####
-                if (0 < badArgs.length())
+                if (! badArgs.empty())
                 {
                     badArgs += ", "s;
                 }
@@ -778,15 +774,15 @@ nImO::PromptForValues
             }
             if (getline(std::cin, inputLine))
             {
-                if (! inputLine.length())
+                if (inputLine.empty())
                 {
-                    if (currentValue.length())
+                    if (currentValue.empty())
                     {
-                        inputLine = currentValue;
+                        inputLine = defaultValue;
                     }
                     else
                     {
-                        inputLine = defaultValue;
+                        inputLine = currentValue;
                     }
                 }
                 if (! anArg->validate(inputLine))

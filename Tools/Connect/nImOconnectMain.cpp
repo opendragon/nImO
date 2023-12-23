@@ -43,6 +43,7 @@
 #include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
+#include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
 
 #include <string>
@@ -110,9 +111,10 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from", "'Sending' channel", nImO::ArgumentMode::Required, "/out"};
-    nImO::ChannelArgumentDescriptor secondArg{"to", "'Receiving' channel", nImO::ArgumentMode::Required, "/in"};
-    nImO::StringsArgumentDescriptor thirdArg{"mode", "Transport mode", nImO::ArgumentMode::Optional, "tcp", nImO::ChannelName::transportNames()};
+    nImO::ChannelArgumentDescriptor firstArg{"from"s, "'Sending' channel"s, nImO::ArgumentMode::Required, "/out"s};
+    nImO::ChannelArgumentDescriptor secondArg{"to"s, "'Receiving' channel"s, nImO::ArgumentMode::Required, "/in"s};
+    nImO::StringsArgumentDescriptor thirdArg{"mode"s, "Transport mode"s, nImO::ArgumentMode::Optional, nImO::kProtocolAnyName,
+                                                nImO::ChannelName::transportNames()};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};
@@ -247,19 +249,19 @@ main
                 std::string         toDataType{};
                 nImO::TransportType fromModes{nImO::TransportType::kUnknown};
                 nImO::TransportType toModes{nImO::TransportType::kUnknown};
-                nImO::TransportType resolvedMode{nImO::ChannelName::transportFromName(modeRequested)};
+                nImO::TransportType resolvedMode{nImO::TransportType::kUnknown};
 
                 if (0 == exitCode)
                 {
-                    auto    statusWithInfo{proxy.getChannelInformation(fromNode, fromPath)};
+                    auto    statusWithChannelInfo{proxy.getChannelInformation(fromNode, fromPath)};
 
-                    if (statusWithInfo.first.first)
+                    if (statusWithChannelInfo.first.first)
                     {
-                        if (statusWithInfo.second._found)
+                        if (statusWithChannelInfo.second._found)
                         {
-                            fromIsOutput = statusWithInfo.second._isOutput;
-                            fromDataType = statusWithInfo.second._dataType;
-                            fromModes = statusWithInfo.second._modes;
+                            fromIsOutput = statusWithChannelInfo.second._isOutput;
+                            fromDataType = statusWithChannelInfo.second._dataType;
+                            fromModes = statusWithChannelInfo.second._modes;
                         }
                         else
                         {
@@ -270,19 +272,19 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getChannelInformation': " << statusWithInfo.first.second << "\n";
+                        std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << "\n";
                         exitCode = 1;
                     }
                     if (0 == exitCode)
                     {
-                        statusWithInfo = proxy.getChannelInformation(toNode, toPath);
-                        if (statusWithInfo.first.first)
+                        statusWithChannelInfo = proxy.getChannelInformation(toNode, toPath);
+                        if (statusWithChannelInfo.first.first)
                         {
-                            if (statusWithInfo.second._found)
+                            if (statusWithChannelInfo.second._found)
                             {
-                                toIsOutput = statusWithInfo.second._isOutput;
-                                toDataType = statusWithInfo.second._dataType;
-                                toModes = statusWithInfo.second._modes;
+                                toIsOutput = statusWithChannelInfo.second._isOutput;
+                                toDataType = statusWithChannelInfo.second._dataType;
+                                toModes = statusWithChannelInfo.second._modes;
                             }
                             else
                             {
@@ -293,7 +295,7 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getChannelInformation': " << statusWithInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << "\n";
                             exitCode = 1;
                         }
                     }
@@ -346,6 +348,19 @@ main
                                     exitCode = 1;
                                 }
                             }
+                            if (0 == exitCode)
+                            {
+                                // Do the modes match up? Set 'resolvedMode'.
+                                resolvedMode = nImO::ResolveTransport(resolvedMode, nImO::ChannelName::transportFromName(modeRequested));
+                                if (nImO::TransportType::kUnknown == resolvedMode)
+                                {
+                                    ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath + "' and '"s +
+                                                       toNode + " "s + toPath + "'."s);
+                                    std::cerr << "requested transport mode is incompatible with '" << fromNode << " " << fromPath << "' and '" <<
+                                                    toNode << " " << toPath << "'.\n";
+                                    exitCode = 1;
+                                }
+                            }
                         }
                     }
                 }
@@ -369,11 +384,59 @@ main
                         std::cerr << "Problem with 'addConnection': " << statusWithBool.first.second << "\n";
                         exitCode = 1;
                     }
+                }
+                if (0 == exitCode)
+                {
+                    nImO::Connection    fromConnection;
+                    nImO::Connection    toConnection;
+                    auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+
+                    if (statusWithNodeInfo.first.first)
+                    {
+                        if (statusWithNodeInfo.second._found)
+                        {
+                            fromConnection = statusWithNodeInfo.second._connection;
+                        }
+                        else
+                        {
+                            ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                        exitCode = 1;
+                    }
                     if (0 == exitCode)
                     {
-                        // Send 'startDestination' command to 'to' node.
-                        // Send 'startSource' command to 'from' node.
-std::cerr << "** Unimplemented **\n";
+                        statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                        if (statusWithNodeInfo.first.first)
+                        {
+                            if (statusWithNodeInfo.second._found)
+                            {
+                                toConnection = statusWithNodeInfo.second._connection;
+                            }
+                            else
+                            {
+                                ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                            exitCode = 1;
+                        }
+                    }
+                    if (0 == exitCode)
+                    {
+                        //  nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
+                        //                                                                         nImO::kShutDownResponse);
+                        // Send 'startReceiver' command to the 'to' node.
+                        // dataType, resolvedMode
+                        // Send 'startSender' command to the 'from' node.
+    std::cerr << "** Unimplemented **\n";
                     }
                 }
                 if (0 != exitCode)

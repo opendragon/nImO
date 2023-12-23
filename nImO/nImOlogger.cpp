@@ -150,13 +150,13 @@ nImO::Logger::report
     ODL_S1s("stringToSend = ", stringToSend); //####
     bool    okSoFar;
 
-    if (0 < stringToSend.length())
+    if (stringToSend.empty())
     {
-        okSoFar = report(std::make_shared<String>(stringToSend));
+        okSoFar = false;
     }
     else
     {
-        okSoFar = false;
+        okSoFar = report(std::make_shared<String>(stringToSend));
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -226,7 +226,11 @@ nImO::Logger::report
         {
             auto    asString{messageToSend.getBytes()};
 
-            if (0 < asString.length())
+            if (asString.empty())
+            {
+                ODL_LOG("(asString.empty())"); //####
+            }
+            else
             {
                 StringVector    outVec;
 
@@ -243,10 +247,6 @@ nImO::Logger::report
                                         NIMO_UNUSED_VAR_(length);
                                       });
                 okSoFar = true;
-            }
-            else
-            {
-                ODL_LOG("! (0 < asString.length())"); //####
             }
         }
         else

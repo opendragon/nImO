@@ -250,15 +250,15 @@ nImO::ConstructNodeName
     ODL_S3s("nameFromOptions = ", nameFromOptions, "suffixIfNotFromOptions = ", suffixIfNotFromOptions, "tag =", tag); //####
     std::string nodeName;
 
-    if (0 < nameFromOptions.length())
-    {
-        nodeName = nameFromOptions;
-    }
-    else
+    if (nameFromOptions.empty())
     {
         nodeName = nImO::GetShortComputerName() + "-"s + suffixIfNotFromOptions;
     }
-    if (0 < tag.length())
+    else
+    {
+        nodeName = nameFromOptions;
+    }
+    if (! tag.empty())
     {
         nodeName += "-"s + tag;
     }

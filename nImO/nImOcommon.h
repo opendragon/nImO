@@ -570,6 +570,30 @@ namespace nImO
         {
         }
 
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        inline Connection
+            (const Connection & other) :
+                _address(other._address), _port(other._port), _transport(other._transport)
+        {
+        }
+        
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        inline Connection &
+        operator=
+            (const Connection &  other)
+        {
+            if (this != &other)
+            {
+                _address = other._address;
+                _port = other._port;
+                _transport = other._transport;
+            }
+            return *this;
+        }
+
         /*! @brief Return @c true if the two Connections are equal.
          @param[in] other The Connnection to be compared with.
          @return @c true if the two Connections are comparable and equal. */
@@ -708,7 +732,7 @@ namespace nImO
     using ByteVector = std::vector<uint8_t>;
 
     /*! @brief A sequence of argument descriptors. */
-    using DescriptorVector = std::vector<BaseArgumentDescriptor *>;
+    using DescriptorVector = std::vector<Ptr(BaseArgumentDescriptor)>;
 
     /*! @brief The table type used for lookups. */
     using StringSet = std::set<std::string>;

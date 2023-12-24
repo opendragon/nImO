@@ -38,7 +38,12 @@
 
 #include <nImOmainSupport.h>
 
-#include <Contexts/nImOcontextWithMDNS.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <nImOinputOutputCommands.h>
+#include <nImOrequestResponse.h>
+#include <ResponseHandlers/nImOstopReceiverResponseHandler.h>
+#include <ResponseHandlers/nImOstopSenderResponseHandler.h>
 
 #include <string>
 
@@ -109,6 +114,39 @@ nImO::CatchSignal
         exit(1);
     }
 } // nImO::CatchSignal
+
+void
+nImO::DropConnection
+    (SpUtilityContext       ourContext,
+     Connection &           fromConnection,
+     const std::string &    fromNode,
+     const std::string &    fromPath,
+     Connection &           toConnection,
+     const std::string &    toNode,
+     const std::string &    toPath)
+{
+    auto    argArray1{std::make_shared<nImO::Array>()};
+    auto    handler1{std::make_unique<nImO::StopSenderResponseHandler>()};
+
+    argArray1->addValue(std::make_shared<nImO::String>(fromPath));
+    auto    statusWithBool{SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler1.get(), argArray1.get(),
+                                                                       kStopSenderRequest, kStopSenderResponse)};
+
+    if (! statusWithBool.first)
+    {
+        ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "'"s);
+    }
+    auto    argArray2{std::make_shared<nImO::Array>()};
+    auto    handler2{std::make_unique<nImO::StopReceiverResponseHandler>()};
+
+    argArray2->addValue(std::make_shared<nImO::String>(toPath));
+    statusWithBool = SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler2.get(), argArray2.get(), kStopReceiverRequest,
+                                                                 kStopReceiverResponse);
+    if (! statusWithBool.first)
+    {
+        ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'"s);
+    }
+} // nImO::DropConnection
 
 void
 nImO::SetSpecialBreakFunction

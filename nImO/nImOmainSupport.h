@@ -39,7 +39,7 @@
 #if (! defined(nImOmainSupport_H_))
 # define nImOmainSupport_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <Contexts/nImOutilityContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -60,6 +60,24 @@ namespace nImO
     void
     CatchSignal
         (const int  signal);
+
+    /*! @brief Remove a connection between two channels.
+     @param[in] ourContext A context to use for requests.
+     @param[in] fromConnection The sender command channel.
+     @param[in] fromNode The sender node name.
+     @param[in] fromPath The sender channel path.
+     @param[in] toConnection The receiver command channel.
+     @param[in] toNode The receiver node name.
+     @param[in] toPath The receiver channel path. */
+    void
+    DropConnection
+        (SpUtilityContext       ourContext,
+         Connection &           fromConnection,
+         const std::string &    fromNode,
+         const std::string &    fromPath,
+         Connection &           toConnection,
+         const std::string &    toNode,
+         const std::string &    toPath);
 
     /*! @brief Set the function to be invoked when an interrupt signal is received.
      @param[in] sigFunction The function to be invoked. */

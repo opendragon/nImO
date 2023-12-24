@@ -37,16 +37,11 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
-#include <ContainerTypes/nImOarray.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
-#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
-#include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
-#include <ResponseHandlers/nImOstopReceiverResponseHandler.h>
-#include <ResponseHandlers/nImOstopSenderResponseHandler.h>
 
 #include <string>
 
@@ -211,7 +206,6 @@ main
                 if (0 == exitCode)
                 {
                     nImO::Connection    fromConnection;
-                    nImO::Connection    toConnection;
                     auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
                     if (statusWithNodeInfo.first.first)
@@ -233,12 +227,15 @@ main
                     }
                     if (0 == exitCode)
                     {
+                        nImO::Connection    toConnection;
+
                         statusWithNodeInfo = proxy.getNodeInformation(toNode);
                         if (statusWithNodeInfo.first.first)
                         {
                             if (statusWithNodeInfo.second._found)
                             {
                                 toConnection = statusWithNodeInfo.second._connection;
+                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
                             }
                             else
                             {
@@ -250,30 +247,6 @@ main
                         {
                             std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
                             exitCode = 1;
-                        }
-                    }
-                    if (0 == exitCode)
-                    {
-                        auto    argArray1{std::make_shared<nImO::Array>()};
-                        auto    argArray2{std::make_shared<nImO::Array>()};
-                        auto    handler1{std::make_unique<nImO::StopSenderResponseHandler>()};
-                        auto    handler2{std::make_unique<nImO::StopReceiverResponseHandler>()};
-
-                        argArray1->addValue(std::make_shared<nImO::String>(fromPath));
-                        auto    statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler1.get(),
-                                                                                                 argArray1.get(), nImO::kStopSenderRequest,
-                                                                                                 nImO::kStopSenderResponse)};
-
-                        if (! statusWithBool.first)
-                        {
-                            ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "'"s);
-                        }
-                        argArray2->addValue(std::make_shared<nImO::String>(toPath));
-                        statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler2.get(), argArray2.get(),
-                                                                                           nImO::kStopReceiverRequest, nImO::kStopReceiverResponse);
-                        if (! statusWithBool.first)
-                        {
-                            ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'"s);
                         }
                     }
                 }

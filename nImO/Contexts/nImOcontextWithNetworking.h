@@ -258,7 +258,7 @@ namespace nImO
 
     }; // ContextWithNetworking
 
-    /*! @brief A holder for a shared pointer to a Context. */
+    /*! @brief A holder for a shared pointer to a ContextWithNetworking. */
     using SpContextWithNetworking = std::shared_ptr<ContextWithNetworking>;
 
 } // nImO

@@ -149,13 +149,76 @@ main
                                     ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
                                 }
                             }
-
-                            // TBD: Send 'stopSender' command to 'from' node for all connections.
-                            // TBD: Send 'stopReceiver' command to 'to' node for all connections.
-
                             if (optionValues._expanded)
                             {
                                 ourContext->report("closing all connections"s);
+                            }
+                            auto    statusWithAllConnections{proxy.getInformationForAllConnections()};
+
+                            if (statusWithAllConnections.first.first)
+                            {
+                                nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
+
+                                for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                                {
+                                    bool    okSoFar{true};
+                                    auto    theInfo{*walker};
+
+                                    if (theInfo._found)
+                                    {
+                                        std::string         fromNode{theInfo._fromNode};
+                                        std::string         fromPath{theInfo._fromPath};
+                                        std::string         toNode{theInfo._toNode};
+                                        std::string         toPath{theInfo._toPath};
+                                        nImO::Connection    fromConnection;
+                                        auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+
+                                        if (statusWithNodeInfo.first.first)
+                                        {
+                                            if (statusWithNodeInfo.second._found)
+                                            {
+                                                fromConnection = statusWithNodeInfo.second._connection;
+                                            }
+                                            else
+                                            {
+                                                ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                                okSoFar = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                            okSoFar = false;
+                                        }
+                                        if (okSoFar)
+                                        {
+                                            nImO::Connection    toConnection;
+
+                                            statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                            if (statusWithNodeInfo.first.first)
+                                            {
+                                                if (statusWithNodeInfo.second._found)
+                                                {
+                                                    toConnection = statusWithNodeInfo.second._connection;
+                                                    DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                }
+                                                else
+                                                {
+                                                    ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << "\n";
+                                exitCode = 1;
                             }
                             // Send Shutdown command to all other nodes.
                             for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
@@ -199,14 +262,91 @@ main
                                 // Close all connections for services on the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("closing all connections to "s + nodeName);
+                                    ourContext->report("closing all connections to node "s + nodeName);
                                 }
+                                auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnNode(nodeName)};
 
-                                // TBD: Send 'stopSender' command to the 'from' node for all connections on the node.
-                                // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the node.
-                                // TBD: Send 'stopReceiver' command to the 'to' node for all connections on the node.
-                                // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the node.
+                                if (statusWithAllConnections.first.first)
+                                {
+                                    nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
 
+                                    for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                                    {
+                                        bool    okSoFar{true};
+                                        auto    theInfo{*walker};
+
+                                        if (theInfo._found)
+                                        {
+                                            std::string         fromNode{theInfo._fromNode};
+                                            std::string         fromPath{theInfo._fromPath};
+                                            std::string         toNode{theInfo._toNode};
+                                            std::string         toPath{theInfo._toPath};
+                                            nImO::Connection    fromConnection;
+                                            auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+
+                                            if (statusWithNodeInfo.first.first)
+                                            {
+                                                if (statusWithNodeInfo.second._found)
+                                                {
+                                                    fromConnection = statusWithNodeInfo.second._connection;
+                                                }
+                                                else
+                                                {
+                                                    ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                                    okSoFar = false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                okSoFar = false;
+                                            }
+                                            if (okSoFar)
+                                            {
+                                                nImO::Connection    toConnection;
+
+                                                statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                                if (statusWithNodeInfo.first.first)
+                                                {
+                                                    if (statusWithNodeInfo.second._found)
+                                                    {
+                                                        toConnection = statusWithNodeInfo.second._connection;
+                                                        DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                        auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
+
+                                                        if (! statusWithBool.first.first)
+                                                        {
+                                                            std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                            okSoFar = false;
+                                                        }
+                                                        if (okSoFar)
+                                                        {
+                                                            statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                                                            if (! statusWithBool.first.first)
+                                                            {
+                                                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with 'getInformationForAllConnectionsOnNode': " << statusWithAllConnections.first.second <<
+                                                "\n";
+                                    exitCode = 1;
+                                }
                                 // Send Shutdown command to the node.
                                 if (optionValues._expanded)
                                 {
@@ -253,15 +393,92 @@ main
                                 ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
                             }
                         }
-
-                        // TBD: Send 'stopSender' command to the 'from' node for all connections on the machine.
-                        // TBD: Clear the 'inUse' flag for the 'from' node channel, if it's not on the machine.
-                        // TBD: Send 'stopReceiver' command to the 'to' node for all connections on the machine.
-                        // TBD: Clear the 'inUse' flag for the 'to' node channel, if it's not on the machine.
-
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections"s);
+                            ourContext->report("closing all connections on machine "s + optionValues._machine);
+                        }
+                        auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnMachine(optionValues._machine)};
+
+                        if (statusWithAllConnections.first.first)
+                        {
+                            nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
+
+                            for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                            {
+                                bool    okSoFar{true};
+                                auto    theInfo{*walker};
+
+                                if (theInfo._found)
+                                {
+                                    std::string         fromNode{theInfo._fromNode};
+                                    std::string         fromPath{theInfo._fromPath};
+                                    std::string         toNode{theInfo._toNode};
+                                    std::string         toPath{theInfo._toPath};
+                                    nImO::Connection    fromConnection;
+                                    auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+
+                                    if (statusWithNodeInfo.first.first)
+                                    {
+                                        if (statusWithNodeInfo.second._found)
+                                        {
+                                            fromConnection = statusWithNodeInfo.second._connection;
+                                        }
+                                        else
+                                        {
+                                            ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                            okSoFar = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                        okSoFar = false;
+                                    }
+                                    if (okSoFar)
+                                    {
+                                        nImO::Connection    toConnection;
+
+                                        statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                        if (statusWithNodeInfo.first.first)
+                                        {
+                                            if (statusWithNodeInfo.second._found)
+                                            {
+                                                toConnection = statusWithNodeInfo.second._connection;
+                                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
+
+                                                if (! statusWithBool.first.first)
+                                                {
+                                                    std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                    okSoFar = false;
+                                                }
+                                                if (okSoFar)
+                                                {
+                                                    statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                                                    if (! statusWithBool.first.first)
+                                                    {
+                                                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getInformationForAllConnectionsOnMachine': " << statusWithAllConnections.first.second <<
+                                        "\n";
+                            exitCode = 1;
                         }
                         // Send Shutdown command to all other nodes on the machine.
                         for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)

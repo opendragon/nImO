@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommands.h
+//  File:       nImO/ResponseHandlers/nImOrestrictPacketsResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO I/O services.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-08-07
+//  Created:    2023-12-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinputOutputCommands_H_))
-# define nImOinputOutputCommands_H_ /* Header guard */
+#if (! defined(nImOrestrictPacketsResponseHandler_H_))
+# define nImOrestrictPacketsResponseHandler_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <ResponseHandlers/nImOresponseHandler.h>
+
+# include <nImOregistryTypes.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,44 +49,74 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO I/O services. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class RestrictPacketsResponseHandler final : public ResponseHandler
+    {
 
-    /*! @brief The 'restrictPackets' request. */
-    const std::string   kRestrictPacketsRequest{"restrictPackets."s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The 'restrictPackets' response. */
-    const std::string   kRestrictPacketsResponse{"restrictPackets="s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'startReceiver' request. */
-    const std::string   kStartReceiverRequest{"startReceiver."s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'startReceiver' response. */
-    const std::string   kStartReceiverResponse{"startReceiver="s};
+            /*! @brief The class that this class is derived from. */
+            using inherited = nImO::ResponseHandler;
 
-    /*! @brief The 'startSender' request. */
-    const std::string   kStartSenderRequest{"startSender."s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'startSender' response. */
-    const std::string   kStartSenderResponse{"startSender="s};
+            /*! @brief The constructor.
+             @param[in] responseKey The expected response key. */
+            RestrictPacketsResponseHandler
+                (void);
 
-    /*! @brief The 'stopReceiver' request. */
-    const std::string   kStopReceiverRequest{"stopReceiver."s};
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            void
+            doIt
+                (const Array &  stuff)
+                override;
 
-    /*! @brief The 'stopReceiver' response. */
-    const std::string   kStopReceiverResponse{"stopReceiver="s};
+            /*! @brief Return the received value.
+             @return The received value. */
+            bool
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
-    /*! @brief The 'stopSender' request. */
-    const std::string   kStopSenderRequest{"stopSender."s};
+        protected :
+            // Protected methods.
 
-    /*! @brief The 'stopSender' response. */
-    const std::string   kStopSenderResponse{"stopSender="s};
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief The received value. */
+            bool    _result{false};
+
+    }; // RestrictPacketsResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOinputOutputCommands_H_)
+#endif // not defined(nImOrestrictPacketsResponseHandler_H_)

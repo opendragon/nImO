@@ -433,9 +433,12 @@ main
                     {
                         //  nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                         //                                                                         nImO::kShutDownResponse);
-                        // Send 'startReceiver' command to the 'to' node.
-                        // dataType, resolvedMode
-                        // Send 'startSender' command to the 'from' node.
+                        // Send 'startReceiver' command to the 'to' node. [toConnection]
+                        //  dataType, resolvedMode; returns IP address and socket to connect to.
+                        // Send 'startSender' command to the 'from' node. [fromConnection]
+                        //  IP address and socket or receiver, dataType, resolvedMode; returns IP address and socket to connect from.
+                        // Send 'restrictPackets' command to the 'to' node.
+                        //  IP address, socket of sender
     std::cerr << "** Unimplemented **\n";
                     }
                 }

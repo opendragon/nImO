@@ -279,6 +279,10 @@
 		F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOatomicTest.rc.in; path = Tests/nImOatomicTest.rc.in; sourceTree = "<group>"; };
 		F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainerTest.cpp; path = Tests/nImOcontainerTest.cpp; sourceTree = "<group>"; };
 		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
+		F6BB16072B3879A100E02EC5 /* nImOrestrictPacketsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrestrictPacketsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOrestrictPacketsResponseHandler.cpp; sourceTree = "<group>"; };
+		F6BB16082B3879A100E02EC5 /* nImOrestrictPacketsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOrestrictPacketsResponseHandler.h; path = nImO/ResponseHandlers/nImOrestrictPacketsResponseHandler.h; sourceTree = "<group>"; };
+		F6BB16092B3879C400E02EC5 /* nImOrestrictPacketsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrestrictPacketsCommandHandler.cpp; path = nImO/CommandHandlers/nImOrestrictPacketsCommandHandler.cpp; sourceTree = "<group>"; };
+		F6BB160A2B3879C400E02EC5 /* nImOrestrictPacketsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOrestrictPacketsCommandHandler.h; path = nImO/CommandHandlers/nImOrestrictPacketsCommandHandler.h; sourceTree = "<group>"; };
 		F6BE1C242973491F009828BF /* nImOcommandSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandSession.h; path = nImO/nImOcommandSession.h; sourceTree = "<group>"; };
 		F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandSession.cpp; path = nImO/nImOcommandSession.cpp; sourceTree = "<group>"; };
 		F6D00FB420D4915000C29946 /* nImOconverters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOconverters.h; path = nImO/nImOconverters.h; sourceTree = "<group>"; };
@@ -617,6 +621,8 @@
 				F6E510902A19675700D52E80 /* nImOremoveNodeResponseHandler.h */,
 				F6E5111E2A198D7F00D52E80 /* nImOresponseHandler.cpp */,
 				F6E5111D2A198D7F00D52E80 /* nImOresponseHandler.h */,
+				F6BB16072B3879A100E02EC5 /* nImOrestrictPacketsResponseHandler.cpp */,
+				F6BB16082B3879A100E02EC5 /* nImOrestrictPacketsResponseHandler.h */,
 				F6D1E6F82A366E7E00931F39 /* nImOsetChannelInUseResponseHandler.cpp */,
 				F6D1E6F62A366E7E00931F39 /* nImOsetChannelInUseResponseHandler.h */,
 				F677180C2B37639100959A15 /* nImOstartReceiverResponseHandler.cpp */,
@@ -1162,6 +1168,8 @@
 			children = (
 				F677181A2B376FC900959A15 /* nImOinputOutputCommandHandler.cpp */,
 				F677181B2B376FC900959A15 /* nImOinputOutputCommandHandler.h */,
+				F6BB16092B3879C400E02EC5 /* nImOrestrictPacketsCommandHandler.cpp */,
+				F6BB160A2B3879C400E02EC5 /* nImOrestrictPacketsCommandHandler.h */,
 				F677180F2B376A9000959A15 /* nImOshutdownCommandHandler.cpp */,
 				F67718102B376A9000959A15 /* nImOshutdownCommandHandler.h */,
 				F67718192B376CB600959A15 /* nImOstartReceiverCommandHandler.cpp */,

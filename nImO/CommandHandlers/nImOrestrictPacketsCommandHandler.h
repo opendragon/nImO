@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommands.h
+//  File:       nImO/nImOrestrictPacketsCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO I/O services.
+//  Contains:   The class declaration for the nImO restrict packets command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-08-07
+//  Created:    2023-12-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinputOutputCommands_H_))
-# define nImOinputOutputCommands_H_ /* Header guard */
+#if (! defined(nImOrestrictPacketsCommandHandler_H_))
+# define nImOrestrictPacketsCommandHandler_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <CommandHandlers/nImOinputOutputCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,44 +47,65 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO I/O services. */
+ @brief The class declaration for the %nImO restrict packets command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide a handler for the restrict packets command. */
+    class RestrictPacketsCommandHandler final : public InputOutputCommandHandler
+    {
 
-    /*! @brief The 'restrictPackets' request. */
-    const std::string   kRestrictPacketsRequest{"restrictPackets."s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The 'restrictPackets' response. */
-    const std::string   kRestrictPacketsResponse{"restrictPackets="s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'startReceiver' request. */
-    const std::string   kStartReceiverRequest{"startReceiver."s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'startReceiver' response. */
-    const std::string   kStartReceiverResponse{"startReceiver="s};
+            /*! @brief The class that this class is derived from. */
+            using inherited = InputOutputCommandHandler;
 
-    /*! @brief The 'startSender' request. */
-    const std::string   kStartSenderRequest{"startSender."s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'startSender' response. */
-    const std::string   kStartSenderResponse{"startSender="s};
+            /*! @brief The constructor.
+             @param[in] owner The owning Context. */
+            RestrictPacketsCommandHandler
+                (SpInputOutputContext   owner);
 
-    /*! @brief The 'stopReceiver' request. */
-    const std::string   kStopReceiverRequest{"stopReceiver."s};
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            bool
+            doIt
+                (BTCP::socket & socket,
+                 const Array &  arguments)
+                const
+                override;
 
-    /*! @brief The 'stopReceiver' response. */
-    const std::string   kStopReceiverResponse{"stopReceiver="s};
+        protected :
+            // Protected methods.
 
-    /*! @brief The 'stopSender' request. */
-    const std::string   kStopSenderRequest{"stopSender."s};
+        private :
+            // Private methods.
 
-    /*! @brief The 'stopSender' response. */
-    const std::string   kStopSenderResponse{"stopSender="s};
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+    }; // RestrictPacketsCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOinputOutputCommands_H_)
+#endif // not defined(nImOrestrictPacketsCommandHandler_H_)

@@ -81,7 +81,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
-            "${THIS_SOURCE_DIR}/CommandHandlers/nImOrestrictPacketsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp"
@@ -143,7 +142,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp"
-            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOrestrictPacketsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp"
@@ -251,7 +249,6 @@ install(FILES
 
 install(FILES
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
-        "${THIS_SOURCE_DIR}/CommandHandlers/nImOrestrictPacketsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h"
@@ -325,7 +322,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h"
-        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOrestrictPacketsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.h"
@@ -370,7 +366,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOrestrictPacketsCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOrestrictPacketsCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
@@ -468,8 +463,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.cpp ${THIS_SOURCE_DIR}/ResponseHandlers/nImOresponseHandler.h
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOrestrictPacketsResponseHandler.cpp
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOrestrictPacketsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp

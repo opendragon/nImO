@@ -38,7 +38,6 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
-#include <CommandHandlers/nImOrestrictPacketsCommandHandler.h>
 #include <CommandHandlers/nImOstartReceiverCommandHandler.h>
 #include <CommandHandlers/nImOstartSenderCommandHandler.h>
 #include <CommandHandlers/nImOstopReceiverCommandHandler.h>
@@ -163,15 +162,6 @@ nImO::InputOutputContext::addInputOutputHandlers
             auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
 
             if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler4{std::make_shared<RestrictPacketsCommandHandler>(context)};
-
-            if (! actualContext->addHandler(kRestrictPacketsRequest, newHandler4))
             {
                 goAhead = false;
             }

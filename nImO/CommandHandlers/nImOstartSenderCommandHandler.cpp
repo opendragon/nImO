@@ -38,9 +38,11 @@
 
 #include <CommandHandlers/nImOstartSenderCommandHandler.h>
 
-//#include <BasicTypes/nImOstring.h>
-//#include <ContainerTypes/nImOarray.h>
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
+#include <ContainerTypes/nImOarray.h>
 #include <nImOinputOutputCommands.h>
+#include <nImOoutChannel.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -102,11 +104,33 @@ nImO::StartSenderCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _ownerForInputOutput->report("start sender request received");
-    // TBD start the sender
-    // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kStartSenderResponse, "start sender", false)};//true)};
+    bool    okSoFar{false};
 
+    _ownerForInputOutput->report("start sender request received");
+    if (1 < arguments.size())
+    {
+        SpValue         element{arguments[1]};
+        CPtr(String)    pathString{element->asString()};
+
+        if (nullptr != pathString)
+        {
+            auto    theChannel{_ownerForInputOutput->getOutputChannel(pathString->getValue())};
+
+            if (nullptr == theChannel)
+            {
+                ODL_LOG("(nullptr == theChannel)"); //####
+            }
+            else
+            {
+                // Send the response to the requestor.
+                okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender", theChannel->start());
+            }
+        }
+        else
+        {
+            ODL_LOG("! (nullptr != pathString)"); //####
+        }
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::StartSenderCommandHandler::doIt

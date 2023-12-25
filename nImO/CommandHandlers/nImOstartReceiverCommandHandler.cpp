@@ -42,6 +42,7 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
+#include <nImOinChannel.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -106,22 +107,31 @@ nImO::StartReceiverCommandHandler::doIt
     bool    okSoFar{false};
 
     _ownerForInputOutput->report("start receiver request received");
-    if (2 < arguments.size())
+    if (3 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
-        CPtr(Address)   addressValue{element1->asAddress()};
-        CPtr(Integer)   portValue{element2->asInteger()};
+        SpValue         element3{arguments[3]};
+        CPtr(String)    pathString{element1->asString()};
+        CPtr(Address)   addressValue{element2->asAddress()};
+        CPtr(Integer)   portValue{element3->asInteger()};
 
-        if ((nullptr != addressValue) && (nullptr != portValue))
+        if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue))
         {
-            IPv4Address     senderAddress{addressValue->getAddressValue()};
-            IPv4Port        senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+            auto    theChannel{_ownerForInputOutput->getInputChannel(pathString->getValue())};
 
-NIMO_UNUSED_VAR_(senderAddress); //!!
-NIMO_UNUSED_VAR_(senderPort); //!!
-            //TBD start the receiver, filtering all but packets from the specified sender
-            okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", false);//!!
+            if (nullptr == theChannel)
+            {
+                ODL_LOG("(nullptr == theChannel)"); //####
+            }
+            else
+            {
+                IPv4Address     senderAddress{addressValue->getAddressValue()};
+                IPv4Port        senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+
+                // Send the response to the requestor.
+                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", theChannel->start(senderAddress, senderPort));
+            }
         }
         else
         {

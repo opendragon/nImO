@@ -86,7 +86,18 @@ namespace nImO
                 (void)
                 override;
 
-            /*! @brief Start the channel .
+            /*! @brief Configure the netowkr port for the channel.
+             @param[in] receiveAddress The address of the receiver.
+             @param[in] receivePort The port of the receiver.
+             @param[in] mode The transport mode to use.
+             @return @c true if the network information for the channel was set up. */
+            bool
+            setUp
+                (const IPv4Address      receiveAddress,
+                 const IPv4Port         receivePort,
+                 const TransportType    mode);
+
+            /*! @brief Start the channel.
              @return @c true if the channel was successfully started. */
             bool
             start

@@ -40,6 +40,7 @@
 
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
+#include <nImOinChannel.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>

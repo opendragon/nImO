@@ -42,6 +42,7 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
+#include <nImOinChannel.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -117,17 +118,26 @@ nImO::SetUpReceiverCommandHandler::doIt
 
         if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {
-            TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
-NIMO_UNUSED_VAR_(mode); //!!
-            IPv4Address     address;
-            IPv4Port        port;
+            auto    theChannel{_ownerForInputOutput->getInputChannel(pathString->getValue())};
 
-            //TBD set up receiving port
-            auto    infoArray{std::make_shared<Array>()};
+            if (nullptr == theChannel)
+            {
+                ODL_LOG("(nullptr == theChannel)"); //####
+            }
+            else
+            {
+                TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
 
-            infoArray->addValue(std::make_shared<Address>(address));
-            infoArray->addValue(std::make_shared<Integer>(port));
-            okSoFar = sendComplexResponse(socket, kSetUpReceiverResponse, "set up receiver", infoArray);
+                if (theChannel->setUp(mode))
+                {
+                    auto    theConnection{theChannel->getConnection()};
+                    auto    infoArray{std::make_shared<Array>()};
+
+                    infoArray->addValue(std::make_shared<Address>(theConnection._address));
+                    infoArray->addValue(std::make_shared<Integer>(theConnection._port));
+                    okSoFar = sendComplexResponse(socket, kSetUpReceiverResponse, "set up receiver", infoArray);
+                }
+            }
         }
         else
         {

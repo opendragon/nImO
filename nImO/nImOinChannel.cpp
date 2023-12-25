@@ -123,10 +123,27 @@ nImO::InChannel::operator=
 } // nImO::InChannel::operator=
 
 bool
-nImO::InChannel::start
-    (void)
+nImO::InChannel::setUp
+    (const TransportType    mode)
 {
     ODL_OBJENTER(); //####
+NIMO_UNUSED_VAR_(mode); //!!
+    bool    okSoFar{false};
+
+    // TBD - set up network activity.
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::InChannel::setUp
+
+bool
+nImO::InChannel::start
+    (const IPv4Address  senderAddress,
+     const IPv4Port     senderPort)
+{
+    ODL_OBJENTER(); //####
+    ODL_I2("senderAddress = ", senderAddress, "senderPort = ", senderPort); //####
+NIMO_UNUSED_VAR_(senderAddress); //!!
+NIMO_UNUSED_VAR_(senderPort); //!!
     bool    okSoFar{false};
 
     // TBD - start network activity.

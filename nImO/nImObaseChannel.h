@@ -75,8 +75,18 @@ namespace nImO
             ~BaseChannel
                 (void);
 
+            /*! @brief Return the connection.
+             @return The connection. */
+            inline const Connection &
+            getConnection
+                (void)
+                const
+            {
+                return _connection;
+            }
+
             /*! @brief Return the name.
-            @return The name. */
+             @return The name. */
             inline std::string
             getName
                 (void)

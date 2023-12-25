@@ -41,6 +41,7 @@
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
 #include <nImOinputOutputCommands.h>
+#include <nImOoutChannel.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

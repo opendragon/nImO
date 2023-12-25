@@ -43,6 +43,7 @@
 #include <BasicTypes/nImOstring.h>
 #include <ContainerTypes/nImOarray.h>
 #include <nImOinputOutputCommands.h>
+#include <nImOoutChannel.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -113,33 +114,40 @@ nImO::SetUpSenderCommandHandler::doIt
         SpValue         element3{arguments[3]};
         SpValue         element4{arguments[4]};
         SpValue         element5{arguments[5]};
-        CPtr(Address)   addressValue{element1->asAddress()};
-        CPtr(Integer)   portValue{element2->asInteger()};
-        CPtr(String)    pathString{element3->asString()};
+        CPtr(String)    pathString{element1->asString()};
+        CPtr(Address)   addressValue{element2->asAddress()};
+        CPtr(Integer)   portValue{element3->asInteger()};
         CPtr(String)    dataTypeString{element4->asString()};
         CPtr(Integer)   modeValue{element5->asInteger()};
 
-        if ((nullptr != addressValue) && (nullptr != portValue) && (nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
+        if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {
-            IPv4Address     receiveAddress{addressValue->getAddressValue()};
-            IPv4Port        receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
-            TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
-NIMO_UNUSED_VAR_(receiveAddress); //!!
-NIMO_UNUSED_VAR_(receivePort); //!!
-NIMO_UNUSED_VAR_(mode); //!!
-            IPv4Address     sendAddress;
-            IPv4Port        sendPort;
+            auto    theChannel{_ownerForInputOutput->getOutputChannel(pathString->getValue())};
 
-            //TBD set up sending port
-            auto    infoArray{std::make_shared<Array>()};
+            if (nullptr == theChannel)
+            {
+                ODL_LOG("(nullptr == theChannel)"); //####
+            }
+            else
+            {
+                IPv4Address     receiveAddress{addressValue->getAddressValue()};
+                IPv4Port        receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+                TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
 
-            infoArray->addValue(std::make_shared<Address>(sendAddress));
-            infoArray->addValue(std::make_shared<Integer>(sendPort));
-            okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender", infoArray);
+                if (theChannel->setUp(receiveAddress, receivePort, mode))
+                {
+                    auto    theConnection{theChannel->getConnection()};
+                    auto    infoArray{std::make_shared<Array>()};
+
+                    infoArray->addValue(std::make_shared<Address>(theConnection._address));
+                    infoArray->addValue(std::make_shared<Integer>(theConnection._port));
+                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender", infoArray);
+                }
+            }
         }
         else
         {
-            ODL_LOG("! ((nullptr != addressValue) && (nullptr != portValue) && (nullptr != pathString) && (nullptr != dataTypeString) && " //####
+            ODL_LOG("! ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue) && (nullptr != dataTypeString) && " //####
                     "(nullptr != modeValue))"); //####
         }
     }

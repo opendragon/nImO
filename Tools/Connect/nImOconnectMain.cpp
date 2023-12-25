@@ -441,13 +441,12 @@ main
 
                     if (0 == exitCode)
                     {
-                        // Send 'setUpReceiver' command to the 'to' node. [toConnection]
-                        //  path, dataType, resolvedMode; returns IP address and socket to connect to.
+                        // Send 'setUpReceiver' command to the 'to' node.
                         auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::SetUpReceiverResponseHandler>()};
 
-                        argArray->addValue(std::make_shared<nImO::String>(fromPath));
-                        argArray->addValue(std::make_shared<nImO::String>(fromDataType));
+                        argArray->addValue(std::make_shared<nImO::String>(toPath));
+                        argArray->addValue(std::make_shared<nImO::String>(toDataType));
                         argArray->addValue(std::make_shared<nImO::Integer>(StaticCast(int64_t, resolvedMode)));
                         auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler.get(), argArray.get(),
                                                                                          nImO::kSetUpReceiverRequest, nImO::kSetUpReceiverResponse)};
@@ -470,15 +469,14 @@ main
 
                     if (0 == exitCode)
                     {
-                        // Send 'setUpSender' command to the 'from' node. [fromConnection]
-                        //  IP address and port of receiver, path, dataType, resolvedMode; returns IP address and port to connect from.
+                        // Send 'setUpSender' command to the 'from' node.
                         auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::SetUpSenderResponseHandler>()};
 
+                        argArray->addValue(std::make_shared<nImO::String>(fromPath));
                         argArray->addValue(std::make_shared<nImO::Address>(receiverAddress));
                         argArray->addValue(std::make_shared<nImO::Integer>(receiverPort));
-                        argArray->addValue(std::make_shared<nImO::String>(toPath));
-                        argArray->addValue(std::make_shared<nImO::String>(toDataType));
+                        argArray->addValue(std::make_shared<nImO::String>(fromDataType));
                         argArray->addValue(std::make_shared<nImO::Integer>(StaticCast(int64_t, resolvedMode)));
                         auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(), argArray.get(),
                                                                                          nImO::kSetUpSenderRequest, nImO::kSetUpSenderResponse)};
@@ -498,10 +496,11 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        // Send 'startReceiver' command to the 'to' node. [toConnection]
+                        // Send 'startReceiver' command to the 'to' node.
                         auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::StartReceiverResponseHandler>()};
 
+                        argArray->addValue(std::make_shared<nImO::String>(toPath));
                         argArray->addValue(std::make_shared<nImO::Address>(senderAddress));
                         argArray->addValue(std::make_shared<nImO::Integer>(senderPort));
                         auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler.get(), argArray.get(),
@@ -519,10 +518,13 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        // Send 'startSender' command to the 'from' node. [fromConnection]
+                        // Send 'startSender' command to the 'from' node.
+                        auto    argArray{std::make_shared<nImO::Array>()};
                         auto    handler{std::make_unique<nImO::StartSenderResponseHandler>()};
-                        auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(),
-                                                                                           nImO::kStartSenderRequest, nImO::kStartSenderResponse)};
+
+                        argArray->addValue(std::make_shared<nImO::String>(fromPath));
+                        auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(), argArray.get(),
+                                                                                         nImO::kStartSenderRequest, nImO::kStartSenderResponse)};
 
                         if (status.first)
                         {

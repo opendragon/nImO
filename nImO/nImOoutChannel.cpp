@@ -127,6 +127,24 @@ nImO::OutChannel::operator=
 } // nImO::OutChannel::operator=
 
 bool
+nImO::OutChannel::setUp
+    (const IPv4Address      receiveAddress,
+     const IPv4Port         receivePort,
+     const TransportType    mode)
+{
+    ODL_OBJENTER(); //####
+    ODL_I3("receiveAddress = ", receiveAddress, "receivePort = ", receivePort, "mode = ", StaticCast(int, mode)); //####
+NIMO_UNUSED_VAR_(receiveAddress); //!!
+NIMO_UNUSED_VAR_(receivePort); //!!
+NIMO_UNUSED_VAR_(mode); //!!
+    bool    okSoFar{false};
+
+    // TBD - set up network activity.
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::OutChannel::setUp
+
+bool
 nImO::OutChannel::start
     (void)
 {

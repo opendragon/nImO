@@ -87,11 +87,18 @@ namespace nImO
                 (void)
                 override;
 
-            /*! @brief Start the channel .
+            bool
+            setUp
+                (const TransportType    mode);
+
+            /*! @brief Start the channel.
+             @param[in] senderAddress The allowed address for messages.
+             @param[in] senderPort The allowed port for messages.
              @return @c true if the channel was successfully started. */
             bool
             start
-                (void);
+                (const IPv4Address  senderAddress,
+                 const IPv4Port     senderPort);
 
             /*! @brief Stop the channel and clear settings.
              @return @c true if the channel was successfully stopped. */

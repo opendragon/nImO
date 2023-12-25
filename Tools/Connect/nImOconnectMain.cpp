@@ -38,6 +38,9 @@
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <BasicTypes/nImOaddress.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
 #include <nImOinputOutputCommands.h>
@@ -45,6 +48,10 @@
 #include <nImOregistryProxy.h>
 #include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
+#include <ResponseHandlers/nImOsetUpReceiverResponseHandler.h>
+#include <ResponseHandlers/nImOsetUpSenderResponseHandler.h>
+#include <ResponseHandlers/nImOstartReceiverResponseHandler.h>
+#include <ResponseHandlers/nImOstartSenderResponseHandler.h>
 
 #include <string>
 
@@ -307,13 +314,7 @@ main
                             std::cerr << "channel '" << toNode << " " << toPath << "' is an output!\n";
                             exitCode = 1;
                         }
-                        else if (! fromIsOutput)
-                        {
-                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
-                            std::cerr << "channel '" << fromNode << " " << fromPath << "' is an input!\n";
-                            exitCode = 1;
-                        }
-                        else
+                        else if (fromIsOutput)
                         {
                             // Do the data types match up? Set 'dataType'.
                             if (fromDataType.empty())
@@ -361,6 +362,12 @@ main
                                     exitCode = 1;
                                 }
                             }
+                        }
+                        else
+                        {
+                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
+                            std::cerr << "channel '" << fromNode << " " << fromPath << "' is an input!\n";
+                            exitCode = 1;
                         }
                     }
                 }
@@ -429,17 +436,103 @@ main
                             exitCode = 1;
                         }
                     }
+                    nImO::IPv4Address   receiverAddress;
+                    nImO::IPv4Port      receiverPort;
+
                     if (0 == exitCode)
                     {
-                        //  nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
-                        //                                                                         nImO::kShutDownResponse);
+                        // Send 'setUpReceiver' command to the 'to' node. [toConnection]
+                        //  path, dataType, resolvedMode; returns IP address and socket to connect to.
+                        auto    argArray{std::make_shared<nImO::Array>()};
+                        auto    handler{std::make_unique<nImO::SetUpReceiverResponseHandler>()};
+
+                        argArray->addValue(std::make_shared<nImO::String>(fromPath));
+                        argArray->addValue(std::make_shared<nImO::String>(fromDataType));
+                        argArray->addValue(std::make_shared<nImO::Integer>(StaticCast(int64_t, resolvedMode)));
+                        auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler.get(), argArray.get(),
+                                                                                         nImO::kSetUpReceiverRequest, nImO::kSetUpReceiverResponse)};
+
+                        if (status.first)
+                        {
+                            nImO::AddressInfo   result{handler->result()};
+
+                            receiverAddress = result._address;
+                            receiverPort = result._port;
+                        }
+                        else
+                        {
+                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "'"s);
+                            exitCode = 1;
+                        }
+                    }
+                    nImO::IPv4Address   senderAddress;
+                    nImO::IPv4Port      senderPort;
+
+                    if (0 == exitCode)
+                    {
+                        // Send 'setUpSender' command to the 'from' node. [fromConnection]
+                        //  IP address and port of receiver, path, dataType, resolvedMode; returns IP address and port to connect from.
+                        auto    argArray{std::make_shared<nImO::Array>()};
+                        auto    handler{std::make_unique<nImO::SetUpSenderResponseHandler>()};
+
+                        argArray->addValue(std::make_shared<nImO::Address>(receiverAddress));
+                        argArray->addValue(std::make_shared<nImO::Integer>(receiverPort));
+                        argArray->addValue(std::make_shared<nImO::String>(toPath));
+                        argArray->addValue(std::make_shared<nImO::String>(toDataType));
+                        argArray->addValue(std::make_shared<nImO::Integer>(StaticCast(int64_t, resolvedMode)));
+                        auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(), argArray.get(),
+                                                                                         nImO::kSetUpSenderRequest, nImO::kSetUpSenderResponse)};
+
+                        if (status.first)
+                        {
+                            nImO::AddressInfo   result{handler->result()};
+
+                            senderAddress = result._address;
+                            senderPort = result._port;
+                        }
+                        else
+                        {
+                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "'"s);
+                            exitCode = 1;
+                        }
+                    }
+                    if (0 == exitCode)
+                    {
                         // Send 'startReceiver' command to the 'to' node. [toConnection]
-                        //  dataType, resolvedMode; returns IP address and socket to connect to.
+                        auto    argArray{std::make_shared<nImO::Array>()};
+                        auto    handler{std::make_unique<nImO::StartReceiverResponseHandler>()};
+
+                        argArray->addValue(std::make_shared<nImO::Address>(senderAddress));
+                        argArray->addValue(std::make_shared<nImO::Integer>(senderPort));
+                        auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler.get(), argArray.get(),
+                                                                                         nImO::kStartReceiverRequest, nImO::kStartReceiverResponse)};
+
+                        if (status.first)
+                        {
+//TBD good to go if handler->result() is true
+                        }
+                        else
+                        {
+                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "'"s);
+                            exitCode = 1;
+                        }
+                    }
+                    if (0 == exitCode)
+                    {
                         // Send 'startSender' command to the 'from' node. [fromConnection]
-                        //  IP address and socket or receiver, dataType, resolvedMode; returns IP address and socket to connect from.
-                        // Send 'restrictPackets' command to the 'to' node.
-                        //  IP address, socket of sender
-    std::cerr << "** Unimplemented **\n";
+                        auto    handler{std::make_unique<nImO::StartSenderResponseHandler>()};
+                        auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(),
+                                                                                           nImO::kStartSenderRequest, nImO::kStartSenderResponse)};
+
+                        if (status.first)
+                        {
+//TBD good to go if handler->result() is true
+                        }
+                        else
+                        {
+                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "'"s);
+                            exitCode = 1;
+                        }
                     }
                 }
                 if (0 != exitCode)

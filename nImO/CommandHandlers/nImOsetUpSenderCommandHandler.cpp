@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstartReceiverCommandHandler.cpp
+//  File:       nImO/nImOsetUpSenderCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO start receiver command handler.
+//  Contains:   The class definition for the nImO set up sender command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-23
+//  Created:    2023-12-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOstartReceiverCommandHandler.h>
+#include <CommandHandlers/nImOsetUpSenderCommandHandler.h>
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO start receiver command handler. */
+ @brief The class definition for the %nImO set up sender command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,21 +82,21 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StartReceiverCommandHandler::StartReceiverCommandHandler
+nImO::SetUpSenderCommandHandler::SetUpSenderCommandHandler
     (SpInputOutputContext   owner) :
         inherited{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::StartReceiverCommandHandler::StartReceiverCommandHandler
+} // nImO::SetUpSenderCommandHandler::SetUpSenderCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::StartReceiverCommandHandler::doIt
+nImO::SetUpSenderCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments)
     const
@@ -105,36 +105,51 @@ nImO::StartReceiverCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("start receiver request received");
-    if (2 < arguments.size())
+    _ownerForInputOutput->report("set up sender request received");
+    if (5 < arguments.size())
     {
         SpValue         element1{arguments[1]};
         SpValue         element2{arguments[2]};
+        SpValue         element3{arguments[3]};
+        SpValue         element4{arguments[4]};
+        SpValue         element5{arguments[5]};
         CPtr(Address)   addressValue{element1->asAddress()};
         CPtr(Integer)   portValue{element2->asInteger()};
+        CPtr(String)    pathString{element3->asString()};
+        CPtr(String)    dataTypeString{element4->asString()};
+        CPtr(Integer)   modeValue{element5->asInteger()};
 
-        if ((nullptr != addressValue) && (nullptr != portValue))
+        if ((nullptr != addressValue) && (nullptr != portValue) && (nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {
-            IPv4Address     senderAddress{addressValue->getAddressValue()};
-            IPv4Port        senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+            IPv4Address     receiveAddress{addressValue->getAddressValue()};
+            IPv4Port        receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+            TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
+NIMO_UNUSED_VAR_(receiveAddress); //!!
+NIMO_UNUSED_VAR_(receivePort); //!!
+NIMO_UNUSED_VAR_(mode); //!!
+            IPv4Address     sendAddress;
+            IPv4Port        sendPort;
 
-NIMO_UNUSED_VAR_(senderAddress); //!!
-NIMO_UNUSED_VAR_(senderPort); //!!
-            //TBD start the receiver, filtering all but packets from the specified sender
-            okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", false);//!!
+            //TBD set up sending port
+            auto    infoArray{std::make_shared<Array>()};
+
+            infoArray->addValue(std::make_shared<Address>(sendAddress));
+            infoArray->addValue(std::make_shared<Integer>(sendPort));
+            okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender", infoArray);
         }
         else
         {
-            ODL_LOG("! ((nullptr != addressValue) && (nullptr != portValue))"); //####
+            ODL_LOG("! ((nullptr != addressValue) && (nullptr != portValue) && (nullptr != pathString) && (nullptr != dataTypeString) && " //####
+                    "(nullptr != modeValue))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (5 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::StartReceiverCommandHandler::doIt
+} // nImO::SetUpSenderCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

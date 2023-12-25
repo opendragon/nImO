@@ -122,17 +122,17 @@ nImO::AddConnectionCommandHandler::doIt
         CPtr(String)    toNodeNameString{element3->asString()};
         CPtr(String)    toPathString{element4->asString()};
         CPtr(String)    dataTypeString{element5->asString()};
-        CPtr(Integer)   modeString{element6->asInteger()};
+        CPtr(Integer)   modeValue{element6->asInteger()};
 
         if ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && (nullptr != toPathString) &&
-            (nullptr != dataTypeString) && (nullptr != modeString))
+            (nullptr != dataTypeString) && (nullptr != modeValue))
         {
             std::string     fromNodeName{fromNodeNameString->getValue()};
             std::string     fromPath{fromPathString->getValue()};
             std::string     toNodeName{toNodeNameString->getValue()};
             std::string     toPath{toPathString->getValue()};
             std::string     dataType{dataTypeString->getValue()};
-            TransportType   mode{StaticCast(TransportType, modeString->getIntegerValue())};
+            TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
             auto            status{_registry->addConnection(fromNodeName, fromPath, toNodeName, toPath, dataType, mode)};
 
             if (status.first)
@@ -142,7 +142,7 @@ nImO::AddConnectionCommandHandler::doIt
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionAddedStatus + kStatusSeparator + fromNodeName + kStatusSeparator +
                                      fromPath + kStatusSeparator + toNodeName + kStatusSeparator + toPath + kStatusSeparator +
-                                     std::to_string(modeString->getIntegerValue()));
+                                     std::to_string(modeValue->getIntegerValue()));
                 }
             }
             else
@@ -153,7 +153,7 @@ nImO::AddConnectionCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && " //####
-                    "(nullptr != toPathString) && (nullptr != dataTypeString) && (nullptr != modeString))"); //####
+                    "(nullptr != toPathString) && (nullptr != dataTypeString) && (nullptr != modeValue))"); //####
         }
     }
     else

@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstartReceiverCommandHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOsetUpSenderResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO start receiver command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,17 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-23
+//  Created:    2023-12-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOstartReceiverCommandHandler.h>
+#include <ResponseHandlers/nImOsetUpSenderResponseHandler.h>
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -53,7 +51,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO start receiver command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -82,46 +80,34 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StartReceiverCommandHandler::StartReceiverCommandHandler
-    (SpInputOutputContext   owner) :
-        inherited{owner}
+nImO::SetUpSenderResponseHandler::SetUpSenderResponseHandler
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::StartReceiverCommandHandler::StartReceiverCommandHandler
+} // nImO::SetUpSenderResponseHandler::SetUpSenderResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::StartReceiverCommandHandler::doIt
-    (BTCP::socket & socket,
-     const Array &  arguments)
-    const
+void
+nImO::SetUpSenderResponseHandler::doIt
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    bool    okSoFar{false};
-
-    _ownerForInputOutput->report("start receiver request received");
-    if (2 < arguments.size())
+    if (2 < stuff.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
+        SpValue         element1{stuff[1]};
+        SpValue         element2{stuff[2]};
         CPtr(Address)   addressValue{element1->asAddress()};
         CPtr(Integer)   portValue{element2->asInteger()};
 
         if ((nullptr != addressValue) && (nullptr != portValue))
         {
-            IPv4Address     senderAddress{addressValue->getAddressValue()};
-            IPv4Port        senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
-
-NIMO_UNUSED_VAR_(senderAddress); //!!
-NIMO_UNUSED_VAR_(senderPort); //!!
-            //TBD start the receiver, filtering all but packets from the specified sender
-            okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", false);//!!
+            _result._address = addressValue->getAddressValue();
+            _result._port = portValue->getIntegerValue();
         }
         else
         {
@@ -130,11 +116,10 @@ NIMO_UNUSED_VAR_(senderPort); //!!
     }
     else
     {
-        ODL_LOG("! (2 < arguments.size())"); //####
+        ODL_LOG("! (2 < stuff.size())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::StartReceiverCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::SetUpSenderResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

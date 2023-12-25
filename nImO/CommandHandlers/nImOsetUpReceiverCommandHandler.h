@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinChannel.h
+//  File:       nImO/nImOsetUpReceiverCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO incoming connections to services.
+//  Contains:   The class declaration for the nImO set up receiver command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-14
+//  Created:    2023-12-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinChannel_H_))
-# define nImOinChannel_H_ /* Header guard */
+#if (! defined(nImOsetUpReceiverCommandHandler_H_))
+# define nImOsetUpReceiverCommandHandler_H_ /* Header guard */
 
-# include <nImObaseChannel.h>
-# include <nImOpackage.h>
+# include <CommandHandlers/nImOinputOutputCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO incoming connections to services. */
+ @brief The class declaration for the %nImO set up receiver command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide incoming connections to services. */
-    class InChannel final : public BaseChannel
+    /*! @brief A class to provide a handler for the set up receiver command. */
+    class SetUpReceiverCommandHandler final : public InputOutputCommandHandler
     {
 
         public :
@@ -69,53 +68,29 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = BaseChannel;
+            using inherited = InputOutputCommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] path The path for the channel.
-             @param[in] index The index of the channel. */
-            InChannel
-                (const std::string &    path,
-                 const int              index = 0);
+             @param[in] owner The owning Context. */
+            SetUpReceiverCommandHandler
+                (SpInputOutputContext   owner);
 
-            /*! @brief The destructor. */
-            virtual
-            ~InChannel
-                (void)
-                override;
-
-            /*! @brief Start the channel .
-             @return @c true if the channel was successfully started. */
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
             bool
-            start
-                (void);
-
-            /*! @brief Stop the channel and clear settings.
-             @return @c true if the channel was successfully stopped. */
-            bool
-            stop
-                (void)
+            doIt
+                (BTCP::socket & socket,
+                 const Array &  arguments)
+                const
                 override;
 
         protected :
             // Protected methods.
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            InChannel
-                (InChannel &&    other)
-                noexcept;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            InChannel &
-            operator=
-                (InChannel && other)
-                noexcept;
 
         private :
             // Private methods.
@@ -129,8 +104,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // InChannel
+    }; // SetUpReceiverCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOinChannel_H_)
+#endif // not defined(nImOsetUpReceiverCommandHandler_H_)

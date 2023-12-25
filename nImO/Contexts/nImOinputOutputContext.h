@@ -41,6 +41,7 @@
 
 # include <Contexts/nImOserviceContext.h>
 
+# include <nImOcompareWithoutCase.h>
 # include <nImOinChannel.h>
 # include <nImOoutChannel.h>
 
@@ -68,12 +69,6 @@ namespace nImO
     /*! @brief A holder for a shared pointer to an output channel. */
     using SpOutChannel = std::shared_ptr<OutChannel>;
 
-    /*! @brief An array of input channels. */
-    using InChannelVector = std::vector<SpInChannel>;
-
-    /*! @brief An array of output channels. */
-    using OutChannelVector = std::vector<SpOutChannel>;
-
     /*! @brief A class to provide support for an 'inputOutput' application. */
     class InputOutputContext : public ServiceContext
     {
@@ -83,6 +78,18 @@ namespace nImO
 
         protected :
             // Protected type definitions.
+
+            /*! @brief A map of input channels. */
+            using InChannelMap = std::map<std::string, SpInChannel, CompareWithoutCase>;
+
+            /*! @brief An array of input channels. */
+            using InChannelVector = std::vector<SpInChannel>;
+
+            /*! @brief A map of input channels. */
+            using OutChannelMap = std::map<std::string, SpOutChannel, CompareWithoutCase>;
+
+            /*! @brief An array of output channels. */
+            using OutChannelVector = std::vector<SpOutChannel>;
 
         private :
             // Private type definitions.
@@ -94,8 +101,9 @@ namespace nImO
             // Public methods.
 
             /*! @brief Add an input channel.
-             @param[in] path The path for the channel. */
-            void
+             @param[in] path The path for the channel.
+             @return @c true if a channel was created and added. */
+            bool
             addInputChannel
                 (const std::string &    path);
 
@@ -106,8 +114,9 @@ namespace nImO
                 (SpInputOutputContext   context);
 
             /*! @brief Add an output channel.
-             @param[in] path The path for the channel. */
-            void
+             @param[in] path The path for the channel.
+             @return @c true is a channel was created and added. */
+            bool
             addOutputChannel
                 (const std::string &    path);
 
@@ -126,11 +135,27 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Get an input channel.
+             @param[in] path The path associated with the channel.
+             @return The input channel with the provided name. */
+            SpInChannel
+            getInputChannel
+                (const std::string &    path)
+                const;
+
             /*! @brief Generate a list of the names of the input channels.
              @param[out] names A list of the names of the input channels. */
             void
             getInputChannelNames
                 (StringVector & names)
+                const;
+
+            /*! @brief Get an output channel.
+             @param[in] path The path associated with the channel.
+             @return The output channel with the provided name. */
+            SpOutChannel
+            getOutputChannel
+                (const std::string &    path)
                 const;
 
             /*! @brief Generate a list of the names of the output channels.
@@ -167,11 +192,11 @@ namespace nImO
         protected :
             // Protected fields.
 
-            /*! @brief The input channels for the service. */
-            InChannelVector _inputChannels{};
+            /*@ @brief The input channels for the service. */
+            InChannelMap    _inputChannelMap{};
 
             /*! @brief The output channels for the service. */
-            OutChannelVector    _outputChannels{};
+            OutChannelMap   _outputChannelMap{};
 
         private :
             // Private fields.

@@ -38,6 +38,8 @@
 
 #include <CommandHandlers/nImOstopSenderCommandHandler.h>
 
+#include <BasicTypes/nImOstring.h>
+#include <ContainerTypes/nImOarray.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -100,14 +102,36 @@ nImO::StopSenderCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("stopSender request received");
-    // Stop the sender - TBD!
-    // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kStopSenderResponse, "stopSender", false)};//true)};
+    bool    okSoFar{false};
 
-//    // Signal to the application that it should terminate.
-//    gPendingStop = true;
-//    ODL_B1("gPendingStop <- ", gPendingStop); //####
+    _ownerForInputOutput->report("stop sender request received");
+    if (1 < arguments.size())
+    {
+        SpValue         element{arguments[1]};
+        CPtr(String)    asString{element->asString()};
+
+        if (nullptr == asString)
+        {
+            ODL_LOG("(nullptr == asString)"); //####
+        }
+        else
+        {
+            SpOutChannel    theChannel{_ownerForInputOutput->getOutputChannel(asString->getValue())};
+
+            if (theChannel)
+            {
+                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender", theChannel->stop());
+            }
+            else
+            {
+                ODL_LOG("! (theChannel)"); //####
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! (1 < arguments.size())"); //####
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::StopSenderCommandHandler::doIt

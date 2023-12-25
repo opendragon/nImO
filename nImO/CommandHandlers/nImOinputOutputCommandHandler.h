@@ -75,7 +75,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context. */
+             @param[in] owner The owning InputOutputContext. */
             InputOutputCommandHandler
                 (SpInputOutputContext   owner);
 

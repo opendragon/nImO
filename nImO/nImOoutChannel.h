@@ -86,6 +86,19 @@ namespace nImO
                 (void)
                 override;
 
+            /*! @brief Start the channel .
+             @return @c true if the channel was successfully started. */
+            bool
+            start
+                (void);
+
+            /*! @brief Stop the channel and clear settings.
+             @return @c true if the channel was successfully stopped. */
+            bool
+            stop
+                (void)
+                override;
+
         protected :
             // Protected methods.
 

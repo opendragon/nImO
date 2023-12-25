@@ -546,14 +546,73 @@ namespace nImO
     using IPv4Address = uint32_t;
     using IPv4Port = uint16_t;
 
-    /*! @brief A network connection description. */
-    struct Connection
+    /*! @brief The raw information for a network connection. */
+    struct AddressInfo
     {
         /*! @brief The IP address of the connection.*/
         IPv4Address _address{0};
 
         /*! @brief The port of the connection. */
         IPv4Port    _port{0};
+
+        /*! @brief The constructor. */
+        inline AddressInfo
+            (const IPv4Address  address = 0,
+             const IPv4Port     port = 0) :
+                _address(address), _port(port)
+        {
+        }
+
+        /*! @brief The copy constructor.
+         @param[in] other The object to be copied. */
+        inline AddressInfo
+            (const AddressInfo & other) :
+                _address(other._address), _port(other._port)
+        {
+        }
+
+        /*! @brief The copy assignment operator.
+         @param[in] other The object to be copied.
+         @return The updated object. */
+        inline AddressInfo &
+        operator=
+            (const AddressInfo &    other)
+        {
+            if (this != &other)
+            {
+                _address = other._address;
+                _port = other._port;
+            }
+            return *this;
+        }
+
+        /*! @brief Return @c true if the two Connections are equal.
+         @param[in] other The Connnection to be compared with.
+         @return @c true if the two Connections are comparable and equal. */
+        inline bool
+        operator==
+            (const AddressInfo &    other)
+            const
+        {
+            return ((_address == other._address) && (_port == other._port));
+        }
+
+        /*! @brief Return @c false if the two Connections are equal.
+         @param[in] other The Connnection to be compared with.
+         @return @c false if the two Connections are comparable and equal. */
+        inline bool
+        operator!=
+            (const AddressInfo &    other)
+            const
+        {
+            return ((_address != other._address) || (_port != other._port));
+        }
+
+    }; // AddressInfo
+
+    /*! @brief A network connection description. */
+    struct Connection : AddressInfo
+    {
 
         /*! @brief The transport mechanism of the connection. */
         TransportType   _transport{TransportType::kTCP};
@@ -566,7 +625,7 @@ namespace nImO
             (const IPv4Address      address = 0,
              const IPv4Port         port = 0,
              const TransportType    transport = TransportType::kTCP) :
-                _address(address), _port(port), _transport(transport)
+                AddressInfo(address, port), _transport(transport)
         {
         }
 
@@ -574,7 +633,7 @@ namespace nImO
          @param[in] other The object to be copied. */
         inline Connection
             (const Connection & other) :
-                _address(other._address), _port(other._port), _transport(other._transport)
+                AddressInfo(other), _transport(other._transport)
         {
         }
         
@@ -587,8 +646,7 @@ namespace nImO
         {
             if (this != &other)
             {
-                _address = other._address;
-                _port = other._port;
+                AddressInfo::operator=(other);
                 _transport = other._transport;
             }
             return *this;
@@ -602,7 +660,7 @@ namespace nImO
             (const Connection & other)
             const
         {
-            return ((_address == other._address) && (_port == other._port) && (_transport == other._transport));
+            return (AddressInfo::operator==(other) && (_transport == other._transport));
         }
 
         /*! @brief Return @c false if the two Connections are equal.
@@ -613,7 +671,7 @@ namespace nImO
             (const Connection & other)
             const
         {
-            return ((_address != other._address) || (_port != other._port) || (_transport != other._transport));
+            return (AddressInfo::operator!=(other) || (_transport != other._transport));
         }
 
     }; // Connection

@@ -122,6 +122,30 @@ nImO::InChannel::operator=
     return *this;
 } // nImO::InChannel::operator=
 
+bool
+nImO::InChannel::start
+    (void)
+{
+    ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
+    // TBD - start network activity.
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::InChannel::start
+
+bool
+nImO::InChannel::stop
+    (void)
+{
+    ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
+    // TBD - stop network activity and clear state.
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::InChannel::stop
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

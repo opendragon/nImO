@@ -31,7 +31,7 @@ n-2) Deregister node channels in context [Registry operations]\
 n-1) Deregister node [Registry operations]\
 n) Destroy context/RAII\
 \
-<name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore.\
+<name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore and are case-insensitive.\
 <path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash.\
 <channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP|ANY))?  \'97> The node name is 'optional' when parsed but required in actual use.\
 \

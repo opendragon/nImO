@@ -38,6 +38,8 @@
 
 #include <CommandHandlers/nImOstartSenderCommandHandler.h>
 
+//#include <BasicTypes/nImOstring.h>
+//#include <ContainerTypes/nImOarray.h>
 #include <nImOinputOutputCommands.h>
 
 //#include <odlEnable.h>
@@ -100,14 +102,11 @@ nImO::StartSenderCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("startSender request received");
-    // Start the receiver - TBD!
+    _ownerForInputOutput->report("start sender request received");
+    // TBD start the sender
     // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kStartSenderResponse, "startSender", false)};//true)};
+    bool    okSoFar{sendSimpleResponse(socket, kStartSenderResponse, "start sender", false)};//true)};
 
-//    // Signal to the application that it should terminate.
-//    gPendingStop = true;
-//    ODL_B1("gPendingStop <- ", gPendingStop); //####
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::StartSenderCommandHandler::doIt

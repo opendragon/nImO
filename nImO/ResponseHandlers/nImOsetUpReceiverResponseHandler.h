@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinChannel.h
+//  File:       nImO/ResponseHandlers/nImOsetUpReceiverResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO incoming connections to services.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,15 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-14
+//  Created:    2023-12-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinChannel_H_))
-# define nImOinChannel_H_ /* Header guard */
+#if (! defined(nImOsetUpReceiverResponseHandler_H_))
+# define nImOsetUpReceiverResponseHandler_H_ /* Header guard */
 
-# include <nImObaseChannel.h>
-# include <nImOpackage.h>
+# include <ResponseHandlers/nImOresponseHandler.h>
+
+# include <nImOregistryTypes.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO incoming connections to services. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide incoming connections to services. */
-    class InChannel final : public BaseChannel
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class SetUpReceiverResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -69,53 +70,35 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = BaseChannel;
+            using inherited = nImO::ResponseHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] path The path for the channel.
-             @param[in] index The index of the channel. */
-            InChannel
-                (const std::string &    path,
-                 const int              index = 0);
-
-            /*! @brief The destructor. */
-            virtual
-            ~InChannel
-                (void)
-                override;
-
-            /*! @brief Start the channel .
-             @return @c true if the channel was successfully started. */
-            bool
-            start
+             @param[in] responseKey The expected response key. */
+            SetUpReceiverResponseHandler
                 (void);
 
-            /*! @brief Stop the channel and clear settings.
-             @return @c true if the channel was successfully stopped. */
-            bool
-            stop
-                (void)
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response. */
+            void
+            doIt
+                (const Array &  stuff)
                 override;
+
+            /*! @brief Return the received value.
+             @return The received value. */
+            AddressInfo
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
         protected :
             // Protected methods.
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            InChannel
-                (InChannel &&    other)
-                noexcept;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            InChannel &
-            operator=
-                (InChannel && other)
-                noexcept;
 
         private :
             // Private methods.
@@ -129,8 +112,11 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // InChannel
+            /*! @brief The received value. */
+            AddressInfo _result{};
+
+    }; // SetUpReceiverResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOinChannel_H_)
+#endif // not defined(nImOsetUpReceiverResponseHandler_H_)

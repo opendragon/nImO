@@ -85,6 +85,12 @@ namespace nImO
                 return _name;
             }
 
+            /*! @brief Stop the channel and clear settings.
+             @return @c true if the channel was successfully stopped. */
+            virtual bool
+            stop
+                (void) = 0;
+
         protected :
             // Protected methods.
 

@@ -55,11 +55,17 @@
 namespace nImO
 {
 
-    /*! @brief The 'restrictPackets' request. */
-    const std::string   kRestrictPacketsRequest{"restrictPackets."s};
+    /*! @brief The 'setUpReceiver' request. */
+    const std::string   kSetUpReceiverRequest{"setUpReceiver."s};
 
-    /*! @brief The 'restrictPackets' response. */
-    const std::string   kRestrictPacketsResponse{"restrictPackets="s};
+    /*! @brief The 'setUpReceiver' response. */
+    const std::string   kSetUpReceiverResponse{"setUpReceiver="s};
+
+    /*! @brief The 'setUpSender' request. */
+    const std::string   kSetUpSenderRequest{"setUpSender."s};
+
+    /*! @brief The 'setUpSender' response. */
+    const std::string   kSetUpSenderResponse{"setUpSender="s};
 
     /*! @brief The 'startReceiver' request. */
     const std::string   kStartReceiverRequest{"startReceiver."s};

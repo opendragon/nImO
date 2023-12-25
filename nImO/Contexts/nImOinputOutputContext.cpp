@@ -38,6 +38,8 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
+#include <CommandHandlers/nImOsetUpReceiverCommandHandler.h>
+#include <CommandHandlers/nImOsetUpSenderCommandHandler.h>
 #include <CommandHandlers/nImOstartReceiverCommandHandler.h>
 #include <CommandHandlers/nImOstartSenderCommandHandler.h>
 #include <CommandHandlers/nImOstopReceiverCommandHandler.h>
@@ -110,14 +112,16 @@ nImO::InputOutputContext::InputOutputContext
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::InputOutputContext::addInputChannel
     (const std::string &    path)
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    _inputChannels.push_back(std::make_shared<InChannel>(path, _inputChannels.size()));
-    ODL_EXIT(); //####
+    const auto result = _inputChannelMap.insert({path, std::make_shared<InChannel>(path, _inputChannelMap.size())});
+
+    ODL_EXIT_B(result.second); //####
+    return result.second;
 } // nImO::InputOutputContext::addInputChannel
 
 void
@@ -168,20 +172,40 @@ nImO::InputOutputContext::addInputOutputHandlers
         }
         if (goAhead)
         {
+            auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
+
+            if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
+
+            if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
             ServiceContext::addStandardHandlers(context);
         }
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::addInputOutputHandlers
 
-void
+bool
 nImO::InputOutputContext::addOutputChannel
     (const std::string &    path)
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    _outputChannels.push_back(std::make_shared<OutChannel>(path, _outputChannels.size()));
-    ODL_EXIT(); //####
+    const auto result = _outputChannelMap.insert({path, std::make_shared<OutChannel>(path, _outputChannelMap.size())});
+
+    ODL_EXIT_B(result.second); //####
+    return result.second;
 } // nImO::InputOutputContext::addOutputChannel
 
 Ptr(nImO::InputOutputContext)
@@ -203,6 +227,24 @@ nImO::InputOutputContext::asInputOutputContext
     return this;
 } // nImO::ServiceContext::asInputOutputContext
 
+nImO::SpInChannel
+nImO::InputOutputContext::getInputChannel
+    (const std::string &    path)
+    const
+{
+    ODL_ENTER(); //####
+    ODL_S1s("path = ", path); //####
+    SpInChannel result;
+    auto        match{_inputChannelMap.find(path)};
+
+    if (_inputChannelMap.end() != match)
+    {
+        result = match->second;
+    }
+    ODL_EXIT_P(result.get()); //####
+    return result;
+} // nImO::InputOutputContext::getInputChannel
+
 void
 nImO::InputOutputContext::getInputChannelNames
     (nImO::StringVector & names)
@@ -211,14 +253,32 @@ nImO::InputOutputContext::getInputChannelNames
     ODL_ENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
-    for (auto walker{_inputChannels.begin()}; walker!= _inputChannels.end(); ++walker)
+    for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
     {
         auto    aChannel{*walker};
 
-        names.push_back(aChannel->getName());
+        names.push_back(aChannel.second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
+
+nImO::SpOutChannel
+nImO::InputOutputContext::getOutputChannel
+    (const std::string &    path)
+    const
+{
+    ODL_ENTER(); //####
+    ODL_S1s("path = ", path); //####
+    SpOutChannel    result;
+    auto            match{_outputChannelMap.find(path)};
+
+    if (_outputChannelMap.end() != match)
+    {
+        result = match->second;
+    }
+    ODL_EXIT_P(result.get()); //####
+    return result;
+} // nImO::InputOutputContext::getOutputChannel
 
 void
 nImO::InputOutputContext::getOutputChannelNames
@@ -228,11 +288,11 @@ nImO::InputOutputContext::getOutputChannelNames
     ODL_ENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
-    for (auto walker{_outputChannels.begin()}; walker!= _outputChannels.end(); ++walker)
+    for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
     {
         auto    aChannel{*walker};
 
-        names.push_back(aChannel->getName());
+        names.push_back(aChannel.second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames

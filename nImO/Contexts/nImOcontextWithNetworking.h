@@ -54,22 +54,6 @@
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
-/*! @brief A function to convert four integers into an IPv4 address.
- @param[in] byte0 The first byte of the address.
- @param[in] byte1 The second byte of the address.
- @param[in] byte2 The third byte of the address.
- @param[in] byte3 The fourth byte of the address.
- @return The IPv4 address composed from the four provided bytes. */
-constexpr nImO::IPv4Address
-BytesToIPv4Address
-    (const uint8_t  byte0,
-     const uint8_t  byte1,
-     const uint8_t  byte2,
-     const uint8_t  byte3)
-{
-    return StaticCast(nImO::IPv4Address, ((byte0 & 0x0ff) << 24) | ((byte1 & 0x0ff) << 16) | ((byte2 & 0x0ff) << 8) | (byte3 & 0x0ff));
-} // BytesToIPv4Address
-
 namespace nImO
 {
 

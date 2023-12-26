@@ -139,6 +139,12 @@ namespace nImO
         private :
             // Private fields.
 
+        /*! @brief The target IP address. */
+        IPv4Address _destinationAddress{0};
+
+        /*! @brief The target port. */
+        IPv4Port    _destinationPort{0};
+
     }; // OutChannel
 
 } // nImO

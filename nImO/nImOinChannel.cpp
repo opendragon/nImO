@@ -89,10 +89,11 @@ nImO::InChannel::InChannel
 nImO::InChannel::InChannel
     (InChannel &&  other)
     noexcept :
-        inherited{std::move(other)}
+        inherited{std::move(other)}, _matchAddress{other._matchAddress}, _matchPort{other._matchPort}
 {
-    NIMO_UNUSED_VAR_(other);
     ODL_ENTER(); //####
+    other._matchAddress = BytesToIPv4Address(0, 0, 0, 0);
+    other._matchPort = 0;
     ODL_EXIT_P(this); //####
 } // nImO::InChannel::InChannel
 
@@ -117,6 +118,10 @@ nImO::InChannel::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
+        _matchAddress = other._matchAddress;
+        other._matchAddress = BytesToIPv4Address(0, 0, 0, 0);
+        _matchPort = other._matchPort;
+        other._matchPort = 0;
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
@@ -127,10 +132,25 @@ nImO::InChannel::setUp
     (const TransportType    mode)
 {
     ODL_OBJENTER(); //####
-NIMO_UNUSED_VAR_(mode); //!!
     bool    okSoFar{false};
 
+    _connection._transport = mode;
     // TBD - set up network activity.
+    switch (_connection._transport)
+    {
+        case TransportType::kTCP :
+            // TBD!
+            break;
+
+        case TransportType::kUDP :
+            // TBD!
+            break;
+
+        default :
+            // Should never get here!
+            break;
+
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::InChannel::setUp
@@ -142,11 +162,26 @@ nImO::InChannel::start
 {
     ODL_OBJENTER(); //####
     ODL_I2("senderAddress = ", senderAddress, "senderPort = ", senderPort); //####
-NIMO_UNUSED_VAR_(senderAddress); //!!
-NIMO_UNUSED_VAR_(senderPort); //!!
     bool    okSoFar{false};
 
+    _matchAddress = senderAddress;
+    _matchPort = senderPort;
     // TBD - start network activity.
+    switch (_connection._transport)
+    {
+        case TransportType::kTCP :
+            // TBD!
+            break;
+
+        case TransportType::kUDP :
+            // TBD!
+            break;
+
+        default :
+            // Should never get here!
+            break;
+
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::InChannel::start
@@ -159,6 +194,21 @@ nImO::InChannel::stop
     bool    okSoFar{false};
 
     // TBD - stop network activity and clear state.
+    switch (_connection._transport)
+    {
+        case TransportType::kTCP :
+            // TBD!
+            break;
+
+        case TransportType::kUDP :
+            // TBD!
+            break;
+
+        default :
+            // Should never get here!
+            break;
+
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::InChannel::stop

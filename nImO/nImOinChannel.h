@@ -136,6 +136,12 @@ namespace nImO
         private :
             // Private fields.
 
+            /*! @brief The source IP address to match against. */
+            IPv4Address _matchAddress{0};
+
+            /*! @brief The source port to match against. */
+            IPv4Port    _matchPort{0};
+
     }; // InChannel
 
 } // nImO

@@ -336,7 +336,7 @@ getLocalAddresses
             {
                 struct sockaddr_in &    saddr{*ReinterpretCast(Ptr(struct sockaddr_in), address->ifa_addr)};
 
-                if (BytesToIPv4Address(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
+                if (nImO::BytesToIPv4Address(127, 0, 0, 1) != ntohl(saddr.sin_addr.s_addr))
                 {
                     if (firstIpv4)
                     {

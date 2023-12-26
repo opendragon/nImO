@@ -83,10 +83,10 @@ static const std::string    kChannelPath1{"/blart/input/1"s};
 static const std::string    kChannelPath2{"/blert/output/2"s};
 
 /*! @brief The firsts machine address for testing. */
-static const auto   kMachineAddress1{BytesToIPv4Address(192, 168, 100, 11)};
+static const auto   kMachineAddress1{nImO::BytesToIPv4Address(192, 168, 100, 11)};
 
 /*! @brief The second machine address for testing. */
-static const auto   kMachineAddress2{BytesToIPv4Address(192, 168, 100, 12)};
+static const auto   kMachineAddress2{nImO::BytesToIPv4Address(192, 168, 100, 12)};
 
 /*! @brief The first machine name for testing. */
 static const std::string    kMachineName1{"Blort"s};

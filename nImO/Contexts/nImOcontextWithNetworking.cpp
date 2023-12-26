@@ -65,10 +65,10 @@
 #endif // defined(__APPLE__)
 
 /*! @brief The connection to be used for logging, if none is specified in the configuration file. */
-static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, BytesToIPv4Address(239, 17, 12, 1)), 1954};
+static nImO::Connection kDefaultLogConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1954};
 
 /*! @brief The connection to be used for status reporting, if none is specified in the configuration file. */
-static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, BytesToIPv4Address(239, 17, 12, 1)), 1955};
+static nImO::Connection kDefaultStatusConnection{StaticCast(nImO::IPv4Address, nImO::BytesToIPv4Address(239, 17, 12, 1)), 1955};
 
 /*! @brief The registry search timeout value to be used if none is specified in the configuration file. */
 constexpr int   kDefaultRegistryTimeout{5};

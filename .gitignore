@@ -35,12 +35,6 @@ nImO/swig_nImO_out_python
 nImOConfigVersion.cmake
 nImOconfig.h
 nImOconfig.hpp
-non-iOS/examples/Echo/nImOechoClient
-non-iOS/examples/Echo/nImOechoClient.dir/
-non-iOS/examples/Echo/nImOechoClient.rc
-non-iOS/examples/Echo/nImOechoService
-non-iOS/examples/Echo/nImOechoService.dir/
-non-iOS/examples/Echo/nImOechoService.rc
 non-iOS/examples/Ricochet/nImOricochet
 non-iOS/examples/Ricochet/nImOricochet.dir/
 non-iOS/examples/Ricochet/nImOricochet.rc
@@ -50,6 +44,9 @@ non-iOS/examples/Ricochet/nImOricochetControl.rc
 non-iOS/examples/Simple/Commutator/nImOcommutator
 non-iOS/examples/Simple/Commutator/nImOcommutator.dir/
 non-iOS/examples/Simple/Commutator/nImOcommutator.rc
+non-iOS/examples/Simple/Delay/nImOdelay
+non-iOS/examples/Simple/Delay/nImOdelay.dir/
+non-iOS/examples/Simple/Delay/nImOdelay.rc
 non-iOS/examples/Simple/FanIn/nImOfanIn
 non-iOS/examples/Simple/FanIn/nImOfanIn.dir/
 non-iOS/examples/Simple/FanIn/nImOfanIn.rc

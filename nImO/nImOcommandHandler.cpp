@@ -162,7 +162,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
         }
         else
         {
-            std::atomic<bool>   keepGoing{true};
+            std::atomic_bool   keepGoing{true};
             StringVector        outVec;
 
             EncodeBytesAsMIME(outVec, asString);
@@ -265,7 +265,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
         }
         else
         {
-            std::atomic<bool>   keepGoing{true};
+            std::atomic_bool   keepGoing{true};
             StringVector        outVec;
 
             EncodeBytesAsMIME(outVec, asString);

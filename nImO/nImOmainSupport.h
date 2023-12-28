@@ -86,10 +86,10 @@ namespace nImO
         (SignalFunction sigFunction);
 
     /*! @brief Set to @c false when a SIGINT occurs. */
-    extern std::atomic<bool>    gKeepRunning;
+    extern std::atomic_bool    gKeepRunning;
 
     /*! @brief Set to @c true when there's a pending shutdown request. */
-    extern std::atomic<bool>    gPendingStop;
+    extern std::atomic_bool    gPendingStop;
 
 } // nImO
 

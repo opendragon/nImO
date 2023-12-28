@@ -81,11 +81,25 @@ namespace nImO
                 (const std::string &    path,
                  const int              index = 0);
 
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            InChannel
+                (InChannel &&   other)
+                noexcept = delete;
+
             /*! @brief The destructor. */
             virtual
             ~InChannel
                 (void)
                 override;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            InChannel &
+            operator=
+                (InChannel && other)
+                noexcept = delete;
 
             bool
             setUp
@@ -109,20 +123,6 @@ namespace nImO
 
         protected :
             // Protected methods.
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            InChannel
-                (InChannel &&    other)
-                noexcept;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            InChannel &
-            operator=
-                (InChannel && other)
-                noexcept;
 
         private :
             // Private methods.

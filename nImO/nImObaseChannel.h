@@ -115,7 +115,7 @@ namespace nImO
              @param[in] other The object to be moved. */
             BaseChannel
                 (BaseChannel &&    other)
-                noexcept;
+                noexcept = delete;
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
@@ -123,7 +123,7 @@ namespace nImO
             BaseChannel &
             operator=
                 (BaseChannel && other)
-                noexcept;
+                noexcept = delete;
 
         private :
             // Private methods.
@@ -133,6 +133,9 @@ namespace nImO
 
         protected :
             // Protected fields.
+
+            /*! @brief @c true if the communication is still live. */
+            std::atomic_bool    _active;
 
             /*! @brief The IP address, port and mode for the communication. */
             Connection  _connection{};

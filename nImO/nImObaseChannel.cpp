@@ -89,16 +89,6 @@ nImO::BaseChannel::BaseChannel
     ODL_EXIT_P(this); //####
 } // nImO::BaseChannel::BaseChannel
 
-nImO::BaseChannel::BaseChannel
-    (BaseChannel &&  other)
-    noexcept :
-        _name(other._name), _index(other._index)
-{
-    NIMO_UNUSED_VAR_(other);
-    ODL_ENTER(); //####
-    ODL_EXIT_P(this); //####
-} // nImO::BaseChannel::BaseChannel
-
 nImO::BaseChannel::~BaseChannel
     (void)
 {
@@ -109,22 +99,6 @@ nImO::BaseChannel::~BaseChannel
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-nImO::BaseChannel &
-nImO::BaseChannel::operator=
-    (BaseChannel &&    other)
-    noexcept
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        _name = other._name;
-        _index = other._index;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::BaseChannel::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

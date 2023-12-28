@@ -75,9 +75,9 @@ static nImO::SignalFunction  lSpecialSignalFunction{nullptr};
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::atomic<bool>   nImO::gKeepRunning{true};
+std::atomic_bool   nImO::gKeepRunning{true};
 
-std::atomic<bool>   nImO::gPendingStop;
+std::atomic_bool   nImO::gPendingStop;
 
 #if defined(__APPLE__)
 # pragma mark Local functions

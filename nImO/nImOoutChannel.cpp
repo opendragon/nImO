@@ -90,17 +90,6 @@ nImO::OutChannel::OutChannel
     ODL_EXIT_P(this); //####
 } // nImO::OutChannel::OutChannel
 
-nImO::OutChannel::OutChannel
-    (OutChannel &&  other)
-    noexcept :
-        inherited{std::move(other)}, _destinationAddress{other._destinationAddress}, _destinationPort{other._destinationPort}
-{
-    ODL_ENTER(); //####
-    other._destinationAddress = BytesToIPv4Address(0, 0, 0, 0);
-    other._destinationPort = 0;
-    ODL_EXIT_P(this); //####
-} // nImO::OutChannel::OutChannel
-
 nImO::OutChannel::~OutChannel
     (void)
 {
@@ -111,25 +100,6 @@ nImO::OutChannel::~OutChannel
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-nImO::OutChannel &
-nImO::OutChannel::operator=
-    (OutChannel &&    other)
-    noexcept
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("other = ", &other); //####
-    if (this != &other)
-    {
-        inherited::operator=(std::move(other));
-        _destinationAddress = other._destinationAddress;
-        other._destinationAddress = BytesToIPv4Address(0, 0, 0, 0);
-        _destinationPort = other._destinationPort;
-        other._destinationPort = 0;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::OutChannel::operator=
 
 bool
 nImO::OutChannel::setUp
@@ -199,6 +169,7 @@ nImO::OutChannel::stop
     bool    okSoFar{false};
 
     // TBD - stop network activity and clear state.
+    _active = false;
     switch (_connection._transport)
     {
         case TransportType::kTCP :

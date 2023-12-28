@@ -80,11 +80,25 @@ namespace nImO
                 (const std::string &    path,
                  const int              index = 0);
 
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            OutChannel
+                (OutChannel &&    other)
+                noexcept = delete;
+
             /*! @brief The destructor. */
             virtual
             ~OutChannel
                 (void)
                 override;
+
+            /*! @brief The move assignment operator.
+             @param[in] other The object to be moved.
+             @return The updated object. */
+            OutChannel &
+            operator=
+                (OutChannel && other)
+                noexcept = delete;
 
             /*! @brief Configure the netowkr port for the channel.
              @param[in] receiveAddress The address of the receiver.
@@ -112,20 +126,6 @@ namespace nImO
 
         protected :
             // Protected methods.
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            OutChannel
-                (OutChannel &&    other)
-                noexcept;
-
-            /*! @brief The move assignment operator.
-             @param[in] other The object to be moved.
-             @return The updated object. */
-            OutChannel &
-            operator=
-                (OutChannel && other)
-                noexcept;
 
         private :
             // Private methods.

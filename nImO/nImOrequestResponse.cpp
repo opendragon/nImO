@@ -213,7 +213,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         else
         {
             StringVector        outVec;
-            std::atomic<bool>   keepGoing{true};
+            std::atomic_bool   keepGoing{true};
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};

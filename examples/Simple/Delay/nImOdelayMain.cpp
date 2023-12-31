@@ -36,6 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
+#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOcommonCommands.h>
@@ -89,10 +90,11 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::ServiceOptions    optionValues;
-    int                     exitCode{0};
+    std::string                     progName{*argv};
+    nImO::DoubleArgumentDescriptor  firstArg{"delay"s, "Number of seconds to delay messages"s, nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0};
+    nImO::DescriptorVector          argumentList;
+    nImO::ServiceOptions            optionValues;
+    int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -100,6 +102,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Delay example"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
@@ -108,7 +111,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s, optionValues._logging,
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging,
                                                                                  nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};

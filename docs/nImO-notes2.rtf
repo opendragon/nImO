@@ -3,22 +3,25 @@
 }
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c100000\c100000\c100000;}
-\margl1440\margr1440\vieww21760\viewh18280\viewkind0
+\margl1440\margr1440\vieww26160\viewh18280\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 it appears that both a TCP and a UDP socket can be opened with the same port; perhaps the TCP connection can be used as a transient control port\
+\f0\fs24 \cf0 it appears that both a TCP and a UDP socket can be opened with the same port\
 \
 * [nImObridge 'a' 'b' \'97 routing between networks; 'a' is the name of this network, 'b' is the address to connect to the other]\
-* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT])\
-                          [only one connection allowed between 'c' and 'd']\
+* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd']\
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
 * nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
 * nImOlauncher 'a' \'97 program launcher \
-* nImOlist xyz \'97 reports all the known channels, bridges, machines, filters, inputs, outputs, services depending on filters and options \
-* nImOmonitor - displays the log\
-* nImOpost 'a' 'b' - writes text to the log\
+* nImOlist xyz \'97 reports all the known channels, connections, bridges, machines, applications depending on filters and options \
+* nImOmonitor - displays the log; 
+\f1\b DONE
+\f0\b0 \
+* nImOpost 'a' 'b' - writes text to the log; 
+\f1\b DONE
+\f0\b0 \
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
-* nImOversion \'97 reports the versions of the libraries;
+* nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE
 \f0\b0 \
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
@@ -26,12 +29,12 @@
 examples:\
 * nImOricochet 'p' - forwards a message to the next machine in a list\
 * nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
-* nImOcommutator\
-* nImOdelay\
-* nImOfanIn\
-* nImOfanOut\
-* nImOjunction\
-* nImOpassthrough\
+* nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]\
+* nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1)\
+* nImOfanIn ['n'] - forwards any messages from one of the 'n' input channels to the output channel ('n' defaults to 1)\
+* nImOfanOut ['n'] - forwards a message from the input channel to all of the 'n' output channels ('n' defaults to 1)\
+* nImOjunction ['n' ['m']] - forwards any messages from one of the 'n' input channels to all of the 'm' output channels ('n' and 'm' default to 1)\
+* nImOpassthrough - forwards any message from the input channel to the output channel, allowing for changing channel data types\
 \
 application support:\
 * nImOaddApp 'a' - adds an application to the list of available applications on the machine\

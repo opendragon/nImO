@@ -74,10 +74,12 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] context The owning context
              @param[in] path The path for the channel.
              @param[in] index The index of the channel. */
             OutChannel
-                (const std::string &    path,
+                (InputOutputContext &   context,
+                 const std::string &    path,
                  const int              index = 0);
 
             /*! @brief The move constructor.

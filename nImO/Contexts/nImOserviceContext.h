@@ -183,7 +183,7 @@ namespace nImO
                 (const std::string &    commandName)
                 const;
 
-        /*! @brief Remove a command handler from the set of handlers.
+            /*! @brief Remove a command handler from the set of handlers.
              @param[in] commandName The name of the command to be removed.
              @return @c true if the handler was successfully removed. */
             bool

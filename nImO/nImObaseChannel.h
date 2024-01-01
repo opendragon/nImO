@@ -54,6 +54,8 @@
 
 namespace nImO
 {
+    class InputOutputContext;
+
     /*! @brief A class to provide connections to services. */
     class BaseChannel
     {
@@ -105,10 +107,12 @@ namespace nImO
             // Protected methods.
 
             /*! @brief The constructor.
+             @param[in] context The owning context
              @param[in] path The path for the channel.
              @param[in] index The index of the channel. */
             BaseChannel
-                (const std::string &    path,
+                (InputOutputContext &   context,
+                 const std::string &    path,
                  const int              index = 0);
 
             /*! @brief The move constructor.
@@ -134,8 +138,14 @@ namespace nImO
         protected :
             // Protected fields.
 
+            /*! @brief The owning context. */
+            InputOutputContext &    _context;
+
             /*! @brief @c true if the communication is still live. */
             std::atomic_bool    _active;
+
+            /*! @brief The socket to use for UDP communication. */
+            BUDP::socket    _udpSocket;
 
             /*! @brief The IP address, port and mode for the communication. */
             Connection  _connection{};

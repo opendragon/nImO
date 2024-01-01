@@ -118,7 +118,7 @@ nImO::InputOutputContext::addInputChannel
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    const auto result = _inputChannelMap.insert({path, std::make_shared<InChannel>(path, _inputChannelMap.size())});
+    const auto result = _inputChannelMap.insert({path, std::make_shared<InChannel>(*this, path, _inputChannelMap.size())});
 
     ODL_EXIT_B(result.second); //####
     return result.second;
@@ -202,7 +202,7 @@ nImO::InputOutputContext::addOutputChannel
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    const auto result = _outputChannelMap.insert({path, std::make_shared<OutChannel>(path, _outputChannelMap.size())});
+    const auto result = _outputChannelMap.insert({path, std::make_shared<OutChannel>(*this, path, _outputChannelMap.size())});
 
     ODL_EXIT_B(result.second); //####
     return result.second;

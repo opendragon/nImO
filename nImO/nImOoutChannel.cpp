@@ -38,9 +38,7 @@
 
 #include <nImOoutChannel.h>
 
-#include <BasicTypes/nImOdouble.h>
-#include <BasicTypes/nImOinteger.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Contexts/nImOinputOutputContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -81,11 +79,14 @@
 #endif // defined(__APPLE__)
 
 nImO::OutChannel::OutChannel
-    (const std::string &    path,
+    (InputOutputContext &   context,
+     const std::string &    path,
      const int              index) :
-        inherited{path, index}
+        inherited{context, path, index}
 {
     ODL_ENTER(); //####
+    ODL_P1("context = ", &context); //####
+    ODL_S1s("path = ", path); //####
     ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
 } // nImO::OutChannel::OutChannel
@@ -94,6 +95,7 @@ nImO::OutChannel::~OutChannel
     (void)
 {
     ODL_OBJENTER(); //####
+    stop();
     ODL_OBJEXIT(); //####
 } // nImO::OutChannel::~OutChannel
 
@@ -114,21 +116,22 @@ nImO::OutChannel::setUp
     _connection._transport = mode;
     _destinationAddress = receiveAddress;
     _destinationPort = receivePort;
-    // TBD - set up network activity.
-    switch (_connection._transport)
+    // Set up network activity.
+    if (TransportType::kUDP == _connection._transport)
     {
-        case TransportType::kTCP :
-            // TBD!
-            break;
+        BAIP::address_v4    outAddress{0};
+        BUDP::endpoint      outEndpoint{outAddress, 0};
 
-        case TransportType::kUDP :
-            // TBD!
-            break;
-
-        default :
-            // Should never get here!
-            break;
-
+        _udpSocket.open(outEndpoint.protocol());
+        _udpSocket.set_option(BUDP::socket::reuse_address(true));
+        _udpSocket.bind(outEndpoint);
+        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+        _connection._port = _udpSocket.local_endpoint().port();
+        okSoFar = true;
+    }
+    else if (TransportType::kTCP == _connection._transport)
+    {
+//TBD!
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -141,21 +144,15 @@ nImO::OutChannel::start
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    // TBD - start network activity.
-    switch (_connection._transport)
+    // Start network activity.
+    if (TransportType::kUDP == _connection._transport)
     {
-        case TransportType::kTCP :
-            // TBD!
-            break;
-
-        case TransportType::kUDP :
-            // TBD!
-            break;
-
-        default :
-            // Should never get here!
-            break;
-
+        //TBD?!?!
+        okSoFar = true;
+    }
+    else if (TransportType::kTCP == _connection._transport)
+    {
+//TBD!
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -168,22 +165,22 @@ nImO::OutChannel::stop
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    // TBD - stop network activity and clear state.
-    _active = false;
-    switch (_connection._transport)
+    if (_active)
     {
-        case TransportType::kTCP :
-            // TBD!
-            break;
-
-        case TransportType::kUDP :
-            // TBD!
-            break;
-
-        default :
-            // Should never get here!
-            break;
-
+        // Stop network activity and clear state.
+        _active = false;
+        if (TransportType::kUDP == _connection._transport)
+        {
+//TBD!
+        }
+        else if (TransportType::kTCP == _connection._transport)
+        {
+//TBD!
+        }
+    }
+    else
+    {
+        okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

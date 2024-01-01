@@ -38,7 +38,7 @@
 
 #include <nImObaseChannel.h>
 
-#include <nImOchannelName.h>
+#include <Contexts/nImOinputOutputContext.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -79,13 +79,15 @@
 #endif // defined(__APPLE__)
 
 nImO::BaseChannel::BaseChannel
-    (const std::string &    path,
+    (InputOutputContext &   context,
+     const std::string &    path,
      const int              index) :
-        _name(path), _index(index)
+        _context(context), _udpSocket(*context.getService()), _name(path), _index(index)
 {
     ODL_ENTER(); //####
-    ODL_I1("index = ", index); //####
+    ODL_P1("context = ", &context); //####
     ODL_S1s("path = ", path); //####
+    ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
 } // nImO::BaseChannel::BaseChannel
 
@@ -93,6 +95,7 @@ nImO::BaseChannel::~BaseChannel
     (void)
 {
     ODL_OBJENTER(); //####
+    _udpSocket.close();
     ODL_OBJEXIT(); //####
 } // nImO::BaseChannel::~BaseChannel
 

@@ -817,7 +817,7 @@ nImO::ResolveTransport
     switch (firstTransport)
     {
         case TransportType::kAny :
-            if ((TransportType::kUDP == secondTransport) || (TransportType::kTCP == secondTransport))
+            if ((TransportType::kUDP == secondTransport) || (TransportType::kTCP == secondTransport) || (TransportType::kAny == secondTransport))
             {
                 result = secondTransport;
             }

@@ -1033,6 +1033,13 @@ namespace nImO
         (const std::string &    aString,
          int64_t &              result);
 
+    /*! @brief Convert a string to a lower-case version of the string.
+     @param[in] aString The string to be converted.
+     @return The lower-case version of the string. */
+    std::string
+    ConvertToLowerCase
+        (const std::string &    aString);
+
     /*! @brief Convert a floating-point value into a set of bytes.
      @param[in] inValue The number to be converted.
      @param[out] outString The byte string to be filled. */

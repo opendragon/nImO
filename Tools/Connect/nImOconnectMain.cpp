@@ -120,8 +120,8 @@ main
     std::string                     progName{*argv};
     nImO::ChannelArgumentDescriptor firstArg{"from"s, "'Sending' channel"s, nImO::ArgumentMode::Required, "/out"s};
     nImO::ChannelArgumentDescriptor secondArg{"to"s, "'Receiving' channel"s, nImO::ArgumentMode::Required, "/in"s};
-    nImO::StringsArgumentDescriptor thirdArg{"mode"s, "Transport mode"s, nImO::ArgumentMode::Optional, nImO::kProtocolAnyName,
-                                                nImO::ChannelName::transportNames()};
+    nImO::StringsArgumentDescriptor thirdArg{"mode"s, "Transport mode"s, nImO::ArgumentMode::Optional | nImO::ArgumentMode::CaseInsensitive,
+                                                nImO::kProtocolAnyName, nImO::ChannelName::transportNames()};
     nImO::DescriptorVector          argumentList;
     nImO::StandardOptions           optionValues;
     int                             exitCode{0};

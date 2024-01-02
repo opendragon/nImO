@@ -5,7 +5,7 @@
 //  Project:    nImO
 //
 //  Contains:   The class definition for the minimal functionality required to represent a
-//              string-type command-line argument.
+//              string-type command-line argument that can have one of a set of values.
 //
 //  Written by: Norman Jaffe
 //
@@ -51,7 +51,7 @@
 #endif // defined(__APPLE__)
 /*! @file
  @brief The definition for the minimal functionality required to represent a string-type
- command-line argument. */
+ command-line argument that can have one of a set of values. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -87,18 +87,30 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue,
-     const StringSet        allowedValues) :
-        inherited{argName, argDescription, argMode}, _defaultValue{defaultValue}, _allowedValues{allowedValues}
+     const StringSet &      allowedValues) :
+        inherited{argName, argDescription, argMode}, _caseInsensitive{ArgumentMode::CaseInsensitive == (argMode & ArgumentMode::CaseInsensitive)},
+        _defaultValue{defaultValue}
 {
     ODL_ENTER(); //####
     ODL_S3s("argName = ", argName, "argDescription = ", argDescription, "defaultValue = ", defaultValue); //####
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
+    if (_caseInsensitive)
+    {
+        for (auto & walker : allowedValues)
+        {
+            _allowedValues.insert(ConvertToLowerCase(walker));
+        }
+    }
+    else
+    {
+        _allowedValues = allowedValues;
+    }
     ODL_EXIT_P(this); //####
 } // StringsArgumentDescriptor::StringsArgumentDescriptor
 
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (const StringsArgumentDescriptor &   other) :
-        inherited{other}, _defaultValue{other._defaultValue}, _allowedValues{other._allowedValues}
+        inherited{other}, _caseInsensitive{other._caseInsensitive}, _defaultValue{other._defaultValue}, _allowedValues{other._allowedValues}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -108,7 +120,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
 StringsArgumentDescriptor::StringsArgumentDescriptor
     (StringsArgumentDescriptor &&   other)
     noexcept :
-        inherited{std::move(other)}, _defaultValue{std::move(other._defaultValue)},
+        inherited{std::move(other)}, _caseInsensitive{std::move(other._caseInsensitive)}, _defaultValue{std::move(other._defaultValue)},
         _allowedValues{std::move(other._allowedValues)}
 {
     ODL_ENTER(); //####
@@ -189,6 +201,7 @@ StringsArgumentDescriptor::operator=
     if (this != &other)
     {
         inherited::operator=(std::move(other));
+        _caseInsensitive = std::move(other._caseInsensitive);
         _defaultValue = std::move(other._defaultValue);
         _allowedValues = std::move(other._allowedValues);
     }
@@ -243,7 +256,6 @@ StringsArgumentDescriptor::parseArgString
                 stringList = stringList.substr(indx + 1);
             }
         }
-        // Copy the values in stringList into allowedValues
         result = std::make_shared<StringsArgumentDescriptor>(name, description, argMode, defaultString, allowedValues);
     }
     ODL_EXIT_P(result.get()); //####
@@ -267,6 +279,7 @@ StringsArgumentDescriptor::swap
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     inherited::swap(other);
+    std::swap(_caseInsensitive, other._caseInsensitive);
     std::swap(_currentValue, other._currentValue);
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_allowedValues, other._allowedValues);
@@ -307,7 +320,14 @@ StringsArgumentDescriptor::validate
 {
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
-    setValidity(_allowedValues.find(value) != _allowedValues.end());
+    if (_caseInsensitive)
+    {
+        setValidity(_allowedValues.find(ConvertToLowerCase(value)) != _allowedValues.end());
+    }
+    else
+    {
+        setValidity(_allowedValues.find(value) != _allowedValues.end());
+    }
     ODL_B1("_valid <- ", isValid()); //####
     if (isValid())
     {

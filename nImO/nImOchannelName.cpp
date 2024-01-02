@@ -91,11 +91,11 @@ static std::regex   lTransportMatch{"^" TRANSPORT_MATCH_STRING "$", std::regex::
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-const std::string   nImO::kProtocolAnyName{"any"s};
+const std::string   nImO::kProtocolAnyName{"any"s}; // must be lower-case!
 
-const std::string   nImO::kProtocolTcpName{"tcp"s};
+const std::string   nImO::kProtocolTcpName{"tcp"s}; // must be lower-case!
 
-const std::string   nImO::kProtocolUdpName{"udp"s};
+const std::string   nImO::kProtocolUdpName{"udp"s}; // must be lower-case!
 
 const std::string   nImO::kProtocolUnknownName{"unknown"s};
 
@@ -303,17 +303,18 @@ nImO::ChannelName::transportFromName
 {
     ODL_ENTER(); //####
     ODL_S1s("aName = ", aName); //####
-    TransportType   protocol = TransportType::kUnknown;
+    TransportType   protocol{TransportType::kUnknown};
+    std::string     nameToCheck{ConvertToLowerCase(aName)};
 
-    if (aName == transportToName(TransportType::kAny))
+    if (nameToCheck == transportToName(TransportType::kAny))
     {
         protocol = TransportType::kAny;
     }
-    else if (aName == transportToName(TransportType::kUDP))
+    else if (nameToCheck == transportToName(TransportType::kUDP))
     {
         protocol = TransportType::kUDP;
     }
-    else if (aName == transportToName(TransportType::kTCP))
+    else if (nameToCheck == transportToName(TransportType::kTCP))
     {
         protocol = TransportType::kTCP;
     }

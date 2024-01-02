@@ -945,6 +945,34 @@ doTestStringsArgumentDescriptors
                 }
                 break;
 
+            case 5 :
+                // Check the descriptor description.
+                if (2 == argc)
+                {
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something",
+                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc",
+                                                                                 allowable);
+                    if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
+            case 6 :
+                // Test input for validity.
+                if (1 == argc)
+                {
+                    testDescriptor = std::make_shared<StringsArgumentDescriptor>("descriptor", "something",
+                                                                                 ArgumentMode::Required | ArgumentMode::CaseInsensitive, "abc",
+                                                                                 allowable);
+                    if (testDescriptor->validate(*argv) == expected)
+                    {
+                        result = 0;
+                    }
+                }
+                break;
+
             default :
                 break;
 

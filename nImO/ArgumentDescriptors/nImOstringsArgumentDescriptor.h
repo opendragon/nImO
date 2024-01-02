@@ -5,7 +5,7 @@
 //  Project:    nImO
 //
 //  Contains:   The class declaration for the minimal functionality required to represent a
-//              string-type command-line argument.
+//              string-type command-line argument that can have one of a set of values.
 //
 //  Written by: Norman Jaffe
 //
@@ -42,6 +42,8 @@
 
 # include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
+# include <nImOcompareWithoutCase.h>
+
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"
@@ -49,7 +51,7 @@
 # endif // defined(__APPLE__)
 /*! @file
  @brief The class declaration for the minimal functionality required to represent a string-type
- command-line argument. */
+ command-line argument that can have one of a set of values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -60,7 +62,14 @@ namespace nImO
 
      The external representation of a string-type argument description is:
 
-     stringTagAndInfo ::= 'S'; */
+     stringTagAndInfo ::= 'L' sep allowed_strings;
+
+     allowed_strings ::= delimiter text_with_sep delimiter;
+     # use matching pairs of <>, (), {}, [], whichever is not present in the text
+     # alternatively, use a pair of the same character that is not present in the text
+
+     text_with_sep ::= text (sep text)*;
+     */
     class StringsArgumentDescriptor final : public BaseArgumentDescriptor
     {
 
@@ -80,17 +89,17 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-            @param[in] argName The name of the command-line argument.
-            @param[in] argDescription A description of the command-line argument.
-            @param[in] argMode The mode of the command-line argument.
-            @param[in] defaultValue The default value for the command-line argument.
-            @param[in] allowedValues The set of values that can be entered. */
+             @param[in] argName The name of the command-line argument.
+             @param[in] argDescription A description of the command-line argument.
+             @param[in] argMode The mode of the command-line argument.
+             @param[in] defaultValue The default value for the command-line argument.
+             @param[in] allowedValues The set of values that can be entered. */
             StringsArgumentDescriptor
                 (const std::string &    argName,
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
                  const std::string &    defaultValue,
-                 const StringSet        allowedValues);
+                 const StringSet &      allowedValues);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -102,16 +111,6 @@ namespace nImO
             StringsArgumentDescriptor
                 (StringsArgumentDescriptor &&	other)
                 noexcept;
-
-            /*! @brief Return the allowed values.
-            @return The allowed values. */
-            inline const StringSet &
-            getAllowedValues
-                (void)
-                const
-            {
-                return _allowedValues;
-            }
 
             /*! @brief Return the current value.
             @return The current value. */
@@ -216,6 +215,9 @@ namespace nImO
 
         private :
             // Private fields.
+
+            /*! @brief Whether comparisons are case-insensitive or not. */
+            bool    _caseInsensitive{false};
 
             /*! @brief The current value of the command-line argument. */
             std::string _currentValue{};

@@ -204,7 +204,7 @@ add_test(NAME TestValidStringsArgumentParameters COMMAND ${THIS_TARGET} 9 t 1)
 # Test that 'unreasonable' parameters build a descriptor that rejects the default value
 add_test(NAME TestInvalidStringsArgumentParameters COMMAND ${THIS_TARGET} 9 f 2)
 # Test that a 'reasonable' parameter results in the expected description
-add_test(NAME TestStringsArgumentDescriptor COMMAND ${THIS_TARGET} 9 t 3 "abc" "descriptor\tL\t0\t~$%@\tabc\tdef~\t~abc~\tsomething")
+add_test(NAME TestStringsArgumentDescriptor1 COMMAND ${THIS_TARGET} 9 t 3 "abc" "descriptor\tL\t0\t~$%@\tabc\tdef~\t~abc~\tsomething")
 # Test valid input
 add_test(NAME TestStringsArgumentValidInput1 COMMAND ${THIS_TARGET} 9 t 4 "abc")
 # Test valid input
@@ -213,3 +213,17 @@ add_test(NAME TestStringsArgumentValidInput2 COMMAND ${THIS_TARGET} 9 t 4 "$%@")
 add_test(NAME TestStringsArgumentInvalidInput1 COMMAND ${THIS_TARGET} 9 f 4 "cba")
 # Test invalid input
 add_test(NAME TestStringsArgumentInvalidInput2 COMMAND ${THIS_TARGET} 9 f 4 "12345")
+# Test invalid input
+add_test(NAME TestStringsArgumentInvalidInput3 COMMAND ${THIS_TARGET} 9 f 4 "Abc")
+# Test that a 'reasonable' parameter results in the expected description
+add_test(NAME TestStringsArgumentDescriptor2 COMMAND ${THIS_TARGET} 9 t 5 "abc" "descriptor\tL\t4\t~$%@\tabc\tdef~\t~abc~\tsomething")
+# Test valid input
+add_test(NAME TestStringsArgumentValidInput3 COMMAND ${THIS_TARGET} 9 t 6 "abc")
+# Test valid input
+add_test(NAME TestStringsArgumentValidInput4 COMMAND ${THIS_TARGET} 9 t 6 "$%@")
+# Test valid input
+add_test(NAME TestStringsArgumentValidInput5 COMMAND ${THIS_TARGET} 9 t 6 "aBc")
+# Test invalid input
+add_test(NAME TestStringsArgumentInvalidInput4 COMMAND ${THIS_TARGET} 9 f 6 "cba")
+# Test invalid input
+add_test(NAME TestStringsArgumentInvalidInput5 COMMAND ${THIS_TARGET} 9 f 6 "12345")

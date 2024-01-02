@@ -382,6 +382,22 @@ nImO::ConvertToInt64
     return okSoFar;
 } // nImO::ConvertToInt64
 
+std::string
+nImO::ConvertToLowerCase
+    (const std::string &    aString)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("aString = ", aString); //####
+    std::string result;
+
+    for (auto walker : aString)
+    {
+        result.push_back(tolower(walker));
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::ConvertToLowerCase
+
 void
 nImO::D2B
     (const double       inValue,

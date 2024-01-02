@@ -84,6 +84,9 @@ namespace nImO
         /*! @brief The argument is a password (not displayable). */
         Password = 0x02,
 
+        /*! @brief The argument is case-insensitive. */
+        CaseInsensitive = 0x04,
+
         /*! @brief The argument is both required and is a password. */
         RequiredPassword = (Required | Password),
 
@@ -91,12 +94,14 @@ namespace nImO
         OptionalPassword = (Optional | Password),
 
         /*! @brief A mask for the available flags. */
-        Mask = (Optional | Password),
+        Mask = (Optional | Password | CaseInsensitive),
 
         /*! @brief The mode of the argument is undefined. */
         Unknown = 0x00FF
 
     }; // ArgumentMode
+
+    UnaryAndBinaryOperators(ArgumentMode)
 
     /*! @brief The type of an argument. */
     enum class ArgumentTypeTag : char
@@ -149,12 +154,15 @@ namespace nImO
      argFormat ::= argName sep argMode sep typeTagAndInfo sep default_value sep
                     text_description_for_label;
 
-     sep ::= ':';
+     sep ::= '\t';
 
      argMode ::= numeric value of mode;
 
-     default_value ::= delimiter text delimiter;
-     # use matching pairs of |, <>, (), {}, [], whichever is not present in the text
+     default_value ::= delimited_text;
+
+     delimited_text ::= delimiter text delimiter;
+     # use matching pairs of <>, (), {}, [], whichever is not present in the text
+     # alternatively, use a pair of the same character that is not present in the text
 
      where typeTagAndInfo is described with each derived class. */
     class BaseArgumentDescriptor

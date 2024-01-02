@@ -33,7 +33,8 @@ n) Destroy context/RAII\
 \
 <name> ::= [[:alnum:]$]+([_.-][[:alnum:]$]+)* \'97> Names can contain $, period, minus or underscore but cannot start or end with a period, minus or underscore and are case-insensitive.\
 <path> ::= (/<name>)+ \'97> Paths start with a forward slash but do not have a trailing slash.\
-<channel> ::= (<name>?:)?<name>?<path>(#(UDP|TCP|ANY))?  \'97> The node name is 'optional' when parsed but required in actual use.\
+<mode> ::= #(UDP|TCP|ANY) -> Case-insensitive\
+<channel> ::= (<name>?:)?<name>?<path><mode>?  \'97> The node name is 'optional' when parsed but required in actual use.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 

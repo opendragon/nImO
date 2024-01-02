@@ -42,8 +42,6 @@
 
 # include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
-# include <nImOcompareWithoutCase.h>
-
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunknown-pragmas"

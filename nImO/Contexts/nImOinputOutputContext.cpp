@@ -118,7 +118,8 @@ nImO::InputOutputContext::addInputChannel
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    const auto result = _inputChannelMap.insert({path, std::make_shared<InChannel>(*this, path, _inputChannelMap.size())});
+    std::string adjustedName{ConvertToLowerCase(path)};
+    const auto  result = _inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(*this, adjustedName, _inputChannelMap.size())});
 
     ODL_EXIT_B(result.second); //####
     return result.second;
@@ -202,7 +203,8 @@ nImO::InputOutputContext::addOutputChannel
 {
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
-    const auto result = _outputChannelMap.insert({path, std::make_shared<OutChannel>(*this, path, _outputChannelMap.size())});
+    std::string adjustedName{ConvertToLowerCase(path)};
+    const auto  result = _outputChannelMap.insert({adjustedName, std::make_shared<OutChannel>(*this, adjustedName, _outputChannelMap.size())});
 
     ODL_EXIT_B(result.second); //####
     return result.second;
@@ -235,7 +237,7 @@ nImO::InputOutputContext::getInputChannel
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
     SpInChannel result;
-    auto        match{_inputChannelMap.find(path)};
+    auto        match{_inputChannelMap.find(ConvertToLowerCase(path))};
 
     if (_inputChannelMap.end() != match)
     {
@@ -270,7 +272,7 @@ nImO::InputOutputContext::getOutputChannel
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
     SpOutChannel    result;
-    auto            match{_outputChannelMap.find(path)};
+    auto            match{_outputChannelMap.find(ConvertToLowerCase(path))};
 
     if (_outputChannelMap.end() != match)
     {

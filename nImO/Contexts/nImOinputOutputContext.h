@@ -41,7 +41,6 @@
 
 # include <Contexts/nImOserviceContext.h>
 
-# include <nImOcompareWithoutCase.h>
 # include <nImOinChannel.h>
 # include <nImOoutChannel.h>
 
@@ -80,13 +79,13 @@ namespace nImO
             // Protected type definitions.
 
             /*! @brief A map of input channels. */
-            using InChannelMap = std::map<std::string, SpInChannel, CompareWithoutCase>;
+            using InChannelMap = std::map<std::string, SpInChannel>;
 
             /*! @brief An array of input channels. */
             using InChannelVector = std::vector<SpInChannel>;
 
             /*! @brief A map of input channels. */
-            using OutChannelMap = std::map<std::string, SpOutChannel, CompareWithoutCase>;
+            using OutChannelMap = std::map<std::string, SpOutChannel>;
 
             /*! @brief An array of output channels. */
             using OutChannelVector = std::vector<SpOutChannel>;

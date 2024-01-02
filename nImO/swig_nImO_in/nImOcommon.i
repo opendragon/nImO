@@ -102,7 +102,6 @@
 #include "nImOcommon.h"
 #include "nImOcommonCommands.h"
 #include "nImOcompareValues.h"
-#include "nImOcompareWithoutCase.h"
 #include "nImOcomparisonStatus.h"
 #include "nImOconverters.h"
 #include "nImOinChannel.h"

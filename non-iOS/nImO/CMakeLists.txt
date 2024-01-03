@@ -164,7 +164,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOmainSupport.cpp"
             "${THIS_SOURCE_DIR}/nImOMIMESupport.cpp"
             "${THIS_SOURCE_DIR}/nImOoutChannel.cpp"
-            "${THIS_SOURCE_DIR}/nImOpackage.cpp"
             "${THIS_SOURCE_DIR}/nImOreceivedData.cpp"
             "${THIS_SOURCE_DIR}/nImOreceiveQueue.cpp"
             "${THIS_SOURCE_DIR}/nImOregistryProxy.cpp"
@@ -211,7 +210,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOmainSupport.h"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
         "${THIS_SOURCE_DIR}/nImOoutChannel.h"
-        "${THIS_SOURCE_DIR}/nImOpackage.h"
         "${THIS_SOURCE_DIR}/nImOreceivedData.h"
         "${THIS_SOURCE_DIR}/nImOreceiveQueue.h"
         "${THIS_SOURCE_DIR}/nImOregistryCommands.h"
@@ -506,7 +504,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOmainSupport.cpp ${THIS_SOURCE_DIR}/nImOmainSupport.h
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h
         ${THIS_SOURCE_DIR}/nImOoutChannel.cpp ${THIS_SOURCE_DIR}/nImOoutChannel.h
-        ${THIS_SOURCE_DIR}/nImOpackage.cpp ${THIS_SOURCE_DIR}/nImOpackage.h
         ${THIS_SOURCE_DIR}/nImOreceivedData.cpp ${THIS_SOURCE_DIR}/nImOreceivedData.h
         ${THIS_SOURCE_DIR}/nImOreceiveQueue.cpp ${THIS_SOURCE_DIR}/nImOreceiveQueue.h
         ${THIS_SOURCE_DIR}/nImOregistryCommands.h

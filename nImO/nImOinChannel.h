@@ -40,7 +40,7 @@
 # define nImOinChannel_H_ /* Header guard */
 
 # include <nImObaseChannel.h>
-# include <nImOpackage.h>
+# include <nImOreceiveQueue.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -75,11 +75,13 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] inQueue The queue where incoming messages are placed.
              @param[in] context The owning context
              @param[in] path The path for the channel.
              @param[in] index The index of the channel. */
             InChannel
-                (InputOutputContext &   context,
+                (ReceiveQueue &         inQueue,
+                 InputOutputContext &   context,
                  const std::string &    path,
                  const int              index = 0);
 
@@ -102,6 +104,12 @@ namespace nImO
             operator=
                 (InChannel && other)
                 noexcept = delete;
+
+
+            /*! @brief Receive messages via the UDP socket. */
+            void
+            receiveUdpMessages
+                (void);
 
             bool
             setUp
@@ -143,6 +151,15 @@ namespace nImO
 
             /*! @brief The source port to match against. */
             IPv4Port    _matchPort{0};
+
+            /*! @brief The sender's endpoint. */
+            BUDP::endpoint  _udpSenderEndpoint{};
+
+            /*! @brief A buffer for the raw message data. */
+            std::array<char, 2048>  _udpData{};
+
+            /*! @brief The destination for incoming messages. */
+            ReceiveQueue &  _inQueue;
 
     }; // InChannel
 

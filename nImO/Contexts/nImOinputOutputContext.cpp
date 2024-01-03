@@ -119,7 +119,8 @@ nImO::InputOutputContext::addInputChannel
     ODL_ENTER(); //####
     ODL_S1s("path = ", path); //####
     std::string adjustedName{ConvertToLowerCase(path)};
-    const auto  result = _inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(*this, adjustedName, _inputChannelMap.size())});
+    const auto  result = _inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName,
+                                                                                            _inputChannelMap.size())});
 
     ODL_EXIT_B(result.second); //####
     return result.second;

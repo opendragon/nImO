@@ -86,7 +86,8 @@
 
 void
 nImO::ReceiveQueue::addRawBytesAsMessage
-    (const BUDP::endpoint & senderEndpoint,
+    (const int              tag,
+     const BUDP::endpoint & senderEndpoint,
      const std::string &    receivedAsString)
 {
     ODL_OBJENTER(); //####
@@ -103,7 +104,7 @@ nImO::ReceiveQueue::addRawBytesAsMessage
 
             newMessage->open(false);
             newMessage->appendBytes(inBytes.data(), inBytes.size());
-            auto newData{std::make_shared<ReceivedData>(newMessage->getValue(), senderAddress, senderPort)};
+            auto newData{std::make_shared<ReceivedData>(tag, newMessage->getValue(), senderAddress, senderPort)};
 
             {
                 std::lock_guard<std::mutex>  lock{_receivedLock};
@@ -149,6 +150,11 @@ nImO::ReceiveQueue::stop
     (void)
 {
     _stop = true;
+    {
+        std::lock_guard<std::mutex>  lock{_receivedLock};
+
+        _receivedData.clear();
+    }
     _receivedCondition.notify_one();
 } // nImO::ReceiveQueue::stop
 

@@ -43,6 +43,7 @@
 
 # include <nImOinChannel.h>
 # include <nImOoutChannel.h>
+# include <nImOreceiveQueue.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -201,7 +202,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The sequence of received packages. */
-            PackageQueue    _inputPackages{};
+            ReceiveQueue    _receiveQueue;
 
     }; // InputOutputContext
 

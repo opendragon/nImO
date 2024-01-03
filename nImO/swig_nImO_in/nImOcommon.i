@@ -109,7 +109,6 @@
 #include "nImOmainSupport.h"
 #include "nImOMIMESupport.h"
 #include "nImOoutChannel.h"
-#include "nImOpackage.h"
 #include "nImOreceivedData.h"
 #include "nImOregistryCommands.h"
 #include "nImOregistryProxy.h"

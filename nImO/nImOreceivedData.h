@@ -79,13 +79,15 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
+             @param[in] tag The channel index for the message.
              @param[in] receivedMessage The message from the sender.
              @param[in] receivedAddress The send IP address. */
             inline ReceivedData
-                (nImO::SpValue              receivedMessage,
+                (const int                  tag,
+                 nImO::SpValue              receivedMessage,
                  const nImO::IPv4Address    receivedAddress,
                  const nImO::IPv4Port       receivedPort) :
-                    _receivedMessage(receivedMessage), _receivedAddress(receivedAddress), _receivedPort(receivedPort)
+                _receivedMessage(receivedMessage), _receivedAddress(receivedAddress), _receivedPort(receivedPort), _tag{tag}
             {
             }
 
@@ -106,6 +108,9 @@ namespace nImO
 
             /*! @brief The IP port of the sender. */
             nImO::IPv4Port  _receivedPort{};
+
+            /*! @brief The tag for the associated Message. */
+            int _tag;
 
         protected :
             // Protected fields.

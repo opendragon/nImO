@@ -83,7 +83,8 @@ namespace nImO
              @param[in] receivedAsString The raw data as a string. */
             void
             addRawBytesAsMessage
-                (const BUDP::endpoint & senderEndpoint,
+                (const int              tag,
+                 const BUDP::endpoint & senderEndpoint,
                  const std::string &    receivedAsString);
 
             /*! @brief Return the next available message in the queue if there is one.
@@ -113,7 +114,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The sequence of received messages. */
-            std::deque<nImO::SpReceivedData> _receivedData{};
+            std::deque<nImO::SpReceivedData>    _receivedData{};
 
             /*! @brief Used to protect the sequence of received messages. */
             std::mutex _receivedLock{};

@@ -126,8 +126,8 @@ nImO::StartReceiverCommandHandler::doIt
             }
             else
             {
-                IPv4Address     senderAddress{addressValue->getAddressValue()};
-                IPv4Port        senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+                IPv4Address senderAddress{addressValue->getAddressValue()};
+                IPv4Port    senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
 
                 // Send the response to the requestor.
                 okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", theChannel->start(senderAddress, senderPort));

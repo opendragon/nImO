@@ -39,6 +39,7 @@
 #include <nImOinChannel.h>
 
 #include <Contexts/nImOinputOutputContext.h>
+#include <nImOmainSupport.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -79,13 +80,14 @@
 #endif // defined(__APPLE__)
 
 nImO::InChannel::InChannel
-    (InputOutputContext &   context,
+    (ReceiveQueue &         inQueue,
+     InputOutputContext &   context,
      const std::string &    path,
      const int              index) :
-        inherited{context, path, index}
+        inherited{context, path, index}, _inQueue(inQueue)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", &context); //####
+    ODL_P2("inQueue = ", &inQueue, "context = ", &context); //####
     ODL_S1s("path = ", path); //####
     ODL_I1("index = ", index); //####
     ODL_EXIT_P(this); //####
@@ -102,6 +104,28 @@ nImO::InChannel::~InChannel
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+void
+nImO::InChannel::receiveUdpMessages
+    (void)
+{
+    if (gKeepRunning)
+    {
+        _udpSocket.async_receive_from(boost::asio::buffer(_udpData), _udpSenderEndpoint,
+                                       [this]
+                                       (const BSErr         ec,
+                                        const std::size_t   length)
+                                       {
+                                           if (! ec)
+                                           {
+                                               std::string  receivedAsString{_udpData.data(), length};
+
+                                               _inQueue.addRawBytesAsMessage(_index, _udpSenderEndpoint, receivedAsString);
+                                               receiveUdpMessages();
+                                           }
+                                       });
+    }
+} // nImO::InChannel::receiveUdpMessages
 
 bool
 nImO::InChannel::setUp
@@ -146,7 +170,7 @@ nImO::InChannel::start
     // Start network activity.
     if (TransportType::kUDP == _connection._transport)
     {
-//TBD! need to start listener...
+        receiveUdpMessages();
     }
     else if (TransportType::kTCP == _connection._transport)
     {

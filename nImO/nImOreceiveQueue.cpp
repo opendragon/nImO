@@ -87,7 +87,8 @@
 void
 nImO::ReceiveQueue::addRawBytesAsMessage
     (const int              tag,
-     const BUDP::endpoint & senderEndpoint,
+     const IPv4Address      senderAddress,
+     const IPv4Port         senderPort,
      const std::string &    receivedAsString)
 {
     ODL_OBJENTER(); //####
@@ -98,9 +99,7 @@ nImO::ReceiveQueue::addRawBytesAsMessage
         // We need to convert the raw data to a string!
         if (DecodeMIMEToBytes(receivedAsString, inBytes))
         {
-            auto           newMessage{std::make_shared<Message>()};
-            IPv4Address    senderAddress{senderEndpoint.address().to_v4().to_uint()};
-            IPv4Port       senderPort{senderEndpoint.port()};
+            auto    newMessage{std::make_shared<Message>()};
 
             newMessage->open(false);
             newMessage->appendBytes(inBytes.data(), inBytes.size());

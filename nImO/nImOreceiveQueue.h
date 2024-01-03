@@ -79,12 +79,14 @@ namespace nImO
             // Public methods.
 
             /*! @brief Convert raw bytes to a message and add to the queue.
-             @param[in] senderEndpoint Information on the sender.
+             @param[in] senderAddress The sender's IP address.
+             @param[in] senderPort The sender's port.
              @param[in] receivedAsString The raw data as a string. */
             void
             addRawBytesAsMessage
                 (const int              tag,
-                 const BUDP::endpoint & senderEndpoint,
+                 const IPv4Address      senderAddress,
+                 const IPv4Port         senderPort,
                  const std::string &    receivedAsString);
 
             /*! @brief Return the next available message in the queue if there is one.

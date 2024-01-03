@@ -118,9 +118,16 @@ nImO::InChannel::receiveUdpMessages
                                        {
                                            if (! ec)
                                            {
-                                               std::string  receivedAsString{_udpData.data(), length};
+                                               IPv4Address    senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
+                                               IPv4Port       senderPort{_udpSenderEndpoint.port()};
 
-                                               _inQueue.addRawBytesAsMessage(_index, _udpSenderEndpoint, receivedAsString);
+                                               if ((_matchAddress == senderAddress) && (_matchPort == senderPort))
+                                               {
+                                                   std::string  receivedAsString{_udpData.data(), length};
+
+                                                   _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, receivedAsString);
+
+                                               }
                                                receiveUdpMessages();
                                            }
                                        });

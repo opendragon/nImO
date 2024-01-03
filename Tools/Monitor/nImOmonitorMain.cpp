@@ -135,9 +135,11 @@ class ReceiveOnMessagePort final
                                            {
                                                if (! ec)
                                                {
-                                                   std::string  receivedAsString{_data.data(), length};
+                                                   std::string          receivedAsString{_data.data(), length};
+                                                   nImO::IPv4Address    senderAddress{_senderEndpoint.address().to_v4().to_uint()};
+                                                   nImO::IPv4Port       senderPort{_senderEndpoint.port()};
 
-                                                   lReceiveQueue.addRawBytesAsMessage(0, _senderEndpoint, receivedAsString);
+                                                   lReceiveQueue.addRawBytesAsMessage(0, senderAddress, senderPort, receivedAsString);
                                                    receiveMessages();
                                                }
                                            });

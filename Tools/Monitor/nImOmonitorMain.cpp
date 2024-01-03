@@ -43,7 +43,9 @@
 #include <ContainerTypes/nImOmap.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOmainSupport.h>
-#include <nImOMIMESupport.h>
+            #include <nImOMIMESupport.h>
+#include <nImOreceivedData.h>
+#include <nImOreceiveQueue.h>
 #include <nImOstandardOptions.h>
 
 #include <deque>
@@ -75,65 +77,8 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief A structure to hold a received message. */
-struct ReceivedData final
-{
-    public :
-        // Public type definitions.
-
-    protected :
-        // Protected type definitions.
-
-    private :
-        // Private type definitions.
-
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-         @param[in] receivedMessage The message from the sender.
-         @param[in] receivedAddress The send IP address. */
-        inline ReceivedData
-            (nImO::SpValue              receivedMessage,
-             const nImO::IPv4Address    receivedAddress) :
-                _receivedMessage(receivedMessage), _receivedAddress(receivedAddress)
-        {
-        }
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-    public :
-        // Public fields.
-
-        /*! @brief The message from the sender. */
-        nImO::SpValue   _receivedMessage{};
-
-        /*! @brief The IP address of the sender. */
-        nImO::IPv4Address   _receivedAddress{};
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-}; // ReceivedData
-
-/*! @brief A holder for a shared pointer to ReceivedData. */
-using SpReceivedData = std::shared_ptr<ReceivedData>;
-
 /*! @brief The sequence of received messages. */
-static std::deque<SpReceivedData>   lReceivedData;
-
-/*! @brief Used to protect lReceivedValues. */
-static std::mutex lReceivedLock;
-
-/*! @brief Used to indicate that lReceivedValues is ready to use. */
-static std::condition_variable    lReceivedCondition;
+static nImO::ReceiveQueue   lReceiveQueue;
 
 /*! @brief A class to handle receiving messages from the logging or status multicast group. */
 class ReceiveOnMessagePort final
@@ -191,28 +136,9 @@ class ReceiveOnMessagePort final
                                            {
                                                if (! ec)
                                                {
-                                                   nImO::ByteVector inBytes;
-                                                   std::string      receivedAsString{_data.data(), length};
+                                                   std::string  receivedAsString{_data.data(), length};
 
-                                                   // We need to convert the raw data to a string!
-                                                   if (nImO::DecodeMIMEToBytes(receivedAsString, inBytes))
-                                                   {
-                                                       auto                 newMessage{std::make_shared<nImO::Message>()};
-                                                       nImO::IPv4Address    senderAddress{_senderEndpoint.address().to_v4().to_uint()};
-
-                                                       newMessage->open(false);
-                                                       newMessage->appendBytes(inBytes.data(), inBytes.size());
-                                                       SpReceivedData   newData{std::make_shared<ReceivedData>(newMessage->getValue(),
-                                                                                                               senderAddress)};
-
-                                                       {
-                                                           std::lock_guard<std::mutex>  lock{lReceivedLock};
-
-                                                           lReceivedData.push_back(newData);
-                                                       }
-                                                       newMessage->close();
-                                                       lReceivedCondition.notify_one();
-                                                   }
+                                                   lReceiveQueue.addRawBytesAsMessage(_senderEndpoint, receivedAsString);
                                                    receiveMessages();
                                                }
                                            });
@@ -253,7 +179,7 @@ doConditionNotify
     (void)
 {
     ODL_ENTER(); //####
-    lReceivedCondition.notify_one();
+    lReceiveQueue.stop();
     ODL_EXIT(); //####
 } // doConditionNotify
 
@@ -304,24 +230,8 @@ main
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )
             {
-                SpReceivedData  nextData;
+                nImO::SpReceivedData    nextData{lReceiveQueue.getNextMessage()};
 
-                boost::this_thread::yield();
-                {
-                    // Check for messages.
-                    std::unique_lock<std::mutex>    lock{lReceivedLock};
-
-                    for ( ; nImO::gKeepRunning && (0 == lReceivedData.size()); )
-                    {
-                        boost::this_thread::yield();
-                        lReceivedCondition.wait(lock);
-                    }
-                    if (nImO::gKeepRunning)
-                    {
-                        nextData = lReceivedData.front();
-                        lReceivedData.pop_front();
-                    }
-                }
                 if (nImO::gKeepRunning)
                 {
                     time_t              rawTime;

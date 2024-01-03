@@ -212,6 +212,10 @@
 		F677181A2B376FC900959A15 /* nImOinputOutputCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinputOutputCommandHandler.cpp; path = nImO/CommandHandlers/nImOinputOutputCommandHandler.cpp; sourceTree = "<group>"; };
 		F677181B2B376FC900959A15 /* nImOinputOutputCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinputOutputCommandHandler.h; path = nImO/CommandHandlers/nImOinputOutputCommandHandler.h; sourceTree = "<group>"; };
 		F6773C2E2B3DAADB00E488EB /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Delay/CMakeLists.txt; sourceTree = "<group>"; };
+		F67832012B45698400618040 /* nImOreceivedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceivedData.h; path = nImO/nImOreceivedData.h; sourceTree = "<group>"; };
+		F67832022B45698400618040 /* nImOreceivedData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceivedData.cpp; path = nImO/nImOreceivedData.cpp; sourceTree = "<group>"; };
+		F67832032B456E3600618040 /* nImOreceiveQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceiveQueue.cpp; path = nImO/nImOreceiveQueue.cpp; sourceTree = "<group>"; };
+		F67832042B456E3600618040 /* nImOreceiveQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceiveQueue.h; path = nImO/nImOreceiveQueue.h; sourceTree = "<group>"; };
 		F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryCommands.h; path = nImO/nImOregistryCommands.h; sourceTree = "<group>"; };
 		F679D6C224126ED8001648DB /* Test_channelName.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_channelName.txt; path = "non-iOS/Tests/Test_channelName.txt"; sourceTree = "<group>"; };
 		F679D6C4241270CE001648DB /* Test_badMessage.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_badMessage.txt; path = "non-iOS/Tests/Test_badMessage.txt"; sourceTree = "<group>"; };
@@ -1446,6 +1450,10 @@
 				F62FE69C29FBCE1D002D5FE3 /* nImOoutChannel.h */,
 				F65177E52AB719CA007995FB /* nImOpackage.cpp */,
 				F65177E62AB719CA007995FB /* nImOpackage.h */,
+				F67832022B45698400618040 /* nImOreceivedData.cpp */,
+				F67832012B45698400618040 /* nImOreceivedData.h */,
+				F67832032B456E3600618040 /* nImOreceiveQueue.cpp */,
+				F67832042B456E3600618040 /* nImOreceiveQueue.h */,
 				F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */,
 				F60F7FA02991530600F26E19 /* nImOregistryProxy.cpp */,
 				F60F7F9F2991530500F26E19 /* nImOregistryProxy.h */,

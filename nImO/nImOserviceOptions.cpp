@@ -89,6 +89,8 @@ nImO::ProcessServiceOptions
      const std::string &    copyrightHolder,
      ServiceOptions &       optionValues,
      const OptionsMask      skipOptions,
+     const bool             multipleInputs,
+     const bool             multipleOutputs,
      Ptr(StringVector)      arguments)
 {
     ODL_ENTER(); //####
@@ -96,6 +98,7 @@ nImO::ProcessServiceOptions
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
     ODL_S3s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria, "copyrightHolder = ", copyrightHolder); //####
     ODL_X1("skipOptions = ", StaticCast(int64_t, skipOptions)); //####
+    ODL_B2("multipleInputs = ", multipleInputs, "multipleOutputs = ", multipleOutputs); //####
     enum class OptionIndex
     {
         kOptionUNKNOWN,
@@ -117,7 +120,7 @@ nImO::ProcessServiceOptions
     bool        keepGoing{true};
     std::string serviceKindName{isAdapter ? "adapter"s : "service"s};
     std::string describePartText{"  --describe, -d \tPrint executable type, supported "s};
-    std::string tagPartText{"  --tag, -t \tSpecify the tag to be used as part of the "s};
+    std::string tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the "s};
 
     describePartText += serviceKindName + " options"s;
     if (isAdapter)
@@ -128,28 +131,32 @@ nImO::ProcessServiceOptions
     tagPartText += serviceKindName + " name"s;
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
-                                        "  --args, -a\tReport the argument formats"};
+                                        "  --args, -a \tReport the argument formats"};
     Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", Option_::Arg::Required,
-                                            "  --base, -b\tspecifies the base name for channels"};
+                                            "  --base, -b <name> \tSpecifies the base name for channels"};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
-                                            "  --config, -c <path>\tSpecify path to configuration file"};
+                                            "  --config, -c <path> \tSpecify path to configuration file"};
     Option_::Descriptor describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
                                             describePartText.c_str()};
     Option_::Descriptor expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
-                                            "expanded", Option_::Arg::None, "  --expanded, -e\tDisplay more details"};
+                                            "expanded", Option_::Arg::None, "  --expanded, -e \tDisplay more details"};
     Option_::Descriptor helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help", Option_::Arg::None,
-                                        "  --help, -h\tPrint usage and exit"};
-    Option_::Descriptor inTypeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
-                                            "  --intype, -i\tspecifies the data type for input channels"};
+                                        "  --help, -h \tPrint usage and exit"};
+    Option_::Descriptor inTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
+                                            "  --intype, -i <type> \tSpecifies the data type for the input channel"};
+    Option_::Descriptor inTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
+                                            "  --intype, -i <type> \tSpecifies the data type for input channels"};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
-                                        "  --log, -l\tLog application"};
+                                        "  --log, -l \tLog application"};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
-                                        "  --node, -n\tSpecify a non-default node name to be used"};
-    Option_::Descriptor outTypeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
-                                            "  --outtype, -o\tspecifies the data type for output channels"};
+                                        "  --node, -n <name> \tSpecify a non-default node name to be used"};
+    Option_::Descriptor outTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
+                                            "  --outtype, -o <type> \tSpecifies the data type for the output channel"};
+    Option_::Descriptor outTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
+                                            "  --outtype, -o <type> \tSpecifies the data type for output channels"};
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "version", Option_::Arg::None,
-                                            "  --version, -v\tPrint version information and exit"};
+                                            "  --version, -v \tPrint version information and exit"};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -253,7 +260,14 @@ nImO::ProcessServiceOptions
     memcpy(usageWalker++, &helpDescriptor, sizeof(helpDescriptor));
     if (0 == (skipOptions & kSkipInTypeOption))
     {
-        memcpy(usageWalker++, &inTypeDescriptor, sizeof(inTypeDescriptor));
+        if (multipleInputs)
+        {
+            memcpy(usageWalker++, &inTypeDescriptor2, sizeof(inTypeDescriptor2));
+        }
+        else
+        {
+            memcpy(usageWalker++, &inTypeDescriptor1, sizeof(inTypeDescriptor1));
+        }
     }
     if (0 == (skipOptions & kSkipLoggingOption))
     {
@@ -265,7 +279,14 @@ nImO::ProcessServiceOptions
     }
     if (0 == (skipOptions & kSkipOutTypeOption))
     {
-        memcpy(usageWalker++, &outTypeDescriptor, sizeof(outTypeDescriptor));
+        if (multipleOutputs)
+        {
+            memcpy(usageWalker++, &outTypeDescriptor2, sizeof(outTypeDescriptor2));
+        }
+        else
+        {
+            memcpy(usageWalker++, &outTypeDescriptor1, sizeof(outTypeDescriptor1));
+        }
     }
     if (0 == (skipOptions & kSkipTagOption))
     {

@@ -106,6 +106,8 @@ namespace nImO
      @param[in] copyrightHolder The name of the entity holding the copyright to the utility.
      @param[out] optionValues Values set by command-line options.
      @param[in] skipOptions The command-line options to be skipped.
+     @param[in] multipleInputs @c true if multiple inputs are supported.
+     @param[in] multipleOutputs @c true if multiple outputs are supported.
      @param[in] arguments If non-@c NULL, returns the arguments for the service.
      @return @c true if the service should continue and @c false if it should leave. */
     bool
@@ -119,6 +121,8 @@ namespace nImO
          const std::string &    copyrightHolder,
          ServiceOptions &       optionValues,
          const OptionsMask      skipOptions,
+         const bool             multipleInputs = false,
+         const bool             multipleOutputs = false,
          Ptr(StringVector)      arguments = nullptr);
 
 } // nImO

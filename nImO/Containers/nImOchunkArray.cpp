@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOchunkArray.cpp
+//  File:       nImO/Containers/nImOchunkArray.cpp
 //
 //  Project:    nImO
 //
@@ -36,9 +36,9 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ContainerTypes/nImOchunkArray.h>
+#include <Containers/nImOchunkArray.h>
 
-#include <ContainerTypes/nImObufferChunk.h>
+#include <Containers/nImObufferChunk.h>
 
 #include <inttypes.h>
 #include <string>

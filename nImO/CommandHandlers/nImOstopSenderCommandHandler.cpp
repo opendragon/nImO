@@ -39,7 +39,7 @@
 #include <CommandHandlers/nImOstopSenderCommandHandler.h>
 
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
 #include <nImOinputOutputCommands.h>
 #include <nImOoutChannel.h>
 

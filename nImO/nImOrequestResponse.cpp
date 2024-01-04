@@ -39,8 +39,8 @@
 #include <nImOrequestResponse.h>
 
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImOmessage.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmessage.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOmainSupport.h>

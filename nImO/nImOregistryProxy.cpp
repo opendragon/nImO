@@ -41,7 +41,7 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddConnectionResponseHandler.h>

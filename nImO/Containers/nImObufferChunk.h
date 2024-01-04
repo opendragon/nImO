@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImObufferChunk.h
+//  File:       nImO/Containers/nImObufferChunk.h
 //
 //  Project:    nImO
 //

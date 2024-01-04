@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOset.h
+//  File:       nImO/Containers/nImOarray.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO sets.
+//  Contains:   The class declaration for nImO arrays.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,11 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOset_H_))
-# define nImOset_H_ /* Header guard */
+#if (! defined(nImOarray_H_))
+# define nImOarray_H_ /* Header guard */
 
-# include <ContainerTypes/nImOcontainer.h>
-# include <nImOcompareValues.h>
+# include <Containers/nImOcontainer.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO sets. */
+ @brief The class declaration for %nImO arrays. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -56,36 +55,33 @@
 namespace nImO
 {
     /*! @brief The standard class on which Array is based. */
-    using SetBase = std::set<SpValue, CompareValues>;
+    using ArrayBase = std::vector<SpValue>;
 
-    /*! @brief A class to provide collections with set-like behaviour.
+    /*! @brief A class to provide collections with array-like behaviour.
 
-     Note that Sets 'own' their data and will perform a delete of the
+     Note that Arrays 'own' their data and will perform a delete of the
      contained elements on deletion. */
-    class Set final : public Container,
-                      public SetBase
+    class Array final : public Container,
+                        public ArrayBase
     {
 
         public :
             // Public type definitions.
 
-            /*! @brief The non-const iterator for Sets. */
-            using iterator = SetBase::iterator;
+            /*! @brief The non-const iterator for Arrays. */
+            using iterator = ArrayBase::iterator;
 
-            /*! @brief The const iterator for Sets. */
-            using const_iterator = SetBase::const_iterator;
+            /*! @brief The const iterator for Arrays. */
+            using const_iterator = ArrayBase::const_iterator;
 
-            /*! @brief The non-const iterator for Sets. */
-            using reverse_iterator = SetBase::reverse_iterator;
+            /*! @brief The non-const iterator for Arrays. */
+            using reverse_iterator = ArrayBase::reverse_iterator;
 
-            /*! @brief The const iterator for Sets. */
-            using const_revese_iterator = SetBase::const_reverse_iterator;
-
-            /*! @brief The return result from the insert method. */
-            using InsertResult = std::pair<SetBase::iterator, bool>;
+            /*! @brief The const iterator for Arrays. */
+            using const_reverse_iterator = ArrayBase::const_reverse_iterator;
 
             /*! @brief The size of indices. */
-            using size_type = SetBase::size_type;
+            using size_type = ArrayBase::size_type;
 
         protected :
             // Protected type definitions.
@@ -97,48 +93,81 @@ namespace nImO
             using inherited1 = Container;
 
             /*! @brief The second class that this class is derived from. */
-            using inherited2 = SetBase;
+            using inherited2 = ArrayBase;
 
         public :
             // Public methods.
 
             /*! @brief The constructor. */
-            Set
+            Array
                 (void);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            Set
-                (const Set &    other);
+            Array
+                (const Array &   other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            Set
-                (Set && other)
+            Array
+                (Array &&   other)
                 noexcept;
 
             /*! @brief The destructor. */
-            ~Set
+            ~Array
                 (void)
                 override;
 
-            /*! @brief Override the standard insert operation to ignore inserting incompatible values.
-             @param[in] val Value to be inserted.
-             @return A pair<iterator, bool> indicating the success or failure of the insert
-             operation. */
-            InsertResult
-            addValue
-                (SpValue    val);
+            /*! @brief Add the entries from another Array.
+              @param[in] other The object to be copied from. */
+            Array &
+            addEntries
+                (const Array &  other);
 
-            /*! @brief Return non-@c nullptr if the object is a Set.
-             @return Non-@c nullptr if the object is a Set and @c nullptr otherwise. */
-            CPtr(Set)
-            asSet
+            /*! @brief Add a Value to the end of the Array.
+             @param[in] newElement The Value to be added.
+             @return The updated Array. */
+            inline Array &
+            addValue
+                (SpValue    newElement)
+            {
+                if (nullptr != newElement)
+                {
+                    inherited2::emplace_back(newElement);
+                }
+                return *this;
+            }
+
+            /*! @brief Return non-@c nullptr if the object is an Array.
+             @return Non-@c nullptr if the object is an Array and @c nullptr otherwise. */
+            CPtr(Array)
+            asArray
                 (void)
                 const
                 override;
 
-            /*! @brief Remove all entries from the Set. */
+            /*! @brief Returns the element at position index in the Array.
+             @param[in] index The position of the element in the Array.
+             @return The element at the given position, or @c nullptr if the index is out of range. */
+            inline SpValue
+            at
+                (const size_type    index = 0)
+                const
+            {
+                SpValue result;
+
+                if (index < inherited2::size())
+                {
+                    result = inherited2::at(index);
+                }
+                else
+                {
+                    result = nullptr;
+                }
+                return result;
+            }
+
+            /*! @brief Remove all entries from the Array. */
             void
             clear
                 (void)
@@ -153,7 +182,7 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Return @c true if the Set is empty. */
+            /*! @brief Return @c true if the Array is empty. */
             bool
             empty
                 (void)
@@ -169,51 +198,8 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Search the Set for an element with the given key value and return an iterator
-             to it, or Set::end if not found.
-             @param[in] key The key to be searched for.
-             @return An iterator for the given key key value or Set::end if not found. */
-            iterator
-            find
-                (SpValue    key)
-            {
-                iterator    result;
-
-                if (key->enumerationType() == _keyKind)
-                {
-                    result = inherited2::find(key);
-                }
-                else
-                {
-                    result = inherited2::end();
-                }
-                return result;
-            } // find
-
-            /*! @brief Search the Set for an element with the given key value and return an iterator
-             to it, or Set::end if not found.
-             @param[in] key The key to be searched for.
-             @return An iterator for the given key key value or Set::end if not found. */
-            const_iterator
-            find
-                (SpValue    key)
-                const
-            {
-                const_iterator  result;
-
-                if (key->enumerationType() == _keyKind)
-                {
-                    result = inherited2::find(key);
-                }
-                else
-                {
-                    result = inherited2::end();
-                }
-                return result;
-            } // find
-
-            /*! @brief Get the extraction information for Set objects.
-             @param[out] aByte The byte value that indicates the start of a Set value.
+            /*! @brief Get the extraction information for Array objects.
+             @param[out] aByte The byte value that indicates the start of an Array value.
              @param[out] aMask The mask to apply to a lead byte.
              @return The function to perform when the lead byte is seen. */
             static Extractor
@@ -221,24 +207,14 @@ namespace nImO
                 (DataKind & aByte,
                  DataKind & aMask);
 
-            /*! @brief Return the characters that can appear as the start of a Set.
-             @return The characters that can appear as the start of a Set. */
+            /*! @brief Return the characters that can appear as the start of an Array.
+             @return The characters that can appear as the start of an Array. */
             static CPtr(char)
             getInitialCharacters
                 (void);
 
-            /*! @brief Return the kind of key used with the Set.
-             @return The kind of key used with the Set.*/
-            inline Enumerable
-            getKeyKind
-                (void)
-                const
-            {
-                return _keyKind;
-            }
-
-            /*! @brief Return the characters that can appear as the end of a Set.
-             @return The characters that can appear as the end of a Set. */
+            /*! @brief Return the characters that can appear as the end of an Array.
+             @return The characters that can appear as the end of an Array. */
             static CPtr(char)
             getTerminalCharacters
                 (void);
@@ -290,9 +266,9 @@ namespace nImO
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            Set &
+            inline Array &
             operator=
-                (const Set &    other)
+                (const Array &  other)
             {
                 if (this != &other)
                 {
@@ -300,14 +276,14 @@ namespace nImO
                     addEntries(other);
                 }
                 return *this;
-            } // operator=
+            }
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            Set &
+            Array &
             operator=
-                (Set && other)
+                (Array &&   other)
                 noexcept;
 
             /*! @brief Add a readable representation of the object to the buffer.
@@ -334,13 +310,13 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Return a random iterator from the Set. */
+            /*! @brief Return a random iterator from the Array. */
             const_iterator
             random
                 (void)
                 const;
 
-            /*! @brief Return a random iterator from the Set. */
+            /*! @brief Return a random iterator from the Array. */
             iterator
             random
                 (void);
@@ -354,7 +330,7 @@ namespace nImO
                 (const StringBuffer &   inBuffer,
                  size_t &               position);
 
-            /*! @brief Returns the number of elements in the Set. */
+            /*! @brief Returns the number of elements in the Array. */
             size_t
             size
                 (void)
@@ -362,7 +338,7 @@ namespace nImO
                 override;
 
             /*! @brief Add a binary representation of the object to the message.
-             @param[in,out] outMessage The Message to be appended to. */
+             @param[in] outMessage The Message to be appended to. */
             void
             writeToMessage
                 (Message &  outMessage)
@@ -384,12 +360,6 @@ namespace nImO
 
         private :
             // Private methods.
-
-            /*! @brief Add the entries from another Set.
-             @param[in] other The object to be copied from. */
-            void
-            addEntries
-                (const Set &    other);
 
             /*! @brief Extracts Value objects from a Message.
              Note that the parentValue argument is normally @c nullptr, and is used for handling
@@ -420,11 +390,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The kind of key being used. */
-            Enumerable  _keyKind{Enumerable::Unknown};
-
-    }; // Set
+    }; // Array
 
 } // nImO
 
-#endif // not defined(nImOset_H_)
+#endif // not defined(nImOarray_H_)

@@ -132,6 +132,7 @@ nImO::OutChannel::setUp
     else if (TransportType::kTCP == _connection._transport)
     {
 //TBD!
+        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -153,6 +154,7 @@ nImO::OutChannel::start
     else if (TransportType::kTCP == _connection._transport)
     {
 //TBD!
+        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -172,10 +174,12 @@ nImO::OutChannel::stop
         if (TransportType::kUDP == _connection._transport)
         {
 //TBD!
+            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
         }
         else if (TransportType::kTCP == _connection._transport)
         {
 //TBD!
+            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
         }
     }
     else

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOstringBuffer.h
+//  File:       nImO/Containers/nImOstringBuffer.h
 //
 //  Project:    nImO
 //
@@ -39,7 +39,7 @@
 #if (! defined(nImOstringBuffer_H_))
 # define nImOstringBuffer_H_ /* Header guard */
 
-# include <ContainerTypes/nImOchunkArray.h>
+# include <Containers/nImOchunkArray.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

@@ -319,6 +319,22 @@
 		F6D7AD16224A5EA00095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Tests/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD1A224A5F060095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/nImO/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6D7AD1C224A5F3D0095AA43 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = iOS/nImO/CMakeLists.txt; sourceTree = "<group>"; };
+		F6DD790D2B46DD0B006E261A /* nImOcontainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontainer.h; path = nImO/Containers/nImOcontainer.h; sourceTree = "<group>"; };
+		F6DD790E2B46DD0B006E261A /* nImOarray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOarray.cpp; path = nImO/Containers/nImOarray.cpp; sourceTree = "<group>"; };
+		F6DD790F2B46DD0B006E261A /* nImOarray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOarray.h; path = nImO/Containers/nImOarray.h; sourceTree = "<group>"; };
+		F6DD79102B46DD0B006E261A /* nImOchunkArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOchunkArray.h; path = nImO/Containers/nImOchunkArray.h; sourceTree = "<group>"; };
+		F6DD79112B46DD0B006E261A /* nImOset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOset.h; path = nImO/Containers/nImOset.h; sourceTree = "<group>"; };
+		F6DD79122B46DD0B006E261A /* nImOmessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessage.cpp; path = nImO/Containers/nImOmessage.cpp; sourceTree = "<group>"; };
+		F6DD79132B46DD0B006E261A /* nImOchunkArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchunkArray.cpp; path = nImO/Containers/nImOchunkArray.cpp; sourceTree = "<group>"; };
+		F6DD79142B46DD0B006E261A /* nImOmessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmessage.h; path = nImO/Containers/nImOmessage.h; sourceTree = "<group>"; };
+		F6DD79152B46DD0B006E261A /* nImOmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmap.h; path = nImO/Containers/nImOmap.h; sourceTree = "<group>"; };
+		F6DD79162B46DD0B006E261A /* nImOset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOset.cpp; path = nImO/Containers/nImOset.cpp; sourceTree = "<group>"; };
+		F6DD79172B46DD0C006E261A /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/Containers/nImOstringBuffer.cpp; sourceTree = "<group>"; };
+		F6DD79182B46DD0C006E261A /* nImOstringBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstringBuffer.h; path = nImO/Containers/nImOstringBuffer.h; sourceTree = "<group>"; };
+		F6DD79192B46DD0C006E261A /* nImOmap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmap.cpp; path = nImO/Containers/nImOmap.cpp; sourceTree = "<group>"; };
+		F6DD791A2B46DD0C006E261A /* nImOcontainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/Containers/nImOcontainer.cpp; sourceTree = "<group>"; };
+		F6DD791B2B46DD0C006E261A /* nImObufferChunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObufferChunk.h; path = nImO/Containers/nImObufferChunk.h; sourceTree = "<group>"; };
+		F6DD791C2B46DD0C006E261A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/Containers/nImObufferChunk.cpp; sourceTree = "<group>"; };
 		F6E510812A19675600D52E80 /* nImOgetNamesOfNodesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNamesOfNodesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510822A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllMachinesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510832A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllMachinesResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h; sourceTree = "<group>"; };
@@ -377,22 +393,6 @@
 		F6E510B82A1967CF00D52E80 /* nImOsinkContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsinkContext.h; path = nImO/Contexts/nImOsinkContext.h; sourceTree = "<group>"; };
 		F6E510B92A1967CF00D52E80 /* nImOcontextWithNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontextWithNetworking.h; path = nImO/Contexts/nImOcontextWithNetworking.h; sourceTree = "<group>"; };
 		F6E510BA2A1967CF00D52E80 /* nImOmiscellaneousContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmiscellaneousContext.h; path = nImO/Contexts/nImOmiscellaneousContext.h; sourceTree = "<group>"; };
-		F6E510CB2A19686500D52E80 /* nImOcontainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcontainer.h; path = nImO/ContainerTypes/nImOcontainer.h; sourceTree = "<group>"; };
-		F6E510CC2A19686500D52E80 /* nImOmap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmap.cpp; path = nImO/ContainerTypes/nImOmap.cpp; sourceTree = "<group>"; };
-		F6E510CD2A19686500D52E80 /* nImOset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOset.cpp; path = nImO/ContainerTypes/nImOset.cpp; sourceTree = "<group>"; };
-		F6E510CE2A19686500D52E80 /* nImOset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOset.h; path = nImO/ContainerTypes/nImOset.h; sourceTree = "<group>"; };
-		F6E510CF2A19686500D52E80 /* nImOchunkArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOchunkArray.h; path = nImO/ContainerTypes/nImOchunkArray.h; sourceTree = "<group>"; };
-		F6E510D02A19686500D52E80 /* nImOarray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOarray.cpp; path = nImO/ContainerTypes/nImOarray.cpp; sourceTree = "<group>"; };
-		F6E510D12A19686500D52E80 /* nImOcontainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/ContainerTypes/nImOcontainer.cpp; sourceTree = "<group>"; };
-		F6E510D22A19686500D52E80 /* nImOmessage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmessage.cpp; path = nImO/ContainerTypes/nImOmessage.cpp; sourceTree = "<group>"; };
-		F6E510D32A19686500D52E80 /* nImOstringBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstringBuffer.h; path = nImO/ContainerTypes/nImOstringBuffer.h; sourceTree = "<group>"; };
-		F6E510D42A19686500D52E80 /* nImObufferChunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/ContainerTypes/nImObufferChunk.cpp; sourceTree = "<group>"; };
-		F6E510D52A19686500D52E80 /* nImOarray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOarray.h; path = nImO/ContainerTypes/nImOarray.h; sourceTree = "<group>"; };
-		F6E510D62A19686500D52E80 /* nImOmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmap.h; path = nImO/ContainerTypes/nImOmap.h; sourceTree = "<group>"; };
-		F6E510D72A19686600D52E80 /* nImOmessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmessage.h; path = nImO/ContainerTypes/nImOmessage.h; sourceTree = "<group>"; };
-		F6E510D82A19686600D52E80 /* nImOstringBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstringBuffer.cpp; path = nImO/ContainerTypes/nImOstringBuffer.cpp; sourceTree = "<group>"; };
-		F6E510D92A19686600D52E80 /* nImOchunkArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchunkArray.cpp; path = nImO/ContainerTypes/nImOchunkArray.cpp; sourceTree = "<group>"; };
-		F6E510DA2A19686600D52E80 /* nImObufferChunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObufferChunk.h; path = nImO/ContainerTypes/nImObufferChunk.h; sourceTree = "<group>"; };
 		F6E510DB2A1968C500D52E80 /* nImOdouble.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdouble.cpp; path = nImO/BasicTypes/nImOdouble.cpp; sourceTree = "<group>"; };
 		F6E510DC2A1968C500D52E80 /* nImOflaw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOflaw.h; path = nImO/BasicTypes/nImOflaw.h; sourceTree = "<group>"; };
 		F6E510DD2A1968C500D52E80 /* nImOflaw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOflaw.cpp; path = nImO/BasicTypes/nImOflaw.cpp; sourceTree = "<group>"; };
@@ -707,27 +707,27 @@
 			name = Contexts;
 			sourceTree = "<group>";
 		};
-		F6263BF929DCC5B30034A9F9 /* Container Types */ = {
+		F6263BF929DCC5B30034A9F9 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
-				F6E510D02A19686500D52E80 /* nImOarray.cpp */,
-				F6E510D52A19686500D52E80 /* nImOarray.h */,
-				F6E510D42A19686500D52E80 /* nImObufferChunk.cpp */,
-				F6E510DA2A19686600D52E80 /* nImObufferChunk.h */,
-				F6E510D92A19686600D52E80 /* nImOchunkArray.cpp */,
-				F6E510CF2A19686500D52E80 /* nImOchunkArray.h */,
-				F6E510D12A19686500D52E80 /* nImOcontainer.cpp */,
-				F6E510CB2A19686500D52E80 /* nImOcontainer.h */,
-				F6E510CC2A19686500D52E80 /* nImOmap.cpp */,
-				F6E510D62A19686500D52E80 /* nImOmap.h */,
-				F6E510D22A19686500D52E80 /* nImOmessage.cpp */,
-				F6E510D72A19686600D52E80 /* nImOmessage.h */,
-				F6E510CD2A19686500D52E80 /* nImOset.cpp */,
-				F6E510CE2A19686500D52E80 /* nImOset.h */,
-				F6E510D82A19686600D52E80 /* nImOstringBuffer.cpp */,
-				F6E510D32A19686500D52E80 /* nImOstringBuffer.h */,
+				F6DD790E2B46DD0B006E261A /* nImOarray.cpp */,
+				F6DD790F2B46DD0B006E261A /* nImOarray.h */,
+				F6DD791C2B46DD0C006E261A /* nImObufferChunk.cpp */,
+				F6DD791B2B46DD0C006E261A /* nImObufferChunk.h */,
+				F6DD79132B46DD0B006E261A /* nImOchunkArray.cpp */,
+				F6DD79102B46DD0B006E261A /* nImOchunkArray.h */,
+				F6DD791A2B46DD0C006E261A /* nImOcontainer.cpp */,
+				F6DD790D2B46DD0B006E261A /* nImOcontainer.h */,
+				F6DD79192B46DD0C006E261A /* nImOmap.cpp */,
+				F6DD79152B46DD0B006E261A /* nImOmap.h */,
+				F6DD79122B46DD0B006E261A /* nImOmessage.cpp */,
+				F6DD79142B46DD0B006E261A /* nImOmessage.h */,
+				F6DD79162B46DD0B006E261A /* nImOset.cpp */,
+				F6DD79112B46DD0B006E261A /* nImOset.h */,
+				F6DD79172B46DD0C006E261A /* nImOstringBuffer.cpp */,
+				F6DD79182B46DD0C006E261A /* nImOstringBuffer.h */,
 			);
-			name = "Container Types";
+			name = Containers;
 			sourceTree = "<group>";
 		};
 		F6263BFA29DCC5E00034A9F9 /* Basic Types */ = {
@@ -1411,7 +1411,7 @@
 				F6263BF729DCC4380034A9F9 /* Argument Descriptors */,
 				F6263BFA29DCC5E00034A9F9 /* Basic Types */,
 				F67718112B376A9A00959A15 /* Command Handlers */,
-				F6263BF929DCC5B30034A9F9 /* Container Types */,
+				F6263BF929DCC5B30034A9F9 /* Containers */,
 				F6263BF829DCC4890034A9F9 /* Contexts */,
 				F6263BF629DCC4040034A9F9 /* Response Handlers */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,

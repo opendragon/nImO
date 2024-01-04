@@ -40,9 +40,9 @@
 
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImOmap.h>
-#include <ContainerTypes/nImOmessage.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
+#include <Containers/nImOmessage.h>
 #include <nImOMIMESupport.h>
 
 //#include <odlEnable.h>

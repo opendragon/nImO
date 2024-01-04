@@ -40,7 +40,7 @@
 
 #include <BasicTypes/nImOstring.h>
 #include <CommandHandlers/nImOshutdownCommandHandler.h>
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
 #include <nImOcommandHandler.h>
 #include <nImOcommandSession.h>
 #include <nImOcommonCommands.h>

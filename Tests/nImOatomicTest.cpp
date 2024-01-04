@@ -42,8 +42,8 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImObufferChunk.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImObufferChunk.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOtestContext.h>
 
 #include <string>

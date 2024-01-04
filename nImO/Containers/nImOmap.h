@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOmap.h
+//  File:       nImO/Containers/nImOmap.h
 //
 //  Project:    nImO
 //
@@ -39,7 +39,7 @@
 #if (! defined(nImOmap_H_))
 # define nImOmap_H_ /* Header guard */
 
-# include <ContainerTypes/nImOcontainer.h>
+# include <Containers/nImOcontainer.h>
 # include <nImOcompareValues.h>
 
 # if defined(__APPLE__)

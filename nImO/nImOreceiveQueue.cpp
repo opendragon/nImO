@@ -38,7 +38,7 @@
 
 #include <nImOreceiveQueue.h>
 
-#include <ContainerTypes/nImOmessage.h>
+#include <Containers/nImOmessage.h>
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 

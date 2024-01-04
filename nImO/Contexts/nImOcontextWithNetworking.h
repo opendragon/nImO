@@ -39,7 +39,7 @@
 #if (! defined(nImOcontextWithNetworking_H_))
 # define nImOcontextWithNetworking_H_ /* Header guard */
 
-# include <ContainerTypes/nImOmessage.h>
+# include <Containers/nImOmessage.h>
 # include <Contexts/nImOcontext.h>
 # include <nImOlogger.h>
 

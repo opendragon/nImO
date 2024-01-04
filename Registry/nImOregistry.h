@@ -39,7 +39,7 @@
 #if (! defined(nImOregistry_H_))
 # define nImOregistry_H_ /* Header guard */
 
-# include <ContainerTypes/nImOset.h>
+# include <Containers/nImOset.h>
 # include <Contexts/nImOcontextWithNetworking.h>
 # include <nImOregistryTypes.h>
 # include "sqlite3.h"

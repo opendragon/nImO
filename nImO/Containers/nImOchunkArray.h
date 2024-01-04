@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOchunkArray.h
+//  File:       nImO/Containers/nImOchunkArray.h
 //
 //  Project:    nImO
 //

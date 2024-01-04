@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOstringBuffer.cpp
+//  File:       nImO/Containers/nImOstringBuffer.cpp
 //
 //  Project:    nImO
 //
@@ -36,12 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImOstringBuffer.h>
 
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOvalue.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImObufferChunk.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImObufferChunk.h>
 
 #include <inttypes.h>
 

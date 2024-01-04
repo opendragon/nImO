@@ -39,8 +39,8 @@
 #include <CommandHandlers/nImOstartSenderCommandHandler.h>
 
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOarray.h>
 #include <nImOinputOutputCommands.h>
 #include <nImOoutChannel.h>
 

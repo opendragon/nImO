@@ -41,8 +41,8 @@
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 #include <BasicTypes/nImOstring.h>
 #include <BasicTypes/nImOvalue.h>
-#include <ContainerTypes/nImOmap.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImOmap.h>
+#include <Containers/nImOstringBuffer.h>
 
 #include <fstream>
 #include <string>

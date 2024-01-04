@@ -39,7 +39,7 @@
 #if (! defined(nImOlogger_H_))
 # define nImOlogger_H_ /* Header guard */
 
-# include <ContainerTypes/nImOmessage.h>
+# include <Containers/nImOmessage.h>
 # include <Contexts/nImOcontext.h>
 
 # if defined(__APPLE__)

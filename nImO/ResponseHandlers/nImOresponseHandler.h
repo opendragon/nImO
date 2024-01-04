@@ -39,7 +39,7 @@
 #if (! defined(nImOresponseHandler_H_))
 # define nImOresponseHandler_H_ /* Header guard */
 
-# include <ContainerTypes/nImOarray.h>
+# include <Containers/nImOarray.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push

@@ -38,6 +38,7 @@
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsinkContext.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
@@ -173,12 +174,25 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Unimplemented **\n";
                                     ourContext->report("waiting for requests."s);
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();
-                                        //TBD
+                                        auto    nextData{ourContext->getNextMessage()};
+
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            if (nextData)
+                                            {
+                                                auto                contents{nextData->_receivedMessage};
+                                                nImO::StringBuffer  buff;
+
+                                                contents->printToStringBuffer(buff);
+                                                auto    valString{buff.getString()};
+
+                                                std::cout << valString << std::endl;
+                                            }
+                                        }
                                     }
                                 }
                                 if (inValid)

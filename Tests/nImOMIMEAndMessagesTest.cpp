@@ -43,12 +43,12 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImObufferChunk.h>
-#include <ContainerTypes/nImOmap.h>
-#include <ContainerTypes/nImOmessage.h>
-#include <ContainerTypes/nImOset.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImObufferChunk.h>
+#include <Containers/nImOmap.h>
+#include <Containers/nImOmessage.h>
+#include <Containers/nImOset.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOtestContext.h>
 #include <nImOMIMESupport.h>
 

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOmessage.cpp
+//  File:       nImO/Containers/nImOmessage.cpp
 //
 //  Project:    nImO
 //
@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ContainerTypes/nImOmessage.h>
+#include <Containers/nImOmessage.h>
 
 #include <BasicTypes/nImOinvalid.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOvalue.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImObufferChunk.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImObufferChunk.h>
 #include <nImOMIMESupport.h>
 
 #include <inttypes.h>

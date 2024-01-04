@@ -39,8 +39,8 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <BasicTypes/nImOvalue.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImOmap.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOarray.cpp
+//  File:       nImO/Containers/nImOarray.cpp
 //
 //  Project:    nImO
 //
@@ -36,13 +36,13 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
 
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOinvalid.h>
-#include <ContainerTypes/nImOmessage.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImOmessage.h>
+#include <Containers/nImOstringBuffer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

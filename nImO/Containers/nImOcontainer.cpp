@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImObufferChunk.cpp
+//  File:       nImO/Containers/nImOcontainer.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a chunk of a buffer.
+//  Contains:   The class definition for nImO containers.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-03-28
+//  Created:    2016-03-24
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ContainerTypes/nImObufferChunk.h>
+#include <Containers/nImOcontainer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a chunk of a buffer. */
+ @brief The class definition for %nImO containers. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -56,8 +56,6 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace nImO;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
@@ -65,8 +63,6 @@ using namespace nImO;
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
-
-const size_t nImO::BufferChunk::kBufferSize = 1000;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -80,106 +76,52 @@ const size_t nImO::BufferChunk::kBufferSize = 1000;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::BufferChunk::BufferChunk
-    (const bool addPadding) :
-        _buffer{std::make_unique<uint8_t[]>(kBufferSize + (addPadding ? 1 : 0))}, _bufferEnd{nullptr}, _write{nullptr}, _padded{addPadding}
+nImO::Container::Container
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_B1("addPadding = ", addPadding); //####
-    ODL_P1("_buffer <- ", _buffer.get()); //####
-    if (_buffer)
-    {
-        ODL_LOG("(_buffer)"); //####
-        _write = _buffer.get();
-        _bufferEnd = _write + kBufferSize;
-        ODL_P2("_bufferEnd <- ", _bufferEnd, "_write <- ", _write); //####
-        ODL_I1("[size] <- ", getDataSize()); //####
-        if (_padded)
-        {
-            ODL_LOG("(_padded)"); //####
-            *_write = 0;
-        }
-    }
     ODL_EXIT_P(this); //####
-} // nImO::BufferChunk::BufferChunk
+} // nImO::Container::Container
 
-nImO::BufferChunk::BufferChunk
-    (BufferChunk && other)
+nImO::Container::Container
+    (Container &&   other)
     noexcept :
-        _buffer{std::move(other._buffer)}, _bufferEnd{other._bufferEnd}, _write{other._write}, _padded{other._padded}
+        inherited{std::move(other)}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
-    other._bufferEnd = other._write = nullptr;
-    other._padded = false;
     ODL_EXIT_P(this); //####
-} // nImO::BufferChunk::BufferChunk
+} // nImO::Container::Container
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-nImO::BufferChunk &
-nImO::BufferChunk::appendData
-    (CPtr(void)     data,
-     const size_t   numBytes)
+CPtr(nImO::Container)
+nImO::Container::asContainer
+    (void)
+    const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("data = ", data); //####
-    ODL_I1("numBytes = ", numBytes); //####
-    size_t  actualCount{(getAvailableBytes() < numBytes) ? getAvailableBytes() : numBytes};
-
-    if (0 < actualCount)
-    {
-        ODL_LOG("(0 < actualCount)"); //####
-        ODL_PACKET("data", data, actualCount); //####
-        memcpy(_write, data, actualCount);
-        _write += actualCount;
-        ODL_P1("_write <- ", _write); //####
-        ODL_I1("[size] <- ", getDataSize()); //####
-        if (_padded)
-        {
-            ODL_LOG("(_padded)"); //####
-            *_write = 0;
-        }
-    }
     ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::BufferChunk::appendData
+    return this;
+} // nImO::Container::asContainer
 
-nImO::BufferChunk &
-nImO::BufferChunk::operator=
-    (BufferChunk && other)
+nImO::Container &
+nImO::Container::operator=
+    (Container &&   other)
     noexcept
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        _buffer = std::move(other._buffer);
-        _bufferEnd = other._bufferEnd;
-        _write = other._write;
-        _padded = other._padded;
-        other._bufferEnd = other._write = nullptr;
-        other._padded = false;
+        inherited::operator=(std::move(other));
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // nImO::BufferChunk::operator=
-
-nImO::BufferChunk &
-nImO::BufferChunk::reset
-    (void)
-{
-    ODL_OBJENTER(); //####
-    _write = _buffer.get();
-    if (_padded)
-    {
-        *_write = 0;
-    }
-    ODL_OBJEXIT_P(this); //####
-    return *this;
-} // nImO::BufferChunk::reset
+} // nImO::Container::operator=
 
 #if defined(__APPLE__)
 # pragma mark Global functions

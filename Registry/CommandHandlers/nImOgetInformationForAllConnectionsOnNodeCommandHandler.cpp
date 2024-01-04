@@ -41,7 +41,7 @@
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
+#include <Containers/nImOarray.h>
 #include <nImOregistryCommands.h>
 #include <nImOregistryTypes.h>
 

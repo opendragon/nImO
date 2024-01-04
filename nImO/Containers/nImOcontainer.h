@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ContainerTypes/nImOcontainer.h
+//  File:       nImO/Containers/nImOcontainer.h
 //
 //  Project:    nImO
 //

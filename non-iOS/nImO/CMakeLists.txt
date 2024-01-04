@@ -88,14 +88,14 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOcontainer.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOmap.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOmessage.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOset.cpp"
-            "${THIS_SOURCE_DIR}/ContainerTypes/nImOstringBuffer.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOarray.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImObufferChunk.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOchunkArray.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOcontainer.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOmap.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOmessage.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOset.cpp"
+            "${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp"
@@ -265,15 +265,15 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOcontainer.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOmap.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOmessage.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOset.h"
-        "${THIS_SOURCE_DIR}/ContainerTypes/nImOstringBuffer.h"
-        DESTINATION ${INCLUDE_DEST}/ContainerTypes
+        "${THIS_SOURCE_DIR}/Containers/nImOarray.h"
+        "${THIS_SOURCE_DIR}/Containers/nImObufferChunk.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOchunkArray.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOcontainer.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOmap.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOmessage.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOset.h"
+        "${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.h"
+        DESTINATION ${INCLUDE_DEST}/Containers
         COMPONENT headers)
 
 install(FILES
@@ -382,14 +382,14 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOarray.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImObufferChunk.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOchunkArray.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOcontainer.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOcontainer.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOmap.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOmap.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOmessage.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOmessage.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOset.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOset.h
-        ${THIS_SOURCE_DIR}/ContainerTypes/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/ContainerTypes/nImOstringBuffer.h
+        ${THIS_SOURCE_DIR}/Containers/nImOarray.cpp ${THIS_SOURCE_DIR}/Containers/nImOarray.h
+        ${THIS_SOURCE_DIR}/Containers/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/Containers/nImObufferChunk.h
+        ${THIS_SOURCE_DIR}/Containers/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/Containers/nImOchunkArray.h
+        ${THIS_SOURCE_DIR}/Containers/nImOcontainer.cpp ${THIS_SOURCE_DIR}/Containers/nImOcontainer.h
+        ${THIS_SOURCE_DIR}/Containers/nImOmap.cpp ${THIS_SOURCE_DIR}/Containers/nImOmap.h
+        ${THIS_SOURCE_DIR}/Containers/nImOmessage.cpp ${THIS_SOURCE_DIR}/Containers/nImOmessage.h
+        ${THIS_SOURCE_DIR}/Containers/nImOset.cpp ${THIS_SOURCE_DIR}/Containers/nImOset.h
+        ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.cpp ${THIS_SOURCE_DIR}/Containers/nImOstringBuffer.h
         ${THIS_SOURCE_DIR}/Contexts/nImOcontext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithMDNS.h
         ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.h

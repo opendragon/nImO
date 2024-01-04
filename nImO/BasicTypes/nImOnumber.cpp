@@ -40,7 +40,7 @@
 
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
-#include <ContainerTypes/nImOstringBuffer.h>
+#include <Containers/nImOstringBuffer.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

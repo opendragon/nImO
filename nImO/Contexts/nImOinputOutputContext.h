@@ -150,6 +150,15 @@ namespace nImO
                 (StringVector & names)
                 const;
 
+            /*! @brief Return the next available message in the queue if there is one.
+             @return The next available message or an empty pointer if the queue is being stopped. */
+            SpReceivedData
+            getNextMessage
+                (void)
+            {
+                return _receiveQueue.getNextMessage();
+            }
+
             /*! @brief Get an output channel.
              @param[in] path The path associated with the channel.
              @return The output channel with the provided name. */

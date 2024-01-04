@@ -40,8 +40,8 @@
 
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
-#include <ContainerTypes/nImOarray.h>
-#include <ContainerTypes/nImOmessage.h>
+#include <Containers/nImOarray.h>
+#include <Containers/nImOmessage.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>

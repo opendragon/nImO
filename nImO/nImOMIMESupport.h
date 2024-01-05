@@ -80,7 +80,7 @@ namespace nImO
          ByteVector &           outBytes);
 
     /*! @brief Convert a MIME-encoded string into the corresponding bytes.
-     @param[in] inValue The MIME-encoding of some bytes.
+     @param[in] inValue The MIME-encoding of the bytes to be converted.
      @param[out] outBytes The bytes represented by the MIME encoding.
      @return @c true if the input string can be converted into a sequence of bytes and
      @c false otherwise. */

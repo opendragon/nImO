@@ -173,7 +173,6 @@ nImO::InChannel::start
     ODL_I2("senderAddress = ", senderAddress, "senderPort = ", senderPort); //####
     bool    okSoFar{false};
 
-std::cerr << "snd " << std::hex << senderAddress << " " << senderPort << std::dec << std::endl;//!!
     _matchAddress = senderAddress;
     _matchPort = senderPort;
     _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));

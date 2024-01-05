@@ -97,26 +97,41 @@ nImO::SetUpReceiverResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    if (2 < stuff.size())
+    if (1 < stuff.size())
     {
-        SpValue         element1{stuff[1]};
-        SpValue         element2{stuff[2]};
-        CPtr(Address)   addressValue{element1->asAddress()};
-        CPtr(Integer)   portValue{element2->asInteger()};
+        SpValue     element1{stuff[1]};
+        CPtr(Array) infoArray{element1->asArray()};
 
-        if ((nullptr != addressValue) && (nullptr != portValue))
+        if (nullptr == infoArray)
         {
-            _result._address = addressValue->getAddressValue();
-            _result._port = portValue->getIntegerValue();
+            ODL_LOG("(nullptr == infoArray)"); //####
         }
         else
         {
-            ODL_LOG("! ((nullptr != addressValue) && (nullptr != portValue))"); //####
+            if (1 < infoArray->size())
+            {
+                CPtr(Address)   addressPtr{(*infoArray)[0]->asAddress()};
+                CPtr(Integer)   portPtr{(*infoArray)[1]->asInteger()};
+
+                if ((nullptr != addressPtr) && (nullptr != portPtr))
+                {
+                    _result._address = addressPtr->getAddressValue();
+                    _result._port = portPtr->getIntegerValue();
+                }
+                else
+                {
+                    ODL_LOG("! ((nullptr != addressPtr) && (nullptr != portPtr))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (1 < infoArray->size())"); //####
+            }
         }
     }
     else
     {
-        ODL_LOG("! (2 < stuff.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
     ODL_OBJEXIT(); //####
 } // nImO::SetUpReceiverResponseHandler::doIt

@@ -126,9 +126,7 @@ nImO::SetUpReceiverCommandHandler::doIt
             }
             else
             {
-                TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
-
-                if (theChannel->setUp(mode))
+                if (theChannel->setUp(StaticCast(TransportType, modeValue->getIntegerValue())))
                 {
                     auto    theConnection{theChannel->getConnection()};
                     auto    infoArray{std::make_shared<Array>()};

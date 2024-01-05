@@ -27,8 +27,8 @@
 * nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
 \
 examples:\
-* nImOricochet 'p' - forwards a message to the next machine in a list\
-* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order)\
+* nImOricochet 'p' - forwards a message to the next machine in a list [uses unfiltered InChannels]\
+* nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]\
 * nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1)\
 * nImOfanIn ['n'] - forwards any messages from one of the 'n' input channels to the output channel ('n' defaults to 1)\

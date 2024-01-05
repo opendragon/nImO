@@ -38,10 +38,22 @@
 
 #include <nImOoutChannel.h>
 
+#include <Containers/nImOmap.h>
+#include <Containers/nImOmessage.h>
 #include <Contexts/nImOinputOutputContext.h>
+#include <nImOMIMESupport.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
+
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#endif // defined(__APPLE__)
+#include <boost/algorithm/string/join.hpp>
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -104,6 +116,76 @@ nImO::OutChannel::~OutChannel
 #endif // defined(__APPLE__)
 
 bool
+nImO::OutChannel::send
+    (SpValue    valueToSend)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("valueToSend = ",valueToSend.get()); //####
+    bool    okSoFar{false};
+
+    if (nullptr == valueToSend)
+    {
+        ODL_LOG("(nullptr == valueToSend)"); //####
+    }
+    else if (_configured)
+    {
+        Message messageToSend;
+
+        messageToSend.open(true);
+        messageToSend.setValue(valueToSend);
+        messageToSend.close();
+        if (0 < messageToSend.getLength())
+        {
+            auto    asString{messageToSend.getBytes()};
+
+            if (asString.empty())
+            {
+                ODL_LOG("(asString.empty())"); //####
+            }
+            else
+            {
+                StringVector        outVec;
+                BAIP::address_v4    address{_destinationAddress};
+
+                EncodeBytesAsMIME(outVec, asString);
+                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
+
+                if (TransportType::kUDP == _connection._transport)
+                {
+                    // send the encoded message to the logging ports
+                    _udpSendpoint.address(address);
+                    _udpSendpoint.port(_destinationPort);
+                    _udpSocket.async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
+                                              [outString]
+                                              (const BSErr          ec,
+                                               const std::size_t    length)
+                                              {
+                                                NIMO_UNUSED_VAR_(ec);
+                                                NIMO_UNUSED_VAR_(length);
+                                              });
+                    okSoFar = true;
+                }
+                else if (TransportType::kTCP == _connection._transport)
+                {
+            //TBD!
+                    std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < messageToSend.getLength())"); //####
+        }
+    }
+    else
+    {
+        okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // nImO::OutChannel::send
+
+bool
 nImO::OutChannel::setUp
     (const IPv4Address      receiveAddress,
      const IPv4Port         receivePort,
@@ -111,8 +193,7 @@ nImO::OutChannel::setUp
 {
     ODL_OBJENTER(); //####
     ODL_I3("receiveAddress = ", receiveAddress, "receivePort = ", receivePort, "mode = ", StaticCast(int, mode)); //####
-    bool    okSoFar{false};
-
+    _configured = false;
     _connection._transport = mode;
     _destinationAddress = receiveAddress;
     _destinationPort = receivePort;
@@ -127,15 +208,15 @@ nImO::OutChannel::setUp
         _udpSocket.bind(outEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket.local_endpoint().port();
-        okSoFar = true;
+        _configured = true;
     }
     else if (TransportType::kTCP == _connection._transport)
     {
 //TBD!
         std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
+    ODL_OBJEXIT_B(_configured); //####
+    return _configured;
 } // nImO::OutChannel::setUp
 
 bool

@@ -102,6 +102,13 @@ namespace nImO
                 (OutChannel && other)
                 noexcept = delete;
 
+            /*! @brief Send a message.
+             @param[in] valueToSend The message to be sent.
+             @return @c true if the message was successfully sent. */
+            bool
+            send
+                (SpValue    valueToSend);
+
             /*! @brief Configure the netowkr port for the channel.
              @param[in] receiveAddress The address of the receiver.
              @param[in] receivePort The port of the receiver.
@@ -141,11 +148,17 @@ namespace nImO
         private :
             // Private fields.
 
-        /*! @brief The target IP address. */
-        IPv4Address _destinationAddress{0};
+            /*! @brief The target IP address. */
+            IPv4Address _destinationAddress{0};
 
-        /*! @brief The target port. */
-        IPv4Port    _destinationPort{0};
+            /*! @brief The target port. */
+            IPv4Port    _destinationPort{0};
+
+            /*! @brief @c true if the destination has been set up. */
+            bool    _configured{false};
+
+            /*! @brief The target endpoint for UDP. */
+            BUDP::endpoint  _udpSendpoint{};
 
     }; // OutChannel
 

@@ -121,7 +121,7 @@ nImO::InChannel::receiveUdpMessages
                                                IPv4Address    senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
                                                IPv4Port       senderPort{_udpSenderEndpoint.port()};
 
-                                               if ((_matchAddress == senderAddress) && (_matchPort == senderPort))
+                                               if (_unfiltered || ((_matchAddress == senderAddress) && (_matchPort == senderPort)))
                                                {
                                                    std::string  receivedAsString{_udpData.data(), length};
 
@@ -173,8 +173,10 @@ nImO::InChannel::start
     ODL_I2("senderAddress = ", senderAddress, "senderPort = ", senderPort); //####
     bool    okSoFar{false};
 
+std::cerr << "snd " << std::hex << senderAddress << " " << senderPort << std::dec << std::endl;//!!
     _matchAddress = senderAddress;
     _matchPort = senderPort;
+    _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));
     // Start network activity.
     if (TransportType::kUDP == _connection._transport)
     {

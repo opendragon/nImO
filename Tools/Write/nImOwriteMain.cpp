@@ -38,6 +38,7 @@
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsourceContext.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
@@ -171,17 +172,40 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    
+                                    auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
-
-
-
-std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests."s);
-                                    for ( ; nImO::gKeepRunning; )
+                                    if (outChannel)
                                     {
-                                        boost::this_thread::yield();
-                                        //TBD
+                                        ourContext->report("waiting for input."s);
+                                        for ( ; nImO::gKeepRunning; )
+                                        {
+                                            boost::this_thread::yield();
+                                            nImO::StringBuffer  inBuffer;
+                                            std::string         inLine;
+                                            nImO::SpValue       readValue;
+
+                                            for ( ; getline(std::cin, inLine); )
+                                            {
+                                                inBuffer.addString("\n" + inLine);
+                                                readValue = inBuffer.convertToValue();
+                                                if (readValue)
+                                                {
+                                                    break;
+
+                                                }
+                                            }
+                                            if (nImO::gKeepRunning)
+                                            {
+                                                if (! outChannel->send(readValue))
+                                                {
+                                                    ourContext->report("problem sending to "s + outChannelPath);
+                                                    std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                    exitCode = 1;
+                                                    break;
+
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                                 if (outValid)

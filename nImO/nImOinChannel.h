@@ -161,6 +161,9 @@ namespace nImO
             /*! @brief The destination for incoming messages. */
             ReceiveQueue &  _inQueue;
 
+            /*! @brief @c true if the sender address and port are ignored. */
+            bool    _unfiltered{false};
+
     }; // InChannel
 
 } // nImO

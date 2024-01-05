@@ -190,7 +190,7 @@ main
                                                 contents->printToStringBuffer(buff);
                                                 auto    valString{buff.getString()};
 
-                                                std::cout << valString << std::endl;
+                                                std::cout << valString << "\n";
                                             }
                                         }
                                     }

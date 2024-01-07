@@ -45,6 +45,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 
+#include <ncurses.h>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 

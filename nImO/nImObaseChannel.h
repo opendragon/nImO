@@ -141,9 +141,6 @@ namespace nImO
             /*! @brief The owning context. */
             InputOutputContext &    _context;
 
-            /*! @brief @c true if the communication is still live. */
-            std::atomic_bool    _active;
-
             /*! @brief The socket to use for UDP communication. */
             BUDP::socket    _udpSocket;
 

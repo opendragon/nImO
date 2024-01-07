@@ -124,7 +124,6 @@ nImO::CommandHandler::sendComplexResponse
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
-    ODL_B1("wasOK = ", wasOK); //####
     bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents)};
 
     ODL_OBJEXIT_B(okSoFar); //####
@@ -139,10 +138,9 @@ nImO::CommandHandler::sendComplexResponseWithContext
      const std::string          responseText,
      SpValue                    contents)
 {
-    ODL_OBJENTER(); //####
+    ODL_ENTER(); //####
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
-    ODL_B1("wasOK = ", wasOK); //####
     bool    okSoFar{false};
     Message responseToSend;
     auto    responseArray{std::make_shared<Array>()};
@@ -162,7 +160,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
         }
         else
         {
-            std::atomic_bool   keepGoing{true};
+            std::atomic_bool    keepGoing{true};
             StringVector        outVec;
 
             EncodeBytesAsMIME(outVec, asString);
@@ -212,7 +210,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
+    ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendComplexResponseWithContext
 
@@ -242,7 +240,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
      const std::string          responseText,
      const bool                 wasOK)
 {
-    ODL_OBJENTER(); //####
+    ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
@@ -316,7 +314,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
     }
-    ODL_OBJEXIT_B(okSoFar); //####
+    ODL_EXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::CommandHandler::sendSimpleResponseWithContext
 
@@ -328,6 +326,8 @@ nImO::CommandHandler::sendStatusReport
     const
 {
     ODL_OBJENTER(); //####
+    ODL_P1("context = ", context.get()); //####
+    ODL_S1s("statusChange = ", statusChange); //####
     BUDP::endpoint  theEndpoint{BAIP::address_v4(whereToSend._address), whereToSend._port};
     BUDP::socket    theSocket{*context->getService(), theEndpoint.protocol()};
     Message         messageToSend;

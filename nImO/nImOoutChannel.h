@@ -154,9 +154,6 @@ namespace nImO
             /*! @brief The target port. */
             IPv4Port    _destinationPort{0};
 
-            /*! @brief @c true if the destination has been set up. */
-            bool    _configured{false};
-
             /*! @brief The target endpoint for UDP. */
             BUDP::endpoint  _udpSendpoint{};
 

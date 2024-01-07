@@ -90,11 +90,13 @@ nImO::RemoveChannelResponseHandler::RemoveChannelResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::RemoveChannelResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -107,13 +109,15 @@ nImO::RemoveChannelResponseHandler::doIt
         else
         {
             _result = asLogical->getValue();
+            okSoFar = true;
         }
     }
     else
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::RemoveChannelResponseHandler::doIt
 
 #if defined(__APPLE__)

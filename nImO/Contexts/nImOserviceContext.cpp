@@ -152,19 +152,14 @@ nImO::ServiceContext::addStandardHandlers
 {
     ODL_ENTER(); //####
     ODL_P1("context = ", context.get()); //####
-    Ptr(ServiceContext) actualContext = context->asServiceContext();
+    auto    actualContext = context->asServiceContext();
 
     if (nullptr != actualContext)
     {
-        bool    goAhead{true};
         auto    newHandler{std::make_shared<ShutdownCommandHandler>(context)};
 
-        ODL_P1("newHandler <- ", newHandler); //####
-        if (! actualContext->addHandler(kShutDownRequest, newHandler))
-        {
-            goAhead = false;
-        }
-        if (goAhead)
+        ODL_P1("newHandler <- ", newHandler.get()); //####
+        if (actualContext->addHandler(kShutDownRequest, newHandler))
         {
             auto    newSession{new CommandSession(context)};
 

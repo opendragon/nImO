@@ -340,6 +340,7 @@ main
                             {
                                 // Do the modes match up? Set 'resolvedMode'.
                                 resolvedMode = nImO::ResolveTransport(fromModes, toModes);
+                                ODL_I1("resolvedMode = ", resolvedMode); //####
                                 if (nImO::TransportType::kUnknown == resolvedMode)
                                 {
                                     ourContext->report("channel '"s + fromNode + " "s + fromPath + "' has incompatible transport mode with '"s  +
@@ -353,12 +354,19 @@ main
                             {
                                 // Do the modes match up? Set 'resolvedMode'.
                                 resolvedMode = nImO::ResolveTransport(resolvedMode, nImO::ChannelName::transportFromName(modeRequested));
+                                ODL_I1("resolvedMode = ", resolvedMode); //####
                                 if (nImO::TransportType::kUnknown == resolvedMode)
                                 {
                                     ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath + "' and '"s +
                                                        toNode + " "s + toPath + "'."s);
                                     std::cerr << "requested transport mode is incompatible with '" << fromNode << " " << fromPath << "' and '" <<
                                                     toNode << " " << toPath << "'.\n";
+                                    exitCode = 1;
+                                }
+                                else if (nImO::TransportType::kAny == resolvedMode)
+                                {
+                                    ourContext->report("requested transport mode is ambiguous"s);
+                                    std::cerr << "requested transport mode is ambiguous.\n";
                                     exitCode = 1;
                                 }
                             }

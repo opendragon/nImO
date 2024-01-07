@@ -90,11 +90,13 @@ nImO::GetNamesOfNodesResponseHandler::GetNamesOfNodesResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetNamesOfNodesResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue     element{stuff[1]};
@@ -112,6 +114,7 @@ nImO::GetNamesOfNodesResponseHandler::doIt
                 {
                     _result.insert((*walker)->asString()->getValue());
                 }
+                okSoFar = true;
             }
             else
             {
@@ -123,7 +126,8 @@ nImO::GetNamesOfNodesResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetNamesOfNodesResponseHandler::doIt
 
 #if defined(__APPLE__)

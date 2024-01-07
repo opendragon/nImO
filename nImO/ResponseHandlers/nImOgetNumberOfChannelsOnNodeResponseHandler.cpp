@@ -90,11 +90,13 @@ nImO::GetNumberOfChannelsOnNodeResponseHandler::GetNumberOfChannelsOnNodeRespons
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetNumberOfChannelsOnNodeResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -107,13 +109,15 @@ nImO::GetNumberOfChannelsOnNodeResponseHandler::doIt
         else
         {
             _result = asInteger->getIntegerValue();
+            okSoFar = true;
         }
     }
     else
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetNumberOfChannelsOnNodeResponseHandler::doIt
 
 #if defined(__APPLE__)

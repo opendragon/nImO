@@ -92,11 +92,13 @@ nImO::GetMachineInformationResponseHandler::GetMachineInformationResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetMachineInformationResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result._found = false;
     if (1 < stuff.size())
     {
@@ -120,6 +122,7 @@ nImO::GetMachineInformationResponseHandler::doIt
                     _result._found = foundPtr->getValue();
                     _result._name = namePtr->getValue();
                     _result._address = addressPtr->getIntegerValue();
+                    okSoFar = true;
                 }
                 else
                 {
@@ -136,7 +139,8 @@ nImO::GetMachineInformationResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetMachineInformationResponseHandler::doIt
 
 #if defined(__APPLE__)

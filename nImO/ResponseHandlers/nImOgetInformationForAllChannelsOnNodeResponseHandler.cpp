@@ -92,11 +92,13 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::GetInformationForAllCha
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result.clear();
     if (1 < stuff.size())
     {
@@ -109,13 +111,15 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
         }
         else
         {
-            for (auto walker = infoVector->begin(); walker != infoVector->end(); ++walker)
+            okSoFar = true;
+            for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
                 CPtr(Array) infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
+                    okSoFar = false;
                 }
                 else
                 {
@@ -142,16 +146,22 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
                             thisChannel._dataType = dataTypePtr->getValue();
                             thisChannel._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
                             thisChannel._inUse = inUsePtr->getValue();
+                            if (thisChannel._found)
+                            {
+                                _result.push_back(thisChannel);
+                            }
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
                                     "(nullptr != dataTypePtr) && (nullptr != inUsePtr))"); //####
+                            okSoFar = false;
                         }
                     }
-                    if (thisChannel._found)
+                    else
                     {
-                        _result.push_back(thisChannel);
+                        ODL_LOG("! (6 < infoArray->size())"); //####
+                        okSoFar = false;
                     }
                 }
             }
@@ -161,7 +171,8 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
 
 #if defined(__APPLE__)

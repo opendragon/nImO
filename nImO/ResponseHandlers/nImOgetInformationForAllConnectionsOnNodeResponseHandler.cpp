@@ -92,11 +92,13 @@ nImO::GetInformationForAllConnectionsOnNodeResponseHandler::GetInformationForAll
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result.clear();
     if (1 < stuff.size())
     {
@@ -109,13 +111,15 @@ nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
         }
         else
         {
-            for (auto walker = infoVector->begin(); walker != infoVector->end(); ++walker)
+            okSoFar = true;
+            for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
                 CPtr(Array) infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
+                    okSoFar = false;
                 }
                 else
                 {
@@ -142,16 +146,22 @@ nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
                             thisConnection._toPath = toPathPtr->getValue();
                             thisConnection._dataType = dataTypePtr->getValue();
                             thisConnection._mode = StaticCast(TransportType, modePtr->getIntegerValue());
+                            if (thisConnection._found)
+                            {
+                                _result.push_back(thisConnection);
+                            }
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != fromNodePtr) && (nullptr != fromPathPtr) && " //####
                                     "(nullptr != toNodePtr) && (nullptr != toPathPtr) && (nullptr != dataTypePtr) && (nullptr != modePtr))"); //####
+                            okSoFar = false;
                         }
                     }
-                    if (thisConnection._found)
+                    else
                     {
-                        _result.push_back(thisConnection);
+                        ODL_LOG("! (5 < infoArray->size())"); //####
+                        okSoFar = false;
                     }
                 }
             }
@@ -161,7 +171,8 @@ nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
 
 #if defined(__APPLE__)

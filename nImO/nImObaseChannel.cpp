@@ -95,7 +95,6 @@ nImO::BaseChannel::~BaseChannel
     (void)
 {
     ODL_OBJENTER(); //####
-    _udpSocket.close();
     ODL_OBJEXIT(); //####
 } // nImO::BaseChannel::~BaseChannel
 

@@ -92,11 +92,13 @@ nImO::GetInformationForAllMachinesResponseHandler::GetInformationForAllMachinesR
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetInformationForAllMachinesResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result.clear();
     if (1 < stuff.size())
     {
@@ -109,13 +111,15 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
         }
         else
         {
-            for (auto walker = infoVector->begin(); walker != infoVector->end(); ++walker)
+            okSoFar = true;
+            for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
                 CPtr(Array) infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
+                    okSoFar = false;
                 }
                 else
                 {
@@ -133,16 +137,22 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
                             thisMachine._found = foundPtr->getValue();
                             thisMachine._name = namePtr->getValue();
                             thisMachine._address = addressPtr->getIntegerValue();
+                            if (thisMachine._found)
+                            {
+                                _result.push_back(thisMachine);
+                            }
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && " //####
                                     "(nullptr != addressPtr) && (nullptr != portPtr) && (nullptr != transportPtr))"); //####
+                            okSoFar = false;
                         }
                     }
-                    if (thisMachine._found)
+                    else
                     {
-                        _result.push_back(thisMachine);
+                        ODL_LOG("! (2 < infoArray->size())"); //####
+                        okSoFar = false;
                     }
                 }
             }
@@ -152,7 +162,8 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetInformationForAllMachinesResponseHandler::doIt
 
 #if defined(__APPLE__)

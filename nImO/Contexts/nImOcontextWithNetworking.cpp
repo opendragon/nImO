@@ -146,8 +146,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
             Ptr(boost::thread)  aThread{new boost::thread([this]
                                                           (void)
                                                           {
-                getService()->run();
-            })};
+                                                            getService()->run();
+                                                        })};
 
             ODL_P1("service thread = ", aThread); //####
             _pool.add_thread(aThread);

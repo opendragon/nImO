@@ -92,11 +92,13 @@ nImO::SetChannelInUseResponseHandler::SetChannelInUseResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::SetChannelInUseResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -109,13 +111,15 @@ nImO::SetChannelInUseResponseHandler::doIt
         else
         {
             _result = asLogical->getValue();
+            okSoFar = true;
         }
     }
     else
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::SetChannelInUseResponseHandler::doIt
 
 #if defined(__APPLE__)

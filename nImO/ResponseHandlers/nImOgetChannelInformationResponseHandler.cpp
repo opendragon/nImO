@@ -92,11 +92,13 @@ nImO::GetChannelInformationResponseHandler::GetChannelInformationResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetChannelInformationResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result._found = false;
     if (1 < stuff.size())
     {
@@ -127,6 +129,7 @@ nImO::GetChannelInformationResponseHandler::doIt
                     _result._isOutput = isOutputPtr->getValue();
                     _result._dataType = dataTypePtr->getValue();
                     _result._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
+                    okSoFar = true;
                 }
                 else
                 {
@@ -144,7 +147,8 @@ nImO::GetChannelInformationResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetChannelInformationResponseHandler::doIt
 
 #if defined(__APPLE__)

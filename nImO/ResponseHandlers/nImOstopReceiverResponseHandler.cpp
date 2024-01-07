@@ -92,11 +92,13 @@ nImO::StopReceiverResponseHandler::StopReceiverResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::StopReceiverResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue       element{stuff[1]};
@@ -109,13 +111,15 @@ nImO::StopReceiverResponseHandler::doIt
         else
         {
             _result = asLogical->getValue();
+            okSoFar = true;
         }
     }
     else
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::StopReceiverResponseHandler::doIt
 
 #if defined(__APPLE__)

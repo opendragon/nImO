@@ -86,7 +86,7 @@ else()
     set(UNKNOWN_CPU OFF)
 endif()
 
-set(CMAKE_CXX_FLAGS "-Wno-unknown-warning-option -fPIC -Wall -Wextra -Wno-deprecated-builtins" CACHE STRING "Fixes linking error for nImO" FORCE)
+set(CMAKE_CXX_FLAGS "-DNCURSES_NOMACROS -Wno-unknown-warning-option -fPIC -Wall -Wextra -Wno-deprecated-builtins" CACHE STRING "Fixes linking error for nImO" FORCE)
 set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
 if(APPLE)
     set(E_PATH "@executable_path")
@@ -224,7 +224,7 @@ else()
     set(DL_LIB "")
 endif()
 
-set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS} Threads::Threads ${DL_LIB})
+set(nImO_LINK_LIBRARIES nImOcommon ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES} ${OTHER_LIBS} Threads::Threads ncurses ${DL_LIB})
 
 if(LINUX)
 #    set(nImO_LINK_LIBRARIES ${nImO_LINK_LIBRARIES} dns_sd)

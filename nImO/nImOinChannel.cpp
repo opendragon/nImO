@@ -139,6 +139,7 @@ nImO::InChannel::setUp
     (const TransportType    mode)
 {
     ODL_OBJENTER(); //####
+    ODL_I1("mode = ", StaticCast(int, mode)); //####
     bool    okSoFar{false};
 
     _connection._transport = mode;
@@ -180,6 +181,7 @@ nImO::InChannel::start
     if (TransportType::kUDP == _connection._transport)
     {
         receiveUdpMessages();
+        okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
     {
@@ -197,25 +199,25 @@ nImO::InChannel::stop
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    if (_active)
+    // Stop network activity and clear state.
+    if (TransportType::kUDP == _connection._transport)
     {
-        // Stop network activity and clear state.
-        _active = false;
-        if (TransportType::kUDP == _connection._transport)
+        if (_udpSocket.is_open())
         {
-//TBD!
-            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+            _udpSocket.close();
         }
-        else if (TransportType::kTCP == _connection._transport)
-        {
+        okSoFar = true;
+    }
+    else if (TransportType::kTCP == _connection._transport)
+    {
 //TBD!
-            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
-        }
+        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
     else
     {
         okSoFar = true;
     }
+    _connection._transport = TransportType::kUnknown;
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::InChannel::stop

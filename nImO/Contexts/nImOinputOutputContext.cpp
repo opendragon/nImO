@@ -133,14 +133,14 @@ nImO::InputOutputContext::addInputOutputHandlers
     ODL_ENTER(); //####
     ODL_P1("context = ", context.get()); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
-    Ptr(InputOutputContext) actualContext = context->asInputOutputContext();
+    auto    actualContext{context.get()};//asInputOutputContext()};
 
     if (nullptr != actualContext)
     {
         bool    goAhead{true};
         auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
 
-        ODL_P1("newHandler <- ", newHandler); //####
+        ODL_P1("newHandler1 <- ", newHandler1.get()); //####
         if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
         {
             goAhead = false;
@@ -149,6 +149,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         {
             auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
 
+            ODL_P1("newHandler2 <- ", newHandler2.get()); //####
             if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
             {
                 goAhead = false;
@@ -158,6 +159,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         {
             auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
 
+            ODL_P1("newHandler3 <- ", newHandler3.get()); //####
             if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
             {
                 goAhead = false;
@@ -167,6 +169,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         {
             auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
 
+            ODL_P1("newHandler4 <- ", newHandler4.get()); //####
             if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
             {
                 goAhead = false;
@@ -176,6 +179,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         {
             auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
 
+            ODL_P1("newHandler5 <- ", newHandler5.get()); //####
             if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
             {
                 goAhead = false;
@@ -185,6 +189,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         {
             auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
 
+            ODL_P1("newHandler6 <- ", newHandler6.get()); //####
             if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
             {
                 goAhead = false;

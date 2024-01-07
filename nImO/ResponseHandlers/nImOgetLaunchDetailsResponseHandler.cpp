@@ -92,11 +92,13 @@ nImO::GetLaunchDetailsResponseHandler::GetLaunchDetailsResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetLaunchDetailsResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result._found = false;
     if (1 < stuff.size())
     {
@@ -122,6 +124,7 @@ nImO::GetLaunchDetailsResponseHandler::doIt
                     _result._execPath = execPathPtr->getValue();
                     _result._launchDirectory = launchDirectoryPtr->getValue();
                     _result._commandLine = commandLinePtr->getValue();
+                    okSoFar = true;
                 }
                 else
                 {
@@ -139,7 +142,8 @@ nImO::GetLaunchDetailsResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetLaunchDetailsResponseHandler::doIt
 
 #if defined(__APPLE__)

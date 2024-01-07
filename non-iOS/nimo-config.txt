@@ -4,4 +4,5 @@
     "registry search timeout" > 5
     "status address" > @239.55.12.17
     "status port" > 2262
+    "launcher config file" > "launcher-config.txt"
 }

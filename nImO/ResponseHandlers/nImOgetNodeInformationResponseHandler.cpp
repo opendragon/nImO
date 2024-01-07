@@ -92,11 +92,13 @@ nImO::GetNodeInformationResponseHandler::GetNodeInformationResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetNodeInformationResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result._found = false;
     if (1 < stuff.size())
     {
@@ -127,6 +129,7 @@ nImO::GetNodeInformationResponseHandler::doIt
                     _result._connection._address = addressPtr->getIntegerValue();
                     _result._connection._port = portPtr->getIntegerValue();
                     _result._connection._transport = StaticCast(TransportType, transportPtr->getIntegerValue());
+                    okSoFar = true;
                 }
                 else
                 {
@@ -144,7 +147,8 @@ nImO::GetNodeInformationResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetNodeInformationResponseHandler::doIt
 
 #if defined(__APPLE__)

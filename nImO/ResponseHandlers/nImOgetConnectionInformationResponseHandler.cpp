@@ -92,11 +92,13 @@ nImO::GetConnectionInformationResponseHandler::GetConnectionInformationResponseH
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetConnectionInformationResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     _result._found = false;
     if (1 < stuff.size())
     {
@@ -129,6 +131,7 @@ nImO::GetConnectionInformationResponseHandler::doIt
                     _result._toPath = toPathPtr->getValue();
                     _result._dataType = dataTypePtr->getValue();
                     _result._mode = StaticCast(TransportType, modePtr->getIntegerValue());
+                    okSoFar = true;
                 }
                 else
                 {
@@ -146,7 +149,8 @@ nImO::GetConnectionInformationResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetConnectionInformationResponseHandler::doIt
 
 #if defined(__APPLE__)

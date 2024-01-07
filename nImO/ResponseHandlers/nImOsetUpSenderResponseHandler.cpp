@@ -92,11 +92,13 @@ nImO::SetUpSenderResponseHandler::SetUpSenderResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::SetUpSenderResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue     element1{stuff[1]};
@@ -117,6 +119,7 @@ nImO::SetUpSenderResponseHandler::doIt
                 {
                     _result._address = addressPtr->getAddressValue();
                     _result._port = portPtr->getIntegerValue();
+                    okSoFar = true;
                 }
                 else
                 {
@@ -133,7 +136,8 @@ nImO::SetUpSenderResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::SetUpSenderResponseHandler::doIt
 
 #if defined(__APPLE__)

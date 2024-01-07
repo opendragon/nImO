@@ -127,7 +127,7 @@ nImO::OutChannel::send
     {
         ODL_LOG("(nullptr == valueToSend)"); //####
     }
-    else if (_configured)
+    else if (TransportType::kUnknown != _connection._transport)
     {
         Message messageToSend;
 
@@ -193,7 +193,8 @@ nImO::OutChannel::setUp
 {
     ODL_OBJENTER(); //####
     ODL_I3("receiveAddress = ", receiveAddress, "receivePort = ", receivePort, "mode = ", StaticCast(int, mode)); //####
-    _configured = false;
+    bool    okSoFar{false};
+
     _connection._transport = mode;
     _destinationAddress = receiveAddress;
     _destinationPort = receivePort;
@@ -208,15 +209,15 @@ nImO::OutChannel::setUp
         _udpSocket.bind(outEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket.local_endpoint().port();
-        _configured = true;
+        okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
     {
 //TBD!
         std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
-    ODL_OBJEXIT_B(_configured); //####
-    return _configured;
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::OutChannel::setUp
 
 bool
@@ -248,25 +249,25 @@ nImO::OutChannel::stop
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    if (_active)
+    // Stop network activity and clear state.
+    if (TransportType::kUDP == _connection._transport)
     {
-        // Stop network activity and clear state.
-        _active = false;
-        if (TransportType::kUDP == _connection._transport)
+        if (_udpSocket.is_open())
         {
-//TBD!
-            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+            _udpSocket.close();
         }
-        else if (TransportType::kTCP == _connection._transport)
-        {
+        okSoFar = true;
+    }
+    else if (TransportType::kTCP == _connection._transport)
+    {
 //TBD!
-            std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
-        }
+        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
     }
     else
     {
         okSoFar = true;
     }
+    _connection._transport = TransportType::kUnknown;
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::OutChannel::stop

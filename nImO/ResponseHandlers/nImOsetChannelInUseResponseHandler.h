@@ -81,8 +81,9 @@ namespace nImO
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response. */
-            void
+             @param[in] stuff The data included in the response.
+             @return @c true if the response was correctly structured. */
+            bool
             doIt
                 (const Array &  stuff)
                 override;

@@ -615,7 +615,7 @@ namespace nImO
     {
 
         /*! @brief The transport mechanism of the connection. */
-        TransportType   _transport{TransportType::kTCP};
+        TransportType   _transport{TransportType::kUnknown};
 
         /*! @brief The constructor.
          @param[in] address The IP address for the connection.

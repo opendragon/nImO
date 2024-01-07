@@ -90,11 +90,13 @@ nImO::GetNamesOfMachinesResponseHandler::GetNamesOfMachinesResponseHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::GetNamesOfMachinesResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
+    bool    okSoFar{false};
+
     if (1 < stuff.size())
     {
         SpValue     element{stuff[1]};
@@ -112,6 +114,7 @@ nImO::GetNamesOfMachinesResponseHandler::doIt
                 {
                     _result.insert((*walker)->asString()->getValue());
                 }
+                okSoFar = true;
             }
             else
             {
@@ -123,7 +126,8 @@ nImO::GetNamesOfMachinesResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
 } // nImO::GetNamesOfMachinesResponseHandler::doIt
 
 #if defined(__APPLE__)

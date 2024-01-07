@@ -88,8 +88,9 @@
 /*! @brief Extract the response data and pass it on to a request-specific handler.
  @param[in] handler The request-specific handler, @c nullptr if not needed.
  @param[in] incoming The response to be processed.
- @param[in] expectedKey The expected reponse key. */
-static void
+ @param[in] expectedKey The expected reponse key.
+ @return @c true if there were no issues with the response. */
+static bool
 handleResponse
     (Ptr(nImO::ResponseHandler) handler,
      const std::string &        incoming,
@@ -98,6 +99,8 @@ handleResponse
     ODL_ENTER(); //####
     ODL_P1("handler = ", handler); //####
     ODL_S2s("incoming = ", incoming, "expectedKey = ", expectedKey); //####
+    bool    wasOK{false};
+
     if (nullptr != handler)
     {
         // We need to strip off the Message separator first.
@@ -125,13 +128,21 @@ handleResponse
                     {
                         CPtr(nImO::String)  response{(*asArray)[0]->asString()};
 
-                        if ((nullptr != response) && (expectedKey == response->getValue()))
+                        if (nullptr == response)
                         {
-                            handler->doIt(*asArray);
+                            ODL_LOG("(nullptr == response)"); //####
                         }
                         else
                         {
-                            ODL_LOG("! ((nullptr != response) && (expectedKey == response->getValue()))"); //####
+                            ODL_S1s("response->getValue() = ", response->getValue()); //####
+                            if (expectedKey == response->getValue())
+                            {
+                                wasOK = handler->doIt(*asArray);
+                            }
+                            else
+                            {
+                                ODL_LOG("! (expectedKey == response->getValue())"); //####
+                            }
                         }
                     }
                     else
@@ -158,7 +169,8 @@ handleResponse
     {
         ODL_LOG("! (nullptr != handler)"); //####
     }
-    ODL_EXIT(); //####
+    ODL_EXIT_B(wasOK); //####
+    return wasOK;
 } // handleResponse
 
 #if defined(__APPLE__)
@@ -309,13 +321,17 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                     else
                                                                                                     {
                                                                                                         std::string handleThis{buffers_begin(rB->data()),
-                                                                                                                                buffers_end(rB->data())};
+                                                                                                            buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpLogging)
                                                                                                         context->report("got response");
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                        handleResponse(handler, handleThis,
-                                                                                                                       responseKey);
+                                                                                                        if (! handleResponse(handler, handleThis,
+                                                                                                                             responseKey))
+                                                                                                        {
+                                                                                                            status = std::make_pair(false,
+                                                                                                                                    "handleResponse() failed");
+                                                                                                        }
                                                                                                     }
                                                                                                     keepGoing = false;
                                                                                                     ODL_B1("keepGoing <- ", keepGoing); //####

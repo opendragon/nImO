@@ -71,14 +71,8 @@ using namespace nImO;
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-#if MAC_OR_LINUX_
-# define CONFIG_FILE_ROOT_PATH  "/etc/nImO/"
-#else // not MAC_OR_LINUX_
-# define CONFIG_FILE_ROOT_PATH  "C:/nImO/"
-#endif // not MAC_OR_LINUX_
-
 /*! @brief The default path to the configuration file. */
-static const std::string    kDefaultConfigFilePath{CONFIG_FILE_ROOT_PATH "nimo-config.txt"};
+static const std::string    kDefaultConfigFilePath{nImO_RUN_CONFIG_DIR "nimo-config.txt"};
 
 /*! @brief The loaded configuration values. */
 static nImO::SpValue    lConfigurationValues{};

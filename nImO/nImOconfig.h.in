@@ -62,6 +62,9 @@
 /*! @brief The version number as a string. */
 # define nImO_VERSION_ "@nImO_VERSION@"
 
+/*! @brief The default location of the configuration file. */
+# define nImO_RUN_CONFIG_DIR "@nImO_RUN_CONFIG_DIR@"
+
 # cmakedefine nImO_ChattyStart /* Report the version numbers when launching an executable. */
 
 # cmakedefine nImO_ChattyTcpLogging /* Log the TCP/IP operations. */

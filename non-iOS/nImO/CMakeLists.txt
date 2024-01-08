@@ -175,8 +175,7 @@ add_library(${THIS_TARGET}
 target_link_libraries(${THIS_TARGET} ${ODL_LIBRARY} ${BONJOUR_LIB} ${Boost_LIBRARIES})
 
 if(LINUX)
-    target_link_libraries(${THIS_TARGET}
-                          pthread)
+    target_link_libraries(${THIS_TARGET} pthread)
 endif()
 
 if(APPLE)

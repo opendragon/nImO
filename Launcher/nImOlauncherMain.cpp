@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <Contexts/nImOserviceContext.h>
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
@@ -89,10 +89,13 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::ServiceOptions    optionValues;
-    int                     exitCode{0};
+    std::string                         progName{*argv};
+    std::string                         defaultFileName{"services.txt"s};
+    nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
+                                                    defaultFileName};
+    nImO::DescriptorVector              argumentList;
+    nImO::ServiceOptions                optionValues;
+    int                                 exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -100,6 +103,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
+    argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |

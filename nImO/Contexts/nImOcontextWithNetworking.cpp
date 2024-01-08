@@ -147,7 +147,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
                                                           (void)
                                                           {
                                                             getService()->run();
-                                                        })};
+                                                          })};
 
             ODL_P1("service thread = ", aThread); //####
             _pool.add_thread(aThread);

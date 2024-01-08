@@ -930,8 +930,8 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                std::string choice{firstArg.getCurrentValue()};
-                auto        match{lChoiceMap.find(choice)};
+                auto    choice{firstArg.getCurrentValue()};
+                auto    match{lChoiceMap.find(choice)};
 
                 if (match != lChoiceMap.end())
                 {

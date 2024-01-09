@@ -130,9 +130,9 @@ nImO::SetUpSenderCommandHandler::doIt
             }
             else
             {
-                IPv4Address     receiveAddress{addressValue->getAddressValue()};
-                IPv4Port        receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
-                TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
+                auto    receiveAddress{addressValue->getAddressValue()};
+                auto    receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
+                auto    mode{StaticCast(TransportType, modeValue->getIntegerValue())};
 
                 if (theChannel->setUp(receiveAddress, receivePort, mode))
                 {

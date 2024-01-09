@@ -156,9 +156,8 @@ nImO::AddNodeCommandHandler::doIt
         if ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) &&
             (nullptr != commandLineString) && (nullptr != connArray))
         {
-            auto        machineName{machineNameString->getValue()};
-            IPv4Address address{theConnection._address};
-            auto        status{_registry->addMachine(machineName, address)};
+            auto    address{theConnection._address};
+            auto    status{_registry->addMachine(machineNameString->getValue(), address)};
 
             if (status.first)
             {

@@ -143,11 +143,11 @@ nImO::ContextWithNetworking::ContextWithNetworking
         ODL_P1("_work <- ", _work.get()); //####
         for (int ii = 0; ii < numThreadsInPool; ++ii)
         {
-            Ptr(boost::thread)  aThread{new boost::thread([this]
-                                                          (void)
-                                                          {
-                                                            getService()->run();
-                                                          })};
+            auto    aThread{new boost::thread([this]
+                                                (void)
+                                                {
+                                                getService()->run();
+                                                })};
 
             ODL_P1("service thread = ", aThread); //####
             _pool.add_thread(aThread);
@@ -162,7 +162,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
             if (nullptr != asAddress)
             {
-                IPv4Address tempValue{asAddress->getAddressValue()};
+                auto    tempValue{asAddress->getAddressValue()};
 
                 if (239 == (tempValue >> 24))
                 {

@@ -118,8 +118,8 @@ nImO::InChannel::receiveUdpMessages
                                        {
                                            if (! ec)
                                            {
-                                               IPv4Address    senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
-                                               IPv4Port       senderPort{_udpSenderEndpoint.port()};
+                                               auto senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
+                                               auto senderPort{_udpSenderEndpoint.port()};
 
                                                if (_unfiltered || ((_matchAddress == senderAddress) && (_matchPort == senderPort)))
                                                {

@@ -1084,9 +1084,9 @@ setupInsertIntoMachines
 
         if ((0 < machineNameIndex) && (0 < machineAddressIndex))
         {
-            auto                machineData{StaticCast(CPtr(MachineInsertData), stuff)};
-            auto                name{machineData->_name};
-            nImO::IPv4Address   address{machineData->_address};
+            auto    machineData{StaticCast(CPtr(MachineInsertData), stuff)};
+            auto    name{machineData->_name};
+            auto    address{machineData->_address};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)

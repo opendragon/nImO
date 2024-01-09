@@ -102,8 +102,7 @@ nImO::GetConnectionInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        auto    element{stuff[1]};
-        auto    infoArray{element->asArray()};
+        auto    infoArray{stuff[1]->asArray()};
 
         if (nullptr == infoArray)
         {

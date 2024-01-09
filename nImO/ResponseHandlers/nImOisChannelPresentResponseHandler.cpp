@@ -100,8 +100,7 @@ nImO::IsChannelPresentResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    element{stuff[1]};
-        auto    asLogical{element->asLogical()};
+        auto    asLogical{stuff[1]->asLogical()};
 
         if (nullptr == asLogical)
         {

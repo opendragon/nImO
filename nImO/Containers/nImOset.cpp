@@ -812,7 +812,7 @@ nImO::Set::readFromStringBuffer
             }
             else
             {
-                SpValue element{Value::readFromStringBuffer(inBuffer, localIndex)};
+                auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == element)

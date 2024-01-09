@@ -111,12 +111,9 @@ nImO::GetConnectionInformationCommandHandler::doIt
     _owner->report("get connection information request received"s);
     if (3 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    asString1{element1->asString()};
-        auto    asString2{element2->asString()};
-        auto    asLogical{element3->asLogical()};
+        auto    asString1{arguments[1]->asString()};
+        auto    asString2{arguments[2]->asString()};
+        auto    asLogical{arguments[3]->asLogical()};
 
         if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
         {

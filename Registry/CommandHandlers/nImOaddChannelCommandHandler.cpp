@@ -111,16 +111,11 @@ nImO::AddChannelCommandHandler::doIt
     _owner->report("add channel request received"s);
     if (5 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    element4{arguments[4]};
-        auto    element5{arguments[5]};
-        auto    nodeNameString{element1->asString()};
-        auto    pathString{element2->asString()};
-        auto    isOutputValue{element3->asLogical()};
-        auto    dataTypeString{element4->asString()};
-        auto    modesString{element5->asInteger()};
+        auto    nodeNameString{arguments[1]->asString()};
+        auto    pathString{arguments[2]->asString()};
+        auto    isOutputValue{arguments[3]->asLogical()};
+        auto    dataTypeString{arguments[4]->asString()};
+        auto    modesString{arguments[5]->asInteger()};
 
         if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) &&
             (nullptr != dataTypeString) && (nullptr != modesString))

@@ -111,18 +111,12 @@ nImO::AddConnectionCommandHandler::doIt
     _owner->report("add connection request received"s);
     if (6 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    element4{arguments[4]};
-        auto    element5{arguments[5]};
-        auto    element6{arguments[6]};
-        auto    fromNodeNameString{element1->asString()};
-        auto    fromPathString{element2->asString()};
-        auto    toNodeNameString{element3->asString()};
-        auto    toPathString{element4->asString()};
-        auto    dataTypeString{element5->asString()};
-        auto    modeValue{element6->asInteger()};
+        auto    fromNodeNameString{arguments[1]->asString()};
+        auto    fromPathString{arguments[2]->asString()};
+        auto    toNodeNameString{arguments[3]->asString()};
+        auto    toPathString{arguments[4]->asString()};
+        auto    dataTypeString{arguments[5]->asString()};
+        auto    modeValue{arguments[6]->asInteger()};
 
         if ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && (nullptr != toPathString) &&
             (nullptr != dataTypeString) && (nullptr != modeValue))

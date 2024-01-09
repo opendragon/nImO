@@ -111,8 +111,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
     _owner->report("get launch details request received"s);
     if (1 < arguments.size())
     {
-        auto    element{arguments[1]};
-        auto    asString{element->asString()};
+        auto    asString{arguments[1]->asString()};
 
         if (nullptr == asString)
         {

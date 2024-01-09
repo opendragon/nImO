@@ -111,8 +111,7 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
     _owner->report("get names of nodes on machine request received"s);
     if (1 < arguments.size())
     {
-        auto    element{arguments[1]};
-        auto    asString{element->asString()};
+        auto    asString{arguments[1]->asString()};
 
         if (nullptr == asString)
         {

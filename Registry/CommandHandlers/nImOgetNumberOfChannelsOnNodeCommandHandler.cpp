@@ -110,8 +110,7 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
     _owner->report("get number of channels on node request received"s);
     if (1 < arguments.size())
     {
-        auto    element{arguments[1]};
-        auto    asString{element->asString()};
+        auto    asString{arguments[1]->asString()};
 
         if (nullptr == asString)
         {

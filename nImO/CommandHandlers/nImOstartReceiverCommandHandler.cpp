@@ -109,12 +109,9 @@ nImO::StartReceiverCommandHandler::doIt
     _ownerForInputOutput->report("start receiver request received"s);
     if (3 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    pathString{element1->asString()};
-        auto    addressValue{element2->asAddress()};
-        auto    portValue{element3->asInteger()};
+        auto    pathString{arguments[1]->asString()};
+        auto    addressValue{arguments[2]->asAddress()};
+        auto    portValue{arguments[3]->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue))
         {

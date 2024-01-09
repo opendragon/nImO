@@ -101,8 +101,7 @@ nImO::SetUpReceiverResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    element1{stuff[1]};
-        auto    infoArray{element1->asArray()};
+        auto    infoArray{stuff[1]->asArray()};
 
         if (nullptr == infoArray)
         {

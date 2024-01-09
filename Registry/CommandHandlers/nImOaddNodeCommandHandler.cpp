@@ -110,31 +110,21 @@ nImO::AddNodeCommandHandler::doIt
     _owner->report("add node request received"s);
     if (6 < arguments.size())
     {
-        auto        element1{arguments[1]};
-        auto        element2{arguments[2]};
-        auto        element3{arguments[3]};
-        auto        element4{arguments[4]};
-        auto        element5{arguments[5]};
-        auto        element6{arguments[6]};
-        auto        machineNameString{element1->asString()};
-        auto        nodeNameString{element2->asString()};
-        auto        execPathString{element3->asString()};
-        auto        launchDirectoryString{element4->asString()};
-        auto        commandLineString{element5->asString()};
-        auto        connArray{element6->asArray()};
+        auto        machineNameString{arguments[1]->asString()};
+        auto        nodeNameString{arguments[2]->asString()};
+        auto        execPathString{arguments[3]->asString()};
+        auto        launchDirectoryString{arguments[4]->asString()};
+        auto        commandLineString{arguments[5]->asString()};
+        auto        connArray{arguments[6]->asArray()};
         Connection  theConnection;
         ServiceType theType;
 
         if (3 < connArray->size())
         {
-            SpValue connElem1{(*connArray)[0]};
-            SpValue connElem2{(*connArray)[1]};
-            SpValue connElem3{(*connArray)[2]};
-            SpValue connElem4{(*connArray)[3]};
-            auto    addressValue{connElem1->asInteger()};
-            auto    portValue{connElem2->asInteger()};
-            auto    transportValue{connElem3->asInteger()};
-            auto    typeValue{connElem4->asInteger()};
+            auto    addressValue{(*connArray)[0]->asInteger()};
+            auto    portValue{(*connArray)[1]->asInteger()};
+            auto    transportValue{(*connArray)[2]->asInteger()};
+            auto    typeValue{(*connArray)[3]->asInteger()};
 
             if (nullptr != addressValue)
             {

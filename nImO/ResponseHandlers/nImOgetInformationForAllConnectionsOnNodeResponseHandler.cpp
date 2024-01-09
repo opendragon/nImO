@@ -102,8 +102,7 @@ nImO::GetInformationForAllConnectionsOnNodeResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        auto    element{stuff[1]};
-        auto    infoVector{element->asArray()};
+        auto    infoVector{stuff[1]->asArray()};
 
         if (nullptr == infoVector)
         {

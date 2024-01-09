@@ -109,12 +109,9 @@ nImO::SetUpReceiverCommandHandler::doIt
     _ownerForInputOutput->report("set up receiver request received"s);
     if (3 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    pathString{element1->asString()};
-        auto    dataTypeString{element2->asString()};
-        auto    modeValue{element3->asInteger()};
+        auto    pathString{arguments[1]->asString()};
+        auto    dataTypeString{arguments[2]->asString()};
+        auto    modeValue{arguments[3]->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {

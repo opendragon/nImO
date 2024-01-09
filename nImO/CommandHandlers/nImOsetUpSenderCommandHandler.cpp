@@ -109,16 +109,11 @@ nImO::SetUpSenderCommandHandler::doIt
     _ownerForInputOutput->report("set up sender request received"s);
     if (5 < arguments.size())
     {
-        auto    element1{arguments[1]};
-        auto    element2{arguments[2]};
-        auto    element3{arguments[3]};
-        auto    element4{arguments[4]};
-        auto    element5{arguments[5]};
-        auto    pathString{element1->asString()};
-        auto    addressValue{element2->asAddress()};
-        auto    portValue{element3->asInteger()};
-        auto    dataTypeString{element4->asString()};
-        auto    modeValue{element5->asInteger()};
+        auto    pathString{arguments[1]->asString()};
+        auto    addressValue{arguments[2]->asAddress()};
+        auto    portValue{arguments[3]->asInteger()};
+        auto    dataTypeString{arguments[4]->asString()};
+        auto    modeValue{arguments[5]->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {

@@ -111,8 +111,7 @@ nImO::GetInformationForAllConnectionsOnMachineCommandHandler::doIt
     _owner->report("get information for all connections on machine request received"s);
     if (1 < arguments.size())
     {
-        auto    element{arguments[1]};
-        auto    asString{element->asString()};
+        auto    asString{arguments[1]->asString()};
 
         if (nullptr == asString)
         {

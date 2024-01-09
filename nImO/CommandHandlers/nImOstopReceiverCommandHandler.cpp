@@ -108,8 +108,7 @@ nImO::StopReceiverCommandHandler::doIt
     _ownerForInputOutput->report("stop receiver request received"s);
     if (1 < arguments.size())
     {
-        auto    element{arguments[1]};
-        auto    asString{element->asString()};
+        auto    asString{arguments[1]->asString()};
 
         if (nullptr == asString)
         {

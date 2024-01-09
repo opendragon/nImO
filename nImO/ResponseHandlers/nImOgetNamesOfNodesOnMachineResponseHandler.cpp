@@ -99,8 +99,7 @@ nImO::GetNamesOfNodesOnMachineResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    element{stuff[1]};
-        auto    asSet{element->asSet()};
+        auto    asSet{stuff[1]->asSet()};
 
         if (nullptr == asSet)
         {

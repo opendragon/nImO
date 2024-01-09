@@ -99,8 +99,7 @@ nImO::GetNumberOfMachinesResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        auto    element{stuff[1]};
-        auto    asInteger{element->asInteger()};
+        auto    asInteger{stuff[1]->asInteger()};
 
         if (nullptr == asInteger)
         {

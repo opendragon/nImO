@@ -106,15 +106,15 @@ nImO::SetUpReceiverCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("set up receiver request received");
+    _ownerForInputOutput->report("set up receiver request received"s);
     if (3 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        CPtr(String)    pathString{element1->asString()};
-        CPtr(String)    dataTypeString{element2->asString()};
-        CPtr(Integer)   modeValue{element3->asInteger()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    pathString{element1->asString()};
+        auto    dataTypeString{element2->asString()};
+        auto    modeValue{element3->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {
@@ -133,7 +133,7 @@ nImO::SetUpReceiverCommandHandler::doIt
 
                     infoArray->addValue(std::make_shared<Address>(theConnection._address));
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kSetUpReceiverResponse, "set up receiver", infoArray);
+                    okSoFar = sendComplexResponse(socket, kSetUpReceiverResponse, "set up receiver"s, infoArray);
                 }
             }
         }

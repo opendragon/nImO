@@ -102,8 +102,8 @@ nImO::GetInformationForAllNodesResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoVector{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoVector{element->asArray()};
 
         if (nullptr == infoVector)
         {
@@ -114,7 +114,7 @@ nImO::GetInformationForAllNodesResponseHandler::doIt
             okSoFar = true;
             for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
-                CPtr(Array) infoArray{(*walker)->asArray()};
+                auto    infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
@@ -128,12 +128,12 @@ nImO::GetInformationForAllNodesResponseHandler::doIt
                     thisNode._found = false;
                     if (5 < infoArray->size())
                     {
-                        CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                        CPtr(String)    namePtr{(*infoArray)[1]->asString()};
-                        CPtr(Integer)   serviceTypePtr{(*infoArray)[2]->asInteger()};
-                        CPtr(Integer)   addressPtr{(*infoArray)[3]->asInteger()};
-                        CPtr(Integer)   portPtr{(*infoArray)[4]->asInteger()};
-                        CPtr(Integer)   transportPtr{(*infoArray)[5]->asInteger()};
+                        auto    foundPtr{(*infoArray)[0]->asLogical()};
+                        auto    namePtr{(*infoArray)[1]->asString()};
+                        auto    serviceTypePtr{(*infoArray)[2]->asInteger()};
+                        auto    addressPtr{(*infoArray)[3]->asInteger()};
+                        auto    portPtr{(*infoArray)[4]->asInteger()};
+                        auto    transportPtr{(*infoArray)[5]->asInteger()};
 
                         if ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) &&
                             (nullptr != portPtr) && (nullptr != transportPtr))

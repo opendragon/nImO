@@ -219,8 +219,8 @@ main
             nImO::SetSpecialBreakFunction(doConditionNotify);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking             ourContext{progName, "monitor"s, optionValues._logging};
-            nImO::Connection                        loggingConnection{ourContext.getLoggingInfo()};
-            nImO::Connection                        statusConnection{ourContext.getStatusInfo()};
+            auto                                    loggingConnection{ourContext.getLoggingInfo()};
+            auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
@@ -231,27 +231,27 @@ main
             // Wait for messages until exit requested via Ctrl-C.
             for ( ; nImO::gKeepRunning; )
             {
-                nImO::SpReceivedData    nextData{lReceiveQueue.getNextMessage()};
+                auto    nextData{lReceiveQueue.getNextMessage()};
 
                 if (nImO::gKeepRunning)
                 {
                     time_t              rawTime;
                     std::string         nowAsString;
-                    CPtr(nImO::Map)     asMap{nextData->_receivedMessage->asMap()};
+                    auto                asMap{nextData->_receivedMessage->asMap()};
                     BAIP::address_v4    sender{nextData->_receivedAddress};
                     char                timeBuffer[80];
-                    std::string         addressString{"["s + sender.to_string() + "]"s};
+                    auto                addressString{"["s + sender.to_string() + "]"s};
 
                     time(&rawTime);
                     strftime(timeBuffer, sizeof(timeBuffer), "@%F/%T ", localtime(&rawTime));
                     if (nullptr == asMap)
                     {
-                        CPtr(nImO::Array)   asArray{nextData->_receivedMessage->asArray()};
+                        auto    asArray{nextData->_receivedMessage->asArray()};
 
                         // 'old' style or a status message
                         if (nullptr == asArray)
                         {
-                            CPtr(nImO::String)  asString{nextData->_receivedMessage->asString()};
+                            auto    asString{nextData->_receivedMessage->asString()};
 
                             std::cout << addressString << timeBuffer;
                             if (nullptr == asString)
@@ -268,8 +268,8 @@ main
                         {
                             for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
                             {
-                                nImO::SpValue       element{asArray->at(ii)};
-                                CPtr(nImO::String)  asString{element->asString()};
+                                auto    element{asArray->at(ii)};
+                                auto    asString{element->asString()};
 
                                 std::cout << addressString << timeBuffer;
                                 if (nullptr == asString)
@@ -286,10 +286,10 @@ main
                     }
                     else
                     {
-                        nImO::SpString  commandPortKey{std::make_shared<nImO::String>(nImO::kCommandPortKey)};
-                        nImO::SpString  computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
-                        nImO::SpString  tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
-                        nImO::SpString  messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
+                        auto            commandPortKey{std::make_shared<nImO::String>(nImO::kCommandPortKey)};
+                        auto            computerNameKey{std::make_shared<nImO::String>(nImO::kComputerNameKey)};
+                        auto            tagKey{std::make_shared<nImO::String>(nImO::kTagKey)};
+                        auto            messageKey{std::make_shared<nImO::String>(nImO::kMessageKey)};
                         // Get the computer name
                         auto            anIterator{asMap->find(computerNameKey)};
                         nImO::SpValue   theComputerName;
@@ -328,15 +328,15 @@ main
                         anIterator = asMap->find(messageKey);
                         if (anIterator != asMap->end())
                         {
-                            nImO::SpValue       theMessage{anIterator->second};
-                            CPtr(nImO::Array)   asArray{theMessage->asArray()};
-                            std::string         tagText;
-                            std::string         computerNameText;
-                            std::string         commandPortText;
+                            auto        theMessage{anIterator->second};
+                            auto        asArray{theMessage->asArray()};
+                            std::string tagText;
+                            std::string computerNameText;
+                            std::string commandPortText;
 
                             if (nullptr != theTag)
                             {
-                                CPtr(nImO::String)  asString{theTag->asString()};
+                                auto    asString{theTag->asString()};
 
                                 if (nullptr != asString)
                                 {
@@ -345,7 +345,7 @@ main
                             }
                             if (nullptr != theComputerName)
                             {
-                                CPtr(nImO::String)  asString{theComputerName->asString()};
+                                auto    asString{theComputerName->asString()};
 
                                 if (nullptr != asString)
                                 {
@@ -354,18 +354,18 @@ main
                             }
                             if (nullptr != theCommandPort)
                             {
-                                CPtr(nImO::Integer) asInteger{theCommandPort->asInteger()};
+                                auto    asInteger{theCommandPort->asInteger()};
 
                                 if (nullptr != asInteger)
                                 {
                                     commandPortText = "-"s + std::to_string(asInteger->getIntegerValue());
                                 }
                             }
-                            std::string prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
+                            auto    prefix{addressString + computerNameText + tagText + commandPortText + timeBuffer};
 
                             if (nullptr == asArray)
                             {
-                                CPtr(nImO::String)  asString{theMessage->asString()};
+                                auto    asString{theMessage->asString()};
 
                                 std::cout << prefix;
                                 if (nullptr == asString)
@@ -382,8 +382,8 @@ main
                             {
                                 for (size_t ii = 0, numElements = asArray->size(); ii < numElements; ++ii)
                                 {
-                                    nImO::SpValue       element{asArray->at(ii)};
-                                    CPtr(nImO::String)  asString{element->asString()};
+                                    auto    element{asArray->at(ii)};
+                                    auto    asString{element->asString()};
 
                                     std::cout << prefix;
                                     if (nullptr == asString)

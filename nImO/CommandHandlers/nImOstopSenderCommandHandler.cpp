@@ -105,11 +105,11 @@ nImO::StopSenderCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("stop sender request received");
+    _ownerForInputOutput->report("stop sender request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -117,11 +117,11 @@ nImO::StopSenderCommandHandler::doIt
         }
         else
         {
-            SpOutChannel    theChannel{_ownerForInputOutput->getOutputChannel(asString->getValue())};
+            auto    theChannel{_ownerForInputOutput->getOutputChannel(asString->getValue())};
 
             if (theChannel)
             {
-                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender", theChannel->stop());
+                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender"s, theChannel->stop());
             }
             else
             {

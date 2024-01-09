@@ -116,11 +116,11 @@ nImO::ProcessServiceOptions
         kOptionVERSION
     }; // OptionIndex
 
-    bool        isAdapter{! matchingCriteria.empty()};
-    bool        keepGoing{true};
-    std::string serviceKindName{isAdapter ? "adapter"s : "service"s};
-    std::string describePartText{"  --describe, -d \tPrint executable type, supported "s};
-    std::string tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the "s};
+    bool    isAdapter{! matchingCriteria.empty()};
+    bool    keepGoing{true};
+    auto    serviceKindName{isAdapter ? "adapter"s : "service"s};
+    auto    describePartText{"  --describe, -d \tPrint executable type, supported "s};
+    auto    tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the "s};
 
     describePartText += serviceKindName + " options"s;
     if (isAdapter)
@@ -160,8 +160,8 @@ nImO::ProcessServiceOptions
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
-    std::string         usageString{"USAGE: "s};
-    std::string         argList{ArgumentsToArgString(argumentDescriptions)};
+    auto                usageString{"USAGE: "s};
+    auto                argList{ArgumentsToArgString(argumentDescriptions)};
 
     if (nullptr != arguments)
     {

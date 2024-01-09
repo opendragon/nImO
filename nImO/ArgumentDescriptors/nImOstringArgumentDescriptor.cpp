@@ -136,7 +136,7 @@ StringArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue};
+    auto    result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -147,7 +147,7 @@ StringArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{"\""s + getDefaultValue() + "\""s};
+    auto    result{"\""s + getDefaultValue() + "\""s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -208,8 +208,8 @@ StringArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::StringTypeTag, 3, name, argMode, inVector))
     {
-        std::string defaultString{inVector[0]};
-        std::string description{inVector[1]};
+        auto    defaultString{inVector[0]};
+        auto    description{inVector[1]};
 
         result = std::make_shared<StringArgumentDescriptor>(name, description, argMode, defaultString);
     }
@@ -264,7 +264,7 @@ StringArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::StringTypeTag)};
+    auto    result{prefixFields(ArgumentTypeTag::StringTypeTag)};
 
     result += suffixFields(_defaultValue);
     ODL_OBJEXIT_s(result); //####

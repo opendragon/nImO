@@ -106,15 +106,15 @@ nImO::StartReceiverCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("start receiver request received");
+    _ownerForInputOutput->report("start receiver request received"s);
     if (3 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        CPtr(String)    pathString{element1->asString()};
-        CPtr(Address)   addressValue{element2->asAddress()};
-        CPtr(Integer)   portValue{element3->asInteger()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    pathString{element1->asString()};
+        auto    addressValue{element2->asAddress()};
+        auto    portValue{element3->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue))
         {
@@ -130,7 +130,7 @@ nImO::StartReceiverCommandHandler::doIt
                 IPv4Port    senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
 
                 // Send the response to the requestor.
-                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver", theChannel->start(senderAddress, senderPort));
+                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort));
             }
         }
         else

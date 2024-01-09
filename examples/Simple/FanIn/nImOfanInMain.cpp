@@ -110,9 +110,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "fanin"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "FanIn"s, optionValues._logging,
-                                                                                 nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "fanin"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "FanIn"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
@@ -138,9 +137,9 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                std::string basePath{optionValues._base};
+                                auto        basePath{optionValues._base};
                                 std::string outChannelPath;
-                                bool        outValid = false;
+                                bool        outValid{false};
 
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {

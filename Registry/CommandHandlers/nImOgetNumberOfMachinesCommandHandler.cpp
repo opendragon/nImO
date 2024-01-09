@@ -107,7 +107,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of machines request received");
+    _owner->report("get number of machines request received"s);
     if (0 < arguments.size())
     {
         auto    statusWithInt{_registry->getNumberOfMachines()};
@@ -116,7 +116,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines", count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines"s, count);
         }
         else
         {

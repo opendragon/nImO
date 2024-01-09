@@ -99,8 +99,8 @@ nImO::GetNamesOfNodesOnMachineResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Set)   asSet{element->asSet()};
+        auto    element{stuff[1]};
+        auto    asSet{element->asSet()};
 
         if (nullptr == asSet)
         {

@@ -108,13 +108,13 @@ nImO::GetChannelInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get channel information request received");
+    _owner->report("get channel information request received"s);
     if (2 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    asString1{element1->asString()};
+        auto    asString2{element2->asString()};
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
@@ -132,7 +132,7 @@ nImO::GetChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
                 infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
-                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information"s, infoArray);
             }
             else
             {

@@ -225,7 +225,7 @@ nImO::ServiceContext::destroyCommandPort
         SPsocketTCP sessionSocket{aSession->getSocket()};
 
 #if defined(nImO_ChattyTcpLogging)
-        report("closing a session");
+        report("closing a session"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
         if (nullptr != sessionSocket)
         {
@@ -288,13 +288,13 @@ nImO::ServiceContext::handleAccept
         if (BAErr::operation_aborted == error)
         {
 #if defined(nImO_ChattyTcpLogging)
-            report("async_accept() operation cancelled");
+            report("async_accept() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
         }
         else
         {
-            report("async_accept() failed");
+            report("async_accept() failed -> "s + error.message());
         }
         releaseSession = true;
     }
@@ -303,7 +303,7 @@ nImO::ServiceContext::handleAccept
         if (_keepGoing)
         {
 #if defined(nImO_ChattyTcpLogging)
-            report("connection request received");
+            report("connection request received"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
             releaseSession = false;
             _sessions.insert(newSession);

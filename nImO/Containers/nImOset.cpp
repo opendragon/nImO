@@ -334,7 +334,7 @@ nImO::Set::extractValue
         {
             ODL_LOG("! (atEnd)"); //####
             IntStatus   numStatus;
-            int64_t     elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
+            auto        elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
 
             if (IntStatus::Successful == numStatus)
             {
@@ -822,7 +822,7 @@ nImO::Set::readFromStringBuffer
                 }
                 else
                 {
-                    Enumerable  elementType{element->enumerationType()};
+                    auto    elementType{element->enumerationType()};
 
                     if ((Enumerable::Unknown == elementType) ||
                         (Enumerable::NotEnumerable == elementType))

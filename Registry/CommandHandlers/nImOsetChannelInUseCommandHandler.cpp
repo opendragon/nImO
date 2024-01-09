@@ -108,13 +108,13 @@ nImO::SetChannelInUseCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("set channel inUse request received");
+    _owner->report("set channel inUse request received"s);
     if (2 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    asString1{element1->asString()};
+        auto    asString2{element2->asString()};
 
         if ((nullptr != asString1) && (nullptr != asString2))
         {
@@ -122,7 +122,7 @@ nImO::SetChannelInUseCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "set channel inUse", true);
+                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "set channel inUse"s, true);
             }
             else
             {

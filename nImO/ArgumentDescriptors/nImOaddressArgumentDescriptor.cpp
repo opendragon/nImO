@@ -179,8 +179,8 @@ AddressArgumentDescriptor::parseArgString
     if (partitionString(inString, ArgumentTypeTag::AddressTypeTag, 3, name, argMode, inVector))
     {
         bool            okSoFar{true};
-        std::string     defaultString{inVector[0]};
-        std::string     description{inVector[1]};
+        auto            defaultString{inVector[0]};
+        auto            description{inVector[1]};
         struct in_addr  addrBuff;
 
         if (kSelfAddressName == defaultString)

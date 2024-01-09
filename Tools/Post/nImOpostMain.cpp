@@ -113,7 +113,7 @@ main
         try
         {
             nImO::ContextWithNetworking ourContext{progName, "post"s, optionValues._logging};
-            std::string                 header{secondArg.getCurrentValue()};
+            auto                        header{secondArg.getCurrentValue()};
             bool                        readFromStdin{firstArg.getCurrentValue()};
 
             if (readFromStdin)

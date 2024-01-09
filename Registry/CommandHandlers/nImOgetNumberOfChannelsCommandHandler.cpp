@@ -107,7 +107,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of channels request received");
+    _owner->report("get number of channels request received"s);
     if (0 < arguments.size())
     {
         auto    statusWithInt{_registry->getNumberOfChannels()};
@@ -116,7 +116,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels", count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels"s, count);
         }
         else
         {

@@ -135,7 +135,7 @@ BooleanArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue ? "1"s : "0"s};
+    auto    result{_defaultValue ? "1"s : "0"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -146,7 +146,7 @@ BooleanArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue ? "true"s : "false"s};
+    auto    result{_defaultValue ? "true"s : "false"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -157,7 +157,7 @@ BooleanArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_currentValue ? "1"s : "0"s};
+    auto    result{_currentValue ? "1"s : "0"s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -220,10 +220,10 @@ BooleanArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::BoolTypeTag, 3, name, argMode, inVector))
     {
-        bool        okSoFar{true};
-        bool        defaultValue;
-        std::string defaultString{inVector[0]};
-        std::string description{inVector[1]};
+        bool    okSoFar{true};
+        bool    defaultValue;
+        auto    defaultString{inVector[0]};
+        auto    description{inVector[1]};
 
         if (defaultString.empty())
         {
@@ -280,7 +280,7 @@ BooleanArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::BoolTypeTag) + suffixFields(getDefaultValue())};
+    auto    result{prefixFields(ArgumentTypeTag::BoolTypeTag) + suffixFields(getDefaultValue())};
 
     ODL_OBJEXIT_s(result); //####
     return result;

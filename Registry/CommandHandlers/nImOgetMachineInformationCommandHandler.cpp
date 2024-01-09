@@ -108,11 +108,11 @@ nImO::GetMachineInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get machine information request received");
+    _owner->report("get machine information request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -130,7 +130,7 @@ nImO::GetMachineInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
-                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information"s, infoArray);
             }
             else
             {

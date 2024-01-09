@@ -107,26 +107,26 @@ nImO::RemoveConnectionCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("remove channel request received");
+    _owner->report("remove channel request received"s);
     if (3 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
-        CPtr(Logical)   asLogical{element3->asLogical()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    asString1{element1->asString()};
+        auto    asString2{element2->asString()};
+        auto    asLogical{element3->asLogical()};
 
         if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
         {
-            std::string nodeName{asString1->getValue()};
-            std::string path{asString2->getValue()};
-            bool        fromIsSpecified{asLogical->getValue()};
-            auto        status{_registry->removeConnection(nodeName, path, fromIsSpecified)};
+            auto    nodeName{asString1->getValue()};
+            auto    path{asString2->getValue()};
+            auto    fromIsSpecified{asLogical->getValue()};
+            auto    status{_registry->removeConnection(nodeName, path, fromIsSpecified)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel", true);
+                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel"s, true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path +

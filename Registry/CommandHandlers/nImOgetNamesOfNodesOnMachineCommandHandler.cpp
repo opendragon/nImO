@@ -108,11 +108,11 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get names of nodes on machine request received");
+    _owner->report("get names of nodes on machine request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -131,7 +131,7 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
                 {
                     stringSet->addValue(std::make_shared<String>(*walker));
                 }
-                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine", stringSet);
+                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine"s, stringSet);
             }
             else
             {

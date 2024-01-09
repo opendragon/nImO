@@ -117,7 +117,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -1218,8 +1218,8 @@ doTestAddNodeToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1286,8 +1286,8 @@ doTestCountNodesWithRegistryWithOneNode
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1370,8 +1370,8 @@ doTestNodeSetWithRegistryWithOneNode
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1456,8 +1456,8 @@ doTestFindNodeWithRegistryWithOneNode
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1557,7 +1557,7 @@ doTestNodeDataAddedToRegistry
         {
             IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName{nImO::GetShortComputerName()};
+            auto        machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
@@ -1654,8 +1654,8 @@ doTestRemoveNodeFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1730,8 +1730,8 @@ doTestCountNodesWithRegistryWithNodeRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1822,8 +1822,8 @@ doTestNodeSetWithRegistryWithNodeRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -1916,8 +1916,8 @@ doTestFindNodeWithRegistryNodeRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2008,8 +2008,8 @@ doTestAddTwoDistinctNodesToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2084,8 +2084,8 @@ doTestCountNodesWithRegistryWithTwoNodes
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2176,8 +2176,8 @@ doTestNodeSetWithRegistryWithTwoNodes
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2277,8 +2277,8 @@ doTestFindNodeWithRegistryWithTwoNodes
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2384,8 +2384,8 @@ doTestRemoveNodesFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2476,8 +2476,8 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2584,8 +2584,8 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2694,8 +2694,8 @@ doTestFindNodeWithRegistryAllNodesRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2817,8 +2817,8 @@ doTestAddTwoIdenticalNodesToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -2984,7 +2984,7 @@ doTestNodeInfoWithRegistryWithOneNode
         {
             IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName{nImO::GetShortComputerName()};
+            auto        machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
@@ -3085,12 +3085,12 @@ doTestNodeInfoWithRegistryWithTwoNodes
         {
             IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName1{nImO::GetShortComputerName()};
+            auto        machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"s};
+                auto        machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
@@ -3327,7 +3327,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
         {
             IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName{nImO::GetShortComputerName()};
+            auto        machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
@@ -3424,12 +3424,12 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
         {
             IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName1{nImO::GetShortComputerName()};
+            auto        machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"s};
+                auto        machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
@@ -3641,8 +3641,8 @@ doTestNodeSetWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3719,8 +3719,8 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3805,8 +3805,8 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3909,8 +3909,8 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -3989,7 +3989,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
         {
             IPv4Address randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName{nImO::GetShortComputerName()};
+            auto        machineName{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName, randomAddress)};
 
             if (status.first)
@@ -4090,12 +4090,12 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
         {
             IPv4Address randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             IPv4Port    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
-            std::string machineName1{nImO::GetShortComputerName()};
+            auto        machineName1{nImO::GetShortComputerName()};
             auto        status{aRegistry->addMachine(machineName1, randomAddress1)};
 
             if (status.first)
             {
-                std::string machineName2{machineName1 + "_1"s};
+                auto        machineName2{machineName1 + "_1"s};
                 IPv4Address randomAddress2{StaticCast(IPv4Address, nImO::RandomUnsigned())};
 
                 status = aRegistry->addMachine(machineName2, randomAddress2);
@@ -4221,8 +4221,8 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4297,8 +4297,8 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4381,8 +4381,8 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4629,8 +4629,8 @@ doTestAddChannelToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4708,8 +4708,8 @@ doTestCountChannelsInRegistryWithOneChannel
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4803,8 +4803,8 @@ doTestFindChannelInRegistryWithOneChannel
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -4913,8 +4913,8 @@ doTestAddTwoChannelsToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5008,8 +5008,8 @@ doTestCountChannelsInRegistryWithTwoChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5119,8 +5119,8 @@ doTestFindChannelsInRegistryWithTwoChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5245,8 +5245,8 @@ doTestAddTwoIdenticalChannelsToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5329,8 +5329,8 @@ doTestAddChannelWithBadNodeNameToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5405,8 +5405,8 @@ doTestAddChannelWithBadChannelNameToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5484,8 +5484,8 @@ doTestRemoveAllChannelsFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5579,8 +5579,8 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5690,8 +5690,8 @@ doTestFindChannelWithRegistryAllChannelsRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5816,8 +5816,8 @@ doTestRemoveOneChannelFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -5911,8 +5911,8 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6022,8 +6022,8 @@ doTestFindChannelWithRegistryOneChannelRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6148,8 +6148,8 @@ doTestRemoveNonexistentChannelFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6235,8 +6235,8 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6391,8 +6391,8 @@ doTestGetChannelInfoFromRegistryWithOneChannel
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6499,8 +6499,8 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6645,8 +6645,8 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6731,8 +6731,8 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6879,8 +6879,8 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -6987,8 +6987,8 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7120,8 +7120,8 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7261,8 +7261,8 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7369,8 +7369,8 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7502,8 +7502,8 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7643,8 +7643,8 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -7737,8 +7737,8 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8020,8 +8020,8 @@ doTestChannelInUseCanBeSet
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8138,8 +8138,8 @@ doTestChannelInUseCanBeCleared
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8279,8 +8279,8 @@ doTestGetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8367,8 +8367,8 @@ doTestSetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8454,8 +8454,8 @@ doTestClearChannelInUseWithBadNodeName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8541,8 +8541,8 @@ doTestGetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8629,8 +8629,8 @@ doTestSetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8716,8 +8716,8 @@ static int
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8803,8 +8803,8 @@ doTestGetAndSetChannelInUse
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -8975,8 +8975,8 @@ doTestGetAndSetChannelInUseWithBadNodeName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9063,8 +9063,8 @@ doTestGetAndSetChannelInUseWithBadChannelName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9220,8 +9220,8 @@ doTestAddConnectionToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9324,8 +9324,8 @@ doTestCountConnectionsInRegistryWithOneConnection
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9444,8 +9444,8 @@ doTestAddTwoConnectionsToRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9574,8 +9574,8 @@ doTestCountConnectionsInRegistryWithTwoConnections
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9720,8 +9720,8 @@ doTestRemoveOneConnectionFromRegistryViaFrom
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9832,8 +9832,8 @@ doTestRemoveOneConnectionFromRegistryViaTo
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -9944,8 +9944,8 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10072,8 +10072,8 @@ doTestConnectChannelsWithRegistryWithBadChannelName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10185,8 +10185,8 @@ doTestConnectChannelsWithRegistryWithBadNodeName
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10369,8 +10369,8 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10505,8 +10505,8 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10696,8 +10696,8 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -10887,8 +10887,8 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -11023,8 +11023,8 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -11444,8 +11444,8 @@ doTestGetConnectionInfoInRegistryWithOneConnection
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -11590,8 +11590,8 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -11711,8 +11711,8 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
         }
         else
         {
-            std::string machineName{nImO::GetShortComputerName()};
-            auto        status{aRegistry->addMachine(machineName)};
+            auto    machineName{nImO::GetShortComputerName()};
+            auto    status{aRegistry->addMachine(machineName)};
 
             if (status.first)
             {
@@ -11827,9 +11827,9 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                std::string execPath{boost::dll::program_location().string()};
-                std::string currentDir{boost::filesystem::current_path().string()};
-                std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+                auto    execPath{boost::dll::program_location().string()};
+                auto    currentDir{boost::filesystem::current_path().string()};
+                auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
 
                 SetSignalHandlers(catchSignal);
                 switch (selector)

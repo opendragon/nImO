@@ -167,7 +167,7 @@ namespace nImO
                 if (_processing)
                 {
                     // Note that the A records are ignored.
-                    _owner.report("A Data");
+                    _owner.report("A Data"s);
                 }
             }
 
@@ -184,7 +184,7 @@ namespace nImO
                 if (_processing)
                 {
                     // Note that the AAAA records are ignored.
-                    _owner.report("AAAA Data");
+                    _owner.report("AAAA Data"s);
                 }
             }
 
@@ -200,11 +200,11 @@ namespace nImO
             {
                 if (mDNS::kEntryTypeAnswer == entry)
                 {
-                    std::string _entryData{mdns_string_to_std_string(entryData)};
+                    auto    _entryData{mdns_string_to_std_string(entryData)};
 
                     if (NIMO_REGISTRY_SERVICE_NAME == _entryData)
                     {
-                        _owner.report("PTR Data");
+                        _owner.report("PTR Data"s);
                         _owner._registryTag = firstPartOfPath(mdns_string_to_std_string(ptrData));
                         _owner._havePort = false;
                         _owner._haveAddress = false;
@@ -233,7 +233,7 @@ namespace nImO
             {
                 if (_processing)
                 {
-                    _owner.report("SRV Data");
+                    _owner.report("SRV Data"s);
                     _owner._registryPort = port;
                     _owner._havePort = true;
                     ODL_B1("_owner._havePort <- ", _owner._havePort); //####
@@ -250,11 +250,11 @@ namespace nImO
             {
                 if (_processing)
                 {
-                    std::string keyString{mdns_string_to_std_string(keyData)};
+                    auto    keyString{mdns_string_to_std_string(keyData)};
 
                     if (kRegistryAddressKey == keyString)
                     {
-                        _owner.report("TXT Data");
+                        _owner.report("TXT Data"s);
                         _owner._registryPreferredAddress = mdns_string_to_std_string(valueData);
                         _owner._haveAddress = true;
                         ODL_B1("_owner._haveAddress <- ", _owner._haveAddress); //####
@@ -645,7 +645,7 @@ nImO::ContextWithMDNS::executeBrowser
 
     timeout.tv_sec = 10;
     timeout.tv_usec = 0;
-    owner.report("browser thread starting.");
+    owner.report("browser thread starting."s);
     lBrowserThreadStarted = true;
     ODL_B1("lBrowserThreadStarted <- ", lBrowserThreadStarted); //####
     for ( ; ; )
@@ -733,7 +733,7 @@ nImO::ContextWithMDNS::executeBrowser
     lBrowserThreadStarted = false;
     lBrowserThreadStopped = true;
     ODL_B2("lBrowserThreadStarted <- ", lBrowserThreadStarted, "lBrowserThreadStopped <- ", lBrowserThreadStopped); //####
-    owner.report("browser thread terminating.");
+    owner.report("browser thread terminating."s);
     ODL_EXIT(); //####
 } // nImO::ContextWithMDNS::executeBrowser
 
@@ -815,7 +815,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
                                        {
                                            if (! quietly)
                                            {
-                                               report("timed out!");
+                                               report("timed out!"s);
                                            }
                                            timedOut = true;
                                        }
@@ -1016,7 +1016,7 @@ nImO::Ipv4AddressToStdString
 {
     char            addrBuffer[64];
     mDNS::string_t  mdnsString{nImO::Ipv4AddressToMdnsString(addrBuffer, sizeof(addrBuffer), addr, addrLen)};
-    std::string     result{mdns_string_to_std_string(mdnsString)};
+    auto            result{mdns_string_to_std_string(mdnsString)};
 
     release_mdns_string(mdnsString);
     return result;

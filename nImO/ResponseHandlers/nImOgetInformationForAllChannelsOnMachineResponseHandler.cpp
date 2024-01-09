@@ -102,8 +102,8 @@ nImO::GetInformationForAllChannelsOnMachineResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoVector{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoVector{element->asArray()};
 
         if (nullptr == infoVector)
         {
@@ -114,7 +114,7 @@ nImO::GetInformationForAllChannelsOnMachineResponseHandler::doIt
             okSoFar = true;
             for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
-                CPtr(Array) infoArray{(*walker)->asArray()};
+                auto    infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
@@ -128,13 +128,13 @@ nImO::GetInformationForAllChannelsOnMachineResponseHandler::doIt
                     thisChannel._found = false;
                     if (6 < infoArray->size())
                     {
-                        CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                        CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
-                        CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
-                        CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
-                        CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
-                        CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
-                        CPtr(Logical)   inUsePtr{(*infoArray)[6]->asLogical()};
+                        auto    foundPtr{(*infoArray)[0]->asLogical()};
+                        auto    nodePtr{(*infoArray)[1]->asString()};
+                        auto    pathPtr{(*infoArray)[2]->asString()};
+                        auto    isOutputPtr{(*infoArray)[3]->asLogical()};
+                        auto    dataTypePtr{(*infoArray)[4]->asString()};
+                        auto    modesPtr{(*infoArray)[5]->asInteger()};
+                        auto    inUsePtr{(*infoArray)[6]->asLogical()};
 
                         if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
                             (nullptr != dataTypePtr) && (nullptr != modesPtr) && (nullptr != inUsePtr))

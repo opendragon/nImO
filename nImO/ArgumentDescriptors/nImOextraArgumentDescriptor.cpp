@@ -141,7 +141,7 @@ ExtraArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{getDefaultValue()};
+    auto    result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -209,8 +209,8 @@ ExtraArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::ExtraTypeTag, 3, name, argMode, inVector))
     {
-        std::string defaultString{inVector[0]}; // ignored
-        std::string description{inVector[1]};
+        auto    defaultString{inVector[0]}; // ignored
+        auto    description{inVector[1]};
 
         result = std::make_shared<ExtraArgumentDescriptor>(name, description);
     }
@@ -241,7 +241,7 @@ ExtraArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::ExtraTypeTag) + suffixFields(""s)};
+    auto    result{prefixFields(ArgumentTypeTag::ExtraTypeTag) + suffixFields(""s)};
 
     ODL_OBJEXIT_s(result); //####
     return result;

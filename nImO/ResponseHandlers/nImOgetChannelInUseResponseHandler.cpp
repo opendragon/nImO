@@ -101,8 +101,8 @@ nImO::GetChannelInUseResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        SpValue       element{stuff[1]};
-        CPtr(Logical) asLogical{element->asLogical()};
+        auto    element{stuff[1]};
+        auto    asLogical{element->asLogical()};
 
         if (nullptr == asLogical)
         {

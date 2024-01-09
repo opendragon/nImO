@@ -102,8 +102,8 @@ nImO::GetInformationForAllConnectionsResponseHandler::doIt
     _result.clear();
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoVector{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoVector{element->asArray()};
 
         if (nullptr == infoVector)
         {
@@ -114,7 +114,7 @@ nImO::GetInformationForAllConnectionsResponseHandler::doIt
             okSoFar = true;
             for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
             {
-                CPtr(Array) infoArray{(*walker)->asArray()};
+                auto    infoArray{(*walker)->asArray()};
 
                 if (nullptr == infoArray)
                 {
@@ -128,13 +128,13 @@ nImO::GetInformationForAllConnectionsResponseHandler::doIt
                     thisConnection._found = false;
                     if (5 < infoArray->size())
                     {
-                        CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                        CPtr(String)    fromNodePtr{(*infoArray)[1]->asString()};
-                        CPtr(String)    fromPathPtr{(*infoArray)[2]->asString()};
-                        CPtr(String)    toNodePtr{(*infoArray)[3]->asString()};
-                        CPtr(String)    toPathPtr{(*infoArray)[4]->asString()};
-                        CPtr(String)    dataTypePtr{(*infoArray)[5]->asString()};
-                        CPtr(Integer)   modePtr{(*infoArray)[6]->asInteger()};
+                        auto    foundPtr{(*infoArray)[0]->asLogical()};
+                        auto    fromNodePtr{(*infoArray)[1]->asString()};
+                        auto    fromPathPtr{(*infoArray)[2]->asString()};
+                        auto    toNodePtr{(*infoArray)[3]->asString()};
+                        auto    toPathPtr{(*infoArray)[4]->asString()};
+                        auto    dataTypePtr{(*infoArray)[5]->asString()};
+                        auto    modePtr{(*infoArray)[6]->asInteger()};
 
                         if ((nullptr != foundPtr) && (nullptr != fromNodePtr) && (nullptr != fromPathPtr) && (nullptr != toNodePtr) &&
                             (nullptr != toPathPtr) && (nullptr != dataTypePtr) && (nullptr != modePtr))

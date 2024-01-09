@@ -106,11 +106,11 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("remove channels for node request received");
+    _owner->report("remove channels for node request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -118,12 +118,12 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
         }
         else
         {
-            std::string nodeName{asString->getValue()};
-            auto        status{_registry->removeChannelsForNode(nodeName)};
+            auto    nodeName{asString->getValue()};
+            auto    status{_registry->removeChannelsForNode(nodeName)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node", true);
+                okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node"s, true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelsRemovedStatus + kStatusSeparator + nodeName);

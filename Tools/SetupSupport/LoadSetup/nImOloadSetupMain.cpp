@@ -108,7 +108,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::GetShortComputerName()};
+            auto                nodeName{nImO::GetShortComputerName()};
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "loadSetup"s, optionValues._logging)};
             nImO::Connection    registryConnection;
 

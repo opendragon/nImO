@@ -157,8 +157,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
         if (retValue)
         {
-            SpValue         actualValue(*retValue);
-            CPtr(Address)   asAddress{actualValue->asAddress()};
+            SpValue actualValue(*retValue);
+            auto    asAddress{actualValue->asAddress()};
 
             if (nullptr != asAddress)
             {
@@ -177,8 +177,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kLoggerPortKey);
         if (retValue)
         {
-            SpValue         actualValue(*retValue);
-            CPtr(Integer)   asInteger{actualValue->asInteger()};
+            SpValue actualValue(*retValue);
+            auto    asInteger{actualValue->asInteger()};
 
             if (nullptr != asInteger)
             {
@@ -197,8 +197,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kStatusAddressKey);
         if (retValue)
         {
-            SpValue         actualValue{*retValue};
-            CPtr(Address)   asAddress{actualValue->asAddress()};
+            SpValue actualValue{*retValue};
+            auto    asAddress{actualValue->asAddress()};
 
             if (nullptr != asAddress)
             {
@@ -217,8 +217,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kStatusPortKey);
         if (retValue)
         {
-            SpValue         actualValue{*retValue};
-            CPtr(Integer)   asInteger{actualValue->asInteger()};
+            SpValue actualValue{*retValue};
+            auto    asInteger{actualValue->asInteger()};
 
             if (nullptr != asInteger)
             {
@@ -244,8 +244,8 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
         {
-            SpValue         actualValue(*retValue);
-            CPtr(Integer)   asInteger{actualValue->asInteger()};
+            SpValue actualValue(*retValue);
+            auto    asInteger{actualValue->asInteger()};
 
             if (nullptr == asInteger)
             {

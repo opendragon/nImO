@@ -181,7 +181,7 @@ nImO::CanReadFromStandardInput
 #else // not MAC_OR_LINUX_
     HWND    wind{GetConsoleWindow()};
 #endif // not MAC_OR_LINUX_
-    bool    result = false;
+    bool    result{false};
 
 #if MAC_OR_LINUX_
     if (-1 == fg)
@@ -787,14 +787,14 @@ nImO::OutputDescription
     {
         if (kEndOfLine == description[ii])
         {
-            std::string piece{description.substr(pieceStart, ii - pieceStart)};
+            auto    piece{description.substr(pieceStart, ii - pieceStart)};
 
             outStream << indent << piece.c_str() << "\n";
             pieceStart = ii + 1;
             indent = blanks;
         }
     }
-    std::string piece{description.substr(pieceStart, descriptionLength - pieceStart)};
+    auto    piece{description.substr(pieceStart, descriptionLength - pieceStart)};
 
     outStream << indent << piece.c_str() << "\n";
 } // nImO::OutputDescription
@@ -828,73 +828,11 @@ nImO::ResolveTransport
      const TransportType    secondTransport,
      const TransportType    defaultTransport)
 {
-    TransportType   result;
+    TransportType   result = (firstTransport & secondTransport);
 
-    switch (firstTransport)
+    if (TransportType::kUnknown == result)
     {
-        case TransportType::kAny :
-            if ((TransportType::kUDP == secondTransport) || (TransportType::kTCP == secondTransport) || (TransportType::kAny == secondTransport))
-            {
-                result = secondTransport;
-            }
-            else if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
-            {
-                result = TransportType::kTCP;
-            }
-            else
-            {
-                result = defaultTransport;
-            }
-            break;
-
-        case TransportType::kTCP :
-            if ((TransportType::kAny == secondTransport) || (TransportType::kUnknown == secondTransport))
-            {
-                result = firstTransport;
-            }
-            else if (TransportType::kUDP == secondTransport)
-            {
-                result = TransportType::kUnknown;
-            }
-            else
-            {
-                result = defaultTransport;
-            }
-            break;
-
-        case TransportType::kUDP :
-            if ((TransportType::kAny == secondTransport) || (TransportType::kUnknown == secondTransport))
-            {
-                result = firstTransport;
-            }
-            else if (TransportType::kTCP == secondTransport)
-            {
-                result = TransportType::kUnknown;
-            }
-            else
-            {
-                result = defaultTransport;
-            }
-            break;
-
-        case TransportType::kUnknown :
-            if ((TransportType::kUnknown == secondTransport) || (TransportType::kAny == secondTransport))
-            {
-                if ((TransportType::kUnknown == defaultTransport) || (TransportType::kAny == defaultTransport))
-                {
-                    result = TransportType::kTCP;
-                }
-                else
-                {
-                    result = defaultTransport;
-                }
-            }
-            else
-            {
-                result = secondTransport;
-            }
-            break;
-
+        result = defaultTransport;
     }
     return result;
 } /* ResolveTransport */

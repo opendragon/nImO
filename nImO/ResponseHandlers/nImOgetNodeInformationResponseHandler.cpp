@@ -102,8 +102,8 @@ nImO::GetNodeInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoArray{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoArray{element->asArray()};
 
         if (nullptr == infoArray)
         {
@@ -113,12 +113,12 @@ nImO::GetNodeInformationResponseHandler::doIt
         {
             if (5 < infoArray->size())
             {
-                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                CPtr(String)    namePtr{(*infoArray)[1]->asString()};
-                CPtr(Integer)   serviceTypePtr{(*infoArray)[2]->asInteger()};
-                CPtr(Integer)   addressPtr{(*infoArray)[3]->asInteger()};
-                CPtr(Integer)   portPtr{(*infoArray)[4]->asInteger()};
-                CPtr(Integer)   transportPtr{(*infoArray)[5]->asInteger()};
+                auto    foundPtr{(*infoArray)[0]->asLogical()};
+                auto    namePtr{(*infoArray)[1]->asString()};
+                auto    serviceTypePtr{(*infoArray)[2]->asInteger()};
+                auto    addressPtr{(*infoArray)[3]->asInteger()};
+                auto    portPtr{(*infoArray)[4]->asInteger()};
+                auto    transportPtr{(*infoArray)[5]->asInteger()};
 
                 if ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && (nullptr != addressPtr) &&
                     (nullptr != portPtr) && (nullptr != transportPtr))

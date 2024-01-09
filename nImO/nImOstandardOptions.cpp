@@ -99,7 +99,7 @@ nImO::GetConfiguredValue
 
     if ((! key.empty()) && (nullptr != lConfigurationValues))
     {
-        CPtr(Map)   asMapValue{lConfigurationValues->asMap()};
+        auto    asMapValue{lConfigurationValues->asMap()};
 
         if (nullptr != asMapValue)
         {
@@ -218,8 +218,8 @@ nImO::ProcessStandardOptions
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
-    std::string                 usageString{"USAGE: "s};
-    std::string                 argList{ArgumentsToArgString(argumentDescriptions)};
+    auto                        usageString{"USAGE: "s};
+    auto                        argList{ArgumentsToArgString(argumentDescriptions)};
 
     usageString += *argv;
     usageString += " [options]"s;
@@ -311,7 +311,7 @@ nImO::ProcessStandardOptions
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
     {
-        std::string nImOversionString{SanitizeString(nImO_VERSION_, true)};
+        auto    nImOversionString{SanitizeString(nImO_VERSION_, true)};
 
         std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
                     copyrightHolder << ".\n";

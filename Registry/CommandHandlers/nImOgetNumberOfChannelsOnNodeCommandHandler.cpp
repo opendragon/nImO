@@ -107,11 +107,11 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of channels on node request received");
+    _owner->report("get number of channels on node request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -125,7 +125,7 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
             {
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "get number of channels on node", count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "get number of channels on node"s, count);
             }
             else
             {

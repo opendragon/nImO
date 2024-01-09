@@ -112,9 +112,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "junction"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging,
-                                                                                 nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "junction"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
@@ -140,7 +139,7 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                std::string basePath{optionValues._base};
+                                auto    basePath{optionValues._base};
 
                                 for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {

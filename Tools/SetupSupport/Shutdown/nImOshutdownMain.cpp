@@ -138,7 +138,7 @@ main
 
                                 if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                    ourContext->report("sending shutdown request to "s + theInfo._name);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
@@ -166,10 +166,10 @@ main
 
                                     if (theInfo._found)
                                     {
-                                        std::string         fromNode{theInfo._fromNode};
-                                        std::string         fromPath{theInfo._fromPath};
-                                        std::string         toNode{theInfo._toNode};
-                                        std::string         toPath{theInfo._toPath};
+                                        auto                fromNode{theInfo._fromNode};
+                                        auto                fromPath{theInfo._fromPath};
+                                        auto                toNode{theInfo._toNode};
+                                        auto                toPath{theInfo._toPath};
                                         nImO::Connection    fromConnection;
                                         auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
@@ -277,10 +277,10 @@ main
 
                                         if (theInfo._found)
                                         {
-                                            std::string         fromNode{theInfo._fromNode};
-                                            std::string         fromPath{theInfo._fromPath};
-                                            std::string         toNode{theInfo._toNode};
-                                            std::string         toPath{theInfo._toPath};
+                                            auto                fromNode{theInfo._fromNode};
+                                            auto                fromPath{theInfo._fromPath};
+                                            auto                toNode{theInfo._toNode};
+                                            auto                toPath{theInfo._toPath};
                                             nImO::Connection    fromConnection;
                                             auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
@@ -410,10 +410,10 @@ main
 
                                 if (theInfo._found)
                                 {
-                                    std::string         fromNode{theInfo._fromNode};
-                                    std::string         fromPath{theInfo._fromPath};
-                                    std::string         toNode{theInfo._toNode};
-                                    std::string         toPath{theInfo._toPath};
+                                    auto                fromNode{theInfo._fromNode};
+                                    auto                fromPath{theInfo._fromPath};
+                                    auto                toNode{theInfo._toNode};
+                                    auto                toPath{theInfo._toPath};
                                     nImO::Connection    fromConnection;
                                     auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 

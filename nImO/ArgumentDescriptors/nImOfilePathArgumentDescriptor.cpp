@@ -237,7 +237,7 @@ FilePathArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{getDefaultValue()};
+    auto    result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -305,14 +305,14 @@ FilePathArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::FilePathTypeTag, 6, name, argMode, inVector))
     {
-        bool        forOutput{false};
-        bool        okSoFar{true};
-        bool        usesRandom{false};
-        std::string direction{inVector[0]};
-        std::string suffixValue{inVector[1]};
-        std::string randomFlag{inVector[2]};
-        std::string defaultString{inVector[3]};
-        std::string description{inVector[4]};
+        bool    forOutput{false};
+        bool    okSoFar{true};
+        bool    usesRandom{false};
+        auto    direction{inVector[0]};
+        auto    suffixValue{inVector[1]};
+        auto    randomFlag{inVector[2]};
+        auto    defaultString{inVector[3]};
+        auto    description{inVector[4]};
 
         if ("o" == direction)
         {
@@ -384,10 +384,10 @@ FilePathArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string oldDefault{inherited::getDefaultValue()};
-    std::string result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o"s : "i"s) +
-                        getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1"s : "0"s) +
-                        suffixFields(_pathPrefix)};
+    auto    oldDefault{inherited::getDefaultValue()};
+    auto    result{prefixFields(ArgumentTypeTag::FilePathTypeTag) + getParameterSeparator() + (_forOutput ? "o"s : "i"s) +
+                    getParameterSeparator() + _pathSuffix + getParameterSeparator() + (_useRandomPath ? "1"s : "0"s) +
+                    suffixFields(_pathPrefix)};
 
     NIMO_UNUSED_VAR_(oldDefault);
     ODL_OBJEXIT_s(result); //####

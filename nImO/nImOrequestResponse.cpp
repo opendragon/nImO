@@ -104,7 +104,7 @@ handleResponse
     if (nullptr != handler)
     {
         // We need to strip off the Message separator first.
-        std::string         trimmed{nImO::UnpackageMessage(incoming)};
+        auto                trimmed{nImO::UnpackageMessage(incoming)};
         nImO::ByteVector    rawStuff;
 
         ODL_S1s("trimmed <- ", trimmed); //####
@@ -117,16 +117,16 @@ handleResponse
             {
                 stuff->open(false);
                 stuff->appendBytes(rawStuff.data(), rawStuff.size());
-                nImO::SpValue   contents{stuff->getValue()};
+                auto    contents{stuff->getValue()};
 
                 stuff->close();
                 if (stuff->readAtEnd() && (nullptr != contents))
                 {
-                    CPtr(nImO::Array)   asArray{contents->asArray()};
+                    auto    asArray{contents->asArray()};
 
                     if ((nullptr != asArray) && (0 < asArray->size()))
                     {
-                        CPtr(nImO::String)  response{(*asArray)[0]->asString()};
+                        auto    response{(*asArray)[0]->asString()};
 
                         if (nullptr == response)
                         {
@@ -244,14 +244,16 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         if (BAErr::operation_aborted == ec1)
                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                            context->report("async_connect() operation cancelled");
+                                            context->report("async_connect() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }
                                         else
                                         {
-                                            context->report("async_connect() failed");
-                                            status = std::make_pair(false, "async_connect() failed");
+                                            auto    errMessage{"async_connect() failed -> "s + ec1.message()};
+
+                                            context->report(errMessage);
+                                            status = std::make_pair(false, errMessage);
                                         }
                                         keepGoing = false;
                                         ODL_B1("keepGoing <- ", keepGoing); //####
@@ -259,7 +261,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                     else
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        context->report("connection request accepted");
+                                        context->report("connection request accepted"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                                                   [&socket, context, handler, &keepGoing, &responseKey, &status]
@@ -272,14 +274,16 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                         if (BAErr::operation_aborted == ec2)
                                                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                                                            context->report("async_write() operation cancelled");
+                                                                            context->report("async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                                         }
                                                                         else
                                                                         {
-                                                                            context->report("async_write() failed");
-                                                                            status = std::make_pair(false, "async_write() failed");
+                                                                            auto    errMessage{"async_write() failed -> "s + ec2.message()};
+
+                                                                            context->report(errMessage);
+                                                                            status = std::make_pair(false, errMessage);
                                                                         }
                                                                         keepGoing = false;
                                                                         ODL_B1("keepGoing <- ", keepGoing); //####
@@ -287,7 +291,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                     else
                                                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                                                        context->report("command sent");
+                                                                        context->report("command sent"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                         auto    rB{std::make_shared<boost::asio::streambuf>()};
 
@@ -303,34 +307,31 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                         if (BAErr::operation_aborted == ec)
                                                                                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                                                                                            context->report("read_until() operation "
-                                                                                                                            "cancelled");
+                                                                                                            context->report("read_until() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                            ODL_LOG("(BAErr::operation_aborted "
-                                                                                                                    "== ec)"); //####
+                                                                                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                                                                         }
                                                                                                         else
                                                                                                         {
-                                                                                                            context->report("async_read_until() "
-                                                                                                                            "failed");
-                                                                                                            status = std::make_pair(false,
-                                                                                                                                "async_read_until() "
-                                                                                                                                    "failed");
+                                                                                                            auto    errMessage{"async_write() failed -> "s +
+                                                                                                                                    ec.message()};
+                                                                                                            context->report(errMessage);
+                                                                                                            status = std::make_pair(false, errMessage);
                                                                                                         }
                                                                                                     }
                                                                                                     else
                                                                                                     {
                                                                                                         std::string handleThis{buffers_begin(rB->data()),
-                                                                                                            buffers_end(rB->data())};
+                                                                                                                                buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpLogging)
-                                                                                                        context->report("got response");
+                                                                                                        context->report("got response"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                                                         if (! handleResponse(handler, handleThis,
                                                                                                                              responseKey))
                                                                                                         {
                                                                                                             status = std::make_pair(false,
-                                                                                                                                    "handleResponse() failed");
+                                                                                                                                    "handleResponse() failed"s);
                                                                                                         }
                                                                                                     }
                                                                                                     keepGoing = false;

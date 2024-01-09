@@ -108,11 +108,11 @@ nImO::GetNodeInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get node information request received");
+    _owner->report("get node information request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -133,7 +133,7 @@ nImO::GetNodeInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
-                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "get node information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "get node information"s, infoArray);
             }
             else
             {

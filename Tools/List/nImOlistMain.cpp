@@ -241,9 +241,9 @@ listChannels
 
                 if (theInfo._found)
                 {
-                    std::string node{nImO::SanitizeString(theInfo._node, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string path{nImO::SanitizeString(theInfo._path, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        node{nImO::SanitizeString(theInfo._node, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        path{nImO::SanitizeString(theInfo._path, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
                     std::string modes;
 
                     switch (theInfo._modes)
@@ -427,11 +427,11 @@ listConnections
 
                 if (theInfo._found)
                 {
-                    std::string fromNode{nImO::SanitizeString(theInfo._fromNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string fromPath{nImO::SanitizeString(theInfo._fromPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string toNode{nImO::SanitizeString(theInfo._toNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string toPath{nImO::SanitizeString(theInfo._toPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    std::string dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        fromNode{nImO::SanitizeString(theInfo._fromNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        fromPath{nImO::SanitizeString(theInfo._fromPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        toNode{nImO::SanitizeString(theInfo._toNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        toPath{nImO::SanitizeString(theInfo._toPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
                     std::string mode;
 
                     switch (theInfo._mode)
@@ -615,7 +615,7 @@ listMachines
 
                 if (theInfo._found)
                 {
-                    std::string         machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto                machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
                     BAIP::address_v4    address{theInfo._address};
 
                     switch (options._flavour)
@@ -760,7 +760,7 @@ listNodes
 
                 if (theInfo._found)
                 {
-                    std::string         nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto                nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
                     BAIP::address_v4    address{theInfo._connection._address};
 
                     switch (options._flavour)

@@ -119,8 +119,8 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
                 auto                channel{firstArg.getCurrentValue()};
-                std::string         nodeName{channel->getNode()};
-                std::string         path{channel->getPath()};
+                auto                nodeName{channel->getNode()};
+                auto                path{channel->getPath()};
                 std::string         fromNode;
                 std::string         fromPath;
                 std::string         toNode;

@@ -91,7 +91,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -107,7 +107,7 @@ fixDescriptorString
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    std::string result{inString};
+    auto    result{inString};
 
     for (std::string::size_type pos = result.find("\\t"); pos != result.npos; pos = result.find("\\t"))
     {

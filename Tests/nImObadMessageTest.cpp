@@ -93,7 +93,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -122,7 +122,7 @@ attemptExtractValueAndCheck
 
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
-    SpValue extractedValue{stuff.getValue()};
+    auto    extractedValue{stuff.getValue()};
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     stuff.close();

@@ -102,8 +102,8 @@ nImO::GetChannelInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoArray{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoArray{element->asArray()};
 
         if (nullptr == infoArray)
         {
@@ -113,12 +113,12 @@ nImO::GetChannelInformationResponseHandler::doIt
         {
             if (5 < infoArray->size())
             {
-                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                CPtr(String)    nodePtr{(*infoArray)[1]->asString()};
-                CPtr(String)    pathPtr{(*infoArray)[2]->asString()};
-                CPtr(Logical)   isOutputPtr{(*infoArray)[3]->asLogical()};
-                CPtr(String)    dataTypePtr{(*infoArray)[4]->asString()};
-                CPtr(Integer)   modesPtr{(*infoArray)[5]->asInteger()};
+                auto    foundPtr{(*infoArray)[0]->asLogical()};
+                auto    nodePtr{(*infoArray)[1]->asString()};
+                auto    pathPtr{(*infoArray)[2]->asString()};
+                auto    isOutputPtr{(*infoArray)[3]->asLogical()};
+                auto    dataTypePtr{(*infoArray)[4]->asString()};
+                auto    modesPtr{(*infoArray)[5]->asInteger()};
 
                 if ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) &&
                     (nullptr != dataTypePtr) && (nullptr != modesPtr))

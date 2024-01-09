@@ -99,8 +99,8 @@ nImO::GetNumberOfNodesResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        SpValue       element{stuff[1]};
-        CPtr(Integer) asInteger{element->asInteger()};
+        auto    element{stuff[1]};
+        auto    asInteger{element->asInteger()};
 
         if (nullptr == asInteger)
         {

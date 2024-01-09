@@ -258,8 +258,8 @@ nImO::ChannelName::parse
     std::string     nodeName;
     std::string     path;
     std::smatch     matches;
-    TransportType   protocol = TransportType::kUnknown;
-    bool            okSoFar = std::regex_match(input, matches, lChannelNameMatch);
+    TransportType   protocol{TransportType::kUnknown};
+    bool            okSoFar{std::regex_match(input, matches, lChannelNameMatch)};
 
     if (okSoFar)
     {
@@ -303,8 +303,8 @@ nImO::ChannelName::transportFromName
 {
     ODL_ENTER(); //####
     ODL_S1s("aName = ", aName); //####
-    TransportType   protocol{TransportType::kUnknown};
-    std::string     nameToCheck{ConvertToLowerCase(aName)};
+    auto    protocol{TransportType::kUnknown};
+    auto    nameToCheck{ConvertToLowerCase(aName)};
 
     if (nameToCheck == transportToName(TransportType::kAny))
     {
@@ -373,7 +373,7 @@ nImO::ChannelName::validNetwork
 {
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = std::regex_match(input, lNameMatch);
+    bool    result{std::regex_match(input, lNameMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -385,7 +385,7 @@ nImO::ChannelName::validNode
 {
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = std::regex_match(input, lNameMatch);
+    bool    result{std::regex_match(input, lNameMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -397,7 +397,7 @@ nImO::ChannelName::validPath
 {
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = std::regex_match(input, lPathMatch);
+    bool    result{std::regex_match(input, lPathMatch)};
 
     ODL_EXIT_B(result); //####
     return result;
@@ -409,7 +409,7 @@ nImO::ChannelName::validTransport
 {
     ODL_ENTER(); //####
     ODL_S1s("input = ", input); //####
-    bool    result = std::regex_match(input, lTransportMatch);
+    bool    result{std::regex_match(input, lTransportMatch)};
 
     ODL_EXIT_B(result); //####
     return result;

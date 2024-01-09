@@ -817,7 +817,7 @@ createTables
     {
         if ((nullptr != owner) && logging)
         {
-            owner->report("creating tables.");
+            owner->report("creating tables."s);
         }
         status = doBeginTransaction(owner, dbHandle);
         if (status.first)
@@ -903,7 +903,7 @@ setupCountChannels
 
         if (0 < nodeNameIndex)
         {
-            std::string name{*StaticCast(CPtr(std::string), stuff)};
+            auto    name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -948,12 +948,12 @@ setupInsertIntoChannels
 
         if ((0 < nodeNameIndex) && (0 < pathIndex) && (0 < isOutputIndex) && (0 < dataTypeIndex) && (0 < modesIndex))
         {
-            auto                channelData{StaticCast(CPtr(ChannelInsertData), stuff)};
-            std::string         node{channelData->_node};
-            std::string         path{channelData->_path};
-            bool                isOutput{channelData->_isOutput};
-            std::string         dataType{channelData->_dataType};
-            nImO::TransportType modes{channelData->_modes};
+            auto    channelData{StaticCast(CPtr(ChannelInsertData), stuff)};
+            auto    node{channelData->_node};
+            auto    path{channelData->_path};
+            bool    isOutput{channelData->_isOutput};
+            auto    dataType{channelData->_dataType};
+            auto    modes{channelData->_modes};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1015,13 +1015,13 @@ setupInsertIntoConnections
 
         if ((0 < fromNodeNameIndex) && (0 < fromPathIndex) && (0 < toNodeNameIndex) && (0 < toPathIndex) && (0 < dataTypeIndex) && (0 < modeIndex))
         {
-            auto                connectionData{StaticCast(CPtr(ConnectionInsertData), stuff)};
-            std::string         fromNode{connectionData->_fromNode};
-            std::string         fromPath{connectionData->_fromPath};
-            std::string         toNode{connectionData->_toNode};
-            std::string         toPath{connectionData->_toPath};
-            std::string         dataType{connectionData->_dataType};
-            nImO::TransportType mode{connectionData->_mode};
+            auto    connectionData{StaticCast(CPtr(ConnectionInsertData), stuff)};
+            auto    fromNode{connectionData->_fromNode};
+            auto    fromPath{connectionData->_fromPath};
+            auto    toNode{connectionData->_toNode};
+            auto    toPath{connectionData->_toPath};
+            auto    dataType{connectionData->_dataType};
+            auto    mode{connectionData->_mode};
 
             result = sqlite3_bind_text(statement, fromNodeNameIndex, fromNode.c_str(), StaticCast(int, fromNode.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1085,7 +1085,7 @@ setupInsertIntoMachines
         if ((0 < machineNameIndex) && (0 < machineAddressIndex))
         {
             auto                machineData{StaticCast(CPtr(MachineInsertData), stuff)};
-            std::string         name{machineData->_name};
+            auto                name{machineData->_name};
             nImO::IPv4Address   address{machineData->_address};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
@@ -1138,11 +1138,11 @@ setupInsertIntoNodes
         if ((0 < nodeNameIndex) && (0 < nodeAddressIndex) && (0 < nodePortIndex) && (0 < nodeServiceTypeIndex) && (0 < nodeExecPathIndex) &&
             (0 < nodeLaunchDirectoryIndex) && (0 < nodeCommandLineIndex))
         {
-            auto        nodeData{StaticCast(CPtr(NodeInsertData), stuff)};
-            std::string name{nodeData->_name};
-            std::string execPath{nodeData->_execPath};
-            std::string launchDirectory{nodeData->_launchDirectory};
-            std::string commandLine{nodeData->_commandLine};
+            auto    nodeData{StaticCast(CPtr(NodeInsertData), stuff)};
+            auto    name{nodeData->_name};
+            auto    execPath{nodeData->_execPath};
+            auto    launchDirectory{nodeData->_launchDirectory};
+            auto    commandLine{nodeData->_commandLine};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1211,9 +1211,9 @@ setupSearchChannels
 
         if ((0 < channelNodeIndex) && (0 < channelPathIndex))
         {
-            auto        channelSearch{StaticCast(CPtr(ChannelSearchData), stuff)};
-            std::string node{channelSearch->_node};
-            std::string path{channelSearch->_path};
+            auto    channelSearch{StaticCast(CPtr(ChannelSearchData), stuff)};
+            auto    node{channelSearch->_node};
+            auto    path{channelSearch->_path};
 
             result = sqlite3_bind_text(statement, channelNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1258,7 +1258,7 @@ setupSearchChannelsMachineOnly
 
         if (0 < machineNameIndex)
         {
-            std::string machine{*StaticCast(CPtr(std::string), stuff)};
+            auto    machine{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, machineNameIndex, machine.c_str(), StaticCast(int, machine.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -1299,7 +1299,7 @@ setupSearchChannelsNodeOnly
 
         if (0 < channelNodeIndex)
         {
-            std::string node{*StaticCast(CPtr(std::string), stuff)};
+            auto    node{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, channelNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -1341,9 +1341,9 @@ setupSearchConnectionsViaFrom
 
         if ((0 < fromNodeIndex) && (0 < fromPathIndex))
         {
-            auto        connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
-            std::string node{connectionSearch->_node};
-            std::string path{connectionSearch->_path};
+            auto    connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
+            auto    node{connectionSearch->_node};
+            auto    path{connectionSearch->_path};
 
             result = sqlite3_bind_text(statement, fromNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1389,9 +1389,9 @@ setupSearchConnectionsViaTo
 
         if ((0 < toNodeIndex) && (0 < toPathIndex))
         {
-            auto        connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
-            std::string node{connectionSearch->_node};
-            std::string path{connectionSearch->_path};
+            auto    connectionSearch{StaticCast(CPtr(ConnectionSearchData), stuff)};
+            auto    node{connectionSearch->_node};
+            auto    path{connectionSearch->_path};
 
             result = sqlite3_bind_text(statement, toNodeIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1436,7 +1436,7 @@ setupSearchMachines
 
         if (0 < machineNameIndex)
         {
-            std::string name{*StaticCast(CPtr(std::string), stuff)};
+            auto    name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, machineNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -1478,7 +1478,7 @@ setupSearchNodeConnections
 
         if ((0 < fromNodeIndex) && (0 < toNodeIndex))
         {
-            std::string name{*StaticCast(CPtr(std::string), stuff)};
+            auto    name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, fromNodeIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK == result)
@@ -1523,7 +1523,7 @@ setupSearchNodes
 
         if (0 < nodeNameIndex)
         {
-            std::string name{*StaticCast(CPtr(std::string), stuff)};
+            auto    name{*StaticCast(CPtr(std::string), stuff)};
 
             result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
             if (SQLITE_OK != result)
@@ -1669,7 +1669,7 @@ nImO::Registry::Registry
 
         if (! status.first)
         {
-            std::string prefix{"Problem creating tables in database: "s};
+            auto    prefix{"Problem creating tables in database: "s};
 
             if ((nullptr != _owner) && logging)
             {
@@ -1681,7 +1681,7 @@ nImO::Registry::Registry
     else
     {
         std::string errorMessage(sqlite3_errstr(result));
-        std::string prefix{"Unable to open database: "s};
+        auto        prefix{"Unable to open database: "s};
 
         if ((nullptr != _owner) && logging)
         {

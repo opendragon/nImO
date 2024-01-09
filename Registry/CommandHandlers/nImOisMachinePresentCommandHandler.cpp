@@ -106,11 +106,11 @@ nImO::IsMachinePresentCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("is machine present request received");
+    _owner->report("is machine present request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -122,7 +122,7 @@ nImO::IsMachinePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present", statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present"s, statusWithBool.second);
             }
             else
             {

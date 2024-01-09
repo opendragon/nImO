@@ -110,9 +110,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging,
-                                                                                 nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
@@ -138,11 +137,11 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        inValid = false;
-                                bool        outValid = false;
+                                bool        inValid{false};
+                                bool        outValid{false};
                                 std::string inChannelPath;
                                 std::string outChannelPath;
-                                std::string basePath{optionValues._base};
+                                auto        basePath{optionValues._base};
 
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {

@@ -147,7 +147,7 @@ IntegerArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{std::to_string(_defaultValue)};
+    auto    result{std::to_string(_defaultValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -158,7 +158,7 @@ IntegerArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{getDefaultValue()};
+    auto    result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -169,7 +169,7 @@ IntegerArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{std::to_string(_currentValue)};
+    auto    result{std::to_string(_currentValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -223,14 +223,14 @@ IntegerArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::IntegerTypeTag, 5, name, argMode, inVector))
     {
-        bool        okSoFar{true};
-        int         defaultValue{0};
-        int         maxValue;
-        int         minValue{0};
-        std::string minValString{inVector[0]};
-        std::string maxValString{inVector[1]};
-        std::string defaultString{inVector[2]};
-        std::string description{inVector[3]};
+        bool    okSoFar{true};
+        int     defaultValue{0};
+        int     maxValue;
+        int     minValue{0};
+        auto    minValString{inVector[0]};
+        auto    maxValString{inVector[1]};
+        auto    defaultString{inVector[2]};
+        auto    description{inVector[3]};
 
         if (defaultString.empty())
         {
@@ -320,7 +320,7 @@ IntegerArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::IntegerTypeTag) + getParameterSeparator()};
+    auto    result{prefixFields(ArgumentTypeTag::IntegerTypeTag) + getParameterSeparator()};
 
     if (_hasMinimumValue)
     {

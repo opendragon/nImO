@@ -102,8 +102,8 @@ nImO::GetConnectionInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoArray{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoArray{element->asArray()};
 
         if (nullptr == infoArray)
         {
@@ -113,13 +113,13 @@ nImO::GetConnectionInformationResponseHandler::doIt
         {
             if (6 < infoArray->size())
             {
-                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                CPtr(String)    fromNodePtr{(*infoArray)[1]->asString()};
-                CPtr(String)    fromPathPtr{(*infoArray)[2]->asString()};
-                CPtr(String)    toNodePtr{(*infoArray)[3]->asString()};
-                CPtr(String)    toPathPtr{(*infoArray)[4]->asString()};
-                CPtr(String)    dataTypePtr{(*infoArray)[5]->asString()};
-                CPtr(Integer)   modePtr{(*infoArray)[6]->asInteger()};
+                auto    foundPtr{(*infoArray)[0]->asLogical()};
+                auto    fromNodePtr{(*infoArray)[1]->asString()};
+                auto    fromPathPtr{(*infoArray)[2]->asString()};
+                auto    toNodePtr{(*infoArray)[3]->asString()};
+                auto    toPathPtr{(*infoArray)[4]->asString()};
+                auto    dataTypePtr{(*infoArray)[5]->asString()};
+                auto    modePtr{(*infoArray)[6]->asInteger()};
 
                 if ((nullptr != foundPtr) && (nullptr != fromNodePtr) && (nullptr != fromPathPtr) && (nullptr != toNodePtr) &&
                     (nullptr != toPathPtr) && (nullptr != dataTypePtr) && (nullptr != modePtr))

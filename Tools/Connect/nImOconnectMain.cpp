@@ -151,10 +151,10 @@ main
                 auto                fromChannel{firstArg.getCurrentValue()};
                 auto                toChannel{secondArg.getCurrentValue()};
                 auto                modeRequested{thirdArg.getCurrentValue()};
-                std::string         fromNode{fromChannel->getNode()};
-                std::string         fromPath{fromChannel->getPath()};
-                std::string         toNode{toChannel->getNode()};
-                std::string         toPath{toChannel->getPath()};
+                auto                fromNode{fromChannel->getNode()};
+                auto                fromPath{fromChannel->getPath()};
+                auto                toNode{toChannel->getNode()};
+                auto                toPath{toChannel->getPath()};
                 std::string         dataType{};
                 auto                statusWithBool{proxy.isChannelPresent(fromNode, fromPath)};
                 bool                previousStateForFrom{false};

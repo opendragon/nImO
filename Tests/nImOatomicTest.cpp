@@ -100,7 +100,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -1243,8 +1243,8 @@ doTestStringBufferWithSmallBlob
                     smallBlob[ii] = aByte;
                 }
                 stuff->addBytes(smallBlob.get(), kSmallTestSize);
-                auto        resultString{stuff->getString()};
-                std::string expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
+                auto    resultString{stuff->getString()};
+                auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -1326,8 +1326,8 @@ doTestStringBufferWithBigBlob
                     bigBlob[ii] = aByte;
                 }
                 stuff->addBytes(bigBlob.get(), kBigTestSize);
-                auto        resultString{stuff->getString()};
-                std::string expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
+                auto    resultString{stuff->getString()};
+                auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -1960,7 +1960,7 @@ doTestSmallBlobValue
             }
             else
             {
-                std::string expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
+                auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -2041,7 +2041,7 @@ doTestBigBlobValue
             }
             else
             {
-                std::string expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
+                auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {

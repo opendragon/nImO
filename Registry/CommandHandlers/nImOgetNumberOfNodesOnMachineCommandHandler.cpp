@@ -107,11 +107,11 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get number of nodes on machine request received");
+    _owner->report("get number of nodes on machine request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -125,7 +125,7 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
             {
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine", count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine"s, count);
             }
             else
             {

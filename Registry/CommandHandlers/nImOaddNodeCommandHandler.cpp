@@ -107,34 +107,34 @@ nImO::AddNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("add node request received");
+    _owner->report("add node request received"s);
     if (6 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        SpValue         element4{arguments[4]};
-        SpValue         element5{arguments[5]};
-        SpValue         element6{arguments[6]};
-        CPtr(String)    machineNameString{element1->asString()};
-        CPtr(String)    nodeNameString{element2->asString()};
-        CPtr(String)    execPathString{element3->asString()};
-        CPtr(String)    launchDirectoryString{element4->asString()};
-        CPtr(String)    commandLineString{element5->asString()};
-        CPtr(Array)     connArray{element6->asArray()};
-        Connection      theConnection;
-        ServiceType     theType;
+        auto        element1{arguments[1]};
+        auto        element2{arguments[2]};
+        auto        element3{arguments[3]};
+        auto        element4{arguments[4]};
+        auto        element5{arguments[5]};
+        auto        element6{arguments[6]};
+        auto        machineNameString{element1->asString()};
+        auto        nodeNameString{element2->asString()};
+        auto        execPathString{element3->asString()};
+        auto        launchDirectoryString{element4->asString()};
+        auto        commandLineString{element5->asString()};
+        auto        connArray{element6->asArray()};
+        Connection  theConnection;
+        ServiceType theType;
 
         if (3 < connArray->size())
         {
-            SpValue         connElem1{(*connArray)[0]};
-            CPtr(Integer)   addressValue{connElem1->asInteger()};
-            SpValue         connElem2{(*connArray)[1]};
-            CPtr(Integer)   portValue{connElem2->asInteger()};
-            SpValue         connElem3{(*connArray)[2]};
-            CPtr(Integer)   transportValue{connElem3->asInteger()};
-            SpValue         connElem4{(*connArray)[3]};
-            CPtr(Integer)   typeValue{connElem4->asInteger()};
+            SpValue connElem1{(*connArray)[0]};
+            SpValue connElem2{(*connArray)[1]};
+            SpValue connElem3{(*connArray)[2]};
+            SpValue connElem4{(*connArray)[3]};
+            auto    addressValue{connElem1->asInteger()};
+            auto    portValue{connElem2->asInteger()};
+            auto    transportValue{connElem3->asInteger()};
+            auto    typeValue{connElem4->asInteger()};
 
             if (nullptr != addressValue)
             {
@@ -156,21 +156,21 @@ nImO::AddNodeCommandHandler::doIt
         if ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && (nullptr != launchDirectoryString) &&
             (nullptr != commandLineString) && (nullptr != connArray))
         {
-            std::string machineName{machineNameString->getValue()};
+            auto        machineName{machineNameString->getValue()};
             IPv4Address address{theConnection._address};
             auto        status{_registry->addMachine(machineName, address)};
 
             if (status.first)
             {
-                std::string nodeName{nodeNameString->getValue()};
-                std::string execPath{execPathString->getValue()};
-                std::string launchDirectory{launchDirectoryString->getValue()};
-                std::string commandLine{commandLineString->getValue()};
+                auto    nodeName{nodeNameString->getValue()};
+                auto    execPath{execPathString->getValue()};
+                auto    launchDirectory{launchDirectoryString->getValue()};
+                auto    commandLine{commandLineString->getValue()};
 
                 status = _registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection);
                 if (status.first)
                 {
-                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node", true);
+                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node"s, true);
                     if (okSoFar)
                     {
                         sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);

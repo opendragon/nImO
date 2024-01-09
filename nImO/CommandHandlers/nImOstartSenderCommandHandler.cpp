@@ -106,11 +106,11 @@ nImO::StartSenderCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("start sender request received");
+    _ownerForInputOutput->report("start sender request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    pathString{element->asString()};
+        auto    element{arguments[1]};
+        auto    pathString{element->asString()};
 
         if (nullptr != pathString)
         {
@@ -123,7 +123,7 @@ nImO::StartSenderCommandHandler::doIt
             else
             {
                 // Send the response to the requestor.
-                okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender", theChannel->start());
+                okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender"s, theChannel->start());
             }
         }
         else

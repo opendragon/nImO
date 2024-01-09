@@ -208,7 +208,7 @@ nImO::Map::deeplyEqualTo
 
     if (! result)
     {
-        CPtr(Map)   otherPtr{other.asMap()};
+        auto    otherPtr{other.asMap()};
 
         if ((nullptr != otherPtr) && (size() == otherPtr->size()))
         {
@@ -354,7 +354,7 @@ nImO::Map::extractValue
         {
             ODL_LOG("! (atEnd)"); //####
             IntStatus   numStatus;
-            int64_t     elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
+            auto        elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
 
             if (IntStatus::Successful == numStatus)
             {
@@ -879,7 +879,7 @@ nImO::Map::readFromStringBuffer
                 }
                 else
                 {
-                    Enumerable  elementType{keyValue->enumerationType()};
+                    auto    elementType{keyValue->enumerationType()};
 
                     if ((Enumerable::Unknown == elementType) || (Enumerable::NotEnumerable == elementType))
                     {

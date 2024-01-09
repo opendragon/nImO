@@ -107,7 +107,7 @@ nImO::CatchSignal
     else
 #endif // defined(SIGINT)
     {
-        std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + nImO::NameOfSignal(signal)};
+        auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + nImO::NameOfSignal(signal)};
 
         NIMO_UNUSED_VAR_(message);
         ODL_EXIT_EXIT(1); //####

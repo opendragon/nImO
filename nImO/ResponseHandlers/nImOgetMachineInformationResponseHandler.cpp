@@ -102,8 +102,8 @@ nImO::GetMachineInformationResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) infoArray{element->asArray()};
+        auto    element{stuff[1]};
+        auto    infoArray{element->asArray()};
 
         if (nullptr == infoArray)
         {
@@ -113,9 +113,9 @@ nImO::GetMachineInformationResponseHandler::doIt
         {
             if (2 < infoArray->size())
             {
-                CPtr(Logical)   foundPtr{(*infoArray)[0]->asLogical()};
-                CPtr(String)    namePtr{(*infoArray)[1]->asString()};
-                CPtr(Integer)   addressPtr{(*infoArray)[2]->asInteger()};
+                auto    foundPtr{(*infoArray)[0]->asLogical()};
+                auto    namePtr{(*infoArray)[1]->asString()};
+                auto    addressPtr{(*infoArray)[2]->asInteger()};
 
                 if ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != addressPtr))
                 {

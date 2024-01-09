@@ -93,7 +93,7 @@ processRequest
     ODL_S1s("incoming = ", incoming); //####
     // We need to strip off the Message separator first.
     bool                okSoFar{false};
-    std::string         trimmed{nImO::UnpackageMessage(incoming)};
+    auto                trimmed{nImO::UnpackageMessage(incoming)};
     nImO::ByteVector    rawStuff;
 
     ODL_S1s("trimmed <- ", trimmed); //####
@@ -106,16 +106,16 @@ processRequest
         {
             stuff->open(false);
             stuff->appendBytes(rawStuff.data(), rawStuff.size());
-            nImO::SpValue   contents{stuff->getValue()};
+            auto    contents{stuff->getValue()};
 
             stuff->close();
             if (stuff->readAtEnd() && (nullptr != contents))
             {
-                CPtr(nImO::Array)   asArray{contents->asArray()};
+                auto    asArray{contents->asArray()};
 
                 if ((nullptr != asArray) && (0 < asArray->size()))
                 {
-                    CPtr(nImO::String)  request{(*asArray)[0]->asString()};
+                    auto    request{(*asArray)[0]->asString()};
 
                     if (nullptr == request)
                     {
@@ -123,7 +123,7 @@ processRequest
                     }
                     else
                     {
-                        nImO::SpCommandHandler  handler{owner->asServiceContext()->getHandler(request->getValue())};
+                        auto    handler{owner->asServiceContext()->getHandler(request->getValue())};
 
                         if (nullptr == handler)
                         {
@@ -196,7 +196,7 @@ nImO::CommandSession::start
     std::atomic_bool   keepGoing{true};
 
 #if defined(nImO_ChattyTcpLogging)
-    _owner->report("retrieving request");
+    _owner->report("retrieving request"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
     boost::asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                                     [this, &keepGoing]
@@ -209,19 +209,19 @@ nImO::CommandSession::start
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpLogging)
-                                                _owner->report("async_read_until() operation cancelled");
+                                                _owner->report("async_read_until() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                _owner->report("async_read_until() failed");
+                                                _owner->report("async_read_until() failed -> "s + ec.message());
                                             }
                                         }
                                         else
                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                            _owner->report("got request");
+                                            _owner->report("got request"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                             if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
                                                                     buffers_end(_buffer.data())}))

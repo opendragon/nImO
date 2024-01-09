@@ -108,11 +108,11 @@ nImO::GetLaunchDetailsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get launch details request received");
+    _owner->report("get launch details request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -131,7 +131,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
                 detailsArray->addValue(std::make_shared<String>(theDetails._execPath));
                 detailsArray->addValue(std::make_shared<String>(theDetails._launchDirectory));
                 detailsArray->addValue(std::make_shared<String>(theDetails._commandLine));
-                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details", detailsArray);
+                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details"s, detailsArray);
             }
             else
             {

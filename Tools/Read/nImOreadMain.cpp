@@ -111,11 +111,10 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string                 nodeName{nImO::ConstructNodeName(optionValues._node, "read"s, optionValues._tag)};
-            auto                        ourContext{std::make_shared<nImO::SinkContext>(argc, argv, progName, "read"s, optionValues._logging,
-                                                                                       nodeName)};
-            nImO::Connection            registryConnection;
-            Ptr(nImO::ServiceContext)   asServiceContext{ourContext->asServiceContext()};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "read"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, progName, "read"s, optionValues._logging, nodeName)};
+            nImO::Connection    registryConnection;
+            auto                asServiceContext{ourContext->asServiceContext()};
 
             nImO::InputOutputContext::addInputOutputHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
@@ -139,9 +138,9 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        inValid = false;
+                                bool        inValid{false};
                                 std::string inChannelPath;
-                                std::string basePath{optionValues._base};
+                                auto        basePath{optionValues._base};
 
                                 if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
                                 {

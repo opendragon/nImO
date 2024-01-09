@@ -108,15 +108,15 @@ nImO::GetConnectionInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get connection information request received");
+    _owner->report("get connection information request received"s);
     if (3 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        CPtr(String)    asString1{element1->asString()};
-        CPtr(String)    asString2{element2->asString()};
-        CPtr(Logical)   asLogical{element3->asLogical()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    asString1{element1->asString()};
+        auto    asString2{element2->asString()};
+        auto    asLogical{element3->asLogical()};
 
         if ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))
         {
@@ -134,7 +134,7 @@ nImO::GetConnectionInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._toPath));
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
-                okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information", infoArray);
+                okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information"s, infoArray);
             }
             else
             {

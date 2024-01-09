@@ -149,7 +149,7 @@ StringsArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue};
+    auto    result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -160,7 +160,7 @@ StringsArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{"\""s + getDefaultValue() + "\""s};
+    auto    result{"\""s + getDefaultValue() + "\""s};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -222,9 +222,9 @@ StringsArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::StringsTypeTag, 3, name, argMode, inVector, 4))
     {
-        std::string defaultString{inVector[0]};
-        std::string stringList{inVector[1]};
-        std::string description{inVector[2]};
+        auto        defaultString{inVector[0]};
+        auto        stringList{inVector[1]};
+        auto        description{inVector[2]};
         StringSet   allowedValues;
 
         // We need to split the input into keys.
@@ -291,7 +291,7 @@ StringsArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
+    auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
     std::string scratch;
 
     for (auto & walker : _allowedValues)

@@ -179,12 +179,12 @@ PortArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::PortTypeTag, 4, name, argMode, inVector))
     {
-        bool        okSoFar{true};
-        bool        isSystemPort{false};
-        int         defaultValue{0};
-        std::string portClass{inVector[0]};
-        std::string defaultString{inVector[1]};
-        std::string description{inVector[2]};
+        bool    okSoFar{true};
+        bool    isSystemPort{false};
+        int     defaultValue{0};
+        auto    portClass{inVector[0]};
+        auto    defaultString{inVector[1]};
+        auto    description{inVector[2]};
 
         if ("s" == portClass)
         {
@@ -232,8 +232,8 @@ PortArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::PortTypeTag) + getParameterSeparator() + (_isSystemPort ? "s"s : "r"s) +
-                        suffixFields(getDefaultValue())};
+    auto    result{prefixFields(ArgumentTypeTag::PortTypeTag) + getParameterSeparator() + (_isSystemPort ? "s"s : "r"s) +
+                    suffixFields(getDefaultValue())};
 
     ODL_OBJEXIT_s(result); //####
     return result;

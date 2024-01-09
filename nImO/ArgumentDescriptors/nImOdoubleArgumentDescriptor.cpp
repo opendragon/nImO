@@ -147,7 +147,7 @@ DoubleArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{nImO::ConvertDoubleToString(_defaultValue)};
+    auto    result{nImO::ConvertDoubleToString(_defaultValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -158,7 +158,7 @@ DoubleArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{getDefaultValue()};
+    auto    result{getDefaultValue()};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -169,7 +169,7 @@ DoubleArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{nImO::ConvertDoubleToString(_currentValue)};
+    auto    result{nImO::ConvertDoubleToString(_currentValue)};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -223,14 +223,14 @@ DoubleArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::DoubleTypeTag, 5, name, argMode, inVector))
     {
-        bool        okSoFar{true};
-        double      defaultValue{0};
-        double      maxValue{0};
-        double      minValue{0};
-        std::string minValString{inVector[0]};
-        std::string maxValString{inVector[1]};
-        std::string defaultString{inVector[2]};
-        std::string description{inVector[3]};
+        bool    okSoFar{true};
+        double  defaultValue{0};
+        double  maxValue{0};
+        double  minValue{0};
+        auto    minValString{inVector[0]};
+        auto    maxValString{inVector[1]};
+        auto    defaultString{inVector[2]};
+        auto    description{inVector[3]};
 
         if (defaultString.empty())
         {
@@ -320,7 +320,7 @@ DoubleArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::DoubleTypeTag) + getParameterSeparator()};
+    auto    result{prefixFields(ArgumentTypeTag::DoubleTypeTag) + getParameterSeparator()};
 
     if (_hasMinimumValue)
     {

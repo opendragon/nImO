@@ -136,7 +136,7 @@ ChannelArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue};
+    auto    result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -147,7 +147,7 @@ ChannelArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{_defaultValue};
+    auto    result{_defaultValue};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -214,8 +214,8 @@ ChannelArgumentDescriptor::parseArgString
 
     if (partitionString(inString, ArgumentTypeTag::ChannelTypeTag, 3, name, argMode, inVector))
     {
-        std::string defaultString{inVector[0]};
-        std::string description{inVector[1]};
+        auto        defaultString{inVector[0]};
+        auto        description{inVector[1]};
         std::string failReason;
 
         if (ChannelName::parse(defaultString, failReason))
@@ -263,7 +263,7 @@ ChannelArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
-    std::string result{prefixFields(ArgumentTypeTag::ChannelTypeTag) + suffixFields(getDefaultValue())};
+    auto    result{prefixFields(ArgumentTypeTag::ChannelTypeTag) + suffixFields(getDefaultValue())};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -275,8 +275,8 @@ ChannelArgumentDescriptor::validate
 {
     ODL_OBJENTER(); //####
     ODL_S1s("value = ", value); //####
-    std::string     failReason;
-    SpChannelName   trialValue{ChannelName::parse(value, failReason)};
+    std::string failReason;
+    auto        trialValue{ChannelName::parse(value, failReason)};
 
     setValidity(nullptr != trialValue);
     ODL_B1("_valid <- ", isValid()); //####

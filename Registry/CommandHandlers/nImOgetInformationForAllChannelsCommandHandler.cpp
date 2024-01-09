@@ -108,7 +108,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all channels request received");
+    _owner->report("get information for all channels request received"s);
     if (0 < arguments.size())
     {
         auto    statusWithInfoVector{_registry->getInformationForAllChannels()};
@@ -132,7 +132,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                 channelArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels", channelArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels"s, channelArray);
         }
         else
         {

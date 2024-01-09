@@ -98,7 +98,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -147,8 +147,8 @@ setValueAndCheck
                 result = 0;
                 for (size_t ii = 0; (0 == result) && (ii < expectedSize); ++ii)
                 {
-                    std::string expectedString{expectedContents[ii]};
-                    std::string outString{outVec[ii]};
+                    auto    expectedString{expectedContents[ii]};
+                    auto    outString{outVec[ii]};
 
                     ODL_S2s("expectedString = ", expectedString, "outString = ", outString); //####
                     if (expectedString != outString)
@@ -203,7 +203,7 @@ extractValueAndCheck
         {
             stuff.open(false);
             stuff.appendBytes(outBytes.data(), outBytes.size());
-            SpValue extractedValue{stuff.getValue()};
+            auto    extractedValue{stuff.getValue()};
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             stuff.close();
@@ -510,8 +510,8 @@ doTestMIMEBytesMod3Is0Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto        inOutString{PackageMessage(inOutValue)};
-            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+            auto    inOutString{PackageMessage(inOutValue)};
+            auto    inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
@@ -582,8 +582,8 @@ doTestMIMEBytesMod3Is1Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto        inOutString{PackageMessage(inOutValue)};
-            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+            auto    inOutString{PackageMessage(inOutValue)};
+            auto    inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
@@ -654,8 +654,8 @@ doTestMIMEBytesMod3Is2Packaged
             }
             inOutValue.clear();
             EncodeBytesAsMIME(inOutValue, inValue.data(), inValue.size());
-            auto        inOutString{PackageMessage(inOutValue)};
-            std::string inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
+            auto    inOutString{PackageMessage(inOutValue)};
+            auto    inOutTrimmed{nImO::UnpackageMessage(*inOutString)};
 
             outValue.clear();
             DecodeMIMEToBytes(inOutTrimmed, outValue);
@@ -812,7 +812,7 @@ doTestMIMEExtractEmptyMessage
                 {
                     stuff->open(false);
                     stuff->appendBytes(outBytes.data(), outBytes.size());
-                    SpValue extractedValue{stuff->getValue()};
+                    auto    extractedValue{stuff->getValue()};
 
                     ODL_P1("extractedValue <- ", extractedValue.get()); //####
                     stuff->close();

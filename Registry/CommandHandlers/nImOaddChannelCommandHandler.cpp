@@ -108,33 +108,33 @@ nImO::AddChannelCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("add channel request received");
+    _owner->report("add channel request received"s);
     if (5 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        SpValue         element4{arguments[4]};
-        SpValue         element5{arguments[5]};
-        CPtr(String)    nodeNameString{element1->asString()};
-        CPtr(String)    pathString{element2->asString()};
-        CPtr(Logical)   isOutputValue{element3->asLogical()};
-        CPtr(String)    dataTypeString{element4->asString()};
-        CPtr(Integer)   modesString{element5->asInteger()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    element4{arguments[4]};
+        auto    element5{arguments[5]};
+        auto    nodeNameString{element1->asString()};
+        auto    pathString{element2->asString()};
+        auto    isOutputValue{element3->asLogical()};
+        auto    dataTypeString{element4->asString()};
+        auto    modesString{element5->asInteger()};
 
         if ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) &&
             (nullptr != dataTypeString) && (nullptr != modesString))
         {
-            std::string     nodeName{nodeNameString->getValue()};
-            std::string     path{pathString->getValue()};
-            bool            isOutput{isOutputValue->getValue()};
-            std::string     dataType{dataTypeString->getValue()};
-            TransportType   modes{StaticCast(TransportType, modesString->getIntegerValue())};
-            auto            status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
+            auto    nodeName{nodeNameString->getValue()};
+            auto    path{pathString->getValue()};
+            auto    isOutput{isOutputValue->getValue()};
+            auto    dataType{dataTypeString->getValue()};
+            auto    modes{StaticCast(TransportType, modesString->getIntegerValue())};
+            auto    status{_registry->addChannel(nodeName, path, isOutput, dataType, modes)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "add channel", true);
+                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "add channel"s, true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelAddedStatus + kStatusSeparator + nodeName + kStatusSeparator + path);

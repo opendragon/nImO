@@ -108,7 +108,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all connections request received");
+    _owner->report("get information for all connections request received"s);
     if (0 < arguments.size())
     {
         auto    statusWithInfoVector{_registry->getInformationForAllConnections()};
@@ -132,7 +132,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
                 connectionArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections", connectionArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections"s, connectionArray);
         }
         else
         {

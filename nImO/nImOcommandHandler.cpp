@@ -169,7 +169,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpLogging)
-            context->report("sending response");
+            context->report("sending response"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText]
@@ -182,20 +182,20 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpLogging)
-                                                context->report("async_write() operation cancelled");
+                                                context->report("async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                context->report("async_write() failed");
+                                                context->report("async_write() failed -> "s + ec.message());
                                             }
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
                                         }
                                         else
                                         {
-                                            context->report(responseText + " response sent");
+                                            context->report(responseText + " response sent"s);
                                             okSoFar = true;
                                             keepGoing = false;
                                         }
@@ -272,7 +272,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpLogging)
-            context->report("sending response");
+            context->report("sending response"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText]
@@ -285,20 +285,20 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpLogging)
-                                                context->report("async_write() operation cancelled");
+                                                context->report("async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                context->report("async_write() failed");
+                                                context->report("async_write() failed -> "s + ec.message());
                                             }
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
                                         }
                                         else
                                         {
-                                            context->report(responseText + " response sent");
+                                            context->report(responseText + " response sent"s);
                                             okSoFar = true;
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
@@ -379,6 +379,6 @@ nImO::CommandHandler::SendBadResponse
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
-    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown", false);
+    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false);
     ODL_EXIT(); //####
 } // nImO::CommandHandler::SendBadResponse

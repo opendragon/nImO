@@ -282,8 +282,8 @@ nImO::Array::extractValue
         if (! atEnd)
         {
             ODL_LOG("(! atEnd)"); //####
-            IntStatus numStatus;
-            int64_t   elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
+            IntStatus   numStatus;
+            auto        elementCount{extractInt64FromMessage(theMessage, aByte, position, numStatus)};
 
             if (IntStatus::Successful == numStatus)
             {
@@ -720,7 +720,7 @@ nImO::Array::readFromStringBuffer
             }
             else
             {
-                SpValue element{Value::readFromStringBuffer(inBuffer, localIndex)};
+                auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
                 if (nullptr == element)
@@ -791,7 +791,7 @@ nImO::Array::writeToMessage
             if (nullptr != aValue)
             {
                 // Check for sequences of Double values
-                CPtr(Double)    doubleValue{aValue->asDouble()};
+                auto    doubleValue{aValue->asDouble()};
 
                 if (nullptr == doubleValue)
                 {

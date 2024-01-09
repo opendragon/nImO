@@ -108,7 +108,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get names of machines request received");
+    _owner->report("get names of machines request received"s);
     if (0 < arguments.size())
     {
         auto    statusWithSet{_registry->getNamesOfMachines()};
@@ -122,7 +122,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
             {
                 stringSet->addValue(std::make_shared<String>(*walker));
             }
-            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines", stringSet);
+            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines"s, stringSet);
         }
         else
         {

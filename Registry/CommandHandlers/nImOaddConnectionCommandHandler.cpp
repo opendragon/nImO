@@ -108,36 +108,36 @@ nImO::AddConnectionCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("add connection request received");
+    _owner->report("add connection request received"s);
     if (6 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        SpValue         element4{arguments[4]};
-        SpValue         element5{arguments[5]};
-        SpValue         element6{arguments[6]};
-        CPtr(String)    fromNodeNameString{element1->asString()};
-        CPtr(String)    fromPathString{element2->asString()};
-        CPtr(String)    toNodeNameString{element3->asString()};
-        CPtr(String)    toPathString{element4->asString()};
-        CPtr(String)    dataTypeString{element5->asString()};
-        CPtr(Integer)   modeValue{element6->asInteger()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    element4{arguments[4]};
+        auto    element5{arguments[5]};
+        auto    element6{arguments[6]};
+        auto    fromNodeNameString{element1->asString()};
+        auto    fromPathString{element2->asString()};
+        auto    toNodeNameString{element3->asString()};
+        auto    toPathString{element4->asString()};
+        auto    dataTypeString{element5->asString()};
+        auto    modeValue{element6->asInteger()};
 
         if ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && (nullptr != toPathString) &&
             (nullptr != dataTypeString) && (nullptr != modeValue))
         {
-            std::string     fromNodeName{fromNodeNameString->getValue()};
-            std::string     fromPath{fromPathString->getValue()};
-            std::string     toNodeName{toNodeNameString->getValue()};
-            std::string     toPath{toPathString->getValue()};
-            std::string     dataType{dataTypeString->getValue()};
-            TransportType   mode{StaticCast(TransportType, modeValue->getIntegerValue())};
-            auto            status{_registry->addConnection(fromNodeName, fromPath, toNodeName, toPath, dataType, mode)};
+            auto    fromNodeName{fromNodeNameString->getValue()};
+            auto    fromPath{fromPathString->getValue()};
+            auto    toNodeName{toNodeNameString->getValue()};
+            auto    toPath{toPathString->getValue()};
+            auto    dataType{dataTypeString->getValue()};
+            auto    mode{StaticCast(TransportType, modeValue->getIntegerValue())};
+            auto    status{_registry->addConnection(fromNodeName, fromPath, toNodeName, toPath, dataType, mode)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection", true);
+                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection"s, true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionAddedStatus + kStatusSeparator + fromNodeName + kStatusSeparator +

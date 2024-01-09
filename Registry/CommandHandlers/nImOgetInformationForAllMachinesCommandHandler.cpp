@@ -108,7 +108,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all machines request received");
+    _owner->report("get information for all machines request received"s);
     if (0 < arguments.size())
     {
         auto     statusWithInfoVector{_registry->getInformationForAllMachines()};
@@ -128,7 +128,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
                 machineArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines", machineArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines"s, machineArray);
         }
         else
         {

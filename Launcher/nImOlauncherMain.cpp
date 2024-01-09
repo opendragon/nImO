@@ -90,7 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    std::string                         defaultFileName{"services.txt"s};
+    auto                                defaultFileName{"services.txt"s};
     nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
                                                     defaultFileName};
     nImO::DescriptorVector              argumentList;
@@ -113,9 +113,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher"s, optionValues._logging, true,
-                                                                                  nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher"s, optionValues._logging, true, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 

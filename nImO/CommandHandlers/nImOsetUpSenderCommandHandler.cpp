@@ -106,19 +106,19 @@ nImO::SetUpSenderCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("set up sender request received");
+    _ownerForInputOutput->report("set up sender request received"s);
     if (5 < arguments.size())
     {
-        SpValue         element1{arguments[1]};
-        SpValue         element2{arguments[2]};
-        SpValue         element3{arguments[3]};
-        SpValue         element4{arguments[4]};
-        SpValue         element5{arguments[5]};
-        CPtr(String)    pathString{element1->asString()};
-        CPtr(Address)   addressValue{element2->asAddress()};
-        CPtr(Integer)   portValue{element3->asInteger()};
-        CPtr(String)    dataTypeString{element4->asString()};
-        CPtr(Integer)   modeValue{element5->asInteger()};
+        auto    element1{arguments[1]};
+        auto    element2{arguments[2]};
+        auto    element3{arguments[3]};
+        auto    element4{arguments[4]};
+        auto    element5{arguments[5]};
+        auto    pathString{element1->asString()};
+        auto    addressValue{element2->asAddress()};
+        auto    portValue{element3->asInteger()};
+        auto    dataTypeString{element4->asString()};
+        auto    modeValue{element5->asInteger()};
 
         if ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue) && (nullptr != dataTypeString) && (nullptr != modeValue))
         {
@@ -141,7 +141,7 @@ nImO::SetUpSenderCommandHandler::doIt
 
                     infoArray->addValue(std::make_shared<Address>(theConnection._address));
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender", infoArray);
+                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray);
                 }
             }
         }

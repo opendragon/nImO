@@ -102,8 +102,8 @@ nImO::GetLaunchDetailsResponseHandler::doIt
     _result._found = false;
     if (1 < stuff.size())
     {
-        SpValue     element{stuff[1]};
-        CPtr(Array) detailsArray{element->asArray()};
+        auto    element{stuff[1]};
+        auto    detailsArray{element->asArray()};
 
         if (nullptr == detailsArray)
         {
@@ -113,10 +113,10 @@ nImO::GetLaunchDetailsResponseHandler::doIt
         {
             if (3 < detailsArray->size())
             {
-                CPtr(Logical)   foundPtr{(*detailsArray)[0]->asLogical()};
-                CPtr(String)    execPathPtr{(*detailsArray)[1]->asString()};
-                CPtr(String)    launchDirectoryPtr{(*detailsArray)[2]->asString()};
-                CPtr(String)    commandLinePtr{(*detailsArray)[3]->asString()};
+                auto    foundPtr{(*detailsArray)[0]->asLogical()};
+                auto    execPathPtr{(*detailsArray)[1]->asString()};
+                auto    launchDirectoryPtr{(*detailsArray)[2]->asString()};
+                auto    commandLinePtr{(*detailsArray)[3]->asString()};
 
                 if ((nullptr != foundPtr) && (nullptr != execPathPtr) && (nullptr != launchDirectoryPtr) && (nullptr != commandLinePtr))
                 {

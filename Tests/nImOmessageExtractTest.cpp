@@ -94,7 +94,7 @@ catchSignal
 {
     ODL_ENTER(); //####
     ODL_I1("signal = ", signal); //####
-    std::string message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
+    auto    message{"exiting due to signal "s + std::to_string(signal) + " = "s + NameOfSignal(signal)};
 
     NIMO_UNUSED_VAR_(message);
     ODL_EXIT_EXIT(1); //####
@@ -123,7 +123,7 @@ extractValueAndCheck
     // First, the 'this-should-work' test:
     stuff.open(false);
     stuff.appendBytes(insertedContents, insertedSize);
-    SpValue extractedValue{stuff.getValue()};
+    auto    extractedValue{stuff.getValue()};
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     stuff.close();
@@ -233,7 +233,7 @@ doTestExtractEmptyMessage
             };
             constexpr size_t    insertionCount{numElementsInArray(bytesToInsert)};
             ODL_PACKET("bytesToInsert", bytesToInsert, insertionCount); //####
-            SpValue             extractedValue{stuff->getValue()};
+            auto                extractedValue{stuff->getValue()};
 
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             if (stuff->readAtEnd())
@@ -4266,7 +4266,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 stuff->setValue(arrayWithIntegers);
                 stuff->close();
                 // Extract objects from the message and compare with the expected contents.
-                SpValue extractedValue{stuff->getValue(true)};
+                auto    extractedValue{stuff->getValue(true)};
 
                 ODL_P1("extractedValue <- ", extractedValue.get()); //####
                 if (nullptr == extractedValue)
@@ -4275,7 +4275,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 }
                 else
                 {
-                    CPtr(Flaw)    asFlaw{extractedValue->asFlaw()};
+                    auto    asFlaw{extractedValue->asFlaw()};
 
                     if (nullptr != asFlaw)
                     {

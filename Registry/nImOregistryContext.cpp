@@ -395,7 +395,7 @@ nImO::RegistryContext::executeAnnouncer
 
     timeout.tv_sec = 2;
     timeout.tv_usec = 0;
-    owner.report("announcer thread starting.");
+    owner.report("announcer thread starting."s);
     for ( ; ; )
     {
         if (lAnnouncerThreadStop)
@@ -460,7 +460,7 @@ nImO::RegistryContext::executeAnnouncer
             }
         }
     }
-    owner.report("announcer thread terminating.");
+    owner.report("announcer thread terminating."s);
     ODL_EXIT(); //####
 } // nImO::RegistryContext::executeAnnouncer
 
@@ -543,7 +543,7 @@ nImO::RegistryContext::makePortAnnouncement
                 mDNS::announce_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, nullptr,
                                          0, additional, additionalCount);
             }
-            report("mDNS announcements sent.");
+            report("mDNS announcements sent."s);
         }
     }
     else
@@ -581,7 +581,7 @@ nImO::RegistryContext::removeAnnouncement
             {
                 additional[additionalCount++] = _announceData->_recordTXT[ii];
             }
-            report("mDNS 'goodbyes' sent.");
+            report("mDNS 'goodbyes' sent."s);
             for (int isock = 0; isock < _numSockets; ++isock)
             {
                 mDNS::goodbye_multicast(_sockets[isock], _buffer, kBufferCapacity, _announceData->_recordPTR, 0, 0,

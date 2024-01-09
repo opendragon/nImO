@@ -112,7 +112,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            std::string         nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
@@ -139,9 +139,9 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        outValid = false;
+                                bool        outValid{false};
                                 std::string outChannelPath;
-                                std::string basePath{optionValues._base};
+                                auto        basePath{optionValues._base};
 
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {

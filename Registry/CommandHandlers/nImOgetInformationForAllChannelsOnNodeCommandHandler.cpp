@@ -108,11 +108,11 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all channels on node request received");
+    _owner->report("get information for all channels on node request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -141,7 +141,7 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                     channelArray->addValue(infoArray);
                 }
-                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnNodeResponse, "get information for all channels on node",
+                okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnNodeResponse, "get information for all channels on node"s,
                                               channelArray);
             }
             else

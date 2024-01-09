@@ -101,8 +101,8 @@ nImO::SetUpSenderResponseHandler::doIt
 
     if (1 < stuff.size())
     {
-        SpValue     element1{stuff[1]};
-        CPtr(Array) infoArray{element1->asArray()};
+        auto    element1{stuff[1]};
+        auto    infoArray{element1->asArray()};
 
         if (nullptr == infoArray)
         {
@@ -112,8 +112,8 @@ nImO::SetUpSenderResponseHandler::doIt
         {
             if (1 < infoArray->size())
             {
-                CPtr(Address)   addressPtr{(*infoArray)[0]->asAddress()};
-                CPtr(Integer)   portPtr{(*infoArray)[1]->asInteger()};
+                auto    addressPtr{(*infoArray)[0]->asAddress()};
+                auto    portPtr{(*infoArray)[1]->asInteger()};
 
                 if ((nullptr != addressPtr) && (nullptr != portPtr))
                 {

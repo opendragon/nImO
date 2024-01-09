@@ -106,11 +106,11 @@ nImO::RemoveNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("remove node request received");
+    _owner->report("remove node request received"s);
     if (1 < arguments.size())
     {
-        SpValue         element{arguments[1]};
-        CPtr(String)    asString{element->asString()};
+        auto    element{arguments[1]};
+        auto    asString{element->asString()};
 
         if (nullptr == asString)
         {
@@ -118,12 +118,12 @@ nImO::RemoveNodeCommandHandler::doIt
         }
         else
         {
-            std::string nodeName{asString->getValue()};
-            auto        status{_registry->removeNode(nodeName)};
+            auto    nodeName{asString->getValue()};
+            auto    status{_registry->removeNode(nodeName)};
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, "remove node", true);
+                okSoFar = sendSimpleResponse(socket, kRemoveNodeResponse, "remove node"s, true);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kNodeRemovedStatus + kStatusSeparator + nodeName);

@@ -135,7 +135,7 @@ nImO::RegistryProxy::RegistryProxy
     memset(&sock_addr, 0, sizeof(sock_addr));
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_addr.s_addr = htonl(connection._address);
-    std::string regAddrStr{nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr))};
+    auto    regAddrStr{nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr))};
 
     _context->report("Registry found at "s + regAddrStr + ":"s + std::to_string(_connection._port) + "."s);
     ODL_EXIT_P(this); //####
@@ -213,12 +213,12 @@ nImO::RegistryProxy::addNode
     ODL_S1s("nodeName = ", nodeName); //####
     ODL_I2("argc = ", argc, "serviceType = ", StaticCast(int, serviceType)); //####
     ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
-    std::string execPath{boost::dll::program_location().string()};
-    std::string launchDirectory{boost::filesystem::current_path().string()};
-    std::string commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
-    auto        argArray{std::make_shared<Array>()};
-    auto        handler{std::make_unique<AddNodeResponseHandler>()};
-    auto        connArray{std::make_shared<Array>()};
+    auto    execPath{boost::dll::program_location().string()};
+    auto    launchDirectory{boost::filesystem::current_path().string()};
+    auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<AddNodeResponseHandler>()};
+    auto    connArray{std::make_shared<Array>()};
 
     argArray->addValue(std::make_shared<String>(nImO::GetShortComputerName()));
     argArray->addValue(std::make_shared<String>(nodeName));

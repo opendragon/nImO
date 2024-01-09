@@ -249,8 +249,8 @@ BaseArgumentDescriptor::partitionString
     ODL_C1("expectedTag = ", expectedTag); //####
     ODL_I2("indexOfDefaultValue = ", indexOfDefaultValue, "indexOfListValue = ", indexOfListValue); //####
     ODL_P3("name = ", &name, "argMode = ", &argMode, "result = ", &result); //####
-    bool        okSoFar{false};
-    std::string workingCopy{inString};
+    bool    okSoFar{false};
+    auto    workingCopy{inString};
 
     // We need to split the input into fields.
     result.clear();
@@ -324,8 +324,8 @@ BaseArgumentDescriptor::partitionString
     okSoFar &= (result.size() > indexOfDefaultValue);
     if (okSoFar)
     {
-        std::string typeTag{result[1]};
-        std::string modeString{result[2]};
+        auto    typeTag{result[1]};
+        auto    modeString{result[2]};
 
         name = result[0];
         if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
@@ -357,7 +357,7 @@ BaseArgumentDescriptor::prefixFields
 {
     ODL_OBJENTER(); //####
     ODL_C1("tagForField = ", tagForField); //####
-    std::string result{_argName + _parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode))};
+    auto    result{_argName + _parameterSeparator + StaticCast(char, tagForField) + _parameterSeparator + std::to_string(toUType(_argMode))};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -379,8 +379,8 @@ BaseArgumentDescriptor::suffixFields
 {
     ODL_OBJENTER(); //####
     ODL_S1s("defaultToUse = ", defaultToUse); //####
-    char        charToUse{identifyDelimiter(defaultToUse)};
-    std::string result{_parameterSeparator + charToUse + defaultToUse + charToUse + _parameterSeparator + _argDescription};
+    char    charToUse{identifyDelimiter(defaultToUse)};
+    auto    result{_parameterSeparator + charToUse + defaultToUse + charToUse + _parameterSeparator + _argDescription};
 
     ODL_OBJEXIT_s(result); //####
     return result;
@@ -487,14 +487,14 @@ nImO::ArgumentsToDescriptionArray
 
             if (nullptr != anArg)
             {
-                std::string aLine{anArg->argumentName()};
+                auto    aLine{anArg->argumentName()};
 
                 aLine += std::string(nameSize - aLine.length(), ' ');
                 if (0 < optionSize)
                 {
                     if (anArg->isOptional())
                     {
-                        std::string anOption{anArg->getPrintableDefaultValue()};
+                        auto    anOption{anArg->getPrintableDefaultValue()};
 
                         aLine += "(Optional, default="s + anOption + ")"s + std::string(optionSize - anOption.length(), ' ');
                     }
@@ -740,12 +740,11 @@ nImO::PromptForValues
 
         if ((nullptr != anArg) && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
-            std::string currentValue{anArg->getProcessedValue()};
-            std::string defaultValue{anArg->getDefaultValue()};
+            auto        currentValue{anArg->getProcessedValue()};
+            auto        defaultValue{anArg->getDefaultValue()};
             std::string inputLine;
 
-            std::cout << anArg->argumentDescription() << " (default=" << defaultValue <<
-                        ", current=" << currentValue << "): ";
+            std::cout << anArg->argumentDescription() << " (default=" << defaultValue << ", current=" << currentValue << "): ";
             std::cout.flush();
             // Eat whitespace until we get something useful.
             for ( ; ; )

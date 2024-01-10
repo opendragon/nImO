@@ -209,8 +209,13 @@ numElementsInArray
 namespace BAIP = boost::asio::ip;
 namespace BAErr = boost::asio::error;
 
+/*! @brief A shortened name for a type. */
 using BSErr = boost::system::error_code;
+
+/*! @brief A shortened name for a type. */
 using BTCP = BAIP::tcp;
+
+/*! @brief A shortened name for a type. */
 using BUDP = BAIP::udp;
 
 # define UnaryAndBinaryOperators(Type_) \
@@ -824,6 +829,12 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a Set. */
     using SpSet = std::shared_ptr<Set>;
+
+    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
+    using SpSocketTCP = std::shared_ptr<BTCP::socket>;
+
+    /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
+    using SpSocketUDP = std::shared_ptr<BUDP::socket>;
 
     /*! @brief A holder for a shared pointer to a String. */
     using SpString = std::shared_ptr<String>;

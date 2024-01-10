@@ -73,12 +73,6 @@ namespace nImO
     /*! @brief A holder for a shared pointer to an Asio service . */
     using SPservice = std::shared_ptr<boost::asio::io_service>;
 
-    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
-    using SPsocketTCP = std::shared_ptr<BTCP::socket>;
-
-    /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
-    using SPsocketUDP = std::shared_ptr<BUDP::socket>;
-
     /*! @brief A holder for a unique pointer to an Asio 'work' placeholder. */
     using UPwork = std::unique_ptr<boost::asio::io_service::work>;
 

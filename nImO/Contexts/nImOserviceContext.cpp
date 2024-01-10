@@ -222,7 +222,7 @@ nImO::ServiceContext::destroyCommandPort
     for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
     {
         auto        aSession{*walker};
-        SPsocketTCP sessionSocket{aSession->getSocket()};
+        SpSocketTCP sessionSocket{aSession->getSocket()};
 
 #if defined(nImO_ChattyTcpLogging)
         report("closing a session"s);

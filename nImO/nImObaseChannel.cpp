@@ -82,7 +82,7 @@ nImO::BaseChannel::BaseChannel
     (InputOutputContext &   context,
      const std::string &    path,
      const int              index) :
-        _context(context), _udpSocket(*context.getService()), _name(path), _index(index)
+        _context(context), _name(path), _index(index)
 {
     ODL_ENTER(); //####
     ODL_P1("context = ", &context); //####
@@ -95,6 +95,8 @@ nImO::BaseChannel::~BaseChannel
     (void)
 {
     ODL_OBJENTER(); //####
+    _tcpSocket.reset();
+    _udpSocket.reset();
     ODL_OBJEXIT(); //####
 } // nImO::BaseChannel::~BaseChannel
 

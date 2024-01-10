@@ -111,7 +111,7 @@ nImO::InChannel::receiveUdpMessages
 {
     if (gKeepRunning)
     {
-        _udpSocket.async_receive_from(boost::asio::buffer(_udpData), _udpSenderEndpoint,
+        _udpSocket->async_receive_from(boost::asio::buffer(_udpData), _udpSenderEndpoint,
                                        [this]
                                        (const BSErr         ec,
                                         const std::size_t   length)
@@ -149,11 +149,12 @@ nImO::InChannel::setUp
         BAIP::address_v4    inAddress{0};
         BUDP::endpoint      inEndpoint{inAddress, 0};
 
-        _udpSocket.open(inEndpoint.protocol());
-        _udpSocket.set_option(BUDP::socket::reuse_address(true));
-        _udpSocket.bind(inEndpoint);
+        _udpSocket = std::make_shared<BUDP::socket>(*_context.getService());
+        _udpSocket->open(inEndpoint.protocol());
+        _udpSocket->set_option(BUDP::socket::reuse_address(true));
+        _udpSocket->bind(inEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
-        _connection._port = _udpSocket.local_endpoint().port();
+        _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
@@ -202,9 +203,9 @@ nImO::InChannel::stop
     // Stop network activity and clear state.
     if (TransportType::kUDP == _connection._transport)
     {
-        if (_udpSocket.is_open())
+        if (_udpSocket->is_open())
         {
-            _udpSocket.close();
+            _udpSocket->cancel();
         }
         okSoFar = true;
     }

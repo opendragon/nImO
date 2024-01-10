@@ -90,7 +90,7 @@ namespace nImO
 
             /*! @brief Return the socket for this session.
              @return The session socket. */
-            inline SPsocketTCP
+            inline SpSocketTCP
             getSocket
                 (void)
                 const
@@ -119,7 +119,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The socket used for request and response. */
-            SPsocketTCP _socket{};
+            SpSocketTCP _socket{};
 
             /*! @brief The context that created this session. */
             SpContextWithNetworking _owner{};

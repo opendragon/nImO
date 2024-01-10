@@ -85,7 +85,7 @@
 static bool
 processRequest
     (nImO::SpContextWithNetworking  owner,
-     nImO::SPsocketTCP              socket,
+     nImO::SpSocketTCP              socket,
      const std::string &            incoming)
 {
     ODL_ENTER(); //####

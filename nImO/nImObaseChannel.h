@@ -141,8 +141,11 @@ namespace nImO
             /*! @brief The owning context. */
             InputOutputContext &    _context;
 
+            /*! @brief The socket to use for TCP communication. */
+            SpSocketTCP    _tcpSocket{};
+
             /*! @brief The socket to use for UDP communication. */
-            BUDP::socket    _udpSocket;
+            SpSocketUDP    _udpSocket{};
 
             /*! @brief The IP address, port and mode for the communication. */
             Connection  _connection{};

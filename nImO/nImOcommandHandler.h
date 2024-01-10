@@ -115,7 +115,7 @@ namespace nImO
             static void
             SendBadResponse
                 (SpContextWithNetworking    context,
-                 SPsocketTCP                socket);
+                 SpSocketTCP                socket);
 
         protected :
             // Protected methods.

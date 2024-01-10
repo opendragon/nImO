@@ -375,7 +375,7 @@ nImO::CommandHandler::sendStatusReport
 void
 nImO::CommandHandler::SendBadResponse
     (SpContextWithNetworking    context,
-     SPsocketTCP                socket)
+     SpSocketTCP                socket)
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####

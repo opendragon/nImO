@@ -155,7 +155,7 @@ nImO::OutChannel::send
                     // send the encoded message to the logging ports
                     _udpSendpoint.address(address);
                     _udpSendpoint.port(_destinationPort);
-                    _udpSocket.async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
+                    _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
                                               [outString]
                                               (const BSErr          ec,
                                                const std::size_t    length)
@@ -204,11 +204,12 @@ nImO::OutChannel::setUp
         BAIP::address_v4    outAddress{0};
         BUDP::endpoint      outEndpoint{outAddress, 0};
 
-        _udpSocket.open(outEndpoint.protocol());
-        _udpSocket.set_option(BUDP::socket::reuse_address(true));
-        _udpSocket.bind(outEndpoint);
+        _udpSocket = std::make_shared<BUDP::socket>(*_context.getService());
+        _udpSocket->open(outEndpoint.protocol());
+        _udpSocket->set_option(BUDP::socket::reuse_address(true));
+        _udpSocket->bind(outEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
-        _connection._port = _udpSocket.local_endpoint().port();
+        _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
@@ -230,7 +231,6 @@ nImO::OutChannel::start
     // Start network activity.
     if (TransportType::kUDP == _connection._transport)
     {
-        //TBD?!?!
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
@@ -252,9 +252,9 @@ nImO::OutChannel::stop
     // Stop network activity and clear state.
     if (TransportType::kUDP == _connection._transport)
     {
-        if (_udpSocket.is_open())
+        if (_udpSocket->is_open())
         {
-            _udpSocket.close();
+            _udpSocket->cancel();
         }
         okSoFar = true;
     }

@@ -305,6 +305,15 @@ nImO::InputOutputContext::getOutputChannelNames
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames
 
+void
+nImO::InputOutputContext::stopInputQueue
+    (void)
+{
+    ODL_ENTER(); //####
+    _receiveQueue.stop();
+    ODL_EXIT(); //####
+} // nImO::InputOutputContext::stopInputQueue
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

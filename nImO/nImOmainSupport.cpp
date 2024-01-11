@@ -69,15 +69,16 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-static nImO::SignalFunction  lSpecialSignalFunction{nullptr};
+/*! @brief A pointer to a function object to be invoked when a Control-C is handled. */
+static Ptr(nImO::BaseBreakSignalHandler)    lSpecialSignalObject{nullptr};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
 
-std::atomic_bool   nImO::gKeepRunning{true};
+std::atomic_bool    nImO::gKeepRunning{true};
 
-std::atomic_bool   nImO::gPendingStop;
+std::atomic_bool    nImO::gPendingStop;
 
 #if defined(__APPLE__)
 # pragma mark Local functions
@@ -99,9 +100,9 @@ nImO::CatchSignal
         gKeepRunning = false;
         ODL_B1("gKeepRunning <- ", gKeepRunning); //####
         InterruptRegistryWait();
-        if (nullptr != lSpecialSignalFunction)
+        if (nullptr != lSpecialSignalObject)
         {
-            lSpecialSignalFunction();
+            (*lSpecialSignalObject)();
         }
     }
     else
@@ -149,10 +150,11 @@ nImO::DropConnection
 } // nImO::DropConnection
 
 void
-nImO::SetSpecialBreakFunction
-    (SignalFunction sigFunction)
+nImO::SetSpecialBreakObject
+    (Ptr(BaseBreakSignalHandler)    sigObject)
 {
     ODL_ENTER(); //####
-    lSpecialSignalFunction = sigFunction;
+    ODL_P1("sigObject = ", sigObject); //####
+    lSpecialSignalObject = sigObject;
     ODL_EXIT(); //####
-} // nImO::SetSpecialBreakFunction
+} // nImO::SetSpecialBreakObject

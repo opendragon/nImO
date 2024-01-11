@@ -175,6 +175,8 @@
 		F65F3A912A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInformationCommandHandler.h; path = Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.h; sourceTree = "<group>"; };
 		F66ADECC29CB0BE6002F0C8E /* nImOmainSupport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOmainSupport.cpp; path = nImO/nImOmainSupport.cpp; sourceTree = "<group>"; };
 		F66ADECD29CB0BE6002F0C8E /* nImOmainSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOmainSupport.h; path = nImO/nImOmainSupport.h; sourceTree = "<group>"; };
+		F66E44A62B5009D50091A1ED /* nImObaseBreakSignalHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObaseBreakSignalHandler.cpp; path = nImO/nImObaseBreakSignalHandler.cpp; sourceTree = "<group>"; };
+		F66E44A72B5009D50091A1ED /* nImObaseBreakSignalHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObaseBreakSignalHandler.h; path = nImO/nImObaseBreakSignalHandler.h; sourceTree = "<group>"; };
 		F66E75422A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllChannelsResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h; sourceTree = "<group>"; };
 		F66E75432A1AAA9C002C03B5 /* nImOgetInformationForAllChannelsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp; sourceTree = "<group>"; };
 		F66E75442A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllChannelsCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp; sourceTree = "<group>"; };
@@ -1416,6 +1418,8 @@
 				F6263BF629DCC4040034A9F9 /* Response Handlers */,
 				F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */,
 				F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */,
+				F66E44A62B5009D50091A1ED /* nImObaseBreakSignalHandler.cpp */,
+				F66E44A72B5009D50091A1ED /* nImObaseBreakSignalHandler.h */,
 				F62FE69D29FBCF39002D5FE3 /* nImObaseChannel.cpp */,
 				F62FE69E29FBCF39002D5FE3 /* nImObaseChannel.h */,
 				F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */,

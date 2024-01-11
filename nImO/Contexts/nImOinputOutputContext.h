@@ -174,6 +174,11 @@ namespace nImO
                 (StringVector & names)
                 const;
 
+            /*! @brief Stop activity on the input queue. */
+            void
+            stopInputQueue
+                (void);
+
         protected :
             // Protected methods.
 

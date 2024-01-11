@@ -42,6 +42,7 @@
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
 #include <Contexts/nImOcontextWithMDNS.h>
+#include <nImObaseBreakSignalHandler.h>
 #include <nImOmainSupport.h>
 #include <nImOreceivedData.h>
 #include <nImOreceiveQueue.h>
@@ -166,6 +167,60 @@ class ReceiveOnMessagePort final
 
 }; // ReceiveOnMessagePort
 
+/*! @brief A class to handle receiving messages from the logging or status multicast group. */
+class BreakHandler final : public nImO::BaseBreakSignalHandler
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        using inherited = BaseBreakSignalHandler;
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor. */
+        inline BreakHandler
+            (void) :
+                inherited()
+        {
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Process a break signal. */
+        void
+        operator()
+            (void)
+            const
+            override
+        {
+            ODL_OBJENTER(); //####
+            lReceiveQueue.stop();
+            ODL_OBJEXIT(); //####
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+}; // BreakHandler
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -173,16 +228,6 @@ class ReceiveOnMessagePort final
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
-
-/*! @brief Simulate a received message so that the received-message-loop can exit. */
-static void
-doConditionNotify
-    (void)
-{
-    ODL_ENTER(); //####
-    lReceiveQueue.stop();
-    ODL_EXIT(); //####
-} // doConditionNotify
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -216,7 +261,6 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::SetSpecialBreakFunction(doConditionNotify);
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::ContextWithNetworking             ourContext{progName, "monitor"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
@@ -224,6 +268,7 @@ main
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
+            nImO::SetSpecialBreakObject(new BreakHandler());
             if (loggingConnection != statusConnection)
             {
                 statusReceiver = std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection);

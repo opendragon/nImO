@@ -193,7 +193,7 @@ nImO::CommandSession::start
     (void)
 {
     ODL_OBJENTER(); //####
-    std::atomic_bool   keepGoing{true};
+    std::atomic_bool    keepGoing{true};
 
 #if defined(nImO_ChattyTcpLogging)
     _owner->report("retrieving request"s);

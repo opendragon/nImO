@@ -66,22 +66,22 @@
 #endif // defined(__APPLE__)
 
 /*! @brief @c true if the application needs to performa a single check for the Registry. */
-static std::atomic_bool    lPerformSingleRegistryCheck;
+static std::atomic_bool lPerformSingleRegistryCheck;
 
 /*! @brief @c true if the application should wait for the Registry. */
-static std::atomic_bool    lWaitForRegistry{true};
+static std::atomic_bool lWaitForRegistry{true};
 
 /*! @brief Set to @c true when the browser thread has started. */
-static std::atomic_bool    lBrowserThreadStarted;
+static std::atomic_bool lBrowserThreadStarted;
 
 /*! @brief Set to @c true to cause the browser thread to terminate. */
-static std::atomic_bool    lBrowserThreadStop;
+static std::atomic_bool lBrowserThreadStop;
 
 /*! @brief Set to @c true when the browser thread has terminated. */
-static std::atomic_bool    lBrowserThreadStopped;
+static std::atomic_bool lBrowserThreadStopped;
 
 /*! @brief Set to @c true to cause the loop looking for the Registry to terminate. */
-static std::atomic_bool    lStopRegistryLoop;
+static std::atomic_bool lStopRegistryLoop;
 
 /*! @brief The buffer used to hold an IP address. */
 static char lAddrBuffer[64];
@@ -803,7 +803,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
         }
         if (okSoFar)
         {
-            std::atomic_bool           timedOut{false};
+            std::atomic_bool            timedOut{false};
             boost::asio::deadline_timer timeOutTimer{*getService()};
 
             report("timeout = "s + std::to_string(getRegistrySearchTimeout()));

@@ -206,7 +206,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief Set to @c true to initiate a new scan of announcements. */
-            std::atomic_bool   _requestNewScan{false};
+            std::atomic_bool    _requestNewScan{false};
 
             /*! @brief The active query identifiers. */
             int _queryId[8];
@@ -224,10 +224,10 @@ namespace nImO
             std::string _registryPreferredAddress{};
 
             /*! @brief Set to @c true when the Registry has reported its address. */
-            std::atomic_bool   _haveAddress{false};
+            std::atomic_bool    _haveAddress{false};
 
             /*! @brief Set to @c true when the Registry has reported its port. */
-            std::atomic_bool   _havePort{false};
+            std::atomic_bool    _havePort{false};
 
             /*! @brief The thread which executes the browser code. */
             Ptr(boost::thread)  _browserThread{nullptr};

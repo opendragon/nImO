@@ -95,6 +95,7 @@
 #include "ResponseHandlers/nImOstopSenderResponseHandler.h"
 #include "nImOannounceServiceData.h"
 #include "nImObaseChannel.h"
+#include "nImObaseBreakSignalHandler.h"
 #include "nImOchannelName.h"
 #include "nImOcommandHandler.h"
 #include "nImOcommandSession.h"

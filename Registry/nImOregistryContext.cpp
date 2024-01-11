@@ -63,7 +63,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief Set to @c true to cause the announcer thread to terminate. */
-static std::atomic_bool    lAnnouncerThreadStop;
+static std::atomic_bool lAnnouncerThreadStop;
 
 /*! @brief The buffer used to send replies for mDNS requests. */
 static char lSendBuffer[1024];

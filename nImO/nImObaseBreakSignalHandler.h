@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOmainSupport.h
+//  File:       nImO/nImObaseBreakSignalHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The function and variable declarations for nImO applications.
+//  Contains:   The class declaration for nImO handling system break signals.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,15 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-22
+//  Created:    2024-01-11
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOmainSupport_H_))
-# define nImOmainSupport_H_ /* Header guard */
+#if (! defined(nImObaseBreakSignalHandler_H_))
+# define nImObaseBreakSignalHandler_H_ /* Header guard */
 
-# include <Contexts/nImOutilityContext.h>
-# include <nImObaseBreakSignalHandler.h>
+# include <nImOcommon.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -48,50 +47,59 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The function and variable declarations for %nImO applications. */
+ @brief The class declaration for the %nImO system break signal handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide values that are used to handling system break signals. */
+    class BaseBreakSignalHandler
+    {
 
-    /*! @brief The signal handler to catch requests to stop the application.
-     @param[in] signal The signal being handled. */
-    void
-    CatchSignal
-        (const int  signal);
+        public :
+            // Public type definitions.
 
-    /*! @brief Remove a connection between two channels.
-     @param[in] ourContext A context to use for requests.
-     @param[in] fromConnection The sender command channel.
-     @param[in] fromNode The sender node name.
-     @param[in] fromPath The sender channel path.
-     @param[in] toConnection The receiver command channel.
-     @param[in] toNode The receiver node name.
-     @param[in] toPath The receiver channel path. */
-    void
-    DropConnection
-        (SpUtilityContext       ourContext,
-         Connection &           fromConnection,
-         const std::string &    fromNode,
-         const std::string &    fromPath,
-         Connection &           toConnection,
-         const std::string &    toNode,
-         const std::string &    toPath);
+        protected :
+            // Protected type definitions.
 
-    /*! @brief Set the function object to be invoked when a system break signal is received.
-     @param[in] sigHObject The function object to be invoked. */
-    void
-    SetSpecialBreakObject
-        (Ptr(BaseBreakSignalHandler)    sigObject);
+        private :
+            // Private type definitions.
 
-    /*! @brief Set to @c false when a SIGINT occurs. */
-    extern std::atomic_bool gKeepRunning;
+        public :
+            // Public methods.
 
-    /*! @brief Set to @c true when there's a pending shutdown request. */
-    extern std::atomic_bool gPendingStop;
+            /*! @brief The constructor. */
+            BaseBreakSignalHandler
+                (void) = default;
+
+            /*! @brief Process a break signal. */
+            virtual void
+            operator()
+                (void)
+                const = 0;
+
+        protected :
+            // Protected methods.
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+    }; // BaseBreakSignalHandler
+
+    /*! @brief A holder for a shared pointer to a BaseBreakSignalHandler. */
+    using SpBaseBreakSignalHandler = std::shared_ptr<BaseBreakSignalHandler>;
 
 } // nImO
 
-#endif // not defined(nImOmainSupport_H_)
+#endif // not defined(nImObaseBreakSignalHandler_H_)

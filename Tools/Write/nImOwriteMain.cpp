@@ -40,6 +40,7 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsourceContext.h>
+#include <nImObaseBreakSignalHandler.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -71,6 +72,60 @@
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+/*! @brief A class to handle receiving messages from the logging or status multicast group. */
+class BreakHandler final : public nImO::BaseBreakSignalHandler
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        using inherited = BaseBreakSignalHandler;
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor. */
+        inline BreakHandler
+            (void) :
+                inherited()
+        {
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Process a break signal. */
+        void
+        operator()
+            (void)
+            const
+            override
+        {
+            ODL_OBJENTER(); //####
+//            lReceiveQueue.stop();
+            ODL_OBJEXIT(); //####
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+}; // BreakHandler
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -117,6 +172,7 @@ main
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
+            nImO::SetSpecialBreakObject(new BreakHandler());
             nImO::InputOutputContext::addInputOutputHandlers(ourContext);
             if (asServiceContext->findRegistry(registryConnection))
             {
@@ -210,40 +266,43 @@ main
                                         }
                                     }
                                 }
-                                if (outValid)
+                                if (! nImO::gPendingStop)
                                 {
-                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                    if (outValid)
+                                    {
+                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                        statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (! statusWithBool.second)
+                                            {
+                                                ourContext->report(outChannelPath + " already unregistered."s);
+                                                std::cerr << outChannelPath << " already unregistered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                    statusWithBool = proxy.removeNode(nodeName);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)
                                         {
-                                            ourContext->report(outChannelPath + " already unregistered."s);
-                                            std::cerr << outChannelPath << " already unregistered.\n";
+                                            ourContext->report(nodeName + " already unregistered."s);
+                                            std::cerr << nodeName << " already unregistered.\n";
                                             exitCode = 1;
                                         }
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
-                                }
-                                nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                statusWithBool = proxy.removeNode(nodeName);
-                                if (statusWithBool.first.first)
-                                {
-                                    if (! statusWithBool.second)
-                                    {
-                                        ourContext->report(nodeName + " already unregistered."s);
-                                        std::cerr << nodeName << " already unregistered.\n";
-                                        exitCode = 1;
-                                    }
-                                }
-                                else
-                                {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
-                                    exitCode = 1;
                                 }
                             }
                             else

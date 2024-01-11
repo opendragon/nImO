@@ -241,7 +241,7 @@ namespace nImO
             IPv4Port    _commandPort{0};
 
             /*! @brief Set to @c false to stop asynchronous operations. */
-            std::atomic_bool   _keepGoing{false};
+            std::atomic_bool    _keepGoing{false};
 
             /*! @brief The active sessions. */
             std::set<Ptr(CommandSession)>   _sessions{};

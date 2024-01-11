@@ -215,64 +215,67 @@ std::cerr << "** Unimplemented **\n";
                 //TBD
                                     }
                                 }
-                                if (outValid)
+                                if (! nImO::gPendingStop)
                                 {
-                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                    if (outValid)
+                                    {
+                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                        statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (! statusWithBool.second)
+                                            {
+                                                ourContext->report(outChannelPath + " already unregistered."s);
+                                                std::cerr << outChannelPath << " already unregistered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    nImO::StringVector  inChannelPaths;
+
+                                    ourContext->getInputChannelNames(inChannelPaths);
+                                    for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
+                                    {
+                                        std::string chanName{*walker};
+
+                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                        statusWithBool = proxy.removeChannel(nodeName, chanName);
+                                        if (statusWithBool.first.first)
+                                        {
+                                            if (! statusWithBool.second)
+                                            {
+                                                ourContext->report(chanName + " already unregistered."s);
+                                                std::cerr << chanName << " already unregistered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                    statusWithBool = proxy.removeNode(nodeName);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)
                                         {
-                                            ourContext->report(outChannelPath + " already unregistered."s);
-                                            std::cerr << outChannelPath << " already unregistered.\n";
+                                            ourContext->report(nodeName + " already unregistered."s);
+                                            std::cerr << nodeName << " already unregistered.\n";
                                             exitCode = 1;
                                         }
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
-                                }
-                                nImO::StringVector  inChannelPaths;
-
-                                ourContext->getInputChannelNames(inChannelPaths);
-                                for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
-                                {
-                                    std::string chanName{*walker};
-
-                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy.removeChannel(nodeName, chanName);
-                                    if (statusWithBool.first.first)
-                                    {
-                                        if (! statusWithBool.second)
-                                        {
-                                            ourContext->report(chanName + " already unregistered."s);
-                                            std::cerr << chanName << " already unregistered.\n";
-                                            exitCode = 1;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
-                                        exitCode = 1;
-                                    }
-                                }
-                                nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                statusWithBool = proxy.removeNode(nodeName);
-                                if (statusWithBool.first.first)
-                                {
-                                    if (! statusWithBool.second)
-                                    {
-                                        ourContext->report(nodeName + " already unregistered."s);
-                                        std::cerr << nodeName << " already unregistered.\n";
-                                        exitCode = 1;
-                                    }
-                                }
-                                else
-                                {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
-                                    exitCode = 1;
                                 }
                             }
                             else

@@ -119,6 +119,10 @@ std::cerr << "** Unimplemented **\n";
                 boost::this_thread::yield();
 //TBD
             }
+            if (! nImO::gPendingStop)
+            {
+
+            }
 #if 0
             //start the ricochet program on each cluster machine, with a specified port number
             //get the list of cluster machines from 'hosts.list'

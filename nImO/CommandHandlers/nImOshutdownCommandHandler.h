@@ -39,6 +39,7 @@
 #if (! defined(nImOshutdownCommandHandler_H_))
 # define nImOshutdownCommandHandler_H_ /* Header guard */
 
+# include <nImOcallbackFunction.h>
 # include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
@@ -74,9 +75,11 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context. */
+             @param[in] owner The owning Context.
+             @param[in] callback The function to invoke when the command is received. */
             ShutdownCommandHandler
-                (SpContextWithNetworking    owner);
+                (SpContextWithNetworking    owner,
+                 Ptr(CallbackFunction)      callback = nullptr);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
@@ -103,6 +106,9 @@ namespace nImO
 
         private :
             // Private fields.
+
+            /*! @brief A function to invoke when the command is triggered via doIt(). */
+            Ptr(CallbackFunction)   _callback{nullptr};
 
     }; // ShutdownCommandHandler
 

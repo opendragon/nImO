@@ -148,15 +148,16 @@ nImO::ServiceContext::addHandler
 
 void
 nImO::ServiceContext::addStandardHandlers
-    (SpContextWithNetworking    context)
+    (SpContextWithNetworking    context,
+     Ptr(CallbackFunction)      shutdownCallback)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", context.get()); //####
+    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
     auto    actualContext = context->asServiceContext();
 
     if (nullptr != actualContext)
     {
-        auto    newHandler{std::make_shared<ShutdownCommandHandler>(context)};
+        auto    newHandler{std::make_shared<ShutdownCommandHandler>(context, shutdownCallback)};
 
         ODL_P1("newHandler <- ", newHandler.get()); //####
         if (actualContext->addHandler(kShutDownRequest, newHandler))

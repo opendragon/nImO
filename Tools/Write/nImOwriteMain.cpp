@@ -40,7 +40,7 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsourceContext.h>
-#include <nImObaseBreakSignalHandler.h>
+#include <nImOcallbackFunction.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -74,7 +74,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A class to handle receiving messages from the logging or status multicast group. */
-class BreakHandler final : public nImO::BaseBreakSignalHandler
+class BreakHandler final : public nImO::CallbackFunction
 {
     public :
         // Public type definitions.
@@ -86,7 +86,7 @@ class BreakHandler final : public nImO::BaseBreakSignalHandler
         // Private type definitions.
 
         /*! @brief The class that this class is derived from. */
-        using inherited = BaseBreakSignalHandler;
+        using inherited = CallbackFunction;
 
     public :
         // Public methods.
@@ -171,9 +171,10 @@ main
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
+            Ptr(BreakHandler)   cleanup{new BreakHandler};
 
-            nImO::SetSpecialBreakObject(new BreakHandler());
-            nImO::InputOutputContext::addInputOutputHandlers(ourContext);
+            nImO::SetSpecialBreakObject(cleanup);
+            nImO::InputOutputContext::addInputOutputHandlers(ourContext, cleanup);
             if (asServiceContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};

@@ -223,8 +223,16 @@ nImO::CommandSession::start
 #if defined(nImO_ChattyTcpLogging)
                                             _owner->report("got request"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                            if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
-                                                                    buffers_end(_buffer.data())}))
+                                            if (processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
+                                                                buffers_end(_buffer.data())}))
+                                            {
+                                                if (gPendingStop)
+                                                {
+                                                    keepGoing = false;
+                                                    ODL_B1("keepGoing <- ", keepGoing); //####
+                                                }
+                                            }
+                                            else
                                             {
                                                 CommandHandler::SendBadResponse(_owner, _socket);
                                             }

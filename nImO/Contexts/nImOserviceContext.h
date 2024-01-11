@@ -40,6 +40,7 @@
 # define nImOserviceContext_H_ /* Header guard */
 
 # include <Contexts/nImOcontextWithMDNS.h>
+# include <nImOcallbackFunction.h>
 # include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
@@ -55,7 +56,6 @@
 
 namespace nImO
 {
-    //class CommandHandler;
     class CommandSession;
 
     /*! @brief A holder for a unique pointer to a CommandHandler. */
@@ -112,10 +112,12 @@ namespace nImO
                  SpCommandHandler       theHandler);
 
             /*! @brief Add the standard command handlers for a ServiceContext.
-             @param[in] context The Context to be updated. */
+             @param[in] context The Context to be updated.
+             @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
             static void
             addStandardHandlers
-                (SpContextWithNetworking    context);
+                (SpContextWithNetworking    context,
+                 Ptr(CallbackFunction)      shutdownCallback = nullptr);
 
             /*! @brief Is this a ServiceContext?
              @return @c this. */

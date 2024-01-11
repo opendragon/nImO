@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImObaseBreakSignalHandler.h
+//  File:       nImO/nImOcallbackFunction.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO handling system break signals.
+//  Contains:   The class declaration for nImO handling callbacks.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImObaseBreakSignalHandler_H_))
-# define nImObaseBreakSignalHandler_H_ /* Header guard */
+#if (! defined(nImOcallbackFunction_H_))
+# define nImOcallbackFunction_H_ /* Header guard */
 
 # include <nImOcommon.h>
 
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO system break signal handler. */
+ @brief The class declaration for %nImO callbacks. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide values that are used to handling system break signals. */
-    class BaseBreakSignalHandler
+    /*! @brief A class to provide values that are used to handling callbacks. */
+    class CallbackFunction
     {
 
         public :
@@ -71,7 +71,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor. */
-            BaseBreakSignalHandler
+            CallbackFunction
                 (void) = default;
 
             /*! @brief Process a break signal. */
@@ -95,11 +95,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // BaseBreakSignalHandler
-
-    /*! @brief A holder for a shared pointer to a BaseBreakSignalHandler. */
-    using SpBaseBreakSignalHandler = std::shared_ptr<BaseBreakSignalHandler>;
+    }; // CallbackFunction
 
 } // nImO
 
-#endif // not defined(nImObaseBreakSignalHandler_H_)
+#endif // not defined(nImOcallbackFunction_H_)

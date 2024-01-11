@@ -108,10 +108,12 @@ namespace nImO
                 (const std::string &    path);
 
             /*! @brief Add the standard command handlers for an InputOutputContext.
-             @param[in] context The Context to be updated. */
+             @param[in] context The Context to be updated.
+             @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
             static void
             addInputOutputHandlers
-                (SpInputOutputContext   context);
+                (SpInputOutputContext   context,
+                 Ptr(CallbackFunction)  shutdownCallback = nullptr);
 
             /*! @brief Add an output channel.
              @param[in] path The path for the channel.

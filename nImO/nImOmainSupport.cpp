@@ -70,7 +70,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A pointer to a function object to be invoked when a Control-C is handled. */
-static Ptr(nImO::BaseBreakSignalHandler)    lSpecialSignalObject{nullptr};
+static Ptr(nImO::CallbackFunction)    lSpecialSignalObject{nullptr};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -151,7 +151,7 @@ nImO::DropConnection
 
 void
 nImO::SetSpecialBreakObject
-    (Ptr(BaseBreakSignalHandler)    sigObject)
+    (Ptr(CallbackFunction)    sigObject)
 {
     ODL_ENTER(); //####
     ODL_P1("sigObject = ", sigObject); //####

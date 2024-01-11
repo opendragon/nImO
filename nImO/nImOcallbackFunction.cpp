@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImObaseBreakSignalHandler.cpp
+//  File:       nImO/nImOcallbackFunction.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for nImO handling system break signals.
+//  Contains:   The class definition for nImO handling callbacks.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <nImObaseBreakSignalHandler.h>
+#include <nImOcallbackFunction.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO system break signal handler. */
+ @brief The class definition for %nImO callbacks. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)

@@ -80,11 +80,12 @@
 #endif // defined(__APPLE__)
 
 nImO::ShutdownCommandHandler::ShutdownCommandHandler
-    (SpContextWithNetworking    owner) :
-        inherited{owner}
+    (SpContextWithNetworking    owner,
+     Ptr(CallbackFunction)      callback) :
+        inherited{owner}, _callback(callback)
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P2("owner = ", owner.get(), "callback = ", callback); //####
     ODL_EXIT_P(this); //####
 } // nImO::ShutdownCommandHandler::ShutdownCommandHandler
 
@@ -108,6 +109,10 @@ nImO::ShutdownCommandHandler::doIt
     // Signal to the application that it should terminate.
     gPendingStop = true;
     ODL_B1("gPendingStop <- ", gPendingStop); //####
+    if (okSoFar && (nullptr != _callback))
+    {
+        (*_callback)();
+    }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::ShutdownCommandHandler::doIt

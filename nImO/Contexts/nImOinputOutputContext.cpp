@@ -128,7 +128,8 @@ nImO::InputOutputContext::addInputChannel
 
 void
 nImO::InputOutputContext::addInputOutputHandlers
-    (SpInputOutputContext    context)
+    (SpInputOutputContext   context,
+     Ptr(CallbackFunction)  shutdownCallback)
 {
     ODL_ENTER(); //####
     ODL_P1("context = ", context.get()); //####
@@ -197,7 +198,7 @@ nImO::InputOutputContext::addInputOutputHandlers
         }
         if (goAhead)
         {
-            ServiceContext::addStandardHandlers(context);
+            ServiceContext::addStandardHandlers(context, shutdownCallback);
         }
     }
     ODL_EXIT(); //####

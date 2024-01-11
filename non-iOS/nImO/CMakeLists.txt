@@ -153,7 +153,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp"
             "${THIS_SOURCE_DIR}/nImObaseChannel.cpp"
-            "${THIS_SOURCE_DIR}/nImObaseBreakSignalHandler.cpp"
+            "${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelName.cpp"
             "${THIS_SOURCE_DIR}/nImOcommandHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOcommandSession.cpp"
@@ -196,7 +196,7 @@ install(TARGETS ${THIS_TARGET}
 install(FILES
         "${THIS_SOURCE_DIR}/nImOannounceServiceData.h"
         "${THIS_SOURCE_DIR}/nImObaseChannel.h"
-        "${THIS_SOURCE_DIR}/nImObaseBreakSignalHandler.h"
+        "${THIS_SOURCE_DIR}/nImOcallbackFunction.h"
         "${THIS_SOURCE_DIR}/nImOchannelName.h"
         "${THIS_SOURCE_DIR}/nImOcommandHandler.h"
         "${THIS_SOURCE_DIR}/nImOcommandSession.h"
@@ -491,7 +491,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopSenderResponseHandler.h
         ${THIS_SOURCE_DIR}/nImOannounceServiceData.cpp ${THIS_SOURCE_DIR}/nImOannounceServiceData.h
         ${THIS_SOURCE_DIR}/nImObaseChannel.cpp ${THIS_SOURCE_DIR}/nImObaseChannel.h
-        ${THIS_SOURCE_DIR}/nImObaseBreakSignalHandler.cpp ${THIS_SOURCE_DIR}/nImObaseBreakSignalHandler.h
+        ${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp ${THIS_SOURCE_DIR}/nImOcallbackFunction.h
         ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
         ${THIS_SOURCE_DIR}/nImOcommandHandler.cpp ${THIS_SOURCE_DIR}/nImOcommandHandler.h
         ${THIS_SOURCE_DIR}/nImOcommandSession.cpp ${THIS_SOURCE_DIR}/nImOcommandSession.h

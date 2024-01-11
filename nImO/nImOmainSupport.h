@@ -40,7 +40,7 @@
 # define nImOmainSupport_H_ /* Header guard */
 
 # include <Contexts/nImOutilityContext.h>
-# include <nImObaseBreakSignalHandler.h>
+# include <nImOcallbackFunction.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -84,7 +84,7 @@ namespace nImO
      @param[in] sigHObject The function object to be invoked. */
     void
     SetSpecialBreakObject
-        (Ptr(BaseBreakSignalHandler)    sigObject);
+        (Ptr(CallbackFunction)    sigObject);
 
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic_bool gKeepRunning;

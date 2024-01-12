@@ -9,7 +9,6 @@
 /* Begin PBXFileReference section */
 		F6004B0829D8852700F07D3B /* nImOregistryContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOregistryContext.cpp; path = Registry/nImOregistryContext.cpp; sourceTree = "<group>"; };
 		F6004B0929D8852700F07D3B /* nImOregistryContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryContext.h; path = Registry/nImOregistryContext.h; sourceTree = "<group>"; };
-		F60394F42986C14E004A7F8C /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F60394F52986FEC3004A7F8C /* nImOannounceServiceData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOannounceServiceData.cpp; path = nImO/nImOannounceServiceData.cpp; sourceTree = "<group>"; };
 		F60394F62986FEC3004A7F8C /* nImOannounceServiceData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOannounceServiceData.h; path = nImO/nImOannounceServiceData.h; sourceTree = "<group>"; };
 		F608EFCD2A37274D003600A6 /* nImOgetChannelInUseAndSetResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInUseAndSetResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp; sourceTree = "<group>"; };
@@ -32,7 +31,6 @@
 		F61D210C299BA9EA0083424E /* nImOcommutatorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOcommutatorMain.cpp; sourceTree = "<group>"; };
 		F61D210D299BA9EA0083424E /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F61D210E299BA9EA0083424E /* nImOcommutator.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOcommutator.rc.in; sourceTree = "<group>"; };
-		F61D2110299BAA080083424E /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F61D262D2404BB7200C73ACC /* nImOricochetControl.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOricochetControl.rc.in; path = examples/Ricochet/nImOricochetControl.rc.in; sourceTree = "<group>"; };
 		F61D262E2404BBBB00C73ACC /* nImOricochetControlMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOricochetControlMain.cpp; path = examples/Ricochet/nImOricochetControlMain.cpp; sourceTree = "<group>"; };
 		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
@@ -115,10 +113,6 @@
 		F65AE4532A1A773200457BD4 /* nImOremoveChannelResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveChannelResponseHandler.h; path = nImO/ResponseHandlers/nImOremoveChannelResponseHandler.h; sourceTree = "<group>"; };
 		F65AE4542A1A773200457BD4 /* nImOremoveChannelsForNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveChannelsForNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h; sourceTree = "<group>"; };
 		F65AE4552A1A773200457BD4 /* nImOremoveChannelResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOremoveChannelResponseHandler.cpp; path = nImO/ResponseHandlers/nImOremoveChannelResponseHandler.cpp; sourceTree = "<group>"; };
-		F65C48D72985614A00430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C48D82985614A00430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C48DA2985614A00430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C48DC2985614A00430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A3F2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A592985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A722985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -211,7 +205,6 @@
 		F67718192B376CB600959A15 /* nImOstartReceiverCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartReceiverCommandHandler.cpp; path = nImO/CommandHandlers/nImOstartReceiverCommandHandler.cpp; sourceTree = "<group>"; };
 		F677181A2B376FC900959A15 /* nImOinputOutputCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinputOutputCommandHandler.cpp; path = nImO/CommandHandlers/nImOinputOutputCommandHandler.cpp; sourceTree = "<group>"; };
 		F677181B2B376FC900959A15 /* nImOinputOutputCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinputOutputCommandHandler.h; path = nImO/CommandHandlers/nImOinputOutputCommandHandler.h; sourceTree = "<group>"; };
-		F6773C2E2B3DAADB00E488EB /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Delay/CMakeLists.txt; sourceTree = "<group>"; };
 		F67832012B45698400618040 /* nImOreceivedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceivedData.h; path = nImO/nImOreceivedData.h; sourceTree = "<group>"; };
 		F67832022B45698400618040 /* nImOreceivedData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceivedData.cpp; path = nImO/nImOreceivedData.cpp; sourceTree = "<group>"; };
 		F67832032B456E3600618040 /* nImOreceiveQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceiveQueue.cpp; path = nImO/nImOreceiveQueue.cpp; sourceTree = "<group>"; };
@@ -504,14 +497,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		F60394F32986C14E004A7F8C /* Junction */ = {
-			isa = PBXGroup;
-			children = (
-				F60394F42986C14E004A7F8C /* CMakeLists.txt */,
-			);
-			path = Junction;
-			sourceTree = "<group>";
-		};
 		F613D15E288D82FB008712C9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,14 +526,6 @@
 				F61D210E299BA9EA0083424E /* nImOcommutator.rc.in */,
 				F61D210C299BA9EA0083424E /* nImOcommutatorMain.cpp */,
 				F61D210D299BA9EA0083424E /* resource.h */,
-			);
-			path = Commutator;
-			sourceTree = "<group>";
-		};
-		F61D210F299BAA080083424E /* Commutator */ = {
-			isa = PBXGroup;
-			children = (
-				F61D2110299BAA080083424E /* CMakeLists.txt */,
 			);
 			path = Commutator;
 			sourceTree = "<group>";
@@ -862,45 +839,6 @@
 			path = LoadApplications;
 			sourceTree = "<group>";
 		};
-		F65C48D52985614A00430284 /* Simple */ = {
-			isa = PBXGroup;
-			children = (
-				F61D210F299BAA080083424E /* Commutator */,
-				F6773C2D2B3DAAC100E488EB /* Delay */,
-				F65C48D62985614A00430284 /* FanIn */,
-				F65C48D82985614A00430284 /* CMakeLists.txt */,
-				F65C48DB2985614A00430284 /* FanOut */,
-				F60394F32986C14E004A7F8C /* Junction */,
-				F65C48D92985614A00430284 /* Passthrough */,
-			);
-			name = Simple;
-			path = "non-iOS/examples/Simple";
-			sourceTree = "<group>";
-		};
-		F65C48D62985614A00430284 /* FanIn */ = {
-			isa = PBXGroup;
-			children = (
-				F65C48D72985614A00430284 /* CMakeLists.txt */,
-			);
-			path = FanIn;
-			sourceTree = "<group>";
-		};
-		F65C48D92985614A00430284 /* Passthrough */ = {
-			isa = PBXGroup;
-			children = (
-				F65C48DA2985614A00430284 /* CMakeLists.txt */,
-			);
-			path = Passthrough;
-			sourceTree = "<group>";
-		};
-		F65C48DB2985614A00430284 /* FanOut */ = {
-			isa = PBXGroup;
-			children = (
-				F65C48DC2985614A00430284 /* CMakeLists.txt */,
-			);
-			path = FanOut;
-			sourceTree = "<group>";
-		};
 		F65C4A3D2985620100430284 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,14 +1143,6 @@
 			name = "Command Handlers";
 			sourceTree = "<group>";
 		};
-		F6773C2D2B3DAAC100E488EB /* Delay */ = {
-			isa = PBXGroup;
-			children = (
-				F6773C2E2B3DAADB00E488EB /* CMakeLists.txt */,
-			);
-			name = Delay;
-			sourceTree = "<group>";
-		};
 		F68373EA240409500030F969 /* examples */ = {
 			isa = PBXGroup;
 			children = (
@@ -1238,7 +1168,6 @@
 			children = (
 				F68373F4240409F80030F969 /* CMakeLists.txt */,
 				F68373F2240409D70030F969 /* Ricochet */,
-				F65C48D52985614A00430284 /* Simple */,
 			);
 			name = examples;
 			sourceTree = "<group>";

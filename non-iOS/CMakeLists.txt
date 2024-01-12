@@ -281,5 +281,6 @@ add_subdirectory(nImO)
 add_subdirectory(Registry)
 add_subdirectory(Tests)
 add_subdirectory(Tools)
+add_subdirectory(Wiring)
 
 enable_testing()

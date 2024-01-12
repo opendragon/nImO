@@ -282,6 +282,13 @@
 		F6A8069A29C6005800567C55 /* nImOcommonCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommonCommands.h; path = nImO/nImOcommonCommands.h; sourceTree = "<group>"; };
 		F6AB47A72AB8DACA006A6446 /* nImOaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddress.h; path = nImO/BasicTypes/nImOaddress.h; sourceTree = "<group>"; };
 		F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddress.cpp; path = nImO/BasicTypes/nImOaddress.cpp; sourceTree = "<group>"; };
+		F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5D92B51505700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Commutator/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5DB2B5150B100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Delay/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5DD2B5150F400BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/FanIn/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5DF2B51516400BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/FanOut/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Junction/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5E32B5151C700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Passthrough/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B1E7A429B7B8BE00FDF4D6 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -855,14 +862,6 @@
 			path = LoadApplications;
 			sourceTree = "<group>";
 		};
-		F65C48C82985612B00430284 /* Simple */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Simple;
-			path = examples/Simple;
-			sourceTree = "<group>";
-		};
 		F65C48D52985614A00430284 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
@@ -1218,7 +1217,6 @@
 			isa = PBXGroup;
 			children = (
 				F68373EB240409690030F969 /* Ricochet */,
-				F65C48C82985612B00430284 /* Simple */,
 			);
 			name = examples;
 			sourceTree = "<group>";
@@ -1326,6 +1324,68 @@
 				F692A44B29C0E954003711E9 /* CMakeLists.txt */,
 			);
 			path = StoreSetup;
+			sourceTree = "<group>";
+		};
+		F6ADA5D82B51502200BE55B0 /* Wiring */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */,
+				F6ADA5DA2B51506300BE55B0 /* Commutator */,
+				F6ADA5DC2B5150BB00BE55B0 /* Delay */,
+				F6ADA5DE2B5150FF00BE55B0 /* FanIn */,
+				F6ADA5E02B51516C00BE55B0 /* FanOut */,
+				F6ADA5E22B5151A700BE55B0 /* Junction */,
+				F6ADA5E42B5151CE00BE55B0 /* Passthrough */,
+			);
+			name = Wiring;
+			sourceTree = "<group>";
+		};
+		F6ADA5DA2B51506300BE55B0 /* Commutator */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5D92B51505700BE55B0 /* CMakeLists.txt */,
+			);
+			name = Commutator;
+			sourceTree = "<group>";
+		};
+		F6ADA5DC2B5150BB00BE55B0 /* Delay */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5DB2B5150B100BE55B0 /* CMakeLists.txt */,
+			);
+			name = Delay;
+			sourceTree = "<group>";
+		};
+		F6ADA5DE2B5150FF00BE55B0 /* FanIn */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5DD2B5150F400BE55B0 /* CMakeLists.txt */,
+			);
+			name = FanIn;
+			sourceTree = "<group>";
+		};
+		F6ADA5E02B51516C00BE55B0 /* FanOut */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5DF2B51516400BE55B0 /* CMakeLists.txt */,
+			);
+			name = FanOut;
+			sourceTree = "<group>";
+		};
+		F6ADA5E22B5151A700BE55B0 /* Junction */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */,
+			);
+			name = Junction;
+			sourceTree = "<group>";
+		};
+		F6ADA5E42B5151CE00BE55B0 /* Passthrough */ = {
+			isa = PBXGroup;
+			children = (
+				F6ADA5E32B5151C700BE55B0 /* CMakeLists.txt */,
+			);
+			name = Passthrough;
 			sourceTree = "<group>";
 		};
 		F6B1E7A329B7B8BE00FDF4D6 /* SQLite */ = {
@@ -1478,6 +1538,7 @@
 				F613D161288D8455008712C9 /* Registry */,
 				F6D7AD0F224A5DEA0095AA43 /* Tests */,
 				F65C4A3D2985620100430284 /* Tools */,
+				F6ADA5D82B51502200BE55B0 /* Wiring */,
 			);
 			name = "non-iOS";
 			sourceTree = "<group>";

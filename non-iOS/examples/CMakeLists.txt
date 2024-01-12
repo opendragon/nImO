@@ -37,6 +37,5 @@
 #--------------------------------------------------------------------------------------------------
 
 add_subdirectory(Ricochet)
-add_subdirectory(Simple)
 
 enable_testing()

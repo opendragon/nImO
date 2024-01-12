@@ -504,7 +504,8 @@
 				F60394F02986C06B004A7F8C /* nImOjunctionMain.cpp */,
 				F60394F12986C06B004A7F8C /* resource.h */,
 			);
-			path = Junction;
+			name = Junction;
+			path = ../examples/Simple/Junction;
 			sourceTree = "<group>";
 		};
 		F60394F32986C14E004A7F8C /* Junction */ = {
@@ -818,12 +819,6 @@
 		F65C48C82985612B00430284 /* Simple */ = {
 			isa = PBXGroup;
 			children = (
-				F61D210B299BA9EA0083424E /* Commutator */,
-				F6773C322B3DAE4E00E488EB /* Delay */,
-				F65C48C92985612B00430284 /* FanIn */,
-				F65C48D12985612B00430284 /* FanOut */,
-				F60394EF2986C06B004A7F8C /* Junction */,
-				F65C48CD2985612B00430284 /* Passthrough */,
 			);
 			name = Simple;
 			path = examples/Simple;
@@ -836,7 +831,8 @@
 				F65C48CC2985612B00430284 /* nImOfanInMain.cpp */,
 				F65C48CB2985612B00430284 /* resource.h */,
 			);
-			path = FanIn;
+			name = FanIn;
+			path = ../examples/Simple/FanIn;
 			sourceTree = "<group>";
 		};
 		F65C48CD2985612B00430284 /* Passthrough */ = {
@@ -846,7 +842,8 @@
 				F65C48CE2985612B00430284 /* nImOpassthroughMain.cpp */,
 				F65C48CF2985612B00430284 /* resource.h */,
 			);
-			path = Passthrough;
+			name = Passthrough;
+			path = ../examples/Simple/Passthrough;
 			sourceTree = "<group>";
 		};
 		F65C48D12985612B00430284 /* FanOut */ = {
@@ -856,7 +853,8 @@
 				F65C48D32985612B00430284 /* nImOfanOutMain.cpp */,
 				F65C48D42985612B00430284 /* resource.h */,
 			);
-			path = FanOut;
+			name = FanOut;
+			path = ../examples/Simple/FanOut;
 			sourceTree = "<group>";
 		};
 		F65C48D52985614A00430284 /* Simple */ = {
@@ -1218,6 +1216,7 @@
 				F60FAE872B422D7B00CB00C8 /* resource.h */,
 			);
 			name = Delay;
+			path = Simple;
 			sourceTree = "<group>";
 		};
 		F68373EA240409500030F969 /* examples */ = {
@@ -1364,6 +1363,7 @@
 				F613D15E288D82FB008712C9 /* Registry */,
 				F6B388EC1C77F1EC004B2D42 /* Tests */,
 				F65C4B9D2985636700430284 /* Tools */,
+				F6EC8DC22B514855009DF89A /* Wiring */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1632,6 +1632,19 @@
 				F6EC3D2729965273006C36D1 /* resource.h */,
 			);
 			path = Launcher;
+			sourceTree = "<group>";
+		};
+		F6EC8DC22B514855009DF89A /* Wiring */ = {
+			isa = PBXGroup;
+			children = (
+				F61D210B299BA9EA0083424E /* Commutator */,
+				F6773C322B3DAE4E00E488EB /* Delay */,
+				F65C48C92985612B00430284 /* FanIn */,
+				F65C48D12985612B00430284 /* FanOut */,
+				F60394EF2986C06B004A7F8C /* Junction */,
+				F65C48CD2985612B00430284 /* Passthrough */,
+			);
+			path = Wiring;
 			sourceTree = "<group>";
 		};
 		F6EE0A9D1CA2C425004748ED /* swig */ = {

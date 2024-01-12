@@ -60,6 +60,21 @@
 		F62A14C22A6DE70500886581 /* nImOgetInformationForAllConnectionsOnMachineCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllConnectionsOnMachineCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllConnectionsOnMachineCommandHandler.cpp; sourceTree = "<group>"; };
 		F62A14C32A6DE91300886581 /* nImOgetInformationForAllConnectionsOnMachineResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllConnectionsOnMachineResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.h; sourceTree = "<group>"; };
 		F62A14C42A6DE91300886581 /* nImOgetInformationForAllConnectionsOnMachineResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllConnectionsOnMachineResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllConnectionsOnMachineResponseHandler.cpp; sourceTree = "<group>"; };
+		F62CFD602B514C73000AA344 /* nImOdelayMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOdelayMain.cpp; sourceTree = "<group>"; };
+		F62CFD612B514C73000AA344 /* nImOdelay.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOdelay.rc.in; sourceTree = "<group>"; };
+		F62CFD622B514C73000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F62CFD662B514CFB000AA344 /* nImOfanIn.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanIn.rc.in; sourceTree = "<group>"; };
+		F62CFD672B514CFB000AA344 /* nImOfanInMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanInMain.cpp; sourceTree = "<group>"; };
+		F62CFD682B514CFB000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F62CFD6A2B514D31000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F62CFD6B2B514D31000AA344 /* nImOfanOutMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanOutMain.cpp; sourceTree = "<group>"; };
+		F62CFD6C2B514D31000AA344 /* nImOfanOut.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanOut.rc.in; sourceTree = "<group>"; };
+		F62CFD6E2B514D60000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		F62CFD6F2B514D60000AA344 /* nImOjunction.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOjunction.rc.in; sourceTree = "<group>"; };
+		F62CFD702B514D60000AA344 /* nImOjunctionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOjunctionMain.cpp; sourceTree = "<group>"; };
+		F62CFD722B514D89000AA344 /* nImOpassthroughMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOpassthroughMain.cpp; sourceTree = "<group>"; };
+		F62CFD732B514D89000AA344 /* nImOpassthrough.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOpassthrough.rc.in; sourceTree = "<group>"; };
+		F62CFD742B514D89000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F62FE69929FBCE1D002D5FE3 /* nImOoutChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOoutChannel.cpp; path = nImO/nImOoutChannel.cpp; sourceTree = "<group>"; };
 		F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinChannel.cpp; path = nImO/nImOinChannel.cpp; sourceTree = "<group>"; };
 		F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinChannel.h; path = nImO/nImOinChannel.h; sourceTree = "<group>"; };
@@ -466,21 +481,6 @@
 		F6EC3D2629965273006C36D1 /* nImOlauncher.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOlauncher.rc.in; sourceTree = "<group>"; };
 		F6EC3D2729965273006C36D1 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6EC3D2829965273006C36D1 /* nImOlauncherMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOlauncherMain.cpp; sourceTree = "<group>"; };
-		F6EC8DC32B5149E8009DF89A /* nImOdelay.rc.in */ = {isa = PBXFileReference; lastKnownFileType = file; name = nImOdelay.rc.in; path = Wiring/Delay/nImOdelay.rc.in; sourceTree = SOURCE_ROOT; };
-		F6EC8DC42B5149E9009DF89A /* nImOdelayMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdelayMain.cpp; path = Wiring/Delay/nImOdelayMain.cpp; sourceTree = SOURCE_ROOT; };
-		F6EC8DC52B5149E9009DF89A /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Wiring/Delay/resource.h; sourceTree = SOURCE_ROOT; };
-		F6EC8DC62B5149FB009DF89A /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Wiring/FanIn/resource.h; sourceTree = SOURCE_ROOT; };
-		F6EC8DC72B5149FB009DF89A /* nImOfanIn.rc.in */ = {isa = PBXFileReference; lastKnownFileType = file; name = nImOfanIn.rc.in; path = Wiring/FanIn/nImOfanIn.rc.in; sourceTree = SOURCE_ROOT; };
-		F6EC8DC82B5149FC009DF89A /* nImOfanInMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOfanInMain.cpp; path = Wiring/FanIn/nImOfanInMain.cpp; sourceTree = SOURCE_ROOT; };
-		F6EC8DC92B514A13009DF89A /* nImOfanOutMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOfanOutMain.cpp; path = Wiring/FanOut/nImOfanOutMain.cpp; sourceTree = SOURCE_ROOT; };
-		F6EC8DCA2B514A13009DF89A /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Wiring/FanOut/resource.h; sourceTree = SOURCE_ROOT; };
-		F6EC8DCB2B514A14009DF89A /* nImOfanOut.rc.in */ = {isa = PBXFileReference; lastKnownFileType = file; name = nImOfanOut.rc.in; path = Wiring/FanOut/nImOfanOut.rc.in; sourceTree = SOURCE_ROOT; };
-		F6EC8DCC2B514A27009DF89A /* nImOjunction.rc.in */ = {isa = PBXFileReference; lastKnownFileType = file; name = nImOjunction.rc.in; path = Wiring/Junction/nImOjunction.rc.in; sourceTree = SOURCE_ROOT; };
-		F6EC8DCD2B514A27009DF89A /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Wiring/Junction/resource.h; sourceTree = SOURCE_ROOT; };
-		F6EC8DCE2B514A27009DF89A /* nImOjunctionMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOjunctionMain.cpp; path = Wiring/Junction/nImOjunctionMain.cpp; sourceTree = SOURCE_ROOT; };
-		F6EC8DCF2B514A38009DF89A /* nImOpassthrough.rc.in */ = {isa = PBXFileReference; lastKnownFileType = file; name = nImOpassthrough.rc.in; path = Wiring/Passthrough/nImOpassthrough.rc.in; sourceTree = SOURCE_ROOT; };
-		F6EC8DD02B514A38009DF89A /* nImOpassthroughMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOpassthroughMain.cpp; path = Wiring/Passthrough/nImOpassthroughMain.cpp; sourceTree = SOURCE_ROOT; };
-		F6EC8DD12B514A38009DF89A /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Wiring/Passthrough/resource.h; sourceTree = SOURCE_ROOT; };
 		F6EE0AC91CA2C7F4004748ED /* nImOcommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommon.cpp; path = nImO/nImOcommon.cpp; sourceTree = SOURCE_ROOT; };
 		F6EE0ACA1CA2C7F4004748ED /* nImOcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOcommon.h; path = nImO/nImOcommon.h; sourceTree = SOURCE_ROOT; };
 		F6EE0ACB1CA2C7F4004748ED /* nImOconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOconfig.h; path = nImO/nImOconfig.h; sourceTree = SOURCE_ROOT; };
@@ -497,17 +497,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		F60394EF2986C06B004A7F8C /* Junction */ = {
-			isa = PBXGroup;
-			children = (
-				F6EC8DCC2B514A27009DF89A /* nImOjunction.rc.in */,
-				F6EC8DCE2B514A27009DF89A /* nImOjunctionMain.cpp */,
-				F6EC8DCD2B514A27009DF89A /* resource.h */,
-			);
-			name = Junction;
-			path = ../examples/Simple/Junction;
-			sourceTree = "<group>";
-		};
 		F60394F32986C14E004A7F8C /* Junction */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,6 +751,56 @@
 			name = "Basic Types";
 			sourceTree = "<group>";
 		};
+		F62CFD652B514CB7000AA344 /* Delay */ = {
+			isa = PBXGroup;
+			children = (
+				F62CFD612B514C73000AA344 /* nImOdelay.rc.in */,
+				F62CFD602B514C73000AA344 /* nImOdelayMain.cpp */,
+				F62CFD622B514C73000AA344 /* resource.h */,
+			);
+			path = Delay;
+			sourceTree = "<group>";
+		};
+		F62CFD692B514D01000AA344 /* FanIn */ = {
+			isa = PBXGroup;
+			children = (
+				F62CFD662B514CFB000AA344 /* nImOfanIn.rc.in */,
+				F62CFD672B514CFB000AA344 /* nImOfanInMain.cpp */,
+				F62CFD682B514CFB000AA344 /* resource.h */,
+			);
+			path = FanIn;
+			sourceTree = "<group>";
+		};
+		F62CFD6D2B514D36000AA344 /* FanOut */ = {
+			isa = PBXGroup;
+			children = (
+				F62CFD6C2B514D31000AA344 /* nImOfanOut.rc.in */,
+				F62CFD6B2B514D31000AA344 /* nImOfanOutMain.cpp */,
+				F62CFD6A2B514D31000AA344 /* resource.h */,
+			);
+			path = FanOut;
+			sourceTree = "<group>";
+		};
+		F62CFD712B514D66000AA344 /* Junction */ = {
+			isa = PBXGroup;
+			children = (
+				F62CFD6F2B514D60000AA344 /* nImOjunction.rc.in */,
+				F62CFD702B514D60000AA344 /* nImOjunctionMain.cpp */,
+				F62CFD6E2B514D60000AA344 /* resource.h */,
+			);
+			path = Junction;
+			sourceTree = "<group>";
+		};
+		F62CFD752B514D8E000AA344 /* Passthrough */ = {
+			isa = PBXGroup;
+			children = (
+				F62CFD732B514D89000AA344 /* nImOpassthrough.rc.in */,
+				F62CFD722B514D89000AA344 /* nImOpassthroughMain.cpp */,
+				F62CFD742B514D89000AA344 /* resource.h */,
+			);
+			path = Passthrough;
+			sourceTree = "<group>";
+		};
 		F6491B0A29BE236200DE5D58 /* UpdateApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -822,39 +861,6 @@
 			);
 			name = Simple;
 			path = examples/Simple;
-			sourceTree = "<group>";
-		};
-		F65C48C92985612B00430284 /* FanIn */ = {
-			isa = PBXGroup;
-			children = (
-				F6EC8DC72B5149FB009DF89A /* nImOfanIn.rc.in */,
-				F6EC8DC82B5149FC009DF89A /* nImOfanInMain.cpp */,
-				F6EC8DC62B5149FB009DF89A /* resource.h */,
-			);
-			name = FanIn;
-			path = ../examples/Simple/FanIn;
-			sourceTree = "<group>";
-		};
-		F65C48CD2985612B00430284 /* Passthrough */ = {
-			isa = PBXGroup;
-			children = (
-				F6EC8DCF2B514A38009DF89A /* nImOpassthrough.rc.in */,
-				F6EC8DD02B514A38009DF89A /* nImOpassthroughMain.cpp */,
-				F6EC8DD12B514A38009DF89A /* resource.h */,
-			);
-			name = Passthrough;
-			path = ../examples/Simple/Passthrough;
-			sourceTree = "<group>";
-		};
-		F65C48D12985612B00430284 /* FanOut */ = {
-			isa = PBXGroup;
-			children = (
-				F6EC8DCB2B514A14009DF89A /* nImOfanOut.rc.in */,
-				F6EC8DC92B514A13009DF89A /* nImOfanOutMain.cpp */,
-				F6EC8DCA2B514A13009DF89A /* resource.h */,
-			);
-			name = FanOut;
-			path = ../examples/Simple/FanOut;
 			sourceTree = "<group>";
 		};
 		F65C48D52985614A00430284 /* Simple */ = {
@@ -1206,17 +1212,6 @@
 				F6773C2E2B3DAADB00E488EB /* CMakeLists.txt */,
 			);
 			name = Delay;
-			sourceTree = "<group>";
-		};
-		F6773C322B3DAE4E00E488EB /* Delay */ = {
-			isa = PBXGroup;
-			children = (
-				F6EC8DC32B5149E8009DF89A /* nImOdelay.rc.in */,
-				F6EC8DC42B5149E9009DF89A /* nImOdelayMain.cpp */,
-				F6EC8DC52B5149E9009DF89A /* resource.h */,
-			);
-			name = Delay;
-			path = Simple;
 			sourceTree = "<group>";
 		};
 		F68373EA240409500030F969 /* examples */ = {
@@ -1638,11 +1633,11 @@
 			isa = PBXGroup;
 			children = (
 				F61D210B299BA9EA0083424E /* Commutator */,
-				F6773C322B3DAE4E00E488EB /* Delay */,
-				F65C48C92985612B00430284 /* FanIn */,
-				F65C48D12985612B00430284 /* FanOut */,
-				F60394EF2986C06B004A7F8C /* Junction */,
-				F65C48CD2985612B00430284 /* Passthrough */,
+				F62CFD652B514CB7000AA344 /* Delay */,
+				F62CFD692B514D01000AA344 /* FanIn */,
+				F62CFD6D2B514D36000AA344 /* FanOut */,
+				F62CFD712B514D66000AA344 /* Junction */,
+				F62CFD752B514D8E000AA344 /* Passthrough */,
 			);
 			path = Wiring;
 			sourceTree = "<group>";

@@ -173,6 +173,8 @@ main
                                     std::cerr << "Invalid channel path " << "'" << basePath << "'\n";
                                     exitCode = 1;
                                 }
+                                nImO::OutChannelVector  outChannels{};
+
                                 for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
@@ -188,6 +190,12 @@ main
                                             if (statusWithBool.second)
                                             {
                                                 ourContext->addOutputChannel(scratch);
+                                                auto    aChannel{ourContext->getOutputChannel(scratch)};
+
+                                                if (aChannel)
+                                                {
+                                                    outChannels.push_back(aChannel);
+                                                }
                                             }
                                             else
                                             {
@@ -210,9 +218,8 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests."s);
-                                    for ( ; nImO::gKeepRunning; )
+                                    ourContext->report("waiting for messages."s);
+                                    for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();
                                         auto    nextData{ourContext->getNextMessage()};
@@ -221,14 +228,22 @@ std::cerr << "** Unimplemented **\n";
                                         {
                                             if (nextData)
                                             {
-                                                auto                contents{nextData->_receivedMessage};
-//                                                nImO::StringBuffer  buff;
-//
-//                                                contents->printToStringBuffer(buff);
-//                                                auto    valString{buff.getString()};
-//
-//                                                std::cout << valString << "\n";
-//TBD!!
+                                                auto    contents{nextData->_receivedMessage};
+
+                                                if (contents)
+                                                {
+                                                    for (auto &walker : outChannels)
+                                                    {
+                                                        if (! walker->send(contents))
+                                                        {
+                                                            ourContext->report("problem sending to "s + walker->getName());
+                                                            std::cerr << "problem sending to " << walker->getName() << "\n";
+                                                            exitCode = 1;
+                                                            break;
+
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }

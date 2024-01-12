@@ -66,6 +66,9 @@ namespace nImO
     /*! @brief A holder for a shared pointer to an output channel. */
     using SpOutChannel = std::shared_ptr<OutChannel>;
 
+    /*! @brief An array of output channels. */
+    using OutChannelVector = std::vector<SpOutChannel>;
+
     /*! @brief A class to provide support for an 'inputOutput' application. */
     class InputOutputContext : public ServiceContext
     {
@@ -79,14 +82,8 @@ namespace nImO
             /*! @brief A map of input channels. */
             using InChannelMap = std::map<std::string, SpInChannel>;
 
-            /*! @brief An array of input channels. */
-            using InChannelVector = std::vector<SpInChannel>;
-
             /*! @brief A map of input channels. */
             using OutChannelMap = std::map<std::string, SpOutChannel>;
-
-            /*! @brief An array of output channels. */
-            using OutChannelVector = std::vector<SpOutChannel>;
 
         private :
             // Private type definitions.

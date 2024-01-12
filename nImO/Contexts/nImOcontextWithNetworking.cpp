@@ -146,10 +146,10 @@ nImO::ContextWithNetworking::ContextWithNetworking
             auto    aThread{new boost::thread([this]
                                                 (void)
                                                 {
-                                                getService()->run();
+                                                    getService()->run();
                                                 })};
 
-            ODL_P1("service thread = ", aThread); //####
+            ODL_P1("aThread = ", aThread); //####
             _pool.add_thread(aThread);
         }
         // Get the address and port to use for logging.

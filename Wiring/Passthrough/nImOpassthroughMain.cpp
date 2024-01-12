@@ -206,25 +206,33 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests."s);
-                                    for ( ; nImO::gKeepRunning; )
-                                    {
-                                        boost::this_thread::yield();
-                                        auto    nextData{ourContext->getNextMessage()};
+                                    auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
-                                        if (nImO::gKeepRunning)
+                                    if (outChannel)
+                                    {
+                                        for ( ; nImO::gKeepRunning; )
                                         {
-                                            if (nextData)
+                                            boost::this_thread::yield();
+                                            auto    nextData{ourContext->getNextMessage()};
+
+                                            if (nImO::gKeepRunning)
                                             {
-                                                auto                contents{nextData->_receivedMessage};
-//                                                nImO::StringBuffer  buff;
-//
-//                                                contents->printToStringBuffer(buff);
-//                                                auto    valString{buff.getString()};
-//
-//                                                std::cout << valString << "\n";
-//TBD!!
+                                                if (nextData)
+                                                {
+                                                    auto    contents{nextData->_receivedMessage};
+
+                                                    if (contents)
+                                                    {
+                                                        if (! outChannel->send(contents))
+                                                        {
+                                                            ourContext->report("problem sending to "s + outChannelPath);
+                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                            exitCode = 1;
+                                                            break;
+
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }

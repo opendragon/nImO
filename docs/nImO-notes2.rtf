@@ -9,8 +9,12 @@
 \f0\fs24 \cf0 it appears that both a TCP and a UDP socket can be opened with the same port\
 \
 * [nImObridge 'a' 'b' \'97 routing between networks; 'a' is the name of this network, 'b' is the address to connect to the other]\
-* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd']\
-* nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d'\
+* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd'] 
+\f1\b DONE
+\f0\b0 \
+* nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d' 
+\f1\b DONE
+\f0\b0 \
 * nImOinfo 'c' \'97 reports on the connections to the channel 'c'\
 * nImOlauncher 'a' \'97 program launcher \
 * nImOlist xyz \'97 reports all the known channels, connections, bridges, machines, applications depending on filters and options \
@@ -20,21 +24,35 @@
 * nImOpost 'a' 'b' - writes text to the log; 
 \f1\b DONE
 \f0\b0 \
-* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'\
+* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c' 
+\f1\b DONE
+\f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE
 \f0\b0 \
-* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'\
+* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c' 
+\f1\b DONE
+\f0\b0 \
 \
 examples:\
 * nImOricochet 'p' - forwards a message to the next machine in a list [uses unfiltered InChannels]\
 * nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
-* nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]\
+* nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false] 
+\f1\b DONE
+\f0\b0 \
 * nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1)\
-* nImOfanIn ['n'] - forwards any messages from one of the 'n' input channels to the output channel ('n' defaults to 1)\
-* nImOfanOut ['n'] - forwards a message from the input channel to all of the 'n' output channels ('n' defaults to 1)\
-* nImOjunction ['n' ['m']] - forwards any messages from one of the 'n' input channels to all of the 'm' output channels ('n' and 'm' default to 1)\
-* nImOpassthrough - forwards any message from the input channel to the output channel, allowing for changing channel data types\
+* nImOfanIn ['n'] - forwards any messages from one of the 'n' input channels to the output channel ('n' defaults to 1) 
+\f1\b DONE
+\f0\b0 \
+* nImOfanOut ['n'] - forwards a message from the input channel to all of the 'n' output channels ('n' defaults to 1) 
+\f1\b DONE
+\f0\b0 \
+* nImOjunction ['n' ['m']] - forwards any messages from one of the 'n' input channels to all of the 'm' output channels ('n' and 'm' default to 1) 
+\f1\b DONE
+\f0\b0 \
+* nImOpassthrough - forwards any message from the input channel to the output channel, allowing for changing channel data types 
+\f1\b DONE
+\f0\b0 \
 \
 application support:\
 * nImOaddApp 'a' - adds an application to the list of available applications on the machine\

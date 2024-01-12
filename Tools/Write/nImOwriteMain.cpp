@@ -46,7 +46,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 
-#include <ncurses.h>
+#include <chrono>
+//#include <ncurses.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -69,9 +70,17 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+using namespace std::chrono_literals;
+
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+/*! @brief Used to protect the received text. */
+std::mutex  lReceivedLock{};
+
+/*! @brief Used to indicate that there is some received text. */
+std::condition_variable lReceivedCondition{};
 
 /*! @brief A class to handle receiving messages from the logging or status multicast group. */
 class SourceBreakHandler final : public nImO::CallbackFunction
@@ -134,6 +143,30 @@ class SourceBreakHandler final : public nImO::CallbackFunction
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+/*! @brief Handle console input.
+ @param[out] outLine where to place the received text. */
+static void
+gatherLines
+    (std::string &  outLine)
+{
+    std::string inLine{};
+
+    for ( ; nImO::gKeepRunning; )
+    {
+        boost::this_thread::yield();
+        if (getline(std::cin, inLine))
+        {
+            {
+                std::lock_guard<std::mutex>  lock{lReceivedLock};
+
+                outLine = inLine;
+            }
+            lReceivedCondition.notify_one();
+        }
+    }
+    lReceivedCondition.notify_one();
+} // gatherLines
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -236,35 +269,59 @@ main
                                     if (outChannel)
                                     {
                                         ourContext->report("waiting for input."s);
+                                        nImO::StringBuffer  inBuffer;
+                                        std::string         inLine;
+                                        auto                aThread{new boost::thread([&inLine]
+                                                                                        (void)
+                                                                                        {
+                                                                                            gatherLines(inLine);
+                                                                                        })};
+
+                                        ODL_P1("aThread = ", aThread); //####
+                                        aThread->detach();
+                                        ourContext->report("waiting for input."s);
                                         for ( ; nImO::gKeepRunning; )
                                         {
-                                            boost::this_thread::yield();
-                                            nImO::StringBuffer  inBuffer;
-                                            std::string         inLine;
-                                            nImO::SpValue       readValue;
-
-                                            for ( ; getline(std::cin, inLine); )
                                             {
-                                                inBuffer.addString("\n" + inLine);
-                                                readValue = inBuffer.convertToValue();
-                                                if (readValue)
-                                                {
-                                                    break;
+                                                // Check for text.
+                                                std::unique_lock<std::mutex>    lock{lReceivedLock};
 
+                                                for ( ; nImO::gKeepRunning && inLine.empty(); )
+                                                {
+                                                    boost::this_thread::yield();
+                                                    lReceivedCondition.wait_for(lock, 10ms,
+                                                                                  []
+                                                                                  (void)
+                                                                                  {
+                                                                                    return (! nImO::gKeepRunning);
+                                                                                  });
                                                 }
                                             }
                                             if (nImO::gKeepRunning)
                                             {
-                                                if (! outChannel->send(readValue))
-                                                {
-                                                    ourContext->report("problem sending to "s + outChannelPath);
-                                                    std::cerr << "problem sending to " << outChannelPath << "\n";
-                                                    exitCode = 1;
-                                                    break;
+                                                inBuffer.addString("\n" + inLine);
+                                                inLine.clear();
+                                                nImO::SpValue   readValue{inBuffer.convertToValue()};
 
+                                                if (readValue)
+                                                {
+                                                    inBuffer.reset();
+                                                    if (nImO::gKeepRunning)
+                                                    {
+                                                        if (! outChannel->send(readValue))
+                                                        {
+                                                            ourContext->report("problem sending to "s + outChannelPath);
+                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
+                                                            exitCode = 1;
+                                                            break;
+
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
+                                        //                                            aThread->join();
+
                                     }
                                 }
                                 if (! nImO::gPendingStop)

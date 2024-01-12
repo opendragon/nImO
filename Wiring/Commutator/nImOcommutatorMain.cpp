@@ -176,6 +176,8 @@ main
                                     std::cerr << "Invalid channel path " << "'" << basePath << "'\n";
                                     exitCode = 1;
                                 }
+                                nImO::OutChannelVector  outChannels{};
+
                                 for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
@@ -191,6 +193,12 @@ main
                                             if (statusWithBool.second)
                                             {
                                                 ourContext->addOutputChannel(scratch);
+                                                auto    aChannel{ourContext->getOutputChannel(scratch)};
+
+                                                if (aChannel)
+                                                {
+                                                    outChannels.push_back(aChannel);
+                                                }
                                             }
                                             else
                                             {
@@ -213,9 +221,12 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests."s);
-                                    for ( ; nImO::gKeepRunning; )
+                                    bool            randomRouting{secondArg.getCurrentValue()};
+                                    const size_t    maxChannel{outChannels.size()};
+                                    size_t          nextChannel{0};
+
+                                    ourContext->report("waiting for messages."s);
+                                    for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();
                                         auto    nextData{ourContext->getNextMessage()};
@@ -224,14 +235,35 @@ std::cerr << "** Unimplemented **\n";
                                         {
                                             if (nextData)
                                             {
-                                                auto                contents{nextData->_receivedMessage};
-//                                                nImO::StringBuffer  buff;
-//
-//                                                contents->printToStringBuffer(buff);
-//                                                auto    valString{buff.getString()};
-//
-//                                                std::cout << valString << "\n";
-//TBD!!
+                                                auto    contents{nextData->_receivedMessage};
+
+                                                if (contents)
+                                                {
+                                                    size_t  thisChannel;
+
+                                                    if (randomRouting)
+                                                    {
+                                                        thisChannel = (nImO::RandomUnsigned() % maxChannel);
+                                                    }
+                                                    else
+                                                    {
+                                                        thisChannel = nextChannel++;
+                                                        if (maxChannel == nextChannel)
+                                                        {
+                                                            nextChannel = 0;
+                                                        }
+                                                    }
+                                                    auto    outChannel{outChannels[thisChannel]};
+
+                                                    if (! outChannel->send(contents))
+                                                    {
+                                                        ourContext->report("problem sending to "s + outChannel->getName());
+                                                        std::cerr << "problem sending to " << outChannel->getName() << "\n";
+                                                        exitCode = 1;
+                                                        break;
+
+                                                    }
+                                                }
                                             }
                                         }
                                     }

@@ -210,7 +210,7 @@ main
                                 if (0 == exitCode)
                                 {
 std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for requests."s);
+                                    ourContext->report("waiting for messages."s);
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();
@@ -220,14 +220,19 @@ std::cerr << "** Unimplemented **\n";
                                         {
                                             if (nextData)
                                             {
-                                                auto                contents{nextData->_receivedMessage};
-//                                                nImO::StringBuffer  buff;
+                                                auto    contents{nextData->_receivedMessage};
+
+                                                if (contents)
+                                                {
+//                                                    if (! outChannel->send(contents))
+//                                                    {
+//                                                        ourContext->report("problem sending to "s + outChannelPath);
+//                                                        std::cerr << "problem sending to " << outChannelPath << "\n";
+//                                                        exitCode = 1;
+//                                                        break;
 //
-//                                                contents->printToStringBuffer(buff);
-//                                                auto    valString{buff.getString()};
-//
-//                                                std::cout << valString << "\n";
-//TBD!!
+//                                                    }
+                                                }
                                             }
                                         }
                                     }

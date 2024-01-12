@@ -116,5 +116,6 @@
 #include "nImOregistryTypes.h"
 #include "nImOrequestResponse.h"
 #include "nImOserviceOptions.h"
+#include "nImOsinkBreakHandler.h"
 #include "nImOstandardOptions.h"
 %}

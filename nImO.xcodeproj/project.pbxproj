@@ -282,6 +282,8 @@
 		F6ADA5DF2B51516400BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/FanOut/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Junction/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5E32B5151C700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Passthrough/CMakeLists.txt"; sourceTree = "<group>"; };
+		F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsinkBreakHandler.cpp; path = nImO/nImOsinkBreakHandler.cpp; sourceTree = "<group>"; };
+		F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsinkBreakHandler.h; path = nImO/nImOsinkBreakHandler.h; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
 		F6AEC43220E46A0E00934786 /* nImOconvertersTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOconvertersTest.rc.in; path = Tests/nImOconvertersTest.rc.in; sourceTree = "<group>"; };
 		F6B1E7A429B7B8BE00FDF4D6 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -1446,6 +1448,8 @@
 				F69004EC29CF654300271A73 /* nImOrequestResponse.h */,
 				F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */,
 				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
+				F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */,
+				F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */,
 				F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */,
 				F67B359429BCD51E000FC147 /* nImOstandardOptions.h */,
 				F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */,

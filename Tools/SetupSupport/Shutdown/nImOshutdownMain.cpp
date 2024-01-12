@@ -444,7 +444,8 @@ main
                                             if (statusWithNodeInfo.second._found)
                                             {
                                                 toConnection = statusWithNodeInfo.second._connection;
-                                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode,
+                                                               toPath);
                                                 auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
 
                                                 if (! statusWithBool.first.first)

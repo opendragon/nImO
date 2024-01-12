@@ -74,7 +74,7 @@
 #endif // defined(__APPLE__)
 
 /*! @brief A class to handle receiving messages from the logging or status multicast group. */
-class BreakHandler final : public nImO::CallbackFunction
+class SourceBreakHandler final : public nImO::CallbackFunction
 {
     public :
         // Public type definitions.
@@ -92,7 +92,7 @@ class BreakHandler final : public nImO::CallbackFunction
         // Public methods.
 
         /*! @brief The constructor. */
-        inline BreakHandler
+        inline SourceBreakHandler
             (void) :
                 inherited()
         {
@@ -125,7 +125,7 @@ class BreakHandler final : public nImO::CallbackFunction
     private :
         // Private fields.
 
-}; // BreakHandler
+}; // SourceBreakHandler
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -167,11 +167,12 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
-            auto                asServiceContext{ourContext->asServiceContext()};
-            Ptr(BreakHandler)   cleanup{new BreakHandler};
+            auto                    nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
+            auto                    ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write"s,
+                                                                                     optionValues._logging, nodeName)};
+            nImO::Connection        registryConnection;
+            auto                    asServiceContext{ourContext->asServiceContext()};
+            Ptr(SourceBreakHandler) cleanup{new SourceBreakHandler};
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::InputOutputContext::addInputOutputHandlers(ourContext, cleanup);

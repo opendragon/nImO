@@ -108,7 +108,8 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "passthrough"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s,
+                                                                                 optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
             auto                asServiceContext{ourContext->asServiceContext()};
 
@@ -208,7 +209,22 @@ std::cerr << "** Unimplemented **\n";
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();
-                //TBD
+                                        auto    nextData{ourContext->getNextMessage()};
+
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            if (nextData)
+                                            {
+                                                auto                contents{nextData->_receivedMessage};
+//                                                nImO::StringBuffer  buff;
+//
+//                                                contents->printToStringBuffer(buff);
+//                                                auto    valString{buff.getString()};
+//
+//                                                std::cout << valString << "\n";
+//TBD!!
+                                            }
+                                        }
                                     }
                                 }
                                 if (! nImO::gPendingStop)

@@ -40,11 +40,11 @@
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOstringBuffer.h>
 #include <Contexts/nImOsinkContext.h>
-#include <nImOcallbackFunction.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
+#include <nImOsinkBreakHandler.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -71,66 +71,6 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-/*! @brief A class to handle receiving messages from the logging or status multicast group. */
-class BreakHandler final : public nImO::CallbackFunction
-{
-    public :
-        // Public type definitions.
-
-    protected :
-        // Protected type definitions.
-
-    private :
-        // Private type definitions.
-
-        /*! @brief The class that this class is derived from. */
-        using inherited = CallbackFunction;
-
-    public :
-        // Public methods.
-
-        /*! @brief The constructor.
-         @param[in] theContext The input/output context that is active. */
-        inline BreakHandler
-            (Ptr(nImO::InputOutputContext)  theContext) :
-                inherited(), _context(theContext)
-        {
-        }
-
-    protected :
-        // Protected methods.
-
-    private :
-        // Private methods.
-
-        /*! @brief Process a break signal. */
-        void
-        operator()
-            (void)
-            const
-            override
-        {
-            ODL_OBJENTER(); //####
-            if (nullptr != _context)
-            {
-                _context->stopInputQueue();
-            }
-            ODL_OBJEXIT(); //####
-        }
-
-    public :
-        // Public fields.
-
-    protected :
-        // Protected fields.
-
-    private :
-        // Private fields.
-
-        /*! @brief The input/output context that is active. */
-        Ptr(nImO::InputOutputContext)   _context;
-
-}; // BreakHandler
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -172,11 +112,12 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "read"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, progName, "read"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
-            auto                asServiceContext{ourContext->asServiceContext()};
-            Ptr(BreakHandler)   cleanup{new BreakHandler{ourContext->asInputOutputContext()}};
+            auto                        nodeName{nImO::ConstructNodeName(optionValues._node, "read"s, optionValues._tag)};
+            auto                        ourContext{std::make_shared<nImO::SinkContext>(argc, argv, progName, "read"s,
+                                                                                       optionValues._logging, nodeName)};
+            nImO::Connection            registryConnection;
+            auto                        asServiceContext{ourContext->asServiceContext()};
+            Ptr(nImO::SinkBreakHandler) cleanup{new nImO::SinkBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::InputOutputContext::addInputOutputHandlers(ourContext, cleanup);

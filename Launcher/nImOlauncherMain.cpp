@@ -116,10 +116,9 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher"s, optionValues._logging, true, nodeName)};
             nImO::Connection    registryConnection;
-            auto                asServiceContext{ourContext->asServiceContext()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (asServiceContext->findRegistry(registryConnection))
+            if (ourContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
                 auto                statusWithBool{proxy.isNodePresent(nodeName)};
@@ -135,7 +134,7 @@ main
                     else
                     {
                         statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::LauncherService,
-                                                       asServiceContext->getCommandConnection());
+                                                       ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

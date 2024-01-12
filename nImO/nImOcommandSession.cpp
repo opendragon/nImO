@@ -84,9 +84,9 @@
  @return @c true if the request was responded to. */
 static bool
 processRequest
-    (nImO::SpContextWithNetworking  owner,
-     nImO::SpSocketTCP              socket,
-     const std::string &            incoming)
+    (nImO::SpServiceContext owner,
+     nImO::SpSocketTCP      socket,
+     const std::string &    incoming)
 {
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
@@ -123,7 +123,7 @@ processRequest
                     }
                     else
                     {
-                        auto    handler{owner->asServiceContext()->getHandler(request->getValue())};
+                        auto    handler{owner->getHandler(request->getValue())};
 
                         if (nullptr == handler)
                         {
@@ -167,7 +167,7 @@ processRequest
 #endif // defined(__APPLE__)
 
 nImO::CommandSession::CommandSession
-    (SpContextWithNetworking    owner) :
+    (SpServiceContext   owner) :
         _owner{owner}
 {
     ODL_ENTER(); //####

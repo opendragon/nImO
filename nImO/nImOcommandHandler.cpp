@@ -94,7 +94,7 @@
 #endif // defined(__APPLE__)
 
 nImO::CommandHandler::CommandHandler
-    (SpContextWithNetworking    owner) :
+    (SpServiceContext   owner) :
         _owner{owner}
 {
     ODL_ENTER(); //####
@@ -115,10 +115,10 @@ nImO::CommandHandler::~CommandHandler
 
 bool
 nImO::CommandHandler::sendComplexResponse
-    (BTCP::socket &     socket,
-     const std::string  responseKey,
-     const std::string  responseText,
-     SpValue            contents)
+    (BTCP::socket &         socket,
+     const std::string &    responseKey,
+     const std::string &    responseText,
+     SpValue                contents)
     const
 {
     ODL_OBJENTER(); //####
@@ -132,11 +132,11 @@ nImO::CommandHandler::sendComplexResponse
 
 bool
 nImO::CommandHandler::sendComplexResponseWithContext
-    (SpContextWithNetworking    context,
-     BTCP::socket &             socket,
-     const std::string          responseKey,
-     const std::string          responseText,
-     SpValue                    contents)
+    (SpServiceContext       context,
+     BTCP::socket &         socket,
+     const std::string &    responseKey,
+     const std::string &    responseText,
+     SpValue                contents)
 {
     ODL_ENTER(); //####
     ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
@@ -216,10 +216,10 @@ nImO::CommandHandler::sendComplexResponseWithContext
 
 bool
 nImO::CommandHandler::sendSimpleResponse
-    (BTCP::socket &     socket,
-     const std::string  responseKey,
-     const std::string  responseText,
-     const bool         wasOK)
+    (BTCP::socket &         socket,
+     const std::string &    responseKey,
+     const std::string &    responseText,
+     const bool             wasOK)
     const
 {
     ODL_OBJENTER(); //####
@@ -234,11 +234,11 @@ nImO::CommandHandler::sendSimpleResponse
 
 bool
 nImO::CommandHandler::sendSimpleResponseWithContext
-    (SpContextWithNetworking    context,
-     BTCP::socket &             socket,
-     const std::string          responseKey,
-     const std::string          responseText,
-     const bool                 wasOK)
+    (SpServiceContext       context,
+     BTCP::socket &         socket,
+     const std::string &    responseKey,
+     const std::string &    responseText,
+     const bool             wasOK)
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", &socket); //####
@@ -320,9 +320,9 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 
 void
 nImO::CommandHandler::sendStatusReport
-    (SpContextWithNetworking    context,
-     Connection                 whereToSend,
-     const std::string &        statusChange)
+    (SpServiceContext       context,
+     Connection             whereToSend,
+     const std::string &    statusChange)
     const
 {
     ODL_OBJENTER(); //####
@@ -374,8 +374,8 @@ nImO::CommandHandler::sendStatusReport
 
 void
 nImO::CommandHandler::SendBadResponse
-    (SpContextWithNetworking    context,
-     SpSocketTCP                socket)
+    (SpServiceContext   context,
+     SpSocketTCP        socket)
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####

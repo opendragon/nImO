@@ -83,9 +83,9 @@
 #endif // defined(__APPLE__)
 
 nImO::RemoveConnectionCommandHandler::RemoveConnectionCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry,
-     const Connection &         statusConnection) :
+    (SpServiceContext   owner,
+     SpRegistry         theRegistry,
+     const Connection & statusConnection) :
         inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####

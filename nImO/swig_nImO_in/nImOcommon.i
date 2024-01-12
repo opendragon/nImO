@@ -105,6 +105,7 @@
 #include "nImOcompareValues.h"
 #include "nImOcomparisonStatus.h"
 #include "nImOconverters.h"
+#include "nImOfilterBreakHandler.h"
 #include "nImOinChannel.h"
 #include "nImOlogger.h"
 #include "nImOmainSupport.h"

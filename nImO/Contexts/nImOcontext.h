@@ -70,6 +70,19 @@
 namespace nImO
 {
 
+    class InputOutputContext;
+    class ServiceContext;
+    class UtilityContext;
+
+    /*! @brief A holder for a shared pointer to an InputOutputContext. */
+    using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
+
+    /*! @brief A holder for a shared pointer to a ServiceContext. */
+    using SpServiceContext = std::shared_ptr<ServiceContext>;
+
+    /*! @brief A holder for a shared pointer to a UtilityContext. */
+    using SpUtilityContext = std::shared_ptr<UtilityContext>;
+
     /*! @brief A holder for a shared pointer to an Asio service . */
     using SPservice = std::shared_ptr<boost::asio::io_service>;
 

@@ -77,8 +77,8 @@
 #endif // defined(__APPLE__)
 
 nImO::RegistryCommandHandler::RegistryCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
+    (SpServiceContext   owner,
+     SpRegistry         theRegistry) :
         inherited(owner), _registry(theRegistry)
 {
     ODL_ENTER(); //####

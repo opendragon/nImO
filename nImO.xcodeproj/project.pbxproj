@@ -273,6 +273,8 @@
 		F6A684672A802ABA0023D8DF /* nImOgetConnectionInformationCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetConnectionInformationCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetConnectionInformationCommandHandler.cpp; sourceTree = "<group>"; };
 		F6A684682A802ABA0023D8DF /* nImOgetConnectionInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetConnectionInformationCommandHandler.h; path = Registry/CommandHandlers/nImOgetConnectionInformationCommandHandler.h; sourceTree = "<group>"; };
 		F6A8069A29C6005800567C55 /* nImOcommonCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommonCommands.h; path = nImO/nImOcommonCommands.h; sourceTree = "<group>"; };
+		F6A81BDA2B517B9F00F3E701 /* nImOfilterBreakHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOfilterBreakHandler.cpp; path = nImO/nImOfilterBreakHandler.cpp; sourceTree = "<group>"; };
+		F6A81BDB2B517B9F00F3E701 /* nImOfilterBreakHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOfilterBreakHandler.h; path = nImO/nImOfilterBreakHandler.h; sourceTree = "<group>"; };
 		F6AB47A72AB8DACA006A6446 /* nImOaddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddress.h; path = nImO/BasicTypes/nImOaddress.h; sourceTree = "<group>"; };
 		F6AB47A82AB8DACA006A6446 /* nImOaddress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddress.cpp; path = nImO/BasicTypes/nImOaddress.cpp; sourceTree = "<group>"; };
 		F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/CMakeLists.txt"; sourceTree = "<group>"; };
@@ -1425,6 +1427,8 @@
 				F6EE0ACC1CA2C7F4004748ED /* nImOconfig.h.in */,
 				F6D00FB520D4915000C29946 /* nImOconverters.cpp */,
 				F6D00FB420D4915000C29946 /* nImOconverters.h */,
+				F6A81BDA2B517B9F00F3E701 /* nImOfilterBreakHandler.cpp */,
+				F6A81BDB2B517B9F00F3E701 /* nImOfilterBreakHandler.h */,
 				F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */,
 				F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */,
 				F60D86142A80F18000FADAAA /* nImOinputOutputCommands.h */,

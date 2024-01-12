@@ -39,6 +39,7 @@
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOcommonCommands.h>
+#include <nImOfilterBreakHandler.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
@@ -107,14 +108,15 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "passthrough"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s,
-                                                                                 optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
-            auto                asServiceContext{ourContext->asServiceContext()};
+            auto                            nodeName{nImO::ConstructNodeName(optionValues._node, "passthrough"s, optionValues._tag)};
+            auto                            ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Passthrough"s,
+                                                                                             optionValues._logging, nodeName)};
+            nImO::Connection                registryConnection;
+            Ptr(nImO::FilterBreakHandler)   cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
-            nImO::InputOutputContext::addInputOutputHandlers(ourContext);
-            if (asServiceContext->findRegistry(registryConnection))
+            nImO::SetSpecialBreakObject(cleanup);
+            nImO::AddInputOutputHandlers(ourContext, cleanup);
+            if (ourContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
                 auto                statusWithBool{proxy.isNodePresent(nodeName)};
@@ -130,7 +132,7 @@ main
                     else
                     {
                         statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::FilterService,
-                                                       asServiceContext->getCommandConnection());
+                                                       ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

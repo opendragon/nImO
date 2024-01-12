@@ -39,6 +39,7 @@
 #if (! defined(nImOregistryCommandHandler_H_))
 # define nImOregistryCommandHandler_H_ /* Header guard */
 
+# include <nImO/Contexts/nImOserviceContext.h>
 # include <nImOcommandHandler.h>
 
 # include "../nImOregistry.h"
@@ -82,8 +83,8 @@ namespace nImO
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
             RegistryCommandHandler
-                (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry);
+                (SpServiceContext   owner,
+                 SpRegistry         theRegistry);
 
         private :
             // Private methods.

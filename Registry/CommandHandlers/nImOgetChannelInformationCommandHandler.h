@@ -79,8 +79,8 @@ namespace nImO
              @param[in] owner The owning Context.
              @param[in] theRegistry The Registry to use when processing a request. */
             GetChannelInformationCommandHandler
-                (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry);
+                (SpServiceContext   owner,
+                 SpRegistry         theRegistry);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.

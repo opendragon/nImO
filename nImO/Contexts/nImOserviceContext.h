@@ -41,7 +41,6 @@
 
 # include <Contexts/nImOcontextWithMDNS.h>
 # include <nImOcallbackFunction.h>
-# include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -56,6 +55,7 @@
 
 namespace nImO
 {
+    class CommandHandler;
     class CommandSession;
 
     /*! @brief A holder for a unique pointer to a CommandHandler. */
@@ -116,8 +116,8 @@ namespace nImO
              @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
             static void
             addStandardHandlers
-                (SpContextWithNetworking    context,
-                 Ptr(CallbackFunction)      shutdownCallback = nullptr);
+                (SpServiceContext       context,
+                 Ptr(CallbackFunction)  shutdownCallback = nullptr);
 
             /*! @brief Is this a ServiceContext?
              @return @c this. */

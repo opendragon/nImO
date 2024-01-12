@@ -57,10 +57,6 @@
 namespace nImO
 {
 
-    class InputOutputContext;
-    class ServiceContext;
-    class UtilityContext;
-
     /*! @brief A class to provide support for an application that uses networking. */
     class ContextWithNetworking : public Context
     {

@@ -160,6 +160,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImOcommon.cpp"
             "${THIS_SOURCE_DIR}/nImOcompareValues.cpp"
             "${THIS_SOURCE_DIR}/nImOconverters.cpp"
+            "${THIS_SOURCE_DIR}/nImOfilterBreakHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOinChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOlogger.cpp"
             "${THIS_SOURCE_DIR}/nImOmainSupport.cpp"
@@ -207,6 +208,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOcomparisonStatus.h"
         "${THIS_SOURCE_DIR}/nImOconfig.h"
         "${THIS_SOURCE_DIR}/nImOconverters.h"
+        "${THIS_SOURCE_DIR}/nImOfilterBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOinChannel.h"
         "${THIS_SOURCE_DIR}/nImOlogger.h"
         "${THIS_SOURCE_DIR}/nImOmainSupport.h"
@@ -502,6 +504,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOcompareValues.cpp ${THIS_SOURCE_DIR}/nImOcompareValues.h
         ${THIS_SOURCE_DIR}/nImOcomparisonStatus.cpp ${THIS_SOURCE_DIR}/nImOcomparisonStatus.h
         ${THIS_SOURCE_DIR}/nImOconverters.cpp ${THIS_SOURCE_DIR}/nImOconverters.h
+        ${THIS_SOURCE_DIR}/nImOfilterBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOfilterBreakHandler.h
         ${THIS_SOURCE_DIR}/nImOinChannel.cpp ${THIS_SOURCE_DIR}/nImOinChannel.h
         ${THIS_SOURCE_DIR}/nImOinputOutputCommands.h
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h

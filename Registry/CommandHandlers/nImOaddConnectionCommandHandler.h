@@ -80,9 +80,9 @@ namespace nImO
              @param[in] theRegistry The Registry to use when processing a request.
              @param[in] statusConnection Where to report status changes. */
             AddConnectionCommandHandler
-                (SpContextWithNetworking    owner,
-                 SpRegistry                 theRegistry,
-                 const Connection &         statusConnection);
+                (SpServiceContext   owner,
+                 SpRegistry         theRegistry,
+                 const Connection & statusConnection);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.

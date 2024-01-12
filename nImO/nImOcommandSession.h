@@ -39,7 +39,7 @@
 #if (! defined(nImOcommandSession_H_))
 # define nImOcommandSession_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOserviceContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -76,11 +76,11 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The Context that is using the command session. */
             explicit CommandSession
-                (SpContextWithNetworking    owner);
+                (SpServiceContext   owner);
 
             /*! @brief Return the Context for this session.
              @return The session Context. */
-            inline SpContextWithNetworking
+            inline SpServiceContext
             getContext
                 (void)
                 const
@@ -122,7 +122,7 @@ namespace nImO
             SpSocketTCP _socket{};
 
             /*! @brief The context that created this session. */
-            SpContextWithNetworking _owner{};
+            SpServiceContext    _owner{};
 
             /*! @brief A buffer to hold the received request. */
             boost::asio::streambuf  _buffer{};

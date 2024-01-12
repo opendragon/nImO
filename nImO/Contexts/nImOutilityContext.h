@@ -116,9 +116,6 @@ namespace nImO
 
     }; // UtilityContext
 
-    /*! @brief A holder for a shared pointer to a ContextWithNetworking. */
-    using SpUtilityContext = std::shared_ptr<UtilityContext>;
-
 } // nImO
 
 #endif // not defined(nImOutilityContext_H_)

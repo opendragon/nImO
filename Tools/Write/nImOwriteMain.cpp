@@ -171,12 +171,11 @@ main
             auto                    ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "write"s,
                                                                                      optionValues._logging, nodeName)};
             nImO::Connection        registryConnection;
-            auto                    asServiceContext{ourContext->asServiceContext()};
             Ptr(SourceBreakHandler) cleanup{new SourceBreakHandler};
 
             nImO::SetSpecialBreakObject(cleanup);
-            nImO::InputOutputContext::addInputOutputHandlers(ourContext, cleanup);
-            if (asServiceContext->findRegistry(registryConnection))
+            nImO::AddInputOutputHandlers(ourContext, cleanup);
+            if (ourContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
                 auto                statusWithBool{proxy.isNodePresent(nodeName)};
@@ -192,7 +191,7 @@ main
                     else
                     {
                         statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::InputService,
-                                                       asServiceContext->getCommandConnection());
+                                                       ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)

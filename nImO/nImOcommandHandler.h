@@ -39,7 +39,7 @@
 #if (! defined(nImOcommandHandler_H_))
 # define nImOcommandHandler_H_ /* Header guard */
 
-# include <Contexts/nImOcontextWithNetworking.h>
+# include <Contexts/nImOserviceContext.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -114,8 +114,8 @@ namespace nImO
              @param[in,out] socket The TCP/IP socket to use for communication. */
             static void
             SendBadResponse
-                (SpContextWithNetworking    context,
-                 SpSocketTCP                socket);
+                (SpServiceContext   context,
+                 SpSocketTCP        socket);
 
         protected :
             // Protected methods.
@@ -123,7 +123,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.  */
             CommandHandler
-                (SpContextWithNetworking    owner);
+                (SpServiceContext   owner);
 
             /*! @brief Send a complex reponse for the command.
              @param[in] socket The socket where the response should be sent.
@@ -133,10 +133,10 @@ namespace nImO
              @return @c true if a response was sent. */
             bool
             sendComplexResponse
-                (BTCP::socket &     socket,
-                 const std::string  responseKey,
-                 const std::string  responseText,
-                 SpValue            contents)
+                (BTCP::socket &         socket,
+                 const std::string &    responseKey,
+                 const std::string &    responseText,
+                 SpValue                contents)
                 const;
 
             /*! @brief Send a simple reponse for the command.
@@ -147,10 +147,10 @@ namespace nImO
              @return @c true if a response was sent. */
             bool
             sendSimpleResponse
-                (BTCP::socket &     socket,
-                 const std::string  responseKey,
-                 const std::string  responseText,
-                 const bool         wasOK = false)
+                (BTCP::socket &         socket,
+                 const std::string &    responseKey,
+                 const std::string &    responseText,
+                 const bool             wasOK = false)
                 const;
 
             /*! @brief Send a status report.
@@ -159,9 +159,9 @@ namespace nImO
              @param[in] statusChange The status change details. */
             void
             sendStatusReport
-                (SpContextWithNetworking    context,
-                 Connection                 whereToSend,
-                 const std::string &        statusChange)
+                (SpServiceContext       context,
+                 Connection             whereToSend,
+                 const std::string &    statusChange)
                 const;
 
         private :
@@ -176,11 +176,11 @@ namespace nImO
              @return @c true if a response was sent. */
             static bool
             sendComplexResponseWithContext
-                (SpContextWithNetworking    context,
-                 BTCP::socket &             socket,
-                 const std::string          responseKey,
-                 const std::string          responseText,
-                 SpValue                    contents);
+                (SpServiceContext       context,
+                 BTCP::socket &         socket,
+                 const std::string &    responseKey,
+                 const std::string &    responseText,
+                 SpValue                contents);
 
             /*! @brief Send a simple reponse for the command.
              @param[in] context The context for the responder.
@@ -191,11 +191,11 @@ namespace nImO
              @return @c true if a response was sent. */
             static bool
             sendSimpleResponseWithContext
-                (SpContextWithNetworking    context,
-                 BTCP::socket &             socket,
-                 const std::string          responseKey,
-                 const std::string          responseText,
-                 const bool                 wasOK);
+                (SpServiceContext       context,
+                 BTCP::socket &         socket,
+                 const std::string &    responseKey,
+                 const std::string &    responseText,
+                 const bool             wasOK);
 
         public :
             // Public fields.
@@ -204,7 +204,7 @@ namespace nImO
             // Protected fields.
 
             /*! @brief The owning Context. */
-            SpContextWithNetworking _owner{};
+            SpServiceContext    _owner{};
 
         private :
             // Private fields.

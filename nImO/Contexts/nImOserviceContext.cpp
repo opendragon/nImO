@@ -148,30 +148,28 @@ nImO::ServiceContext::addHandler
 
 void
 nImO::ServiceContext::addStandardHandlers
-    (SpContextWithNetworking    context,
-     Ptr(CallbackFunction)      shutdownCallback)
+    (SpServiceContext       context,
+     Ptr(CallbackFunction)  shutdownCallback)
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
-    auto    actualContext = context->asServiceContext();
-
-    if (nullptr != actualContext)
+    if (nullptr != context)
     {
         auto    newHandler{std::make_shared<ShutdownCommandHandler>(context, shutdownCallback)};
 
         ODL_P1("newHandler <- ", newHandler.get()); //####
-        if (actualContext->addHandler(kShutDownRequest, newHandler))
+        if (context->addHandler(kShutDownRequest, newHandler))
         {
             auto    newSession{new CommandSession(context)};
 
             ODL_P1("newSession <- ", newSession); //####
-            actualContext->_acceptor.async_accept(*newSession->getSocket(),
-                                                   [actualContext, newSession]
+            context->_acceptor.async_accept(*newSession->getSocket(),
+                                                   [context, newSession]
                                                    (const BSErr ec)
                                                    {
-                                                        actualContext->handleAccept(newSession, ec);
+                                                        context->handleAccept(newSession, ec);
                                                    });
-            if (actualContext->waitForRegistry())
+            if (context->waitForRegistry())
             {
                 // TBD
             }

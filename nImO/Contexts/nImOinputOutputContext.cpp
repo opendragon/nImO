@@ -126,84 +126,6 @@ nImO::InputOutputContext::addInputChannel
     return result.second;
 } // nImO::InputOutputContext::addInputChannel
 
-void
-nImO::InputOutputContext::addInputOutputHandlers
-    (SpInputOutputContext   context,
-     Ptr(CallbackFunction)  shutdownCallback)
-{
-    ODL_ENTER(); //####
-    ODL_P1("context = ", context.get()); //####
-    // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
-    auto    actualContext{context.get()};//asInputOutputContext()};
-
-    if (nullptr != actualContext)
-    {
-        bool    goAhead{true};
-        auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
-
-        ODL_P1("newHandler1 <- ", newHandler1.get()); //####
-        if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
-        {
-            goAhead = false;
-        }
-        if (goAhead)
-        {
-            auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
-
-            ODL_P1("newHandler2 <- ", newHandler2.get()); //####
-            if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
-
-            ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
-
-            ODL_P1("newHandler4 <- ", newHandler4.get()); //####
-            if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
-
-            ODL_P1("newHandler5 <- ", newHandler5.get()); //####
-            if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
-
-            ODL_P1("newHandler6 <- ", newHandler6.get()); //####
-            if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            ServiceContext::addStandardHandlers(context, shutdownCallback);
-        }
-    }
-    ODL_EXIT(); //####
-} // nImO::InputOutputContext::addInputOutputHandlers
-
 bool
 nImO::InputOutputContext::addOutputChannel
     (const std::string &    path)
@@ -318,3 +240,81 @@ nImO::InputOutputContext::stopInputQueue
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+void
+nImO::AddInputOutputHandlers
+    (SpInputOutputContext   context,
+     Ptr(CallbackFunction)  shutdownCallback)
+{
+    ODL_ENTER(); //####
+    ODL_P1("context = ", context.get()); //####
+    // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
+    auto    actualContext{context.get()};
+
+    if (nullptr != actualContext)
+    {
+        bool    goAhead{true};
+        auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
+
+        ODL_P1("newHandler1 <- ", newHandler1.get()); //####
+        if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
+        {
+            goAhead = false;
+        }
+        if (goAhead)
+        {
+            auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
+
+            ODL_P1("newHandler2 <- ", newHandler2.get()); //####
+            if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
+
+            ODL_P1("newHandler3 <- ", newHandler3.get()); //####
+            if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
+
+            ODL_P1("newHandler4 <- ", newHandler4.get()); //####
+            if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
+
+            ODL_P1("newHandler5 <- ", newHandler5.get()); //####
+            if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
+
+            ODL_P1("newHandler6 <- ", newHandler6.get()); //####
+            if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            ServiceContext::addStandardHandlers(context, shutdownCallback);
+        }
+    }
+    ODL_EXIT(); //####
+} // nImO::AddInputOutputHandlers

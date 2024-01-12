@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOshutdownCommandHandler.cpp
+//  File:       nImO/nImOfilterBreakHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO shutdown command handler.
+//  Contains:   The class definition for nImO handling callbacks.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-03-25
+//  Created:    2024-01-12
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOshutdownCommandHandler.h>
-
-#include <nImOcommonCommands.h>
-#include <nImOmainSupport.h>
+#include <nImOfilterBreakHandler.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -50,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO shutdown command handler. */
+ @brief The class definition for %nImO callbacks. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -79,43 +76,28 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ShutdownCommandHandler::ShutdownCommandHandler
-    (SpServiceContext       owner,
-     Ptr(CallbackFunction)  callback) :
-        inherited{owner}, _callback(callback)
+nImO::FilterBreakHandler::FilterBreakHandler
+    (Ptr(FilterContext) theContext) :
+        inherited(), _context(theContext)
 {
-    ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "callback = ", callback); //####
-    ODL_EXIT_P(this); //####
-} // nImO::ShutdownCommandHandler::ShutdownCommandHandler
+} // nImO::FilterBreakHandler::FilterBreakHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-bool
-nImO::ShutdownCommandHandler::doIt
-    (BTCP::socket & socket,
-     const Array &  arguments)
+void
+nImO::FilterBreakHandler::operator()
+    (void)
     const
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    _owner->report("shutdown request received"s);
-    // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kShutDownResponse, "shutdown"s, true)};
-
-    // Signal to the application that it should terminate.
-    gPendingStop = true;
-    ODL_B1("gPendingStop <- ", gPendingStop); //####
-    if (okSoFar && (nullptr != _callback))
+    if (nullptr != _context)
     {
-        (*_callback)();
+        _context->stopInputQueue();
     }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::ShutdownCommandHandler::doIt
+    ODL_OBJEXIT(); //####
+} // nImO::FilterBreakHandler::operator()
 
 #if defined(__APPLE__)
 # pragma mark Global functions

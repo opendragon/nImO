@@ -152,7 +152,7 @@ main
             auto    statusConnection{ourContext->getStatusInfo()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);
-            if (ourContext->asServiceContext()->findRegistry(true))
+            if (ourContext->findRegistry(true))
             {
                 ourContext->report("Registry already running."s);
                 std::cerr << "Registry already running.\n";

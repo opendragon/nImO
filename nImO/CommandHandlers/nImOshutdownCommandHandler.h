@@ -78,8 +78,8 @@ namespace nImO
              @param[in] owner The owning Context.
              @param[in] callback The function to invoke when the command is received. */
             ShutdownCommandHandler
-                (SpContextWithNetworking    owner,
-                 Ptr(CallbackFunction)      callback = nullptr);
+                (SpServiceContext       owner,
+                 Ptr(CallbackFunction)  callback = nullptr);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.

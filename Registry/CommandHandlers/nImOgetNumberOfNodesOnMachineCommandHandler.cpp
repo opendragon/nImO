@@ -83,8 +83,8 @@
 #endif // defined(__APPLE__)
 
 nImO::GetNumberOfNodesOnMachineCommandHandler::GetNumberOfNodesOnMachineCommandHandler
-    (SpContextWithNetworking    owner,
-     SpRegistry                 theRegistry) :
+    (SpServiceContext   owner,
+     SpRegistry         theRegistry) :
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####

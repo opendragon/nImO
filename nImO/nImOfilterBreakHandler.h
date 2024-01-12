@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h
+//  File:       nImO/nImOfilterBreakHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'get information for all channels on machine' command handler.
+//  Contains:   The class declaration for nImO handling callbacks for SinkContexts.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,16 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-05-21
+//  Created:    2024-01-12
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetInformationForAllChannelsOnMachineCommandHandler_H_))
-# define nImOgetInformationForAllChannelsOnMachineCommandHandler_H_ /* Header guard */
+#if (! defined(nImOfilterBreakHandler_H_))
+# define nImOfilterBreakHandler_H_ /* Header guard */
 
-# include "nImOregistryCommandHandler.h"
-
-# include "../nImOregistry.h"
+# include <Contexts/nImOfilterContext.h>
+# include <nImOcallbackFunction.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -49,17 +48,16 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO 'get information for all channels on machine' command handler. */
+ @brief The class declaration for %nImO callbacks for SinkContexts. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the 'get information for all channels on machine' command. */
-    class GetInformationForAllChannelsOnMachineCommandHandler final : public RegistryCommandHandler
+    /*! @brief A class to provide values that are used to handling callbacks for a SinkContext. */
+    class FilterBreakHandler final : public CallbackFunction
     {
-
         public :
             // Public type definitions.
 
@@ -70,34 +68,28 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = RegistryCommandHandler;
+            using inherited = CallbackFunction;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context.
-             @param[in] theRegistry The Registry to use when processing a request. */
-            GetInformationForAllChannelsOnMachineCommandHandler
-                (SpServiceContext   owner,
-                 SpRegistry         theRegistry);
-
-            /*! @brief Handle the command, returning @c true if successful.
-             @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received.
-             @return @c true if a response was sent. */
-            bool
-            doIt
-                (BTCP::socket & socket,
-                 const Array &  arguments)
-                const
-                override;
+             @param[in] theContext The input/output context that is active. */
+            FilterBreakHandler
+                (Ptr(FilterContext) theContext);
 
         protected :
             // Protected methods.
 
         private :
             // Private methods.
+
+            /*! @brief Process a break signal. */
+            void
+            operator()
+                (void)
+                const
+                override;
 
         public :
             // Public fields.
@@ -108,8 +100,11 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // GetInformationForAllChannelsOnMachineCommandHandler
+            /*! @brief The input/output context that is active. */
+            Ptr(nImO::FilterContext)    _context;
+
+    }; // FilterBreakHandler
 
 } // nImO
 
-#endif // not defined(nImOgetInformationForAllChannelsOnMachineCommandHandler_H_)
+#endif // not defined(nImOfilterBreakHandler_H_)

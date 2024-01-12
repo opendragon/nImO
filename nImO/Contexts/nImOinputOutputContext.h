@@ -63,9 +63,6 @@ namespace nImO
     /*! @brief A holder for a shared pointer to an input channel. */
     using SpInChannel = std::shared_ptr<InChannel>;
 
-    /*! @brief A holder for a shared pointer to an InputOutputContext. */
-    using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
-
     /*! @brief A holder for a shared pointer to an output channel. */
     using SpOutChannel = std::shared_ptr<OutChannel>;
 
@@ -106,14 +103,6 @@ namespace nImO
             bool
             addInputChannel
                 (const std::string &    path);
-
-            /*! @brief Add the standard command handlers for an InputOutputContext.
-             @param[in] context The Context to be updated.
-             @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
-            static void
-            addInputOutputHandlers
-                (SpInputOutputContext   context,
-                 Ptr(CallbackFunction)  shutdownCallback = nullptr);
 
             /*! @brief Add an output channel.
              @param[in] path The path for the channel.
@@ -221,6 +210,14 @@ namespace nImO
             ReceiveQueue    _receiveQueue;
 
     }; // InputOutputContext
+
+    /*! @brief Add the standard command handlers for an InputOutputContext.
+     @param[in] context The Context to be updated.
+     @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
+    void
+    AddInputOutputHandlers
+        (SpInputOutputContext   context,
+         Ptr(CallbackFunction)  shutdownCallback = nullptr);
 
 } // nImO
 

@@ -227,7 +227,7 @@ main
 
                                 if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                    ourContext->report("sending shutdown request to "s + theInfo._name);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
@@ -488,7 +488,7 @@ main
 
                             if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
                             {
-                                ourContext->report("sending shutdown request to "s + nodeName);
+                                ourContext->report("sending shutdown request to "s + theInfo._name);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.

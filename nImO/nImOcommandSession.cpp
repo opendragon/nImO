@@ -184,6 +184,16 @@ nImO::CommandSession::CommandSession
     ODL_EXIT_P(this); //####
 } // nImO::CommandSession::CommandSession
 
+nImO::CommandSession::~CommandSession
+    (void)
+{
+    ODL_OBJENTER(); //####
+#if defined(nImO_ChattyTcpLogging)
+    _owner->report("session being freed"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+    ODL_OBJEXIT(); //####
+} // nImO::CommandSession::~CommandSession
+
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
@@ -223,16 +233,8 @@ nImO::CommandSession::start
 #if defined(nImO_ChattyTcpLogging)
                                             _owner->report("got request"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                            if (processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
+                                            if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
                                                                 buffers_end(_buffer.data())}))
-                                            {
-                                                if (gPendingStop)
-                                                {
-                                                    keepGoing = false;
-                                                    ODL_B1("keepGoing <- ", keepGoing); //####
-                                                }
-                                            }
-                                            else
                                             {
                                                 CommandHandler::SendBadResponse(_owner, _socket);
                                             }
@@ -244,6 +246,9 @@ nImO::CommandSession::start
     {
         boost::this_thread::yield();
     }
+#if defined(nImO_ChattyTcpLogging)
+    _owner->report("leaving start"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
     if (gPendingStop)
     {
         gKeepRunning = false;

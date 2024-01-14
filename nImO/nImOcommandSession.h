@@ -78,6 +78,10 @@ namespace nImO
             explicit CommandSession
                 (SpServiceContext   owner);
 
+            /*! @brief The destructor. */
+            ~CommandSession
+                (void);
+
             /*! @brief Return the Context for this session.
              @return The session Context. */
             inline SpServiceContext

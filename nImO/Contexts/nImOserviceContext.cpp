@@ -44,6 +44,7 @@
 #include <nImOcommandHandler.h>
 #include <nImOcommandSession.h>
 #include <nImOcommonCommands.h>
+#include <nImOmainSupport.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -307,14 +308,32 @@ nImO::ServiceContext::handleAccept
             releaseSession = false;
             _sessions.insert(newSession);
             newSession->start();
-            newSession = new CommandSession(newSession->getContext());
-            ODL_P1("newSession <- ", newSession); //####
-            _acceptor.async_accept(*newSession->getSocket(),
-                                   [this, newSession]
-                                   (const BSErr ec)
-                                   {
-                                        handleAccept(newSession, ec);
-                                   });
+            if (gKeepRunning)
+            {
+                // Drop the finished session.
+                auto    found{_sessions.find(newSession)};
+
+                if (_sessions.end() != found)
+                {
+                    _sessions.erase(found);
+                }
+                delete newSession;
+#if defined(nImO_ChattyTcpLogging)
+                report("creating new session"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                newSession = new CommandSession(newSession->getContext());
+                ODL_P1("newSession <- ", newSession); //####
+                _acceptor.async_accept(*newSession->getSocket(),
+                                       [this, newSession]
+                                       (const BSErr ec)
+                                       {
+                                            handleAccept(newSession, ec);
+                                       });
+            }
+            else
+            {
+                releaseSession = true;
+            }
         }
         else
         {

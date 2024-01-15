@@ -42,7 +42,7 @@
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 
-#include <odlEnable.h>
+//#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)

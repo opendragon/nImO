@@ -161,15 +161,15 @@ nImO::ServiceContext::addStandardHandlers
         ODL_P1("newHandler <- ", newHandler.get()); //####
         if (context->addHandler(kShutDownRequest, newHandler))
         {
-            auto    newSession{new CommandSession(context)};
+            auto    newSession{std::make_shared<CommandSession>(context)};
 
-            ODL_P1("newSession <- ", newSession); //####
+            ODL_P1("newSession <- ", newSession.get()); //####
             context->_acceptor.async_accept(*newSession->getSocket(),
-                                                   [context, newSession]
-                                                   (const BSErr ec)
-                                                   {
-                                                        context->handleAccept(newSession, ec);
-                                                   });
+                                               [context, newSession]
+                                               (const BSErr ec)
+                                               {
+                                                    context->handleAccept(newSession, ec);
+                                               });
             if (context->waitForRegistry())
             {
                 // TBD
@@ -203,6 +203,9 @@ nImO::ServiceContext::createCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
+#if defined(nImO_ChattyTcpLogging)
+    report("creating a command port"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
     _acceptor.open(BTCP::v4());
     _acceptor.listen();
     _commandAddress = ntohl(gServiceAddressIpv4.sin_addr.s_addr);
@@ -216,6 +219,9 @@ nImO::ServiceContext::destroyCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
+#if defined(nImO_ChattyTcpLogging)
+    report("destroying a command port"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
     _keepGoing = false;
     ODL_B1("_keepGoing <- ", _keepGoing); //####
     _acceptor.close();
@@ -231,11 +237,26 @@ nImO::ServiceContext::destroyCommandPort
         {
             sessionSocket->close();
         }
-        delete aSession;
     }
     _sessions.clear();
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::destroyCommandPort
+
+void
+nImO::ServiceContext::forgetSession
+    (SpCommandSession   aSession)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("aSession = ", aSession.get()); //####
+    // Drop the finished session.
+    auto    found{_sessions.find(aSession)};
+
+    if (_sessions.end() != found)
+    {
+        _sessions.erase(found);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::ServiceContext::forgetSession
 
 /*! @brief Returns a Connection that specifies the command port.
  @return A Connection with the command port details. */
@@ -275,11 +296,11 @@ nImO::ServiceContext::getHandler
 
 void
 nImO::ServiceContext::handleAccept
-    (Ptr(CommandSession)    newSession,
-     const BSErr &          error)
+    (SpCommandSession   newSession,
+     const BSErr &      error)
 {
     ODL_OBJENTER(); //####
-    ODL_P1("newSession = ", newSession); //####
+    ODL_P1("newSession = ", newSession.get()); //####
     ODL_I1("error = ", error.value()); //####
     bool    releaseSession;
 
@@ -302,27 +323,17 @@ nImO::ServiceContext::handleAccept
     {
         if (_keepGoing)
         {
-#if defined(nImO_ChattyTcpLogging)
-            report("connection request received"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
             releaseSession = false;
             _sessions.insert(newSession);
             newSession->start();
             if (gKeepRunning)
             {
-                // Drop the finished session.
-                auto    found{_sessions.find(newSession)};
-
-                if (_sessions.end() != found)
-                {
-                    _sessions.erase(found);
-                }
-                delete newSession;
+                forgetSession(newSession);
 #if defined(nImO_ChattyTcpLogging)
                 report("creating new session"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                newSession = new CommandSession(newSession->getContext());
-                ODL_P1("newSession <- ", newSession); //####
+                newSession = std::make_shared<CommandSession>(newSession->getContext());
+                ODL_P1("newSession <- ", newSession.get()); //####
                 _acceptor.async_accept(*newSession->getSocket(),
                                        [this, newSession]
                                        (const BSErr ec)
@@ -342,13 +353,7 @@ nImO::ServiceContext::handleAccept
     }
     if (releaseSession)
     {
-        auto    found{_sessions.find(newSession)};
-
-        if (_sessions.end() != found)
-        {
-            _sessions.erase(found);
-        }
-        delete newSession;
+        forgetSession(newSession);
     }
     ODL_OBJEXIT(); //####
 } // nImO::ServiceContext::handleAccept

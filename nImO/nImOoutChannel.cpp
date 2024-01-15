@@ -41,6 +41,7 @@
 #include <Containers/nImOmap.h>
 #include <Containers/nImOmessage.h>
 #include <Contexts/nImOinputOutputContext.h>
+#include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 
 //#include <odlEnable.h>
@@ -144,8 +145,7 @@ nImO::OutChannel::send
             }
             else
             {
-                StringVector        outVec;
-                BAIP::address_v4    address{_destinationAddress};
+                StringVector    outVec;
 
                 EncodeBytesAsMIME(outVec, asString);
                 auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
@@ -153,8 +153,6 @@ nImO::OutChannel::send
                 if (TransportType::kUDP == _connection._transport)
                 {
                     // send the encoded message to the logging ports
-                    _udpSendpoint.address(address);
-                    _udpSendpoint.port(_destinationPort);
                     _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
                                               [outString]
                                               (const BSErr          ec,
@@ -167,8 +165,12 @@ nImO::OutChannel::send
                 }
                 else if (TransportType::kTCP == _connection._transport)
                 {
-            //TBD!
-                    std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+                    if (_tcpConnected)
+                    {
+//TBD!
+                        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+                    }
+                    okSoFar = true;
                 }
             }
         }
@@ -192,8 +194,11 @@ nImO::OutChannel::setUp
      const TransportType    mode)
 {
     ODL_OBJENTER(); //####
-    ODL_I3("receiveAddress = ", receiveAddress, "receivePort = ", receivePort, "mode = ", StaticCast(int, mode)); //####
-    bool    okSoFar{false};
+    ODL_X1("receiveAddress = ", receiveAddress); //####
+    ODL_I2("receivePort = ", receivePort, "mode = ", StaticCast(int, mode)); //####
+    bool                okSoFar{false};
+    BAIP::address_v4    outAddress{0};
+    BAIP::address_v4    destAddress{receiveAddress};
 
     _connection._transport = mode;
     _destinationAddress = receiveAddress;
@@ -201,8 +206,7 @@ nImO::OutChannel::setUp
     // Set up network activity.
     if (TransportType::kUDP == _connection._transport)
     {
-        BAIP::address_v4    outAddress{0};
-        BUDP::endpoint      outEndpoint{outAddress, 0};
+        BUDP::endpoint  outEndpoint{outAddress, 0};
 
         _udpSocket = std::make_shared<BUDP::socket>(*_context.getService());
         _udpSocket->open(outEndpoint.protocol());
@@ -210,12 +214,31 @@ nImO::OutChannel::setUp
         _udpSocket->bind(outEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
+#if defined(nImO_ChattyTcpLogging)
+        _context.report("local port = "s + std::to_string(_connection._port) + ", destination port = "s + std::to_string(_destinationPort) + "."s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+        _udpSendpoint.address(destAddress);
+        _udpSendpoint.port(_destinationPort);
+//std::cerr << "_udpSendpoint " << _udpSendpoint << std::endl;//!!
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
     {
-//TBD!
-        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+        BTCP::endpoint  outEndpoint{outAddress, 0};
+
+        _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
+        _tcpSocket->open(outEndpoint.protocol());
+        _tcpSocket->set_option(BTCP::socket::reuse_address(true));
+        _tcpSocket->bind(outEndpoint);
+        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+        _connection._port = _tcpSocket->local_endpoint().port();
+#if defined(nImO_ChattyTcpLogging)
+        _context.report("local port = "s + std::to_string(_connection._port) + ", destination port = "s + std::to_string(_destinationPort) + "."s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+        _tcpSendpoint.address(destAddress);
+        _tcpSendpoint.port(_destinationPort);
+//std::cerr << "_tcpSendpoint " << _tcpSendpoint << std::endl;//!!
+        okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -235,8 +258,18 @@ nImO::OutChannel::start
     }
     else if (TransportType::kTCP == _connection._transport)
     {
-//TBD!
-        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+        _tcpSocket->async_connect(_tcpSendpoint,
+                                  [this]
+                                  (const BSErr  ec)
+                                  {
+                                    if (! ec)
+                                    {
+                                        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+                                        _tcpConnected = true;
+_context.report("connected!");
+                                    }
+                                  });
+        okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -260,8 +293,11 @@ nImO::OutChannel::stop
     }
     else if (TransportType::kTCP == _connection._transport)
     {
-//TBD!
-        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+        if (_tcpSocket->is_open())
+        {
+            _tcpSocket->cancel();
+            okSoFar = true;
+        }
     }
     else
     {

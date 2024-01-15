@@ -61,6 +61,9 @@ namespace nImO
     /*! @brief A holder for a unique pointer to a CommandHandler. */
     using SpCommandHandler = std::shared_ptr<CommandHandler>;
 
+    /*! @brief A holder for a shared pointer to a CommandSession. */
+    using SpCommandSession = std::shared_ptr<CommandSession>;
+
     /*! @brief A class to provide support for an application that uses a command port. */
     class ServiceContext : public ContextWithMDNS
     {
@@ -138,7 +141,7 @@ namespace nImO
              @param[in] aSession The session to remove. */
             void
             forgetSession
-                (Ptr(CommandSession)    aSession);
+                (SpCommandSession   aSession);
 
             /*! @brief Return the command-line arguments provided to the application.
              @return The command-line arguments provided to the application. */
@@ -213,8 +216,8 @@ namespace nImO
              @param[in] error The error status of the request. */
             void
             handleAccept
-                (Ptr(CommandSession)    newSession,
-                 const BSErr &          error);
+                (SpCommandSession   newSession,
+                 const BSErr &      error);
 
             /*! @brief Remvoe all the command handlers. */
             void
@@ -246,7 +249,7 @@ namespace nImO
             std::atomic_bool    _keepGoing{false};
 
             /*! @brief The active sessions. */
-            std::set<Ptr(CommandSession)>   _sessions{};
+            std::set<SpCommandSession>  _sessions{};
 
             /*! @brief The command handlers. */
             std::map<std::string, SpCommandHandler> _commandHandlers{};

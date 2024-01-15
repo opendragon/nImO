@@ -246,9 +246,6 @@ nImO::CommandSession::start
     {
         boost::this_thread::yield();
     }
-#if defined(nImO_ChattyTcpLogging)
-    _owner->report("leaving start"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
     if (gPendingStop)
     {
         gKeepRunning = false;

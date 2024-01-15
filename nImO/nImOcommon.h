@@ -830,6 +830,12 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Set. */
     using SpSet = std::shared_ptr<Set>;
 
+    /*! @brief A holder for a shared pointer to an Asio TCP/IP acceptor. */
+    using SpAcceptorTCP = std::shared_ptr<BTCP::acceptor>;
+
+    /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
+    using SpSocketTCP = std::shared_ptr<BTCP::socket>;
+
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
     using SpSocketTCP = std::shared_ptr<BTCP::socket>;
 

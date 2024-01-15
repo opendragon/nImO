@@ -105,6 +105,10 @@ namespace nImO
                 (InChannel && other)
                 noexcept = delete;
 
+            /*! @brief Receive messages via the TCP socket. */
+            void
+            receiveTcpMessages
+                (void);
 
             /*! @brief Receive messages via the UDP socket. */
             void
@@ -152,11 +156,17 @@ namespace nImO
             /*! @brief The source port to match against. */
             IPv4Port    _matchPort{0};
 
-            /*! @brief The sender's endpoint. */
+            /*! @brief The acceptor TCP connections. */
+            SpAcceptorTCP   _tcpAcceptor{};
+
+            /*! @brief The sender's endpoint for TCP. */
+            BTCP::endpoint  _tcpSenderEndpoint{};
+
+            /*! @brief The sender's endpoint for UDP. */
             BUDP::endpoint  _udpSenderEndpoint{};
 
             /*! @brief A buffer for the raw message data. */
-            std::array<char, 2048>  _udpData{};
+            std::array<char, 2048>  _rawData{};
 
             /*! @brief The destination for incoming messages. */
             ReceiveQueue &  _inQueue;

@@ -144,10 +144,6 @@ main
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
                                 }
-                                else
-                                {
-                                    ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
-                                }
                             }
                             if (optionValues._expanded)
                             {
@@ -232,10 +228,6 @@ main
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
                                 }
                             }
                         }

@@ -203,7 +203,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
     auto                requestArray{std::make_shared<Array>()};
-    SuccessOrFailure    status{true, ""};
+    SuccessOrFailure    status{true, ""s};
 
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
@@ -220,7 +220,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         if (asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
-            status = std::make_pair(false, "asString.empty()");
+            status = std::make_pair(false, "asString.empty()"s);
         }
         else
         {
@@ -232,11 +232,12 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
 
             ODL_S1("outString <- ", outString->c_str()); //####
             // Make a connection to the service whose address is in the connection argument.
-            BTCP::socket   socket{*context->getService()};
-            BTCP::endpoint endpoint{BAIP::make_address_v4(connection._address), connection._port};
+            //BTCP::socket   socket{*context->getService()};
+            auto            socket{std::make_shared<BTCP::socket>(*context->getService())};
+            BTCP::endpoint  endpoint{BAIP::make_address_v4(connection._address), connection._port};
 
-            socket.async_connect(endpoint,
-                                 [context, handler, &socket, &outString, &keepGoing, &responseKey, &status]
+            socket->async_connect(endpoint,
+                                 [context, handler, socket, &outString, &keepGoing, &responseKey, &status]
                                  (const BSErr & ec1)
                                  {
                                     if (ec1)
@@ -261,10 +262,10 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                     else
                                     {
 #if defined(nImO_ChattyTcpLogging)
-                                        context->report("connection request accepted"s);
+                                        context->report("command connection request accepted"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                        boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
-                                                                  [&socket, context, handler, &keepGoing, &responseKey, &status]
+                                        boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
+                                                                  [socket, context, handler, &keepGoing, &responseKey, &status]
                                                                   (const BSErr &        ec2,
                                                                    const std::size_t    bytes_transferred)
                                                                   {
@@ -295,16 +296,16 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
 #endif /* defined(nImO_ChattyTcpLogging) */
                                                                         auto    rB{std::make_shared<boost::asio::streambuf>()};
 
-                                                                        boost::asio::async_read_until(socket, *rB, MatchMessageSeparator,
+                                                                        boost::asio::async_read_until(*socket, *rB, MatchMessageSeparator,
                                                                                                 [context, rB, handler, &keepGoing, &responseKey,
                                                                                                  &status]
-                                                                                                (const BSErr &      ec,
+                                                                                                (const BSErr &      ec3,
                                                                                                  const std::size_t  size)
                                                                                                 {
                                                                                                     NIMO_UNUSED_VAR_(size);
-                                                                                                    if (ec)
+                                                                                                    if (ec3)
                                                                                                     {
-                                                                                                        if (BAErr::operation_aborted == ec)
+                                                                                                        if (BAErr::operation_aborted == ec3)
                                                                                                         {
 #if defined(nImO_ChattyTcpLogging)
                                                                                                             context->report("read_until() operation cancelled"s);
@@ -314,7 +315,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                         else
                                                                                                         {
                                                                                                             auto    errMessage{"async_write() failed -> "s +
-                                                                                                                                    ec.message()};
+                                                                                                                                    ec3.message()};
                                                                                                             context->report(errMessage);
                                                                                                             status = std::make_pair(false, errMessage);
                                                                                                         }
@@ -327,11 +328,14 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
 #if defined(nImO_ChattyTcpLogging)
                                                                                                         context->report("got response"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                        if (! handleResponse(handler, handleThis,
-                                                                                                                             responseKey))
+                                                                                                        if (nullptr != handler)
                                                                                                         {
-                                                                                                            status = std::make_pair(false,
-                                                                                                                                    "handleResponse() failed"s);
+                                                                                                            if (! handleResponse(handler, handleThis,
+                                                                                                                                 responseKey))
+                                                                                                            {
+                                                                                                                status = std::make_pair(false,
+                                                                                                                                        "handleResponse() failed"s);
+                                                                                                            }
                                                                                                         }
                                                                                                     }
                                                                                                     keepGoing = false;
@@ -345,13 +349,13 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
             {
                 boost::this_thread::yield();
             }
-            socket.shutdown(BTCP::socket::shutdown_both);
+            //socket.shutdown(BTCP::socket::shutdown_both);
         }
     }
     else
     {
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
-        status = std::make_pair(false, "0 >= requestToSend.getLength()");
+        status = std::make_pair(false, "0 >= requestToSend.getLength()"s);
     }
     ODL_EXIT(); //####
     return status;

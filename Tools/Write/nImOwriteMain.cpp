@@ -47,7 +47,6 @@
 #include <nImOserviceOptions.h>
 
 #include <chrono>
-//#include <ncurses.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -279,7 +278,6 @@ main
 
                                         ODL_P1("aThread = ", aThread); //####
                                         aThread->detach();
-                                        ourContext->report("waiting for input."s);
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             {

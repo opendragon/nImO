@@ -210,6 +210,7 @@ main
 
                                     if (outChannel)
                                     {
+                                        ourContext->report("waiting for messages."s);
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();

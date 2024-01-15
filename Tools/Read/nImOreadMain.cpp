@@ -176,7 +176,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    ourContext->report("waiting for requests."s);
+                                    ourContext->report("waiting for messages."s);
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();

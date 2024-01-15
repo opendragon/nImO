@@ -471,7 +471,7 @@ listConnections
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << "\t" << fromNode << " " << fromPath << " " << toNode << " " << toPath << " " << dataType << " " << mode;
+                            std::cout << "\t" << fromNode << " " << fromPath << " " << toNode << " " << toPath << " '" << dataType << "' " << mode;
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :

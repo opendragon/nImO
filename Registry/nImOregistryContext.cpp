@@ -356,7 +356,7 @@ nImO::RegistryContext::RegistryContext
      const std::string &    executableName,
      const bool             logging,
      const bool             startAnnouncer) :
-        inherited{argc, argv, executableName, "registry", logging, true, ""}, _startAnnouncer{startAnnouncer}
+        inherited{argc, argv, executableName, "Registry"s, logging, true, ""s}, _startAnnouncer{startAnnouncer}
 {
     ODL_ENTER(); //####
     ODL_S1s("executableName = ", executableName); //####

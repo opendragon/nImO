@@ -155,6 +155,9 @@ namespace nImO
             IPv4Port    _destinationPort{0};
 
             /*! @brief The target endpoint for UDP. */
+            BTCP::endpoint  _tcpSendpoint{};
+
+            /*! @brief The target endpoint for UDP. */
             BUDP::endpoint  _udpSendpoint{};
 
     }; // OutChannel

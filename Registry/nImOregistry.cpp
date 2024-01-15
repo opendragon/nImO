@@ -377,14 +377,14 @@ performSQLstatementWithMultipleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -487,14 +487,14 @@ performSQLstatementWithNoResults
     ODL_P3("owner = ", owner.get(), "dbHandle = ", dbHandle, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -563,14 +563,14 @@ performSQLstatementWithNoResultsNoArgs
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -633,7 +633,7 @@ performSQLstatementWithSingleColumnResults
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "resultList = ", &resultList, "data = ", data); //####
     ODL_S1("sqlStatement = ", sqlStatement); //####
     ODL_B1("(nullptr != doBinds) = ", nullptr != doBinds); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     resultList.clear();
     try
@@ -641,7 +641,7 @@ performSQLstatementWithSingleColumnResults
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -727,14 +727,14 @@ doBeginTransaction
 {
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -766,14 +766,14 @@ doEndTransaction
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("wasOK = ", wasOK); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     try
     {
         if (nullptr == dbHandle)
         {
             ODL_LOG("(nullptr == dbHandle)"); //####
-            status = nImO::SuccessOrFailure{false, "No open database"};
+            status = nImO::SuccessOrFailure{false, "No open database"s};
         }
         else
         {
@@ -806,12 +806,12 @@ createTables
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "dbHandle = ", dbHandle); //####
     ODL_B1("logging = ", logging); //####
-    nImO::SuccessOrFailure  status{true, ""};
+    nImO::SuccessOrFailure  status{true, ""s};
 
     if (nullptr == dbHandle)
     {
         ODL_LOG("(nullptr == dbHandle)"); //####
-        status = nImO::SuccessOrFailure{false, "No open database"};
+        status = nImO::SuccessOrFailure{false, "No open database"s};
     }
     else
     {
@@ -1747,14 +1747,14 @@ nImO::Registry::addChannel
             else
             {
                 ODL_LOG("! (statusWithBool.second)"); //####
-                status = SuccessOrFailure(false, "Unknown node name");
+                status = SuccessOrFailure(false, "Unknown node name"s);
             }
         }
     }
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1813,14 +1813,14 @@ nImO::Registry::addConnection
                     else
                     {
                         ODL_LOG("! (statusWithBool.second)"); //####
-                        status = SuccessOrFailure(false, "Unknown 'to' channel");
+                        status = SuccessOrFailure(false, "Unknown 'to' channel"s);
                     }
                 }
             }
             else
             {
                 ODL_LOG("! (statusWithBool.second)"); //####
-                status = SuccessOrFailure(false, "Unknown 'from' channel");
+                status = SuccessOrFailure(false, "Unknown 'from' channel"s);
             }
         }
     }
@@ -1828,7 +1828,7 @@ nImO::Registry::addConnection
     {
         ODL_LOG("! (ChannelName::validNode(fromNodeName) && ChannelName::validPath(fromPath) && " //####
                 "ChannelName::validNode(toNodeName) && ChannelName::validPath(toPath))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1900,7 +1900,7 @@ nImO::Registry::addNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1930,7 +1930,7 @@ nImO::Registry::clearChannelInUse
             if (0 == results.size())
             {
                 ODL_LOG("(0 == results.size())"); //####
-                status = SuccessOrFailure(false, "No such node or path");
+                status = SuccessOrFailure(false, "No such node or path"s);
             }
             doEndTransaction(_owner, _dbHandle, status.first);
         }
@@ -1942,7 +1942,7 @@ nImO::Registry::clearChannelInUse
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -1997,7 +1997,7 @@ nImO::Registry::getChannelInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return ChannelInfoOrFailure{status, info};
@@ -2047,14 +2047,14 @@ nImO::Registry::getChannelInUseAndSet
                         if (0 == results.size())
                         {
                             ODL_LOG("(0 == results.size())"); //####
-                            status = SuccessOrFailure(false, "No such node or path");
+                            status = SuccessOrFailure(false, "No such node or path"s);
                         }
                     }
                 }
                 else
                 {
                     ODL_LOG("! (0 < results.size())"); //####
-                    status = SuccessOrFailure(false, "No such node or path");
+                    status = SuccessOrFailure(false, "No such node or path"s);
                 }
             }
             else
@@ -2071,7 +2071,7 @@ nImO::Registry::getChannelInUseAndSet
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, inUse};
@@ -2118,7 +2118,7 @@ nImO::Registry::getChannelInUse
                 else
                 {
                     ODL_LOG("! (0 < results.size())"); //####
-                    status = SuccessOrFailure(false, "No such node or path");
+                    status = SuccessOrFailure(false, "No such node or path"s);
                 }
             }
             else
@@ -2135,7 +2135,7 @@ nImO::Registry::getChannelInUse
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, inUse};
@@ -2230,7 +2230,7 @@ nImO::Registry::getConnectionInformation
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return ConnectionInfoOrFailure{status, connectionData};
@@ -2782,7 +2782,7 @@ nImO::Registry::getLaunchDetails
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return LaunchDetailsOrFailure{status, details};
@@ -2850,7 +2850,7 @@ nImO::Registry::getMachineInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return MachineInfoOrFailure{status, info};
@@ -3036,7 +3036,7 @@ nImO::Registry::getNodeInformation
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return NodeInfoOrFailure{status, info};
@@ -3327,7 +3327,7 @@ nImO::Registry::isChannelPresent
     else
     {
         ODL_LOG("! (Connection::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, found};
@@ -3424,7 +3424,7 @@ nImO::Registry::isNodePresent
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return BoolOrFailure{status, found};
@@ -3460,7 +3460,7 @@ nImO::Registry::removeChannel
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -3493,7 +3493,7 @@ nImO::Registry::removeChannelsForNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -3549,14 +3549,14 @@ nImO::Registry::removeConnection
             else
             {
                 ODL_LOG("! (statusWithBool.second)"); //####
-                status = SuccessOrFailure(false, "Unknown 'from' channel");
+                status = SuccessOrFailure(false, "Unknown 'from' channel"s);
             }
         }
     }
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -3589,7 +3589,7 @@ nImO::Registry::removeNode
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
-        status = SuccessOrFailure(false, "Invalid node name");
+        status = SuccessOrFailure(false, "Invalid node name"s);
     }
     ODL_OBJEXIT(); //####
     return status;
@@ -3619,7 +3619,7 @@ nImO::Registry::setChannelInUse
             if (0 == results.size())
             {
                 ODL_LOG("(0 == results.size())"); //####
-                status = SuccessOrFailure(false, "No such node or path");
+                status = SuccessOrFailure(false, "No such node or path"s);
             }
             doEndTransaction(_owner, _dbHandle, status.first);
         }
@@ -3631,7 +3631,7 @@ nImO::Registry::setChannelInUse
     else
     {
         ODL_LOG("! (ChannelName::validNode(nodeName) && ChannelName::validPath(path))"); //####
-        status = SuccessOrFailure(false, "Invalid node name or path");
+        status = SuccessOrFailure(false, "Invalid node name or path"s);
     }
     ODL_OBJEXIT(); //####
     return status;

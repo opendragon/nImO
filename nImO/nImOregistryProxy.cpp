@@ -137,7 +137,7 @@ nImO::RegistryProxy::RegistryProxy
     sock_addr.sin_addr.s_addr = htonl(connection._address);
     auto    regAddrStr{nImO::Ipv4AddressToStdString(sock_addr, sizeof(sock_addr))};
 
-    _context->report("Registry found at "s + regAddrStr + ":"s + std::to_string(_connection._port) + "."s);
+    _context->report("registry found at "s + regAddrStr + ":"s + std::to_string(_connection._port) + "."s);
     ODL_EXIT_P(this); //####
 } // nImO::RegistryProxy::RegistryProxy
 

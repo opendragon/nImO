@@ -156,6 +156,9 @@ namespace nImO
             /*! @brief The index for the channel. */
             int _index{0};
 
+            /*! @brief @c true once a TCP connection has been established. */
+            std::atomic_bool    _tcpConnected{false};
+
         private :
             // Private fields.
 

@@ -52,9 +52,6 @@ function usage_help() {
             "help")
                 usage_help
                 ;;
-            "info")
-                nImOinfo -h
-                ;;
             "list")
                 nImOlist -h
                 ;;
@@ -137,13 +134,6 @@ else
             ;;
         "help")
             usage_help $*
-            ;;
-        "info")
-            if [[ $# -eq 0 ]]; then
-                usage_help info
-            else
-                nImOinfo $*
-            fi
             ;;
         "list")
             if [[ $# -eq 0 ]]; then

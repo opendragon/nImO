@@ -95,7 +95,6 @@ using namespace std::string_literals;
 #  pragma clang diagnostic ignored "-Wdeprecated-declarations"
 # endif // defined(__APPLE__)
 # include <boost/asio.hpp>
-//# include <boost/asio/error.hpp>
 # include <boost/optional.hpp>
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop

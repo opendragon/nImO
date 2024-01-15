@@ -79,6 +79,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief Convert raw bytes to a message and add to the queue.
+             @param[in] tag The input channel index.
              @param[in] senderAddress The sender's IP address.
              @param[in] senderPort The sender's port.
              @param[in] receivedAsString The raw data as a string. */
@@ -88,6 +89,17 @@ namespace nImO
                  const IPv4Address      senderAddress,
                  const IPv4Port         senderPort,
                  const std::string &    receivedAsString);
+
+            /*! @brief Convert raw bytes to a message and add to the queue.
+             @param[in] tag The input channel index.
+             @param[in] receivedAsString The raw data as a string. */
+            void
+            addRawBytesAsMessage
+                (const int              tag,
+                 const std::string &    receivedAsString)
+            {
+                addRawBytesAsMessage(tag, 0, 0, receivedAsString);
+            }
 
             /*! @brief Return the next available message in the queue if there is one.
              @return The next available message or an empty pointer if the queue is being stopped. */

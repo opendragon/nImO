@@ -41,7 +41,7 @@
 #include <Contexts/nImOinputOutputContext.h>
 #include <nImOmainSupport.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -110,16 +110,55 @@ void
 nImO::InChannel::receiveTcpMessages
     (void)
 {
+    ODL_ENTER(); //####
     if (gKeepRunning)
     {
+        auto    rB{std::make_shared<boost::asio::streambuf>()};
 
+        boost::asio::async_read_until(*_tcpSocket, *rB, nImO::MatchMessageSeparator,
+                                    [this, rB]
+                                    (const BSErr &      ec,
+                                     const std::size_t  size)
+                                    {
+                                        NIMO_UNUSED_VAR_(size);
+                                        if (ec)
+                                        {
+                                            if (BAErr::operation_aborted == ec)
+                                            {
+#if defined(nImO_ChattyTcpLogging)
+                                                _context.report("async_read_until() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                            }
+                                            else
+                                            {
+                                                auto    errMessage{"async_read_until() failed -> "s + ec.message()};
+
+                                                _context.report(errMessage);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::string receivedAsString{buffers_begin(rB->data()), buffers_end(rB->data())};
+                                            auto        trimmed{UnpackageMessage(receivedAsString)};
+
+                                            ODL_S1s("trimmed <- ", trimmed); //####
+#if defined(nImO_ChattyTcpLogging)
+                                            _context.report("got message"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                            _inQueue.addRawBytesAsMessage(_index, trimmed);
+                                            receiveTcpMessages();
+                                        }
+                                    });
     }
+    ODL_EXIT(); //####
 } // nImO::InChannel::receiveTcpMessages
 
 void
 nImO::InChannel::receiveUdpMessages
     (void)
 {
+    ODL_ENTER(); //####
     if (gKeepRunning)
     {
         _udpSocket->async_receive_from(boost::asio::buffer(_rawData), _udpSenderEndpoint,
@@ -127,22 +166,42 @@ nImO::InChannel::receiveUdpMessages
                                        (const BSErr         ec,
                                         const std::size_t   length)
                                        {
-                                           if (! ec)
+                                           if (ec)
+                                           {
+                                               if (BAErr::operation_aborted == ec)
+                                               {
+#if defined(nImO_ChattyTcpLogging)
+                                                   _context.report("async_read_until() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                   ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                               }
+                                               else
+                                               {
+                                                   auto    errMessage{"async_read_until() failed -> "s + ec.message()};
+
+                                                   _context.report(errMessage);
+                                               }
+
+                                           }
+                                           else
                                            {
                                                auto senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
                                                auto senderPort{_udpSenderEndpoint.port()};
 
+#if defined(nImO_ChattyTcpLogging)
+                                               _context.report("got message"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
                                                if (_unfiltered || ((_matchAddress == senderAddress) && (_matchPort == senderPort)))
                                                {
                                                    std::string  receivedAsString{_rawData.data(), length};
 
                                                    _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, receivedAsString);
-
                                                }
                                                receiveUdpMessages();
                                            }
                                        });
     }
+    ODL_EXIT(); //####
 } // nImO::InChannel::receiveUdpMessages
 
 bool
@@ -173,22 +232,15 @@ nImO::InChannel::setUp
     }
     else if (TransportType::kTCP == _connection._transport)
     {
-        BAIP::address_v4    inAddress{0};
-        BTCP::endpoint      inEndpoint{inAddress, 0};
-
         _tcpAcceptor = std::make_shared<BTCP::acceptor>(*_context.getService());
-        _tcpAcceptor->open(inEndpoint.protocol());
-        _tcpAcceptor->set_option(BTCP::socket::reuse_address(true));
-        _tcpAcceptor->bind(inEndpoint);
+        _tcpAcceptor->open(BTCP::v4());
+        _tcpAcceptor->listen();
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _tcpAcceptor->local_endpoint().port();
 #if defined(nImO_ChattyTcpLogging)
         _context.report("acceptor port = "s + std::to_string(_connection._port) + "."s);
-//std::cerr << "_tcpAcceptor " << _tcpAcceptor->local_endpoint() << std::endl;//!!
 #endif /* defined(nImO_ChattyTcpLogging) */
         _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
-        _tcpSocket->open(inEndpoint.protocol());
-        _tcpSocket->set_option(BTCP::socket::reuse_address(true));
         okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -207,26 +259,40 @@ nImO::InChannel::start
 
     _matchAddress = senderAddress;
     _matchPort = senderPort;
-    _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));
     // Start network activity.
     if (TransportType::kUDP == _connection._transport)
     {
+        _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));
         receiveUdpMessages();
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
     {
-        // Start the acceptor listening?
+        // Start the acceptor listening.
+        _unfiltered = true;
         _tcpAcceptor->async_accept(*_tcpSocket,
                                    [this]
                                    (const BSErr ec)
                                    {
-                                        if (! ec)
+                                        if (ec)
+                                        {
+                                            if (BAErr::operation_aborted == ec)
+                                            {
+#if defined(nImO_ChattyTcpLogging)
+                                                _context.report("async_accept() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                            }
+                                            else
+                                            {
+                                                _context.report("async_accept() failed -> "s + ec.message());
+                                            }
+                                        }
+                                        else
                                         {
                                             _tcpConnected = true;
                                             ODL_B1("_tcpConnected <- ", _tcpConnected); //####
                                             receiveTcpMessages();
-_context.report("accepted!");
                                         }
                                    });
         okSoFar = true;

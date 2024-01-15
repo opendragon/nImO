@@ -202,13 +202,13 @@ handleWriteCompletion
                                         if (BAErr::operation_aborted == ec3)
                                         {
 #if defined(nImO_ChattyTcpLogging)
-                                            context->report("read_until() operation cancelled"s);
+                                            context->report("async_read_until() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                            ODL_LOG("(BAErr::operation_aborted == ec3)"); //####
                                         }
                                         else
                                         {
-                                            auto    errMessage{"async_write() failed -> "s + ec3.message()};
+                                            auto    errMessage{"async_read_until() failed -> "s + ec3.message()};
 
                                             context->report(errMessage);
                                             *status = std::make_pair(false, errMessage);
@@ -265,7 +265,7 @@ handleConnectCompletion
 #if defined(nImO_ChattyTcpLogging)
                                         context->report("async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
-                                        ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                        ODL_LOG("(BAErr::operation_aborted == ec2)"); //####
                                     }
                                     else
                                     {
@@ -373,89 +373,6 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                     else
                                     {
                                         handleConnectCompletion(context, socket, outString, handler, keepGoing, responseKey, status);
-#if 0
-#if defined(nImO_ChattyTcpLogging)
-                                        context->report("command connection request accepted"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                        boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
-                                                                  [socket, context, handler, keepGoing, &responseKey, status]
-                                                                  (const BSErr &        ec2,
-                                                                   const std::size_t    bytes_transferred)
-                                                                  {
-                                                                    NIMO_UNUSED_VAR_(bytes_transferred);
-                                                                    if (ec2)
-                                                                    {
-                                                                        if (BAErr::operation_aborted == ec2)
-                                                                        {
-#if defined(nImO_ChattyTcpLogging)
-                                                                            context->report("async_write() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            auto    errMessage{"async_write() failed -> "s + ec2.message()};
-
-                                                                            context->report(errMessage);
-                                                                            *status = std::make_pair(false, errMessage);
-                                                                        }
-                                                                        *keepGoing = false;
-                                                                        ODL_B1("keepGoing <- ", *keepGoing); //####
-                                                                    }
-                                                                    else
-                                                                    {
-#if defined(nImO_ChattyTcpLogging)
-                                                                        context->report("command sent"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                                                        auto    rB{std::make_shared<boost::asio::streambuf>()};
-
-                                                                        boost::asio::async_read_until(*socket, *rB, MatchMessageSeparator,
-                                                                                                [context, rB, handler, keepGoing, &responseKey, status]
-                                                                                                (const BSErr &      ec3,
-                                                                                                 const std::size_t  size)
-                                                                                                {
-                                                                                                    NIMO_UNUSED_VAR_(size);
-                                                                                                    if (ec3)
-                                                                                                    {
-                                                                                                        if (BAErr::operation_aborted == ec3)
-                                                                                                        {
-#if defined(nImO_ChattyTcpLogging)
-                                                                                                            context->report("read_until() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            auto    errMessage{"async_write() failed -> "s +
-                                                                                                                                    ec3.message()};
-                                                                                                            context->report(errMessage);
-                                                                                                            *status = std::make_pair(false, errMessage);
-                                                                                                        }
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        std::string handleThis{buffers_begin(rB->data()),
-                                                                                                                                buffers_end(rB->data())};
-
-#if defined(nImO_ChattyTcpLogging)
-                                                                                                        context->report("got response"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
-                                                                                                        if (nullptr != handler)
-                                                                                                        {
-                                                                                                            if (! handleResponse(handler, handleThis,
-                                                                                                                                 responseKey))
-                                                                                                            {
-                                                                                                                *status = std::make_pair(false,
-                                                                                                                                        "handleResponse() failed"s);
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                    *keepGoing = false;
-                                                                                                    ODL_B1("keepGoing <- ", *keepGoing); //####
-                                                                                                });
-                                                                    }
-                                                                });
-#endif//0
                                     }
                                 });
             for ( ; *keepGoing && gKeepRunning; )

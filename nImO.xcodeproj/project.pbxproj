@@ -122,7 +122,6 @@
 		F65C4AAB2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4ACC2985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B022985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C4B1C2985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B362985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B502985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4B6A2985620200430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -148,9 +147,6 @@
 		F65C4BBC2985636800430284 /* nImOread.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOread.rc.in; sourceTree = "<group>"; };
 		F65C4BBD2985636800430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F65C4BBE2985636800430284 /* nImOreadMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOreadMain.cpp; sourceTree = "<group>"; };
-		F65C4BC02985636800430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		F65C4BC12985636800430284 /* nImOinfo.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOinfo.rc.in; sourceTree = "<group>"; };
-		F65C4BC22985636800430284 /* nImOinfoMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOinfoMain.cpp; sourceTree = "<group>"; };
 		F65C4BC42985636800430284 /* nImOversionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOversionMain.cpp; sourceTree = "<group>"; };
 		F65C4BC52985636800430284 /* nImOversion.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOversion.rc.in; sourceTree = "<group>"; };
 		F65C4BC62985636800430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
@@ -851,7 +847,6 @@
 				F65C4A722985620100430284 /* CMakeLists.txt */,
 				F65C4B832985620200430284 /* Connect */,
 				F65C4B692985620200430284 /* Disconnect */,
-				F65C4B1B2985620200430284 /* Info */,
 				F65C4B4F2985620200430284 /* List */,
 				F65C4A582985620100430284 /* Monitor */,
 				F65C4A732985620100430284 /* Post */,
@@ -933,14 +928,6 @@
 			path = Read;
 			sourceTree = "<group>";
 		};
-		F65C4B1B2985620200430284 /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				F65C4B1C2985620200430284 /* CMakeLists.txt */,
-			);
-			path = Info;
-			sourceTree = "<group>";
-		};
 		F65C4B352985620200430284 /* Version */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,7 +967,6 @@
 				F65C4BB32985636800430284 /* Bridge */,
 				F65C4BCF2985636800430284 /* Connect */,
 				F65C4BCB2985636800430284 /* Disconnect */,
-				F65C4BBF2985636800430284 /* Info */,
 				F65C4BC72985636800430284 /* List */,
 				F65C4BA22985636700430284 /* Monitor */,
 				F65C4BA62985636700430284 /* Post */,
@@ -1072,16 +1058,6 @@
 				F65C4BBD2985636800430284 /* resource.h */,
 			);
 			path = Read;
-			sourceTree = "<group>";
-		};
-		F65C4BBF2985636800430284 /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				F65C4BC12985636800430284 /* nImOinfo.rc.in */,
-				F65C4BC22985636800430284 /* nImOinfoMain.cpp */,
-				F65C4BC02985636800430284 /* resource.h */,
-			);
-			path = Info;
 			sourceTree = "<group>";
 		};
 		F65C4BC32985636800430284 /* Version */ = {

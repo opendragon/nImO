@@ -44,7 +44,7 @@
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -128,7 +128,11 @@ nImO::OutChannel::send
     {
         ODL_LOG("(nullptr == valueToSend)"); //####
     }
-    else if (TransportType::kUnknown != _connection._transport)
+    else if (TransportType::kUnknown == _connection._transport)
+    {
+        okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
+    }
+    else
     {
         Message messageToSend;
 
@@ -148,18 +152,33 @@ nImO::OutChannel::send
                 StringVector    outVec;
 
                 EncodeBytesAsMIME(outVec, asString);
-                auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));
+                auto    outString{PackageMessage(outVec)};
 
+                // send the encoded message to the receiver
                 if (TransportType::kUDP == _connection._transport)
                 {
-                    // send the encoded message to the logging ports
                     _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
-                                              [outString]
+                                              [this, outString]
                                               (const BSErr          ec,
                                                const std::size_t    length)
                                               {
-                                                NIMO_UNUSED_VAR_(ec);
                                                 NIMO_UNUSED_VAR_(length);
+                                                if (ec)
+                                                {
+                                                    if (BAErr::operation_aborted == ec)
+                                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                                        _context.report("async_send_to() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                        ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                    }
+                                                    else
+                                                    {
+                                                        auto    errMessage{"async_send_to() failed -> "s + ec.message()};
+
+                                                        _context.report(errMessage);
+                                                    }
+                                                }
                                               });
                     okSoFar = true;
                 }
@@ -167,8 +186,29 @@ nImO::OutChannel::send
                 {
                     if (_tcpConnected)
                     {
-//TBD!
-                        std::cerr << "** " << ODL_FUNC_NAME_ << " ** Unimplemented **\n";
+                        boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
+                                                 [this, outString]
+                                                 (const BSErr &        ec,
+                                                  const std::size_t    bytes_transferred)
+                                                 {
+                                                    NIMO_UNUSED_VAR_(bytes_transferred);
+                                                    if (ec)
+                                                    {
+                                                        if (BAErr::operation_aborted == ec)
+                                                        {
+#if defined(nImO_ChattyTcpLogging)
+                                                            _context.report("async_write() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                        }
+                                                        else
+                                                        {
+                                                            auto    errMessage{"async_write() failed -> "s + ec.message()};
+
+                                                            _context.report(errMessage);
+                                                        }
+                                                    }
+                                                 });
                     }
                     okSoFar = true;
                 }
@@ -178,10 +218,6 @@ nImO::OutChannel::send
         {
             ODL_LOG("! (0 < messageToSend.getLength())"); //####
         }
-    }
-    else
-    {
-        okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -219,7 +255,6 @@ nImO::OutChannel::setUp
 #endif /* defined(nImO_ChattyTcpLogging) */
         _udpSendpoint.address(destAddress);
         _udpSendpoint.port(_destinationPort);
-//std::cerr << "_udpSendpoint " << _udpSendpoint << std::endl;//!!
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
@@ -227,17 +262,11 @@ nImO::OutChannel::setUp
         BTCP::endpoint  outEndpoint{outAddress, 0};
 
         _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
-        _tcpSocket->open(outEndpoint.protocol());
-        _tcpSocket->set_option(BTCP::socket::reuse_address(true));
-        _tcpSocket->bind(outEndpoint);
-        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
-        _connection._port = _tcpSocket->local_endpoint().port();
 #if defined(nImO_ChattyTcpLogging)
-        _context.report("local port = "s + std::to_string(_connection._port) + ", destination port = "s + std::to_string(_destinationPort) + "."s);
+        _context.report("destination port = "s + std::to_string(_destinationPort) + "."s);
 #endif /* defined(nImO_ChattyTcpLogging) */
         _tcpSendpoint.address(destAddress);
         _tcpSendpoint.port(_destinationPort);
-//std::cerr << "_tcpSendpoint " << _tcpSendpoint << std::endl;//!!
         okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
@@ -262,13 +291,34 @@ nImO::OutChannel::start
                                   [this]
                                   (const BSErr  ec)
                                   {
-                                    if (! ec)
+                                    if (ec)
                                     {
-                                        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+                                        if (BAErr::operation_aborted == ec)
+                                        {
+#if defined(nImO_ChattyTcpLogging)
+                                            _context.report("async_connect() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                        }
+                                        else
+                                        {
+                                            auto    errMessage{"async_connect() failed -> "s + ec.message()};
+
+                                            _context.report(errMessage);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+                                        _connection._port = _tcpSocket->local_endpoint().port();
                                         _tcpConnected = true;
-_context.report("connected!");
+                                        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
                                     }
                                   });
+        for ( ; gKeepRunning && (! _tcpConnected); )
+        {
+            boost::this_thread::yield();
+        }
         okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####

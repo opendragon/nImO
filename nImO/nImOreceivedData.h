@@ -85,8 +85,8 @@ namespace nImO
             inline ReceivedData
                 (const int                  tag,
                  nImO::SpValue              receivedMessage,
-                 const nImO::IPv4Address    receivedAddress,
-                 const nImO::IPv4Port       receivedPort) :
+                 const nImO::IPv4Address    receivedAddress = 0,
+                 const nImO::IPv4Port       receivedPort = 0) :
                 _receivedMessage(receivedMessage), _receivedAddress(receivedAddress), _receivedPort(receivedPort), _tag{tag}
             {
             }

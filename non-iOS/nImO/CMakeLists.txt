@@ -210,6 +210,8 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOconverters.h"
         "${THIS_SOURCE_DIR}/nImOfilterBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOinChannel.h"
+        "${THIS_SOURCE_DIR}/nImOinputOutputCommands.h"
+        "${THIS_SOURCE_DIR}/nImOlauncherCommands.h"
         "${THIS_SOURCE_DIR}/nImOlogger.h"
         "${THIS_SOURCE_DIR}/nImOmainSupport.h"
         "${THIS_SOURCE_DIR}/nImOMIMESupport.h"
@@ -507,6 +509,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOfilterBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOfilterBreakHandler.h
         ${THIS_SOURCE_DIR}/nImOinChannel.cpp ${THIS_SOURCE_DIR}/nImOinChannel.h
         ${THIS_SOURCE_DIR}/nImOinputOutputCommands.h
+        ${THIS_SOURCE_DIR}/nImOlauncherCommands.h
         ${THIS_SOURCE_DIR}/nImOlogger.cpp ${THIS_SOURCE_DIR}/nImOlogger.h
         ${THIS_SOURCE_DIR}/nImOmainSupport.cpp ${THIS_SOURCE_DIR}/nImOmainSupport.h
         ${THIS_SOURCE_DIR}/nImOMIMESupport.cpp ${THIS_SOURCE_DIR}/nImOMIMESupport.h

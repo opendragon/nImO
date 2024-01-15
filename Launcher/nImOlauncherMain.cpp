@@ -38,7 +38,7 @@
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <Contexts/nImOserviceContext.h>
-#include <nImOcommonCommands.h>
+#include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>

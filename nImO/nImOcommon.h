@@ -830,6 +830,9 @@ namespace nImO
     /*! @brief A holder for a shared pointer to a Set. */
     using SpSet = std::shared_ptr<Set>;
 
+    /*! @brief A holder for a shared pointer to a bool variable. */
+    using SpBool = std::shared_ptr<bool>;
+
     /*! @brief A holder for a shared pointer to an Asio TCP/IP acceptor. */
     using SpAcceptorTCP = std::shared_ptr<BTCP::acceptor>;
 
@@ -841,6 +844,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to an Asio UDP/IP socket. */
     using SpSocketUDP = std::shared_ptr<BUDP::socket>;
+
+    /*! @brief A holder for a shared pointer to a standard string. */
+    using SpStdString = std::shared_ptr<std::string>;
 
     /*! @brief A holder for a shared pointer to a String. */
     using SpString = std::shared_ptr<String>;
@@ -931,6 +937,9 @@ namespace nImO
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     using StringSetOrFailure = std::pair<SuccessOrFailure, StringSet>;
+
+    /*! @brief A holder for a shared pointer to a SuccessOrFailure pair. */
+    using SpSuccessOrFailure = std::shared_ptr<SuccessOrFailure>;
 
     // Methods.
 

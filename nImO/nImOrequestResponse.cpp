@@ -46,7 +46,7 @@
 #include <nImOmainSupport.h>
 #include <nImOMIMESupport.h>
 
-//#include <odlEnable.h>
+#include <odlEnable.h>
 #include <odlInclude.h>
 
 #if defined(__APPLE__)
@@ -173,6 +173,118 @@ handleResponse
     return wasOK;
 } // handleResponse
 
+static void
+handleWriteCompletion
+    (nImO::SpContextWithNetworking  context,
+     nImO::SpSocketTCP              socket,
+     Ptr(nImO::ResponseHandler)     handler,
+     nImO::SpBool                   keepGoing,
+     const std::string &            responseKey,
+     nImO::SpSuccessOrFailure       status)
+{
+    ODL_ENTER(); //####
+    ODL_P4("context = ", context.get(), "socket = ", socket.get(), "handler = ", handler, "keepGoing = ", keepGoing.get()); //####
+    ODL_P1("status = ", status.get()); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+#if defined(nImO_ChattyTcpLogging)
+    context->report("command sent"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+    auto    rB{std::make_shared<boost::asio::streambuf>()};
+
+    boost::asio::async_read_until(*socket, *rB, nImO::MatchMessageSeparator,
+                                [context, rB, handler, keepGoing, &responseKey, status]
+                                (const BSErr &      ec3,
+                                 const std::size_t  size)
+                                {
+                                    NIMO_UNUSED_VAR_(size);
+                                    if (ec3)
+                                    {
+                                        if (BAErr::operation_aborted == ec3)
+                                        {
+#if defined(nImO_ChattyTcpLogging)
+                                            context->report("read_until() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                        }
+                                        else
+                                        {
+                                            auto    errMessage{"async_write() failed -> "s + ec3.message()};
+
+                                            context->report(errMessage);
+                                            *status = std::make_pair(false, errMessage);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::string handleThis{buffers_begin(rB->data()), buffers_end(rB->data())};
+
+#if defined(nImO_ChattyTcpLogging)
+                                        context->report("got response"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        if (nullptr != handler)
+                                        {
+                                            if (! handleResponse(handler, handleThis, responseKey))
+                                            {
+                                                *status = std::make_pair(false, "handleResponse() failed"s);
+                                            }
+                                        }
+                                    }
+                                    *keepGoing = false;
+                                    ODL_B1("keepGoing <- ", *keepGoing); //####
+                                });
+    ODL_EXIT(); //####
+} // handleWriteCompletion
+
+static void
+handleConnectCompletion
+    (nImO::SpContextWithNetworking  context,
+     nImO::SpSocketTCP              socket,
+     nImO::SpStdString              outString,
+     Ptr(nImO::ResponseHandler)     handler,
+     nImO::SpBool                   keepGoing,
+     const std::string &            responseKey,
+     nImO::SpSuccessOrFailure       status)
+{
+    ODL_ENTER(); //####
+    ODL_P4("context = ", context.get(), "socket = ", socket.get(), "outString = ", outString.get(), "handler = ", handler); //####
+    ODL_P2("keepGoing = ", keepGoing.get(), "status = ", status.get()); //####
+    ODL_S1s("responseKey = ", responseKey); //####
+#if defined(nImO_ChattyTcpLogging)
+    context->report("command connection request accepted"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+    boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
+                              [socket, context, handler, keepGoing, &responseKey, status]
+                              (const BSErr &        ec2,
+                               const std::size_t    bytes_transferred)
+                              {
+                                NIMO_UNUSED_VAR_(bytes_transferred);
+                                if (ec2)
+                                {
+                                    if (BAErr::operation_aborted == ec2)
+                                    {
+#if defined(nImO_ChattyTcpLogging)
+                                        context->report("async_write() operation cancelled"s);
+#endif /* defined(nImO_ChattyTcpLogging) */
+                                        ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                    }
+                                    else
+                                    {
+                                        auto    errMessage{"async_write() failed -> "s + ec2.message()};
+
+                                        context->report(errMessage);
+                                        *status = std::make_pair(false, errMessage);
+                                    }
+                                    *keepGoing = false;
+                                    ODL_B1("keepGoing <- ", *keepGoing); //####
+                                }
+                                else
+                                {
+                                    handleWriteCompletion(context, socket, handler, keepGoing, responseKey, status);
+                                }
+                            });
+    ODL_EXIT(); //####
+} // handleConnectCompletion
+
 #if defined(__APPLE__)
 # pragma mark Class methods
 #endif // defined(__APPLE__)
@@ -203,7 +315,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
     Message             requestToSend;
     auto                requestArray{std::make_shared<Array>()};
-    SuccessOrFailure    status{true, ""s};
+    auto                status{std::make_shared<SuccessOrFailure>(true, ""s)};
 
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
@@ -220,24 +332,23 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         if (asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
-            status = std::make_pair(false, "asString.empty()"s);
+            *status = std::make_pair(false, "asString.empty()"s);
         }
         else
         {
-            StringVector        outVec;
-            std::atomic_bool    keepGoing{true};
+            StringVector    outVec;
+            auto            keepGoing{std::make_shared<bool>(true)};
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
 
             ODL_S1("outString <- ", outString->c_str()); //####
             // Make a connection to the service whose address is in the connection argument.
-            //BTCP::socket   socket{*context->getService()};
             auto            socket{std::make_shared<BTCP::socket>(*context->getService())};
             BTCP::endpoint  endpoint{BAIP::make_address_v4(connection._address), connection._port};
 
             socket->async_connect(endpoint,
-                                 [context, handler, socket, &outString, &keepGoing, &responseKey, &status]
+                                 [context, handler, socket, &outString, keepGoing, &responseKey, status]
                                  (const BSErr & ec1)
                                  {
                                     if (ec1)
@@ -254,18 +365,20 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                             auto    errMessage{"async_connect() failed -> "s + ec1.message()};
 
                                             context->report(errMessage);
-                                            status = std::make_pair(false, errMessage);
+                                            *status = std::make_pair(false, errMessage);
                                         }
-                                        keepGoing = false;
-                                        ODL_B1("keepGoing <- ", keepGoing); //####
+                                        *keepGoing = false;
+                                        ODL_B1("keepGoing <- ", *keepGoing); //####
                                     }
                                     else
                                     {
+                                        handleConnectCompletion(context, socket, outString, handler, keepGoing, responseKey, status);
+#if 0
 #if defined(nImO_ChattyTcpLogging)
                                         context->report("command connection request accepted"s);
 #endif /* defined(nImO_ChattyTcpLogging) */
                                         boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
-                                                                  [socket, context, handler, &keepGoing, &responseKey, &status]
+                                                                  [socket, context, handler, keepGoing, &responseKey, status]
                                                                   (const BSErr &        ec2,
                                                                    const std::size_t    bytes_transferred)
                                                                   {
@@ -284,10 +397,10 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                             auto    errMessage{"async_write() failed -> "s + ec2.message()};
 
                                                                             context->report(errMessage);
-                                                                            status = std::make_pair(false, errMessage);
+                                                                            *status = std::make_pair(false, errMessage);
                                                                         }
-                                                                        keepGoing = false;
-                                                                        ODL_B1("keepGoing <- ", keepGoing); //####
+                                                                        *keepGoing = false;
+                                                                        ODL_B1("keepGoing <- ", *keepGoing); //####
                                                                     }
                                                                     else
                                                                     {
@@ -297,8 +410,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                         auto    rB{std::make_shared<boost::asio::streambuf>()};
 
                                                                         boost::asio::async_read_until(*socket, *rB, MatchMessageSeparator,
-                                                                                                [context, rB, handler, &keepGoing, &responseKey,
-                                                                                                 &status]
+                                                                                                [context, rB, handler, keepGoing, &responseKey, status]
                                                                                                 (const BSErr &      ec3,
                                                                                                  const std::size_t  size)
                                                                                                 {
@@ -317,7 +429,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                             auto    errMessage{"async_write() failed -> "s +
                                                                                                                                     ec3.message()};
                                                                                                             context->report(errMessage);
-                                                                                                            status = std::make_pair(false, errMessage);
+                                                                                                            *status = std::make_pair(false, errMessage);
                                                                                                         }
                                                                                                     }
                                                                                                     else
@@ -333,30 +445,30 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                                                                                             if (! handleResponse(handler, handleThis,
                                                                                                                                  responseKey))
                                                                                                             {
-                                                                                                                status = std::make_pair(false,
+                                                                                                                *status = std::make_pair(false,
                                                                                                                                         "handleResponse() failed"s);
                                                                                                             }
                                                                                                         }
                                                                                                     }
-                                                                                                    keepGoing = false;
-                                                                                                    ODL_B1("keepGoing <- ", keepGoing); //####
+                                                                                                    *keepGoing = false;
+                                                                                                    ODL_B1("keepGoing <- ", *keepGoing); //####
                                                                                                 });
                                                                     }
                                                                 });
+#endif//0
                                     }
                                 });
-            for ( ; keepGoing && gKeepRunning; )
+            for ( ; *keepGoing && gKeepRunning; )
             {
                 boost::this_thread::yield();
             }
-            //socket.shutdown(BTCP::socket::shutdown_both);
         }
     }
     else
     {
         ODL_LOG("! (0 < requestToSend.getLength())"); //####
-        status = std::make_pair(false, "0 >= requestToSend.getLength()"s);
+        *status = std::make_pair(false, "0 >= requestToSend.getLength()"s);
     }
     ODL_EXIT(); //####
-    return status;
+    return *status;
 } // nImO::SendRequestWithArgumentsAndNonEmptyResponse

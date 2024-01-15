@@ -487,7 +487,7 @@ nImO::MatchMessageSeparator
     return std::make_pair(ii, false);
 } // nImO::MatchMessageSeparator
 
-std::shared_ptr<std::string>
+nImO::SpStdString
 nImO::PackageMessage
     (StringVector & outVec)
 {

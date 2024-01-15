@@ -236,7 +236,7 @@ namespace nImO
     /*! @brief Append the message sentinel to encoded data.
      @param[in] outVec The data to be packaged.
      @return The data with the sentinel appended. */
-    std::shared_ptr<std::string>
+    SpStdString
     PackageMessage
         (StringVector & outVec);
 

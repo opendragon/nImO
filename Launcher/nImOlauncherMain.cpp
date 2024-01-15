@@ -37,7 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
-#include <Contexts/nImOserviceContext.h>
+#include <Contexts/nImOlauncherContext.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -114,7 +114,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::ServiceContext>(argc, argv, progName, "Launcher"s, optionValues._logging, true, nodeName)};
+            auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
 
             nImO::ServiceContext::addStandardHandlers(ourContext);

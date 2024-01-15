@@ -43,6 +43,7 @@
 #include "Contexts/nImOcontextWithNetworking.h"
 #include "Contexts/nImOfilterContext.h"
 #include "Contexts/nImOinputOutputContext.h"
+#include "Contexts/nImOlauncherContext.h"
 #include "Contexts/nImOmiscellaneousContext.h"
 #include "Contexts/nImOserviceContext.h"
 #include "Contexts/nImOsinkContext.h"

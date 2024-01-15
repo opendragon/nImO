@@ -101,6 +101,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp"
+            "${THIS_SOURCE_DIR}/Contexts/nImOlauncherContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.cpp"
@@ -289,6 +290,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.h"
+        "${THIS_SOURCE_DIR}/Contexts/nImOlauncherContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.h"
         "${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.h"
@@ -402,6 +404,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.cpp ${THIS_SOURCE_DIR}/Contexts/nImOcontextWithNetworking.h
         ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOfilterContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOinputOutputContext.h
+        ${THIS_SOURCE_DIR}/Contexts/nImOlauncherContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOlauncherContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOmiscellaneousContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOserviceContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOsinkContext.h

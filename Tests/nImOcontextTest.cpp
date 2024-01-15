@@ -40,6 +40,7 @@
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <Contexts/nImOcontextWithNetworking.h>
 #include <Contexts/nImOfilterContext.h>
+#include <Contexts/nImOlauncherContext.h>
 #include <Contexts/nImOmiscellaneousContext.h>
 #include <Contexts/nImOserviceContext.h>
 #include <Contexts/nImOsinkContext.h>

@@ -298,6 +298,8 @@
 		F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOcontainerTest.rc.in; path = Tests/nImOcontainerTest.rc.in; sourceTree = "<group>"; };
 		F6BE1C242973491F009828BF /* nImOcommandSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandSession.h; path = nImO/nImOcommandSession.h; sourceTree = "<group>"; };
 		F6BE1C2529734A28009828BF /* nImOcommandSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandSession.cpp; path = nImO/nImOcommandSession.cpp; sourceTree = "<group>"; };
+		F6C4319B2B55CBF500836193 /* nImOlauncherContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlauncherContext.cpp; path = nImO/Contexts/nImOlauncherContext.cpp; sourceTree = "<group>"; };
+		F6C4319C2B55CBF500836193 /* nImOlauncherContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlauncherContext.h; path = nImO/Contexts/nImOlauncherContext.h; sourceTree = "<group>"; };
 		F6D00FB420D4915000C29946 /* nImOconverters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOconverters.h; path = nImO/nImOconverters.h; sourceTree = "<group>"; };
 		F6D00FB520D4915000C29946 /* nImOconverters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconverters.cpp; path = nImO/nImOconverters.cpp; sourceTree = "<group>"; };
 		F6D1740924128D1000133E72 /* Test_argumentDescriptors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_argumentDescriptors.txt; path = "non-iOS/Tests/Test_argumentDescriptors.txt"; sourceTree = "<group>"; };
@@ -668,6 +670,8 @@
 				F6E510B32A1967CF00D52E80 /* nImOfilterContext.h */,
 				F6E510AE2A1967CE00D52E80 /* nImOinputOutputContext.cpp */,
 				F6E510B52A1967CF00D52E80 /* nImOinputOutputContext.h */,
+				F6C4319B2B55CBF500836193 /* nImOlauncherContext.cpp */,
+				F6C4319C2B55CBF500836193 /* nImOlauncherContext.h */,
 				F6E510B02A1967CE00D52E80 /* nImOmiscellaneousContext.cpp */,
 				F6E510BA2A1967CF00D52E80 /* nImOmiscellaneousContext.h */,
 				F6E510AA2A1967CE00D52E80 /* nImOserviceContext.cpp */,

@@ -72,7 +72,7 @@ using namespace nImO;
 #endif // defined(__APPLE__)
 
 /*! @brief The default path to the configuration file. */
-static const std::string    kDefaultConfigFilePath{nImO_RUN_CONFIG_DIR "nimo-config.txt"};
+static const std::string    kDefaultConfigFilePath{nImO_RUN_CONFIG_DIR_ "nimo-config.txt"};
 
 /*! @brief The loaded configuration values. */
 static nImO::SpValue    lConfigurationValues{};

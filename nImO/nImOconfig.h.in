@@ -63,7 +63,10 @@
 # define nImO_VERSION_ "@nImO_VERSION@"
 
 /*! @brief The default location of the configuration file. */
-# define nImO_RUN_CONFIG_DIR "@nImO_RUN_CONFIG_DIR@"
+# define nImO_RUN_CONFIG_DIR_ "@nImO_RUN_CONFIG_DIR_@/"
+
+/*! @brief The default location of installed executables. */
+# define nImO_BIN_DIR_ "@nImO_RUN_CONFIG_DIR_@/bin/"
 
 # cmakedefine nImO_ChattyStart /* Report the version numbers when launching an executable. */
 

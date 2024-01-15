@@ -139,6 +139,8 @@ main
                         {
                             if (statusWithBool.second)
                             {
+std::cerr << "config file directory: " nImO_RUN_CONFIG_DIR_ "\n";
+std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";
 std::cerr << "** Unimplemented **\n";
                                 ourContext->report("waiting for requests."s);
                                 for ( ; nImO::gKeepRunning; )

@@ -68,6 +68,59 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+/*! @brief A class to provide values that are used for handling callbacks for the application. */
+class LauncherBreakHandler final : public nImO::CallbackFunction
+{
+    public :
+        // Public type definitions.
+
+    protected :
+        // Protected type definitions.
+
+    private :
+        // Private type definitions.
+
+        /*! @brief The class that this class is derived from. */
+        using inherited = CallbackFunction;
+
+    public :
+        // Public methods.
+
+        /*! @brief The constructor. */
+        inline LauncherBreakHandler
+            (void) :
+                inherited()
+        {
+        }
+
+    protected :
+        // Protected methods.
+
+    private :
+        // Private methods.
+
+        /*! @brief Process a break signal. */
+        void
+        operator()
+            (void)
+            const
+            override
+        {
+            ODL_OBJENTER(); //####
+            ODL_OBJEXIT(); //####
+        }
+
+    public :
+        // Public fields.
+
+    protected :
+        // Protected fields.
+
+    private :
+        // Private fields.
+
+}; // LauncherBreakHandler
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -116,8 +169,10 @@ main
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection;
+            auto                cleanup{new LauncherBreakHandler};
 
-            nImO::ServiceContext::addStandardHandlers(ourContext);
+            nImO::SetSpecialBreakObject(cleanup);
+            nImO::AddLauncherHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};

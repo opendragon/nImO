@@ -112,150 +112,23 @@ nImO::LauncherContext::LauncherContext
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-#if 0
-bool
-nImO::LauncherContext::addInputChannel
-    (const std::string &    path)
-{
-    ODL_ENTER(); //####
-    ODL_S1s("path = ", path); //####
-    auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result = _inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName,
-                                                                                            _inputChannelMap.size())});
-
-    ODL_EXIT_B(result.second); //####
-    return result.second;
-} // nImO::LauncherContext::addInputChannel
-
-bool
-nImO::LauncherContext::addOutputChannel
-    (const std::string &    path)
-{
-    ODL_ENTER(); //####
-    ODL_S1s("path = ", path); //####
-    auto        adjustedName{ConvertToLowerCase(path)};
-    const auto  result = _outputChannelMap.insert({adjustedName, std::make_shared<OutChannel>(*this, adjustedName, _outputChannelMap.size())});
-
-    ODL_EXIT_B(result.second); //####
-    return result.second;
-} // nImO::LauncherContext::addOutputChannel
-
-Ptr(nImO::LauncherContext)
-nImO::LauncherContext::asLauncherContext
-    (void)
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT_P(this); //####
-    return this;
-} // nImO::ServiceContext::asLauncherContext
-
-CPtr(nImO::LauncherContext)
-nImO::LauncherContext::asLauncherContext
-    (void)
-    const
-{
-    ODL_OBJENTER(); //####
-    ODL_OBJEXIT_P(this); //####
-    return this;
-} // nImO::ServiceContext::asLauncherContext
-
-nImO::SpInChannel
-nImO::LauncherContext::getInputChannel
-    (const std::string &    path)
-    const
-{
-    ODL_ENTER(); //####
-    ODL_S1s("path = ", path); //####
-    SpInChannel result;
-    auto        match{_inputChannelMap.find(ConvertToLowerCase(path))};
-
-    if (_inputChannelMap.end() != match)
-    {
-        result = match->second;
-    }
-    ODL_EXIT_P(result.get()); //####
-    return result;
-} // nImO::LauncherContext::getInputChannel
-
-void
-nImO::LauncherContext::getInputChannelNames
-    (nImO::StringVector & names)
-    const
-{
-    ODL_ENTER(); //####
-    ODL_P1("names = ", &names); //####
-    names.clear();
-    for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
-    {
-        auto    aChannel{*walker};
-
-        names.push_back(aChannel.second->getName());
-    }
-    ODL_EXIT(); //####
-} // nImO::LauncherContext::getInputChannelNames
-
-nImO::SpOutChannel
-nImO::LauncherContext::getOutputChannel
-    (const std::string &    path)
-    const
-{
-    ODL_ENTER(); //####
-    ODL_S1s("path = ", path); //####
-    SpOutChannel    result;
-    auto            match{_outputChannelMap.find(ConvertToLowerCase(path))};
-
-    if (_outputChannelMap.end() != match)
-    {
-        result = match->second;
-    }
-    ODL_EXIT_P(result.get()); //####
-    return result;
-} // nImO::LauncherContext::getOutputChannel
-
-void
-nImO::LauncherContext::getOutputChannelNames
-    (nImO::StringVector & names)
-    const
-{
-    ODL_ENTER(); //####
-    ODL_P1("names = ", &names); //####
-    names.clear();
-    for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
-    {
-        auto    aChannel{*walker};
-
-        names.push_back(aChannel.second->getName());
-    }
-    ODL_EXIT(); //####
-} // nImO::LauncherContext::getOutputChannelNames
-
-void
-nImO::LauncherContext::stopInputQueue
-    (void)
-{
-    ODL_ENTER(); //####
-    _receiveQueue.stop();
-    ODL_EXIT(); //####
-} // nImO::LauncherContext::stopInputQueue
-#endif//0
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-#if 0
 void
 nImO::AddLauncherHandlers
     (SpLauncherContext      context,
      Ptr(CallbackFunction)  shutdownCallback)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", context.get()); //####
+    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     auto    actualContext{context.get()};
 
     if (nullptr != actualContext)
     {
+#if 0
         bool    goAhead{true};
         auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
 
@@ -318,7 +191,7 @@ nImO::AddLauncherHandlers
         {
             ServiceContext::addStandardHandlers(context, shutdownCallback);
         }
+#endif//0
     }
     ODL_EXIT(); //####
 } // nImO::AddInputOutputHandlers
-#endif//0

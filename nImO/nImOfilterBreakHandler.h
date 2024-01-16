@@ -55,7 +55,7 @@
 
 namespace nImO
 {
-    /*! @brief A class to provide values that are used to handling callbacks for a SinkContext. */
+    /*! @brief A class to provide values that are used for handling callbacks for the application. */
     class FilterBreakHandler final : public CallbackFunction
     {
         public :

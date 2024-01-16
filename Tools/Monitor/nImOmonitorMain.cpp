@@ -167,8 +167,8 @@ class ReceiveOnMessagePort final
 
 }; // ReceiveOnMessagePort
 
-/*! @brief A class to handle receiving messages from the logging or status multicast group. */
-class BreakHandler final : public nImO::CallbackFunction
+/*! @brief A class to provide values that are used for handling callbacks for the application. */
+class MonitorBreakHandler final : public nImO::CallbackFunction
 {
     public :
         // Public type definitions.
@@ -186,7 +186,7 @@ class BreakHandler final : public nImO::CallbackFunction
         // Public methods.
 
         /*! @brief The constructor. */
-        inline BreakHandler
+        inline MonitorBreakHandler
             (void) :
                 inherited()
         {
@@ -219,7 +219,7 @@ class BreakHandler final : public nImO::CallbackFunction
     private :
         // Private fields.
 
-}; // BreakHandler
+}; // MonitorBreakHandler
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -268,7 +268,7 @@ main
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
-            nImO::SetSpecialBreakObject(new BreakHandler());
+            nImO::SetSpecialBreakObject(new MonitorBreakHandler());
             if (loggingConnection != statusConnection)
             {
                 statusReceiver = std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection);

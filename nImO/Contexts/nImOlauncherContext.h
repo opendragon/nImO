@@ -4,11 +4,11 @@
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO 'inputOutput' execution context.
+//  Contains:   The class declaration for the nImO Launcher execution context.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-12
+//  Created:    2024-01-15
 //
 //--------------------------------------------------------------------------------------------------
 
@@ -40,10 +40,6 @@
 # define nImOlauncherContext_H_ /* Header guard */
 
 # include <Contexts/nImOserviceContext.h>
-
-//# include <nImOinChannel.h>
-//# include <nImOoutChannel.h>
-//# include <nImOreceiveQueue.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -60,15 +56,6 @@ namespace nImO
 {
     class LauncherContext; // needed due to circular references.
 
-//    /*! @brief A holder for a shared pointer to an input channel. */
-//    using SpInChannel = std::shared_ptr<InChannel>;
-//
-//    /*! @brief A holder for a shared pointer to an output channel. */
-//    using SpOutChannel = std::shared_ptr<OutChannel>;
-//
-//    /*! @brief An array of output channels. */
-//    using OutChannelVector = std::vector<SpOutChannel>;
-
     /*! @brief A class to provide support for a Launcher application. */
     class LauncherContext final : public ServiceContext
     {
@@ -79,12 +66,6 @@ namespace nImO
         protected :
             // Protected type definitions.
 
-//            /*! @brief A map of input channels. */
-//            using InChannelMap = std::map<std::string, SpInChannel>;
-//
-//            /*! @brief A map of input channels. */
-//            using OutChannelMap = std::map<std::string, SpOutChannel>;
-
         private :
             // Private type definitions.
 
@@ -94,93 +75,20 @@ namespace nImO
         public :
             // Public methods.
 
-//            /*! @brief Add an input channel.
-//             @param[in] path The path for the channel.
-//             @return @c true if a channel was created and added. */
-//            bool
-//            addInputChannel
-//                (const std::string &    path);
-//
-//            /*! @brief Add an output channel.
-//             @param[in] path The path for the channel.
-//             @return @c true is a channel was created and added. */
-//            bool
-//            addOutputChannel
-//                (const std::string &    path);
-//
-//            /*! @brief Is this an LauncherContext?
-//             @return @c this. */
-//            Ptr(LauncherContext)
-//            asLauncherContext
-//                (void)
-//                override;
-//
-//            /*! @brief Is this a ServiceContext?
-//             @return @c this. */
-//            CPtr(LauncherContext)
-//            asLauncherContext
-//                (void)
-//                const
-//                override;
-//
-//            /*! @brief Get an input channel.
-//             @param[in] path The path associated with the channel.
-//             @return The input channel with the provided name. */
-//            SpInChannel
-//            getInputChannel
-//                (const std::string &    path)
-//                const;
-//
-//            /*! @brief Generate a list of the names of the input channels.
-//             @param[out] names A list of the names of the input channels. */
-//            void
-//            getInputChannelNames
-//                (StringVector & names)
-//                const;
-//
-//            /*! @brief Return the next available message in the queue if there is one.
-//             @return The next available message or an empty pointer if the queue is being stopped. */
-//            SpReceivedData
-//            getNextMessage
-//                (void)
-//            {
-//                return _receiveQueue.getNextMessage();
-//            }
-//
-//            /*! @brief Get an output channel.
-//             @param[in] path The path associated with the channel.
-//             @return The output channel with the provided name. */
-//            SpOutChannel
-//            getOutputChannel
-//                (const std::string &    path)
-//                const;
-//
-//            /*! @brief Generate a list of the names of the output channels.
-//             @param[out] names A list of the names of the output channels. */
-//            void
-//            getOutputChannelNames
-//                (StringVector & names)
-//                const;
-//
-        /*! @brief The constructor.
-         @param[in] argc The number of arguments in 'argv'.
-         @param[in] argv The command-line arguments provided to the application.
-         @param[in] executable The name of the executing program.
-         @param[in] tagForLogging The symbolic name for the current process.
-         @param[in] logging @c true if the executing program is to be logged.
-         @param[in] nodeName The @nImO-visible name of the executing program. */
-        LauncherContext
-            (const int              argc,
-             Ptr(Ptr(char))         argv,
-             const std::string &    executableName,
-             const std::string &    tagForLogging = ""s,
-             const bool             logging = false,
-             const std::string &    nodeName = ""s);
-
-//            /*! @brief Stop activity on the input queue. */
-//            void
-//            stopInputQueue
-//                (void);
+            /*! @brief The constructor.
+             @param[in] argc The number of arguments in 'argv'.
+             @param[in] argv The command-line arguments provided to the application.
+             @param[in] executable The name of the executing program.
+             @param[in] tagForLogging The symbolic name for the current process.
+             @param[in] logging @c true if the executing program is to be logged.
+             @param[in] nodeName The @nImO-visible name of the executing program. */
+            LauncherContext
+                (const int              argc,
+                 Ptr(Ptr(char))         argv,
+                 const std::string &    executableName,
+                 const std::string &    tagForLogging = ""s,
+                 const bool             logging = false,
+                 const std::string &    nodeName = ""s);
 
         protected :
             // Protected methods.
@@ -194,27 +102,21 @@ namespace nImO
         protected :
             // Protected fields.
 
-//            /*@ @brief The input channels for the service. */
-//            InChannelMap    _inputChannelMap{};
-//
-//            /*! @brief The output channels for the service. */
-//            OutChannelMap   _outputChannelMap{};
-
         private :
             // Private fields.
 
-//            /*! @brief The sequence of received packages. */
-//            ReceiveQueue    _receiveQueue;
-
     }; // LauncherContext
 
-//    /*! @brief Add the standard command handlers for an LauncherContext.
-//     @param[in] context The Context to be updated.
-//     @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
-//    void
-//    AddLauncherHandlers
-//        (SpLauncherContext      context,
-//         Ptr(CallbackFunction)  shutdownCallback = nullptr);
+    /*! @brief A holder for a shared pointer to a LauncherContext. */
+    using SpLauncherContext = std::shared_ptr<LauncherContext>;
+
+    /*! @brief Add the standard command handlers for an LauncherContext.
+     @param[in] context The Context to be updated.
+     @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
+    void
+    AddLauncherHandlers
+        (SpLauncherContext      context,
+         Ptr(CallbackFunction)  shutdownCallback = nullptr);
 
 } // nImO
 

@@ -81,7 +81,7 @@ std::mutex  lReceivedLock{};
 /*! @brief Used to indicate that there is some received text. */
 std::condition_variable lReceivedCondition{};
 
-/*! @brief A class to handle receiving messages from the logging or status multicast group. */
+/*! @brief A class to provide values that are used for handling callbacks for the application. */
 class SourceBreakHandler final : public nImO::CallbackFunction
 {
     public :
@@ -120,7 +120,6 @@ class SourceBreakHandler final : public nImO::CallbackFunction
             override
         {
             ODL_OBJENTER(); //####
-//            lReceiveQueue.stop();
             ODL_OBJEXIT(); //####
         }
 
@@ -199,11 +198,10 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                    nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
-            auto                    ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Write"s,
-                                                                                     optionValues._logging, nodeName)};
-            nImO::Connection        registryConnection;
-            Ptr(SourceBreakHandler) cleanup{new SourceBreakHandler};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Write"s, optionValues._logging, nodeName)};
+            nImO::Connection    registryConnection;
+            auto                cleanup{new SourceBreakHandler};
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::AddInputOutputHandlers(ourContext, cleanup);

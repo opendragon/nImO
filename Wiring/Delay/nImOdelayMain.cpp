@@ -110,11 +110,10 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                            nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
-            auto                            ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s,
-                                                                                             optionValues._logging, nodeName)};
-            nImO::Connection                registryConnection;
-            Ptr(nImO::FilterBreakHandler)   cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging, nodeName)};
+            nImO::Connection    registryConnection;
+            auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);
             nImO::AddInputOutputHandlers(ourContext, cleanup);

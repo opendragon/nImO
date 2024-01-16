@@ -247,7 +247,7 @@ nImO::AddInputOutputHandlers
      Ptr(CallbackFunction)  shutdownCallback)
 {
     ODL_ENTER(); //####
-    ODL_P1("context = ", context.get()); //####
+    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     auto    actualContext{context.get()};
 

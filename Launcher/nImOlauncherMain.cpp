@@ -143,7 +143,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    auto                                defaultFileName{"services.txt"s};
+    std::string                         defaultFileName{nImO_RUN_CONFIG_DIR_ "services.txt"};
     nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
                                                     defaultFileName};
     nImO::DescriptorVector              argumentList{};
@@ -196,6 +196,7 @@ main
                             {
 std::cerr << "config file directory: " nImO_RUN_CONFIG_DIR_ "\n";
 std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";
+std::cerr << "file path: " << firstArg.getCurrentValue() << "\n";
 std::cerr << "** Unimplemented **\n";
                                 ourContext->report("waiting for requests."s);
                                 for ( ; nImO::gKeepRunning; )

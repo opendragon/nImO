@@ -107,6 +107,9 @@ namespace nImO
 
     }; // LauncherContext
 
+    /*! @brief A holder for a shared pointer to a LauncherContext. */
+    using SpLauncherContext = std::shared_ptr<LauncherContext>;
+
     /*! @brief Add the standard command handlers for an LauncherContext.
      @param[in] context The Context to be updated.
      @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */

@@ -71,15 +71,12 @@ namespace nImO
 {
 
     class InputOutputContext;
-    class LauncherContext;
+    //class LauncherContext;
     class ServiceContext;
     class UtilityContext;
 
     /*! @brief A holder for a shared pointer to an InputOutputContext. */
     using SpInputOutputContext = std::shared_ptr<InputOutputContext>;
-
-    /*! @brief A holder for a shared pointer to a LauncherContext. */
-    using SpLauncherContext = std::shared_ptr<LauncherContext>;
 
     /*! @brief A holder for a shared pointer to a ServiceContext. */
     using SpServiceContext = std::shared_ptr<ServiceContext>;

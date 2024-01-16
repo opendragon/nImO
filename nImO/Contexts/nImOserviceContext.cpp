@@ -172,7 +172,6 @@ nImO::ServiceContext::addStandardHandlers
                                                });
             if (context->waitForRegistry())
             {
-                // TBD
             }
         }
     }

@@ -514,11 +514,7 @@ main
                         auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, toConnection, handler.get(), argArray.get(),
                                                                                          nImO::kStartReceiverRequest, nImO::kStartReceiverResponse)};
 
-                        if (status.first)
-                        {
-//TBD good to go if handler->result() is true
-                        }
-                        else
+                        if (! status.first)
                         {
                             ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "'"s);
                             exitCode = 1;
@@ -534,11 +530,7 @@ main
                         auto    status{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, fromConnection, handler.get(), argArray.get(),
                                                                                          nImO::kStartSenderRequest, nImO::kStartSenderResponse)};
 
-                        if (status.first)
-                        {
-//TBD good to go if handler->result() is true
-                        }
-                        else
+                        if (! status.first)
                         {
                             ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "'"s);
                             exitCode = 1;

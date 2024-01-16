@@ -90,7 +90,6 @@ nImO::FilterContext::FilterContext
     ODL_B1("logging = ", logging); //####
     try
     {
-        // TBD
     }
     catch (...)
     {

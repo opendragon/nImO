@@ -90,7 +90,6 @@ nImO::UtilityContext::UtilityContext
     {
         if (waitForRegistry())
         {
-            // TBD
         }
     }
     catch (...)

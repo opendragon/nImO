@@ -98,7 +98,6 @@ nImO::InputOutputContext::InputOutputContext
     ODL_B1("logging = ", logging); //####
     try
     {
-        // TBD
     }
     catch (...)
     {

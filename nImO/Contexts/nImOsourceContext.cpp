@@ -90,7 +90,6 @@ nImO::SourceContext::SourceContext
     ODL_B1("logging = ", logging); //####
     try
     {
-        // TBD
     }
     catch (...)
     {

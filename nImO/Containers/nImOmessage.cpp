@@ -170,7 +170,6 @@ nImO::Message::close
     switch (_state)
     {
         case MessageState::OpenForReading :
-            // TBD
             break;
 
         case MessageState::OpenForWriting :

@@ -201,7 +201,6 @@ std::cerr << "** Unimplemented **\n";
                                 for ( ; nImO::gKeepRunning; )
                                 {
                                     boost::this_thread::yield();
-            //TBD
                                 }
                                 if (! nImO::gPendingStop)
                                 {

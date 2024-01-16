@@ -143,7 +143,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    std::string                         defaultFileName{nImO_RUN_CONFIG_DIR_ "services.txt"};
+    std::string                         defaultFileName{nImO_RUN_CONFIG_DIR_ "nimo-services.txt"};
     nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
                                                     defaultFileName};
     nImO::DescriptorVector              argumentList{};

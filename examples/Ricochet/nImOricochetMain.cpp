@@ -91,8 +91,8 @@ main
 {
     std::string                     progName{*argv};
     nImO::PortArgumentDescriptor    firstArg{"port"s, "Port for communication"s, nImO::ArgumentMode::Optional, 2020};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::StandardOptions           optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####

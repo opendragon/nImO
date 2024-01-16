@@ -245,8 +245,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::StandardOptions   optionValues;
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####

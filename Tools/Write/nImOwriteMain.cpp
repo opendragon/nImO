@@ -181,8 +181,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    nImO::DescriptorVector  argumentList;
-    nImO::ServiceOptions    optionValues;
+    nImO::DescriptorVector  argumentList{};
+    nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -200,7 +200,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Write"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
             auto                cleanup{new SourceBreakHandler};
 
             nImO::SetSpecialBreakObject(cleanup);

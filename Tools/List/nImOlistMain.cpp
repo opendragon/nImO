@@ -913,8 +913,8 @@ main
         choiceSet.insert(walker.first);
     }
     nImO::StringsArgumentDescriptor firstArg{"choice"s, "Objects to report"s, nImO::ArgumentMode::Optional, "all"s, choiceSet};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::StandardOptions           optionValues{};
     int                             exitCode{0};
 
     argumentList.push_back(&firstArg);
@@ -926,7 +926,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "list"s, optionValues._logging)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

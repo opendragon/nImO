@@ -92,8 +92,8 @@ main
 {
     std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numIn"s, "Number of input channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::DescriptorVector          argumentList;
-    nImO::ServiceOptions            optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::ServiceOptions            optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -112,7 +112,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "fanin"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "FanIn"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);

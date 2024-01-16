@@ -90,8 +90,8 @@ main
 {
     std::string                         progName{*argv};
     nImO::FilePathArgumentDescriptor    firstArg{"inFile"s, "File to be read from"s, nImO::ArgumentMode::Required, ""s, ".txt"s};
-    nImO::DescriptorVector              argumentList;
-    nImO::StandardOptions               optionValues;
+    nImO::DescriptorVector              argumentList{};
+    nImO::StandardOptions               optionValues{};
     int                                 exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -110,7 +110,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::GetShortComputerName()};
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "loadSetup"s, optionValues._logging)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

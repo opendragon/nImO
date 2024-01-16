@@ -146,8 +146,8 @@ main
     auto                                defaultFileName{"services.txt"s};
     nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
                                                     defaultFileName};
-    nImO::DescriptorVector              argumentList;
-    nImO::ServiceOptions                optionValues;
+    nImO::DescriptorVector              argumentList{};
+    nImO::ServiceOptions                optionValues{};
     int                                 exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -168,7 +168,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
             auto                cleanup{new LauncherBreakHandler};
 
             nImO::SetSpecialBreakObject(cleanup);

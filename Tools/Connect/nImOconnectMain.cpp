@@ -122,8 +122,8 @@ main
     nImO::ChannelArgumentDescriptor secondArg{"to"s, "'Receiving' channel"s, nImO::ArgumentMode::Required, "/in"s};
     nImO::StringsArgumentDescriptor thirdArg{"mode"s, "Transport mode"s, nImO::ArgumentMode::Optional | nImO::ArgumentMode::CaseInsensitive,
                                                 nImO::kProtocolAnyName, nImO::ChannelName::transportNames()};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::StandardOptions           optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -143,7 +143,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "connect"s, optionValues._logging)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

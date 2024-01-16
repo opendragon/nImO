@@ -92,8 +92,8 @@ main
 {
     std::string                     progName{*argv};
     nImO::DoubleArgumentDescriptor  firstArg{"delay"s, "Number of seconds to delay messages"s, nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0};
-    nImO::DescriptorVector          argumentList;
-    nImO::ServiceOptions            optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::ServiceOptions            optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -112,7 +112,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "delay"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);

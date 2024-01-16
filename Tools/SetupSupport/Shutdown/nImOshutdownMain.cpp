@@ -95,8 +95,8 @@ main
 {
     std::string                     progName{*argv};
     nImO::StringArgumentDescriptor  firstArg{"node"s, "Node to be shutdown (if machine is not specified)"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector          argumentList;
-    nImO::StandardOptions           optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::StandardOptions           optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -115,7 +115,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown"s, optionValues._logging)};
             auto                nodeName{firstArg.getCurrentValue()};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {

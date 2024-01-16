@@ -92,7 +92,7 @@ main
     std::string                     progName{*argv};
     nImO::BooleanArgumentDescriptor firstArg{"stream"s, "Read standard input for text"s, nImO::ArgumentMode::Optional, false};
     nImO::StringArgumentDescriptor  secondArg{"message"s, "Text to send to logging applications"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector          argumentList;
+    nImO::DescriptorVector          argumentList{};
     nImO::StandardOptions           optionValues{true};
     nImO::StringVector              arguments;
     int                             exitCode{0};

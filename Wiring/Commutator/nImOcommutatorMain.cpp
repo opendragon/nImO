@@ -94,8 +94,8 @@ main
     std::string                     progName{*argv};
     nImO::IntegerArgumentDescriptor firstArg{"numOut"s, "Number of output channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
     nImO::BooleanArgumentDescriptor secondArg{"random"s, "True if random routing"s, nImO::ArgumentMode::Optional, false};
-    nImO::DescriptorVector          argumentList;
-    nImO::ServiceOptions            optionValues;
+    nImO::DescriptorVector          argumentList{};
+    nImO::ServiceOptions            optionValues{};
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -115,7 +115,7 @@ main
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "commutator"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Commutator"s, optionValues._logging, nodeName)};
-            nImO::Connection    registryConnection;
+            nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);

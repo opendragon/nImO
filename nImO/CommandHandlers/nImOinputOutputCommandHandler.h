@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommandHandler.h
+//  File:       nImO/CommandHandlers/nImOinputOutputCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO start receiver command handler.
+//  Contains:   The class declaration for a nImO input/output command handler.
 //
 //  Written by: Norman Jaffe
 //

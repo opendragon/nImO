@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOsetUpReceiverCommandHandler.h
+//  File:       nImO/Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO set up receiver command handler.
+//  Contains:   The class declaration for the nImO launch app command handler.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-25
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOsetUpReceiverCommandHandler_H_))
-# define nImOsetUpReceiverCommandHandler_H_ /* Header guard */
+#if (! defined(nImOlaunchAppCommandHandler_H_))
+# define nImOlaunchAppCommandHandler_H_ /* Header guard */
 
-# include <CommandHandlers/nImOinputOutputCommandHandler.h>
+# include <Launcher/CommandHandlers/nImOlauncherCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO set up receiver command handler. */
+ @brief The class declaration for the %nImO launch app command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the set up receiver command. */
-    class SetUpReceiverCommandHandler final : public InputOutputCommandHandler
+    /*! @brief A class to provide a handler for the launch app command. */
+    class LaunchAppCommandHandler final : public LauncherCommandHandler
     {
 
         public :
@@ -68,15 +68,15 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = InputOutputCommandHandler;
+            using inherited = LauncherCommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
-            SetUpReceiverCommandHandler
-                (SpInputOutputContext   owner);
+            LaunchAppCommandHandler
+                (SpLauncherContext  owner);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
@@ -104,8 +104,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // SetUpReceiverCommandHandler
+    }; // LaunchAppCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOsetUpReceiverCommandHandler_H_)
+#endif // not defined(nImOlaunchAppCommandHandler_H_)

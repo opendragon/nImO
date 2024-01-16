@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOstopReceiverCommandHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO stop receiver command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,16 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-23
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOstopReceiverCommandHandler.h>
+#include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
 
-#include <BasicTypes/nImOstring.h>
-#include <Containers/nImOarray.h>
-#include <nImOinChannel.h>
-#include <nImOinputOutputCommands.h>
+#include <BasicTypes/nImOlogical.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -52,7 +49,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO stop receiver command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,60 +78,48 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StopReceiverCommandHandler::StopReceiverCommandHandler
-    (SpInputOutputContext   owner) :
-        inherited{owner}
+nImO::GetRunParamsForAppResponseHandler::GetRunParamsForAppResponseHandler
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::StopReceiverCommandHandler::StopReceiverCommandHandler
+} // nImO::GetRunParamsForAppResponseHandler::GetRunParamsForAppResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::StopReceiverCommandHandler::doIt
-    (BTCP::socket & socket,
-     const Array &  arguments)
-    const
+nImO::GetRunParamsForAppResponseHandler::doIt
+    (const Array &  stuff)
 {
-    NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("stop receiver request received"s);
-    if (1 < arguments.size())
+#if 0
+    if (1 < stuff.size())
     {
-        auto    asString{arguments[1]->asString()};
+        auto    asLogical{stuff[1]->asLogical()};
 
-        if (nullptr == asString)
+        if (nullptr == asLogical)
         {
-            ODL_LOG("(nullptr == asString)"); //####
+            ODL_LOG("(nullptr == asLogical)"); //####
         }
         else
         {
-            auto    theChannel{_ownerForInputOutput->getInputChannel(asString->getValue())};
-
-            if (theChannel)
-            {
-                okSoFar = sendSimpleResponse(socket, kStopReceiverResponse, "stop receiver"s, theChannel->stop());
-            }
-            else
-            {
-                ODL_LOG("! (theChannel)"); //####
-            }
+            _result = asLogical->getValue();
+            okSoFar = true;
         }
     }
     else
     {
-        ODL_LOG("! (1 < arguments.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
+#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::StopReceiverCommandHandler::doIt
+} // nImO::GetRunParamsForAppResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

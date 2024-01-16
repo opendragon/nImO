@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOsetUpReceiverCommandHandler.h
+//  File:       nImO/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO set up receiver command handler.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-25
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOsetUpReceiverCommandHandler_H_))
-# define nImOsetUpReceiverCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetRunParamsForAppResponseHandler_H_))
+# define nImOgetRunParamsForAppResponseHandler_H_ /* Header guard */
 
-# include <CommandHandlers/nImOinputOutputCommandHandler.h>
+# include <ResponseHandlers/nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO set up receiver command handler. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the set up receiver command. */
-    class SetUpReceiverCommandHandler final : public InputOutputCommandHandler
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class GetRunParamsForAppResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -68,26 +68,33 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = InputOutputCommandHandler;
+            using inherited = nImO::ResponseHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context. */
-            SetUpReceiverCommandHandler
-                (SpInputOutputContext   owner);
+             @param[in] responseKey The expected response key. */
+            GetRunParamsForAppResponseHandler
+                (void);
 
-            /*! @brief Handle the command, returning @c true if successful.
-             @param[in] socket The socket where the response should be sent.
-             @param[in] arguments The arguments to the command, with the first element being the command received.
-             @return @c true if a response was sent. */
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response.
+             @return @c true if the response was correctly structured. */
             bool
             doIt
-                (BTCP::socket & socket,
-                 const Array &  arguments)
-                const
+                (const Array &  stuff)
                 override;
+
+            /*! @brief Return the received value.
+             @return The received value. */
+            inline bool
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
 
         protected :
             // Protected methods.
@@ -104,8 +111,11 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // SetUpReceiverCommandHandler
+            /*! @brief The received value. */
+            bool    _result{false};
+
+    }; // GetRunParamsForAppResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOsetUpReceiverCommandHandler_H_)
+#endif // not defined(nImOgetRunParamsForAppResponseHandler_H_)

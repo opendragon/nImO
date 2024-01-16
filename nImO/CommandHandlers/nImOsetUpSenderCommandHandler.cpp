@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOsetUpSenderCommandHandler.cpp
+//  File:       nImO/CommandHandlers/nImOsetUpSenderCommandHandler.cpp
 //
 //  Project:    nImO
 //

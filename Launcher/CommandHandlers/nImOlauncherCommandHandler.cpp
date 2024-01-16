@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOstopReceiverCommandHandler.cpp
+//  File:       nImO/Launcher/CommandHandlers/nImOlauncherCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO stop receiver command handler.
+//  Contains:   The class definition for a nImO launcher command handler.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,16 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-12-23
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOstopReceiverCommandHandler.h>
-
-#include <BasicTypes/nImOstring.h>
-#include <Containers/nImOarray.h>
-#include <nImOinChannel.h>
-#include <nImOinputOutputCommands.h>
+#include <Launcher/CommandHandlers/nImOlauncherCommandHandler.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -52,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO stop receiver command handler. */
+ @brief The class definition for a %nImO launcher command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,60 +76,18 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::StopReceiverCommandHandler::StopReceiverCommandHandler
-    (SpInputOutputContext   owner) :
-        inherited{owner}
+nImO::LauncherCommandHandler::LauncherCommandHandler
+    (SpLauncherContext  owner) :
+        inherited{owner}, _ownerForLauncher{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::StopReceiverCommandHandler::StopReceiverCommandHandler
+} // nImO::LauncherCommandHandler::LauncherCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-bool
-nImO::StopReceiverCommandHandler::doIt
-    (BTCP::socket & socket,
-     const Array &  arguments)
-    const
-{
-    NIMO_UNUSED_VAR_(arguments);
-    ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
-    bool    okSoFar{false};
-
-    _ownerForInputOutput->report("stop receiver request received"s);
-    if (1 < arguments.size())
-    {
-        auto    asString{arguments[1]->asString()};
-
-        if (nullptr == asString)
-        {
-            ODL_LOG("(nullptr == asString)"); //####
-        }
-        else
-        {
-            auto    theChannel{_ownerForInputOutput->getInputChannel(asString->getValue())};
-
-            if (theChannel)
-            {
-                okSoFar = sendSimpleResponse(socket, kStopReceiverResponse, "stop receiver"s, theChannel->stop());
-            }
-            else
-            {
-                ODL_LOG("! (theChannel)"); //####
-            }
-        }
-    }
-    else
-    {
-        ODL_LOG("! (1 < arguments.size())"); //####
-    }
-    ODL_OBJEXIT_B(okSoFar); //####
-    return okSoFar;
-} // nImO::StopReceiverCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

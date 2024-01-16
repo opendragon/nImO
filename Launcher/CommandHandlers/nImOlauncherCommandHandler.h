@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOlauncherContext.h
+//  File:       nImO/Launcher/CommandHandlers/nImOlauncherCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO Launcher execution context.
+//  Contains:   The class declaration for a nImO launcher command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-15
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlauncherContext_H_))
-# define nImOlauncherContext_H_ /* Header guard */
+#if (! defined(nImOlauncherCommandHandler_H_))
+# define nImOlauncherCommandHandler_H_ /* Header guard */
 
-# include <Contexts/nImOserviceContext.h>
+# include <Launcher/nImOlauncherContext.h>
+# include <nImOcommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,17 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the Launcher %nImO execution context. */
+ @brief The class declaration for a %nImO launcher command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    class LauncherContext; // needed due to circular references.
-
-    /*! @brief A class to provide support for a Launcher application. */
-    class LauncherContext final : public ServiceContext
+    /*! @brief A class to provide a handler for a launcher command. */
+    class LauncherCommandHandler : public CommandHandler
     {
 
         public :
@@ -70,25 +69,15 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = ServiceContext;
+            using inherited = CommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] argc The number of arguments in 'argv'.
-             @param[in] argv The command-line arguments provided to the application.
-             @param[in] executable The name of the executing program.
-             @param[in] tagForLogging The symbolic name for the current process.
-             @param[in] logging @c true if the executing program is to be logged.
-             @param[in] nodeName The @nImO-visible name of the executing program. */
-            LauncherContext
-                (const int              argc,
-                 Ptr(Ptr(char))         argv,
-                 const std::string &    executableName,
-                 const std::string &    tagForLogging = ""s,
-                 const bool             logging = false,
-                 const std::string &    nodeName = ""s);
+             @param[in] owner The owning LauncherContext. */
+            LauncherCommandHandler
+                (SpLauncherContext  owner);
 
         protected :
             // Protected methods.
@@ -102,22 +91,14 @@ namespace nImO
         protected :
             // Protected fields.
 
+            /*! @brief The owning Context. */
+            SpLauncherContext _ownerForLauncher{};
+
         private :
             // Private fields.
 
-    }; // LauncherContext
-
-    /*! @brief A holder for a shared pointer to a LauncherContext. */
-    using SpLauncherContext = std::shared_ptr<LauncherContext>;
-
-    /*! @brief Add the standard command handlers for an LauncherContext.
-     @param[in] context The Context to be updated.
-     @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
-    void
-    AddLauncherHandlers
-        (SpLauncherContext      context,
-         Ptr(CallbackFunction)  shutdownCallback = nullptr);
+    }; // LauncherCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOlauncherContext_H_)
+#endif // not defined(nImOlauncherCommandHandler_H_)

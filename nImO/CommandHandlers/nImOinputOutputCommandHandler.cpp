@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommandHandler.cpp
+//  File:       nImO/CommandHandlers/nImOinputOutputCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO start receiver command handler.
+//  Contains:   The class definition for a nImO input/output command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -47,7 +47,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for an %nImO input output command handler. */
+ @brief The class definition for a %nImO input/output command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)

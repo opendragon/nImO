@@ -50,8 +50,14 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOlauncherMain.cpp
-               ${VERS_RESOURCE})
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetListOfAppsCommandHandler.cpp
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOlaunchAppCommandHandler.cpp
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOlauncherCommandHandler.cpp
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOreloadAppListCommandHandler.cpp
+                ${THIS_SOURCE_DIR}/nImOlauncherContext.cpp
+                ${THIS_SOURCE_DIR}/nImOlauncherMain.cpp
+                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOsetUpReceiverCommandHandler.cpp
+//  File:       nImO/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp
 //
 //  Project:    nImO
 //

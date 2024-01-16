@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOstopSenderCommandHandler.h
+//  File:       nImO/CommandHandlers/nImOstopSenderCommandHandler.h
 //
 //  Project:    nImO
 //

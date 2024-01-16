@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Contexts/nImOlauncherContext.cpp
+//  File:       nImO/Launcher/nImOlauncherContext.cpp
 //
 //  Project:    nImO
 //
@@ -36,14 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Contexts/nImOlauncherContext.h>
+#include <Launcher/nImOlauncherContext.h>
 
-//#include <CommandHandlers/nImOsetUpReceiverCommandHandler.h>
-//#include <CommandHandlers/nImOsetUpSenderCommandHandler.h>
-//#include <CommandHandlers/nImOstartReceiverCommandHandler.h>
-//#include <CommandHandlers/nImOstartSenderCommandHandler.h>
-//#include <CommandHandlers/nImOstopReceiverCommandHandler.h>
-//#include <CommandHandlers/nImOstopSenderCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOgetListOfAppsCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOreloadAppListCommandHandler.h>
 #include <nImOlauncherCommands.h>
 
 //#include <odlEnable.h>
@@ -127,61 +125,40 @@ nImO::AddLauncherHandlers
 
     if (nullptr != actualContext)
     {
-#if 0
         bool    goAhead{true};
-        auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
+        auto    newHandler1{std::make_shared<GetListOfAppsCommandHandler>(context)};
 
         ODL_P1("newHandler1 <- ", newHandler1.get()); //####
-        if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
+        if (! actualContext->addHandler(kGetListOfAppsRequest, newHandler1))
         {
             goAhead = false;
         }
         if (goAhead)
         {
-            auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
+            auto    newHandler2{std::make_shared<GetRunParamsForAppCommandHandler>(context)};
 
             ODL_P1("newHandler2 <- ", newHandler2.get()); //####
-            if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
+            if (! actualContext->addHandler(kGetRunParamsForAppRequest, newHandler2))
             {
                 goAhead = false;
             }
         }
         if (goAhead)
         {
-            auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
+            auto    newHandler3{std::make_shared<LaunchAppCommandHandler>(context)};
 
             ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
+            if (! actualContext->addHandler(kLaunchAppRequest, newHandler3))
             {
                 goAhead = false;
             }
         }
         if (goAhead)
         {
-            auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
+            auto    newHandler4{std::make_shared<ReloadAppListCommandHandler>(context)};
 
             ODL_P1("newHandler4 <- ", newHandler4.get()); //####
-            if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
-
-            ODL_P1("newHandler5 <- ", newHandler5.get()); //####
-            if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
-
-            ODL_P1("newHandler6 <- ", newHandler6.get()); //####
-            if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
+            if (! actualContext->addHandler(kReloadAppListRequest, newHandler4))
             {
                 goAhead = false;
             }
@@ -190,7 +167,6 @@ nImO::AddLauncherHandlers
         {
             ServiceContext::addStandardHandlers(context, shutdownCallback);
         }
-#endif//0
     }
     ODL_EXIT(); //####
-} // nImO::AddInputOutputHandlers
+} // nImO::AddLauncherHandlers

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOshutdownCommandHandler.h
+//  File:       nImO/CommandHandlers/nImOshutdownCommandHandler.h
 //
 //  Project:    nImO
 //

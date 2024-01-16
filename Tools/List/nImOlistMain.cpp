@@ -690,6 +690,41 @@ listMachines
     return okSoFar;
 } // listMachines
 
+/*! @brief Return a human-readable representation of the service type.
+ @param[in] theType The service type of interest.
+ @return The service type as a string. */
+static std::string
+mapServiceTypeToString
+    (const nImO::ServiceType    theType)
+{
+    std::string result;
+
+    switch (theType)
+    {
+        case nImO::ServiceType::GenericService :
+            result = "Generic";
+            break;
+
+        case nImO::ServiceType::LauncherService :
+            result = "Launcher";
+            break;
+
+        case nImO::ServiceType::FilterService :
+            result = "Input/Output";
+            break;
+
+        case nImO::ServiceType::InputService :
+            result = "Input";
+            break;
+
+        case nImO::ServiceType::OutputService :
+            result = "Output";
+            break;
+
+    }
+    return result;
+} // mapServiceTypeToString
+
 /*! @brief Output the known nodes.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
@@ -761,19 +796,21 @@ listNodes
                 if (theInfo._found)
                 {
                     auto                nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto                serviceType{mapServiceTypeToString(theInfo._serviceType)};
                     BAIP::address_v4    address{theInfo._connection._address};
 
                     switch (options._flavour)
                     {
                         case nImO::OutputFlavour::kFlavourNormal :
-                            std::cout << "\t" << nodeName << " " << address.to_string() << " " << theInfo._connection._port;
+                            std::cout << "\t" << nodeName << " " << address.to_string() << " " << theInfo._connection._port << " [" << serviceType << "]";
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
                             std::cout << "{ " << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
-                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_;
+                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ ": "
+                                        CHAR_DOUBLEQUOTE_ << serviceType << CHAR_DOUBLEQUOTE_;
                             if (! options._expanded)
                             {
                                 std::cout << " }";
@@ -781,7 +818,7 @@ listNodes
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
-                            std::cout << nodeName << "\t" << address.to_string() << "\t" << theInfo._connection._port;
+                            std::cout << nodeName << "\t" << address.to_string() << "\t" << theInfo._connection._port << "\t" << serviceType;
                             break;
 
                         default :

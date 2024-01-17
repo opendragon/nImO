@@ -209,6 +209,7 @@ main
                                     if (outChannel)
                                     {
                                         ourContext->report("waiting for messages."s);
+                                        std::cerr << "ready.\n";
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
@@ -234,6 +235,11 @@ main
                                                 }
                                             }
                                         }
+                                        if (! nImO::gPendingStop)
+                                        {
+                                            // TBD: disconnect all channels.
+                                        }
+                                        std::cerr << "done.\n";
                                     }
                                 }
                                 if (! nImO::gPendingStop)

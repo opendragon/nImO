@@ -114,6 +114,7 @@ main
             nImO::MiscellaneousContext  ourContext{progName};
 
 std::cerr << "** Unimplemented **\n";
+            std::cerr << "ready.\n";
             for ( ; nImO::gKeepRunning; )
             {
                 boost::this_thread::yield();

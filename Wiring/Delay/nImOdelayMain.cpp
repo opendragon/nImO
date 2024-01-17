@@ -209,6 +209,7 @@ main
                                 {
 std::cerr << "** Unimplemented **\n";
                                     ourContext->report("waiting for messages."s);
+                                    std::cerr << "ready.\n";
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();
@@ -234,6 +235,11 @@ std::cerr << "** Unimplemented **\n";
                                             }
                                         }
                                     }
+                                    if (! nImO::gPendingStop)
+                                    {
+                                        // TBD: disconnect all channels.
+                                    }
+                                    std::cerr << "done.\n";
                                 }
                                 if (! nImO::gPendingStop)
                                 {

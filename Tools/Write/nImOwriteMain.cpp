@@ -276,6 +276,7 @@ main
 
                                         ODL_P1("aThread = ", aThread); //####
                                         aThread->detach();
+                                        std::cerr << "ready.\n";
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             {
@@ -316,8 +317,11 @@ main
                                                 }
                                             }
                                         }
-                                        //                                            aThread->join();
-
+                                        if (! nImO::gPendingStop)
+                                        {
+                                            // TBD: disconnect all channels.
+                                        }
+                                        std::cerr << "done.\n";
                                     }
                                 }
                                 if (! nImO::gPendingStop)

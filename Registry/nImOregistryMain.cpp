@@ -250,11 +250,13 @@ main
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                                 nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
                     {
+                        std::cerr << "ready.\n";
                         for ( ; nImO::gKeepRunning; )
                         {
                             boost::this_thread::yield();
                         }
                         asRegistryContext->removeAnnouncement();
+                        std::cerr << "done.\n";
                     }
                 }
             }

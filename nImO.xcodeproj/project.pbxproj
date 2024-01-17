@@ -227,16 +227,16 @@
 		F67B359429BCD51E000FC147 /* nImOstandardOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstandardOptions.h; path = nImO/nImOstandardOptions.h; sourceTree = "<group>"; };
 		F67B359529BCF738000FC147 /* nImOserviceOptions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOserviceOptions.cpp; path = nImO/nImOserviceOptions.cpp; sourceTree = "<group>"; };
 		F67B359629BCF738000FC147 /* nImOserviceOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOserviceOptions.h; path = nImO/nImOserviceOptions.h; sourceTree = "<group>"; };
-		F67F74552B5895EC00C79EBC /* nImOgetRunParamsForAppCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgetRunParamsForAppCommandHandler.cpp; sourceTree = "<group>"; };
-		F67F74562B5895EC00C79EBC /* nImOreloadAppListCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOreloadAppListCommandHandler.h; sourceTree = "<group>"; };
-		F67F74572B5895ED00C79EBC /* nImOlaunchAppCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOlaunchAppCommandHandler.cpp; sourceTree = "<group>"; };
-		F67F74582B5895ED00C79EBC /* nImOgetRunParamsForAppCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOgetRunParamsForAppCommandHandler.h; sourceTree = "<group>"; };
-		F67F74592B5895ED00C79EBC /* nImOlauncherCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOlauncherCommandHandler.cpp; sourceTree = "<group>"; };
-		F67F745A2B5895ED00C79EBC /* nImOgetListOfAppsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOgetListOfAppsCommandHandler.h; sourceTree = "<group>"; };
-		F67F745B2B5895ED00C79EBC /* nImOgetListOfAppsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOgetListOfAppsCommandHandler.cpp; sourceTree = "<group>"; };
-		F67F745C2B5895ED00C79EBC /* nImOreloadAppListCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nImOreloadAppListCommandHandler.cpp; sourceTree = "<group>"; };
-		F67F745D2B5895ED00C79EBC /* nImOlaunchAppCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOlaunchAppCommandHandler.h; sourceTree = "<group>"; };
-		F67F745E2B5895ED00C79EBC /* nImOlauncherCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nImOlauncherCommandHandler.h; sourceTree = "<group>"; };
+		F67F74612B58973200C79EBC /* nImOgetRunParamsForAppCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetRunParamsForAppCommandHandler.cpp; path = CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp; sourceTree = "<group>"; };
+		F67F74622B58973200C79EBC /* nImOlaunchAppCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlaunchAppCommandHandler.h; path = CommandHandlers/nImOlaunchAppCommandHandler.h; sourceTree = "<group>"; };
+		F67F74632B58973200C79EBC /* nImOlauncherCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlauncherCommandHandler.h; path = CommandHandlers/nImOlauncherCommandHandler.h; sourceTree = "<group>"; };
+		F67F74642B58973300C79EBC /* nImOgetListOfAppsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetListOfAppsCommandHandler.cpp; path = CommandHandlers/nImOgetListOfAppsCommandHandler.cpp; sourceTree = "<group>"; };
+		F67F74652B58973300C79EBC /* nImOlauncherCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlauncherCommandHandler.cpp; path = CommandHandlers/nImOlauncherCommandHandler.cpp; sourceTree = "<group>"; };
+		F67F74662B58973300C79EBC /* nImOreloadAppListCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreloadAppListCommandHandler.cpp; path = CommandHandlers/nImOreloadAppListCommandHandler.cpp; sourceTree = "<group>"; };
+		F67F74672B58973300C79EBC /* nImOgetListOfAppsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetListOfAppsCommandHandler.h; path = CommandHandlers/nImOgetListOfAppsCommandHandler.h; sourceTree = "<group>"; };
+		F67F74682B58973300C79EBC /* nImOlaunchAppCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlaunchAppCommandHandler.cpp; path = CommandHandlers/nImOlaunchAppCommandHandler.cpp; sourceTree = "<group>"; };
+		F67F74692B58973300C79EBC /* nImOgetRunParamsForAppCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetRunParamsForAppCommandHandler.h; path = CommandHandlers/nImOgetRunParamsForAppCommandHandler.h; sourceTree = "<group>"; };
+		F67F746A2B58973300C79EBC /* nImOreloadAppListCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreloadAppListCommandHandler.h; path = CommandHandlers/nImOreloadAppListCommandHandler.h; sourceTree = "<group>"; };
 		F680E46C29FFCC8F00614B6E /* Test_contexts.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_contexts.txt; path = "non-iOS/Tests/Test_contexts.txt"; sourceTree = "<group>"; };
 		F6811BD2240FFD9700B09333 /* nImOchannelName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelName.cpp; path = nImO/nImOchannelName.cpp; sourceTree = "<group>"; };
 		F6811BD3240FFD9700B09333 /* nImOchannelName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOchannelName.h; path = nImO/nImOchannelName.h; sourceTree = "<group>"; };
@@ -1153,21 +1153,21 @@
 			name = "Command Handlers";
 			sourceTree = "<group>";
 		};
-		F67F74542B58956F00C79EBC /* Command Handlers */ = {
+		F67F74602B5896F100C79EBC /* Command Handlers */ = {
 			isa = PBXGroup;
 			children = (
-				F67F745B2B5895ED00C79EBC /* nImOgetListOfAppsCommandHandler.cpp */,
-				F67F745A2B5895ED00C79EBC /* nImOgetListOfAppsCommandHandler.h */,
-				F67F74552B5895EC00C79EBC /* nImOgetRunParamsForAppCommandHandler.cpp */,
-				F67F74582B5895ED00C79EBC /* nImOgetRunParamsForAppCommandHandler.h */,
-				F67F74572B5895ED00C79EBC /* nImOlaunchAppCommandHandler.cpp */,
-				F67F745D2B5895ED00C79EBC /* nImOlaunchAppCommandHandler.h */,
-				F67F74592B5895ED00C79EBC /* nImOlauncherCommandHandler.cpp */,
-				F67F745E2B5895ED00C79EBC /* nImOlauncherCommandHandler.h */,
-				F67F745C2B5895ED00C79EBC /* nImOreloadAppListCommandHandler.cpp */,
-				F67F74562B5895EC00C79EBC /* nImOreloadAppListCommandHandler.h */,
+				F67F74642B58973300C79EBC /* nImOgetListOfAppsCommandHandler.cpp */,
+				F67F74672B58973300C79EBC /* nImOgetListOfAppsCommandHandler.h */,
+				F67F74612B58973200C79EBC /* nImOgetRunParamsForAppCommandHandler.cpp */,
+				F67F74692B58973300C79EBC /* nImOgetRunParamsForAppCommandHandler.h */,
+				F67F74682B58973300C79EBC /* nImOlaunchAppCommandHandler.cpp */,
+				F67F74622B58973200C79EBC /* nImOlaunchAppCommandHandler.h */,
+				F67F74652B58973300C79EBC /* nImOlauncherCommandHandler.cpp */,
+				F67F74632B58973200C79EBC /* nImOlauncherCommandHandler.h */,
+				F67F74662B58973300C79EBC /* nImOreloadAppListCommandHandler.cpp */,
+				F67F746A2B58973300C79EBC /* nImOreloadAppListCommandHandler.h */,
 			);
-			path = "Command Handlers";
+			name = "Command Handlers";
 			sourceTree = "<group>";
 		};
 		F68373EA240409500030F969 /* examples */ = {
@@ -1645,7 +1645,7 @@
 		F6EC3D2529965273006C36D1 /* Launcher */ = {
 			isa = PBXGroup;
 			children = (
-				F67F74542B58956F00C79EBC /* Command Handlers */,
+				F67F74602B5896F100C79EBC /* Command Handlers */,
 				F6EC3D2629965273006C36D1 /* nImOlauncher.rc.in */,
 				F6C4319B2B55CBF500836193 /* nImOlauncherContext.cpp */,
 				F6C4319C2B55CBF500836193 /* nImOlauncherContext.h */,

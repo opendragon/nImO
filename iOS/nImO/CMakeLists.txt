@@ -102,7 +102,8 @@ add_library(${TARGET_ONE}
 #                            $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode
 #                            )
 
-install(TARGETS ${TARGET_ONE}
+install(TARGETS
+        ${TARGET_ONE}
         EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST}
         COMPONENT libraries)
@@ -154,7 +155,8 @@ add_framework(Foundation ${TARGET_TWO})
 #                            $<BUILD_INTERFACE:${nImO_SOURCE_DIR}> # for headers when building
 #                            $<INSTALL_INTERFACE:${INCLUDE_DEST}> # for client in install mode
 #                            )
-install(TARGETS ${TARGET_TWO}
+install(TARGETS
+        ${TARGET_TWO}
         EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST}
         COMPONENT libraries)

@@ -59,7 +59,8 @@ target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
 
 fix_dynamic_libs(${THIS_TARGET})
 
-install(TARGETS ${THIS_TARGET}
+install(TARGETS
+        ${THIS_TARGET}
         DESTINATION bin
         COMPONENT applications)
 

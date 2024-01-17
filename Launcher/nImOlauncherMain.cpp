@@ -37,6 +37,10 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOvalue.h>
+#include <Containers/nImOmap.h>
+#include <Containers/nImOstringBuffer.h>
 #include <Launcher/nImOlauncherContext.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
@@ -67,6 +71,12 @@
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
+
+/*! @brief The default path to the application file list file. */
+static const std::string    kDefaultAppListFilePath{nImO_RUN_CONFIG_DIR_ "nimo-services.txt"};
+
+/*! @brief The loaded application file list values. */
+static nImO::SpValue    lAppListValues{};
 
 /*! @brief A class to provide values that are used for handling callbacks for the application. */
 class LauncherBreakHandler final : public nImO::CallbackFunction
@@ -129,6 +139,70 @@ class LauncherBreakHandler final : public nImO::CallbackFunction
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+static bool
+loadApplicationInformation
+    (const std::string &    appListFilePath)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("appListFilePath = ", appListFilePath); //####
+    std::string workingPath;
+    bool        result{false};
+
+    if (appListFilePath.empty())
+    {
+        workingPath = kDefaultAppListFilePath;
+    }
+    else
+    {
+        workingPath = appListFilePath;
+    }
+#if MAC_OR_LINUX_
+    if (0 == access(workingPath.c_str(), R_OK))
+#else // not MAC_OR_LINUX_
+    if (0 == _access(workingPath.c_str(), 4))
+#endif // not MAC_OR_LINUX_
+    {
+        std::ifstream   inStream{workingPath.c_str()};
+
+        if (inStream)
+        {
+            nImO::StringBuffer  readString{};
+
+            inStream >> readString;
+            nImO::SpValue   readValue{readString.convertToValue()};
+
+            if ((nullptr != readValue) && (nullptr != readValue->asMap()))
+            {
+                // Check the structure of the value read.
+                // It must have a key type of string, with values of type map, and each map must have a key type of string
+                // with keys of 'path' and 'description'; any empty maps are ignored and the top-level map must not be empty.
+                lAppListValues = readValue;
+            }
+            else
+            {
+                if (nullptr == readValue)
+                {
+                    std::cerr << "Could not parse contents of application file list file.\n";
+                }
+                else
+                {
+                    std::cerr << "Application file list file did not have the correct structure.\n";
+                }
+            }
+        }
+        else
+        {
+            std::cerr << "Application file list file could not be read.\n";
+        }
+    }
+    else
+    {
+        std::cerr << "Application file list file could not be found.\n";
+    }
+    ODL_EXIT_B(result); //####
+    return result;
+} // loadApplicationInformation
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -143,9 +217,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                         progName{*argv};
-    std::string                         defaultFileName{nImO_RUN_CONFIG_DIR_ "nimo-services.txt"};
     nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
-                                                    defaultFileName};
+                                                kDefaultAppListFilePath};
     nImO::DescriptorVector              argumentList{};
     nImO::ServiceOptions                optionValues{};
     int                                 exitCode{0};
@@ -194,35 +267,37 @@ main
                         {
                             if (statusWithBool.second)
                             {
-std::cerr << "config file directory: " nImO_RUN_CONFIG_DIR_ "\n";
-std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";
-std::cerr << "file path: " << firstArg.getCurrentValue() << "\n";
+std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";//!!
+                                std::cerr << firstArg.getCurrentValue() << std::endl;//!!
 std::cerr << "** Unimplemented **\n";
                                 // Load the app list file and exit if not properly structured.
-                                ourContext->report("waiting for requests."s);
-                                std::cerr << "ready.\n";
-                                for ( ; nImO::gKeepRunning; )
+                                if (loadApplicationInformation(firstArg.getCurrentValue()))
                                 {
-                                    boost::this_thread::yield();
-                                }
-                                std::cerr << "done.\n";
-                                if (! nImO::gPendingStop)
-                                {
-                                    nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                    statusWithBool = proxy.removeNode(nodeName);
-                                    if (statusWithBool.first.first)
+                                    ourContext->report("waiting for requests."s);
+                                    std::cerr << "ready.\n";
+                                    for ( ; nImO::gKeepRunning; )
                                     {
-                                        if (! statusWithBool.second)
+                                        boost::this_thread::yield();
+                                    }
+                                    std::cerr << "done.\n";
+                                    if (! nImO::gPendingStop)
+                                    {
+                                        nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                        statusWithBool = proxy.removeNode(nodeName);
+                                        if (statusWithBool.first.first)
                                         {
-                                            ourContext->report(nodeName + " already unregistered."s);
-                                            std::cerr << nodeName << " already unregistered.\n";
+                                            if (! statusWithBool.second)
+                                            {
+                                                ourContext->report(nodeName + " already unregistered."s);
+                                                std::cerr << nodeName << " already unregistered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
                                             exitCode = 1;
                                         }
-                                    }
-                                    else
-                                    {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
-                                        exitCode = 1;
                                     }
                                 }
                             }

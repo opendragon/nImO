@@ -86,8 +86,13 @@ else()
     set(UNKNOWN_CPU OFF)
 endif()
 
+if(WIN32)
+    set(CMAKE_INSTALL_PREFIX "C:/Program Files/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
+else()
+    set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
+endif()
+
 set(CMAKE_CXX_FLAGS "-DNCURSES_NOMACROS -Wno-unknown-warning-option -fPIC -Wall -Wextra -Wno-deprecated-builtins" CACHE STRING "Fixes linking error for nImO" FORCE)
-set(CMAKE_INSTALL_PREFIX "/opt/nImO" CACHE STRING "Fixes install path for nImO" FORCE)
 if(APPLE)
     set(E_PATH "@executable_path")
     set(CMAKE_EXE_LINKER_FLAGS "-headerpad_max_install_names" CACHE STRING "Increases link limit"
@@ -168,11 +173,11 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 
 set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
 
-if(WIN32)
-    set(nImO_RUN_CONFIG_DIR_ "C:/nImO")
-else()
-    set(nImO_RUN_CONFIG_DIR_ "/etc/nImO")
-endif()
+ if(WIN32)
+    set(nImO_RUN_CONFIG_DIR_ "C:/nImO/")
+ else()
+    set(nImO_RUN_CONFIG_DIR_ "/etc/nImO/")
+ endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in
@@ -262,8 +267,9 @@ install(FILES
 
 install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/nimo-config.txt
-        #{CMAKE_CURRENT_BINARY_DIR}/nimo-services.txt
+        ${CMAKE_CURRENT_BINARY_DIR}/nimo-services.txt
         DESTINATION ${nImO_RUN_CONFIG_DIR_}
+        COMPONENT configurations
         PERMISSIONS OWNER_WRITE WORLD_READ)
 
 install(PROGRAMS

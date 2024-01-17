@@ -194,7 +194,8 @@ if(APPLE)
 
 endif()
 
-install(TARGETS ${THIS_TARGET}
+install(TARGETS
+        ${THIS_TARGET}
         EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST}
         COMPONENT libraries)
@@ -552,7 +553,8 @@ if(nImO_DO_SWIG)
                         ${THIS_TARGET}
                         ${ODL_LIBRARY})
 
-    install(TARGETS ${OTHER_TARGET_CSHARP}
+    install(TARGETS
+            ${OTHER_TARGET_CSHARP}
             EXPORT ${PROJECT_NAME}
             DESTINATION ${LIB_DEST}
             COMPONENT libraries)
@@ -576,7 +578,8 @@ if(nImO_DO_SWIG)
                         ${PYTHON_LIBRARIES})
 
 # Note the modified target name!
-    install(TARGETS _${OTHER_TARGET_PYTHON}
+    install(TARGETS
+            _${OTHER_TARGET_PYTHON}
             EXPORT ${PROJECT_NAME}
             DESTINATION ${LIB_DEST}
             COMPONENT libraries)

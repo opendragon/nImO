@@ -40,6 +40,7 @@
 # define nImOmap_H_ /* Header guard */
 
 # include <Containers/nImOcontainer.h>
+# include <Containers/nImOset.h>
 # include <nImOcompareValues.h>
 
 # if defined(__APPLE__)
@@ -241,6 +242,13 @@ namespace nImO
             {
                 return _keyKind;
             }
+
+            /*! @brief Return the set of keys contained in the Map.
+             @return The keys for the Map. */
+            SpSet
+            getKeys
+                (void)
+                const;
 
             /*! @brief Return the characters that can appear as the end of a Map.
              @return The characters that can appear as the end of a Map. */

@@ -518,6 +518,22 @@ nImO::Map::getInitialCharacters
     return initialChars;
 } // nImO::Map::getInitialCharacters
 
+nImO::SpSet
+nImO::Map::getKeys
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto    result{std::make_shared<Set>()};
+
+    for (auto & walker : *this)
+    {
+        result->addValue(walker.first);
+    }
+    ODL_OBJEXIT(); //####
+    return result;
+} // nImO::Map::getKeys
+
 CPtr(char)
 nImO::Map::getTerminalCharacters
     (void)

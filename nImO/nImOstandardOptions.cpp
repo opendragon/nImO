@@ -148,9 +148,29 @@ nImO::LoadConfiguration
 
             if ((nullptr != readValue) && (nullptr != readValue->asMap()))
             {
+                // Check the structure of the value read.
                 lConfigurationValues = readValue;
             }
+            else
+            {
+                if (nullptr == readValue)
+                {
+                    std::cerr << "warning: could not parse contents of configuration file.\n";
+                }
+                else
+                {
+                    std::cerr << "warning: configuration file did not have the correct structure.\n";
+                }
+            }
         }
+        else
+        {
+            std::cerr << "warning: configuration file could not be read.\n";
+        }
+    }
+    else
+    {
+        std::cerr << "warning: configuration file could not be found.\n";
     }
     ODL_EXIT(); //####
 } // LoadConfiguration

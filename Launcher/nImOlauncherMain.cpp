@@ -198,6 +198,7 @@ std::cerr << "config file directory: " nImO_RUN_CONFIG_DIR_ "\n";
 std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";
 std::cerr << "file path: " << firstArg.getCurrentValue() << "\n";
 std::cerr << "** Unimplemented **\n";
+                                // Load the app list file and exit if not properly structured.
                                 ourContext->report("waiting for requests."s);
                                 std::cerr << "ready.\n";
                                 for ( ; nImO::gKeepRunning; )

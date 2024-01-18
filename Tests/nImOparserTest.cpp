@@ -145,7 +145,7 @@ doTestParseLogicalValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -221,7 +221,7 @@ doTestParseNumberValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -297,7 +297,7 @@ doTestParseStringValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -373,7 +373,7 @@ doTestParseAddressValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -449,7 +449,7 @@ doTestParseArrayValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -525,7 +525,7 @@ doTestParseSetValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -601,7 +601,7 @@ doTestParseMapValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {
@@ -677,7 +677,7 @@ doTestParseImplicitArrayValue
         StringBuffer    buff;
 
         buff.addString(inString);
-        SpValue readValue{buff.convertToValue()};
+        auto    readValue{buff.convertToValue()};
 
         if ((nullptr != readValue) == expected)
         {

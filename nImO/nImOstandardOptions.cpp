@@ -144,7 +144,7 @@ nImO::LoadConfiguration
             nImO::StringBuffer  readString{};
 
             inStream >> readString;
-            nImO::SpValue   readValue{readString.convertToValue()};
+            auto    readValue{readString.convertToValue()};
 
             if ((nullptr != readValue) && (nullptr != readValue->asMap()))
             {

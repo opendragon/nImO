@@ -298,7 +298,7 @@ main
                                             {
                                                 inBuffer.addString("\n" + inLine);
                                                 inLine.clear();
-                                                nImO::SpValue   readValue{inBuffer.convertToValue()};
+                                                auto    readValue{inBuffer.convertToValue()};
 
                                                 if (readValue)
                                                 {

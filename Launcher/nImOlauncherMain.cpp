@@ -169,24 +169,120 @@ loadApplicationInformation
             nImO::StringBuffer  readString{};
 
             inStream >> readString;
-            nImO::SpValue   readValue{readString.convertToValue()};
+            auto    readValue{readString.convertToValue()};
 
-            if ((nullptr != readValue) && (nullptr != readValue->asMap()))
+            if (nullptr == readValue)
             {
-                // Check the structure of the value read.
-                // It must have a key type of string, with values of type map, and each map must have a key type of string
-                // with keys of 'path' and 'description'; any empty maps are ignored and the top-level map must not be empty.
-                lAppListValues = readValue;
+                std::cerr << "Could not parse contents of application file list file.\n";
             }
             else
             {
-                if (nullptr == readValue)
+                auto    asMap{readValue->asMap()};
+
+                if (nullptr == asMap)
                 {
-                    std::cerr << "Could not parse contents of application file list file.\n";
+                    std::cerr << "Application file list file did not have the correct structure.\n";
                 }
                 else
                 {
-                    std::cerr << "Application file list file did not have the correct structure.\n";
+                    // Check the structure of the value read.
+                    if (nImO::Enumerable::String == asMap->getKeyKind())
+                    {
+                        auto    writeMap{std::make_shared<nImO::Map>()};
+                        auto    descriptionKey{std::make_shared<nImO::String>(nImO::kDescriptionKey)};
+                        auto    pathKey{std::make_shared<nImO::String>(nImO::kPathKey)};
+
+                        for (auto & walker : *asMap)
+                        {
+                            auto    readSubMap{walker.second->asMap()};
+
+                            if (nullptr == readSubMap)
+                            {
+                                // Ignore entries that aren't Maps, rather than rejecting the whole file.
+                                std::cerr << "warning: value with key " << walker.first << " is not a map.\n";
+                            }
+                            else if (nImO::Enumerable::String == readSubMap->getKeyKind())
+                            {
+                                auto    descriptionEntry{readSubMap->find(descriptionKey)};
+                                auto    pathEntry{readSubMap->find(pathKey)};
+
+                                if (readSubMap->end() == descriptionEntry)
+                                {
+                                    std::cerr << "warning: value with key " << walker.first << " is missing a description.\n";
+                                }
+                                else if (readSubMap->end() == pathEntry)
+                                {
+                                    std::cerr << "warning: value with key " << walker.first << " is missing a path.\n";
+                                }
+                                else
+                                {
+                                    auto    descriptionAsString{descriptionEntry->second->asString()};
+                                    auto    pathAsString{pathEntry->second->asString()};
+
+                                    if (nullptr == descriptionAsString)
+                                    {
+                                        std::cerr << "warning: description for value with key " << walker.first << " is invalid.\n";
+                                    }
+                                    else if (nullptr == pathAsString)
+                                    {
+                                        std::cerr << "warning: path for value with key " << walker.first << " is invalid.\n";
+                                    }
+                                    else
+                                    {
+                                        auto    writeSubMap{std::make_shared<nImO::Map>()};
+                                        bool    useOriginal{true};
+                                        auto    pathValue{pathAsString->getValue()};
+
+                                        if (3 < pathValue.length())
+                                        {
+                                            if (pathValue.substr(0, 3) == "$$/")
+                                            {
+                                                pathValue = nImO_BIN_DIR_ + pathValue.substr(3);
+                                                useOriginal = false;
+                                            }
+                                        }
+                                        // Check if the path exists!
+#if MAC_OR_LINUX_
+                                        if (0 == access(pathValue.c_str(), R_OK))
+#else // not MAC_OR_LINUX_
+                                        if (0 == _access(pathValue.c_str(), 4))
+#endif // not MAC_OR_LINUX_
+                                        {
+                                            writeSubMap->addValue(descriptionKey, descriptionEntry->second);
+                                            if (useOriginal)
+                                            {
+                                                writeSubMap->addValue(pathKey, pathEntry->second);
+                                            }
+                                            else
+                                            {
+                                                writeSubMap->addValue(pathKey, std::make_shared<nImO::String>(pathValue));
+                                            }
+                                            writeMap->addValue(walker.first, writeSubMap);
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "warning: file at path for value with key " << walker.first <<
+                                                        " could not be found.\n";
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Ignore entries that are Maps with the wrong key type, rather than rejecting the whole file.
+                                std::cerr << "warning: value with key " << walker.first << " does not have the correct structure.\n";
+                            }
+                        }
+                        if (! writeMap->empty())
+                        {
+                            lAppListValues = writeMap;
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Application file list file did not have the correct structure.\n";
+                    }
                 }
             }
         }
@@ -267,12 +363,12 @@ main
                         {
                             if (statusWithBool.second)
                             {
-std::cerr << "executables directory: " nImO_BIN_DIR_ "\n";//!!
-                                std::cerr << firstArg.getCurrentValue() << std::endl;//!!
 std::cerr << "** Unimplemented **\n";
                                 // Load the app list file and exit if not properly structured.
                                 if (loadApplicationInformation(firstArg.getCurrentValue()))
                                 {
+std::cerr << *lAppListValues << std::endl;//!!
+                                    //TBD: Send the app list map to the Registry
                                     ourContext->report("waiting for requests."s);
                                     std::cerr << "ready.\n";
                                     for ( ; nImO::gKeepRunning; )

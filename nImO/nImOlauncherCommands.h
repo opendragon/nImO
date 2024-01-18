@@ -55,6 +55,12 @@
 namespace nImO
 {
 
+    /*! @brief The key for the description field of the map for an application. */
+    const std::string   kDescriptionKey{"description"s};
+
+    /*! @brief The key for the path field of the map for an application. */
+    const std::string   kPathKey{"path"s};
+
     /*! @brief The 'getListOfApps' request. */
     const std::string   kGetListOfAppsRequest{"getListOfApps?"s};
 

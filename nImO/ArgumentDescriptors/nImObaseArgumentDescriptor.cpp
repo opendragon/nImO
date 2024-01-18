@@ -241,7 +241,7 @@ BaseArgumentDescriptor::partitionString
      const size_t           indexOfDefaultValue,
      std::string &          name,
      ArgumentMode &         argMode,
-     StringVector &         result,
+     StdStringVector &      result,
      const size_t           indexOfListValue)
 {
     ODL_ENTER(); //####
@@ -441,7 +441,7 @@ nImO::ArgumentsToArgString
 void
 nImO::ArgumentsToDescriptionArray
     (const DescriptorVector &   arguments,
-     StringVector &             output,
+     StdStringVector &          output,
      const size_t               minSpace)
 {
     ODL_ENTER(); //####

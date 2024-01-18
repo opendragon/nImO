@@ -291,7 +291,7 @@ doTestMachineSetWithEmptyRegistry
 
             if (statusWithStrings.first.first)
             {
-                StringSet   machines{statusWithStrings.second};
+                StdStringSet    machines{statusWithStrings.second};
 
                 if (machines.empty())
                 {
@@ -590,7 +590,7 @@ doTestMachineSetWithRegistryWithOneMachine
 
                 if (statusWithStrings.first.first)
                 {
-                    StringSet   machines = statusWithStrings.second;
+                    StdStringSet    machines = statusWithStrings.second;
 
                     if (machines.end() == machines.find(kMachineName1))
                     {
@@ -1070,7 +1070,7 @@ doTestNodeSetWithEmptyRegistry
 
             if (statusWithStrings.first.first)
             {
-                StringSet   nodes{statusWithStrings.second};
+                StdStringSet    nodes{statusWithStrings.second};
 
                 if (nodes.empty())
                 {
@@ -1379,7 +1379,7 @@ doTestNodeSetWithRegistryWithOneNode
 
                     if (statusWithStrings.first.first)
                     {
-                        StringSet   nodes{statusWithStrings.second};
+                        StdStringSet    nodes{statusWithStrings.second};
 
                         if (nodes.end() == nodes.find(kNodeName1))
                         {
@@ -1829,7 +1829,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes{statusWithStrings.second};
+                            StdStringSet    nodes{statusWithStrings.second};
 
                             if (nodes.empty())
                             {
@@ -2179,7 +2179,7 @@ doTestNodeSetWithRegistryWithTwoNodes
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes{statusWithStrings.second};
+                            StdStringSet    nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(kNodeName1))
                             {
@@ -2589,7 +2589,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
 
                                 if (statusWithStrings.first.first)
                                 {
-                                    StringSet   nodes{statusWithStrings.second};
+                                    StdStringSet    nodes{statusWithStrings.second};
 
                                     if (nodes.empty())
                                     {
@@ -2818,7 +2818,7 @@ doTestAddTwoIdenticalNodesToRegistry
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes{statusWithStrings.second};
+                            StdStringSet    nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(kNodeName1))
                             {
@@ -3628,7 +3628,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
 
                 if (statusWithStrings.first.first)
                 {
-                    StringSet   nodes{statusWithStrings.second};
+                    StdStringSet    nodes{statusWithStrings.second};
 
                     if (nodes.empty())
                     {
@@ -3709,7 +3709,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
 
                     if (statusWithStrings.first.first)
                     {
-                        StringSet   nodes{statusWithStrings.second};
+                        StdStringSet    nodes{statusWithStrings.second};
 
                         if (nodes.end() == nodes.find(kNodeName1))
                         {
@@ -3798,7 +3798,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
 
                         if (statusWithStrings.first.first)
                         {
-                            StringSet   nodes{statusWithStrings.second};
+                            StdStringSet    nodes{statusWithStrings.second};
 
                             if (nodes.end() == nodes.find(kNodeName1))
                             {

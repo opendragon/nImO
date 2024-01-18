@@ -97,7 +97,7 @@ namespace nImO
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
                  const std::string &    defaultValue,
-                 const StringSet &      allowedValues);
+                 const StdStringSet &   allowedValues);
 
             /*! @brief The copy constructor.
             @param[in] other The object to be copied. */
@@ -224,7 +224,7 @@ namespace nImO
             std::string _defaultValue{};
 
             /*! @brief The values that are allowed for the command-line argument. */
-            StringSet   _allowedValues{};
+            StdStringSet    _allowedValues{};
 
     }; // StringsArgumentDescriptor
 

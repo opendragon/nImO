@@ -197,7 +197,7 @@ namespace nImO
          StandardOptions &      optionValues,
          HelpFunction           helper = nullptr,
          const OptionsMask      optionsToIgnore = kSkipNone,
-         Ptr(StringVector)      arguments = nullptr);
+         Ptr(StdStringVector)   arguments = nullptr);
 
 } // nImO
 

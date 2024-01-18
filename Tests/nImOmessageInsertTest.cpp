@@ -3950,7 +3950,7 @@ doTestInsertIntegerSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInsertStringSetMessage
+doTestInsertStdStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -3974,7 +3974,7 @@ doTestInsertStringSetMessage
         }
         else
         {
-            static const DataKind   expectedStringSetBytes[]
+            static const DataKind   expectedStdStringSetBytes[]
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4002,11 +4002,11 @@ doTestInsertStringSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            constexpr size_t        expectedStringSetByteCount{numElementsInArray(expectedStringSetBytes)};
+            constexpr size_t        expectedStdStringSetByteCount{numElementsInArray(expectedStdStringSetBytes)};
             auto                    stringSet{std::make_shared<Set>()};
 
             stringSet->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, stringSet, expectedStringSetBytes, expectedStringSetByteCount);
+            result = setValueAndCheck(*stuff, stringSet, expectedStdStringSetBytes, expectedStdStringSetByteCount);
         }
     }
     catch (...)
@@ -4016,7 +4016,7 @@ doTestInsertStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInsertStringSetMessage
+} // doTestInsertStdStringSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 166 ***
@@ -4397,7 +4397,7 @@ main
                         break;
 
                     case 165 :
-                        result = doTestInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestInsertStdStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 166 :

@@ -3980,7 +3980,7 @@ doTestExtractIntegerSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestExtractStringSetMessage
+doTestExtractStdStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4004,7 +4004,7 @@ doTestExtractStringSetMessage
         }
         else
         {
-            static const DataKind   insertedBytesForStringSet[]
+            static const DataKind   insertedBytesForStdStringSet[]
             {
                 // Start of Message
                 DataKind::StartOfMessageValue |
@@ -4032,11 +4032,11 @@ doTestExtractStringSetMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue
             };
-            constexpr size_t        insertedStringSetCount{numElementsInArray(insertedBytesForStringSet)};
+            constexpr size_t        insertedStdStringSetCount{numElementsInArray(insertedBytesForStdStringSet)};
             Set                     stringSet;
 
             stringSet.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedBytesForStringSet, insertedStringSetCount, stringSet);
+            result = extractValueAndCheck(*stuff, insertedBytesForStdStringSet, insertedStdStringSetCount, stringSet);
         }
     }
     catch (...)
@@ -4046,7 +4046,7 @@ doTestExtractStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestExtractStringSetMessage
+} // doTestExtractStdStringSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 166 ***
@@ -4767,7 +4767,7 @@ main
                         break;
 
                     case 165 :
-                        result = doTestExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestExtractStdStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 166 :

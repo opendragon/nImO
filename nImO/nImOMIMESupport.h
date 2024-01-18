@@ -76,8 +76,8 @@ namespace nImO
      @c false otherwise. */
     bool
     DecodeMIMEToBytes
-        (const StringVector &   inValue,
-         ByteVector &           outBytes);
+        (const StdStringVector &    inValue,
+         ByteVector &               outBytes);
 
     /*! @brief Convert a MIME-encoded string into the corresponding bytes.
      @param[in] inValue The MIME-encoding of the bytes to be converted.
@@ -95,16 +95,16 @@ namespace nImO
      @param[in] numBytes The number of bytes to be encoded. */
     void
     EncodeBytesAsMIME
-        (StringVector & outValue,
-         CPtr(void)     inBytes,
-         const size_t   numBytes);
+        (StdStringVector &  outValue,
+         CPtr(void)         inBytes,
+         const size_t       numBytes);
 
     /*! @brief Convert a string into a sequence of MIME-encoded strings.
      @param[out] outValue The MIME encoding of the sequence of bytes.
      @param[in] inString The characters to be encoded. */
     inline void
     EncodeBytesAsMIME
-        (StringVector &         outValue,
+        (StdStringVector &      outValue,
          const std::string &    inString)
     {
         EncodeBytesAsMIME(outValue, inString.data(), inString.length());

@@ -237,7 +237,11 @@ std::cerr << "** Unimplemented **\n";
                                     }
                                     if (! nImO::gPendingStop)
                                     {
-                                        // TBD: disconnect all channels.
+                                        bool    alreadyReported{false};
+
+                                        nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                        nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                        nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                     }
                                     std::cerr << "done.\n";
                                 }

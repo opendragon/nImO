@@ -322,12 +322,12 @@ nImO::ChannelName::transportFromName
     return protocol;
 } // nImO::ChannelName::transportFromName
 
-nImO::StringSet
+nImO::StdStringSet
 nImO::ChannelName::transportNames
     (void)
 {
     ODL_ENTER(); //####
-    StringSet   result;
+    StdStringSet    result;
 
     result.insert(kProtocolAnyName);
     result.insert(kProtocolUdpName);

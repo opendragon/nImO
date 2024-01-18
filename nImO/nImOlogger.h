@@ -119,7 +119,7 @@ namespace nImO
              @return @c true if the message was successfully logged. */
             bool
             report
-                (const StringVector &   stringsToSend);
+                (const StdStringVector &    stringsToSend);
 
             /*! @brief Set the command port for the next message.
              @param[in] port The command port number. */

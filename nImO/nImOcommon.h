@@ -797,7 +797,7 @@ namespace nImO
     using DescriptorVector = std::vector<Ptr(BaseArgumentDescriptor)>;
 
     /*! @brief The table type used for lookups. */
-    using StringSet = std::set<std::string>;
+    using StdStringSet = std::set<std::string>;
 
     /*! @brief A holder for a shared pointer to an Array. */
     using SpArray = std::shared_ptr<Array>;
@@ -923,7 +923,10 @@ namespace nImO
        (const int theSignal);
 
     /*! @brief A sequence of strings. */
-    using StringVector = std::vector<std::string>;
+    using StdStringVector = std::vector<std::string>;
+
+    /*! @brief A sequence of string vectors. */
+    using StdStringVectorVector = std::vector<StdStringVector>;
 
     /*! @brief Contains @c true if there was no problem and @c false along with an error message if there was a problem. */
     using SuccessOrFailure = std::pair<bool, std::string>;
@@ -935,7 +938,7 @@ namespace nImO
     using IntOrFailure = std::pair<SuccessOrFailure, int64_t>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
-    using StringSetOrFailure = std::pair<SuccessOrFailure, StringSet>;
+    using StdStringSetOrFailure = std::pair<SuccessOrFailure, StdStringSet>;
 
     /*! @brief A holder for a shared pointer to a SuccessOrFailure pair. */
     using SpSuccessOrFailure = std::shared_ptr<SuccessOrFailure>;

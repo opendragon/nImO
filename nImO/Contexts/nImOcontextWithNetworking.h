@@ -174,7 +174,7 @@ namespace nImO
              @return @c true if the message was successfully logged. */
             bool
             report
-                (const StringVector &   stringsToSend)
+                (const StdStringVector &    stringsToSend)
                 const;
 
         protected :

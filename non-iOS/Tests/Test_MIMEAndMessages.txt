@@ -251,9 +251,9 @@ add_test(NAME TestMIMEInsertIntegerSetMessage COMMAND ${THIS_TARGET} 508)
 # Test message with integer set
 add_test(NAME TestMIMEExtractIntegerSetMessage COMMAND ${THIS_TARGET} 509)
 # Test message with string set
-add_test(NAME TestMIMEInsertStringSetMessage COMMAND ${THIS_TARGET} 510)
+add_test(NAME TestMIMEInsertStdStringSetMessage COMMAND ${THIS_TARGET} 510)
 # Test message with string set
-add_test(NAME TestMIMEExtractStringSetMessage COMMAND ${THIS_TARGET} 511)
+add_test(NAME TestMIMEExtractStdStringSetMessage COMMAND ${THIS_TARGET} 511)
 # Test message with string map
 add_test(NAME TestMIMEInsertAddressMapMessage COMMAND ${THIS_TARGET} 512)
 # Test message with string map

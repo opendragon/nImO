@@ -117,7 +117,17 @@ nImO::CatchSignal
 } // nImO::CatchSignal
 
 void
-nImO::DropConnection
+nImO::SetSpecialBreakObject
+    (Ptr(CallbackFunction)    sigObject)
+{
+    ODL_ENTER(); //####
+    ODL_P1("sigObject = ", sigObject); //####
+    lSpecialSignalObject = sigObject;
+    ODL_EXIT(); //####
+} // nImO::SetSpecialBreakObject
+
+void
+nImO::StopConnection
     (SpUtilityContext       ourContext,
      Connection &           fromConnection,
      const std::string &    fromNode,
@@ -147,14 +157,4 @@ nImO::DropConnection
     {
         ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'"s);
     }
-} // nImO::DropConnection
-
-void
-nImO::SetSpecialBreakObject
-    (Ptr(CallbackFunction)    sigObject)
-{
-    ODL_ENTER(); //####
-    ODL_P1("sigObject = ", sigObject); //####
-    lSpecialSignalObject = sigObject;
-    ODL_EXIT(); //####
-} // nImO::SetSpecialBreakObject
+} // nImO::StopConnection

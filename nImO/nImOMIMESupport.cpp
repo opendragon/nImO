@@ -117,8 +117,8 @@ isValidMIMEChar
 
 bool
 nImO::DecodeMIMEToBytes
-    (const StringVector &   inValue,
-     ByteVector &           outBytes)
+    (const StdStringVector &    inValue,
+     ByteVector &               outBytes)
 {
     bool        okSoFar{true};
     uint8_t     group6[4];
@@ -218,7 +218,7 @@ nImO::DecodeMIMEToBytes
     (const std::string &    inValue,
      ByteVector &           outBytes)
 {
-    StringVector    tempValues;
+    StdStringVector tempValues;
 
     boost::split(tempValues, inValue, boost::is_any_of("\n"));
     return DecodeMIMEToBytes(tempValues, outBytes);
@@ -226,9 +226,9 @@ nImO::DecodeMIMEToBytes
 
 void
 nImO::EncodeBytesAsMIME
-    (StringVector & outValue,
-     CPtr(void)     inBytes,
-     const size_t   numBytes)
+    (StdStringVector &  outValue,
+     CPtr(void)         inBytes,
+     const size_t       numBytes)
 {
     CPtr(uint8_t)   rawBytes{StaticCast(CPtr(uint8_t), inBytes)};
     uint8_t         group8[3];

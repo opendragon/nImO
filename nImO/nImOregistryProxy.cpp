@@ -490,7 +490,7 @@ nImO::RegistryProxy::getMachineInformation
     return MachineInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getMachineInformation
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::RegistryProxy::getNamesOfMachines
     (void)
 {
@@ -500,10 +500,10 @@ nImO::RegistryProxy::getNamesOfMachines
                                                                  kGetNamesOfMachinesResponse)};
 
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, handler->result()};
+    return StdStringSetOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNamesOfMachines
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodes
     (void)
 {
@@ -513,10 +513,10 @@ nImO::RegistryProxy::getNamesOfNodes
                                                                  kGetNamesOfNodesResponse)};
 
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, handler->result()};
+    return StdStringSetOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNamesOfNodes
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::RegistryProxy::getNamesOfNodesOnMachine
     (const std::string &    machineName)
 {
@@ -530,7 +530,7 @@ nImO::RegistryProxy::getNamesOfNodesOnMachine
                                                                kGetNamesOfNodesOnMachineResponse)};
 
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, handler->result()};
+    return StdStringSetOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNamesOfNodesOnMachine
 
 nImO::NodeInfoOrFailure

@@ -241,7 +241,17 @@ main
                                         }
                                         if (! nImO::gPendingStop)
                                         {
-                                            // TBD: disconnect all channels.
+                                            bool    alreadyReported{false};
+
+                                            nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                            nImO::StdStringVector   inChannelPaths;
+
+                                            ourContext->getInputChannelNames(inChannelPaths);
+                                            for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
+                                            {
+                                                nImO::CloseConnection(ourContext, nodeName, proxy, *walker, false, alreadyReported);
+                                            }
                                         }
                                         std::cerr << "done.\n";
                                     }
@@ -267,12 +277,12 @@ main
                                             exitCode = 1;
                                         }
                                     }
-                                    nImO::StringVector  inChannelPaths;
+                                    nImO::StdStringVector   inChannelPaths;
 
                                     ourContext->getInputChannelNames(inChannelPaths);
                                     for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
                                     {
-                                        std::string chanName{*walker};
+                                        auto    chanName{*walker};
 
                                         nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
                                         statusWithBool = proxy.removeChannel(nodeName, chanName);

@@ -87,7 +87,7 @@ StringsArgumentDescriptor::StringsArgumentDescriptor
      const std::string &    argDescription,
      const ArgumentMode     argMode,
      const std::string &    defaultValue,
-     const StringSet &      allowedValues) :
+     const StdStringSet &   allowedValues) :
         inherited{argName, argDescription, argMode}, _caseInsensitive{ArgumentMode::CaseInsensitive == (argMode & ArgumentMode::CaseInsensitive)},
         _defaultValue{defaultValue}
 {
@@ -216,16 +216,16 @@ StringsArgumentDescriptor::parseArgString
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
-    StringVector                inVector;
+    StdStringVector             inVector;
     std::string                 name;
     ArgumentMode                argMode;
 
     if (partitionString(inString, ArgumentTypeTag::StringsTypeTag, 3, name, argMode, inVector, 4))
     {
-        auto        defaultString{inVector[0]};
-        auto        stringList{inVector[1]};
-        auto        description{inVector[2]};
-        StringSet   allowedValues;
+        auto            defaultString{inVector[0]};
+        auto            stringList{inVector[1]};
+        auto            description{inVector[2]};
+        StdStringSet    allowedValues;
 
         // We need to split the input into keys.
         for ( ; 0 < stringList.length(); )

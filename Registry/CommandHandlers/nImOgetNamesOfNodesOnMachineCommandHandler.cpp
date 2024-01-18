@@ -123,8 +123,8 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
 
             if (statusWithSet.first.first)
             {
-                StringSet & theStrings{statusWithSet.second};
-                auto        stringSet{std::make_shared<Set>()};
+                StdStringSet &  theStrings{statusWithSet.second};
+                auto            stringSet{std::make_shared<Set>()};
 
                 for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
                 {

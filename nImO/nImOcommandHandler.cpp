@@ -161,7 +161,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
         else
         {
             std::atomic_bool    keepGoing{true};
-            StringVector        outVec;
+            StdStringVector     outVec;
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
@@ -264,7 +264,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
         else
         {
             std::atomic_bool    keepGoing{true};
-            StringVector        outVec;
+            StdStringVector     outVec;
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString{nImO::PackageMessage(outVec)};
@@ -346,7 +346,7 @@ nImO::CommandHandler::sendStatusReport
         }
         else
         {
-            StringVector    outVec;
+            StdStringVector outVec;
 
             EncodeBytesAsMIME(outVec, asString);
             auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));

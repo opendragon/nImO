@@ -398,7 +398,7 @@ namespace nImO
                  const size_t           indexOfDefaultValue,
                  std::string &          name,
                  ArgumentMode &         argMode,
-                 StringVector &         result,
+                 StdStringVector &      result,
                  const size_t           indexOfListValue = 0);
 
             /*! @brief Returns a string that contains a printable representation of the standard
@@ -491,7 +491,7 @@ namespace nImO
     void
     ArgumentsToDescriptionArray
         (const DescriptorVector &   arguments,
-         StringVector &             output,
+         StdStringVector &          output,
          const size_t               minSpace = 1);
 
     /*! @brief Return the resulting argument values.

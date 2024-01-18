@@ -268,7 +268,14 @@ main
                                     }
                                     if (! nImO::gPendingStop)
                                     {
-                                        // TBD: disconnect all channels.
+                                        bool    alreadyReported{false};
+
+                                        nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                        for (auto &walker : outChannels)
+                                        {
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, walker->getName(), true, alreadyReported);
+                                        }
+                                        nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                     }
                                     std::cerr << "done.\n";
                                 }
@@ -293,7 +300,7 @@ main
                                             exitCode = 1;
                                         }
                                     }
-                                    nImO::StringVector  outChannelPaths;
+                                    nImO::StdStringVector   outChannelPaths;
 
                                     ourContext->getOutputChannelNames(outChannelPaths);
                                     for (auto walker{outChannelPaths.begin()}; walker != outChannelPaths.end(); ++walker)

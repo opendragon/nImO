@@ -238,7 +238,7 @@ namespace nImO
      @return The data with the sentinel appended. */
     SpStdString
     PackageMessage
-        (StringVector & outVec);
+        (StdStringVector &  outVec);
 
     /*! @brief Remove the message sentinel from encoded data.
      @param[in] inString The data with the attached sentinel.

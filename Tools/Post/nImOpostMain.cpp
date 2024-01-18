@@ -94,7 +94,7 @@ main
     nImO::StringArgumentDescriptor  secondArg{"message"s, "Text to send to logging applications"s, nImO::ArgumentMode::Optional, ""s};
     nImO::DescriptorVector          argumentList{};
     nImO::StandardOptions           optionValues{true};
-    nImO::StringVector              arguments;
+    nImO::StdStringVector           arguments;
     int                             exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
@@ -118,7 +118,7 @@ main
 
             if (readFromStdin)
             {
-                nImO::StringVector  stuffToSend;
+                nImO::StdStringVector   stuffToSend;
 
                 if (! header.empty())
                 {

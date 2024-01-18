@@ -149,7 +149,7 @@ nImO::OutChannel::send
             }
             else
             {
-                StringVector    outVec;
+                StdStringVector outVec;
 
                 EncodeBytesAsMIME(outVec, asString);
                 auto    outString{PackageMessage(outVec)};

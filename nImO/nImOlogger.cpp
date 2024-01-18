@@ -164,7 +164,7 @@ nImO::Logger::report
 
 bool
 nImO::Logger::report
-    (const StringVector &   stringsToSend)
+    (const StdStringVector &    stringsToSend)
 {
     ODL_OBJENTER(); //####
     ODL_P1("stringsToSend = ", &stringsToSend); //####
@@ -232,7 +232,7 @@ nImO::Logger::report
             }
             else
             {
-                StringVector    outVec;
+                StdStringVector outVec;
 
                 EncodeBytesAsMIME(outVec, asString);
                 auto    outString(std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s)));

@@ -91,7 +91,7 @@ nImO::ProcessServiceOptions
      const OptionsMask      skipOptions,
      const bool             multipleInputs,
      const bool             multipleOutputs,
-     Ptr(StringVector)      arguments)
+     Ptr(StdStringVector)   arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -171,7 +171,7 @@ nImO::ProcessServiceOptions
     usageString += " [options]"s;
     if (! argList.empty())
     {
-        StringVector    descriptions;
+        StdStringVector descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions, 2);
         usageString += " "s + argList + "\n\n"s;

@@ -128,13 +128,13 @@ add_test(NAME TestSingularLogicalSetValue COMMAND ${THIS_TARGET} 101)
 # Test singular set with integer keys
 add_test(NAME TestSingularIntegerSetValue COMMAND ${THIS_TARGET} 102)
 # Test singular set with string keys
-add_test(NAME TestSingularStringSetValue COMMAND ${THIS_TARGET} 103)
+add_test(NAME TestSingularStdStringSetValue COMMAND ${THIS_TARGET} 103)
 # Test small set with logical keys
 add_test(NAME TestSmallLogicalSetValue COMMAND ${THIS_TARGET} 104)
 # Test small set with integer keys
 add_test(NAME TestSmallIntegerSetValue COMMAND ${THIS_TARGET} 105)
 # Test small set with string keys
-add_test(NAME TestSmallStringSetValue COMMAND ${THIS_TARGET} 106)
+add_test(NAME TestSmallStdStringSetValue COMMAND ${THIS_TARGET} 106)
 # Test empty set size() function
 add_test(NAME TestEmptySetSizeFunction COMMAND ${THIS_TARGET} 107)
 # Test non-empty set size() function
@@ -182,7 +182,7 @@ add_test(NAME TestLogicalSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 203
 # Test integer set with incompatible keys
 add_test(NAME TestIntegerSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 204)
 # Test string set with incompatible keys
-add_test(NAME TestStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 205)
+add_test(NAME TestStdStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 205)
 # Test address map with incompatible keys
 add_test(NAME TestAddressMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 206)
 # Test address set with incompatible keys
@@ -201,7 +201,7 @@ add_test(NAME TestValidLogicalSetCompares COMMAND ${THIS_TARGET} 254)
 # Test valid integer set compares
 add_test(NAME TestValidIntegerSetCompares COMMAND ${THIS_TARGET} 255)
 # Test valid string set compares
-add_test(NAME TestValidStringSetCompares COMMAND ${THIS_TARGET} 256)
+add_test(NAME TestValidStdStringSetCompares COMMAND ${THIS_TARGET} 256)
 # Test invalid array compares
 add_test(NAME TestInvalidArrayCompares COMMAND ${THIS_TARGET} 257)
 # Test invalid logical map compares
@@ -215,7 +215,7 @@ add_test(NAME TestInvalidLogicalSetCompares COMMAND ${THIS_TARGET} 261)
 # Test invalid integer set compares
 add_test(NAME TestInvalidIntegerSetCompares COMMAND ${THIS_TARGET} 262)
 # Test invalid string set compares
-add_test(NAME TestInvalidStringSetCompares COMMAND ${THIS_TARGET} 263)
+add_test(NAME TestInvalidStdStringSetCompares COMMAND ${THIS_TARGET} 263)
 # Test valid address map compares
 add_test(NAME TestValidAddressMapCompares COMMAND ${THIS_TARGET} 264)
 # Test valid address set compares
@@ -238,7 +238,7 @@ add_test(NAME TestLogicalSetSearches COMMAND ${THIS_TARGET} 304)
 # Test integer set searches
 add_test(NAME TestIntegerSetSearches COMMAND ${THIS_TARGET} 305)
 # Test string set searches
-add_test(NAME TestStringSetSearches COMMAND ${THIS_TARGET} 306)
+add_test(NAME TestStdStringSetSearches COMMAND ${THIS_TARGET} 306)
 # Test address map searches
 add_test(NAME TestAddressMapSearches COMMAND ${THIS_TARGET} 307)
 # Test address set searches
@@ -279,13 +279,13 @@ add_test(NAME TestSingularLogicalSetValueAsJSON COMMAND ${THIS_TARGET} 361)
 # Test singular set with integer keys as JSON
 add_test(NAME TestSingularIntegerSetValueAsJSON COMMAND ${THIS_TARGET} 362)
 # Test singular set with string keys as JSON
-add_test(NAME TestSingularStringSetValueAsJSON COMMAND ${THIS_TARGET} 363)
+add_test(NAME TestSingularStdStringSetValueAsJSON COMMAND ${THIS_TARGET} 363)
 # Test small set with logical keys as JSON
 add_test(NAME TestSmallLogicalSetValueAsJSON COMMAND ${THIS_TARGET} 364)
 # Test small set with integer keys as JSON
 add_test(NAME TestSmallIntegerSetValueAsJSON COMMAND ${THIS_TARGET} 365)
 # Test small set with string keys as JSON
-add_test(NAME TestSmallStringSetValueAsJSON COMMAND ${THIS_TARGET} 366)
+add_test(NAME TestSmallStdStringSetValueAsJSON COMMAND ${THIS_TARGET} 366)
 # Test singular set with address keys as JSON
 add_test(NAME TestSingularAddressSetValueAsJSON COMMAND ${THIS_TARGET} 367)
 # Test small set with address keys as JSON

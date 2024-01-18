@@ -196,7 +196,7 @@ main
                                                 if (statusWithNodeInfo.second._found)
                                                 {
                                                     toConnection = statusWithNodeInfo.second._connection;
-                                                    DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                    StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
                                                 }
                                                 else
                                                 {
@@ -303,7 +303,7 @@ main
                                                     if (statusWithNodeInfo.second._found)
                                                     {
                                                         toConnection = statusWithNodeInfo.second._connection;
-                                                        DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                        StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
                                                         auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
 
                                                         if (! statusWithBool.first.first)
@@ -436,8 +436,7 @@ main
                                             if (statusWithNodeInfo.second._found)
                                             {
                                                 toConnection = statusWithNodeInfo.second._connection;
-                                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode,
-                                                               toPath);
+                                                StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
                                                 auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
 
                                                 if (! statusWithBool.first.first)

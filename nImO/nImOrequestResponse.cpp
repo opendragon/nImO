@@ -336,7 +336,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         }
         else
         {
-            StringVector    outVec;
+            StdStringVector outVec;
             auto            keepGoing{std::make_shared<bool>(true)};
 
             EncodeBytesAsMIME(outVec, asString);

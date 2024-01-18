@@ -123,7 +123,7 @@ namespace nImO
          const OptionsMask      skipOptions,
          const bool             multipleInputs = false,
          const bool             multipleOutputs = false,
-         Ptr(StringVector)      arguments = nullptr);
+         Ptr(StdStringVector)   arguments = nullptr);
 
 } // nImO
 

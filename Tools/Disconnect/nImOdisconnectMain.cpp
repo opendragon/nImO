@@ -37,6 +37,7 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
+#include <Contexts/nImOinputOutputContext.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
 #include <nImOmainSupport.h>
@@ -121,148 +122,19 @@ main
                 auto                channel{firstArg.getCurrentValue()};
                 auto                nodeName{channel->getNode()};
                 auto                path{channel->getPath()};
-                std::string         fromNode;
-                std::string         fromPath;
-                std::string         toNode;
-                std::string         toPath;
-                auto                statusWithInfo{proxy.getConnectionInformation(nodeName, path, false)};
+                bool                reported{false};
 
-                if (statusWithInfo.first.first)
+                if (nImO::CloseConnection(ourContext, nodeName, proxy, path, false, reported))
                 {
-                    nImO::ConnectionInfo &  connection1{statusWithInfo.second};
-
-                    if (connection1._found)
+                    if (reported)
                     {
-                        fromNode = connection1._fromNode;
-                        fromPath = connection1._fromPath;
-                        toNode = connection1._toNode;
-                        toPath = connection1._toPath;
-                        auto    statusWithBool{proxy.removeConnection(nodeName, path, false)};
-
-                        if (statusWithBool.first.first)
-                        {
-                            if (! statusWithBool.second)
-                            {
-                                ourContext->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
-                                std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
-                                exitCode = 1;
-                            }
-                        }
-                        else
-                        {
-                            std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
-                            exitCode = 1;
-                        }
-                    }
-                    else
-                    {
-                        statusWithInfo = proxy.getConnectionInformation(nodeName, path, true);
-                        if (statusWithInfo.first.first)
-                        {
-                            nImO::ConnectionInfo &  connection2{statusWithInfo.second};
-
-                            if (connection2._found)
-                            {
-                                fromNode = connection2._fromNode;
-                                fromPath = connection2._fromPath;
-                                toNode = connection2._toNode;
-                                toPath = connection2._toPath;
-                                auto    statusWithBool{proxy.removeConnection(nodeName, path, true)};
-
-                                if (statusWithBool.first.first)
-                                {
-                                    if (! statusWithBool.second)
-                                    {
-                                        ourContext->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
-                                        std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
-                                        exitCode = 1;
-                                    }
-                                }
-                                else
-                                {
-                                    std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
-                                    exitCode = 1;
-                                }
-                            }
-                            else
-                            {
-                                ourContext->report("channel '"s + nodeName + " "s + path + "' could not be found."s);
-                                std::cerr << "channel '" << nodeName << " " << path << "' could not be found.\n";
-                                exitCode = 1;
-                            }
-                        }
-                        else
-                        {
-                            std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
-                            exitCode = 1;
-                        }
-                    }
-                }
-                else
-                {
-                    std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
-                    exitCode = 1;
-                }
-                if (0 == exitCode)
-                {
-                    nImO::Connection    fromConnection;
-                    auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
-
-                    if (statusWithNodeInfo.first.first)
-                    {
-                        if (statusWithNodeInfo.second._found)
-                        {
-                            fromConnection = statusWithNodeInfo.second._connection;
-                        }
-                        else
-                        {
-                            ourContext->report("Unknown node: '"s + fromNode + "'"s);
-                            exitCode = 1;
-                        }
-                    }
-                    else
-                    {
-                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
                         exitCode = 1;
                     }
-                    if (0 == exitCode)
-                    {
-                        nImO::Connection    toConnection;
-
-                        statusWithNodeInfo = proxy.getNodeInformation(toNode);
-                        if (statusWithNodeInfo.first.first)
-                        {
-                            if (statusWithNodeInfo.second._found)
-                            {
-                                toConnection = statusWithNodeInfo.second._connection;
-                                DropConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
-                            }
-                            else
-                            {
-                                ourContext->report("Unknown node: '"s + toNode + "'"s);
-                                exitCode = 1;
-                            }
-                        }
-                        else
-                        {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
-                            exitCode = 1;
-                        }
-                    }
                 }
-                if (0 == exitCode)
+                else if (nImO::CloseConnection(ourContext, nodeName, proxy, path, true, reported))
                 {
-                    auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
-
-                    if (! statusWithBool.first.first)
+                    if (reported)
                     {
-                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
-                        exitCode = 1;
-                    }
-                    statusWithBool = proxy.clearChannelInUse(toNode, toPath);
-                    if (! statusWithBool.first.first)
-                    {
-                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
                         exitCode = 1;
                     }
                 }

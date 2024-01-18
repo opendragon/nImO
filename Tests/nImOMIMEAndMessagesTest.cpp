@@ -139,7 +139,7 @@ setValueAndCheck
         }
         else
         {
-            StringVector    outVec;
+            StdStringVector outVec;
 
             EncodeBytesAsMIME(outVec, asString);
             if (expectedSize == outVec.size())
@@ -190,7 +190,7 @@ extractValueAndCheck
     ODL_I1("insertedSize = ", insertedSize); //####
     ODL_PACKET("inserted", insertedContents, insertedSize); //####
     int             result{1};
-    StringVector    inVec;
+    StdStringVector inVec;
     ByteVector      outBytes;
 
     for (size_t ii = 0; ii < insertedSize; ++ii)
@@ -287,7 +287,7 @@ doTestMIMEBytesMod3Is0
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -356,7 +356,7 @@ doTestMIMEBytesMod3Is1
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -425,7 +425,7 @@ doTestMIMEBytesMod3Is2
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -494,7 +494,7 @@ doTestMIMEBytesMod3Is0Packaged
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -566,7 +566,7 @@ doTestMIMEBytesMod3Is1Packaged
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -638,7 +638,7 @@ doTestMIMEBytesMod3Is2Packaged
 
     try
     {
-        StringVector    inOutValue;
+        StdStringVector inOutValue;
         ByteVector      inValue;
         ByteVector      outValue;
 
@@ -732,7 +732,7 @@ doTestMIMEInsertEmptyMessage
                 {
                     std::string         expectedLines[]{ "8Pg="s };
                     constexpr size_t    expectedLinesCount{numElementsInArray(expectedLines)};
-                    StringVector        outVec;
+                    StdStringVector     outVec;
 
                     EncodeBytesAsMIME(outVec, asString);
                     if (expectedLinesCount == outVec.size())
@@ -802,7 +802,7 @@ doTestMIMEExtractEmptyMessage
         }
         else
         {
-            StringVector    inVec;
+            StdStringVector inVec;
             ByteVector      outBytes;
 
             inVec.push_back("8Pg=");
@@ -5403,7 +5403,7 @@ doTestMIMEExtractIntegerSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEInsertStringSetMessage
+doTestMIMEInsertStdStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -5428,11 +5428,11 @@ doTestMIMEInsertStringSetMessage
         else
         {
             auto                stringSet{std::make_shared<Set>()};
-            std::string         expectedStringSetLines[]{ "99kQgOn/"s };
-            constexpr size_t    expectedStringSetLinesCount{numElementsInArray(expectedStringSetLines)};
+            std::string         expectedStdStringSetLines[]{ "99kQgOn/"s };
+            constexpr size_t    expectedStdStringSetLinesCount{numElementsInArray(expectedStdStringSetLines)};
 
             stringSet->addValue(std::make_shared<String>());
-            result = setValueAndCheck(*stuff, stringSet, expectedStringSetLines, expectedStringSetLinesCount);
+            result = setValueAndCheck(*stuff, stringSet, expectedStdStringSetLines, expectedStdStringSetLinesCount);
         }
     }
     catch (...)
@@ -5442,7 +5442,7 @@ doTestMIMEInsertStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEInsertStringSetMessage
+} // doTestMIMEInsertStdStringSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 511 ***
@@ -5454,7 +5454,7 @@ doTestMIMEInsertStringSetMessage
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestMIMEExtractStringSetMessage
+doTestMIMEExtractStdStringSetMessage
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -5478,12 +5478,12 @@ doTestMIMEExtractStringSetMessage
         }
         else
         {
-            std::string         insertedStringSetLines[]{ "99kQgOn/"s };
-            constexpr size_t    insertedStringSetLinesCount{numElementsInArray(insertedStringSetLines)};
+            std::string         insertedStdStringSetLines[]{ "99kQgOn/"s };
+            constexpr size_t    insertedStdStringSetLinesCount{numElementsInArray(insertedStdStringSetLines)};
             Set                 stringSet;
 
             stringSet.addValue(std::make_shared<String>());
-            result = extractValueAndCheck(*stuff, insertedStringSetLines, insertedStringSetLinesCount, stringSet);
+            result = extractValueAndCheck(*stuff, insertedStdStringSetLines, insertedStdStringSetLinesCount, stringSet);
         }
     }
     catch (...)
@@ -5493,7 +5493,7 @@ doTestMIMEExtractStringSetMessage
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestMIMEExtractStringSetMessage
+} // doTestMIMEExtractStdStringSetMessage
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 512 ***
@@ -5907,7 +5907,7 @@ doTestMIMExtractWithBadNumberOfCharacters
 
     try
     {
-        StringVector    inVec;
+        StdStringVector inVec;
         ByteVector      outBytes;
 
         inVec.push_back("99UQAA3l/w=");
@@ -5955,7 +5955,7 @@ doTestMIMExtractWithBadCharacters
 
     try
     {
-        StringVector    inVec;
+        StdStringVector inVec;
         ByteVector      outBytes;
 
         inVec.push_back("99?QAA3l/w==");
@@ -6393,11 +6393,11 @@ main
                         break;
 
                     case 510 :
-                        result = doTestMIMEInsertStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEInsertStdStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 511 :
-                        result = doTestMIMEExtractStringSetMessage(*argv, argc - 1, argv + 2);
+                        result = doTestMIMEExtractStdStringSetMessage(*argv, argc - 1, argv + 2);
                         break;
 
                     case 512 :

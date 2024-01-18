@@ -258,20 +258,20 @@ namespace nImO
 
             /*! @brief Get the set of machines in the Registry.
              @return @c true and the set of machines if the operation was successfully performed and @c false and an error string otherwise. */
-            StringSetOrFailure
+            StdStringSetOrFailure
             getNamesOfMachines
                 (void);
 
             /*! @brief Get the set of nodes in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            StringSetOrFailure
+            StdStringSetOrFailure
             getNamesOfNodes
                 (void);
 
             /*! @brief Get the set of nodes on a machine in the Registry.
              @param[in] machineName The name of the machine to be located in the Registry.
              @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
-            StringSetOrFailure
+            StdStringSetOrFailure
             getNamesOfNodesOnMachine
                 (const std::string &    machineName);
 

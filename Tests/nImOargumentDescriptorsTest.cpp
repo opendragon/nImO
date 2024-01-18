@@ -887,7 +887,7 @@ doTestStringsArgumentDescriptors
     try
     {
         SpBaseArgumentDescriptor    testDescriptor;
-        StringSet                   allowable;
+        StdStringSet                allowable;
 
         allowable.insert("abc");
         allowable.insert("def");

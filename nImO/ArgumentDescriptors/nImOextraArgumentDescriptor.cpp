@@ -203,7 +203,7 @@ ExtraArgumentDescriptor::parseArgString
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
     SpBaseArgumentDescriptor    result;
-    StringVector                inVector;
+    StdStringVector             inVector;
     std::string                 name;
     ArgumentMode                argMode;
 

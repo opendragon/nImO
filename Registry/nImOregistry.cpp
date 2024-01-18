@@ -366,12 +366,12 @@ struct NodeInsertData
  @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
 static nImO::SuccessOrFailure
 performSQLstatementWithMultipleColumnResults
-    (nImO::SpContextWithNetworking      owner,
-     Ptr(sqlite3)                       dbHandle,
-     std::vector<nImO::StringVector> &  results,
-     CPtr(char)                         sqlStatement,
-     BindFunction                       doBinds = nullptr,
-     CPtr(void)                         data = nullptr)
+    (nImO::SpContextWithNetworking  owner,
+     Ptr(sqlite3)                   dbHandle,
+     nImO::StdStringVectorVector &  results,
+     CPtr(char)                     sqlStatement,
+     BindFunction                   doBinds = nullptr,
+     CPtr(void)                     data = nullptr)
 {
     ODL_ENTER(); //####
     ODL_P4("owner = ", owner.get(), "dbHandle = ", dbHandle, "results = ", &results, "data = ", data); //####
@@ -425,7 +425,7 @@ performSQLstatementWithMultipleColumnResults
                             ODL_I1("colCount <- ", colCount); //####
                             if (0 < colCount)
                             {
-                                nImO::StringVector  thisRow;
+                                nImO::StdStringVector   thisRow;
 
                                 for (int ii = 0; ii < colCount; ++ii)
                                 {
@@ -624,7 +624,7 @@ static nImO::SuccessOrFailure
 performSQLstatementWithSingleColumnResults
     (nImO::SpContextWithNetworking  owner,
      Ptr(sqlite3)                   dbHandle,
-     nImO::StringVector &           resultList,
+     nImO::StdStringVector &        resultList,
      CPtr(char)                     sqlStatement,
      BindFunction                   doBinds = nullptr,
      CPtr(void)                     data = nullptr)
@@ -1550,8 +1550,8 @@ setupSearchNodes
  @param[in] values The retrieved strings. */
 static void
 extractChannelInfoFromVector
-    (nImO::ChannelInfo &        info,
-     const nImO::StringVector & values)
+    (nImO::ChannelInfo &            info,
+     const nImO::StdStringVector &  values)
 {
     ODL_ENTER(); //####
     ODL_P1("info = ", &info); //####
@@ -1605,8 +1605,8 @@ extractChannelInfoFromVector
  @param[in] values The retrieved strings. */
 static void
 extractNodeInfoFromVector
-    (nImO::NodeInfo &           info,
-     const nImO::StringVector & values)
+    (nImO::NodeInfo &               info,
+     const nImO::StdStringVector &  values)
 {
     ODL_ENTER(); //####
     ODL_P1("info = ", &info); //####
@@ -1921,7 +1921,7 @@ nImO::Registry::clearChannelInUse
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             ChannelSearchData   data{nodeName, path};
             static CPtr(char)   updateChannel{"UPDATE " CHANNELS_T_ " SET " CHANNEL_IN_USE_C_ " = 0 WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
                                                 " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_ " RETURNING " CHANNEL_IN_USE_C_};
@@ -1964,12 +1964,12 @@ nImO::Registry::getChannelInformation
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            std::vector<StringVector>   results;
-            ChannelSearchData           data{nodeName, path};
-            static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
-                                                        CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_
-                                                        " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @"
-                                                        CHANNEL_PATH_C_};
+            StdStringVectorVector   results;
+            ChannelSearchData       data{nodeName, path};
+            static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_
+                                                    " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @"
+                                                    CHANNEL_PATH_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannels, &data);
             if (status.first)
@@ -2019,7 +2019,7 @@ nImO::Registry::getChannelInUseAndSet
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             ChannelSearchData   data{nodeName, path};
             static CPtr(char)   searchChannels{"SELECT DISTINCT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
                                                 CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
@@ -2093,7 +2093,7 @@ nImO::Registry::getChannelInUse
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             ChannelSearchData   data{nodeName, path};
             static CPtr(char)   searchChannels{"SELECT DISTINCT " CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @"
                                                 CHANNEL_NODE_C_ " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
@@ -2161,7 +2161,7 @@ nImO::Registry::getConnectionInformation
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            std::vector<StringVector>   results;
+            StdStringVectorVector   results;
 
             if (fromIsSpecified)
             {
@@ -2187,7 +2187,7 @@ nImO::Registry::getConnectionInformation
             {
                 if (0 < results.size())
                 {
-                    StringVector &  values{results[0]};
+                    StdStringVector &   values{results[0]};
 
                     if (5 < values.size())
                     {
@@ -2247,9 +2247,9 @@ nImO::Registry::getInformationForAllChannels
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
-                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_" FROM " CHANNELS_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels);
         if (status.first)
@@ -2291,12 +2291,12 @@ nImO::Registry::getInformationForAllChannelsOnMachine
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
-                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ "," NODES_T_
-                                                    "," MACHINES_T_ " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_
-                                                    " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_
-                                                    "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ "," NODES_T_
+                                                "," MACHINES_T_ " WHERE " NODES_T_ "." NODE_NAME_C_ " = " CHANNELS_T_ "." CHANNEL_NODE_C_
+                                                " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_ " AND " MACHINES_T_
+                                                "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsMachineOnly,
                                                               &machineName);
@@ -2343,10 +2343,10 @@ nImO::Registry::getInformationForAllChannelsOnNode
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
-                                                    CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE "
-                                                    CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchChannels{"SELECT DISTINCT " CHANNEL_NODE_C_ "," CHANNEL_PATH_C_ "," CHANNEL_IS_OUTPUT_C_ ","
+                                                CHANNEL_DATA_TYPE_C_ "," CHANNEL_MODES_C_ "," CHANNEL_IN_USE_C_ " FROM " CHANNELS_T_ " WHERE "
+                                                CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchChannels, setupSearchChannelsNodeOnly, &nodeName);
         if (status.first)
@@ -2391,17 +2391,17 @@ nImO::Registry::getInformationForAllConnections
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
-                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
-                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                    CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                    CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector &  values{results[ii]};
+                StdStringVector &   values{results[ii]};
 
                 if (5 < values.size())
                 {
@@ -2456,20 +2456,20 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
-                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
-                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ ", " NODES_T_ ", " MACHINES_T_ " WHERE ("
-                                                        CONNECTION_FROM_NODE_C_ " = " NODES_T_ "." NODE_NAME_C_ " OR " CONNECTION_TO_NODE_C_ " = "
-                                                        NODES_T_ "." NODE_NAME_C_ ") AND " MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_
-                                                        " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                    CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                    CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ ", " NODES_T_ ", " MACHINES_T_ " WHERE ("
+                                                    CONNECTION_FROM_NODE_C_ " = " NODES_T_ "." NODE_NAME_C_ " OR " CONNECTION_TO_NODE_C_ " = "
+                                                    NODES_T_ "." NODE_NAME_C_ ") AND " MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_
+                                                    " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchMachines, &machineName);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector &  values{results[ii]};
+                StdStringVector &   values{results[ii]};
 
                 if (5 < values.size())
                 {
@@ -2524,18 +2524,18 @@ nImO::Registry::getInformationForAllConnectionsOnNode
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
-                                                        CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
-                                                        CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
-                                                        CONNECTION_FROM_NODE_C_ " OR " CONNECTION_TO_NODE_C_ " = @" CONNECTION_TO_NODE_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchConnections{"SELECT DISTINCT " CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
+                                                    CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ", " CONNECTION_DATA_TYPE_C_ ", "
+                                                    CONNECTION_MODE_C_ " FROM " CONNECTIONS_T_ " WHERE " CONNECTION_FROM_NODE_C_ " = @"
+                                                    CONNECTION_FROM_NODE_C_ " OR " CONNECTION_TO_NODE_C_ " = @" CONNECTION_TO_NODE_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchNodeConnections, &nodeName);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector &  values{results[ii]};
+                StdStringVector &   values{results[ii]};
 
                 if (5 < values.size())
                 {
@@ -2589,15 +2589,15 @@ nImO::Registry::getInformationForAllMachines
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchMachines{"SELECT DISTINCT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchMachines{"SELECT DISTINCT " MACHINE_NAME_C_ "," MACHINE_ADDRESS_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector &  values{results[ii]};
+                StdStringVector &   values{results[ii]};
 
                 if (1 < values.size())
                 {
@@ -2647,9 +2647,9 @@ nImO::Registry::getInformationForAllNodes
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
-                                                " FROM " NODES_T_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchNodes{"SELECT DISTINCT " NODE_NAME_C_ "," NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_
+                                            " FROM " NODES_T_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
@@ -2691,11 +2691,11 @@ nImO::Registry::getInformationForAllNodesOnMachine
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ ","
-                                                            NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
-                                                            MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
-                                                            MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ "," NODES_T_ "." NODE_ADDRESS_C_ ","
+                                                        NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+                                                        MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
+                                                        MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
@@ -2740,16 +2740,16 @@ nImO::Registry::getLaunchDetails
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            std::vector<StringVector>   results;
-            static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_
-                                                    " FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
+            StdStringVectorVector   results;
+            static CPtr(char)       searchNodes{"SELECT DISTINCT " NODE_EXEC_PATH_C_ "," NODE_LAUNCH_DIRECTORY_C_ "," NODE_COMMAND_LINE_C_
+                                                " FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
             {
                 if (0 < results.size())
                 {
-                    StringVector &  values{results[0]};
+                    StdStringVector &   values{results[0]};
 
                     if (2 < values.size())
                     {
@@ -2803,16 +2803,16 @@ nImO::Registry::getMachineInformation
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            std::vector<StringVector>   results;
-            static CPtr(char)           searchMachines{"SELECT DISTINCT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
-                                                        MACHINE_NAME_C_};
+            StdStringVectorVector   results;
+            static CPtr(char)       searchMachines{"SELECT DISTINCT " MACHINE_ADDRESS_C_ " FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @"
+                                                    MACHINE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &nodeName);
             if (status.first)
             {
                 if (0 < results.size())
                 {
-                    StringVector &  values{results[0]};
+                    StdStringVector &   values{results[0]};
 
                     info._name = nodeName;
                     if (0 < values.size())
@@ -2856,18 +2856,18 @@ nImO::Registry::getMachineInformation
     return MachineInfoOrFailure{status, info};
 } // nImO::Registry::getMachineInformation
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::Registry::getNamesOfMachines
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto        status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet   strings;
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    StdStringSet    strings;
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   searchMachines{"SELECT DISTINCT " MACHINE_NAME_C_ " FROM " MACHINES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
@@ -2885,21 +2885,21 @@ nImO::Registry::getNamesOfMachines
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, strings};
+    return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfMachines
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::Registry::getNamesOfNodes
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto        status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet   strings;
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    StdStringSet    strings;
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   searchNodes{"SELECT DISTINCT " NODE_NAME_C_ " FROM " NODES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
@@ -2917,32 +2917,32 @@ nImO::Registry::getNamesOfNodes
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, strings};
+    return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodes
 
-nImO::StringSetOrFailure
+nImO::StdStringSetOrFailure
 nImO::Registry::getNamesOfNodesOnMachine
     (const std::string &    machineName)
     const
 {
     ODL_OBJENTER(); //####
     ODL_S1s("machineName = ", machineName); //####
-    auto        status{doBeginTransaction(_owner, _dbHandle)};
-    StringSet   strings;
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    StdStringSet    strings;
 
     if (status.first)
     {
-        std::vector<StringVector>   results;
-        static CPtr(char)           searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
-                                                            MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
-                                                            MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
+        StdStringVectorVector   results;
+        static CPtr(char)       searchNodesAndMachines{"SELECT DISTINCT " NODES_T_ "." NODE_NAME_C_ " FROM " NODES_T_ ", " MACHINES_T_ " WHERE "
+                                                        MACHINES_T_ "." MACHINE_NAME_C_ " = @" MACHINE_NAME_C_ " AND " MACHINES_T_ "."
+                                                        MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
         {
             for (size_t ii = 0; ii < results.size(); ++ii)
             {
-                StringVector &  values{results[ii]};
+                StdStringVector &   values{results[ii]};
 
                 if (0 < values.size())
                 {
@@ -2961,7 +2961,7 @@ nImO::Registry::getNamesOfNodesOnMachine
         doEndTransaction(_owner, _dbHandle, status.first);
     }
     ODL_OBJEXIT(); //####
-    return StringSetOrFailure{status, strings};
+    return StdStringSetOrFailure{status, strings};
 } // nImO::Registry::getNamesOfNodesOnMachine
 
 nImO::NodeInfoOrFailure
@@ -2979,16 +2979,16 @@ nImO::Registry::getNodeInformation
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            std::vector<StringVector>   results;
-            static CPtr(char)           searchNodes{"SELECT DISTINCT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_
-                                                    " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
+            StdStringVectorVector   results;
+            static CPtr(char)       searchNodes{"SELECT DISTINCT " NODE_ADDRESS_C_ "," NODE_PORT_C_ "," NODE_SERVICE_TYPE_C_ " FROM " NODES_T_
+                                                " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
             if (status.first)
             {
                 if (0 < results.size())
                 {
-                    StringVector &  values{results[0]};
+                    StdStringVector &   values{results[0]};
 
                     info._name = nodeName;
                     if (2 < values.size())
@@ -3053,7 +3053,7 @@ nImO::Registry::getNumberOfChannels
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   countMachines{"SELECT COUNT(*) FROM " CHANNELS_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
@@ -3092,7 +3092,7 @@ nImO::Registry::getNumberOfChannelsOnNode
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   countChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countChannels, setupCountChannels, &nodeName);
@@ -3131,7 +3131,7 @@ nImO::Registry::getNumberOfConnections
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   countMachines{"SELECT COUNT(*) FROM " CONNECTIONS_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
@@ -3170,7 +3170,7 @@ nImO::Registry::getNumberOfMachines
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   countMachines{"SELECT COUNT(*) FROM " MACHINES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countMachines);
@@ -3209,7 +3209,7 @@ nImO::Registry::getNumberOfNodes
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   countNodes{"SELECT COUNT(*) FROM " NODES_T_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countNodes);
@@ -3248,7 +3248,7 @@ nImO::Registry::getNumberOfNodesOnMachine
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " NODES_T_ ", " MACHINES_T_ " WHERE " MACHINES_T_ "." MACHINE_NAME_C_ " = @"
                                             MACHINE_NAME_C_ " AND " MACHINES_T_ "." MACHINE_ADDRESS_C_ " = " NODES_T_ "." NODE_ADDRESS_C_};
 
@@ -3293,7 +3293,7 @@ nImO::Registry::isChannelPresent
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             ChannelSearchData   data{nodeName, path};
             static CPtr(char)   searchChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND "
                                                 CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_};
@@ -3345,7 +3345,7 @@ nImO::Registry::isMachinePresent
 
     if (status.first)
     {
-        StringVector        results;
+        StdStringVector     results;
         static CPtr(char)   searchMachines{"SELECT COUNT(*) FROM " MACHINES_T_ " WHERE " MACHINE_NAME_C_ " = @" MACHINE_NAME_C_};
 
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines, setupSearchMachines, &machineName);
@@ -3392,7 +3392,7 @@ nImO::Registry::isNodePresent
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             static CPtr(char)   searchNodes{"SELECT COUNT(*) FROM " NODES_T_ " WHERE " NODE_NAME_C_ " = @" NODE_NAME_C_};
 
             status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes, setupSearchNodes, &nodeName);
@@ -3610,7 +3610,7 @@ nImO::Registry::setChannelInUse
         status = doBeginTransaction(_owner, _dbHandle);
         if (status.first)
         {
-            StringVector        results;
+            StdStringVector     results;
             ChannelSearchData   data{nodeName, path};
             static CPtr(char)   updateChannel{"UPDATE " CHANNELS_T_ " SET " CHANNEL_IN_USE_C_ " = 1 WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_
                                                 " AND " CHANNEL_PATH_C_ " = @" CHANNEL_PATH_C_ " RETURNING " CHANNEL_IN_USE_C_};

@@ -943,7 +943,7 @@ main
     lChoiceMap.insert({"mach", ChoiceInfo{Choice::kMach, "active machines"}});
     lChoiceMap.insert({"node", ChoiceInfo{Choice::kNode, "active nodes"}});
     lChoiceMap.insert({"all", ChoiceInfo{Choice::kAll, "all"}});
-    nImO::StringSet choiceSet;
+    nImO::StdStringSet  choiceSet;
 
     for (auto & walker : lChoiceMap)
     {

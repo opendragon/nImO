@@ -186,7 +186,7 @@ namespace nImO
 
             /*! @brief Returns the set of names for TransportType values.
              @return The standard names for the TransportType values. */
-            static StringSet
+            static StdStringSet
             transportNames
                 (void);
 

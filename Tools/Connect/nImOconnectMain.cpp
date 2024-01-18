@@ -94,7 +94,7 @@ static void
 helpForConnect
     (std::ostream & outStream)
 {
-    nImO::StringSet modes(nImO::ChannelName::transportNames());
+    nImO::StdStringSet  modes(nImO::ChannelName::transportNames());
 
     outStream << "Available modes:\n";
     for (auto & walker : modes)

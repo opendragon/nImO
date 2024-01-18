@@ -2485,7 +2485,7 @@ doTestSingularIntegerSetValue
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringSetValue
+doTestSingularStdStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2549,7 +2549,7 @@ doTestSingularStringSetValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSingularStringSetValue
+} // doTestSingularStdStringSetValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 104 ***
@@ -2731,7 +2731,7 @@ doTestSmallIntegerSetValue
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringSetValue
+doTestSmallStdStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2808,7 +2808,7 @@ doTestSmallStringSetValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallStringSetValue
+} // doTestSmallStdStringSetValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 107 ***
@@ -4356,7 +4356,7 @@ doTestIntegerSetValueWithIncompatibleKeys
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetValueWithIncompatibleKeys
+doTestStdStringSetValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4424,7 +4424,7 @@ doTestStringSetValueWithIncompatibleKeys
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStringSetValueWithIncompatibleKeys
+} // doTestStdStringSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 206 ***
@@ -6812,7 +6812,7 @@ doTestValidIntegerSetCompares
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStringSetCompares
+doTestValidStdStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -7003,7 +7003,7 @@ doTestValidStringSetCompares
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestValidStringSetCompares
+} // doTestValidStdStringSetCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 257 ***
@@ -7701,7 +7701,7 @@ doTestInvalidIntegerSetCompares
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStringSetCompares
+doTestInvalidStdStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -7804,7 +7804,7 @@ doTestInvalidStringSetCompares
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInvalidStringSetCompares
+} // doTestInvalidStdStringSetCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 264 ***
@@ -9118,7 +9118,7 @@ doTestIntegerSetSearches
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStringSetSearches
+doTestStdStringSetSearches
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -9198,7 +9198,7 @@ doTestStringSetSearches
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStringSetSearches
+} // doTestStdStringSetSearches
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 307 ***
@@ -10673,7 +10673,7 @@ doTestSingularIntegerSetValueAsJSON
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStringSetValueAsJSON
+doTestSingularStdStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -10737,7 +10737,7 @@ doTestSingularStringSetValueAsJSON
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSingularStringSetValueAsJSON
+} // doTestSingularStdStringSetValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 364 ***
@@ -10919,7 +10919,7 @@ doTestSmallIntegerSetValueAsJSON
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStringSetValueAsJSON
+doTestSmallStdStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -10996,7 +10996,7 @@ doTestSmallStringSetValueAsJSON
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallStringSetValueAsJSON
+} // doTestSmallStdStringSetValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 367 ***
@@ -12138,7 +12138,7 @@ main
                         break;
 
                     case 103 :
-                        result = doTestSingularStringSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStdStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 104 :
@@ -12150,7 +12150,7 @@ main
                         break;
 
                     case 106 :
-                        result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSmallStdStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 107 :
@@ -12242,7 +12242,7 @@ main
                         break;
 
                     case 205 :
-                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        result = doTestStdStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 206 :
@@ -12278,7 +12278,7 @@ main
                         break;
 
                     case 256 :
-                        result = doTestValidStringSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidStdStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 257 :
@@ -12306,7 +12306,7 @@ main
                         break;
 
                     case 263 :
-                        result = doTestInvalidStringSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidStdStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 264 :
@@ -12350,7 +12350,7 @@ main
                         break;
 
                     case 306 :
-                        result = doTestStringSetSearches(*argv, argc - 1, argv + 2);
+                        result = doTestStdStringSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     case 307 :
@@ -12426,7 +12426,7 @@ main
                         break;
 
                     case 363 :
-                        result = doTestSingularStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStdStringSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     case 364 :
@@ -12438,7 +12438,7 @@ main
                         break;
 
                     case 366 :
-                        result = doTestSmallStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        result = doTestSmallStdStringSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     case 367 :

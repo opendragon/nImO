@@ -59,6 +59,7 @@
 namespace nImO
 {
     class InputOutputContext; // needed due to circular references.
+    class RegistryProxy;
 
     /*! @brief A holder for a shared pointer to an input channel. */
     using SpInChannel = std::shared_ptr<InChannel>;
@@ -135,7 +136,7 @@ namespace nImO
              @param[out] names A list of the names of the input channels. */
             void
             getInputChannelNames
-                (StringVector & names)
+                (StdStringVector &  names)
                 const;
 
             /*! @brief Return the next available message in the queue if there is one.
@@ -159,7 +160,7 @@ namespace nImO
              @param[out] names A list of the names of the output channels. */
             void
             getOutputChannelNames
-                (StringVector & names)
+                (StdStringVector &  names)
                 const;
 
             /*! @brief Stop activity on the input queue. */
@@ -215,6 +216,23 @@ namespace nImO
     AddInputOutputHandlers
         (SpInputOutputContext   context,
          Ptr(CallbackFunction)  shutdownCallback = nullptr);
+
+    /*! @brief Perform the operations involved with closing a Connection.
+     @param[in] context The context used with the Connection.
+     @param[in] nodeName The name of the node with the Connection.
+     @param[in] proxy The Registry proxy to use.
+     @param[in] path The path used with the Connection.
+     @param[in] isFrom @c true if this is the source end of the Connection.
+     @param[in/out] reported @c true if a failure has been reported.
+     @return @c true if the Connection exists. */
+    bool
+    CloseConnection
+        (SpContextWithNetworking    context,
+         const std::string &        nodeName,
+         RegistryProxy &            proxy,
+         const std::string &        path,
+         const bool                 isFrom,
+         bool &                     reported);
 
 } // nImO
 

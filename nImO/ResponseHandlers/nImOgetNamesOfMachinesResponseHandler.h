@@ -90,7 +90,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            StringSet
+            StdStringSet
             result
                 (void)
                 const
@@ -114,7 +114,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            StringSet   _result{};
+            StdStringSet    _result{};
 
     }; // GetNamesOfMachinesResponseHandler
 

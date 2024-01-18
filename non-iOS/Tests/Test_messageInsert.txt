@@ -150,7 +150,7 @@ add_test(NAME TestInsertLogicalSetMessage COMMAND ${THIS_TARGET} 163)
 # Test message with integer set
 add_test(NAME TestInsertIntegerSetMessage COMMAND ${THIS_TARGET} 164)
 # Test message with string set
-add_test(NAME TestInsertStringSetMessage COMMAND ${THIS_TARGET} 165)
+add_test(NAME TestInsertStdStringSetMessage COMMAND ${THIS_TARGET} 165)
 # Test message with address map
 add_test(NAME TestInsertAddressMapMessage COMMAND ${THIS_TARGET} 166)
 # Test message with address set

@@ -418,7 +418,7 @@ nImO::ContextWithNetworking::report
 
 bool
 nImO::ContextWithNetworking::report
-    (const StringVector & stringsToSend)
+    (const StdStringVector &    stringsToSend)
     const
 {
     ODL_OBJENTER(); //####

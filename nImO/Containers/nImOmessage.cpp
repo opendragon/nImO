@@ -488,7 +488,7 @@ nImO::MatchMessageSeparator
 
 nImO::SpStdString
 nImO::PackageMessage
-    (StringVector & outVec)
+    (StdStringVector &  outVec)
 {
     return std::make_shared<std::string>(boost::algorithm::join(outVec, "\n"s) + "\n"s + kMessageSentinel);
 } // nImO::PackageMessage

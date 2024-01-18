@@ -187,7 +187,7 @@ nImO::ProcessStandardOptions
      StandardOptions &      optionValues,
      HelpFunction           helper,
      const OptionsMask      optionsToIgnore,
-     Ptr(StringVector)      arguments)
+     Ptr(StdStringVector)   arguments)
 {
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
@@ -257,7 +257,7 @@ nImO::ProcessStandardOptions
     }
     if (! argList.empty())
     {
-        StringVector    descriptions;
+        StdStringVector descriptions;
 
         ArgumentsToDescriptionArray(argumentDescriptions, descriptions);
         usageString += "\n\n"s;

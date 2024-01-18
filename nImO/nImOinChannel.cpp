@@ -125,9 +125,9 @@ nImO::InChannel::receiveTcpMessages
                                         {
                                             if (BAErr::operation_aborted == ec)
                                             {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                 _context.report("async_read_until() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
@@ -143,9 +143,9 @@ nImO::InChannel::receiveTcpMessages
                                             auto        trimmed{UnpackageMessage(receivedAsString)};
 
                                             ODL_S1s("trimmed <- ", trimmed); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                             _context.report("got message"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             _inQueue.addRawBytesAsMessage(_index, trimmed);
                                             receiveTcpMessages();
                                         }
@@ -170,9 +170,9 @@ nImO::InChannel::receiveUdpMessages
                                            {
                                                if (BAErr::operation_aborted == ec)
                                                {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                    _context.report("async_read_until() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                    ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                }
                                                else
@@ -188,14 +188,16 @@ nImO::InChannel::receiveUdpMessages
                                                auto senderAddress{_udpSenderEndpoint.address().to_v4().to_uint()};
                                                auto senderPort{_udpSenderEndpoint.port()};
 
-#if defined(nImO_ChattyTcpLogging)
-                                               _context.report("got message"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
                                                if (_unfiltered || ((_matchAddress == senderAddress) && (_matchPort == senderPort)))
                                                {
                                                    std::string  receivedAsString{_rawData.data(), length};
+                                                   auto         trimmed{UnpackageMessage(receivedAsString)};
 
-                                                   _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, receivedAsString);
+                                                   ODL_S1s("trimmed <- ", trimmed); //####
+#if defined(nImO_ChattyTcpUdpLogging)
+                                                   _context.report("got message"s);
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
+                                                   _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, trimmed);
                                                }
                                                receiveUdpMessages();
                                            }
@@ -226,9 +228,9 @@ nImO::InChannel::setUp
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
         okSoFar = true;
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
         _context.report("local port = "s + std::to_string(_connection._port) + "."s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     }
     else if (TransportType::kTCP == _connection._transport)
     {
@@ -237,9 +239,9 @@ nImO::InChannel::setUp
         _tcpAcceptor->listen();
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _tcpAcceptor->local_endpoint().port();
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
         _context.report("acceptor port = "s + std::to_string(_connection._port) + "."s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
         _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
         okSoFar = true;
     }
@@ -278,9 +280,9 @@ nImO::InChannel::start
                                         {
                                             if (BAErr::operation_aborted == ec)
                                             {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                 _context.report("async_accept() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else

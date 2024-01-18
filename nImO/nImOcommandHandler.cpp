@@ -168,9 +168,9 @@ nImO::CommandHandler::sendComplexResponseWithContext
 
             ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText]
                                       (const BSErr &        ec,
@@ -181,9 +181,9 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                         {
                                             if (BAErr::operation_aborted == ec)
                                             {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                 context->report("async_write() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
@@ -271,9 +271,9 @@ nImO::CommandHandler::sendSimpleResponseWithContext
 
             ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
             context->report("sending response"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText]
                                       (const BSErr &        ec,
@@ -284,9 +284,9 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                         {
                                             if (BAErr::operation_aborted == ec)
                                             {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                 context->report("async_write() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else

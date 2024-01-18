@@ -70,6 +70,6 @@
 
 # cmakedefine nImO_ChattyStart /* Report the version numbers when launching an executable. */
 
-# cmakedefine nImO_ChattyTcpLogging /* Log the TCP/IP operations. */
+# cmakedefine nImO_ChattyTcpUdpLogging /* Log the TCP/IP and UDP/IP operations. */
 
 #endif // not defined(nImOconfig_H_)

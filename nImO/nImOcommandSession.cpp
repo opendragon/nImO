@@ -188,9 +188,9 @@ nImO::CommandSession::~CommandSession
     (void)
 {
     ODL_OBJENTER(); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     _owner->report("session being freed"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::~CommandSession
 
@@ -205,9 +205,9 @@ nImO::CommandSession::start
     ODL_OBJENTER(); //####
     std::atomic_bool    keepGoing{true};
 
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     _owner->report("retrieving request"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     boost::asio::async_read_until(*_socket, _buffer, MatchMessageSeparator,
                                     [this, &keepGoing]
                                     (const BSErr &      ec,
@@ -218,9 +218,9 @@ nImO::CommandSession::start
                                         {
                                             if (BAErr::operation_aborted == ec)
                                             {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                 _owner->report("async_read_until() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
@@ -230,9 +230,9 @@ nImO::CommandSession::start
                                         }
                                         else
                                         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                             _owner->report("got request"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
                                                                 buffers_end(_buffer.data())}))
                                             {

@@ -129,8 +129,8 @@ endif()
 
 option(nImO_ChattyStart "Report the version numbers when launching an executable")
 
-option(nImO_ChattyTcpLogging "Log the TCP/IP operations")
-mark_as_advanced(nImO_ChattyTcpLogging)
+option(nImO_ChattyTcpUdpLogging "Log the TCP/IP and UDP/IP operations")
+mark_as_advanced(nImO_ChattyTcpUdpLogging)
 
 #       option(nImO_DoExplicitClose "Perform an explicit CloseChannel() prior to freeing a channel")
 #mark_as_advanced(nImO_DoExplicitClose)

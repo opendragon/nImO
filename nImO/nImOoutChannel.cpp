@@ -167,9 +167,9 @@ nImO::OutChannel::send
                                                 {
                                                     if (BAErr::operation_aborted == ec)
                                                     {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                         _context.report("async_send_to() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                         ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                     }
                                                     else
@@ -196,9 +196,9 @@ nImO::OutChannel::send
                                                     {
                                                         if (BAErr::operation_aborted == ec)
                                                         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                                             _context.report("async_write() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                         }
                                                         else
@@ -250,9 +250,9 @@ nImO::OutChannel::setUp
         _udpSocket->bind(outEndpoint);
         _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
         _connection._port = _udpSocket->local_endpoint().port();
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
         _context.report("local port = "s + std::to_string(_connection._port) + ", destination port = "s + std::to_string(_destinationPort) + "."s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
         _udpSendpoint.address(destAddress);
         _udpSendpoint.port(_destinationPort);
         okSoFar = true;
@@ -262,9 +262,9 @@ nImO::OutChannel::setUp
         BTCP::endpoint  outEndpoint{outAddress, 0};
 
         _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
         _context.report("destination port = "s + std::to_string(_destinationPort) + "."s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
         _tcpSendpoint.address(destAddress);
         _tcpSendpoint.port(_destinationPort);
         okSoFar = true;
@@ -295,9 +295,9 @@ nImO::OutChannel::start
                                     {
                                         if (BAErr::operation_aborted == ec)
                                         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                             _context.report("async_connect() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }
                                         else

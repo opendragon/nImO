@@ -186,9 +186,9 @@ handleWriteCompletion
     ODL_P4("context = ", context.get(), "socket = ", socket.get(), "handler = ", handler, "keepGoing = ", keepGoing.get()); //####
     ODL_P1("status = ", status.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     context->report("command sent"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     auto    rB{std::make_shared<boost::asio::streambuf>()};
 
     boost::asio::async_read_until(*socket, *rB, nImO::MatchMessageSeparator,
@@ -201,9 +201,9 @@ handleWriteCompletion
                                     {
                                         if (BAErr::operation_aborted == ec3)
                                         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                             context->report("async_read_until() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec3)"); //####
                                         }
                                         else
@@ -218,9 +218,9 @@ handleWriteCompletion
                                     {
                                         std::string handleThis{buffers_begin(rB->data()), buffers_end(rB->data())};
 
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                         context->report("got response"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         if (nullptr != handler)
                                         {
                                             if (! handleResponse(handler, handleThis, responseKey))
@@ -249,9 +249,9 @@ handleConnectCompletion
     ODL_P4("context = ", context.get(), "socket = ", socket.get(), "outString = ", outString.get(), "handler = ", handler); //####
     ODL_P2("keepGoing = ", keepGoing.get(), "status = ", status.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     context->report("command connection request accepted"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
                               [socket, context, handler, keepGoing, &responseKey, status]
                               (const BSErr &        ec2,
@@ -262,9 +262,9 @@ handleConnectCompletion
                                 {
                                     if (BAErr::operation_aborted == ec2)
                                     {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                         context->report("async_write() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         ODL_LOG("(BAErr::operation_aborted == ec2)"); //####
                                     }
                                     else
@@ -355,9 +355,9 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                     {
                                         if (BAErr::operation_aborted == ec1)
                                         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                                             context->report("async_connect() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }
                                         else

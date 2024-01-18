@@ -202,9 +202,9 @@ nImO::ServiceContext::createCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     report("creating a command port"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     _acceptor.open(BTCP::v4());
     _acceptor.listen();
     _commandAddress = ntohl(gServiceAddressIpv4.sin_addr.s_addr);
@@ -218,9 +218,9 @@ nImO::ServiceContext::destroyCommandPort
     (void)
 {
     ODL_OBJENTER(); //####
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
     report("destroying a command port"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
     _keepGoing = false;
     ODL_B1("_keepGoing <- ", _keepGoing); //####
     _acceptor.close();
@@ -229,9 +229,9 @@ nImO::ServiceContext::destroyCommandPort
         auto        aSession{*walker};
         SpSocketTCP sessionSocket{aSession->getSocket()};
 
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
         report("closing a session"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
         if (nullptr != sessionSocket)
         {
             sessionSocket->close();
@@ -307,9 +307,9 @@ nImO::ServiceContext::handleAccept
     {
         if (BAErr::operation_aborted == error)
         {
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
             report("async_accept() operation cancelled"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
         }
         else
@@ -328,9 +328,9 @@ nImO::ServiceContext::handleAccept
             if (gKeepRunning)
             {
                 forgetSession(newSession);
-#if defined(nImO_ChattyTcpLogging)
+#if defined(nImO_ChattyTcpUdpLogging)
                 report("creating new session"s);
-#endif /* defined(nImO_ChattyTcpLogging) */
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
                 newSession = std::make_shared<CommandSession>(newSession->getContext());
                 ODL_P1("newSession <- ", newSession.get()); //####
                 _acceptor.async_accept(*newSession->getSocket(),

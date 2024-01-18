@@ -178,7 +178,7 @@ nImO::Logical::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -200,7 +200,7 @@ nImO::Logical::equalTo
             result = (_value == otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Logical::equalTo
 
@@ -284,7 +284,7 @@ nImO::Logical::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -310,7 +310,7 @@ nImO::Logical::greaterThan
             result = (_value > otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Logical::greaterThan
 
@@ -321,7 +321,7 @@ nImO::Logical::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -343,7 +343,7 @@ nImO::Logical::greaterThanOrEqual
             result = (_value >= otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Logical::greaterThanOrEqual
 
@@ -354,7 +354,7 @@ nImO::Logical::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -380,7 +380,7 @@ nImO::Logical::lessThan
             result = (_value < otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Logical::lessThan
 
@@ -391,7 +391,7 @@ nImO::Logical::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -413,7 +413,7 @@ nImO::Logical::lessThanOrEqual
             result = (_value <= otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Logical::lessThanOrEqual
 

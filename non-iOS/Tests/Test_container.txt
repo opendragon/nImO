@@ -303,3 +303,12 @@ add_test(NAME TestMapWithArrayValueAsJSON COMMAND ${THIS_TARGET} 383)
 add_test(NAME TestMapWithMapValueAsJSON COMMAND ${THIS_TARGET} 384)
 # Test map with set as JSON
 add_test(NAME TestMapWithSetValueAsJSON COMMAND ${THIS_TARGET} 385)
+
+# Test keys from map with logical keys
+add_test(NAME TestKeysFromMapWithLogicalKeys COMMAND ${THIS_TARGET} 400)
+# Test keys from map with integer keys
+add_test(NAME TestKeysFromMapWithIntegerKeys COMMAND ${THIS_TARGET} 401)
+# Test keys from map with string keys
+add_test(NAME TestKeysFromMapWithStringKeys COMMAND ${THIS_TARGET} 402)
+# Test keys from map with address keys
+add_test(NAME TestKeysFromMapWithAddressKeys COMMAND ${THIS_TARGET} 403)

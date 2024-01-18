@@ -268,7 +268,7 @@ nImO::Map::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -289,7 +289,7 @@ nImO::Map::equalTo
             }
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Map::equalTo
 
@@ -564,7 +564,7 @@ nImO::Map::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -586,7 +586,7 @@ nImO::Map::greaterThan
             }
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Map::greaterThan
 
@@ -597,7 +597,7 @@ nImO::Map::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -618,7 +618,7 @@ nImO::Map::greaterThanOrEqual
             }
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Map::greaterThanOrEqual
 
@@ -629,7 +629,7 @@ nImO::Map::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -651,7 +651,7 @@ nImO::Map::lessThan
             }
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Map::lessThan
 
@@ -662,7 +662,7 @@ nImO::Map::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -683,7 +683,7 @@ nImO::Map::lessThanOrEqual
             }
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Map::lessThanOrEqual
 

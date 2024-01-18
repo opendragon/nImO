@@ -320,7 +320,7 @@ namespace nImO
             {
                 ComparisonStatus    result{lessThan(other)};
 
-                return (result.Result() && result.IsValid());
+                return (result.value() && result.isValid());
             }
 
             /*! @brief Return the relative ordering of two Values.
@@ -332,7 +332,7 @@ namespace nImO
             {
                 ComparisonStatus    result{greaterThan(other)};
 
-                return (result.Result() && result.IsValid());
+                return (result.value() && result.isValid());
             }
 
             /*! @brief Return the relative ordering of two Values.
@@ -344,7 +344,7 @@ namespace nImO
             {
                 ComparisonStatus    result{lessThanOrEqual(other)};
 
-                return (result.Result() && result.IsValid());
+                return (result.value() && result.isValid());
             }
 
             /*! @brief Return the relative ordering of two Values.
@@ -356,7 +356,7 @@ namespace nImO
             {
                 ComparisonStatus    result{greaterThanOrEqual(other)};
 
-                return (result.Result() && result.IsValid());
+                return (result.value() && result.isValid());
             }
 
             /*! @brief Return @c true if the two Values are equal.
@@ -368,7 +368,7 @@ namespace nImO
             {
                 ComparisonStatus    result{equalTo(other)};
 
-                return (result.Result() && result.IsValid());
+                return (result.value() && result.isValid());
             }
 
             /*! @brief Return @c false if the two Values are equal.
@@ -380,7 +380,7 @@ namespace nImO
             {
                 ComparisonStatus    result{equalTo(other)};
 
-                return ((! result.Result()) && result.IsValid());
+                return ((! result.value()) && result.isValid());
             }
 
             /*! @brief Add a readable representation of the object to the buffer.

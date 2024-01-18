@@ -197,7 +197,7 @@ nImO::Address::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -219,7 +219,7 @@ nImO::Address::equalTo
             result = (_addressValue == otherPtr->_addressValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Address::equalTo
 
@@ -317,7 +317,7 @@ nImO::Address::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -343,7 +343,7 @@ nImO::Address::greaterThan
             result = (_addressValue > otherPtr->_addressValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Address::greaterThan
 
@@ -354,7 +354,7 @@ nImO::Address::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -376,7 +376,7 @@ nImO::Address::greaterThanOrEqual
             result = (_addressValue >= otherPtr->_addressValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Address::greaterThanOrEqual
 
@@ -387,7 +387,7 @@ nImO::Address::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -413,7 +413,7 @@ nImO::Address::lessThan
             result = (_addressValue < otherPtr->_addressValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Address::lessThan
 
@@ -424,7 +424,7 @@ nImO::Address::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -446,7 +446,7 @@ nImO::Address::lessThanOrEqual
             result = (_addressValue <= otherPtr->_addressValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Address::lessThanOrEqual
 

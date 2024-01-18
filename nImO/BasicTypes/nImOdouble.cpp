@@ -174,7 +174,7 @@ nImO::Double::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -205,7 +205,7 @@ nImO::Double::equalTo
             result = (_floatValue == doublePtr->_floatValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Double::equalTo
 
@@ -338,7 +338,7 @@ nImO::Double::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -373,7 +373,7 @@ nImO::Double::greaterThan
             result = (_floatValue > doublePtr->_floatValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Double::greaterThan
 
@@ -384,7 +384,7 @@ nImO::Double::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -415,7 +415,7 @@ nImO::Double::greaterThanOrEqual
             result = (_floatValue >= doublePtr->_floatValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Double::greaterThanOrEqual
 
@@ -426,7 +426,7 @@ nImO::Double::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -461,7 +461,7 @@ nImO::Double::lessThan
             result = (_floatValue < doublePtr->_floatValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Double::lessThan
 
@@ -472,7 +472,7 @@ nImO::Double::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -503,7 +503,7 @@ nImO::Double::lessThanOrEqual
             result = (_floatValue <= doublePtr->_floatValue);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Double::lessThanOrEqual
 

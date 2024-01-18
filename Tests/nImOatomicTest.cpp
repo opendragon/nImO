@@ -3624,9 +3624,9 @@ doTestInvalidLogicalCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -3635,9 +3635,9 @@ doTestInvalidLogicalCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3647,9 +3647,9 @@ doTestInvalidLogicalCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3659,9 +3659,9 @@ doTestInvalidLogicalCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3671,9 +3671,9 @@ doTestInvalidLogicalCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -3728,9 +3728,9 @@ doTestInvalidNumberCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -3739,9 +3739,9 @@ doTestInvalidNumberCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3751,9 +3751,9 @@ doTestInvalidNumberCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3763,9 +3763,9 @@ doTestInvalidNumberCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3775,9 +3775,9 @@ doTestInvalidNumberCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -3832,9 +3832,9 @@ doTestInvalidStringCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -3843,9 +3843,9 @@ doTestInvalidStringCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3855,9 +3855,9 @@ doTestInvalidStringCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3867,9 +3867,9 @@ doTestInvalidStringCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3879,9 +3879,9 @@ doTestInvalidStringCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -3936,9 +3936,9 @@ doTestInvalidBlobCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -3947,9 +3947,9 @@ doTestInvalidBlobCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3959,9 +3959,9 @@ doTestInvalidBlobCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3971,9 +3971,9 @@ doTestInvalidBlobCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -3983,9 +3983,9 @@ doTestInvalidBlobCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -4178,9 +4178,9 @@ doTestInvalidAddressCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -4189,9 +4189,9 @@ doTestInvalidAddressCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -4201,9 +4201,9 @@ doTestInvalidAddressCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -4213,9 +4213,9 @@ doTestInvalidAddressCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -4225,9 +4225,9 @@ doTestInvalidAddressCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }

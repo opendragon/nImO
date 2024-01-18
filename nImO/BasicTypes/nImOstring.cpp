@@ -180,7 +180,7 @@ nImO::String::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -202,7 +202,7 @@ nImO::String::equalTo
             result = (_value == otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::String::equalTo
 
@@ -342,7 +342,7 @@ nImO::String::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -368,7 +368,7 @@ nImO::String::greaterThan
             result = (_value > otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::String::greaterThan
 
@@ -379,7 +379,7 @@ nImO::String::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -401,7 +401,7 @@ nImO::String::greaterThanOrEqual
             result = (_value >= otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::String::greaterThanOrEqual
 
@@ -412,7 +412,7 @@ nImO::String::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -438,7 +438,7 @@ nImO::String::lessThan
             result = (_value < otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::String::lessThan
 
@@ -449,7 +449,7 @@ nImO::String::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -471,7 +471,7 @@ nImO::String::lessThanOrEqual
             result = (_value <= otherPtr->_value);
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::String::lessThanOrEqual
 

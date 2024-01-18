@@ -106,7 +106,7 @@ nImO::CompareValues::operator()
     {
         ComparisonStatus    status{lhs->lessThan(*rhs)};
 
-        result = (status.Result() && status.IsValid());
+        result = (status.value() && status.isValid());
     }
     else
     {

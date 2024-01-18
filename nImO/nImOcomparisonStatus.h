@@ -70,6 +70,16 @@ namespace nImO
         public :
             // Public methods.
 
+            /*! @brief Clear the status.
+            @return The modified status. */
+            inline ComparisonStatus &
+            clear
+                (void)
+            {
+                _result = _valid = false;
+                return *this;
+            }
+
             /*! @brief The constructor. */
             inline ComparisonStatus
                 (const bool result = true,
@@ -83,6 +93,16 @@ namespace nImO
             ComparisonStatus
                 (ComparisonStatus &&	other)
                 noexcept;
+
+            /*! @brief Return the validity of the status.
+            @return The validity of the comparison. */
+            inline bool
+            isValid
+                (void)
+                const
+            {
+                return _valid;
+            }
 
             /*! @brief Update the current status by merging in the other status.
             @param[in] other The status to be merged in.
@@ -142,40 +162,20 @@ namespace nImO
                 return *this;
             }
 
-            /*! @brief Clear the status.
-            @return The modified status. */
-            inline ComparisonStatus &
-            clear
-                (void)
-            {
-                _result = _valid = false;
-                return *this;
-            }
-
-            /*! @brief Return the validity of the status.
-            @return The validity of the comparison. */
-            inline bool
-            IsValid
-                (void)
-                const
-            {
-                return _valid;
-            }
+            friend std::ostream &
+            operator<<
+                (std::ostream &             out,
+                 const ComparisonStatus &   aValue);
 
             /*! @brief Return the result of the status.
             @return The result of the comparison. */
             inline bool
-            Result
+            value
                 (void)
                 const
             {
                 return _result;
             }
-
-            friend std::ostream &
-            operator<<
-                (std::ostream &             out,
-                 const ComparisonStatus &   aValue);
 
         protected :
             // Protected methods.

@@ -298,13 +298,13 @@ nImO::Value::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
         result.clear();
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Value::equalTo
 
@@ -450,7 +450,7 @@ nImO::Value::greaterThan
     ODL_P1("other = ", &other); //####
     ComparisonStatus    result{false, false};
 
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Value::greaterThan
 
@@ -461,13 +461,13 @@ nImO::Value::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
         result.clear();
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Value::greaterThanOrEqual
 
@@ -550,7 +550,7 @@ nImO::Value::lessThan
     ODL_P1("other = ", &other); //####
     ComparisonStatus    result{false, false};
 
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Value::lessThan
 
@@ -561,13 +561,13 @@ nImO::Value::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
         result.clear();
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Value::lessThanOrEqual
 

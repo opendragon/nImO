@@ -7056,9 +7056,9 @@ doTestInvalidArrayCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7067,9 +7067,9 @@ doTestInvalidArrayCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7079,9 +7079,9 @@ doTestInvalidArrayCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7091,9 +7091,9 @@ doTestInvalidArrayCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7103,9 +7103,9 @@ doTestInvalidArrayCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7170,9 +7170,9 @@ doTestInvalidLogicalMapCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7181,9 +7181,9 @@ doTestInvalidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7193,9 +7193,9 @@ doTestInvalidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7205,9 +7205,9 @@ doTestInvalidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7217,9 +7217,9 @@ doTestInvalidLogicalMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7284,9 +7284,9 @@ doTestInvalidIntegerMapCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7295,9 +7295,9 @@ doTestInvalidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7307,9 +7307,9 @@ doTestInvalidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7319,9 +7319,9 @@ doTestInvalidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7331,9 +7331,9 @@ doTestInvalidIntegerMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7399,9 +7399,9 @@ doTestInvalidStringMapCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7410,9 +7410,9 @@ doTestInvalidStringMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7422,9 +7422,9 @@ doTestInvalidStringMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7434,9 +7434,9 @@ doTestInvalidStringMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7446,9 +7446,9 @@ doTestInvalidStringMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7513,9 +7513,9 @@ doTestInvalidLogicalSetCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7524,9 +7524,9 @@ doTestInvalidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7536,9 +7536,9 @@ doTestInvalidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7548,9 +7548,9 @@ doTestInvalidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7560,9 +7560,9 @@ doTestInvalidLogicalSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7627,9 +7627,9 @@ doTestInvalidIntegerSetCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7638,9 +7638,9 @@ doTestInvalidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7650,9 +7650,9 @@ doTestInvalidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7662,9 +7662,9 @@ doTestInvalidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7674,9 +7674,9 @@ doTestInvalidIntegerSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -7742,9 +7742,9 @@ doTestInvalidStringSetCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -7753,9 +7753,9 @@ doTestInvalidStringSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7765,9 +7765,9 @@ doTestInvalidStringSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7777,9 +7777,9 @@ doTestInvalidStringSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -7789,9 +7789,9 @@ doTestInvalidStringSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -8313,9 +8313,9 @@ doTestInvalidAddressMapCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -8324,9 +8324,9 @@ doTestInvalidAddressMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8336,9 +8336,9 @@ doTestInvalidAddressMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8348,9 +8348,9 @@ doTestInvalidAddressMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8360,9 +8360,9 @@ doTestInvalidAddressMapCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -8428,9 +8428,9 @@ doTestInvalidAddressSetCompares
             Value & aRightValue{*rightValues[ii]};
 
             status = leftValue.lessThan(aRightValue);
-            if (status.IsValid())
+            if (status.isValid())
             {
-                ODL_LOG("(status.IsValid())"); //####
+                ODL_LOG("(status.isValid())"); //####
                 result = 1;
             }
             else
@@ -8439,9 +8439,9 @@ doTestInvalidAddressSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8451,9 +8451,9 @@ doTestInvalidAddressSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8463,9 +8463,9 @@ doTestInvalidAddressSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
                 else
@@ -8475,9 +8475,9 @@ doTestInvalidAddressSetCompares
             }
             if (0 == result)
             {
-                if (status.IsValid())
+                if (status.isValid())
                 {
-                    ODL_LOG("(status.IsValid())"); //####
+                    ODL_LOG("(status.isValid())"); //####
                     result = 1;
                 }
             }
@@ -11622,6 +11622,342 @@ doTestMapWithSetValueAsJSON
 } // doTestMapWithSetValue
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 400 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithLogicalKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (nullptr == otherStuff)
+            {
+                ODL_LOG("(nullptr == otherStuff)"); //####
+            }
+            else
+            {
+                static const bool   rawKeys[]
+                {
+                    true, false
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<Logical>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithLogicalKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 401 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithIntegerKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (nullptr == otherStuff)
+            {
+                ODL_LOG("(nullptr == otherStuff)"); //####
+            }
+            else
+            {
+                static const int64_t    rawKeys[]
+                {
+                    -123, 0, 123, 456, -456, 789, -789
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<Integer>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithIntegerKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 403 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithAddressKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (nullptr == otherStuff)
+            {
+                ODL_LOG("(nullptr == otherStuff)"); //####
+            }
+            else
+            {
+                static const std::string    rawKeys[]
+                {
+                    "abc"s, "def"s, "ghi", "012345"
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<String>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithAddressKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 402 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithStringKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (nullptr == stuff)
+        {
+            ODL_LOG("(nullptr == stuff)"); //####
+        }
+        else
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (nullptr == otherStuff)
+            {
+                ODL_LOG("(nullptr == otherStuff)"); //####
+            }
+            else
+            {
+                static const uint64_t   rawKeys[]
+                {
+                    0x12345678, 0x345678AB, 0x5678ABCD, 0x78ABCDEF
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<Address>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithStringKeys
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -12135,6 +12471,22 @@ main
 
                     case 385 :
                         result = doTestMapWithSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 400 :
+                        result = doTestKeysFromMapWithLogicalKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 401 :
+                        result = doTestKeysFromMapWithIntegerKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 402 :
+                        result = doTestKeysFromMapWithStringKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 403 :
+                        result = doTestKeysFromMapWithAddressKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

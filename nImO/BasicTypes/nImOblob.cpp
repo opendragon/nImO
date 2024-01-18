@@ -261,7 +261,7 @@ nImO::Blob::equalTo
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -283,7 +283,7 @@ nImO::Blob::equalTo
             result = (0 == compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Blob::equalTo
 
@@ -411,7 +411,7 @@ nImO::Blob::greaterThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -437,7 +437,7 @@ nImO::Blob::greaterThan
             result = (0 < compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Blob::greaterThan
 
@@ -448,7 +448,7 @@ nImO::Blob::greaterThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -470,7 +470,7 @@ nImO::Blob::greaterThanOrEqual
             result = (0 <= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Blob::greaterThanOrEqual
 
@@ -481,7 +481,7 @@ nImO::Blob::lessThan
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other == this)
     {
@@ -507,7 +507,7 @@ nImO::Blob::lessThan
             result = (0 > compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Blob::lessThan
 
@@ -518,7 +518,7 @@ nImO::Blob::lessThanOrEqual
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
-    ComparisonStatus    result;
+    ComparisonStatus    result{};
 
     if (&other != this)
     {
@@ -540,7 +540,7 @@ nImO::Blob::lessThanOrEqual
             result = (0 >= compareBytes(_value.get(), _size, otherPtr->_value.get(), otherPtr->_size));
         }
     }
-    ODL_EXIT_B(result.Result()); //####
+    ODL_EXIT_B(result.value()); //####
     return result;
 } // nImO::Blob::lessThanOrEqual
 

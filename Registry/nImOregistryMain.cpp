@@ -141,7 +141,7 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry"s, ""s, 2022, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipTagOption))
+                                    nImO::kSkipTagOption | nImO::kSkipWaitOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

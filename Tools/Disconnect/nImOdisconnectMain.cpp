@@ -124,6 +124,7 @@ main
                 auto                path{channel->getPath()};
                 bool                reported{false};
 
+                // Remove the connection information from the Registry.
                 if (nImO::CloseConnection(ourContext, nodeName, proxy, path, false, reported))
                 {
                     if (reported)

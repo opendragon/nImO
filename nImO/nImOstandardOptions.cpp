@@ -137,7 +137,7 @@ nImO::LoadConfiguration
     if (0 == _access(workingPath.c_str(), 4))
 #endif // not MAC_OR_LINUX_
     {
-        std::ifstream   inStream{workingPath.c_str()};
+        std::ifstream   inStream{workingPath};
 
         if (inStream)
         {

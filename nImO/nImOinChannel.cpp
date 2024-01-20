@@ -265,6 +265,8 @@ nImO::InChannel::start
     if (TransportType::kUDP == _connection._transport)
     {
         _unfiltered = ((BytesToIPv4Address(0, 0, 0, 0) == _matchAddress) && (0 == _matchPort));
+        _udpConnected = true;
+        ODL_B2("_unfiltered <- ", _unfiltered, "_udpConnected <- ", _udpConnected); //####
         receiveUdpMessages();
         okSoFar = true;
     }
@@ -317,6 +319,8 @@ nImO::InChannel::stop
         {
             _udpSocket->cancel();
         }
+        _udpConnected = false;
+        ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)
@@ -329,6 +333,8 @@ nImO::InChannel::stop
         {
             _tcpAcceptor->close();
         }
+        _tcpConnected = false;
+        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
         okSoFar = true;
     }
     else

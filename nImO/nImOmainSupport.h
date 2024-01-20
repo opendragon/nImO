@@ -55,12 +55,30 @@
 
 namespace nImO
 {
+    class RegistryProxy;
 
     /*! @brief The signal handler to catch requests to stop the application.
      @param[in] signal The signal being handled. */
     void
     CatchSignal
         (const int  signal);
+
+    /*! @brief Perform the operations involved with closing a Connection.
+     @param[in] context The context used with the Connection.
+     @param[in] nodeName The name of the node with the Connection.
+     @param[in] proxy The Registry proxy to use.
+     @param[in] path The path used with the Connection.
+     @param[in] isFrom @c true if this is the source end of the Connection.
+     @param[in/out] reported @c true if a failure has been reported.
+     @return @c true if the Connection exists. */
+    bool
+    CloseConnection
+        (SpContextWithNetworking    context,
+         const std::string &        nodeName,
+         RegistryProxy &            proxy,
+         const std::string &        path,
+         const bool                 isFrom,
+         bool &                     reported);
 
     /*! @brief Set the function object to be invoked when a system break signal is received.
      @param[in] sigHObject The function object to be invoked. */
@@ -78,13 +96,13 @@ namespace nImO
      @param[in] toPath The receiver channel path. */
     void
     StopConnection
-        (SpUtilityContext       ourContext,
-         Connection &           fromConnection,
-         const std::string &    fromNode,
-         const std::string &    fromPath,
-         Connection &           toConnection,
-         const std::string &    toNode,
-         const std::string &    toPath);
+        (SpContextWithNetworking    ourContext,
+         Connection &               fromConnection,
+         const std::string &        fromNode,
+         const std::string &        fromPath,
+         Connection &               toConnection,
+         const std::string &        toNode,
+         const std::string &        toPath);
 
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic_bool gKeepRunning;

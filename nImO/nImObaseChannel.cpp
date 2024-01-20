@@ -104,6 +104,30 @@ nImO::BaseChannel::~BaseChannel
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+bool
+nImO::BaseChannel::isConnected
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    bool    result;
+
+    if (TransportType::kUDP == _connection._transport)
+    {
+        result = _udpConnected;
+    }
+    else if (TransportType::kTCP == _connection._transport)
+    {
+        result = _tcpConnected;
+    }
+    else
+    {
+        result = false;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::BaseChannel::isConnected
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)

@@ -76,6 +76,9 @@ namespace nImO
         /*! @brief The tag modifier set by a command-line option. */
         std::string _tag{};
 
+        /*! @brief @c true if the main service loop delays until the connection(s) are made. */
+        bool    _waitForConnections{false};
+
         /*! @brief The constructor. */
         ServiceOptions
             (void) :

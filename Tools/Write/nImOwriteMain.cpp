@@ -265,6 +265,17 @@ main
 
                                     if (outChannel)
                                     {
+                                        if (optionValues._waitForConnections)
+                                        {
+                                            bool    connected{false};
+
+                                            ourContext->report("waiting for connection(s)."s);
+                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            {
+                                                boost::this_thread::yield();
+                                                connected = outChannel->isConnected();
+                                            }
+                                        }
                                         ourContext->report("waiting for input."s);
                                         nImO::StringBuffer  inBuffer;
                                         std::string         inLine;

@@ -175,8 +175,23 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    ourContext->report("waiting for messages."s);
-                                    std::cerr << "ready.\n";
+                                    if (optionValues._waitForConnections)
+                                    {
+                                        auto    inChannel{ourContext->getInputChannel(inChannelPath)};
+                                        bool    connected{false};
+
+                                        ourContext->report("waiting for connection(s)."s);
+                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                        {
+                                            boost::this_thread::yield();
+                                            connected = inChannel->isConnected();
+                                        }
+                                    }
+                                    if (nImO::gKeepRunning)
+                                    {
+                                        ourContext->report("waiting for messages."s);
+                                        std::cerr << "ready.\n";
+                                    }
                                     for ( ; nImO::gKeepRunning; )
                                     {
                                         boost::this_thread::yield();

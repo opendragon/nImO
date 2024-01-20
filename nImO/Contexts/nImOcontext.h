@@ -71,7 +71,6 @@ namespace nImO
 {
 
     class InputOutputContext;
-    //class LauncherContext;
     class ServiceContext;
     class UtilityContext;
 

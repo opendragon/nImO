@@ -98,6 +98,9 @@ namespace nImO
         /*! @brief Skip the 'tag' option. */
         kSkipTagOption          = 0x0800,
 
+        /*! @brief Skip the 'wait' option. */
+        kSkipWaitOption         = 0x1000,
+
         /*! @brief Skip all the options. */
         kSkipAllOptions         = 0xFFFF
     }; // OptionsMask

@@ -208,42 +208,62 @@ main
                                 if (0 == exitCode)
                                 {
 std::cerr << "** Unimplemented **\n";
-                                    ourContext->report("waiting for messages."s);
-                                    std::cerr << "ready.\n";
-                                    for ( ; nImO::gKeepRunning; )
-                                    {
-                                        boost::this_thread::yield();
-                                        auto    nextData{ourContext->getNextMessage()};
+                                    auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
+                                    if (outChannel)
+                                    {
+                                        if (optionValues._waitForConnections)
+                                        {
+                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
+                                            bool    connected{false};
+
+                                            ourContext->report("waiting for connection(s)."s);
+                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            {
+                                                boost::this_thread::yield();
+                                                connected = (inChannel->isConnected() && outChannel->isConnected());
+                                            }
+                                        }
                                         if (nImO::gKeepRunning)
                                         {
-                                            if (nextData)
-                                            {
-                                                auto    contents{nextData->_receivedMessage};
+                                            ourContext->report("waiting for messages."s);
+                                            std::cerr << "ready.\n";
+                                        }
+                                        for ( ; nImO::gKeepRunning; )
+                                        {
+                                            boost::this_thread::yield();
+                                            auto    nextData{ourContext->getNextMessage()};
 
-                                                if (contents)
+                                            if (nImO::gKeepRunning)
+                                            {
+                                                if (nextData)
                                                 {
-//                                                    if (! outChannel->send(contents))
-//                                                    {
-//                                                        ourContext->report("problem sending to "s + outChannelPath);
-//                                                        std::cerr << "problem sending to " << outChannelPath << "\n";
-//                                                        exitCode = 1;
-//                                                        break;
-//
-//                                                    }
+                                                    auto    contents{nextData->_receivedMessage};
+
+                                                    if (contents)
+                                                    {
+    //                                                    if (! outChannel->send(contents))
+    //                                                    {
+    //                                                        ourContext->report("problem sending to "s + outChannelPath);
+    //                                                        std::cerr << "problem sending to " << outChannelPath << "\n";
+    //                                                        exitCode = 1;
+    //                                                        break;
+    //
+    //                                                    }
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    if (! nImO::gPendingStop)
-                                    {
-                                        bool    alreadyReported{false};
+                                        if (! nImO::gPendingStop)
+                                        {
+                                            bool    alreadyReported{false};
 
-                                        nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
-                                        nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
-                                        nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
+                                            nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
+                                        }
+                                        std::cerr << "done.\n";
                                     }
-                                    std::cerr << "done.\n";
                                 }
                                 if (! nImO::gPendingStop)
                                 {

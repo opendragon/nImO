@@ -45,7 +45,6 @@
 #include <CommandHandlers/nImOstopReceiverCommandHandler.h>
 #include <CommandHandlers/nImOstopSenderCommandHandler.h>
 #include <nImOinputOutputCommands.h>
-#include <nImOregistryProxy.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -158,6 +157,48 @@ nImO::InputOutputContext::asInputOutputContext
     return this;
 } // nImO::ServiceContext::asInputOutputContext
 
+bool
+nImO::InputOutputContext::anInputChannelIsConnected
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    bool    result{false};
+
+    for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
+    {
+        if (walker->second->isConnected())
+        {
+            result = true;
+            break;
+
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::InputOutputContext::anInputChannelIsConnected
+
+bool
+nImO::InputOutputContext::anOutputChannelIsConnected
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    bool    result{false};
+
+    for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
+    {
+        if (walker->second->isConnected())
+        {
+            result = true;
+            break;
+
+        }
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::InputOutputContext::anOutputChannelIsConnected
+
 nImO::SpInChannel
 nImO::InputOutputContext::getInputChannel
     (const std::string &    path)
@@ -186,9 +227,7 @@ nImO::InputOutputContext::getInputChannelNames
     names.clear();
     for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
     {
-        auto    aChannel{*walker};
-
-        names.push_back(aChannel.second->getName());
+        names.push_back(walker->second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
@@ -221,9 +260,7 @@ nImO::InputOutputContext::getOutputChannelNames
     names.clear();
     for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
     {
-        auto    aChannel{*walker};
-
-        names.push_back(aChannel.second->getName());
+        names.push_back(walker->second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames
@@ -318,83 +355,3 @@ nImO::AddInputOutputHandlers
     }
     ODL_EXIT(); //####
 } // nImO::AddInputOutputHandlers
-
-bool
-nImO::CloseConnection
-    (SpContextWithNetworking    context,
-     const std::string &        nodeName,
-     RegistryProxy &            proxy,
-     const std::string &        path,
-     const bool                 isFrom,
-     bool &                     reported)
-{
-    ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "proxy = ", &proxy); //####
-    ODL_S2s("nodeName = ", nodeName, "path = ", path); //####
-    ODL_B2("isFrom = ", isFrom, "reported = ", reported); //####
-    bool    result{false};
-    auto    statusWithInfo{proxy.getConnectionInformation(nodeName, path, isFrom)};
-
-    if (statusWithInfo.first.first)
-    {
-        nImO::ConnectionInfo &  theConnection{statusWithInfo.second};
-
-        if (theConnection._found)
-        {
-            auto    fromNode{theConnection._fromNode};
-            auto    fromPath{theConnection._fromPath};
-            auto    toNode{theConnection._toNode};
-            auto    toPath{theConnection._toPath};
-            auto    statusWithBool{proxy.removeConnection(nodeName, path, isFrom)};
-
-            result = true;
-            if (statusWithBool.first.first)
-            {
-                if (! statusWithBool.second)
-                {
-                    context->report("channel '"s + nodeName + " "s + path + "' could not be disconnected."s);
-                    if (! reported)
-                    {
-                        std::cerr << "channel '" << nodeName << " " << path << "' could not be disconnected.\n";
-                    }
-                }
-            }
-            else
-            {
-                if (! reported)
-                {
-                    std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
-                    reported = true;
-                }
-            }
-            statusWithBool = proxy.clearChannelInUse(fromNode, fromPath);
-            if (! statusWithBool.first.first)
-            {
-                if (! reported)
-                {
-                    std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
-                    reported = true;
-                }
-            }
-            statusWithBool = proxy.clearChannelInUse(toNode, toPath);
-            if (! statusWithBool.first.first)
-            {
-                if (! reported)
-                {
-                    std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
-                    reported = true;
-                }
-            }
-        }
-    }
-    else
-    {
-        if (! reported)
-        {
-            std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
-            reported = true;
-        }
-    }
-    ODL_EXIT_B(result); //####
-    return result;
-} // nImO::CloseConnection

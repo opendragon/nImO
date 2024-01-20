@@ -223,8 +223,23 @@ main
                                     const size_t    maxChannel{outChannels.size()};
                                     size_t          nextChannel{0};
 
-                                    ourContext->report("waiting for messages."s);
-                                    std::cerr << "ready.\n";
+                                    if (optionValues._waitForConnections)
+                                    {
+                                        auto    inChannel{ourContext->getInputChannel(inChannelPath)};
+                                        bool    connected{false};
+
+                                        ourContext->report("waiting for connection(s)."s);
+                                        for ( ; nImO::gKeepRunning && (! connected); )
+                                        {
+                                            boost::this_thread::yield();
+                                            connected = (ourContext->anOutputChannelIsConnected() && inChannel->isConnected());
+                                        }
+                                    }
+                                    if (nImO::gKeepRunning)
+                                    {
+                                        ourContext->report("waiting for messages."s);
+                                        std::cerr << "ready.\n";
+                                    }
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();

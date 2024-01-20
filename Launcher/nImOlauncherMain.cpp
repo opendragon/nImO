@@ -162,7 +162,7 @@ loadApplicationInformation
     if (0 == _access(workingPath.c_str(), 4))
 #endif // not MAC_OR_LINUX_
     {
-        std::ifstream   inStream{workingPath.c_str()};
+        std::ifstream   inStream{workingPath};
 
         if (inStream)
         {
@@ -329,7 +329,7 @@ main
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipTagOption))
+                                    nImO::kSkipTagOption | nImO::kSkipWaitOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

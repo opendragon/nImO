@@ -97,6 +97,13 @@ namespace nImO
                 return _name;
             }
 
+            /*! @brief Return @c true if the channel is connected.
+             @return @c true if the channel is connected. */
+            bool
+            isConnected
+                (void)
+                const;
+
             /*! @brief Stop the channel and clear settings.
              @return @c true if the channel was successfully stopped. */
             virtual bool
@@ -158,6 +165,9 @@ namespace nImO
 
             /*! @brief @c true once a TCP connection has been established. */
             std::atomic_bool    _tcpConnected{false};
+
+            /*! @brief @c true once a UDP connection has been established. */
+            std::atomic_bool    _udpConnected{false};
 
         private :
             // Private fields.

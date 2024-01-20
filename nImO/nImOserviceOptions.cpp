@@ -113,7 +113,8 @@ nImO::ProcessServiceOptions
         kOptionNODE,
         kOptionOUTTYPE,
         kOptionTAG,
-        kOptionVERSION
+        kOptionVERSION,
+        kOptionWAIT
     }; // OptionIndex
 
     bool    isAdapter{! matchingCriteria.empty()};
@@ -157,6 +158,8 @@ nImO::ProcessServiceOptions
     Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "version", Option_::Arg::None,
                                             "  --version, -v \tPrint version information and exit"};
+    Option_::Descriptor waitDescriptor{StaticCast(unsigned int, OptionIndex::kOptionWAIT), 0, "w", "wait", Option_::Arg::None,
+                                        "  --wait, -w \tWait for connection(s)"};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -228,6 +231,10 @@ nImO::ProcessServiceOptions
     {
         ++descriptorCount;
     }
+    if (0 == (skipOptions & kSkipWaitOption))
+    {
+        ++descriptorCount;
+    }
     Ptr(Option_::Descriptor)    usage{new Option_::Descriptor[descriptorCount]};
     Ptr(Option_::Descriptor)    usageWalker{usage};
 
@@ -293,6 +300,10 @@ nImO::ProcessServiceOptions
         memcpy(usageWalker++, &tagDescriptor, sizeof(tagDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
+    if (0 == (skipOptions & kSkipWaitOption))
+    {
+        memcpy(usageWalker++, &waitDescriptor, sizeof(waitDescriptor));
+    }
     memcpy(usageWalker++, &lastDescriptor, sizeof(lastDescriptor));
     argcWork -= (argc > 0);
     argvWork += (argc > 0); // skip program name argv[0] if present
@@ -438,6 +449,15 @@ nImO::ProcessServiceOptions
             }
             std::cout << "t";
         }
+        if (0 == (skipOptions & kSkipWaitOption))
+        {
+            if (needTab)
+            {
+                std::cout << "\t";
+                needTab = false;
+            }
+            std::cout << "w";
+        }
         if (needTab)
         {
             std::cout << "\t";
@@ -481,6 +501,10 @@ nImO::ProcessServiceOptions
         if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
         {
             optionValues._tag = options[StaticCast(size_t, OptionIndex::kOptionTAG)].arg;
+        }
+        if ((0 == (skipOptions & kSkipWaitOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionWAIT)]))
+        {
+            optionValues._waitForConnections = true;
         }
         if (nullptr != arguments)
         {

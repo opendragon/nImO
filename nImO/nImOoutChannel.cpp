@@ -283,6 +283,8 @@ nImO::OutChannel::start
     // Start network activity.
     if (TransportType::kUDP == _connection._transport)
     {
+        _udpConnected = true;
+        ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
     }
     else if (TransportType::kTCP == _connection._transport)

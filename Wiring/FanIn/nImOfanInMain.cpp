@@ -212,8 +212,22 @@ main
 
                                     if (outChannel)
                                     {
-                                        ourContext->report("waiting for messages."s);
-                                        std::cerr << "ready.\n";
+                                        if (optionValues._waitForConnections)
+                                        {
+                                            bool    connected{false};
+
+                                            ourContext->report("waiting for connection(s)."s);
+                                            for ( ; nImO::gKeepRunning && (! connected); )
+                                            {
+                                                boost::this_thread::yield();
+                                                connected = (ourContext->anInputChannelIsConnected() && outChannel->isConnected());
+                                            }
+                                        }
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            ourContext->report("waiting for messages."s);
+                                            std::cerr << "ready.\n";
+                                        }
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();

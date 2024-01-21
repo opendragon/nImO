@@ -236,36 +236,8 @@ listApplications
         }
         else
         {
-            auto        applicationMap{std::make_shared<nImO::Map>()};
-            auto        applicationSubMap{std::make_shared<nImO::Map>()};
-            auto        deescriptionKey{std::make_shared<nImO::String>(nImO::kDescriptionKey)};
-            auto        nameKey{std::make_shared<nImO::String>(nImO::kPathKey)};
-            std::string nodeName{};
+            auto    applicationMap{nImO::ConvertApplicationListToMap(applications)};
 
-            for (auto walker(applications.begin()); walker != applications.end(); ++walker)
-            {
-                auto    theInfo{*walker};
-
-                if (theInfo._found)
-                {
-                    if (theInfo._launcherName != nodeName)
-                    {
-                        if (! nodeName.empty())
-                        {
-                            applicationMap->addValue(std::make_shared<nImO::String>(nodeName), applicationSubMap);
-                            applicationSubMap.reset();
-                        }
-                        nodeName = theInfo._launcherName;
-                    }
-                    applicationSubMap->addValue(std::make_shared<nImO::String>(theInfo._appName),
-                                                std::make_shared<nImO::String>(theInfo._appDescription));
-                }
-            }
-            if (! applicationSubMap->empty())
-            {
-                applicationMap->addValue(std::make_shared<nImO::String>(nodeName), applicationSubMap);
-                applicationSubMap.reset();
-            }
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " [ ";

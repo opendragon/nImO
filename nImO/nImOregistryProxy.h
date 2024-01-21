@@ -448,6 +448,13 @@ namespace nImO
 
     }; // RegistryProxy
 
+    /*! @brief Generate a map from an application list.
+     @param[in] applications A list of application info structures.
+     @return The application info list as a map. */
+    SpMap
+    ConvertApplicationListToMap
+        (const ApplicationInfoVector &  applications);
+
 } // nImO
 
 #endif // not defined(nImOregistryProxy_H_)

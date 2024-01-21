@@ -42,6 +42,7 @@
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <Contexts/nImOcontextWithMDNS.h>
 #include <ResponseHandlers/nImOaddAppToListResponseHandler.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
@@ -840,3 +841,41 @@ nImO::RegistryProxy::setChannelInUse
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+nImO::SpMap
+nImO::ConvertApplicationListToMap
+    (const ApplicationInfoVector &  applications)
+{
+    ODL_ENTER(); //####
+    ODL_P1("applications = ", &applications); //####
+    auto        result{std::make_shared<Map>()};
+    auto        applicationSubMap{std::make_shared<Map>()};
+    std::string nodeName{};
+
+    for (auto walker(applications.begin()); walker != applications.end(); ++walker)
+    {
+        auto    theInfo{*walker};
+
+        if (theInfo._found)
+        {
+            if (theInfo._launcherName != nodeName)
+            {
+                if (! nodeName.empty())
+                {
+                    result->addValue(std::make_shared<String>(nodeName), applicationSubMap);
+                    applicationSubMap.reset();
+                }
+                nodeName = theInfo._launcherName;
+            }
+            applicationSubMap->addValue(std::make_shared<String>(theInfo._appName),
+                                        std::make_shared<String>(theInfo._appDescription));
+        }
+    }
+    if (! applicationSubMap->empty())
+    {
+        result->addValue(std::make_shared<String>(nodeName), applicationSubMap);
+        applicationSubMap.reset();
+    }
+    ODL_EXIT_P(result.get()); //####
+    return result;
+} // nImO::ConvertApplicationListToMap

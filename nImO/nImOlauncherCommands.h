@@ -61,12 +61,6 @@ namespace nImO
     /*! @brief The key for the path field of the map for an application. */
     const std::string   kPathKey{"path"s};
 
-    /*! @brief The 'getListOfApps' request. */
-    const std::string   kGetListOfAppsRequest{"getListOfApps?"s};
-
-    /*! @brief The 'getListOfApps' response. */
-    const std::string   kGetListOfAppsResponse{"getListOfApps="s};
-
     /*! @brief The 'getRunParamsForApp' request. */
     const std::string   kGetRunParamsForAppRequest{"getRunParamsForApp?"s};
 
@@ -78,12 +72,6 @@ namespace nImO
 
     /*! @brief The 'launchApp' response. */
     const std::string   kLaunchAppResponse{"launchApp="s};
-
-    /*! @brief The 'reloadAppList' request. */
-    const std::string   kReloadAppListRequest{"reloadAppList."s};
-
-    /*! @brief The 'reloadAppList' response. */
-    const std::string   kReloadAppListResponse{"reloadAppList="s};
 
 } // nImO
 

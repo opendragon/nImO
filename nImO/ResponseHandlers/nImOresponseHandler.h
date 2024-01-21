@@ -110,8 +110,7 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
+            /*! @brief The constructor. */
             ResponseHandler
                 (void) = default;
 

@@ -207,7 +207,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Unimplemented **\n";
+std::cerr << "** Not fully implemented **\n";
                                     auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
                                     if (outChannel)

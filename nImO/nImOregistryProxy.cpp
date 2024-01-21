@@ -43,14 +43,17 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Contexts/nImOcontextWithMDNS.h>
+#include <ResponseHandlers/nImOaddAppToListResponseHandler.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddConnectionResponseHandler.h>
 #include <ResponseHandlers/nImOaddNodeResponseHandler.h>
+#include <ResponseHandlers/nImOclearAppListForLauncherResponseHandler.h>
 #include <ResponseHandlers/nImOclearChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInformationResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h>
 #include <ResponseHandlers/nImOgetConnectionInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h>
@@ -146,6 +149,27 @@ nImO::RegistryProxy::RegistryProxy
 #endif // defined(__APPLE__)
 
 nImO::BoolOrFailure
+nImO::RegistryProxy::addAppToList
+    (const std::string &    nodeName,
+     const std::string &    applicationName,
+     const std::string &    applicationDescription)
+{
+    ODL_OBJENTER(); //####
+    ODL_S3s("nodeName = ", nodeName, "applicationName = ", applicationName, "applicationDescription = ", applicationDescription); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<AddChannelResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    argArray->addValue(std::make_shared<String>(applicationName));
+    argArray->addValue(std::make_shared<String>(applicationDescription));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kAddAppToListRequest,
+                                                               kAddAppToListResponse)};
+
+    ODL_OBJEXIT(); //####
+    return BoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::addAppToList
+
+nImO::BoolOrFailure
 nImO::RegistryProxy::addChannel
     (const std::string &    nodeName,
      const std::string &    path,
@@ -238,6 +262,23 @@ nImO::RegistryProxy::addNode
 } // nImO::RegistryProxy::addNode
 
 nImO::BoolOrFailure
+nImO::RegistryProxy::clearAppListForLauncher
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<ClearChannelInUseResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kClearAppListForLauncherRequest,
+                                                               kClearAppListForLauncherResponse)};
+
+    ODL_OBJEXIT(); //####
+    return BoolOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::clearAppListForLauncher
+
+nImO::BoolOrFailure
 nImO::RegistryProxy::clearChannelInUse
     (const std::string &    nodeName,
      const std::string &    path)
@@ -315,6 +356,19 @@ nImO::RegistryProxy::getConnectionInformation
     ODL_OBJEXIT(); //####
     return ConnectionInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getConnectionInformation
+
+nImO::ApplicationInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllApplications
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    handler{std::make_unique<GetInformationForAllApplicationsResponseHandler>()};
+    auto    status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetInformationForAllApplicationsRequest,
+                                                                 kGetInformationForAllApplicationsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ApplicationInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllApplications
 
 nImO::ChannelInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllChannels

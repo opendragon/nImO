@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOgetListOfAppsCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOclearAppListForLauncherCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO get list of apps command handler.
+//  Contains:   The class definition for the nImO 'clear app list for launcher' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,18 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-16
+//  Created:    2024-01-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Launcher/CommandHandlers/nImOgetListOfAppsCommandHandler.h>
+#include "nImOclearAppListForLauncherCommandHandler.h"
 
-//#include <BasicTypes/nImOaddress.h>
-//#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
-//#include <nImOinChannel.h>
-#include <nImOlauncherCommands.h>
+#include <nImOregistryCommands.h>
+#include <nImOregistryTypes.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -54,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO get list of apps command handler. */
+ @brief The class definition for the %nImO 'clear app list for launcher' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,21 +83,23 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetListOfAppsCommandHandler::GetListOfAppsCommandHandler
-    (SpLauncherContext  owner) :
-        inherited{owner}
+nImO::ClearAppListForLauncherCommandHandler::ClearAppListForLauncherCommandHandler
+    (SpServiceContext   owner,
+     SpRegistry         theRegistry,
+     const Connection & statusConnection) :
+        inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetListOfAppsCommandHandler::GetListOfAppsCommandHandler
+} // nImO::ClearAppListForLauncherCommandHandler::ClearAppListForLauncherCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetListOfAppsCommandHandler::doIt
+nImO::ClearAppListForLauncherCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments)
     const
@@ -106,48 +108,41 @@ nImO::GetListOfAppsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForLauncher->report("get list of applications request received"s);
-#if 0
-    if (3 < arguments.size())
+    _owner->report("clear app list for launcher request received"s);
+    if (1 < arguments.size())
     {
-        auto    pathString{arguments[1]->asString()};
-        auto    dataTypeString{arguments[2]->asString()};
-        auto    modeValue{arguments[3]->asInteger()};
+        auto    launcherNodeNameString{arguments[1]->asString()};
 
-        if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
+        if (nullptr != launcherNodeNameString)
         {
-            auto    theChannel{_ownerForLauncher->getInputChannel(pathString->getValue())};
+            auto    launcherNodeName{launcherNodeNameString->getValue()};
+            auto    status{_registry->clearAppListForLauncher(launcherNodeName)};
 
-            if (nullptr == theChannel)
+            if (status.first)
             {
-                ODL_LOG("(nullptr == theChannel)"); //####
+                okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "clear app list for launcher"s, true);
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kAppListClearedStatus + kStatusSeparator + launcherNodeName);
+                }
             }
             else
             {
-                if (theChannel->setUp(StaticCast(TransportType, modeValue->getIntegerValue())))
-                {
-                    auto    theConnection{theChannel->getConnection()};
-                    auto    infoArray{std::make_shared<Array>()};
-
-                    infoArray->addValue(std::make_shared<Address>(theConnection._address));
-                    infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kGetListOfAppsResponse, "set up receiver"s, infoArray);
-                }
+                ODL_LOG("! (status.first)"); //####
             }
         }
         else
         {
-            ODL_LOG("! ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))"); //####
+            ODL_LOG("! (nullptr != launcherNodeNameString)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (3 < arguments.size())"); //####
+        ODL_LOG("! (1 < arguments.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetListOfAppsCommandHandler::doIt
+} // nImO::ClearAppListForLauncherCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

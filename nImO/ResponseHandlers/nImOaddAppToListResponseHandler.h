@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h
+//  File:       nImO/ResponseHandlers/nImOaddAppToListResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -8,7 +8,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-25
+//  Created:    2024-01-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetNumberOfMachinesResponseHandler_H_))
-# define nImOgetNumberOfMachinesResponseHandler_H_ /* Header guard */
+#if (! defined(nImOaddAppToListResponseHandler_H_))
+# define nImOaddAppToListResponseHandler_H_ /* Header guard */
 
 # include <ResponseHandlers/nImOresponseHandler.h>
 
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class GetNumberOfMachinesResponseHandler final : public ResponseHandler
+    class AddAppToListResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -74,7 +74,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor. */
-            GetNumberOfMachinesResponseHandler
+            AddAppToListResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -87,7 +87,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            inline int64_t
+            inline bool
             result
                 (void)
                 const
@@ -111,10 +111,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            int64_t    _result{0};
+            bool    _result{false};
 
-    }; // GetNumberOfMachinesResponseHandler
+    }; // AddAppToListResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOgetNumberOfMachinesResponseHandler_H_)
+#endif // not defined(nImOaddAppToListResponseHandler_H_)

@@ -89,6 +89,17 @@ namespace nImO
                 (RegistryProxy &&  other)
                 noexcept = delete;
 
+            /*! @brief Add an application to the Registry.
+             @param[in] nodeName The name of the Launcher managing the application.
+             @param[in] applicationName The name to display for the application.
+             @param[in] applicationDescription The description of the application.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            BoolOrFailure
+            addAppToList
+                (const std::string &    nodeName,
+                 const std::string &    applicationName,
+                 const std::string &    applicationDescription);
+
             /*! @brief Add a channel to the Registry.
              @param[in] nodeName The node for the channel to be added.
              @param[in] path The path for the channel.
@@ -136,6 +147,13 @@ namespace nImO
                  const ServiceType      serviceType = ServiceType::GenericService,
                  const Connection &     nodeConnection = Connection());
 
+            /*! @brief Clear the applications recorded in the Registry for the specified Launcher.
+             @param[in] nodeName The name of the Launcher node to be updated.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            BoolOrFailure
+            clearAppListForLauncher
+                (const std::string &    nodeName);
+
             /*! @brief Mark a channel is in the Registry as not in use.
              @param[in] nodeName The name of the node to be updated.
              @param[in] path The path of the channel to be updated.
@@ -182,6 +200,12 @@ namespace nImO
                 (const std::string &    nodeName,
                  const std::string &    path,
                  const bool             fromIsSpecified);
+
+            /*! @brief Get information on the available applications.
+             @return @c true and the list of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            ApplicationInfoVectorOrFailure
+            getInformationForAllApplications
+                (void);
 
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
@@ -244,7 +268,7 @@ namespace nImO
 
             /*! @brief Get information on how the node was launched.
              @param[in] nodeName The name of the node to be located in the Registry.
-             @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
+             @return @c true and if the node was found and the operation was successfully performed, its data, and @c false and an error string otherwise. */
             LaunchDetailsOrFailure
             getLaunchDetails
                 (const std::string &    nodeName);

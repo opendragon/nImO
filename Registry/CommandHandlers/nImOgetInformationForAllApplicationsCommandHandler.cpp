@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Registry/CommandHandlers/nImOisNodePresentCommandHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO 'is node present' command handler.
+//  Contains:   The class definition for the nImO get list of apps command handler.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,16 +32,17 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-04-03
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#include "nImOisNodePresentCommandHandler.h"
+#include <Registry/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.h>
 
+#include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
+#include <Containers/nImOmap.h>
 #include <nImOregistryCommands.h>
-#include <nImOregistryTypes.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -52,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO 'is node present' command handler. */
+ @brief The class definition for the %nImO get list of apps command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -81,7 +82,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::IsNodePresentCommandHandler::IsNodePresentCommandHandler
+nImO::GetInformationForAllApplicationsCommandHandler::GetInformationForAllApplicationsCommandHandler
     (SpServiceContext   owner,
      SpRegistry         theRegistry) :
         inherited{owner, theRegistry}
@@ -89,14 +90,14 @@ nImO::IsNodePresentCommandHandler::IsNodePresentCommandHandler
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::IsNodePresentCommandHandler::IsNodePresentCommandHandler
+} // nImO::GetInformationForAllApplicationsCommandHandler::GetInformationForAllApplicationsCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::IsNodePresentCommandHandler::doIt
+nImO::GetInformationForAllApplicationsCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments)
     const
@@ -106,36 +107,42 @@ nImO::IsNodePresentCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("is node present request received"s);
-    if (1 < arguments.size())
+    _owner->report("get information for all applications request received"s);
+    if (0 < arguments.size())
     {
-        auto    asString{arguments[1]->asString()};
+        auto    statusWithInfoVector{_registry->getInformationForAllApplications()};
 
-        if (nullptr == asString)
+        if (statusWithInfoVector.first.first)
         {
-            ODL_LOG("(nullptr == asString)"); //####
+            auto                    applicationArray{std::make_shared<Array>()};
+            ApplicationInfoVector & theApplications{statusWithInfoVector.second};
+
+            for (auto walker = theApplications.begin(); walker != theApplications.end(); ++walker)
+            {
+                ApplicationInfo &   theInfo(*walker);
+                auto                infoArray{std::make_shared<Array>()};
+
+                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
+                infoArray->addValue(std::make_shared<String>(theInfo._launcherName));
+                infoArray->addValue(std::make_shared<String>(theInfo._appName));
+                infoArray->addValue(std::make_shared<String>(theInfo._appDescription));
+                applicationArray->addValue(infoArray);
+            }
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsResponse, "get information for all applications"s,
+                                          applicationArray);
         }
         else
         {
-            auto    statusWithBool{_registry->isNodePresent(asString->getValue())};
-
-            if (statusWithBool.first.first)
-            {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "is node present"s, statusWithBool.second);
-            }
-            else
-            {
-                ODL_LOG("! (statusWithBool.first.first)"); //####
-            }
+            ODL_LOG("! (statusWithInfoVector.first.first)"); //####
         }
     }
     else
     {
-        ODL_LOG("! (1 < arguments.size())"); //####
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::IsNodePresentCommandHandler::doIt
+} // nImO::GetInformationForAllApplicationsCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

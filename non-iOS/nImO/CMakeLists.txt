@@ -107,14 +107,17 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOtestContext.cpp"
             "${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.cpp"
@@ -125,7 +128,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.cpp"
-            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetListOfAppsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.cpp"
@@ -142,7 +144,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.cpp"
-            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOreloadAppListResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.cpp"
@@ -304,14 +305,17 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsResponseHandler.h"
@@ -322,7 +326,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.h"
-        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetListOfAppsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h"
@@ -339,7 +342,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.h"
-        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOreloadAppListResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.h"
@@ -417,12 +419,16 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOsourceContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOtestContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOtestContext.h
         ${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.cpp ${THIS_SOURCE_DIR}/Contexts/nImOutilityContext.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp
@@ -433,6 +439,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp
@@ -453,8 +461,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetLaunchDetailsResponseHandler.h
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetListOfAppsResponseHandler.cpp
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetListOfAppsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetMachineInformationResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfMachinesResponseHandler.cpp
@@ -487,8 +493,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.h
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOreloadAppListResponseHandler.cpp
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOreloadAppListResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp

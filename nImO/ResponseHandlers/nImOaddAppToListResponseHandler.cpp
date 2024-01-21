@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOreloadAppListCommandHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOaddAppToListResponseHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO reload app list command handler.
+//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,18 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-16
+//  Created:    2024-01-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Launcher/CommandHandlers/nImOreloadAppListCommandHandler.h>
+#include <ResponseHandlers/nImOaddAppToListResponseHandler.h>
 
-//#include <BasicTypes/nImOaddress.h>
-//#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOstring.h>
-#include <Containers/nImOarray.h>
-//#include <nImOinChannel.h>
-#include <nImOlauncherCommands.h>
+#include <BasicTypes/nImOlogical.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -54,7 +49,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO reload app list command handler. */
+ @brief The class definition for a functor used with the %nImO request/response mechanism. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,71 +78,46 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ReloadAppListCommandHandler::ReloadAppListCommandHandler
-    (SpLauncherContext  owner) :
-        inherited{owner}
+nImO::AddAppToListResponseHandler::AddAppToListResponseHandler
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::ReloadAppListCommandHandler::ReloadAppListCommandHandler
+} // nImO::AddAppToListResponseHandler::AddAppToListResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ReloadAppListCommandHandler::doIt
-    (BTCP::socket & socket,
-     const Array &  arguments)
-    const
+nImO::AddAppToListResponseHandler::doIt
+    (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForLauncher->report("get run params for app request received"s);
-#if 0
-    if (3 < arguments.size())
+    if (1 < stuff.size())
     {
-        auto    pathString{arguments[1]->asString()};
-        auto    dataTypeString{arguments[2]->asString()};
-        auto    modeValue{arguments[3]->asInteger()};
+        auto    asLogical{stuff[1]->asLogical()};
 
-        if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
+        if (nullptr == asLogical)
         {
-            auto    theChannel{_ownerForLauncher->getInputChannel(pathString->getValue())};
-
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
-            {
-                if (theChannel->setUp(StaticCast(TransportType, modeValue->getIntegerValue())))
-                {
-                    auto    theConnection{theChannel->getConnection()};
-                    auto    infoArray{std::make_shared<Array>()};
-
-                    infoArray->addValue(std::make_shared<Address>(theConnection._address));
-                    infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kReloadAppListResponse, "set up receiver"s, infoArray);
-                }
-            }
+            ODL_LOG("(nullptr == asLogical)"); //####
         }
         else
         {
-            ODL_LOG("! ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))"); //####
+            _result = asLogical->getValue();
+            okSoFar = true;
         }
     }
     else
     {
-        ODL_LOG("! (3 < arguments.size())"); //####
+        ODL_LOG("! (1 < stuff.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ReloadAppListCommandHandler::doIt
+} // nImO::AddAppToListResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

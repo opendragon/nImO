@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOreloadAppListResponseHandler.h
+//  File:       nImO/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -36,10 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOreloadAppListResponseHandler_H_))
-# define nImOreloadAppListResponseHandler_H_ /* Header guard */
+#if (! defined(nImOgetInformationForAllApplicationsResponseHandler_H_))
+# define nImOgetInformationForAllApplicationsResponseHandler_H_ /* Header guard */
 
 # include <ResponseHandlers/nImOresponseHandler.h>
+
+# include <nImOregistryTypes.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class ReloadAppListResponseHandler final : public ResponseHandler
+    class GetInformationForAllApplicationsResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -73,9 +75,8 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
-            ReloadAppListResponseHandler
+            /*! @brief The constructor. */
+            GetInformationForAllApplicationsResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -88,7 +89,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            inline bool
+            inline const ApplicationInfoVector &
             result
                 (void)
                 const
@@ -112,10 +113,10 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            bool    _result{false};
+        ApplicationInfoVector    _result{};
 
-    }; // ReloadAppListResponseHandler
+    }; // GetInformationForAllApplicationsResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOreloadAppListResponseHandler_H_)
+#endif // not defined(nImOgetInformationForAllApplicationsResponseHandler_H_)

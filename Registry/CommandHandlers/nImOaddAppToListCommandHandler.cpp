@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetListOfAppsResponseHandler.cpp
+//  File:       nImO/Registry/CommandHandlers/nImOaddAppToListCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
+//  Contains:   The class definition for the nImO 'add app to list' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,18 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-16
+//  Created:    2024-01-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOgetListOfAppsResponseHandler.h>
+#include "nImOaddAppToListCommandHandler.h"
 
+#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
+#include <nImOregistryCommands.h>
+#include <nImOregistryTypes.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -49,7 +54,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a functor used with the %nImO request/response mechanism. */
+ @brief The class definition for the %nImO 'add app to list' command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,48 +83,72 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetListOfAppsResponseHandler::GetListOfAppsResponseHandler
-    (void) :
-        inherited{}
+nImO::AddAppToListCommandHandler::AddAppToListCommandHandler
+    (SpServiceContext   owner,
+     SpRegistry         theRegistry,
+     const Connection & statusConnection) :
+        inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
+    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetListOfAppsResponseHandler::GetListOfAppsResponseHandler
+} // nImO::AddAppToListCommandHandler::AddAppToListCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetListOfAppsResponseHandler::doIt
-    (const Array &  stuff)
+nImO::AddAppToListCommandHandler::doIt
+    (BTCP::socket & socket,
+     const Array &  arguments)
+    const
 {
     ODL_OBJENTER(); //####
+    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-#if 0
-    if (1 < stuff.size())
+    _owner->report("add app to list received"s);
+    if (3 < arguments.size())
     {
-        auto    asLogical{stuff[1]->asLogical()};
+        auto    launcherNodeNameString{arguments[1]->asString()};
+        auto    applicationNameString{arguments[2]->asString()};
+        auto    applicationDescriptionString{arguments[3]->asString()};
 
-        if (nullptr == asLogical)
+        if ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && (nullptr != applicationDescriptionString))
         {
-            ODL_LOG("(nullptr == asLogical)"); //####
+            auto    launcherNodeName{launcherNodeNameString->getValue()};
+            auto    applicationName{applicationNameString->getValue()};
+            auto    applicationDescription{applicationDescriptionString->getValue()};
+            auto    status{_registry->addAppToList(launcherNodeName, applicationName, applicationDescription)};
+
+            if (status.first)
+            {
+                okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "add app to list"s, true);
+                if (okSoFar)
+                {
+                    sendStatusReport(_owner, _statusConnection, kApplicationAddedStatus + kStatusSeparator + launcherNodeName +
+                                     kStatusSeparator + applicationName + kStatusSeparator + applicationDescription);
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
         }
         else
         {
-            _result = asLogical->getValue();
-            okSoFar = true;
+            ODL_LOG("! ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && " //####
+                    "(nullptr != applicationDescriptionString))"); //####
         }
     }
     else
     {
-        ODL_LOG("! (1 < stuff.size())"); //####
+        ODL_LOG("! (3 < arguments.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetListOfAppsResponseHandler::doIt
+} // nImO::AddAppToListCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

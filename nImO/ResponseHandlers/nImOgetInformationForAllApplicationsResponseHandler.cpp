@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOreloadAppListResponseHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -36,9 +36,10 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOreloadAppListResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h>
 
 #include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -78,48 +79,92 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ReloadAppListResponseHandler::ReloadAppListResponseHandler
+nImO::GetInformationForAllApplicationsResponseHandler::GetInformationForAllApplicationsResponseHandler
     (void) :
         inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::ReloadAppListResponseHandler::ReloadAppListResponseHandler
+} // nImO::GetInformationForAllApplicationsResponseHandler::GetInformationForAllApplicationsResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ReloadAppListResponseHandler::doIt
+nImO::GetInformationForAllApplicationsResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-#if 0
+    _result.clear();
     if (1 < stuff.size())
     {
-        auto    asLogical{stuff[1]->asLogical()};
+        auto    infoVector{stuff[1]->asArray()};
 
-        if (nullptr == asLogical)
+        if (nullptr == infoVector)
         {
-            ODL_LOG("(nullptr == asLogical)"); //####
+            ODL_LOG("(nullptr == infoVector)"); //####
         }
         else
         {
-            _result = asLogical->getValue();
             okSoFar = true;
+            for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
+            {
+                auto    infoArray{(*walker)->asArray()};
+
+                if (nullptr == infoArray)
+                {
+                    ODL_LOG("(nullptr == infoArray)"); //####
+                    okSoFar = false;
+                }
+                else
+                {
+                    ApplicationInfo thisApp;
+
+                    thisApp._found = false;
+                    if (3 < infoArray->size())
+                    {
+                        auto    foundPtr{(*infoArray)[0]->asLogical()};
+                        auto    launcherNamePtr{(*infoArray)[1]->asString()};
+                        auto    appNamePtr{(*infoArray)[2]->asString()};
+                        auto    appDescrPtr{(*infoArray)[3]->asString()};
+
+                        if ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) && (nullptr != appDescrPtr))
+                        {
+                            thisApp._found = foundPtr->getValue();
+                            thisApp._launcherName = launcherNamePtr->getValue();
+                            thisApp._appName = appNamePtr->getValue();
+                            thisApp._appDescription = appDescrPtr->getValue();
+                            if (thisApp._found)
+                            {
+                                _result.push_back(thisApp);
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((nullptr != foundPtr) && (nullptr != launcherNamePtr) && (nullptr != appNamePtr) && " //####
+                                    "(nullptr != appDescrPtr))"); //####
+                            okSoFar = false;
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (3 < infoArray->size())"); //####
+                        okSoFar = false;
+                    }
+                }
+            }
         }
     }
     else
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ReloadAppListResponseHandler::doIt
+} // nImO::GetInformationForAllApplicationsResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

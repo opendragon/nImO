@@ -37,8 +37,11 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOmap.h>
 #include <Contexts/nImOutilityContext.h>
 #include <nImOchannelName.h>
+#include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
@@ -171,15 +174,232 @@ helpForList
     }
 } // helpForList
 
+/*! @brief Output the known applications.
+ @param[in] proxy The connection to the Registry.
+ @param[in] options The options to apply.
+ @param[in] shouldSanitize @c true if strings should be sanitized.
+ @param[in] thePlacement Where the output is in a sequence.
+ @return @c true if no errors encountered or @c false if there was a problem. */
+static bool
+listApplications
+    (nImO::RegistryProxy &      proxy,
+     nImO::StandardOptions &    options,
+     const bool                 shouldSanitize,
+     const Placement            thePlacement = Placement::kSolitary)
+{
+    bool    okSoFar{true};
+    auto    statusWithAllApplications{proxy.getInformationForAllApplications()};
+
+    if (statusWithAllApplications.first.first)
+    {
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+        {
+            switch (thePlacement)
+            {
+                case Placement::kSolitary :
+                case Placement::kFirst :
+                    std::cout << "{ ";
+                    break;
+
+                default :
+                    break;
+
+            }
+            std::cout << CHAR_DOUBLEQUOTE_ "applications" CHAR_DOUBLEQUOTE_ ":";
+        }
+        else
+        {
+            std::cout << "Applications:\n";
+        }
+        nImO::ApplicationInfoVector &   applications{statusWithAllApplications.second};
+
+        if (applications.empty())
+        {
+            switch (options._flavour)
+            {
+                case nImO::OutputFlavour::kFlavourNormal :
+                    std::cout << "\t** No applications **\n";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourJSON :
+                    std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourTabs :
+                    std::cout << "** No applications **\n";
+                    break;
+
+                default :
+                    break;
+
+            }
+        }
+        else
+        {
+            auto        applicationMap{std::make_shared<nImO::Map>()};
+            auto        applicationSubMap{std::make_shared<nImO::Map>()};
+            auto        deescriptionKey{std::make_shared<nImO::String>(nImO::kDescriptionKey)};
+            auto        nameKey{std::make_shared<nImO::String>(nImO::kPathKey)};
+            std::string nodeName{};
+
+            for (auto walker(applications.begin()); walker != applications.end(); ++walker)
+            {
+                auto    theInfo{*walker};
+
+                if (theInfo._found)
+                {
+                    if (theInfo._launcherName != nodeName)
+                    {
+                        if (! nodeName.empty())
+                        {
+                            applicationMap->addValue(std::make_shared<nImO::String>(nodeName), applicationSubMap);
+                            applicationSubMap.reset();
+                        }
+                        nodeName = theInfo._launcherName;
+                    }
+                    applicationSubMap->addValue(std::make_shared<nImO::String>(theInfo._appName),
+                                                std::make_shared<nImO::String>(theInfo._appDescription));
+                }
+            }
+            if (! applicationSubMap->empty())
+            {
+                applicationMap->addValue(std::make_shared<nImO::String>(nodeName), applicationSubMap);
+                applicationSubMap.reset();
+            }
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << " [ ";
+            }
+            for (auto walker(applicationMap->begin()); walker != applicationMap->end(); )
+            {
+                auto    launcherName{nImO::SanitizeString(walker->first->asString()->getValue(), shouldSanitize)};
+                auto    appSubMap{walker->second->asMap()};
+
+                switch (options._flavour)
+                {
+                    case nImO::OutputFlavour::kFlavourNormal :
+                        std::cout << "\t" << launcherName << "\n";
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourJSON :
+                        std::cout << "{ " << CHAR_DOUBLEQUOTE_ "launcher" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ <<
+                                    launcherName << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "applications" CHAR_DOUBLEQUOTE_ ": ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                if (appSubMap->empty())
+                {
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                    {
+                        std::cout << "[ ]";
+                    }
+                }
+                else
+                {
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                    {
+                        std::cout << "[\n";
+                    }
+                    for (auto subWalker(appSubMap->begin()); subWalker != appSubMap->end(); )
+                    {
+                        auto    appName{nImO::SanitizeString(subWalker->first->asString()->getValue(), shouldSanitize)};
+                        auto    appDescr{nImO::SanitizeString(subWalker->second->asString()->getValue(), shouldSanitize)};
+
+                        switch (options._flavour)
+                        {
+                            case nImO::OutputFlavour::kFlavourNormal :
+                                std::cout << "\t\t" << appName << "\t" << appDescr;
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourJSON :
+                                std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ << appName <<
+                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ ": " <<
+                                            CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " }";
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourTabs :
+                                std::cout << launcherName << "\t" << appName << "\t" << appDescr;
+                                break;
+
+                            default :
+                                break;
+
+                        }
+                        ++subWalker;
+                        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                        {
+                            if (appSubMap->end() != subWalker)
+                            {
+                                std::cout << ",\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "\n";
+                        }
+                    }
+                    if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                    {
+                        std::cout << " ]";
+                    }
+                }
+                ++walker;
+                if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+                {
+                    if (applicationMap->end() != walker)
+                    {
+                        std::cout << ",\n";
+                    }
+                }
+            }
+            if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+            {
+                std::cout << " ]";
+            }
+        }
+        if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
+        {
+            switch (thePlacement)
+            {
+                case Placement::kSolitary :
+                case Placement::kLast :
+                    std::cout << " }";
+                    break;
+
+                case Placement::kMiddle :
+                case Placement::kFirst :
+                    std::cout << ",";
+                    break;
+
+                default :
+                    break;
+
+            }
+            std::cout << "\n";
+        }
+    }
+    else
+    {
+        std::cerr << "Problem with 'getInformationForAllApplications': " << statusWithAllApplications.first.second << "\n";
+        okSoFar = false;
+    }
+    return okSoFar;
+} // listApplications
+
 /*! @brief Output the known channels.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
+ @param[in] shouldSanitize @c true if strings should be sanitized.
  @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listChannels
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
+     const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
@@ -200,7 +420,7 @@ listChannels
                     break;
 
             }
-            std::cout << CHAR_DOUBLEQUOTE_ "channels" CHAR_DOUBLEQUOTE_ ": ";
+            std::cout << CHAR_DOUBLEQUOTE_ "channels" CHAR_DOUBLEQUOTE_ ":";
         }
         else
         {
@@ -217,7 +437,7 @@ listChannels
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
-                    std::cout << "\t[ ]";
+                    std::cout << " [ ]";
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -233,17 +453,17 @@ listChannels
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "\t[ ";
+                std::cout << " [ ";
             }
-            for (auto walker = channels.begin(); walker != channels.end(); )
+            for (auto walker(channels.begin()); walker != channels.end(); )
             {
                 auto    theInfo{*walker};
 
                 if (theInfo._found)
                 {
-                    auto        node{nImO::SanitizeString(theInfo._node, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        path{nImO::SanitizeString(theInfo._path, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        node{nImO::SanitizeString(theInfo._node, shouldSanitize)};
+                    auto        path{nImO::SanitizeString(theInfo._path, shouldSanitize)};
+                    auto        dataType{nImO::SanitizeString(theInfo._dataType, shouldSanitize)};
                     std::string modes;
 
                     switch (theInfo._modes)
@@ -360,12 +580,14 @@ listChannels
 /*! @brief Output the known connections.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
+ @param[in] shouldSanitize @c true if strings should be sanitized.
  @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listConnections
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
+     const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
@@ -386,7 +608,7 @@ listConnections
                     break;
 
             }
-            std::cout << CHAR_DOUBLEQUOTE_ "connections" CHAR_DOUBLEQUOTE_ ": ";
+            std::cout << CHAR_DOUBLEQUOTE_ "connections" CHAR_DOUBLEQUOTE_ ":";
         }
         else
         {
@@ -403,7 +625,7 @@ listConnections
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
-                    std::cout << "\t[ ]";
+                    std::cout << " [ ]";
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -419,19 +641,19 @@ listConnections
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "[ ";
+                std::cout << " [ ";
             }
-            for (auto walker = connections.begin(); walker != connections.end(); )
+            for (auto walker(connections.begin()); walker != connections.end(); )
             {
                 auto    theInfo{*walker};
 
                 if (theInfo._found)
                 {
-                    auto        fromNode{nImO::SanitizeString(theInfo._fromNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        fromPath{nImO::SanitizeString(theInfo._fromPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        toNode{nImO::SanitizeString(theInfo._toNode, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        toPath{nImO::SanitizeString(theInfo._toPath, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
-                    auto        dataType{nImO::SanitizeString(theInfo._dataType, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto        fromNode{nImO::SanitizeString(theInfo._fromNode, shouldSanitize)};
+                    auto        fromPath{nImO::SanitizeString(theInfo._fromPath, shouldSanitize)};
+                    auto        toNode{nImO::SanitizeString(theInfo._toNode, shouldSanitize)};
+                    auto        toPath{nImO::SanitizeString(theInfo._toPath, shouldSanitize)};
+                    auto        dataType{nImO::SanitizeString(theInfo._dataType, shouldSanitize)};
                     std::string mode;
 
                     switch (theInfo._mode)
@@ -548,12 +770,14 @@ listConnections
 /*! @brief Output the known machines.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
+ @param[in] shouldSanitize @c true if strings should be sanitized.
  @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listMachines
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
+     const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
@@ -574,7 +798,7 @@ listMachines
                     break;
 
             }
-            std::cout << CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ ": ";
+            std::cout << CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ ":";
         }
         else
         {
@@ -591,7 +815,7 @@ listMachines
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
-                    std::cout << "\t[ ]";
+                    std::cout << " [ ]";
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -607,15 +831,15 @@ listMachines
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "\t[ ";
+                std::cout << " [ ";
             }
-            for (auto walker = machines.begin(); walker != machines.end(); )
+            for (auto walker(machines.begin()); walker != machines.end(); )
             {
                 auto    theInfo{*walker};
 
                 if (theInfo._found)
                 {
-                    auto                machineName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto                machineName{nImO::SanitizeString(theInfo._name, shouldSanitize)};
                     BAIP::address_v4    address{theInfo._address};
 
                     switch (options._flavour)
@@ -728,12 +952,14 @@ mapServiceTypeToString
 /*! @brief Output the known nodes.
  @param[in] proxy The connection to the Registry.
  @param[in] options The options to apply.
+ @param[in] shouldSanitize @c true if strings should be sanitized.
  @param[in] thePlacement Where the output is in a sequence.
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listNodes
     (nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
+     const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
@@ -756,7 +982,7 @@ listNodes
                     break;
 
             }
-            std::cout << CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ ": ";
+            std::cout << CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ ":";
         }
         else
         {
@@ -771,7 +997,7 @@ listNodes
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
-                    std::cout << "\t[ ]";
+                    std::cout << " [ ]";
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -787,15 +1013,15 @@ listNodes
         {
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
-                std::cout << "\t[ ";
+                std::cout << " [ ";
             }
-            for (auto walker = nodes.begin(); walker != nodes.end(); )
+            for (auto walker(nodes.begin()); walker != nodes.end(); )
             {
                 auto    theInfo{*walker};
 
                 if (theInfo._found)
                 {
-                    auto                nodeName{nImO::SanitizeString(theInfo._name, nImO::OutputFlavour::kFlavourJSON == options._flavour)};
+                    auto                nodeName{nImO::SanitizeString(theInfo._name, shouldSanitize)};
                     auto                serviceType{mapServiceTypeToString(theInfo._serviceType)};
                     BAIP::address_v4    address{theInfo._connection._address};
 
@@ -969,6 +1195,7 @@ main
             {
                 auto    choice{firstArg.getCurrentValue()};
                 auto    match{lChoiceMap.find(choice)};
+                bool    shouldSanitize{nImO::OutputFlavour::kFlavourJSON == optionValues._flavour};
 
                 if (match != lChoiceMap.end())
                 {
@@ -977,41 +1204,46 @@ main
                     switch (match->second._choice)
                     {
                         case Choice::kApps :
-std::cerr << "** Unimplemented **\n";
-                            // TBD
+                            if (! listApplications(proxy, optionValues, shouldSanitize))
+                            {
+                                exitCode = 1;
+                            }
                             break;
 
                         case Choice::kChan :
-                            if (! listChannels(proxy, optionValues))
+                            if (! listChannels(proxy, optionValues, shouldSanitize))
                             {
                                 exitCode = 1;
                             }
                             break;
 
                         case Choice::kConn :
-                            if (! listConnections(proxy, optionValues))
+                            if (! listConnections(proxy, optionValues, shouldSanitize))
                             {
                                 exitCode = 1;
                             }
                             break;
 
                         case Choice::kMach :
-                            if (! listMachines(proxy, optionValues))
+                            if (! listMachines(proxy, optionValues, shouldSanitize))
                             {
                                 exitCode = 1;
                             }
                             break;
 
                         case Choice::kNode :
-                            if (! listNodes(proxy, optionValues))
+                            if (! listNodes(proxy, optionValues, shouldSanitize))
                             {
                                 exitCode = 1;
                             }
                             break;
 
                         case Choice::kAll :
-                            if (! (listMachines(proxy, optionValues, Placement::kFirst) && listNodes(proxy, optionValues, Placement::kMiddle) &&
-                                listChannels(proxy, optionValues, Placement::kMiddle) && listConnections(proxy, optionValues, Placement::kLast)))
+                            if (! (listMachines(proxy, optionValues, shouldSanitize, Placement::kFirst) &&
+                                   listNodes(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
+                                   listApplications(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
+                                   listChannels(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
+                                   listConnections(proxy, optionValues, shouldSanitize, Placement::kLast)))
                             {
                                 exitCode = 1;
                             }

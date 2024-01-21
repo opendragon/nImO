@@ -88,7 +88,7 @@ nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
         inherited{owner, theRegistry}, _statusConnection{statusConnection}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::RemoveChannelsForNodeCommandHandler::RemoveChannelsForNodeCommandHandler
 

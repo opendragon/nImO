@@ -75,8 +75,7 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
+            /*! @brief The constructor. */
             GetMachineInformationResponseHandler
                 (void);
 
@@ -90,7 +89,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            MachineInfo
+            inline const MachineInfo &
             result
                 (void)
                 const

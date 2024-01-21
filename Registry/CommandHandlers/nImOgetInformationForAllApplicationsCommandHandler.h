@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOgetListOfAppsCommandHandler.h
+//  File:       nImO/Registry/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.h
 //
 //  Project:    nImO
 //
@@ -36,10 +36,12 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetListOfAppsCommandHandler_H_))
-# define nImOgetListOfAppsCommandHandler_H_ /* Header guard */
+#if (! defined(nImOgetInformationForAllApplicationsCommandHandler_H_))
+# define nImOgetInformationForAllApplicationsCommandHandler_H_ /* Header guard */
 
-# include <Launcher/CommandHandlers/nImOlauncherCommandHandler.h>
+# include "nImOregistryCommandHandler.h"
+
+# include "../nImOregistry.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -55,7 +57,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a handler for the get list of apps command. */
-    class GetListOfAppsCommandHandler final : public LauncherCommandHandler
+    class GetInformationForAllApplicationsCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -68,15 +70,17 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = LauncherCommandHandler;
+            using inherited = RegistryCommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] owner The owning Context. */
-            GetListOfAppsCommandHandler
-                (SpLauncherContext  owner);
+             @param[in] owner The owning Context.
+             @param[in] theRegistry The Registry to use when processing a request. */
+            GetInformationForAllApplicationsCommandHandler
+                (SpServiceContext   owner,
+                 SpRegistry         theRegistry);
 
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
@@ -104,8 +108,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // GetListOfAppsCommandHandler
+    }; // GetInformationForAllApplicationsCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetListOfAppsCommandHandler_H_)
+#endif // not defined(nImOgetInformationForAllApplicationsCommandHandler_H_)

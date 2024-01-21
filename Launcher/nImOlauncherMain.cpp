@@ -363,22 +363,54 @@ main
                         {
                             if (statusWithBool.second)
                             {
-std::cerr << "** Unimplemented **\n";
+std::cerr << "** Not fully implemented **\n";
                                 // Load the app list file and exit if not properly structured.
                                 if (loadApplicationInformation(firstArg.getCurrentValue()))
                                 {
-std::cerr << *lAppListValues << std::endl;//!!
-                                    //TBD: Send the app list map to the Registry
-                                    ourContext->report("waiting for requests."s);
-                                    std::cerr << "ready.\n";
-                                    for ( ; nImO::gKeepRunning; )
+                                    statusWithBool = proxy.clearAppListForLauncher(nodeName);
+                                    if (statusWithBool.first.first)
                                     {
-                                        boost::this_thread::yield();
+                                        for (auto & walker : *lAppListValues->asMap())
+                                        {
+                                            auto    keyValue{walker.first->asString()};
+                                            auto    readSubMap{walker.second->asMap()};
+                                            auto    descriptionIterator{readSubMap->find(std::make_shared<nImO::String>(nImO::kDescriptionKey))};
+                                            auto    descriptionValue{descriptionIterator->second->asString()};
+
+                                            statusWithBool = proxy.addAppToList(nodeName, keyValue->getValue(), descriptionValue->getValue());
+                                            if (! statusWithBool.first.first)
+                                            {
+                                                std::cerr << "Problem with 'addAppToList': " << statusWithBool.first.second << "\n";
+                                                exitCode = 1;
+                                                break;
+                                                
+                                            }
+                                        }
+                                        if (0 == exitCode)
+                                        {
+                                            ourContext->report("waiting for requests."s);
+                                            std::cerr << "ready.\n";
+                                            for ( ; nImO::gKeepRunning; )
+                                            {
+                                                boost::this_thread::yield();
+                                            }
+                                            std::cerr << "done.\n";
+                                        }
                                     }
-                                    std::cerr << "done.\n";
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
+                                    }
                                     if (! nImO::gPendingStop)
                                     {
                                         nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                        statusWithBool = proxy.clearAppListForLauncher(nodeName);
+                                        if (! statusWithBool.first.first)
+                                        {
+                                            std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                            exitCode = 1;
+                                        }
                                         statusWithBool = proxy.removeNode(nodeName);
                                         if (statusWithBool.first.first)
                                         {

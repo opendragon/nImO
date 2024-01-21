@@ -57,6 +57,12 @@ namespace nImO
 
     // Status reports
 
+    /*! @brief The prefix for an application added status report. */
+    const std::string   kApplicationAddedStatus{"a+"s};
+
+    /*! @brief The prefix for an application list cleared for Launcher status report. */
+    const std::string   kAppListClearedStatus{"a!"s};
+
     /*! @brief The prefix for a channel added status report. */
     const std::string   kChannelAddedStatus{"c+"s};
 
@@ -80,6 +86,12 @@ namespace nImO
 
     // Requests and responses
 
+    /*! @brief The request to add an application entry to the Registry. */
+    const std::string   kAddAppToListRequest{"addAppToList!"s};
+
+    /*! @brief The 'addAppToList' response. */
+    const std::string   kAddAppToListResponse{"addAppToList="s};
+
     /*! @brief The request to add a channel to the Registry. */
     const std::string   kAddChannelRequest{"addChannel!"s};
 
@@ -97,6 +109,12 @@ namespace nImO
 
     /*! @brief The 'addNode' response. */
     const std::string   kAddNodeResponse{"addNode="s};
+
+    /*! @brief The request to reset the application list for a Launcher from the Registry. */
+    const std::string   kClearAppListForLauncherRequest{"clearAppListForLauncher!"s};
+
+    /*! @brief The 'clearAppListForLauncher' response. */
+    const std::string   kClearAppListForLauncherResponse{"clearAppListForLauncher="s};
 
     /*! @brief The request to reset the connection status on a channel from the Registry. */
     const std::string   kClearChannelInUseRequest{"clearChannelInUse!"s};
@@ -136,6 +154,12 @@ namespace nImO
 
     /*! @brief The request to get information on all channels in the Registry. */
     const std::string   kGetInformationForAllChannelsRequest{"getInformationForAllChannels?"s};
+
+    /*! @brief The 'getInformationForAllApplications' request. */
+    const std::string   kGetInformationForAllApplicationsRequest{"getInformationForAllApplications?"s};
+
+    /*! @brief The 'getInformationForAllApplications' response. */
+    const std::string   kGetInformationForAllApplicationsResponse{"getInformationForAllApplications="s};
 
     /*! @brief The 'getInformationForAllChannels' response. */
     const std::string   kGetInformationForAllChannelsResponse{"getInformationForAllChannels="s};

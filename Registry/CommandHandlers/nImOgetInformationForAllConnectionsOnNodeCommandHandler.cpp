@@ -89,7 +89,7 @@ nImO::GetInformationForAllConnectionsOnNodeCommandHandler::GetInformationForAllC
         inherited{owner, theRegistry}
 {
     ODL_ENTER(); //####
-    ODL_P1("owner = ", owner.get()); //####
+    ODL_P2("owner = ", owner.get(), "theRegistry = ", theRegistry.get()); //####
     ODL_EXIT_P(this); //####
 } // nImO::GetInformationForAllConnectionsOnNodeCommandHandler::GetInformationForAllConnectionsOnNodeCommandHandler
 

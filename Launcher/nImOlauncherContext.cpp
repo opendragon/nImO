@@ -38,10 +38,8 @@
 
 #include <Launcher/nImOlauncherContext.h>
 
-#include <Launcher/CommandHandlers/nImOgetListOfAppsCommandHandler.h>
 #include <Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.h>
 #include <Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h>
-#include <Launcher/CommandHandlers/nImOreloadAppListCommandHandler.h>
 #include <nImOlauncherCommands.h>
 
 //#include <odlEnable.h>
@@ -126,39 +124,19 @@ nImO::AddLauncherHandlers
     if (nullptr != actualContext)
     {
         bool    goAhead{true};
-        auto    newHandler1{std::make_shared<GetListOfAppsCommandHandler>(context)};
+        auto    newHandler1{std::make_shared<GetRunParamsForAppCommandHandler>(context)};
 
         ODL_P1("newHandler1 <- ", newHandler1.get()); //####
-        if (! actualContext->addHandler(kGetListOfAppsRequest, newHandler1))
+        if (! actualContext->addHandler(kGetRunParamsForAppRequest, newHandler1))
         {
             goAhead = false;
         }
         if (goAhead)
         {
-            auto    newHandler2{std::make_shared<GetRunParamsForAppCommandHandler>(context)};
+            auto    newHandler2{std::make_shared<LaunchAppCommandHandler>(context)};
 
             ODL_P1("newHandler2 <- ", newHandler2.get()); //####
-            if (! actualContext->addHandler(kGetRunParamsForAppRequest, newHandler2))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler3{std::make_shared<LaunchAppCommandHandler>(context)};
-
-            ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! actualContext->addHandler(kLaunchAppRequest, newHandler3))
-            {
-                goAhead = false;
-            }
-        }
-        if (goAhead)
-        {
-            auto    newHandler4{std::make_shared<ReloadAppListCommandHandler>(context)};
-
-            ODL_P1("newHandler4 <- ", newHandler4.get()); //####
-            if (! actualContext->addHandler(kReloadAppListRequest, newHandler4))
+            if (! actualContext->addHandler(kLaunchAppRequest, newHandler2))
             {
                 goAhead = false;
             }

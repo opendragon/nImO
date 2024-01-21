@@ -95,6 +95,18 @@ namespace nImO
             ~Registry
                 (void);
 
+            /*! @brief Add an application to the Registry.
+             @param[in] nodeName The name of the Launcher managing the application.
+             @param[in] applicationName The name to display for the application.
+             @param[in] applicationDescription The description of the application.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            SuccessOrFailure
+            addAppToList
+                (const std::string &    nodeName,
+                 const std::string &    applicationName,
+                 const std::string &    applicationDescription)
+                const;
+
             /*! @brief Add a channel to the Registry.
              @param[in] nodeName The node for the channel to be added.
              @param[in] path The path for the channel.
@@ -157,6 +169,14 @@ namespace nImO
                  const Connection &     nodeConnection = Connection())
                 const;
 
+            /*! @brief Clear the applications recorded in the Registry for the specified Launcher.
+             @param[in] nodeName The name of the Launcher node to be updated.
+             @return @c true and an empty error message if the operation was successfully performed and @c false and an error string otherwise. */
+            SuccessOrFailure
+            clearAppListForLauncher
+                (const std::string &    nodeName)
+                const;
+
             /*! @brief Mark a channel is in the Registry as not in use.
              @param[in] nodeName The name of the node to be updated.
              @param[in] path The path of the channel to be updated.
@@ -208,6 +228,12 @@ namespace nImO
                  const std::string &    path,
                  const bool             fromIsSpecified)
                 const;
+
+            /*! @brief Get information on the available applications.
+             @return @c true and the list of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            ApplicationInfoVectorOrFailure
+            getInformationForAllApplications
+                (void);
 
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */

@@ -71,6 +71,21 @@
 /*! @brief A shortcut for the standard format for a 'Text' column. */
 #define TEXTNOTNULL_    "TEXT NOT NULL DEFAULT _"
 
+/*! @brief The name of the 'Applications' table. */
+#define APPLICATIONS_T_ "Applications"
+
+/*! @brief The named parameter for the 'launcherName' column of the 'Applications' table. */
+#define APPLICATIONS_LAUNCHER_NAME_C_ "launcherName"
+
+/*! @brief The named parameter for the 'appName' column of the 'Applications' table. */
+#define APPLICATIONS_APP_NAME_C_ "appName"
+
+/*! @brief The named parameter for the 'appDescription' column of the 'Applications' table. */
+#define APPLICATIONS_APP_DESCR_C_ "appDescription"
+
+/*! @brief The name of the index for the 'launcherName' and 'appName' columns of the 'Applications' table. */
+#define APPLICATIONS_I_ "Applications_idx"
+
 /*! @brief The name of the 'Machines' table. */
 #define MACHINES_T_ "Machines"
 
@@ -168,6 +183,32 @@
 using BindFunction = int (*)
    (Ptr(sqlite3_stmt)  statement,
     CPtr(void)         stuff);
+
+/*! @brief The data used to update the Applications table. */
+struct ApplicationInsertData
+{
+    /*! @brief The Launcher node for this application. */
+    std::string _launcherName;
+
+    /*! @brief The name for this application. */
+    std::string _appName;
+
+    /*! @brief The description for this application. */
+    std::string _appDescription;
+
+    /*! @brief The constructor.
+     @param[in] launcherName The name of the Launcher node for the application.
+     @param[in] appName The application name.
+     @param[in] appDescription The application description. */
+    inline ApplicationInsertData
+        (const std::string &    launcherName,
+         const std::string &    appName,
+         const std::string &    appDescription) :
+            _launcherName(launcherName), _appName(appName), _appDescription(appDescription)
+    {
+    }
+
+}; // ApplicationInsertData
 
 /*! @brief The data used to update the Channels table. */
 struct ChannelInsertData
@@ -846,7 +887,12 @@ createTables
                         CHANNELS_T_ " (" CHANNEL_NODE_C_ ", " CHANNEL_PATH_C_ "), PRIMARY KEY (" CONNECTION_FROM_NODE_C_ ", "
                         CONNECTION_FROM_PATH_C_ ", " CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ") ON CONFLICT ABORT)",
                 "CREATE INDEX IF NOT EXISTS " CONNECTIONS_I_ " ON " CONNECTIONS_T_ " (" CONNECTION_FROM_NODE_C_ ", " CONNECTION_FROM_PATH_C_ ", "
-                            CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")"
+                            CONNECTION_TO_NODE_C_ ", " CONNECTION_TO_PATH_C_ ")",
+                "CREATE TABLE IF NOT EXISTS " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_NAME_C_ " " TEXTNOTNULL_ " " NOCASE_ ", " APPLICATIONS_APP_DESCR_C_ " " TEXTNOTNULL_ " " BINARY_
+                    ", FOREIGN KEY (" APPLICATIONS_LAUNCHER_NAME_C_ ") REFERENCES " NODES_T_ " (" NODE_NAME_C_ "), PRIMARY KEY ("
+                    APPLICATIONS_LAUNCHER_NAME_C_ ", " APPLICATIONS_APP_NAME_C_ ") ON CONFLICT ABORT)",
+                "CREATE INDEX IF NOT EXISTS " APPLICATIONS_I_ " ON " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ ", "
+                    APPLICATIONS_APP_NAME_C_ ")"
             };
             constexpr size_t    numTables{numElementsInArray(tableSQL)};
 
@@ -924,6 +970,60 @@ setupCountChannels
     ODL_EXIT_I(result);
     return result;
 } // setupCountChannels
+
+/*! @brief Bind the values that are to be inserted into the Channels table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupInsertIntoApplications
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int launcherNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+        int appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
+        int appDescrIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_DESCR_C_)};
+
+        if ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appDescrIndex))
+        {
+            auto    appData{StaticCast(CPtr(ApplicationInsertData), stuff)};
+            auto    launcherName{appData->_launcherName};
+            auto    appName{appData->_appName};
+            auto    appDescr{appData->_appDescription};
+
+            result = sqlite3_bind_text(statement, launcherNameIndex, launcherName.c_str(), StaticCast(int, launcherName.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, appNameIndex, appName.c_str(), StaticCast(int, appName.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK == result)
+            {
+                result = sqlite3_bind_text(statement, appDescrIndex, appDescr.c_str(), StaticCast(int, appDescr.length()), SQLITE_TRANSIENT);
+            }
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! ((0 < launcherNameIndex) && (0 < appNameIndex) && (0 < appDescrIndex))"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupInsertIntoApplications
 
 /*! @brief Bind the values that are to be inserted into the Channels table.
  @param[in] statement The prepared statement that is to be updated.
@@ -1545,6 +1645,31 @@ setupSearchNodes
     return result;
 } // setupSearchNodes
 
+/*! @brief Extract the fields for the application information from the strings retrieved from the table.
+ @param[out] info The data corresponding to the retrieved strings.
+ @param[in] values The retrieved strings. */
+static void
+extractApplicationInfoFromVector
+    (nImO::ApplicationInfo &        info,
+     const nImO::StdStringVector &  values)
+{
+    ODL_ENTER(); //####
+    ODL_P1("info = ", &info); //####
+    if (2 < values.size())
+    {
+        info._found = true;
+        info._launcherName = values[0];
+        info._appName = values[1];
+        info._appDescription = values[2];
+    }
+    else
+    {
+        info._found = false;
+        ODL_LOG("! (2 < values.size())"); //####
+    }
+    ODL_EXIT(); //####
+} // extractApplicationInfoFromVector
+
 /*! @brief Extract the fields for the channel information from the strings retrieved from the table.
  @param[out] info The data corresponding to the retrieved strings.
  @param[in] values The retrieved strings. */
@@ -1703,6 +1828,71 @@ nImO::Registry::~Registry
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
+
+nImO::SuccessOrFailure
+nImO::Registry::addAppToList
+    (const std::string &    nodeName,
+     const std::string &    applicationName,
+     const std::string &    applicationDescription)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S3s("nodeName = ", nodeName, "applicationName = ", applicationName, "applicationDescription = ", applicationDescription); //####
+    SuccessOrFailure    status;
+
+    if (ChannelName::validNode(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))
+    {
+        auto    statusWithNodeInfo{getNodeInformation(nodeName)};
+
+        if (statusWithNodeInfo.first.first)
+        {
+            if (statusWithNodeInfo.second._found)
+            {
+                if (ServiceType::LauncherService == statusWithNodeInfo.second._serviceType)
+                {
+                    status = doBeginTransaction(_owner, _dbHandle);
+                    if (status.first)
+                    {
+                        ApplicationInsertData   data{nodeName, applicationName, applicationDescription};
+                        static CPtr(char)       insertIntoApplications{"INSERT INTO " APPLICATIONS_T_ " (" APPLICATIONS_LAUNCHER_NAME_C_ ", "
+                                                                        APPLICATIONS_APP_NAME_C_ ", " APPLICATIONS_APP_DESCR_C_ ") VALUES (@"
+                                                                        APPLICATIONS_LAUNCHER_NAME_C_ ", @" APPLICATIONS_APP_NAME_C_ ", @"
+                                                                        APPLICATIONS_APP_DESCR_C_ ")"};
+
+                        status = performSQLstatementWithNoResults(_owner, _dbHandle, insertIntoApplications, setupInsertIntoApplications, &data);
+                        doEndTransaction(_owner, _dbHandle, status.first);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (ServiceType::LauncherService == statusWithNodeInfo.second._serviceType)"); //####
+                    status = SuccessOrFailure(false, "Only Launcher services can add applications"s);
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithNodeInfo.second._found)"); //####
+                status = SuccessOrFailure(false, "Unknown node name"s);
+            }
+        }
+        else
+        {
+            ODL_LOG("! (statusWithNodeInfo.first.first)"); //####
+            status = SuccessOrFailure(false, "Problem with 'getNodeInformation': "s + statusWithNodeInfo.first.second);
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validName(nodeName) && (! applicationName.empty()) && (! applicationDescription.empty()))"); //####
+        status = SuccessOrFailure(false, "Invalid node name or empty application name or description"s);
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::addAppToList
 
 nImO::SuccessOrFailure
 nImO::Registry::addChannel
@@ -1905,6 +2095,39 @@ nImO::Registry::addNode
     ODL_OBJEXIT(); //####
     return status;
 } // nImO::Registry::addNode
+
+nImO::SuccessOrFailure
+nImO::Registry::clearAppListForLauncher
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    SuccessOrFailure    status;
+
+    if (ChannelName::validNode(nodeName))
+    {
+        status = doBeginTransaction(_owner, _dbHandle);
+        if (status.first)
+        {
+            static CPtr(char)   searchNodes{"DELETE FROM " APPLICATIONS_T_ " WHERE " APPLICATIONS_LAUNCHER_NAME_C_ " = @" NODE_NAME_C_};
+
+            status = performSQLstatementWithNoResults(_owner, _dbHandle, searchNodes, setupSearchNodes, &nodeName);
+            doEndTransaction(_owner, _dbHandle, status.first);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+    }
+    else
+    {
+        ODL_LOG("! (ChannelName::validNode(nodeName))"); //####
+        status = SuccessOrFailure(false, "Invalid node name"s);
+    }
+    ODL_OBJEXIT(); //####
+    return status;
+} // nImO::Registry::clearAppListForLauncher
 
 nImO::SuccessOrFailure
 nImO::Registry::clearChannelInUse
@@ -2235,6 +2458,49 @@ nImO::Registry::getConnectionInformation
     ODL_OBJEXIT(); //####
     return ConnectionInfoOrFailure{status, connectionData};
 } // nImO::Registry::getConnectionInformation
+
+nImO::ApplicationInfoVectorOrFailure
+nImO::Registry::getInformationForAllApplications
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto                    status{doBeginTransaction(_owner, _dbHandle)};
+    ApplicationInfoVector   applicationData;
+
+    if (status.first)
+    {
+        StdStringVectorVector   results;
+        static CPtr(char)       searchApplications{"SELECT DISTINCT " APPLICATIONS_LAUNCHER_NAME_C_ "," APPLICATIONS_APP_NAME_C_ ","
+                                                    APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_ " ORDER BY " APPLICATIONS_LAUNCHER_NAME_C_ ","
+                                                    APPLICATIONS_APP_NAME_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchApplications);
+        if (status.first)
+        {
+            ApplicationInfo info;
+
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                extractApplicationInfoFromVector(info, results[ii]);
+                if (info._found)
+                {
+                    applicationData.push_back(info);
+                }
+                else
+                {
+                    ODL_LOG("! (info._found)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return ApplicationInfoVectorOrFailure{status, applicationData};
+} // nImO::Registry::getInformationForAllApplications
 
 nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannels

@@ -74,6 +74,29 @@ namespace nImO
         OutputService
     }; // ServiceType
 
+    /*! @brief The data found in the Registry for an application. */
+    struct ApplicationInfo final
+    {
+        /*! @brief @c true if the data is valid. */
+        bool    _found{false};
+
+        /*! @brief The Launcher node name for the application.*/
+        std::string _launcherName{};
+
+        /*! @brief The name of the application. */
+        std::string _appName{};
+
+        /*! @brief The description of the application. */
+        std::string _appDescription{};
+
+        /*! @brief The constructor. */
+        inline ApplicationInfo
+            (void)
+        {
+        }
+
+    }; // ApplicationInfo
+
     /*! @brief The data found in the Registry for a channel. */
     struct ChannelInfo final
     {
@@ -204,6 +227,9 @@ namespace nImO
 
     }; // NodeInfo
 
+    /*! @brief Contains a sequence of ApplicationInfo values. */
+    using ApplicationInfoVector = std::vector<ApplicationInfo>;
+
     /*! @brief Contains a sequence of ChannelInfo values. */
     using ChannelInfoVector = std::vector<ChannelInfo>;
 
@@ -215,6 +241,9 @@ namespace nImO
 
     /*! @brief Contains a sequence of NodeInfo values. */
     using NodeInfoVector = std::vector<NodeInfo>;
+
+    /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
+    using ApplicationInfoVectorOrFailure = std::pair<SuccessOrFailure, ApplicationInfoVector>;
 
     /*! @brief Contains @c true and the result if there was no problem and @c false along with an error message if there was a problem. */
     using ChannelInfoOrFailure = std::pair<SuccessOrFailure, ChannelInfo>;

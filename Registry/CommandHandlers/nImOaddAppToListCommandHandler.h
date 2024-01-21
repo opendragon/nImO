@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetListOfAppsResponseHandler.h
+//  File:       nImO/Registry/CommandHandlers/nImOaddAppToListCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
+//  Contains:   The class declaration for the nImO 'add app to list' command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,16 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-16
+//  Created:    2024-01-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetListOfAppsResponseHandler_H_))
-# define nImOgetListOfAppsResponseHandler_H_ /* Header guard */
+#if (! defined(nImOaddAppToListCommandHandler_H_))
+# define nImOaddAppToListCommandHandler_H_ /* Header guard */
 
-# include <ResponseHandlers/nImOresponseHandler.h>
+# include "nImOregistryCommandHandler.h"
+
+# include "../nImOregistry.h"
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +49,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a functor used with the %nImO request/response mechanism. */
+ @brief The class declaration for the %nImO 'add app to list' command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class GetListOfAppsResponseHandler final : public ResponseHandler
+    /*! @brief A class to provide a handler for the 'add app to list' command. */
+    class AddAppToListCommandHandler final : public RegistryCommandHandler
     {
 
         public :
@@ -68,33 +70,30 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = nImO::ResponseHandler;
+            using inherited = RegistryCommandHandler;
 
         public :
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] responseKey The expected response key. */
-            GetListOfAppsResponseHandler
-                (void);
+             @param[in] owner The owning Context.
+             @param[in] theRegistry The Registry to use when processing a request.
+             @param[in] statusConnection Where to report status changes. */
+            AddAppToListCommandHandler
+                (SpServiceContext   owner,
+                 SpRegistry         theRegistry,
+                 const Connection & statusConnection);
 
-            /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response.
-             @return @c true if the response was correctly structured. */
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
             bool
             doIt
-                (const Array &  stuff)
-                override;
-
-            /*! @brief Return the received value.
-             @return The received value. */
-            inline bool
-            result
-                (void)
+                (BTCP::socket & socket,
+                 const Array &  arguments)
                 const
-            {
-                return _result;
-            }
+                override;
 
         protected :
             // Protected methods.
@@ -111,11 +110,11 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The received value. */
-            bool    _result{false};
+            /*! @brief The multicast connection used for status reports. */
+            Connection  _statusConnection{};
 
-    }; // GetListOfAppsResponseHandler
+    }; // AddAppToListCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetListOfAppsResponseHandler_H_)
+#endif // not defined(nImOaddAppToListCommandHandler_H_)

@@ -17,6 +17,8 @@
 	CREATE INDEX IF NOT EXISTS Channels_idx ON Channels (node, path);\
 	CREATE TABLE IF NOT EXISTS Connections (fromNode TEXT NOT NULL DEFAULT _ COLLATE NOCASE, fromPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, toNode TEXT NOT NULL DEFAULT _ COLLATE NOCASE, toPath TEXT NOT NULL DEFAULT _ COLLATE BINARY, dataType TEXT DEFAULT _ COLLATE BINARY, mode INTEGER, FOREIGN KEY (fromNode, fromPath) REFERENCES Channels (node, path), FOREIGN KEY (toNode, toPath) REFERENCES Channels (node, path), PRIMARY KEY (fromNode, fromPath, toNode, toPath) ON CONFLICT ABORT);\
 	CREATE INDEX IF NOT EXISTS Connections_idx ON Connections (fromNode, fromPath, toNode, toPath);\
+	CREATE TABLE IF NOT EXISTS Applications (launcherName TEXT NOT NULL DEFAULT _ COLLATE NOCASE, appName TEXT NOT NULL DEFAULT _ COLLATE NOCASE, appDescription TEXT NOT NULL DEFAULT _ COLLATE BINARY, FOREIGN KEY (launcherName) REFERENCES Nodes (name), PRIMARY KEY (node, appName) ON CONFLICT ABORT);\
+	CREATE INDEX IF NOT EXISTS Applications_idx ON Applications (launcherName, appName);\
 \
 Insertions:\
 	insertIntoMachines = INSERT INTO Machines (name, address) VALUES (@name, @address);\
@@ -26,6 +28,8 @@ Insertions:\
 		VALUES (@node, @path, @isOutput, @dataType, @modes, @inUse);\
 	insertIntoConnections = INSERT INTO Connections (fromNode, fromPath, toNode, toPath, dataType, mode)\
 		VALUES (@fromNode, @fromPath, @toNode, @toPath, @dataType, @mode);\
+	insertIntoApplications = INSERT INTO Applications (launcherName, appName, appDescription)\
+		VALUES (@launcherNode, @appName, @appDescription);\
 \
 Searches:\
 	getInformationForAllMachines = SELECT name, address FROM Machines;\
@@ -46,6 +50,7 @@ Searches:\
 Updates:\
 	removeNode = DELETE FROM Nodes WHERE name = @name;\
 	setInUse = UPDATE Channels SET InUse = @value WHERE node = @node AND path = @path;\
+	removeApplications = DELETE FROM Applications WHERE launcherName = @name;\
 \
 Tests:\
 	INSERT INTO Machines (name, address) VALUES ("blort", 20000000);\

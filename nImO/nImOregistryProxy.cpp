@@ -238,7 +238,7 @@ nImO::RegistryProxy::addNode
     ODL_S1s("nodeName = ", nodeName); //####
     ODL_I2("argc = ", argc, "serviceType = ", StaticCast(int, serviceType)); //####
     ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
-    auto    execPath{boost::dll::program_location().string()};
+    auto    execPath{""s};//boost::dll::program_location().string()};
     auto    launchDirectory{boost::filesystem::current_path().string()};
     auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
     auto    argArray{std::make_shared<Array>()};

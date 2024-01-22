@@ -11754,7 +11754,7 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                auto    execPath{boost::dll::program_location().string()};
+                auto    execPath{""s};//boost::dll::program_location().string()};
                 auto    currentDir{boost::filesystem::current_path().string()};
                 auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
 

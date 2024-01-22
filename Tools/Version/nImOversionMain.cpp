@@ -40,6 +40,7 @@
 
 #include <boost/version.hpp>
 #include <regex>
+#include "sqlite3.h"
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -129,6 +130,7 @@ main
         std::string mdnsVersionString;
         std::string nImOversionString;
         std::string odlVersionString;
+        std::string sqlVersionString{SQLITE_VERSION};
 
         try
         {
@@ -139,7 +141,7 @@ main
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
                     std::cout << nImOversionString << "\t" << odlVersionString << "\t" << mdnsVersionString << "\t" <<
-                                getBoostVersion() << "\n";
+                                getBoostVersion() << "\t" << sqlVersionString << "\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourJSON :
@@ -152,16 +154,18 @@ main
                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                 mdnsVersionString << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "Boost"
                                                         CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                getBoostVersion() << CHAR_DOUBLEQUOTE_ " }\n";
+                                getBoostVersion() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "SQLite"
+                                                        CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                sqlVersionString << CHAR_DOUBLEQUOTE_ << " }\n";
                     break;
 
                 case nImO::OutputFlavour::kFlavourNormal :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);
                     odlVersionString = nImO::SanitizeString(ODL_VERSION_, true);
-                    std::cout << "nImO Version: " << nImOversionString << ", ODL Version: " <<
-                                odlVersionString << ", mdns_plusplus Version: " << mdnsVersionString <<
-                                ", Boost Version: " << getBoostVersion() << "\n";
+                    std::cout << "nImO version: " << nImOversionString << ", ODL version: " <<
+                                odlVersionString << ", mdns_plusplus version: " << mdnsVersionString <<
+                                ", Boost version: " << getBoostVersion() << ", SQLite version: " << sqlVersionString << "\n";
                     break;
 
                 default :

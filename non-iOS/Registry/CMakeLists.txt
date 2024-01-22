@@ -48,6 +48,8 @@ else()
     set(VERS_RESOURCE "")
 endif()
 
+find_package(SQLite3)
+
 include_directories("${nImO_SQLITE_DIR}")
 
 # Set up our program
@@ -101,7 +103,7 @@ add_executable(${THIS_TARGET}
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
 # processed once.
-target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES} ${SQLite3_LIBRARIES})
 
 fix_dynamic_libs(${THIS_TARGET})
 

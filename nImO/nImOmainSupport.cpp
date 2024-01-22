@@ -45,6 +45,7 @@
 #include <nImOrequestResponse.h>
 #include <ResponseHandlers/nImOstopReceiverResponseHandler.h>
 #include <ResponseHandlers/nImOstopSenderResponseHandler.h>
+#include "whereami.h"
 
 #include <string>
 
@@ -243,6 +244,27 @@ nImO::CloseConnection
     ODL_EXIT_B(result); //####
     return result;
 } // nImO::CloseConnection
+
+std::string
+nImO::GetPathToExecutable
+    (void)
+{
+    ODL_ENTER(); //####
+    std::string result{};
+    int         dirNameLength{0};
+    int         length{wai_getExecutablePath(nullptr, 0, &dirNameLength)};
+
+    if (0 < length)
+    {
+        auto    path{boost::scoped_array<char>(new char[length + 1])};
+
+        wai_getExecutablePath(path.get(), length, &dirNameLength);
+        path[length] = nImO::kEndOfString;
+        result = path.get();
+    }
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::GetPathToExecutable
 
 void
 nImO::SetSpecialBreakObject

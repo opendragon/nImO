@@ -80,6 +80,12 @@ namespace nImO
          const bool                 isFrom,
          bool &                     reported);
 
+    /* @brief Return the path to the executable.
+     @return The path to the executable. */
+    std::string
+    GetPathToExecutable
+        (void);
+
     /*! @brief Set the function object to be invoked when a system break signal is received.
      @param[in] sigHObject The function object to be invoked. */
     void

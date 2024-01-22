@@ -39,6 +39,7 @@
 #include "../Registry/nImOregistry.h"
 #include <Contexts/nImOserviceContext.h>
 #include <nImOchannelName.h>
+#include <nImOmainSupport.h>
 
 #include <string>
 
@@ -11754,7 +11755,7 @@ main
 
             if (ConvertToInt64(argv[1], selector) && (0 < selector))
             {
-                auto    execPath{""s};//boost::dll::program_location().string()};
+                auto    execPath{nImO::GetPathToExecutable()};
                 auto    currentDir{boost::filesystem::current_path().string()};
                 auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
 

@@ -44,6 +44,7 @@
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
 #include <Contexts/nImOcontextWithMDNS.h>
+#include <nImOmainSupport.h>
 #include <ResponseHandlers/nImOaddAppToListResponseHandler.h>
 #include <ResponseHandlers/nImOaddChannelResponseHandler.h>
 #include <ResponseHandlers/nImOaddConnectionResponseHandler.h>
@@ -86,7 +87,6 @@
 #include <ResponseHandlers/nImOsetChannelInUseResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
-#include "whereami.h"
 
 #include <string>
 
@@ -239,7 +239,7 @@ nImO::RegistryProxy::addNode
     ODL_S1s("nodeName = ", nodeName); //####
     ODL_I2("argc = ", argc, "serviceType = ", StaticCast(int, serviceType)); //####
     ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
-    auto    execPath{""s};//boost::dll::program_location().string()};
+    auto    execPath{nImO::GetPathToExecutable()};
     auto    launchDirectory{boost::filesystem::current_path().string()};
     auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
     auto    argArray{std::make_shared<Array>()};

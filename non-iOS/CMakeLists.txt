@@ -173,11 +173,11 @@ list(APPEND CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
 
 set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
 
- if(WIN32)
+if(WIN32)
     set(nImO_RUN_CONFIG_DIR_ "C:/nImO/")
- else()
+else()
     set(nImO_RUN_CONFIG_DIR_ "/etc/nImO/")
- endif()
+endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")
 configure_file(${nImO_CONFIG_DIR}/nImOConfigVersion.cmake.in

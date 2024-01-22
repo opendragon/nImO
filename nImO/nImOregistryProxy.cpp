@@ -86,6 +86,7 @@
 #include <ResponseHandlers/nImOsetChannelInUseResponseHandler.h>
 #include <nImOregistryCommands.h>
 #include <nImOrequestResponse.h>
+#include "whereami.h"
 
 #include <string>
 

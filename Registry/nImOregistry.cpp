@@ -930,7 +930,48 @@ sqlLogger
     }
 } // sqlLogger
 
-/*! @brief Bind the value that is to be searched for in the Machines table.
+/*! @brief Bind the value that is to be searched for in the Applications table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupCountApplications
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+
+        if (0 < nodeNameIndex)
+        {
+            auto    name{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, nodeNameIndex, name.c_str(), StaticCast(int, name.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < nodeNameIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupCountApplications
+
+/*! @brief Bind the value that is to be searched for in the Channels table.
  @param[in] statement The prepared statement that is to be updated.
  @param[in] stuff The source of data that is to be bound.
  @return The SQLite error from the bind operation. */
@@ -1290,6 +1331,47 @@ setupInsertIntoNodes
     ODL_EXIT_I(result);
     return result;
 } // setupInsertIntoNodes
+
+/*! @brief Bind the value that is to be searched for in the Applications table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchApplicationsNodeOnly
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int nodeNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_LAUNCHER_NAME_C_)};
+
+        if (0 < nodeNameIndex)
+        {
+            auto    node{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, nodeNameIndex, node.c_str(), StaticCast(int, node.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < nodeNameIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchApplicationsNodeOnly
 
 /*! @brief Bind the values that are to be searched for in the Channels table.
  @param[in] statement The prepared statement that is to be updated.
@@ -2462,6 +2544,7 @@ nImO::Registry::getConnectionInformation
 nImO::ApplicationInfoVectorOrFailure
 nImO::Registry::getInformationForAllApplications
     (void)
+    const
 {
     ODL_OBJENTER(); //####
     auto                    status{doBeginTransaction(_owner, _dbHandle)};
@@ -2501,6 +2584,51 @@ nImO::Registry::getInformationForAllApplications
     ODL_OBJEXIT(); //####
     return ApplicationInfoVectorOrFailure{status, applicationData};
 } // nImO::Registry::getInformationForAllApplications
+
+nImO::ApplicationInfoVectorOrFailure
+nImO::Registry::getInformationForAllApplicationsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    auto                    status{doBeginTransaction(_owner, _dbHandle)};
+    ApplicationInfoVector   applicationData;
+
+    if (status.first)
+    {
+        StdStringVectorVector   results;
+        static CPtr(char)       searchApplications{"SELECT DISTINCT " APPLICATIONS_LAUNCHER_NAME_C_ "," APPLICATIONS_APP_NAME_C_ ","
+                                                    APPLICATIONS_APP_DESCR_C_ " FROM " APPLICATIONS_T_ " WHERE " APPLICATIONS_LAUNCHER_NAME_C_
+                                                    " = @" APPLICATIONS_LAUNCHER_NAME_C_" ORDER BY " APPLICATIONS_APP_NAME_C_};
+
+        status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchApplications, setupSearchApplicationsNodeOnly,
+                                                              &nodeName);
+        if (status.first)
+        {
+            ApplicationInfo info;
+
+            for (size_t ii = 0; ii < results.size(); ++ii)
+            {
+                extractApplicationInfoFromVector(info, results[ii]);
+                if (info._found)
+                {
+                    applicationData.push_back(info);
+                }
+                else
+                {
+                    ODL_LOG("! (info._found)"); //####
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return ApplicationInfoVectorOrFailure{status, applicationData};
+} // nImO::Registry::getInformationForAllApplicationsOnNode
 
 nImO::ChannelInfoVectorOrFailure
 nImO::Registry::getInformationForAllChannels
@@ -3307,6 +3435,85 @@ nImO::Registry::getNodeInformation
     ODL_OBJEXIT(); //####
     return NodeInfoOrFailure{status, info};
 } // nImO::Registry::getNodeInformation
+
+nImO::IntOrFailure
+nImO::Registry::getNumberOfApplications
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StdStringVector     results;
+        static CPtr(char)   countApplications{"SELECT COUNT(*) FROM " APPLICATIONS_T_};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countApplications);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
+    return IntOrFailure{status, count};
+} // nImO::Registry::getNumberOfApplications
+
+nImO::IntOrFailure
+nImO::Registry::getNumberOfApplicationsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StdStringVector     results;
+        static CPtr(char)   countApplications{"SELECT COUNT(*) FROM " APPLICATIONS_T_ " WHERE " APPLICATIONS_LAUNCHER_NAME_C_ " = @"
+                                                APPLICATIONS_LAUNCHER_NAME_C_};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countApplications, setupCountApplications, &nodeName);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+   ODL_OBJEXIT(); //####
+    return IntOrFailure{status, count};
+} // nImO::Registry::getNumberOfApplicationsOnNode
 
 nImO::IntOrFailure
 nImO::Registry::getNumberOfChannels

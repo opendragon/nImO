@@ -229,11 +229,20 @@ namespace nImO
                  const bool             fromIsSpecified)
                 const;
 
-            /*! @brief Get information on the available applications.
+            /*! @brief Get information on the available applications in the Registry.
              @return @c true and the list of applications if the operation was successfully performed and @c false and an error string otherwise. */
             ApplicationInfoVectorOrFailure
             getInformationForAllApplications
-                (void);
+                (void)
+                const;
+
+            /*! @brief Get information on the available applications on a node in the Registry.
+             @param[in] nodeName The name of the node for the applications to be located in the Registry.
+             @return @c true and the list of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            ApplicationInfoVectorOrFailure
+            getInformationForAllApplicationsOnNode
+                (const std::string &    nodeName)
+                const;
 
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
@@ -346,6 +355,21 @@ namespace nImO
              @return @c true and if the node was found and the operation was successfully performed, its data,  and @c false and an error string otherwise. */
             NodeInfoOrFailure
             getNodeInformation
+                (const std::string &    nodeName)
+                const;
+
+            /*! @brief Return the number of applications in the Registry.
+             @return @c true and the number of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfApplications
+                (void)
+                const;
+
+            /*! @brief Return the number of applications associated with a node in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and the number of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfApplicationsOnNode
                 (const std::string &    nodeName)
                 const;
 

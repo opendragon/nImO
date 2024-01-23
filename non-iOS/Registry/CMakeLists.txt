@@ -65,6 +65,7 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelInUseCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetConnectionInformationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllApplicationsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.cpp
@@ -80,6 +81,8 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodeInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.cpp

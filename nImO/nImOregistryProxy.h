@@ -207,6 +207,13 @@ namespace nImO
             getInformationForAllApplications
                 (void);
 
+            /*! @brief Get information on the available applications on a node in the Registry.
+             @param[in] nodeName The name of the node for the applications to be located in the Registry.
+             @return @c true and the list of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            ApplicationInfoVectorOrFailure
+            getInformationForAllApplicationsOnNode
+                (const std::string &    nodeName);
+
             /*! @brief Get information for all channels in the Registry.
              @return @c true and the information for each channel if the operation was successfully performed and @c false and an error string otherwise. */
             ChannelInfoVectorOrFailure
@@ -304,6 +311,19 @@ namespace nImO
              @return @c true and if the node was found its data,  if the operation was successfully performed and @c false and an error string otherwise. */
             NodeInfoOrFailure
             getNodeInformation
+                (const std::string &    nodeName);
+
+            /*! @brief Return the number of applications in the Registry.
+             @return @c true and the number of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfApplications
+                (void);
+
+            /*! @brief Return the number of applications associated with a node in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and the number of applications if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfApplicationsOnNode
                 (const std::string &    nodeName);
 
             /*! @brief Return the number of channels in the Registry.

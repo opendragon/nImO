@@ -47,6 +47,7 @@
 #include "CommandHandlers/nImOgetChannelInUseCommandHandler.h"
 #include "CommandHandlers/nImOgetConnectionInformationCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.h"
+#include "CommandHandlers/nImOgetInformationForAllApplicationsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetInformationForAllChannelsOnNodeCommandHandler.h"
@@ -62,6 +63,8 @@
 #include "CommandHandlers/nImOgetNamesOfNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetNodeInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.h"
@@ -193,6 +196,12 @@ main
                                                   std::make_shared<nImO::GetChannelInUseCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetConnectionInformationRequest,
                                                   std::make_shared<nImO::GetConnectionInformationCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllApplicationsOnNodeRequest,
+                                                  std::make_shared<nImO::GetInformationForAllApplicationsOnNodeCommandHandler>(ourContext,
+                                                                                                                               theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetInformationForAllApplicationsRequest,
+                                                  std::make_shared<nImO::GetInformationForAllApplicationsCommandHandler>(ourContext,
+                                                                                                                         theRegistry));
                     asRegistryContext->addHandler(nImO::kGetInformationForAllChannelsOnMachineRequest,
                                                   std::make_shared<nImO::GetInformationForAllChannelsOnMachineCommandHandler>(ourContext,
                                                                                                                               theRegistry));
@@ -216,8 +225,6 @@ main
                                                   std::make_shared<nImO::GetInformationForAllNodesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetLaunchDetailsRequest,
                                                   std::make_shared<nImO::GetLaunchDetailsCommandHandler>(ourContext, theRegistry));
-                    asRegistryContext->addHandler(nImO::kGetInformationForAllApplicationsRequest,
-                                                  std::make_shared<nImO::GetInformationForAllApplicationsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetMachineInformationRequest,
                                                   std::make_shared<nImO::GetMachineInformationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNamesOfMachinesRequest,
@@ -228,6 +235,10 @@ main
                                                   std::make_shared<nImO::GetNamesOfNodesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest,
                                                   std::make_shared<nImO::GetNodeInformationCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfApplicationsOnNodeRequest,
+                                                  std::make_shared<nImO::GetNumberOfApplicationsOnNodeCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfApplicationsRequest,
+                                                  std::make_shared<nImO::GetNumberOfApplicationsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsOnNodeRequest,
                                                   std::make_shared<nImO::GetNumberOfChannelsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfChannelsRequest,

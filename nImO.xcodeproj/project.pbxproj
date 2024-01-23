@@ -98,6 +98,18 @@
 		F6491B0F29BE23E500DE5D58 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F6491B1029BE29FB00DE5D58 /* nImOregistryTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryTypes.h; path = nImO/nImOregistryTypes.h; sourceTree = "<group>"; };
 		F64B0DAD299268EB000D13C1 /* nimo-config.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nimo-config.txt"; path = "non-iOS/nimo-config.txt"; sourceTree = "<group>"; };
+		F65018592B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp; sourceTree = "<group>"; };
+		F650185A2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
+		F650185B2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsOnNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h; sourceTree = "<group>"; };
+		F650185C2B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h; sourceTree = "<group>"; };
+		F650185D2B602B1200A26DF8 /* nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp; sourceTree = "<group>"; };
+		F650185E2B602B1200A26DF8 /* nImOgetInformationForAllApplicationsOnNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllApplicationsOnNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h; sourceTree = "<group>"; };
+		F650185F2B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsOnNodeCommandHandler.h; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.h; sourceTree = "<group>"; };
+		F65018602B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.cpp; sourceTree = "<group>"; };
+		F65018612B602DC600A26DF8 /* nImOgetInformationForAllApplicationsOnNodeCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllApplicationsOnNodeCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllApplicationsOnNodeCommandHandler.cpp; sourceTree = "<group>"; };
+		F65018622B602DC600A26DF8 /* nImOgetInformationForAllApplicationsOnNodeCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllApplicationsOnNodeCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllApplicationsOnNodeCommandHandler.h; sourceTree = "<group>"; };
+		F65018632B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsCommandHandler.h; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.h; sourceTree = "<group>"; };
+		F65018642B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp; sourceTree = "<group>"; };
 		F65A7B072995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B092995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B0B2995DA05009BA794 /* nImOstoreAppsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstoreAppsMain.cpp; sourceTree = "<group>"; };
@@ -581,6 +593,8 @@
 				F6D1E6FB2A366E7E00931F39 /* nImOgetChannelInUseResponseHandler.h */,
 				F6A684662A8027C70023D8DF /* nImOgetConnectionInformationResponseHandler.cpp */,
 				F6A684652A8027C70023D8DF /* nImOgetConnectionInformationResponseHandler.h */,
+				F650185D2B602B1200A26DF8 /* nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp */,
+				F650185E2B602B1200A26DF8 /* nImOgetInformationForAllApplicationsOnNodeResponseHandler.h */,
 				F620CB252B569F9000C7377B /* nImOgetInformationForAllApplicationsResponseHandler.cpp */,
 				F620CB1F2B569F8F00C7377B /* nImOgetInformationForAllApplicationsResponseHandler.h */,
 				F66E754C2A1ABFC5002C03B5 /* nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp */,
@@ -613,6 +627,10 @@
 				F6E510862A19675600D52E80 /* nImOgetNamesOfNodesResponseHandler.h */,
 				F6E510972A19675700D52E80 /* nImOgetNodeInformationResponseHandler.cpp */,
 				F6E510932A19675700D52E80 /* nImOgetNodeInformationResponseHandler.h */,
+				F650185A2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp */,
+				F650185B2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.h */,
+				F65018592B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.cpp */,
+				F650185C2B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.h */,
 				F65AE44B2A1A6E1D00457BD4 /* nImOgetNumberOfChannelsOnNodeResponseHandler.cpp */,
 				F65AE44A2A1A6E1D00457BD4 /* nImOgetNumberOfChannelsOnNodeResponseHandler.h */,
 				F6E5109D2A19675700D52E80 /* nImOgetNumberOfChannelsResponseHandler.cpp */,
@@ -1581,6 +1599,8 @@
 				F6A684682A802ABA0023D8DF /* nImOgetConnectionInformationCommandHandler.h */,
 				F66847812B5C473400E81E01 /* nImOgetInformationForAllApplicationsCommandHandler.cpp */,
 				F66847802B5C473400E81E01 /* nImOgetInformationForAllApplicationsCommandHandler.h */,
+				F65018612B602DC600A26DF8 /* nImOgetInformationForAllApplicationsOnNodeCommandHandler.cpp */,
+				F65018622B602DC600A26DF8 /* nImOgetInformationForAllApplicationsOnNodeCommandHandler.h */,
 				F66E75442A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.cpp */,
 				F66E75452A1AAAB9002C03B5 /* nImOgetInformationForAllChannelsCommandHandler.h */,
 				F66E754A2A1ABEA6002C03B5 /* nImOgetInformationForAllChannelsOnMachineCommandHandler.cpp */,
@@ -1611,6 +1631,10 @@
 				F6E511212A19905600D52E80 /* nImOgetNamesOfNodesOnMachineCommandHandler.h */,
 				F6E511322A19905700D52E80 /* nImOgetNodeInformationCommandHandler.cpp */,
 				F6E511362A19905700D52E80 /* nImOgetNodeInformationCommandHandler.h */,
+				F65018602B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.cpp */,
+				F65018632B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.h */,
+				F65018642B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp */,
+				F650185F2B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.h */,
 				F6E511282A19905600D52E80 /* nImOgetNumberOfChannelsCommandHandler.cpp */,
 				F6E5112F2A19905700D52E80 /* nImOgetNumberOfChannelsCommandHandler.h */,
 				F65AE44D2A1A6F0200457BD4 /* nImOgetNumberOfChannelsOnNodeCommandHandler.cpp */,

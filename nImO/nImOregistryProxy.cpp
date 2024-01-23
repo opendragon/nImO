@@ -55,6 +55,7 @@
 #include <ResponseHandlers/nImOgetChannelInUseResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h>
 #include <ResponseHandlers/nImOgetConnectionInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h>
@@ -71,6 +72,8 @@
 #include <ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNodeInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h>
@@ -372,6 +375,24 @@ nImO::RegistryProxy::getInformationForAllApplications
     return ApplicationInfoVectorOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getInformationForAllApplications
 
+nImO::ApplicationInfoVectorOrFailure
+nImO::RegistryProxy::getInformationForAllApplicationsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetInformationForAllApplicationsOnNodeResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetInformationForAllApplicationsOnNodeRequest,
+                                                               kGetInformationForAllApplicationsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return ApplicationInfoVectorOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getInformationForAllApplicationsOnNode
+
 nImO::ChannelInfoVectorOrFailure
 nImO::RegistryProxy::getInformationForAllChannels
     (void)
@@ -390,6 +411,7 @@ nImO::RegistryProxy::getInformationForAllChannelsOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllChannelsOnMachineResponseHandler>()};
 
@@ -407,6 +429,7 @@ nImO::RegistryProxy::getInformationForAllChannelsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllChannelsOnNodeResponseHandler>()};
 
@@ -437,7 +460,7 @@ nImO::RegistryProxy::getInformationForAllConnectionsOnMachine
     (const std::string &    machineName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", machineName);
+    ODL_S1s("machineName = ", machineName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllConnectionsOnMachineResponseHandler>()};
 
@@ -455,7 +478,7 @@ nImO::RegistryProxy::getInformationForAllConnectionsOnNode
     (const std::string &    nodeName)
 {
     ODL_OBJENTER(); //####
-    ODL_S1s("nodeName = ", nodeName);
+    ODL_S1s("nodeName = ", nodeName); //####
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<GetInformationForAllConnectionsOnNodeResponseHandler>()};
 
@@ -605,6 +628,36 @@ nImO::RegistryProxy::getNodeInformation
     ODL_OBJEXIT(); //####
     return NodeInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNodeInformation
+
+nImO::IntOrFailure
+nImO::RegistryProxy::getNumberOfApplications
+    (void)
+{
+    ODL_OBJENTER(); //####
+    auto    handler{std::make_unique<GetNumberOfApplicationsResponseHandler>()};
+    auto    status{SendRequestWithNoArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), kGetNumberOfApplicationsRequest,
+                                                                 kGetNumberOfApplicationsResponse)};
+
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfApplications
+
+nImO::IntOrFailure
+nImO::RegistryProxy::getNumberOfApplicationsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetNumberOfApplicationsOnNodeResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetNumberOfApplicationsOnNodeRequest, kGetNumberOfApplicationsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfApplicationsOnNode
 
 nImO::IntOrFailure
 nImO::RegistryProxy::getNumberOfChannels

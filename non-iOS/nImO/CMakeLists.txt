@@ -117,6 +117,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.cpp"
@@ -133,6 +134,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.cpp"
@@ -317,6 +320,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnNodeResponseHandler.h"
@@ -333,6 +337,8 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h"
@@ -441,6 +447,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllChannelsOnMachineResponseHandler.cpp
@@ -473,6 +481,10 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.cpp

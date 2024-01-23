@@ -12287,6 +12287,53 @@ main
                                                                                        commandLine);
                         break;
 
+//## Test count applications with empty Registry
+//add_test(NAME TestCountApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 500)
+//## Test add application with one launcher to Registry
+//add_test(NAME TestAddApplicationWithOneLauncherToRegistry COMMAND ${THIS_TARGET} 501)
+//## Test count applications in Registry with one application from one launcher
+//add_test(NAME TestCountApplicationsInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 502)
+//## Test add two applications from one launcher to Registry
+//add_test(NAME TestAddTwoApplicationsFromOneLauncherToRegistry COMMAND ${THIS_TARGET} 503)
+//## Test count applications in Registry with two applications from one launcher
+//add_test(NAME TestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 504)
+//## Test clear applications with empty Registry
+//add_test(NAME TestClearApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 505)
+//## Test clear applications in Registry with one application from one launcher
+//add_test(NAME TestClearApplicationsInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 506)
+//## Test clear applications in Registry with two applications from one launcher
+//add_test(NAME TestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 507)
+//## Test add applications from two launchers to Registry
+//add_test(NAME TestAddApplicationsFromTwoLaunchersToRegistry COMMAND ${THIS_TARGET} 508)
+//## Test count applications in Registry with applications from two launchers
+//add_test(NAME TestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 509)
+//## Test clear applications in Registry with applications from two launchers
+//add_test(NAME TestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 510)
+//## Test count applications in Registry with one application from one launcher per launcher
+//add_test(NAME TestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher COMMAND ${THIS_TARGET} 511)
+//## Test count applications in Registry with applications from two launchers per launcher
+//add_test(NAME TestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher COMMAND ${THIS_TARGET} 512)
+//## Test get application information in Registry with one application from one launcher
+//add_test(NAME TestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 513)
+//## Test get application information in Registry with two applications from one launcher
+//add_test(NAME TestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 514)
+//## Test get application information in Registry with applications from two launchers
+//add_test(NAME TestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 515)
+//## Test get application information in Registry with one application from one launcher per launcher
+//add_test(NAME TestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher COMMAND ${THIS_TARGET} 516)
+//## Test get application information in Registry with applications from two launchers per launcher
+//add_test(NAME TestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher COMMAND ${THIS_TARGET} 517)
+//## Test get node names in Registry with empty Registry
+//add_test(NAME TestGetNodeNamesInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 518)
+//## Test get node names in Registry with one unmatching application from one launcher
+//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 519)
+//## Test get node names in Registry with one unmatching application from two launchers
+//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 520)
+//## Test get node names in Registry with one matching application from one launcher
+//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 521)
+//## Test get node names in Registry with one matching application from two launchers
+//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 522)
+
                     default :
                         break;
 

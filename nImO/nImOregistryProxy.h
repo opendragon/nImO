@@ -313,6 +313,13 @@ namespace nImO
             getNodeInformation
                 (const std::string &    nodeName);
 
+            /*! @brief Get the set of nodes containing an application in the Registry.
+             @param[in] applicationName The name of the application to be located in the Registry.
+             @return @c true and the set of nodes if the operation was successfully performed and @c false and an error string otherwise. */
+            StdStringSetOrFailure
+            getNodesWithApplication
+                (const std::string &    applicationName);
+
             /*! @brief Return the number of applications in the Registry.
              @return @c true and the number of applications if the operation was successfully performed and @c false and an error string otherwise. */
             IntOrFailure

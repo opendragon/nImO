@@ -63,6 +63,7 @@
 #include "CommandHandlers/nImOgetNamesOfNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.h"
 #include "CommandHandlers/nImOgetNodeInformationCommandHandler.h"
+#include "CommandHandlers/nImOgetNodesWithApplicationCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
@@ -235,6 +236,8 @@ main
                                                   std::make_shared<nImO::GetNamesOfNodesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNodeInformationRequest,
                                                   std::make_shared<nImO::GetNodeInformationCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNodesWithApplicationRequest,
+                                                  std::make_shared<nImO::GetNodesWithApplicationCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfApplicationsOnNodeRequest,
                                                   std::make_shared<nImO::GetNumberOfApplicationsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfApplicationsRequest,

@@ -72,6 +72,7 @@
 #include <ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNodeInformationResponseHandler.h>
+#include <ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h>
@@ -628,6 +629,23 @@ nImO::RegistryProxy::getNodeInformation
     ODL_OBJEXIT(); //####
     return NodeInfoOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNodeInformation
+
+nImO::StdStringSetOrFailure
+nImO::RegistryProxy::getNodesWithApplication
+    (const std::string &    machineName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("machineName = ", machineName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetNodesWithApplicationResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(machineName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(), kGetNodesWithApplicationRequest,
+                                                               kGetNodesWithApplicationResponse)};
+
+    ODL_OBJEXIT(); //####
+    return StdStringSetOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNodesWithApplication
 
 nImO::IntOrFailure
 nImO::RegistryProxy::getNumberOfApplications

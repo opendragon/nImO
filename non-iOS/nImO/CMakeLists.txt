@@ -134,6 +134,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.cpp"
@@ -337,6 +338,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h"
@@ -481,6 +483,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodeInformationResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.cpp

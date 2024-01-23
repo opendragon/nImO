@@ -1727,6 +1727,47 @@ setupSearchNodes
     return result;
 } // setupSearchNodes
 
+/*! @brief Bind the value that is to be searched for in the Applications table.
+ @param[in] statement The prepared statement that is to be updated.
+ @param[in] stuff The source of data that is to be bound.
+ @return The SQLite error from the bind operation. */
+static int
+setupSearchNodesForApplication
+    (Ptr(sqlite3_stmt)  statement,
+     CPtr(void)         stuff)
+{
+    ODL_ENTER(); //####
+    ODL_P2("statement = ", statement, "stuff = ", stuff); //####
+    int result{SQLITE_MISUSE};
+
+    try
+    {
+        int appNameIndex{sqlite3_bind_parameter_index(statement, "@" APPLICATIONS_APP_NAME_C_)};
+
+        if (0 < appNameIndex)
+        {
+            auto    appName{*StaticCast(CPtr(std::string), stuff)};
+
+            result = sqlite3_bind_text(statement, appNameIndex, appName.c_str(), StaticCast(int, appName.length()), SQLITE_TRANSIENT);
+            if (SQLITE_OK != result)
+            {
+                ODL_S1("error description: ", sqlite3_errstr(result)); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (0 < nodeNameIndex)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result);
+    return result;
+} // setupSearchNodesForApplication
+
 /*! @brief Extract the fields for the application information from the strings retrieved from the table.
  @param[out] info The data corresponding to the retrieved strings.
  @param[in] values The retrieved strings. */
@@ -3435,6 +3476,38 @@ nImO::Registry::getNodeInformation
     ODL_OBJEXIT(); //####
     return NodeInfoOrFailure{status, info};
 } // nImO::Registry::getNodeInformation
+
+nImO::StdStringSetOrFailure
+nImO::Registry::getNodesWithApplication
+    (const std::string &    applicationName)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("applicationName = ", applicationName); //####
+    auto            status{doBeginTransaction(_owner, _dbHandle)};
+    StdStringSet    strings;
+
+    if (status.first)
+    {
+        StdStringVector     results;
+        static CPtr(char)   searchNodesForApplication{"SELECT DISTINCT " APPLICATIONS_LAUNCHER_NAME_C_ " FROM " APPLICATIONS_T_ " WHERE "
+                                                            APPLICATIONS_APP_NAME_C_ " = @" APPLICATIONS_APP_NAME_C_};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodesForApplication, setupSearchNodesForApplication,
+                                                            &applicationName);
+        if (status.first)
+        {
+            strings.insert(results[0]);
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    ODL_OBJEXIT(); //####
+    return StdStringSetOrFailure{status, strings};
+} // nImO::Registry::getNodesWithApplication
 
 nImO::IntOrFailure
 nImO::Registry::getNumberOfApplications

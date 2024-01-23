@@ -78,6 +78,7 @@
 #include "ResponseHandlers/nImOgetNamesOfNodesOnMachineResponseHandler.h"
 #include "ResponseHandlers/nImOgetNamesOfNodesResponseHandler.h"
 #include "ResponseHandlers/nImOgetNodeInformationResponseHandler.h"
+#include "ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.h"
 #include "ResponseHandlers/nImOgetNumberOfApplicationsOnNodeResponseHandler.h"
 #include "ResponseHandlers/nImOgetNumberOfApplicationsResponseHandler.h"
 #include "ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h"

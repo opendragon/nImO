@@ -81,6 +81,7 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNamesOfNodesOnMachineCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodeInformationCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNodesWithApplicationCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp

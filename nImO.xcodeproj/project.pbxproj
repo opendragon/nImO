@@ -110,6 +110,10 @@
 		F65018622B602DC600A26DF8 /* nImOgetInformationForAllApplicationsOnNodeCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllApplicationsOnNodeCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllApplicationsOnNodeCommandHandler.h; sourceTree = "<group>"; };
 		F65018632B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfApplicationsCommandHandler.h; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsCommandHandler.h; sourceTree = "<group>"; };
 		F65018642B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp; sourceTree = "<group>"; };
+		F65018652B6035B400A26DF8 /* nImOgetNodesWithApplicationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNodesWithApplicationCommandHandler.h; path = Registry/CommandHandlers/nImOgetNodesWithApplicationCommandHandler.h; sourceTree = "<group>"; };
+		F65018662B6035B400A26DF8 /* nImOgetNodesWithApplicationCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNodesWithApplicationCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetNodesWithApplicationCommandHandler.cpp; sourceTree = "<group>"; };
+		F65018672B60377600A26DF8 /* nImOgetNodesWithApplicationResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNodesWithApplicationResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.h; sourceTree = "<group>"; };
+		F65018682B60377600A26DF8 /* nImOgetNodesWithApplicationResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNodesWithApplicationResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNodesWithApplicationResponseHandler.cpp; sourceTree = "<group>"; };
 		F65A7B072995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B092995D8B5009BA794 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65A7B0B2995DA05009BA794 /* nImOstoreAppsMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstoreAppsMain.cpp; sourceTree = "<group>"; };
@@ -627,6 +631,8 @@
 				F6E510862A19675600D52E80 /* nImOgetNamesOfNodesResponseHandler.h */,
 				F6E510972A19675700D52E80 /* nImOgetNodeInformationResponseHandler.cpp */,
 				F6E510932A19675700D52E80 /* nImOgetNodeInformationResponseHandler.h */,
+				F65018682B60377600A26DF8 /* nImOgetNodesWithApplicationResponseHandler.cpp */,
+				F65018672B60377600A26DF8 /* nImOgetNodesWithApplicationResponseHandler.h */,
 				F650185A2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.cpp */,
 				F650185B2B60297500A26DF8 /* nImOgetNumberOfApplicationsOnNodeResponseHandler.h */,
 				F65018592B60297500A26DF8 /* nImOgetNumberOfApplicationsResponseHandler.cpp */,
@@ -1631,6 +1637,8 @@
 				F6E511212A19905600D52E80 /* nImOgetNamesOfNodesOnMachineCommandHandler.h */,
 				F6E511322A19905700D52E80 /* nImOgetNodeInformationCommandHandler.cpp */,
 				F6E511362A19905700D52E80 /* nImOgetNodeInformationCommandHandler.h */,
+				F65018662B6035B400A26DF8 /* nImOgetNodesWithApplicationCommandHandler.cpp */,
+				F65018652B6035B400A26DF8 /* nImOgetNodesWithApplicationCommandHandler.h */,
 				F65018602B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.cpp */,
 				F65018632B602DC600A26DF8 /* nImOgetNumberOfApplicationsCommandHandler.h */,
 				F65018642B602DC600A26DF8 /* nImOgetNumberOfApplicationsOnNodeCommandHandler.cpp */,

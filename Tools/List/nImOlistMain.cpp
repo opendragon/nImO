@@ -155,9 +155,9 @@ helpForList
     size_t  choiceWidth{0};
 
     outStream << "Available choices:\n";
-    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    for (auto & walker : lChoiceMap)
     {
-        size_t  thisWidth{walker->first.length()};
+        size_t  thisWidth{walker.first.length()};
 
         if (thisWidth > choiceWidth)
         {
@@ -165,12 +165,12 @@ helpForList
         }
     }
     choiceWidth += 2;
-    for (auto walker(lChoiceMap.begin()); walker != lChoiceMap.end(); ++walker)
+    for (auto & walker : lChoiceMap)
     {
         std::string padding;
 
-        padding.append(choiceWidth - walker->first.length(), ' ');
-        outStream << "  " << walker->first << padding << walker->second._description << "\n";
+        padding.append(choiceWidth - walker.first.length(), ' ');
+        outStream << "  " << walker.first << padding << walker.second._description << "\n";
     }
 } // helpForList
 
@@ -242,7 +242,7 @@ listApplications
             {
                 std::cout << " [ ";
             }
-            for (auto walker(applicationMap->begin()); walker != applicationMap->end(); )
+            for (auto walker{applicationMap->begin()}; walker != applicationMap->end(); )
             {
                 auto    launcherName{nImO::SanitizeString(walker->first->asString()->getValue(), shouldSanitize)};
                 auto    appSubMap{walker->second->asMap()};
@@ -275,7 +275,7 @@ listApplications
                     {
                         std::cout << "[\n";
                     }
-                    for (auto subWalker(appSubMap->begin()); subWalker != appSubMap->end(); )
+                    for (auto subWalker{appSubMap->begin()}; subWalker != appSubMap->end(); )
                     {
                         auto    appName{nImO::SanitizeString(subWalker->first->asString()->getValue(), shouldSanitize)};
                         auto    appDescr{nImO::SanitizeString(subWalker->second->asString()->getValue(), shouldSanitize)};
@@ -427,7 +427,7 @@ listChannels
             {
                 std::cout << " [ ";
             }
-            for (auto walker(channels.begin()); walker != channels.end(); )
+            for (auto walker{channels.begin()}; walker != channels.end(); )
             {
                 auto    theInfo{*walker};
 
@@ -615,7 +615,7 @@ listConnections
             {
                 std::cout << " [ ";
             }
-            for (auto walker(connections.begin()); walker != connections.end(); )
+            for (auto walker{connections.begin()}; walker != connections.end(); )
             {
                 auto    theInfo{*walker};
 
@@ -805,7 +805,7 @@ listMachines
             {
                 std::cout << " [ ";
             }
-            for (auto walker(machines.begin()); walker != machines.end(); )
+            for (auto walker{machines.begin()}; walker != machines.end(); )
             {
                 auto    theInfo{*walker};
 
@@ -987,7 +987,7 @@ listNodes
             {
                 std::cout << " [ ";
             }
-            for (auto walker(nodes.begin()); walker != nodes.end(); )
+            for (auto walker{nodes.begin()}; walker != nodes.end(); )
             {
                 auto    theInfo{*walker};
 

@@ -224,10 +224,9 @@ nImO::ServiceContext::destroyCommandPort
     _keepGoing = false;
     ODL_B1("_keepGoing <- ", _keepGoing); //####
     _acceptor.close();
-    for (auto walker = _sessions.begin(); walker != _sessions.end(); ++walker)
+    for (auto & walker : _sessions)
     {
-        auto        aSession{*walker};
-        SpSocketTCP sessionSocket{aSession->getSocket()};
+        auto    sessionSocket{walker->getSocket()};
 
 #if defined(nImO_ChattyTcpUdpLogging)
         report("closing a session"s);

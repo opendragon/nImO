@@ -115,17 +115,15 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            auto                machineArray{std::make_shared<Array>()};
-            MachineInfoVector & theMachines{statusWithInfoVector.second};
+            auto    machineArray{std::make_shared<Array>()};
 
-            for (auto walker = theMachines.begin(); walker != theMachines.end(); ++walker)
+            for (auto & walker : statusWithInfoVector.second)
             {
-                MachineInfo &   theInfo{*walker};
-                auto            infoArray{std::make_shared<Array>()};
+                auto    infoArray{std::make_shared<Array>()};
 
-                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                infoArray->addValue(std::make_shared<String>(theInfo._name));
-                infoArray->addValue(std::make_shared<Integer>(theInfo._address));
+                infoArray->addValue(std::make_shared<Logical>(walker._found));
+                infoArray->addValue(std::make_shared<String>(walker._name));
+                infoArray->addValue(std::make_shared<Integer>(walker._address));
                 machineArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines"s, machineArray);

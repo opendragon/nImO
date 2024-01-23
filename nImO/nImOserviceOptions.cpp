@@ -134,7 +134,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         "  --args, -a \tReport the argument formats"};
     Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", Option_::Arg::Required,
-                                            "  --base, -b <name> \tSpecifies the base name for channels"};
+                                        "  --base, -b <name> \tSpecifies the base name for channels"};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             "  --config, -c <path> \tSpecify path to configuration file"};
     Option_::Descriptor describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,

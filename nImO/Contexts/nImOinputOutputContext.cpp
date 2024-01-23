@@ -165,9 +165,9 @@ nImO::InputOutputContext::anInputChannelIsConnected
     ODL_OBJENTER(); //####
     bool    result{false};
 
-    for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
+    for (auto & walker : _inputChannelMap)
     {
-        if (walker->second->isConnected())
+        if (walker.second->isConnected())
         {
             result = true;
             break;
@@ -186,9 +186,9 @@ nImO::InputOutputContext::anOutputChannelIsConnected
     ODL_OBJENTER(); //####
     bool    result{false};
 
-    for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
+    for (auto & walker : _outputChannelMap)
     {
-        if (walker->second->isConnected())
+        if (walker.second->isConnected())
         {
             result = true;
             break;
@@ -225,9 +225,9 @@ nImO::InputOutputContext::getInputChannelNames
     ODL_ENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
-    for (auto walker{_inputChannelMap.begin()}; walker!= _inputChannelMap.end(); ++walker)
+    for (auto & walker : _inputChannelMap)
     {
-        names.push_back(walker->second->getName());
+        names.push_back(walker.second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
@@ -258,9 +258,9 @@ nImO::InputOutputContext::getOutputChannelNames
     ODL_ENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
-    for (auto walker{_outputChannelMap.begin()}; walker!= _outputChannelMap.end(); ++walker)
+    for (auto & walker : _outputChannelMap)
     {
-        names.push_back(walker->second->getName());
+        names.push_back(walker.second->getName());
     }
     ODL_EXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames

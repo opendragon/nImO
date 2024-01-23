@@ -301,7 +301,7 @@ StringsArgumentDescriptor::toString
     char    delim{identifyDelimiter(scratch)};
 
     result += delim;
-    for (auto walker(_allowedValues.begin()); walker != _allowedValues.end(); ++walker)
+    for (auto walker{_allowedValues.begin()}; walker != _allowedValues.end(); ++walker)
     {
         if (walker != _allowedValues.begin())
         {

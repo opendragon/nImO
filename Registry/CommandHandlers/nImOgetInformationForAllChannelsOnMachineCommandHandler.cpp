@@ -123,21 +123,19 @@ nImO::GetInformationForAllChannelsOnMachineCommandHandler::doIt
 
             if (statusWithInfoVector.first.first)
             {
-                auto                channelArray{std::make_shared<Array>()};
-                ChannelInfoVector & theChannels{statusWithInfoVector.second};
+                auto    channelArray{std::make_shared<Array>()};
 
-                for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
+                for (auto & walker : statusWithInfoVector.second)
                 {
-                    ChannelInfo &   theInfo{*walker};
-                    auto            infoArray{std::make_shared<Array>()};
+                    auto    infoArray{std::make_shared<Array>()};
 
-                    infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                    infoArray->addValue(std::make_shared<String>(theInfo._node));
-                    infoArray->addValue(std::make_shared<String>(theInfo._path));
-                    infoArray->addValue(std::make_shared<Logical>(theInfo._isOutput));
-                    infoArray->addValue(std::make_shared<String>(theInfo._dataType));
-                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
-                    infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
+                    infoArray->addValue(std::make_shared<Logical>(walker._found));
+                    infoArray->addValue(std::make_shared<String>(walker._node));
+                    infoArray->addValue(std::make_shared<String>(walker._path));
+                    infoArray->addValue(std::make_shared<Logical>(walker._isOutput));
+                    infoArray->addValue(std::make_shared<String>(walker._dataType));
+                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int, walker._modes)));
+                    infoArray->addValue(std::make_shared<Logical>(walker._inUse));
                     channelArray->addValue(infoArray);
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnMachineResponse, "get information for all channels on machine"s,

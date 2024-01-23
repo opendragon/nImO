@@ -328,8 +328,7 @@ main
     argumentList.push_back(&firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
-                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
-                                    nImO::kSkipTagOption | nImO::kSkipWaitOption))
+                                    nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try

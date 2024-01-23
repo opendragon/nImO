@@ -115,21 +115,19 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            auto                    connectionArray{std::make_shared<Array>()};
-            ConnectionInfoVector &  theChannels{statusWithInfoVector.second};
+            auto    connectionArray{std::make_shared<Array>()};
 
-            for (auto walker = theChannels.begin(); walker != theChannels.end(); ++walker)
+            for (auto & walker : statusWithInfoVector.second)
             {
-                ConnectionInfo &    theInfo{*walker};
-                auto                infoArray{std::make_shared<Array>()};
+                auto    infoArray{std::make_shared<Array>()};
 
-                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                infoArray->addValue(std::make_shared<String>(theInfo._fromNode));
-                infoArray->addValue(std::make_shared<String>(theInfo._fromPath));
-                infoArray->addValue(std::make_shared<String>(theInfo._toNode));
-                infoArray->addValue(std::make_shared<String>(theInfo._toPath));
-                infoArray->addValue(std::make_shared<String>(theInfo._dataType));
-                infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
+                infoArray->addValue(std::make_shared<Logical>(walker._found));
+                infoArray->addValue(std::make_shared<String>(walker._fromNode));
+                infoArray->addValue(std::make_shared<String>(walker._fromPath));
+                infoArray->addValue(std::make_shared<String>(walker._toNode));
+                infoArray->addValue(std::make_shared<String>(walker._toPath));
+                infoArray->addValue(std::make_shared<String>(walker._dataType));
+                infoArray->addValue(std::make_shared<Integer>(StaticCast(int, walker._mode)));
                 connectionArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections"s, connectionArray);

@@ -109,9 +109,9 @@ nImO::GetNamesOfNodesOnMachineResponseHandler::doIt
         {
             if (Enumerable::String == asSet->getKeyKind())
             {
-                for (auto walker = asSet->begin(); walker != asSet->end(); ++walker)
+                for (auto & walker : *asSet)
                 {
-                    _result.insert((*walker)->asString()->getValue());
+                    _result.insert(walker->asString()->getValue());
                 }
                 okSoFar = true;
             }

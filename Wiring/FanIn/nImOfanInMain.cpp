@@ -262,9 +262,9 @@ main
                                             nImO::StdStringVector   inChannelPaths;
 
                                             ourContext->getInputChannelNames(inChannelPaths);
-                                            for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
+                                            for (auto & walker : inChannelPaths)
                                             {
-                                                nImO::CloseConnection(ourContext, nodeName, proxy, *walker, false, alreadyReported);
+                                                nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                             }
                                         }
                                         std::cerr << "done.\n";
@@ -294,18 +294,16 @@ main
                                     nImO::StdStringVector   inChannelPaths;
 
                                     ourContext->getInputChannelNames(inChannelPaths);
-                                    for (auto walker{inChannelPaths.begin()}; walker != inChannelPaths.end(); ++walker)
+                                    for (auto & walker : inChannelPaths)
                                     {
-                                        auto    chanName{*walker};
-
                                         nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                        statusWithBool = proxy.removeChannel(nodeName, chanName);
+                                        statusWithBool = proxy.removeChannel(nodeName, walker);
                                         if (statusWithBool.first.first)
                                         {
                                             if (! statusWithBool.second)
                                             {
-                                                ourContext->report(chanName + " already unregistered."s);
-                                                std::cerr << chanName << " already unregistered.\n";
+                                                ourContext->report(walker + " already unregistered."s);
+                                                std::cerr << walker << " already unregistered.\n";
                                                 exitCode = 1;
                                             }
                                         }

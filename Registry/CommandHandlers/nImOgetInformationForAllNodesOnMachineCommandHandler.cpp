@@ -123,20 +123,18 @@ nImO::GetInformationForAllNodesOnMachineCommandHandler::doIt
 
             if (statusWithInfoVector.first.first)
             {
-                auto                nodeArray{std::make_shared<Array>()};
-                NodeInfoVector &    theNodes{statusWithInfoVector.second};
+                auto    nodeArray{std::make_shared<Array>()};
 
-                for (auto walker = theNodes.begin(); walker != theNodes.end(); ++walker)
+                for (auto & walker : statusWithInfoVector.second)
                 {
-                    NodeInfo &  theInfo{*walker};
-                    auto        infoArray{std::make_shared<Array>()};
+                    auto    infoArray{std::make_shared<Array>()};
 
-                    infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                    infoArray->addValue(std::make_shared<String>(theInfo._name));
-                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._serviceType)));
-                    infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
-                    infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
-                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
+                    infoArray->addValue(std::make_shared<Logical>(walker._found));
+                    infoArray->addValue(std::make_shared<String>(walker._name));
+                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, walker._serviceType)));
+                    infoArray->addValue(std::make_shared<Integer>(walker._connection._address));
+                    infoArray->addValue(std::make_shared<Integer>(walker._connection._port));
+                    infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, walker._connection._transport)));
                     nodeArray->addValue(infoArray);
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesOnMachineResponse, "get information for all nodes on machine"s,

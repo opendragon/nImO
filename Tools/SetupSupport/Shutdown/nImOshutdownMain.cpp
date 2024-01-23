@@ -132,14 +132,12 @@ main
                             nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
                             // Send Shutdown command to all launchers.
-                            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                            for (auto & walker : nodes)
                             {
-                                auto    theInfo{*walker};
-
-                                if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
+                                if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + theInfo._name);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                    ourContext->report("sending shutdown request to "s + walker._name);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
@@ -153,19 +151,16 @@ main
 
                             if (statusWithAllConnections.first.first)
                             {
-                                nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
-
-                                for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                                for (auto & walker : statusWithAllConnections.second)
                                 {
                                     bool    okSoFar{true};
-                                    auto    theInfo{*walker};
 
-                                    if (theInfo._found)
+                                    if (walker._found)
                                     {
-                                        auto                fromNode{theInfo._fromNode};
-                                        auto                fromPath{theInfo._fromPath};
-                                        auto                toNode{theInfo._toNode};
-                                        auto                toPath{theInfo._toPath};
+                                        auto                fromNode{walker._fromNode};
+                                        auto                fromPath{walker._fromPath};
+                                        auto                toNode{walker._toNode};
+                                        auto                toPath{walker._toPath};
                                         nImO::Connection    fromConnection;
                                         auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
@@ -217,14 +212,12 @@ main
                                 exitCode = 1;
                             }
                             // Send Shutdown command to all other nodes.
-                            for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                            for (auto & walker : nodes)
                             {
-                                auto    theInfo{*walker};
-
-                                if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
+                                if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + theInfo._name);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                    ourContext->report("sending shutdown request to "s + walker._name);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
@@ -260,19 +253,16 @@ main
 
                                 if (statusWithAllConnections.first.first)
                                 {
-                                    nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
-
-                                    for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                                    for (auto & walker : statusWithAllConnections.second)
                                     {
                                         bool    okSoFar{true};
-                                        auto    theInfo{*walker};
 
-                                        if (theInfo._found)
+                                        if (walker._found)
                                         {
-                                            auto                fromNode{theInfo._fromNode};
-                                            auto                fromPath{theInfo._fromPath};
-                                            auto                toNode{theInfo._toNode};
-                                            auto                toPath{theInfo._toPath};
+                                            auto                fromNode{walker._fromNode};
+                                            auto                fromPath{walker._fromPath};
+                                            auto                toNode{walker._toNode};
+                                            auto                toPath{walker._toPath};
                                             nImO::Connection    fromConnection;
                                             auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
@@ -368,21 +358,19 @@ main
                         nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
 
                         // Send Shutdown command to all the launchers on the machine.
-                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        for (auto & walker : nodes)
                         {
-                            auto    theInfo{*walker};
-
-                            if (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))
+                            if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to "s + theInfo._name);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                ourContext->report("sending shutdown request to "s + walker._name);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
                             }
                             else
                             {
-                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService == theInfo._serviceType))"); //####
+                                ODL_LOG("! (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))"); //####
                             }
                         }
                         if (optionValues._expanded)
@@ -393,19 +381,16 @@ main
 
                         if (statusWithAllConnections.first.first)
                         {
-                            nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
-
-                            for (auto walker = connections.begin(); walker != connections.end(); ++walker)
+                            for (auto & walker : statusWithAllConnections.second)
                             {
                                 bool    okSoFar{true};
-                                auto    theInfo{*walker};
 
-                                if (theInfo._found)
+                                if (walker._found)
                                 {
-                                    auto                fromNode{theInfo._fromNode};
-                                    auto                fromPath{theInfo._fromPath};
-                                    auto                toNode{theInfo._toNode};
-                                    auto                toPath{theInfo._toPath};
+                                    auto                fromNode{walker._fromNode};
+                                    auto                fromPath{walker._fromPath};
+                                    auto                toNode{walker._toNode};
+                                    auto                toPath{walker._toPath};
                                     nImO::Connection    fromConnection;
                                     auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
 
@@ -473,21 +458,19 @@ main
                             exitCode = 1;
                         }
                         // Send Shutdown command to all other nodes on the machine.
-                        for (auto walker = nodes.begin(); walker != nodes.end(); ++walker)
+                        for (auto & walker : nodes)
                         {
-                            auto    theInfo{*walker};
-
-                            if (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))
+                            if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to "s + theInfo._name);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, theInfo._connection, nImO::kShutDownRequest,
+                                ourContext->report("sending shutdown request to "s + walker._name);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
                             }
                             else
                             {
-                                ODL_LOG("! (theInfo._found && (nImO::ServiceType::LauncherService != theInfo._serviceType))"); //####
+                                ODL_LOG("! (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))"); //####
                             }
                         }
                     }

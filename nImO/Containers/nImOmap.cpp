@@ -278,7 +278,7 @@ nImO::Map::equalTo
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{walker->first};
 
@@ -576,7 +576,7 @@ nImO::Map::greaterThan
     }
     else
     {
-        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
         {
             SpValue aValue{walker->first};
 
@@ -607,7 +607,7 @@ nImO::Map::greaterThanOrEqual
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{walker->first};
 
@@ -641,7 +641,7 @@ nImO::Map::lessThan
     }
     else
     {
-        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
         {
             SpValue aValue{walker->first};
 
@@ -672,7 +672,7 @@ nImO::Map::lessThanOrEqual
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{walker->first};
 

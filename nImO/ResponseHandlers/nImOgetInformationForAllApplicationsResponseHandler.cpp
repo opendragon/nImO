@@ -110,9 +110,9 @@ nImO::GetInformationForAllApplicationsResponseHandler::doIt
         else
         {
             okSoFar = true;
-            for (auto walker = infoVector->begin(); okSoFar && (walker != infoVector->end()); ++walker)
+            for (auto & walker : *infoVector)
             {
-                auto    infoArray{(*walker)->asArray()};
+                auto    infoArray{walker->asArray()};
 
                 if (nullptr == infoArray)
                 {

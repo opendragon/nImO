@@ -123,12 +123,11 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
 
             if (statusWithSet.first.first)
             {
-                StdStringSet &  theStrings{statusWithSet.second};
-                auto            stringSet{std::make_shared<Set>()};
+                auto    stringSet{std::make_shared<Set>()};
 
-                for (auto walker = theStrings.begin(); walker != theStrings.end(); ++walker)
+                for (auto & walker : statusWithSet.second)
                 {
-                    stringSet->addValue(std::make_shared<String>(*walker));
+                    stringSet->addValue(std::make_shared<String>(walker));
                 }
                 okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine"s, stringSet);
             }

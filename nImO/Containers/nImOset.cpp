@@ -258,7 +258,7 @@ nImO::Set::equalTo
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{*walker};
 
@@ -510,7 +510,7 @@ nImO::Set::greaterThan
     }
     else
     {
-        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
         {
             SpValue aValue{*walker};
 
@@ -541,7 +541,7 @@ nImO::Set::greaterThanOrEqual
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{*walker};
 
@@ -575,7 +575,7 @@ nImO::Set::lessThan
     }
     else
     {
-        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
         {
             SpValue aValue{*walker};
 
@@ -606,7 +606,7 @@ nImO::Set::lessThanOrEqual
         }
         else
         {
-            for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
             {
                 SpValue aValue{*walker};
 
@@ -647,7 +647,7 @@ nImO::Set::operator<<
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
     out << kStartSetChar;
-    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
 
@@ -673,7 +673,7 @@ nImO::Set::printToStringBuffer
     bool first{true};
 
     outBuffer.appendChar(kStartSetChar);
-    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
 
@@ -709,7 +709,7 @@ nImO::Set::printToStringBufferAsJSON
     bool first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
     {
         SpValue aValue{*walker};
 
@@ -899,7 +899,7 @@ nImO::Set::writeToMessage
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto walker(inherited2::begin()); inherited2::end() != walker; ++walker)
+        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
         {
             SpValue aValue{*walker};
 

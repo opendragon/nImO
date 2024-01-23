@@ -114,18 +114,16 @@ nImO::GetInformationForAllApplicationsCommandHandler::doIt
 
         if (statusWithInfoVector.first.first)
         {
-            auto                    applicationArray{std::make_shared<Array>()};
-            ApplicationInfoVector & theApplications{statusWithInfoVector.second};
+            auto    applicationArray{std::make_shared<Array>()};
 
-            for (auto walker = theApplications.begin(); walker != theApplications.end(); ++walker)
+            for (auto & walker : statusWithInfoVector.second)
             {
-                ApplicationInfo &   theInfo(*walker);
-                auto                infoArray{std::make_shared<Array>()};
+                auto    infoArray{std::make_shared<Array>()};
 
-                infoArray->addValue(std::make_shared<Logical>(theInfo._found));
-                infoArray->addValue(std::make_shared<String>(theInfo._launcherName));
-                infoArray->addValue(std::make_shared<String>(theInfo._appName));
-                infoArray->addValue(std::make_shared<String>(theInfo._appDescription));
+                infoArray->addValue(std::make_shared<Logical>(walker._found));
+                infoArray->addValue(std::make_shared<String>(walker._launcherName));
+                infoArray->addValue(std::make_shared<String>(walker._appName));
+                infoArray->addValue(std::make_shared<String>(walker._appDescription));
                 applicationArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsResponse, "get information for all applications"s,

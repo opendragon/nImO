@@ -155,6 +155,12 @@ namespace nImO
     /*! @brief The request to get information on all channels in the Registry. */
     const std::string   kGetInformationForAllChannelsRequest{"getInformationForAllChannels?"s};
 
+    /*! @brief The 'getInformationForAllApplicationsOnNode' request. */
+    const std::string   kGetInformationForAllApplicationsOnNodeRequest{"getInformationForAllApplicationsOnNode?"s};
+
+    /*! @brief The 'getInformationForAllApplicationsOnNode' response. */
+    const std::string   kGetInformationForAllApplicationsOnNodeResponse{"getInformationForAllApplicationsOnNode="s};
+
     /*! @brief The 'getInformationForAllApplications' request. */
     const std::string   kGetInformationForAllApplicationsRequest{"getInformationForAllApplications?"s};
 
@@ -247,6 +253,24 @@ namespace nImO
 
     /*! @brief The 'getNodeInformation' response. */
     const std::string   kGetNodeInformationResponse{"getNodeInformation="s};
+
+    /*! @brief The request to get the nodes reporting an application in the Registry. */
+    const std::string   kGetNodesWithApplicationRequest{"getNodesWithApplication?"s};
+
+    /*! @brief The 'getNodesWithApplication' response. */
+    const std::string   kGetNodesWithApplicationResponse{"getNodesWithApplication="s};
+
+    /*! @brief The request to get the number of applications on a node in the Registry. */
+    const std::string   kGetNumberOfApplicationsOnNodeRequest{"getNumberOfApplicationsOnNode?"s};
+
+    /*! @brief The 'getNumberOfApplicationsOnNode' response. */
+    const std::string   kGetNumberOfApplicationsOnNodeResponse{"getNumberOfApplicationsOnNode="s};
+
+    /*! @brief The request to get the number of applications in the Registry. */
+    const std::string   kGetNumberOfApplicationsRequest{"getNumberOfApplications?"s};
+
+    /*! @brief The 'getNumberOfApplications' response. */
+    const std::string   kGetNumberOfApplicationsResponse{"getNumberOfApplications="s};
 
     /*! @brief The request to get the number of channels on a node in the Registry. */
     const std::string   kGetNumberOfChannelsOnNodeRequest{"getNumberOfChannelsOnNode?"s};

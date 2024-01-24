@@ -2603,9 +2603,9 @@ nImO::Registry::getInformationForAllApplications
         {
             ApplicationInfo info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractApplicationInfoFromVector(info, results[ii]);
+                extractApplicationInfoFromVector(info, walker);
                 if (info._found)
                 {
                     applicationData.push_back(info);
@@ -2648,9 +2648,9 @@ nImO::Registry::getInformationForAllApplicationsOnNode
         {
             ApplicationInfo info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractApplicationInfoFromVector(info, results[ii]);
+                extractApplicationInfoFromVector(info, walker);
                 if (info._found)
                 {
                     applicationData.push_back(info);
@@ -2691,9 +2691,9 @@ nImO::Registry::getInformationForAllChannels
         {
             ChannelInfo info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractChannelInfoFromVector(info, results[ii]);
+                extractChannelInfoFromVector(info, walker);
                 if (info._found)
                 {
                     channelData.push_back(info);
@@ -2739,9 +2739,9 @@ nImO::Registry::getInformationForAllChannelsOnMachine
         {
             ChannelInfo info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractChannelInfoFromVector(info, results[ii]);
+                extractChannelInfoFromVector(info, walker);
                 if (info._found)
                 {
                     channelData.push_back(info);
@@ -2788,9 +2788,9 @@ nImO::Registry::getInformationForAllChannelsOnNode
         {
             ChannelInfo info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractChannelInfoFromVector(info, results[ii]);
+                extractChannelInfoFromVector(info, walker);
                 if (info._found)
                 {
                     channelData.push_back(info);
@@ -2834,22 +2834,20 @@ nImO::Registry::getInformationForAllConnections
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                StdStringVector &   values{results[ii]};
-
-                if (5 < values.size())
+                if (5 < walker.size())
                 {
                     ConnectionInfo  info;
                     size_t          pos;
 
                     info._found = true;
-                    info._fromNode = values[0];
-                    info._fromPath = values[1];
-                    info._toNode = values[2];
-                    info._toPath = values[3];
-                    info._dataType = values[4];
-                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    info._fromNode = walker[0];
+                    info._fromPath = walker[1];
+                    info._toNode = walker[2];
+                    info._toPath = walker[3];
+                    info._dataType = walker[4];
+                    info._mode = StaticCast(TransportType, stoul(walker[5], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
@@ -2865,7 +2863,7 @@ nImO::Registry::getInformationForAllConnections
                 }
                 else
                 {
-                    ODL_LOG("! (5 < values.size())"); //####
+                    ODL_LOG("! (5 < walker.size())"); //####
                 }
             }
         }
@@ -2902,22 +2900,20 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchMachines, &machineName);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                StdStringVector &   values{results[ii]};
-
-                if (5 < values.size())
+                if (5 < walker.size())
                 {
                     ConnectionInfo  info;
                     size_t          pos;
 
                     info._found = true;
-                    info._fromNode = values[0];
-                    info._fromPath = values[1];
-                    info._toNode = values[2];
-                    info._toPath = values[3];
-                    info._dataType = values[4];
-                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    info._fromNode = walker[0];
+                    info._fromPath = walker[1];
+                    info._toNode = walker[2];
+                    info._toPath = walker[3];
+                    info._dataType = walker[4];
+                    info._mode = StaticCast(TransportType, stoul(walker[5], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
@@ -2933,8 +2929,9 @@ nImO::Registry::getInformationForAllConnectionsOnMachine
                 }
                 else
                 {
-                    ODL_LOG("! (5 < values.size())"); //####
+                    ODL_LOG("! (5 < walker.size())"); //####
                 }
+
             }
         }
         else
@@ -2968,22 +2965,20 @@ nImO::Registry::getInformationForAllConnectionsOnNode
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchConnections, setupSearchNodeConnections, &nodeName);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                StdStringVector &   values{results[ii]};
-
-                if (5 < values.size())
+                if (5 < walker.size())
                 {
                     ConnectionInfo  info;
                     size_t          pos;
 
                     info._found = true;
-                    info._fromNode = values[0];
-                    info._fromPath = values[1];
-                    info._toNode = values[2];
-                    info._toPath = values[3];
-                    info._dataType = values[4];
-                    info._mode = StaticCast(TransportType, stoul(values[5], &pos));
+                    info._fromNode = walker[0];
+                    info._fromPath = walker[1];
+                    info._toNode = walker[2];
+                    info._toPath = walker[3];
+                    info._dataType = walker[4];
+                    info._mode = StaticCast(TransportType, stoul(walker[5], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
@@ -2999,7 +2994,7 @@ nImO::Registry::getInformationForAllConnectionsOnNode
                 }
                 else
                 {
-                    ODL_LOG("! (5 < values.size())"); //####
+                    ODL_LOG("! (5 < walker.size())"); //####
                 }
             }
         }
@@ -3030,18 +3025,16 @@ nImO::Registry::getInformationForAllMachines
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                StdStringVector &   values{results[ii]};
-
-                if (1 < values.size())
+                if (1 < walker.size())
                 {
                     MachineInfo info;
                     size_t      pos;
 
                     info._found = true;
-                    info._name = values[0];
-                    info._address = StaticCast(IPv4Address, stoul(values[1], &pos));
+                    info._name = walker[0];
+                    info._address = StaticCast(IPv4Address, stoul(walker[1], &pos));
                     if (0 == pos)
                     {
                         info._found = false;
@@ -3057,7 +3050,7 @@ nImO::Registry::getInformationForAllMachines
                 }
                 else
                 {
-                    ODL_LOG("! (1 < values.size())"); //####
+                    ODL_LOG("! (1 < walker.size())"); //####
                 }
             }
         }
@@ -3091,9 +3084,9 @@ nImO::Registry::getInformationForAllNodes
         {
             NodeInfo    info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractNodeInfoFromVector(info, results[ii]);
+                extractNodeInfoFromVector(info, walker);
                 if (info._found)
                 {
                     nodeData.push_back(info);
@@ -3137,9 +3130,9 @@ nImO::Registry::getInformationForAllNodesOnMachine
         {
             NodeInfo    info;
 
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                extractNodeInfoFromVector(info, results[ii]);
+                extractNodeInfoFromVector(info, walker);
                 if (info._found)
                 {
                     nodeData.push_back(info);
@@ -3184,7 +3177,7 @@ nImO::Registry::getLaunchDetails
             {
                 if (0 < results.size())
                 {
-                    StdStringVector &   values{results[0]};
+                    auto    values{results[0]};
 
                     if (2 < values.size())
                     {
@@ -3247,7 +3240,7 @@ nImO::Registry::getMachineInformation
             {
                 if (0 < results.size())
                 {
-                    StdStringVector &   values{results[0]};
+                    auto    values{results[0]};
 
                     info._name = nodeName;
                     if (0 < values.size())
@@ -3308,9 +3301,9 @@ nImO::Registry::getNamesOfMachines
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchMachines);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                strings.insert(results[ii]);
+                strings.insert(walker);
             }
         }
         else
@@ -3340,9 +3333,9 @@ nImO::Registry::getNamesOfNodes
         status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, searchNodes);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                strings.insert(results[ii]);
+                strings.insert(walker);
             }
         }
         else
@@ -3375,17 +3368,15 @@ nImO::Registry::getNamesOfNodesOnMachine
         status = performSQLstatementWithMultipleColumnResults(_owner, _dbHandle, results, searchNodesAndMachines, setupSearchMachines, &machineName);
         if (status.first)
         {
-            for (size_t ii = 0; ii < results.size(); ++ii)
+            for (auto & walker : results)
             {
-                StdStringVector &   values{results[ii]};
-
-                if (0 < values.size())
+                if (0 < walker.size())
                 {
-                    strings.insert(values[0]);
+                    strings.insert(walker[0]);
                 }
                 else
                 {
-                    ODL_LOG("! (0 < values.size())"); //####
+                    ODL_LOG("! (0 < walker.size())"); //####
                 }
             }
         }
@@ -3497,7 +3488,10 @@ nImO::Registry::getNodesWithApplication
                                                             &applicationName);
         if (status.first)
         {
-            strings.insert(results[0]);
+            for (auto & walker : results)
+            {
+                strings.insert(walker);
+            }
         }
         else
         {

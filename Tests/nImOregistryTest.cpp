@@ -77,6 +77,18 @@ static const std::string    kBadNodeName{"bad_node____"s};
 /*! @brief A bad channel path for testing. */
 static const std::string    kBadChannelPath{"/bad_path____"s};
 
+/*! @brief The first application name for testing. */
+static const std::string    kAppName1{"ApplicationOne"s};
+
+/*! @brief The second application name for testing. */
+static const std::string    kAppName2{"ApplicationTwo"s};
+
+/*! @brief The first application description for testing. */
+static const std::string    kAppDescr1{"first app"s};
+
+/*! @brief The second application description for testing. */
+static const std::string    kAppDescr2{"second app"s};
+
 /*! @brief The first channel path for testing. */
 static const std::string    kChannelPath1{"/blart/input/1"s};
 
@@ -11720,6 +11732,2217 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
 } // doTestGetConnectionInfoWithBadChannelNameFromRegistry
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 500 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 501 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+TestAddApplicationWithOneLauncherToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // TestAddApplicationWithOneLauncherToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 502 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 503 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddTwoApplicationsFromOneLauncherToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        if (status.first)
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddTwoApplicationsFromOneLauncherToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 504 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        if (status.first)
+                        {
+                            auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                            if (statusWithInt.first.first)
+                            {
+                                if (2 == statusWithInt.second)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (2 == statusWithInt.second)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInt.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 505 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearApplicationsWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->clearAppListForLauncher(kNodeName1)};
+
+            if (status.first)
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearApplicationsWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 506 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearAppListForLauncher(kNodeName1);
+                        if (status.first)
+                        {
+                            result = 0;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 507 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearAppListForLauncher(kNodeName1);
+                        if (status.first)
+                        {
+                            auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                            if (statusWithInt.first.first)
+                            {
+                                if (0 == statusWithInt.second)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInt.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 508 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearAppListForLauncher(kNodeName1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                status = aRegistry->clearAppListForLauncher(kNodeName1);
+                                if (status.first)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 509 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        status = aRegistry->clearAppListForLauncher(kNodeName1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                status = aRegistry->clearAppListForLauncher(kNodeName1);
+                                if (status.first)
+                                {
+                                    auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                                    if (statusWithInt.first.first)
+                                    {
+                                        if (0 == statusWithInt.second)
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 510 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestAddApplicationsFromTwoLaunchersToRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestAddApplicationsFromTwoLaunchersToRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 511 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (2 == statusWithInt.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (2 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 512 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                status = aRegistry->clearAppListForLauncher(kNodeName1);
+                                if (status.first)
+                                {
+                                    status = aRegistry->clearAppListForLauncher(kNodeName2);
+                                    if (status.first)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (status.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 513 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                status = aRegistry->clearAppListForLauncher(kNodeName1);
+                                if (status.first)
+                                {
+                                    auto    statusWithInt{aRegistry->getNumberOfApplications()};
+
+                                    if (statusWithInt.first.first)
+                                    {
+                                        if (1 == statusWithInt.second)
+                                        {
+                                            status = aRegistry->clearAppListForLauncher(kNodeName2);
+                                            if (status.first)
+                                            {
+                                                statusWithInt = aRegistry->getNumberOfApplications();
+                                                if (statusWithInt.first.first)
+                                                {
+                                                    if (0 == statusWithInt.second)
+                                                    {
+                                                        result = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (status.first)"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (1 == statusWithInt.second)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (statusWithInt.first.first)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (status.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 514 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfApplicationsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 515 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                auto    statusWithInt{aRegistry->getNumberOfApplicationsOnNode(kNodeName1)};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (1 == statusWithInt.second)
+                                    {
+                                        statusWithInt = aRegistry->getNumberOfApplicationsOnNode(kNodeName2);
+                                        if (statusWithInt.first.first)
+                                        {
+                                            if (1 == statusWithInt.second)
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (1 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 516 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            auto    infoVector{statusWithInfo.second};
+
+                            if (1 == infoVector.size())
+                            {
+                                auto    walker{*infoVector.begin()};
+
+                                if (walker._found && (kNodeName1 == walker._launcherName) && (kAppName1 == walker._appName) &&
+                                    (kAppDescr1 == walker._appDescription))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (walker._found && (kNodeName1 == walker._launcherName) && " //####
+                                            "(kAppName1 == walker._appName) && (kAppDescr1 == walker._appDescription))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 517 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName2, kAppDescr2);
+                        if (status.first)
+                        {
+                            auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
+
+                            if (statusWithInfo.first.first)
+                            {
+                                auto    infoVector{statusWithInfo.second};
+
+                                if (2 == infoVector.size())
+                                {
+                                    auto    elem1{infoVector[0]};
+                                    auto    elem2{infoVector[1]};
+
+                                    if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
+                                        (kAppDescr1 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
+                                        (kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))
+                                    {
+                                        result = 0;
+                                    }
+                                    else if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
+                                             (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
+                                             (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
+                                                "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
+                                                "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
+                                                "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (2 == infoVector.size())"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInfo.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 518 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                auto    statusWithInfo{aRegistry->getInformationForAllApplications()};
+
+                                if (statusWithInfo.first.first)
+                                {
+                                    auto    infoVector{statusWithInfo.second};
+
+                                    if (2 == infoVector.size())
+                                    {
+                                        auto    elem1{infoVector[0]};
+                                        auto    elem2{infoVector[1]};
+
+                                        if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
+                                            (kAppDescr1 == elem1._appDescription) && elem2._found && (kNodeName2 == elem2._launcherName) &&
+                                            (kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))
+                                        {
+                                            result = 0;
+                                        }
+                                        else if (elem1._found && (kNodeName2 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
+                                                 (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
+                                                 (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (elem1._found && (kNodeName2 == elem1._launcherName) && " //####
+                                                    "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
+                                                    "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
+                                                    "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (2 == infoVector.size())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 519 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                    if (status.first)
+                    {
+                        auto    statusWithInfo{aRegistry->getInformationForAllApplicationsOnNode(kNodeName1)};
+
+                        if (statusWithInfo.first.first)
+                        {
+                            auto    infoVector{statusWithInfo.second};
+
+                            if (1 == infoVector.size())
+                            {
+                                auto    elem1{infoVector[0]};
+
+                                if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
+                                    (kAppDescr1 == elem1._appDescription))
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
+                                            "(kAppName1 == elem1._appName) && (kAppDescr1 == elem1._appDescription))"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == infoVector.size())"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInfo.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 520 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::LauncherService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addAppToList(kNodeName1, kAppName1, kAppDescr1);
+                        if (status.first)
+                        {
+                            status = aRegistry->addAppToList(kNodeName2, kAppName2, kAppDescr2);
+                            if (status.first)
+                            {
+                                auto    statusWithInfo{aRegistry->getInformationForAllApplicationsOnNode(kNodeName1)};
+
+                                if (statusWithInfo.first.first)
+                                {
+                                    auto    infoVector{statusWithInfo.second};
+
+                                    if (1 == infoVector.size())
+                                    {
+                                        auto    elem1{infoVector[0]};
+
+                                        if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName1 == elem1._appName) &&
+                                            (kAppDescr1 == elem1._appDescription))
+                                        {
+                                            statusWithInfo = aRegistry->getInformationForAllApplicationsOnNode(kNodeName2);
+                                            if (statusWithInfo.first.first)
+                                            {
+                                                infoVector = statusWithInfo.second;
+                                                if (1 == infoVector.size())
+                                                {
+                                                    auto    elem2{infoVector[0]};
+
+                                                    if (elem2._found && (kNodeName2 == elem2._launcherName) && (kAppName2 == elem2._appName) &&
+                                                        (kAppDescr2 == elem2._appDescription))
+                                                    {
+                                                        result = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        ODL_LOG("! (elem2._found && (kNodeName2 == elem2._launcherName) && " //####
+                                                                "(kAppName2 == elem2._appName) && (kAppDescr2 == elem2._appDescription))"); //####
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (1 == infoVector.size())"); //####
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
+                                                    "(kAppName1 == elem1._appName) && (kAppDescr1 == elem1._appDescription))"); //####
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (1 == infoVector.size())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInfo.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 521 ***
+#endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma mark *** Test Case 522 ***
+#endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma mark *** Test Case 523 ***
+#endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma mark *** Test Case 524 ***
+#endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma mark *** Test Case 525 ***
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -12287,52 +14510,135 @@ main
                                                                                        commandLine);
                         break;
 
-//## Test count applications with empty Registry
-//add_test(NAME TestCountApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 500)
-//## Test add application with one launcher to Registry
-//add_test(NAME TestAddApplicationWithOneLauncherToRegistry COMMAND ${THIS_TARGET} 501)
-//## Test count applications in Registry with one application from one launcher
-//add_test(NAME TestCountApplicationsInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 502)
-//## Test add two applications from one launcher to Registry
-//add_test(NAME TestAddTwoApplicationsFromOneLauncherToRegistry COMMAND ${THIS_TARGET} 503)
-//## Test count applications in Registry with two applications from one launcher
-//add_test(NAME TestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 504)
-//## Test clear applications with empty Registry
-//add_test(NAME TestClearApplicationsWithEmptyRegistry COMMAND ${THIS_TARGET} 505)
-//## Test clear applications in Registry with one application from one launcher
-//add_test(NAME TestClearApplicationsInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 506)
-//## Test clear applications in Registry with two applications from one launcher
-//add_test(NAME TestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 507)
-//## Test add applications from two launchers to Registry
-//add_test(NAME TestAddApplicationsFromTwoLaunchersToRegistry COMMAND ${THIS_TARGET} 508)
-//## Test count applications in Registry with applications from two launchers
-//add_test(NAME TestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 509)
-//## Test clear applications in Registry with applications from two launchers
-//add_test(NAME TestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 510)
-//## Test count applications in Registry with one application from one launcher per launcher
-//add_test(NAME TestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher COMMAND ${THIS_TARGET} 511)
-//## Test count applications in Registry with applications from two launchers per launcher
-//add_test(NAME TestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher COMMAND ${THIS_TARGET} 512)
-//## Test get application information in Registry with one application from one launcher
-//add_test(NAME TestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher COMMAND ${THIS_TARGET} 513)
-//## Test get application information in Registry with two applications from one launcher
-//add_test(NAME TestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher COMMAND ${THIS_TARGET} 514)
-//## Test get application information in Registry with applications from two launchers
-//add_test(NAME TestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers COMMAND ${THIS_TARGET} 515)
-//## Test get application information in Registry with one application from one launcher per launcher
-//add_test(NAME TestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher COMMAND ${THIS_TARGET} 516)
-//## Test get application information in Registry with applications from two launchers per launcher
-//add_test(NAME TestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher COMMAND ${THIS_TARGET} 517)
+                    case 500 :
+                        result = doTestCountApplicationsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 501 :
+                        result = TestAddApplicationWithOneLauncherToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                             commandLine);
+                        break;
+
+                    case 502 :
+                        result = doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                    currentDir, commandLine);
+                        break;
+
+                    case 503 :
+                        result = doTestAddTwoApplicationsFromOneLauncherToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                   commandLine);
+                        break;
+
+                    case 504 :
+                        result = doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                     currentDir, commandLine);
+                        break;
+
+                    case 505 :
+                        result = doTestClearApplicationsWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir, commandLine);
+                        break;
+
+                    case 506 :
+                        result = doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                    currentDir, commandLine);
+                        break;
+
+                    case 507 :
+                        result = doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                              execPath, currentDir, commandLine);
+                        break;
+
+                    case 508 :
+                        result = doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                     currentDir, commandLine);
+                        break;
+
+                    case 509 :
+                        result = doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                               execPath, currentDir, commandLine);
+                        break;
+
+                    case 510 :
+                        result = doTestAddApplicationsFromTwoLaunchersToRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                 commandLine);
+                        break;
+
+                    case 511 :
+                        result = doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                   currentDir, commandLine);
+                        break;
+
+                    case 512 :
+                        result = doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                                   currentDir, commandLine);
+                        break;
+
+                    case 513 :
+                        result = doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                             execPath, currentDir, commandLine);
+                        break;
+
+                    case 514 :
+                        result = doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                               execPath, currentDir, commandLine);
+                        break;
+
+                    case 515 :
+                        result = doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                              execPath, currentDir, commandLine);
+                        break;
+
+                    case 516 :
+                        result = doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                            execPath, currentDir, commandLine);
+                        break;
+
+                    case 517 :
+                        result = doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                             execPath, currentDir, commandLine);
+                        break;
+
+                    case 518 :
+                        result = doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                           execPath, currentDir, commandLine);
+                        break;
+
+                    case 519 :
+                        result = doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLauncher(*argv, argc - 1, argv + 2,
+                                                                                                                       ourContext, execPath,
+                                                                                                                       currentDir, commandLine);
+                        break;
+
+                    case 520 :
+                        result = doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLauncher(*argv, argc - 1, argv + 2,
+                                                                                                                      ourContext, execPath,
+                                                                                                                      currentDir, commandLine);
+                        break;
+
+                    case 521 :
 //## Test get node names in Registry with empty Registry
-//add_test(NAME TestGetNodeNamesInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 518)
+//add_test(NAME TestGetNodeNamesInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 521)
+                        break;
+
+                    case 522 :
 //## Test get node names in Registry with one unmatching application from one launcher
-//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 519)
+//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 522)
+                        break;
+
+                    case 523 :
 //## Test get node names in Registry with one unmatching application from two launchers
-//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 520)
+//add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 523)
+                        break;
+
+                    case 524 :
 //## Test get node names in Registry with one matching application from one launcher
-//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 521)
+//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 524)
+                        break;
+
+                    case 525 :
 //## Test get node names in Registry with one matching application from two launchers
-//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 522)
+//add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 525)
+                        break;
 
                     default :
                         break;

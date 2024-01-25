@@ -106,7 +106,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator"s, ""s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

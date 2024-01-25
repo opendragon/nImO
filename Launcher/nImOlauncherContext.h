@@ -90,6 +90,25 @@ namespace nImO
                  const bool             logging = false,
                  const std::string &    nodeName = ""s);
 
+            /*! @brief Return the application information for the known applications.
+             @return The application information for the known applications. */
+            inline SpValue
+            getAppList
+                (void)
+                const
+            {
+                return _appListValues;
+            }
+
+            /*! @brief Set the application information for the known applications.
+             @param[in] newList The application information for the known applications. */
+            inline void
+            setAppList
+                (SpValue    newList)
+            {
+                _appListValues = newList;
+            }
+
         protected :
             // Protected methods.
 
@@ -104,6 +123,9 @@ namespace nImO
 
         private :
             // Private fields.
+
+            /*! @brief The application information as a map. */
+            SpValue _appListValues{};
 
     }; // LauncherContext
 

@@ -40,10 +40,15 @@
 
 //#include <BasicTypes/nImOaddress.h>
 //#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
-//#include <nImOinChannel.h>
+#include <Containers/nImOmap.h>
 #include <nImOlauncherCommands.h>
+
+#pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunused-parameter"
+# include <boost/process.hpp>
+#pragma clang diagnostic pop
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -105,8 +110,18 @@ nImO::LaunchAppCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
+    auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
-    _ownerForLauncher->report("get run params for app request received"s);
+    _ownerForLauncher->report("launch app request received"s);
+    if (0 < appList.size())
+    {
+NIMO_UNUSED_VAR_(socket);
+NIMO_UNUSED_VAR_(arguments);
+    }
+    else
+    {
+        ODL_LOG("! (0 < appList.size())"); //####
+    }
 #if 0
     if (3 < arguments.size())
     {

@@ -84,7 +84,6 @@ nImO::ProcessServiceOptions
      Ptr(Ptr(char))         argv,
      DescriptorVector &     argumentDescriptions,
      const std::string &    serviceDescription,
-     const std::string &    matchingCriteria,
      const int              year,
      const std::string &    copyrightHolder,
      ServiceOptions &       optionValues,
@@ -96,7 +95,7 @@ nImO::ProcessServiceOptions
     ODL_ENTER(); //####
     ODL_I2("argc = ", argc, "year = ", year); //####
     ODL_P4("argv = ", argv, "argumentDescriptions = ", &argumentDescriptions, "optionValues = ", &optionValues, "arguments = ", arguments); //####
-    ODL_S3s("serviceDescription = ", serviceDescription, "matchingCriteria = ", matchingCriteria, "copyrightHolder = ", copyrightHolder); //####
+    ODL_S2s("serviceDescription = ", serviceDescription, "copyrightHolder = ", copyrightHolder); //####
     ODL_X1("skipOptions = ", StaticCast(int64_t, skipOptions)); //####
     ODL_B2("multipleInputs = ", multipleInputs, "multipleOutputs = ", multipleOutputs); //####
     enum class OptionIndex
@@ -117,19 +116,10 @@ nImO::ProcessServiceOptions
         kOptionWAIT
     }; // OptionIndex
 
-    bool    isAdapter{! matchingCriteria.empty()};
     bool    keepGoing{true};
-    auto    serviceKindName{isAdapter ? "adapter"s : "service"s};
-    auto    describePartText{"  --describe, -d \tPrint executable type, supported "s};
-    auto    tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the "s};
+    auto    describePartText{"  --describe, -d \tPrint executable type, supported service options and description and exit"s};
+    auto    tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the service name"s};
 
-    describePartText += serviceKindName + " options"s;
-    if (isAdapter)
-    {
-        describePartText += ", matching criteria"s;
-    }
-    describePartText += " and description and exit"s;
-    tagPartText += serviceKindName + " name"s;
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         "  --args, -a \tReport the argument formats"};
@@ -356,9 +346,8 @@ nImO::ProcessServiceOptions
     {
         bool    needTab{true};
 
-        // Note that we don't report the 'h' and 'v' options, as they are not involved in
+        // Note that we don't report the 'd', 'h' and 'v' options, as they are not involved in
         // determining what choices to offer when launching a service.
-        std::cout << (isAdapter ? "Adapter" : "Service");
         if (0 == (skipOptions & kSkipArgsOption))
         {
             if (needTab)
@@ -385,15 +374,6 @@ nImO::ProcessServiceOptions
                 needTab = false;
             }
             std::cout << "c";
-        }
-        if (0 == (skipOptions & kSkipDescribeOption))
-        {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
-            std::cout << "d";
         }
         if (0 == (skipOptions & kSkipExpandedOption))
         {
@@ -462,7 +442,7 @@ nImO::ProcessServiceOptions
         {
             std::cout << "\t";
         }
-        std::cout << "\t" << matchingCriteria << "\t" << serviceDescription << "\n";
+        std::cout << "\t" << serviceDescription << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

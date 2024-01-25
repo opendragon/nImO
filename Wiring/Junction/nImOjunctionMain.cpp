@@ -105,7 +105,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction"s, ""s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

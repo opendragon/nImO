@@ -40,10 +40,15 @@
 
 //#include <BasicTypes/nImOaddress.h>
 //#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
-//#include <nImOinChannel.h>
+#include <Containers/nImOmap.h>
 #include <nImOlauncherCommands.h>
+
+#pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunused-parameter"
+# include <boost/process.hpp>
+#pragma clang diagnostic pop
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -105,8 +110,37 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     ODL_OBJENTER(); //####
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
+    auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
     _ownerForLauncher->report("get run params for app request received"s);
+    if (0 < appList.size())
+    {
+        if (1 < arguments.size())
+        {
+            auto    appNameEntry{appList.find(arguments[1])};
+
+            if (appList.end() != appNameEntry)
+            {
+                auto    appNameString{arguments[1]->asString()};
+
+NIMO_UNUSED_VAR_(socket);
+std::cerr << "run params requested for " << *appNameString << std::endl;//!!
+            }
+            else
+            {
+                ODL_LOG("! (appList.end() != appNameEntry)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (1 < arguments.size())"); //####
+        }
+
+    }
+    else
+    {
+        ODL_LOG("! (0 < appList.size())"); //####
+    }
 #if 0
     if (3 < arguments.size())
     {
@@ -152,3 +186,139 @@ nImO::GetRunParamsForAppCommandHandler::doIt
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+#if 0
+Here's a simple example of how to start a program with Boost.Process:
+
+#include <boost/process.hpp>
+
+#include <string>
+#include <iostream>
+
+using namespace boost::process;
+
+int main()
+{
+    ipstream pipe_stream;
+    child c("gcc --version", std_out > pipe_stream);
+
+    std::string line;
+
+    while (pipe_stream && std::getline(pipe_stream, line) && !line.empty())
+        std::cerr << line << std::endl;
+
+    c.wait();
+}
+#endif//0
+
+#if 0
+bool
+ManagerApplication::getArgumentsForApplication(ApplicationInfo & theInfo)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("theInfo = ", &theInfo); //####
+    bool         okSoFar = false;
+    ChildProcess runApplication;
+    StringArray  nameAndArgs(theInfo._applicationPath);
+
+    nameAndArgs.add("--args");
+    if (runApplication.start(nameAndArgs))
+    {
+        const String childOutput(runApplication.readAllProcessOutput());
+
+        LazyLaunchProcess(runApplication, kThreadKillTime);
+        ODL_S1s("childOutput = ", childOutput.toStdString()); //####
+        if (0 < childOutput.length())
+        {
+            StringArray aRecord(StringArray::fromTokens(childOutput, ARGUMENT_SEPARATOR_, ""));
+
+            // The input lines should be composed of argument descriptions separated by the
+            // ARGUMENT_SEPARATOR_ string.
+            for (int ii = 0, mm = aRecord.size(); mm > ii; ++ii)
+            {
+                String                              trimmedRecord(aRecord[ii].trim());
+                YarpString                          argString(trimmedRecord.toStdString());
+                Utilities::BaseArgumentDescriptor * argDesc =
+                                                    Utilities::ConvertStringToArgument(argString);
+
+                if (argDesc)
+                {
+                    theInfo._argDescriptions.push_back(argDesc);
+                }
+            }
+            okSoFar = true;
+        }
+    }
+    else
+    {
+        ODL_LOG("! (runApplication.start(nameAndArgs))"); //####
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // ManagerApplication::getArgumentsForApplication
+bool
+ManagerApplication::getParametersForApplication(const String &    execName,
+                                                ApplicationInfo & theInfo)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("execName = ", execName.toStdString()); //####
+    ODL_P1("theInfo = ", &theInfo); //####
+    bool   okSoFar = false;
+    String execPath(findPathToExecutable(execName));
+
+    if (0 < execPath.length())
+    {
+        ChildProcess runApplication;
+        StringArray  nameAndArgs(execPath);
+
+        nameAndArgs.add("--info");
+        if (runApplication.start(nameAndArgs))
+        {
+            const String childOutput(runApplication.readAllProcessOutput());
+
+            LazyLaunchProcess(runApplication, kThreadKillTime);
+            ODL_S1s("childOutput = ", childOutput.toStdString()); //####
+            if (0 < childOutput.length())
+            {
+                StringArray aRecord(StringArray::fromTokens(childOutput, "\t", ""));
+
+                // The input lines should be composed of three tab-separated items:
+                // 0) Type ('Service' or 'Adapter')
+                // 1) Allowed options
+                // 2) Matching criteria
+                // 3) Description
+                if (4 <= aRecord.size())
+                {
+                    String execKind(aRecord[0]);
+
+                    if (execKind == "Adapter")
+                    {
+                        theInfo._kind = kApplicationAdapter;
+                        okSoFar = (4 <= aRecord.size());
+                    }
+                    else if (execKind == "Service")
+                    {
+                        theInfo._kind = kApplicationService;
+                        okSoFar = true;
+                    }
+                    if (okSoFar)
+                    {
+                        theInfo._applicationPath = nameAndArgs[0];
+                        theInfo._options = aRecord[1];
+                        theInfo._criteria = aRecord[2];
+                        theInfo._description = aRecord[3].trim();
+                        theInfo._shortName = execName;
+                    }
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (runApplication.start(nameAndArgs))"); //####
+        }
+    }
+    ODL_OBJEXIT_B(okSoFar); //####
+    return okSoFar;
+} // ManagerApplication::getParametersForApplication
+
+#endif//0

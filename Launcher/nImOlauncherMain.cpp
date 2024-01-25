@@ -75,9 +75,6 @@
 /*! @brief The default path to the application file list file. */
 static const std::string    kDefaultAppListFilePath{nImO_RUN_CONFIG_DIR_ "nimo-services.txt"};
 
-/*! @brief The loaded application file list values. */
-static nImO::SpValue    lAppListValues{};
-
 /*! @brief A class to provide values that are used for handling callbacks for the application. */
 class LauncherBreakHandler final : public nImO::CallbackFunction
 {
@@ -139,13 +136,19 @@ class LauncherBreakHandler final : public nImO::CallbackFunction
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+/*! @brief Collect the application information from a file.
+ @param[in] ourContext The launcher context to hold the application information.
+ @param[in] appListFilePath The path to the file containing the application information.
+ @return @c true if the file containing the application information was properly structured. */
 static bool
 loadApplicationInformation
-    (const std::string &    appListFilePath)
+    (nImO::SpLauncherContext    ourContext,
+     const std::string &        appListFilePath)
 {
     ODL_ENTER(); //####
+    ODL_P1("ourContext = ", ourContext.get()); //####
     ODL_S1s("appListFilePath = ", appListFilePath); //####
-    std::string workingPath;
+    std::string workingPath{};
     bool        result{false};
 
     if (appListFilePath.empty())
@@ -275,7 +278,7 @@ loadApplicationInformation
                         }
                         if (! writeMap->empty())
                         {
-                            lAppListValues = writeMap;
+                            ourContext->setAppList(writeMap);
                             result = true;
                         }
                     }
@@ -326,7 +329,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, ""s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
     {
@@ -364,12 +367,12 @@ main
                             {
 std::cerr << "** Not fully implemented **\n";
                                 // Load the app list file and exit if not properly structured.
-                                if (loadApplicationInformation(firstArg.getCurrentValue()))
+                                if (loadApplicationInformation(ourContext, firstArg.getCurrentValue()))
                                 {
                                     statusWithBool = proxy.clearAppListForLauncher(nodeName);
                                     if (statusWithBool.first.first)
                                     {
-                                        for (auto & walker : *lAppListValues->asMap())
+                                        for (auto & walker : *ourContext->getAppList()->asMap())
                                         {
                                             auto    keyValue{walker.first->asString()};
                                             auto    readSubMap{walker.second->asMap()};

@@ -210,6 +210,9 @@ namespace BAIP = boost::asio::ip;
 namespace BAErr = boost::asio::error;
 
 /*! @brief A shortened name for a type. */
+using BAD_t = boost::asio::deadline_timer;
+
+/*! @brief A shortened name for a type. */
 using BSErr = boost::system::error_code;
 
 /*! @brief A shortened name for a type. */
@@ -404,7 +407,7 @@ namespace nImO
                 OtherMiscellaneousTypeReserved1 = 0x0008,
 
                 /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellanouesTypeReserved2 = 0x000C,
+                OtherMiscellaneousTypeReserved2 = 0x000C,
 
             /*! @brief The value that follows is a Container. */
             OtherContainerStart = 0x0010,
@@ -835,6 +838,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP acceptor. */
     using SpAcceptorTCP = std::shared_ptr<BTCP::acceptor>;
+
+    /*! @brief A holder for a shared pointer to an Asio deadline timer. */
+    using SpDeadlineTimer = std::shared_ptr<BAD_t>;
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
     using SpSocketTCP = std::shared_ptr<BTCP::socket>;

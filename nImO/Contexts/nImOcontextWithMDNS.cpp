@@ -803,8 +803,8 @@ nImO::ContextWithMDNS::gatherAnnouncements
         }
         if (okSoFar)
         {
-            std::atomic_bool            timedOut{false};
-            boost::asio::deadline_timer timeOutTimer{*getService()};
+            std::atomic_bool    timedOut{false};
+            BAD_t               timeOutTimer{*getService()};
 
             report("timeout = "s + std::to_string(getRegistrySearchTimeout()));
             timeOutTimer.expires_from_now(boost::posix_time::seconds(getRegistrySearchTimeout()));

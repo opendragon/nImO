@@ -47,7 +47,6 @@
 # endif // defined(__APPLE__)
 # include <boost/asio/read_until.hpp>
 # include <boost/bind/bind.hpp>
-# include <boost/dll/runtime_symbol_info.hpp>
 # include <boost/filesystem.hpp>
 # include <boost/shared_array.hpp>
 # include <boost/thread.hpp>

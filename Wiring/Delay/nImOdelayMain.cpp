@@ -44,6 +44,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 
+//#include <boost/date_time/posix_time/posix_time.hpp>
+
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -207,11 +209,12 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-std::cerr << "** Not fully implemented **\n";
                                     auto    outChannel{ourContext->getOutputChannel(outChannelPath)};
 
                                     if (outChannel)
                                     {
+                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg.getCurrentValue()))};
+
                                         if (optionValues._waitForConnections)
                                         {
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
@@ -229,6 +232,8 @@ std::cerr << "** Not fully implemented **\n";
                                             ourContext->report("waiting for messages."s);
                                             std::cerr << "ready.\n";
                                         }
+                                        std::set<nImO::SpDeadlineTimer> timers{};
+
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
@@ -242,17 +247,28 @@ std::cerr << "** Not fully implemented **\n";
 
                                                     if (contents)
                                                     {
-    //                                                    if (! outChannel->send(contents))
-    //                                                    {
-    //                                                        ourContext->report("problem sending to "s + outChannelPath);
-    //                                                        std::cerr << "problem sending to " << outChannelPath << "\n";
-    //                                                        exitCode = 1;
-    //                                                        break;
-    //
-    //                                                    }
+                                                        auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+
+                                                        timers.insert(aTimer);
+                                                        aTimer->expires_from_now(delayTime);
+                                                        aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
+                                                                           (const BSErr & error)
+                                                                           {
+                                                                                if ((! error) && nImO::gKeepRunning)
+                                                                                {
+                                                                                    if (! outChannel->send(contents))
+                                                                                    {
+                                                                                        ourContext->report("problem sending to "s + outChannelPath);
+                                                                                    }
+                                                                                }
+                                                                            });
                                                     }
                                                 }
                                             }
+                                        }
+                                        for (auto & walker : timers)
+                                        {
+                                            walker->cancel();
                                         }
                                         if (! nImO::gPendingStop)
                                         {

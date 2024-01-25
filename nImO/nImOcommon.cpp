@@ -275,7 +275,7 @@ nImO::ConsumeSomeTime
     ODL_D1("factor = ", factor); //####
     if (nullptr != context)
     {
-        boost::asio::deadline_timer timer(*context->getService());
+        BAD_t   timer(*context->getService());
 
         timer.expires_from_now(boost::posix_time::milliseconds(StaticCast(int, 1000.0 / factor)));
         timer.wait();

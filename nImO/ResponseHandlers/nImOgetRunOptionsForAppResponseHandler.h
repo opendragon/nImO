@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOlauncherCommands.h
+//  File:       nImO/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to the nImO Launcher service.
+//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-15
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlauncherCommands_H_))
-# define nImOlauncherCommands_H_ /* Header guard */
+#if (! defined(nImOgetRunOptionsForAppResponseHandler_H_))
+# define nImOgetRunOptionsForAppResponseHandler_H_ /* Header guard */
 
-# include <nImOcommonCommands.h>
+# include <ResponseHandlers/nImOresponseHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,38 +47,74 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to the %nImO Launcher service. */
+ @brief The class declaration for a functor used with the %nImO request/response mechanism. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
+    class GetRunOptionsForAppResponseHandler final : public ResponseHandler
+    {
 
-    /*! @brief The key for the description field of the map for an application. */
-    const std::string   kDescriptionKey{"description"s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The key for the path field of the map for an application. */
-    const std::string   kPathKey{"path"s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'getRunParamsForApp' request. */
-    const std::string   kGetRunOptionsForAppRequest{"getRunOptionsForApp?"s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'getRunParamsForApp' response. */
-    const std::string   kGetRunOptionsForAppResponse{"getRunOptionsForApp="s};
+            /*! @brief The class that this class is derived from. */
+            using inherited = nImO::ResponseHandler;
 
-    /*! @brief The 'getRunParamsForApp' request. */
-    const std::string   kGetRunParamsForAppRequest{"getRunParamsForApp?"s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'getRunParamsForApp' response. */
-    const std::string   kGetRunParamsForAppResponse{"getRunParamsForApp="s};
+            /*! @brief The constructor. */
+            GetRunOptionsForAppResponseHandler
+                (void);
 
-    /*! @brief The 'launchApp' request. */
-    const std::string   kLaunchAppRequest{"launchApp."s};
+            /*! @brief Handle the response, returning @c true if successful.
+             @param[in] stuff The data included in the response.
+             @return @c true if the response was correctly structured. */
+            bool
+            doIt
+                (const Array &  stuff)
+                override;
 
-    /*! @brief The 'launchApp' response. */
-    const std::string   kLaunchAppResponse{"launchApp="s};
+            /*! @brief Return the received value.
+             @return The received value. */
+            inline bool
+            result
+                (void)
+                const
+            {
+                return _result;
+            }
+
+        protected :
+            // Protected methods.
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief The received value. */
+            bool    _result{false};
+
+    }; // GetRunOptionsForAppResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOlauncherCommands_H_)
+#endif // not defined(nImOgetRunOptionsForAppResponseHandler_H_)

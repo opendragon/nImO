@@ -87,6 +87,7 @@
 #include "ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h"
 #include "ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h"
 #include "ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h"
+#include "ResponseHandlers/nImOgetRunOptionsForAppResponseHandler"
 #include "ResponseHandlers/nImOgetRunParamsForAppResponseHandler"
 #include "ResponseHandlers/nImOisChannelPresentResponseHandler.h"
 #include "ResponseHandlers/nImOisMachinePresentResponseHandler.h"

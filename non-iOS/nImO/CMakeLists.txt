@@ -143,6 +143,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.cpp"
@@ -347,6 +348,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.h"
@@ -501,6 +503,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.cpp

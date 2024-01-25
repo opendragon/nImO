@@ -322,16 +322,11 @@ nImO::ProcessServiceOptions
         {
             Ptr(nImO::BaseArgumentDescriptor)   anArg{argumentDescriptions[ii]};
 
-            if (0 < ii)
-            {
-                std::cout << kArgumentSeparator;
-            }
             if (anArg)
             {
-                std::cout << anArg->toString().c_str();
+                std::cout << anArg->toString().c_str() << "\n";
             }
         }
-        std::cout << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
@@ -344,103 +339,47 @@ nImO::ProcessServiceOptions
     }
     else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
     {
-        bool    needTab{true};
-
         // Note that we don't report the 'd', 'h' and 'v' options, as they are not involved in
         // determining what choices to offer when launching a service.
         if (0 == (skipOptions & kSkipArgsOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "a";
         }
         if (0 == (skipOptions & kSkipBaseOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "b";
         }
         if (0 == (skipOptions & kSkipConfigFileOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "c";
         }
         if (0 == (skipOptions & kSkipExpandedOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "e";
         }
         if (0 == (skipOptions & kSkipInTypeOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "i";
         }
         if (0 == (skipOptions & kSkipLoggingOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "l";
         }
         if (0 == (skipOptions & kSkipNodeOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "n";
         }
         if (0 == (skipOptions & kSkipOutTypeOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "o";
         }
         if (0 == (skipOptions & kSkipTagOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "t";
         }
         if (0 == (skipOptions & kSkipWaitOption))
         {
-            if (needTab)
-            {
-                std::cout << "\t";
-                needTab = false;
-            }
             std::cout << "w";
-        }
-        if (needTab)
-        {
-            std::cout << "\t";
         }
         std::cout << "\t" << serviceDescription << "\n";
         keepGoing = false;

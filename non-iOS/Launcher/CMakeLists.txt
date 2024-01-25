@@ -50,6 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.cpp
                 ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp
                 ${THIS_SOURCE_DIR}/CommandHandlers/nImOlaunchAppCommandHandler.cpp
                 ${THIS_SOURCE_DIR}/CommandHandlers/nImOlauncherCommandHandler.cpp

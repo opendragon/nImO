@@ -266,6 +266,7 @@ BaseArgumentDescriptor::partitionString
             if (workingCopy.empty())
             {
                 break;
+
             }
             size_t  innerIndx{workingCopy.find(innerChar, 0)};
 

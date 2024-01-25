@@ -68,6 +68,8 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
+namespace BP = boost::process;
+
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)

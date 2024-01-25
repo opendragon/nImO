@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp
+//  File:       nImO/Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO get run params for app command handler.
+//  Contains:   The class definition for the nImO get run options for app command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.h>
 
 //#include <BasicTypes/nImOaddress.h>
 //#include <BasicTypes/nImOinteger.h>
@@ -59,7 +59,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO get run params for app command handler. */
+ @brief The class definition for the %nImO get run options for app command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -90,21 +90,21 @@ namespace BP = boost::process;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetRunParamsForAppCommandHandler::GetRunParamsForAppCommandHandler
+nImO::GetRunOptionsForAppCommandHandler::GetRunOptionsForAppCommandHandler
     (SpLauncherContext  owner) :
         inherited{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetRunParamsForAppCommandHandler::GetRunParamsForAppCommandHandler
+} // nImO::GetRunOptionsForAppCommandHandler::GetRunOptionsForAppCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetRunParamsForAppCommandHandler::doIt
+nImO::GetRunOptionsForAppCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments)
     const
@@ -114,7 +114,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
-    _ownerForLauncher->report("get run params for app request received"s);
+    _ownerForLauncher->report("get run options for app request received"s);
     if (0 < appList.size())
     {
         if (1 < arguments.size())
@@ -134,15 +134,29 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         auto    appPath{appPathIterator->second->asString()->getValue()};
 
                         BP::ipstream    pipeStream{};
-                        BP::child       cc{appPath + " -a", BP::std_out > pipeStream};
+                        BP::child       cc{appPath + " -d", BP::std_out > pipeStream};
                         std::string     line{};
-                        auto            params{std::make_shared<Array>()};
 
-                        for ( ; getline(pipeStream, line); )
+                        if (std::getline(pipeStream, line))
                         {
-                            params->addValue(std::make_shared<String>(line));
+                            size_t      tabIndex{line.find('\t', 0)};
+                            std::string runOptions{};
+
+                            if (line.npos == tabIndex)
+                            {
+                                runOptions = line;
+                            }
+                            else
+                            {
+                                runOptions = line.substr(0, tabIndex);
+                            }
+                            okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "get run options for app"s,
+                                                          std::make_shared<String>(runOptions));
                         }
-                        okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params);
+                        else
+                        {
+                            ODL_LOG("! (std::getline(pipeStream, line))"); //####
+                        }
                         cc.wait();
                     }
                     else
@@ -171,7 +185,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetRunParamsForAppCommandHandler::doIt
+} // nImO::GetRunOptionsForAppCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -50,6 +50,7 @@ enable_testing()
 add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/nImOcontextTest.cpp
                ${THIS_SOURCE_DIR}/../Launcher/nImOlauncherContext.cpp
+               ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOlaunchAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOlauncherCommandHandler.cpp

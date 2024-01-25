@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOlauncherCommands.h
+//  File:       nImO/Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to the nImO Launcher service.
+//  Contains:   The class declaration for the nImO get run options for app command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-15
+//  Created:    2024-01-16
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlauncherCommands_H_))
-# define nImOlauncherCommands_H_ /* Header guard */
+#if (! defined(nImOgetRunOptionsForAppCommandHandler_H_))
+# define nImOgetRunOptionsForAppCommandHandler_H_ /* Header guard */
 
-# include <nImOcommonCommands.h>
+# include <Launcher/CommandHandlers/nImOlauncherCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,38 +47,65 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to the %nImO Launcher service. */
+ @brief The class declaration for the %nImO get run options for app command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide a handler for the get run options for app command. */
+    class GetRunOptionsForAppCommandHandler final : public LauncherCommandHandler
+    {
 
-    /*! @brief The key for the description field of the map for an application. */
-    const std::string   kDescriptionKey{"description"s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The key for the path field of the map for an application. */
-    const std::string   kPathKey{"path"s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'getRunParamsForApp' request. */
-    const std::string   kGetRunOptionsForAppRequest{"getRunOptionsForApp?"s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'getRunParamsForApp' response. */
-    const std::string   kGetRunOptionsForAppResponse{"getRunOptionsForApp="s};
+            /*! @brief The class that this class is derived from. */
+            using inherited = LauncherCommandHandler;
 
-    /*! @brief The 'getRunParamsForApp' request. */
-    const std::string   kGetRunParamsForAppRequest{"getRunParamsForApp?"s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'getRunParamsForApp' response. */
-    const std::string   kGetRunParamsForAppResponse{"getRunParamsForApp="s};
+            /*! @brief The constructor.
+             @param[in] owner The owning Context. */
+            GetRunOptionsForAppCommandHandler
+                (SpLauncherContext  owner);
 
-    /*! @brief The 'launchApp' request. */
-    const std::string   kLaunchAppRequest{"launchApp."s};
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            bool
+            doIt
+                (BTCP::socket & socket,
+                 const Array &  arguments)
+                const
+                override;
 
-    /*! @brief The 'launchApp' response. */
-    const std::string   kLaunchAppResponse{"launchApp="s};
+        protected :
+            // Protected methods.
+
+        private :
+            // Private methods.
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+    }; // GetRunOptionsForAppCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOlauncherCommands_H_)
+#endif // not defined(nImOgetRunOptionsForAppCommandHandler_H_)

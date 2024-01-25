@@ -15,8 +15,9 @@
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d' 
 \f1\b DONE
 \f0\b0 \
-* nImOlauncher 'a' \'97 program launcher \
-* nImOlist xyz \'97 reports all the known channels, connections, bridges, machines, applications depending on filters and options \
+* nImOlist xyz \'97 reports all the known channels, connections, bridges, machines, applications depending on filters and options 
+\f1\b DONE
+\f0\b0 \
 * nImOmonitor - displays the log; 
 \f1\b DONE
 \f0\b0 \
@@ -40,7 +41,9 @@ examples:\
 * nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false] 
 \f1\b DONE
 \f0\b0 \
-* nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1)\
+* nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1) 
+\f1\b DONE
+\f0\b0 \
 * nImOfanIn ['n'] - forwards any messages from one of the 'n' input channels to the output channel ('n' defaults to 1) 
 \f1\b DONE
 \f0\b0 \
@@ -59,11 +62,15 @@ application support:\
 * nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
 * nImOloadApps 'a' - loads a set of applications\
 * nImOloadSetup 'a' - loads a setup\
-* nImOshutdown 'a' - shutdown one or all nodes or machines except active monitors\
+* nImOshutdown 'a' - shutdown one or all nodes or machines except active monitors 
+\f1\b DONE
+\f0\b0 \
 * nImOstoreApps 'a' - stores the current set of loaded applications\
 * nImOstoreSetup 'a' - stores a setup\
-* nImOlauncher 'a' ['b'] - records the machine with the Registry and waits for requests to start applications\
-* nImOregistry - the Registry, one per LAN\
+* nImOlauncher 'a' - records the machine with the Registry and waits for requests to start applications\
+* nImOregistry - the Registry, one per LAN 
+\f1\b DONE
+\f0\b0 \
 \
 shell script:\
 * nimo\

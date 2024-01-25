@@ -4,7 +4,7 @@
 //
 //  Project:    nImO
 //
-//  Contains:   An example application to demonstrate using the nImO library in a program.
+//  Contains:   A wiring application to demonstrate using the nImO library in a program.
 //
 //  Written by: Norman Jaffe
 //
@@ -53,7 +53,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief An example application to demonstrate using the nImO library in a program. */
+ @brief A wiring application to demonstrate using the nImO library in a program. */
 
 /*! @dir FanOut
  @brief The set of files that implement the FanOut application. */
@@ -81,7 +81,7 @@
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for the example application.
+/*! @brief The entry point for the wiring application.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -103,7 +103,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanOut example"s, ""s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "FanOut"s, ""s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);

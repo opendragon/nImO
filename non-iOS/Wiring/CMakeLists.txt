@@ -4,7 +4,7 @@
 #
 #  Project:    nImO
 #
-#  Contains:   The example applications for the nImO project.
+#  Contains:   The wiring applications for the nImO project.
 #
 #  Written by: Norman Jaffe
 #

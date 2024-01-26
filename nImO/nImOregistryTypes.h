@@ -80,7 +80,7 @@ namespace nImO
         /*! @brief @c true if the data is valid. */
         bool    _found{false};
 
-        /*! @brief The Launcher node name for the application.*/
+        /*! @brief The Launcher node name for the application. */
         std::string _launcherName{};
 
         /*! @brief The name of the application. */

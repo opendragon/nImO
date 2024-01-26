@@ -118,10 +118,10 @@ main
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
+                nImO::Connection    launcherConnection{};
                 auto                launcherName{firstArg.getCurrentValue()};
                 auto                serviceName{secondArg.getCurrentValue()};
 
-std::cerr << "** Unimplemented **\n";
                 if (launcherName.empty())
                 {
                     auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
@@ -145,8 +145,50 @@ std::cerr << "** Unimplemented **\n";
                         }
                         else
                         {
-                            //TBD     obtain list of launchers and ask for which launcher to use or none
-// set launcherName
+                            std::cout << "The following launchers are available:\n";
+                            int count{0};
+                            int selection{0};
+
+                            std::cout << "\t0 : <select none and leave>\n";
+                            for (auto & walker : launchers)
+                            {
+                                ++count;
+                                std::cout << "\t" << count << " : " << walker << "\n";
+                            }
+                            do
+                             {
+                                 std::cout << "Selection? ";
+                                 std::cout.flush();
+                                 std::cin >> selection;
+                             }
+                            while ((0 > selection) || (selection > count));
+                            if (0 == selection)
+                            {
+                                exitCode = 2;
+                            }
+                            else
+                            {
+                                count = 0;
+                                for (auto & walker : launchers)
+                                {
+                                    ++count;
+                                    if (selection == count)
+                                    {
+                                        launcherName = walker;
+                                        for (auto & subWalker : nodes)
+                                        {
+                                            if (subWalker._name == launcherName)
+                                            {
+                                                launcherConnection = subWalker._connection;
+                                                break;
+
+                                            }
+                                        }
+                                        break;
+
+                                    }
+                                }
+                            }
                         }
                     }
                     else
@@ -163,7 +205,11 @@ std::cerr << "** Unimplemented **\n";
                     {
                         if (statusWithNodeInfo.second._found)
                         {
-                            if (nImO::ServiceType::LauncherService != statusWithNodeInfo.second._serviceType)
+                            if (nImO::ServiceType::LauncherService == statusWithNodeInfo.second._serviceType)
+                            {
+                                launcherConnection = statusWithNodeInfo.second._connection;
+                            }
+                            else
                             {
                                 ourContext->report("'" + launcherName + "' is not a launcher."s);
                                 exitCode = 1;
@@ -183,19 +229,87 @@ std::cerr << "** Unimplemented **\n";
                 }
                 if (0 == exitCode)
                 {
-                    //TBD     connect to launcher
-                    if (serviceName.empty())
+                    auto    statusWithInfo{proxy.getInformationForAllApplicationsOnNode(launcherName)};
+
+                    if (statusWithInfo.first.first)
                     {
-                        //TBD     obtain list of services and ask for which to launch, or none
-// set serviceName
+                        auto    applicationsInfo{statusWithInfo.second};
+
+                        if (serviceName.empty())
+                        {
+                            std::cout << "The following services are available from launcher '" << launcherName << "':\n";
+                            int count{0};
+                            int selection{0};
+
+                            std::cout << "\t0 : <select none and leave>\n";
+                            for (auto & walker : applicationsInfo)
+                            {
+                                if (walker._found)
+                                {
+                                    ++count;
+                                    std::cout << "\t" << count << " : " << walker._appName << " -> " << walker._appDescription << "\n";
+                                }
+                            }
+                            do
+                             {
+                                 std::cout << "Selection? ";
+                                 std::cout.flush();
+                                 std::cin >> selection;
+                             }
+                            while ((0 > selection) || (selection > count));
+                            if (0 == selection)
+                            {
+                                exitCode = 2;
+                            }
+                            else
+                            {
+                                count = 0;
+                                for (auto & walker : applicationsInfo)
+                                {
+                                    ++count;
+                                    if (selection == count)
+                                    {
+                                        serviceName = walker._appName;
+                                        break;
+
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            bool    found{false};
+
+                            for (auto & walker : applicationsInfo)
+                            {
+                                if (walker._found && (walker._appName == serviceName))
+                                {
+                                    found = true;
+                                    break;
+
+                                }
+                            }
+                            if (! found)
+                            {
+                                ourContext->report("Unknown service: '"s + serviceName + "' on launcher '" + launcherName + "'"s);
+                                exitCode = 1;
+                            }
+                        }
                     }
                     else
                     {
-                        //TBD     if service is unknown, error message and exit
+                        std::cerr << "Problem with 'getInformationForAllApplicationsOnNode': " << statusWithInfo.first.second << "\n";
+                        exitCode = 1;
                     }
                 }
                 if (0 == exitCode)
                 {
+std::cerr << "** Unimplemented **\n";
+std::cerr << "launching " << serviceName << " on " << launcherName << "\n";//!!
+                    //                        ourContext->report("sending shutdown request to "s + walker._name);
+                    //                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, launcherConnection, nImO::kShutDownRequest,
+                    //                                                                         nImO::kShutDownResponse);
+                    //TBD     connect to launcher
                     //TBD     get service options and service parameters
                     //TBD     ask which options are to be applied
                     //TBD     ask for values for parameters

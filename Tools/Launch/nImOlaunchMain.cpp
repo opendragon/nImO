@@ -37,9 +37,15 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
 #include <Contexts/nImOutilityContext.h>
+#include <ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h>
+#include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
+#include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
+#include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
 
 //#include <odlEnable.h>
@@ -304,16 +310,47 @@ main
                 }
                 if (0 == exitCode)
                 {
+                    auto    argArray1{std::make_shared<nImO::Array>()};
+                    auto    handler1{std::make_unique<nImO::GetRunOptionsForAppResponseHandler>()};
+
+                    argArray1->addValue(std::make_shared<nImO::String>(serviceName));
+                    auto    statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler1.get(),
+                                                                                             argArray1.get(), nImO::kGetRunOptionsForAppRequest,
+                                                                                             nImO::kGetRunOptionsForAppResponse)};
+
+                    if (statusWithBool.first)
+                    {
+                        auto    argArray2{std::make_shared<nImO::Array>()};
+                        auto    handler2{std::make_unique<nImO::GetRunParamsForAppResponseHandler>()};
+
+                        argArray2->addValue(std::make_shared<nImO::String>(serviceName));
+                        statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
+                                                                                           argArray2.get(), nImO::kGetRunParamsForAppRequest,
+                                                                                           nImO::kGetRunParamsForAppResponse);
+
+                        if (statusWithBool.first)
+                        {
+//TBD save the available options and parameters
+                        }
+                        else
+                        {
+                            std::cerr << "Problem getting the run parameters for '" << serviceName << "' from '" << launcherName + "'.\n";
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem getting the run options for '" << serviceName << "' from '" << launcherName + "'.\n";
+                        exitCode = 1;
+                    }
+                    if (0 == exitCode)
+                    {
 std::cerr << "** Unimplemented **\n";
 std::cerr << "launching " << serviceName << " on " << launcherName << "\n";//!!
-                    //                        ourContext->report("sending shutdown request to "s + walker._name);
-                    //                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, launcherConnection, nImO::kShutDownRequest,
-                    //                                                                         nImO::kShutDownResponse);
-                    //TBD     connect to launcher
-                    //TBD     get service options and service parameters
                     //TBD     ask which options are to be applied
                     //TBD     ask for values for parameters
                     //TBD     launch service via launcher with provided options and parameters
+                    }
                 }
             }
             else

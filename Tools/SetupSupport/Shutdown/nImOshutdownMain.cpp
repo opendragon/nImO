@@ -106,7 +106,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown [node]"s, 2023,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown node"s, 2023,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -129,7 +129,7 @@ main
 
                         if (statusWithAllNodes.first.first)
                         {
-                            nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
+                            auto    nodes{statusWithAllNodes.second};
 
                             // Send Shutdown command to all launchers.
                             for (auto & walker : nodes)
@@ -318,6 +318,7 @@ main
                                                 else
                                                 {
                                                     std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                    exitCode = 1;
                                                 }
                                             }
                                         }
@@ -355,7 +356,7 @@ main
 
                     if (statusWithAllNodes.first.first)
                     {
-                        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
+                        auto    nodes{statusWithAllNodes.second};
 
                         // Send Shutdown command to all the launchers on the machine.
                         for (auto & walker : nodes)
@@ -446,6 +447,7 @@ main
                                         else
                                         {
                                             std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                            exitCode = 1;
                                         }
                                     }
                                 }
@@ -486,7 +488,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("exiting."s, false);
         }
         catch (...)
         {

@@ -79,12 +79,11 @@
 nImO::UtilityContext::UtilityContext
     (const std::string &    executableName,
      const std::string &    tagForLogging,
-     const bool             logging,
-     const std::string &    nodeName) :
-        inherited{executableName, tagForLogging, logging, true, nodeName}
+     const bool             logging) :
+        inherited{executableName, tagForLogging, logging, true, ""s}
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
+    ODL_S2s("executableName = ", executableName, "tagForLogging = ", tagForLogging); //####
     ODL_B1("logging = ", logging); //####
     try
     {
@@ -122,6 +121,44 @@ nImO::UtilityContext::asUtilityContext
     ODL_OBJEXIT_P(this); //####
     return this;
 } // nImO::UtilityContext::asUtilityContext
+
+bool
+nImO::UtilityContext::report
+    (CPtr(char) stringToSend,
+     const bool andCerr)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1("stringToSend = ", stringToSend); //####
+    ODL_B1("andCerr = ", andCerr); //####
+    bool    result{inherited::report(stringToSend)};
+
+    if (andCerr)
+    {
+        std::cerr << stringToSend << "\n";
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::UtilityContext::report
+
+bool
+nImO::UtilityContext::report
+    (const std::string &    stringToSend,
+     const bool             andCerr)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("stringToSend = ", stringToSend); //####
+    ODL_B1("andCerr = ", andCerr); //####
+    bool    result{inherited::report(stringToSend)};
+
+    if (andCerr)
+    {
+        std::cerr << stringToSend << "\n";
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
+} // nImO::UtilityContext::report
 
 #if defined(__APPLE__)
 # pragma mark Global functions

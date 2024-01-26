@@ -76,13 +76,11 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] executable The name of the executing program.
              @param[in] tagForLogging The symbolic name for the current process.
-             @param[in] logging @c true if the executing program is to be logged.
-             @param[in] nodeName The @nImO-visible name of the executing program. */
+             @param[in] logging @c true if the executing program is to be logged. */
             UtilityContext
                 (const std::string &    executableName,
                  const std::string &    tagForLogging = ""s,
-                 const bool             logging = false,
-                 const std::string &    nodeName = ""s);
+                 const bool             logging = false);
 
             /*! @brief Is this a UtilityContext?
              @return @c this. */
@@ -98,6 +96,26 @@ namespace nImO
                 (void)
                 const
                 override;
+
+            /*! @brief Log a message.
+             @param[in] stringToSend The message to be logged.
+             @param[in] andCerr @c true if the message is to be written to the standard error stream.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (CPtr(char) stringToSend,
+                 const bool andCerr = true)
+                const;
+
+            /*! @brief Log a message.
+             @param[in] stringToSend The message to be logged.
+             @param[in] andCerr @c true if the message is to be written to the standard error stream.
+             @return @c true if the message was successfully logged. */
+            bool
+            report
+                (const std::string &    stringToSend,
+                 const bool             andCerr = true)
+                const;
 
         protected :
             // Protected methods.

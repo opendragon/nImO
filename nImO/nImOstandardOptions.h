@@ -168,7 +168,6 @@ namespace nImO
 
     /*! @brief Process the standard options for utility executables.
      The option '-c' / '--config' specifies an alternative configuration file to use.
-     The option '-d' / '--describe' displays the type of the executable and the description of the executable and returns @c false.
      The option '-e' / '--expanded' increases the amount of detail presented.
      The option '-h' / '--help' displays the list of optional parameters and arguments and returns @c false.
      The option '-j' / '--json' specifies that output is to be in JSON format.

@@ -13,8 +13,9 @@
 \f1\b DONE
 \f0\b0 \
 * nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d' 
-\f1\b DONE
-\f0\b0 \
+\f1\b DONE\
+
+\f0\b0 * nImOlaunch [ 'a' [ 'b' ]] - launches a service via a launcher\
 * nImOlist xyz \'97 reports all the known channels, connections, bridges, machines, applications depending on filters and options 
 \f1\b DONE
 \f0\b0 \
@@ -80,6 +81,7 @@ shell script:\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> <d> - invokes nImOdisconnect <c> <d>\
 		nimo help - lists choices\
+		limo launch <a> <b> - invokes nImOlaunch <a> <b>\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\

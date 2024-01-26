@@ -109,8 +109,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge"s, optionValues._logging,
-                                                                                  firstArg.getCurrentValue())};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -125,7 +124,7 @@ std::cerr << "** Unimplemented **\n";
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("exiting."s, false);
         }
         catch (...)
         {

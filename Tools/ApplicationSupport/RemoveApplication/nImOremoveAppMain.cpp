@@ -124,7 +124,7 @@ std::cerr << "** Unimplemented **\n";
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("exiting."s, false);
         }
         catch (...)
         {

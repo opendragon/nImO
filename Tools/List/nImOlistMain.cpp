@@ -939,7 +939,7 @@ listNodes
 
     if (statusWithAllNodes.first.first)
     {
-        nImO::NodeInfoVector &  nodes{statusWithAllNodes.second};
+        auto    nodes{statusWithAllNodes.second};
 
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
         {
@@ -1229,7 +1229,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("exiting."s, false);
         }
         catch (...)
         {

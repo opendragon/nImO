@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOdisconnectMain.cpp
+//  File:       nImOlauchMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to disconnect two nImO channels.
+//  Contains:   A utility application to start a service via a nImO launcher.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,19 +32,15 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-02-19
+//  Created:    2024-01-26
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
-#include <Contexts/nImOinputOutputContext.h>
+#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Contexts/nImOutilityContext.h>
-#include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOstandardOptions.h>
-
-#include <string>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -55,10 +51,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to disconnect two #nImO channels. */
+ @brief A utility application to start a service via a #nImO launcher. */
 
-/*! @dir Disconnect
- @brief The set of files that implement the Disconnect application. */
+/*! @dir Bridge
+ @brief The set of files that implement the Bridge application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -83,7 +79,7 @@
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for disconnecting two #nImO channels.
+/*! @brief The entry point for starting a service via a #nImO launcher.
 
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
@@ -94,7 +90,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from/to"s, "'Sending'or 'Receiving' channel"s, nImO::ArgumentMode::Required, "/out"s};
+    nImO::StringArgumentDescriptor  firstArg{"launcher"s, "Launcher to use"s, nImO::ArgumentMode::Optional, ""s};
+    nImO::StringArgumentDescriptor  secondArg{"service"s, "Service to launch"s, nImO::ArgumentMode::Optional, ""s};
     nImO::DescriptorVector          argumentList{};
     nImO::StandardOptions           optionValues{};
     int                             exitCode{0};
@@ -106,38 +103,103 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(&firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels"s, "nImOdisconnect /out"s, 2016, nImO::kCopyrightName, optionValues, nullptr,
-                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
+    argumentList.push_back(&secondArg);
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launch a service"s, "nImOlaunch launcher-node passthrough"s, 2024,
+                                     nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption |
+                                     nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "disconnect"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "launch"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                channel{firstArg.getCurrentValue()};
-                auto                nodeName{channel->getNode()};
-                auto                path{channel->getPath()};
-                bool                reported{false};
+                auto                launcherName{firstArg.getCurrentValue()};
+                auto                serviceName{secondArg.getCurrentValue()};
 
-                // Remove the connection information from the Registry.
-                if (nImO::CloseConnection(ourContext, nodeName, proxy, path, false, reported))
+std::cerr << "** Unimplemented **\n";
+                if (launcherName.empty())
                 {
-                    if (reported)
+                    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
+
+                    if (statusWithAllNodes.first.first)
                     {
+                        nImO::StdStringSet  launchers{};
+                        auto                nodes{statusWithAllNodes.second};
+
+                        for (auto & walker : nodes)
+                        {
+                            if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
+                            {
+                                launchers.insert(walker._name);
+                            }
+                        }
+                        if (launchers.empty())
+                        {
+                            ourContext->report("No launchers found."s);
+                            exitCode = 1;
+                        }
+                        else
+                        {
+                            //TBD     obtain list of launchers and ask for which launcher to use or none
+// set launcherName
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
                         exitCode = 1;
                     }
                 }
-                else if (nImO::CloseConnection(ourContext, nodeName, proxy, path, true, reported))
+                else
                 {
-                    if (reported)
+                    auto    statusWithNodeInfo{proxy.getNodeInformation(launcherName)};
+
+                    if (statusWithNodeInfo.first.first)
                     {
+                        if (statusWithNodeInfo.second._found)
+                        {
+                            if (nImO::ServiceType::LauncherService != statusWithNodeInfo.second._serviceType)
+                            {
+                                ourContext->report("'" + launcherName + "' is not a launcher."s);
+                                exitCode = 1;
+                            }
+                        }
+                        else
+                        {
+                            ourContext->report("Unknown node: '"s + launcherName + "'"s);
+                            exitCode = 1;
+                        }
+                    }
+                    else
+                    {
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
                         exitCode = 1;
                     }
+                }
+                if (0 == exitCode)
+                {
+                    //TBD     connect to launcher
+                    if (serviceName.empty())
+                    {
+                        //TBD     obtain list of services and ask for which to launch, or none
+// set serviceName
+                    }
+                    else
+                    {
+                        //TBD     if service is unknown, error message and exit
+                    }
+                }
+                if (0 == exitCode)
+                {
+                    //TBD     get service options and service parameters
+                    //TBD     ask which options are to be applied
+                    //TBD     ask for values for parameters
+                    //TBD     launch service via launcher with provided options and parameters
                 }
             }
             else

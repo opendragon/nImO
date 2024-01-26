@@ -135,7 +135,7 @@ main
     argumentList.push_back(&firstArg);
     argumentList.push_back(&secondArg);
     argumentList.push_back(&thirdArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, ""s, 2016, nImO::kCopyrightName, optionValues, helpForConnect,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, "nImOconnect /out /in udp"s, 2016, nImO::kCopyrightName, optionValues, helpForConnect,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -167,7 +167,6 @@ main
                     if (! statusWithBool.second)
                     {
                         ourContext->report("channel '"s + fromNode + " "s + fromPath + "' not registered."s);
-                        std::cerr << "channel '" << fromNode << " " << fromPath << "' not registered.\n";
                         exitCode = 1;
                     }
                 }
@@ -184,7 +183,6 @@ main
                         if (! statusWithBool.second)
                         {
                             ourContext->report("channel '"s + toNode + " "s + toPath + "' not registered."s);
-                            std::cerr << "channel '" << toNode << " " << toPath << "' not registered.\n";
                             exitCode = 1;
                         }
                     }
@@ -199,7 +197,6 @@ main
                     if (fromNode == toNode)
                     {
                         ourContext->report("node '"s + toNode + "' cannot be connected directly to itself."s);
-                        std::cerr << "node '" << toNode << "' cannot be connected directly to itself.\n";
                         exitCode = 1;
                     }
                 }
@@ -239,13 +236,11 @@ main
                     if (previousStateForFrom)
                     {
                         ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is already connected."s);
-                        std::cerr << "channel '" << fromNode << " " << fromPath << "' is already connected.\n";
                         exitCode = 1;
                     }
                     else if (previousStateForTo)
                     {
                         ourContext->report("channel '"s + toNode + " "s + toPath + "' is already connected."s);
-                        std::cerr << "channel '" << toNode << " " << toPath << "' is already connected.\n";
                         exitCode = 1;
                     }
                 }
@@ -273,7 +268,6 @@ main
                         else
                         {
                             ourContext->report("channel '"s + fromNode + " "s + fromPath + "' was not found."s);
-                            std::cerr << "channel '" << fromNode << " " << fromPath << "' was not found.\n";
                             exitCode = 1;
                         }
                     }
@@ -296,7 +290,6 @@ main
                             else
                             {
                                 ourContext->report("channel '"s + toNode + " "s + toPath + "' was not found."s);
-                                std::cerr << "channel '" << toNode << " " << toPath << "' was not found.\n";
                                 exitCode = 1;
                             }
                         }
@@ -311,7 +304,6 @@ main
                         if (toIsOutput)
                         {
                             ourContext->report("channel '"s + toNode + " "s + toPath + "' is an output!"s);
-                            std::cerr << "channel '" << toNode << " " << toPath << "' is an output!\n";
                             exitCode = 1;
                         }
                         else if (fromIsOutput)
@@ -331,8 +323,6 @@ main
                                 {
                                     ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
                                                        toNode + " "s + toPath + "("s + toDataType + ")'."s);
-                                    std::cerr << "channel '" << fromNode << " " << fromPath << "(" << fromDataType << ")' does not match '" <<
-                                                toNode << " " << toPath << "(" << toDataType << ")'.\n";
                                     exitCode = 1;
                                 }
                             }
@@ -345,8 +335,6 @@ main
                                 {
                                     ourContext->report("channel '"s + fromNode + " "s + fromPath + "' has incompatible transport mode with '"s  +
                                                        toNode + " "s + toPath + "'."s);
-                                    std::cerr << "channel '" << fromNode << " " << fromPath << "' has incompatible transport mode with '" << toNode <<
-                                                " " << toPath << "'.\n";
                                     exitCode = 1;
                                 }
                             }
@@ -359,14 +347,11 @@ main
                                 {
                                     ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath + "' and '"s +
                                                        toNode + " "s + toPath + "'."s);
-                                    std::cerr << "requested transport mode is incompatible with '" << fromNode << " " << fromPath << "' and '" <<
-                                                    toNode << " " << toPath << "'.\n";
                                     exitCode = 1;
                                 }
                                 else if (nImO::TransportType::kAny == resolvedMode)
                                 {
                                     ourContext->report("requested transport mode is ambiguous"s);
-                                    std::cerr << "requested transport mode is ambiguous.\n";
                                     exitCode = 1;
                                 }
                             }
@@ -374,7 +359,6 @@ main
                         else
                         {
                             ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
-                            std::cerr << "channel '" << fromNode << " " << fromPath << "' is an input!\n";
                             exitCode = 1;
                         }
                     }
@@ -389,8 +373,6 @@ main
                         {
                             ourContext->report("channel '"s + fromNode + " "s + fromPath + "' could not be connected to '"s  + toNode + " "s +
                                                toPath + "'."s);
-                            std::cerr << "channel '" << fromNode << " " << fromPath << "' could not be connected to '" << toNode << " " << toPath <<
-                                        "'.\n";
                             exitCode = 1;
                         }
                     }
@@ -568,7 +550,7 @@ main
                 ourContext->report("Registry not found."s);
                 exitCode = 2;
             }
-            ourContext->report("exiting."s);
+            ourContext->report("exiting."s, false);
         }
         catch (...)
         {

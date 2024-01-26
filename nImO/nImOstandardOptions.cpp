@@ -215,8 +215,6 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                     Option_::Arg::Required,
                                                     "  --config, -c <path> \tSpecify path to configuration file"};
-    Option_::Descriptor         describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
-                                                    "  --describe, -d \tPrint type and description and exit"};
     Option_::Descriptor         expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
                                                     "expanded", Option_::Arg::None, "  --expanded, -e \tDisplay more details"};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help",
@@ -280,7 +278,6 @@ nImO::ProcessStandardOptions
     {
         memcpy(usageWalker++, &configDescriptor, sizeof(configDescriptor));
     }
-    memcpy(usageWalker++, &describeDescriptor, sizeof(describeDescriptor));
     if (0 == (kSkipExpandedOption & optionsToIgnore))
     {
         memcpy(usageWalker++, &expandedDescriptor, sizeof(expandedDescriptor));
@@ -334,12 +331,6 @@ nImO::ProcessStandardOptions
 
         std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
                     copyrightHolder << ".\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
-    {
-        std::cout << "Utility\t" << utilityDescription << "\n";
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }

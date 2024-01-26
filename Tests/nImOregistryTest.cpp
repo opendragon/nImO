@@ -2913,15 +2913,15 @@ doTestNodeInfoWithRegistryWithNoNodes
 
             if (statusWithInfo.first.first)
             {
-                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                auto    infoVector{statusWithInfo.second};
 
-                if (0 == infoVector.size())
+                if (infoVector.empty())
                 {
                     result = 0;
                 }
                 else
                 {
-                    ODL_LOG("! (0 == infoVector.size())"); //####
+                    ODL_LOG("! (infoVector.empty())"); //####
                 }
             }
             else
@@ -2991,7 +2991,7 @@ doTestNodeInfoWithRegistryWithOneNode
 
                     if (statusWithInfo.first.first)
                     {
-                        nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                        auto    infoVector{statusWithInfo.second};
 
                         if (1 == infoVector.size())
                         {
@@ -3103,7 +3103,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
 
                             if (statusWithInfo.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                                auto    infoVector{statusWithInfo.second};
 
                                 if (2 == infoVector.size())
                                 {
@@ -3909,15 +3909,15 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
 
                 if (statusWithInfo.first.first)
                 {
-                    nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                    auto    infoVector{statusWithInfo.second};
 
-                    if (0 == infoVector.size())
+                    if (infoVector.empty())
                     {
                         result = 0;
                     }
                     else
                     {
-                        ODL_LOG("! (0 == infoVector.size())"); //####
+                        ODL_LOG("! (infoVector.empty())"); //####
                     }
                 }
                 else
@@ -3993,7 +3993,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
 
                     if (statusWithInfo.first.first)
                     {
-                        nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                        auto    infoVector{statusWithInfo.second};
 
                         if (1 == infoVector.size())
                         {
@@ -4105,7 +4105,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
 
                             if (statusWithInfo.first.first)
                             {
-                                nImO::NodeInfoVector &  infoVector{statusWithInfo.second};
+                                auto    infoVector{statusWithInfo.second};
 
                                 if (1 == infoVector.size())
                                 {

@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/CMakeLists.txt
+#  File:       non-iOS/Tools/Launch/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The common CMAKE definitions for the nImO project.
+#  Contains:   The CMAKE definitions for the Launch application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2023 by OpenDragon.
+#  Copyright:  (c) 2024 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,21 +32,36 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2023-01-28
+#  Created:    2024-01-26
 #
 #--------------------------------------------------------------------------------------------------
 
-add_subdirectory(ApplicationSupport)
-add_subdirectory(Bridge)
-add_subdirectory(Connect)
-add_subdirectory(Disconnect)
-add_subdirectory(Launch)
-add_subdirectory(List)
-add_subdirectory(Monitor)
-add_subdirectory(Post)
-add_subdirectory(Read)
-add_subdirectory(SetupSupport)
-add_subdirectory(Version)
-add_subdirectory(Write)
+include_directories("${nImO_SOURCE_DIR}")
+
+set(THIS_TARGET nImOlaunch)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Launch)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOlaunchMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
 
 enable_testing()

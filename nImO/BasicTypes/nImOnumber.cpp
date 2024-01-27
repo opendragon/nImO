@@ -112,15 +112,15 @@ nImO::Number::asNumber
     return this;
 } // nImO::Number::asNumber
 
-void
+std::ostream &
 nImO::Number::describe
     (std::ostream & output)
     const
 {
     ODL_OBJENTER(); //####
     ODL_P1("output = ", &output); //####
-    output << "number";
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_P(&output); //####
+    return output;
 } // nImO::Number::describe
 
 CPtr(char)

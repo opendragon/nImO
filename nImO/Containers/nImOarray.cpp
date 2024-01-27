@@ -195,7 +195,7 @@ nImO::Array::deeplyEqualTo
     return result;
 } // nImO::Array::deeplyEqualTo
 
-void
+std::ostream &
 nImO::Array::describe
     (std::ostream & output)
     const
@@ -203,7 +203,8 @@ nImO::Array::describe
     ODL_OBJENTER(); //####
     ODL_P1("output = ", &output); //####
     output << "array of " << size() << " elements";
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_P(&output); //####
+    return output;
 } // nImO::Array::describe
 
 bool

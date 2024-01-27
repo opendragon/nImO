@@ -249,7 +249,7 @@ nImO::Map::deeplyEqualTo
     return result;
 } // nImO::Map::deeplyEqualTo
 
-void
+std::ostream &
 nImO::Map::describe
     (std::ostream & output)
     const
@@ -280,7 +280,8 @@ nImO::Map::describe
             break;
 
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_P(&output); //####
+    return output;
 } // nImO::Map::describe
 
 bool

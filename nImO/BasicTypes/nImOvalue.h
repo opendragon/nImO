@@ -239,8 +239,9 @@ namespace nImO
                 const;
 
             /*! @brief Write a short description of the Value to a stream.
-             @param[in/out] output The stream to write to. */
-            virtual void
+             @param[in/out] output The stream to write to.
+             @return The modified stream. */
+            virtual std::ostream &
             describe
                 (std::ostream & output)
                 const = 0;

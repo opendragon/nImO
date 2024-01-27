@@ -154,7 +154,7 @@ nImO::Integer::deeplyEqualTo
     return result;
 } // nImO::Integer::deeplyEqualTo
 
-void
+std::ostream &
 nImO::Integer::describe
     (std::ostream & output)
     const
@@ -162,7 +162,8 @@ nImO::Integer::describe
     ODL_OBJENTER(); //####
     ODL_P1("output = ", &output); //####
     output << "integer";
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_P(&output); //####
+    return output;
 } // nImO::Integer::describe
 
 nImO::Enumerable

@@ -96,8 +96,9 @@ namespace nImO
                 noexcept;
 
             /*! @brief Write a short description of the Value to a stream.
-             @param[in/out] output The stream to write to. */
-            void
+             @param[in/out] output The stream to write to.
+             @return The modified stream. */
+            std::ostream &
             describe
                 (std::ostream & output)
                 const

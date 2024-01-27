@@ -229,7 +229,7 @@ nImO::Set::deeplyEqualTo
     return result;
 } // nImO::Set::deeplyEqualTo
 
-void
+std::ostream &
 nImO::Set::describe
     (std::ostream & output)
     const
@@ -260,7 +260,8 @@ nImO::Set::describe
             break;
 
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_P(&output); //####
+    return output;
 } // nImO::Set::describe
 
 bool

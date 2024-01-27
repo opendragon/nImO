@@ -97,7 +97,8 @@ nImO::GetRunParamsForAppResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    stuff.describe(std::cerr);//!!!
+    stuff.describe(std::cerr) << "\n";//!!!
+    std::cerr << stuff << "\n"; //!!
 #if 0
     if (1 < stuff.size())
     {

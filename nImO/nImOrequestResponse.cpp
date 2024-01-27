@@ -105,7 +105,7 @@ handleResponse
     {
         // We need to strip off the Message separator first.
         auto                trimmed{nImO::UnpackageMessage(incoming)};
-        nImO::ByteVector    rawStuff;
+        nImO::ByteVector    rawStuff{};
 
         ODL_S1s("trimmed <- ", trimmed); //####
         // Ignore a request that can't be processed...
@@ -313,9 +313,9 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
     ODL_ENTER(); //####
     ODL_P4("context = ", context.get(), "connection = ", &connection, "handler = ", handler, "arguments = ", arguments); //####
     ODL_S2s("requestKey = ", requestKey, "responseKey = ", responseKey); //####
-    Message             requestToSend;
-    auto                requestArray{std::make_shared<Array>()};
-    auto                status{std::make_shared<SuccessOrFailure>(true, ""s)};
+    Message requestToSend;
+    auto    requestArray{std::make_shared<Array>()};
+    auto    status{std::make_shared<SuccessOrFailure>(true, ""s)};
 
     requestToSend.open(true);
     requestArray->addValue(std::make_shared<String>(requestKey));
@@ -336,7 +336,7 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
         }
         else
         {
-            StdStringVector outVec;
+            StdStringVector outVec{};
             auto            keepGoing{std::make_shared<bool>(true)};
 
             EncodeBytesAsMIME(outVec, asString);

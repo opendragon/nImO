@@ -92,11 +92,12 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::DoubleArgumentDescriptor  firstArg{"delay"s, "Number of seconds to delay messages"s, nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0};
-    nImO::DescriptorVector          argumentList{};
-    nImO::ServiceOptions            optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("delay"s, "Number of seconds to delay messages"s,
+                                                                                      nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::ServiceOptions    optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -104,7 +105,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Delay"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
@@ -213,7 +214,7 @@ main
 
                                     if (outChannel)
                                     {
-                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg.getCurrentValue()))};
+                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
 
                                         if (optionValues._waitForConnections)
                                         {

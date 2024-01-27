@@ -87,7 +87,7 @@ namespace nImO
 
             /*! @brief Return the received value.
              @return The received value. */
-            inline bool
+            inline const std::string &
             result
                 (void)
                 const
@@ -111,7 +111,7 @@ namespace nImO
             // Private fields.
 
             /*! @brief The received value. */
-            bool    _result{false};
+            std::string _result{};
 
     }; // GetRunOptionsForAppResponseHandler
 

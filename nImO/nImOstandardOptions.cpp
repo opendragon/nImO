@@ -213,7 +213,7 @@ nImO::ProcessStandardOptions
     bool                        keepGoing{true};
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
-    auto                        configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify path to configuration file"s};
+    auto                        configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify the path to the configuration file"s};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
                                                 Option_::Arg::Required, configHelpString.c_str()};
     auto                        expandedHelpString{"  "s + MakeOption("e"s, "expanded"s) + " \tDisplay more details"s};
@@ -225,7 +225,7 @@ nImO::ProcessStandardOptions
     auto                        jsonHelpString{"  "s + MakeOption("j"s, "json"s) + " \tGenerate output in JSON format"s};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
                                                 Option_::Arg::None, jsonHelpString.c_str()};
-    auto                        logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog application"s};
+    auto                        logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog the application"s};
     Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
                                                 "log", Option_::Arg::None, logHelpString.c_str()};
     auto                        machineHelpString{"  "s + MakeOption("m"s, "machine"s) + " <name> \tSpecify machine to be referenced"s};

@@ -415,7 +415,7 @@ nImO::ArgumentsToArgString
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -441,9 +441,9 @@ nImO::ArgumentsToArgString
 
 void
 nImO::ArgumentsToDescriptionArray
-    (const DescriptorVector &   arguments,
-     StdStringVector &          output,
-     const size_t               minSpace)
+    (const DescriptorVector &  arguments,
+     StdStringVector &              output,
+     const size_t                   minSpace)
 {
     ODL_ENTER(); //####
     ODL_P2("arguments = ", &arguments, "output = ", &output); //####
@@ -455,7 +455,7 @@ nImO::ArgumentsToDescriptionArray
     // Determine the width of the 'name' column.
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -484,7 +484,7 @@ nImO::ArgumentsToDescriptionArray
         }
         for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
         {
-            Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+            auto    anArg{arguments[ii]};
 
             if (nullptr != anArg)
             {
@@ -524,7 +524,7 @@ nImO::CombineArguments
 
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if (0 < ii)
         {
@@ -545,7 +545,7 @@ nImO::ConvertStringToArgument
 {
     ODL_ENTER(); //####
     ODL_S1s("inString = ", inString); //####
-    SpBaseArgumentDescriptor result{AddressArgumentDescriptor::parseArgString(inString)};
+    auto    result{AddressArgumentDescriptor::parseArgString(inString)};
 
     if (nullptr == result)
     {
@@ -629,7 +629,7 @@ nImO::ProcessArguments
     badArgs = ""s;
     for (size_t ii = 0; numArgs > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -641,7 +641,7 @@ nImO::ProcessArguments
     // follow the optional arguments, which follow the mandatory ones.
     for (size_t ii = 0; result && (numArgs > ii); ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if (nullptr != anArg)
         {
@@ -670,7 +670,7 @@ nImO::ProcessArguments
     {
         for (size_t ii = 0; numToCheck > ii; ++ii)
         {
-            Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+            auto    anArg{arguments[ii]};
 
             if ((nullptr != anArg) && (! anArg->isExtra()))
             {
@@ -693,7 +693,7 @@ nImO::ProcessArguments
     // unsatisfied.
     for (size_t ii = numToCheck; numArgs > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if ((nullptr != anArg) && (! anArg->isExtra()))
         {
@@ -737,13 +737,13 @@ nImO::PromptForValues
     }
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
-        Ptr(BaseArgumentDescriptor) anArg{arguments[ii]};
+        auto    anArg{arguments[ii]};
 
         if ((nullptr != anArg) && (! anArg->isRequired()) && (! anArg->isExtra()))
         {
             auto        currentValue{anArg->getProcessedValue()};
             auto        defaultValue{anArg->getDefaultValue()};
-            std::string inputLine;
+            std::string inputLine{};
 
             std::cout << anArg->argumentDescription() << " (default=" << defaultValue << ", current=" << currentValue << "): ";
             std::cout.flush();

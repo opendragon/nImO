@@ -242,16 +242,6 @@ namespace nImO
             or @c false otherwise. */
             bool    _hasMinimumValue{false};
 
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // MAC_OR_LINUX_OR_BSD_
-            /*! @brief Filler to pad to alignment boundary */
-            char    _filler[6];
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic pop
-# endif // MAC_OR_LINUX_OR_BSD_
-
     }; // DoubleArgumentDescriptor
 
 } // nImO

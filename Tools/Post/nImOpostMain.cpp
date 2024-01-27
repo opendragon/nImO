@@ -89,13 +89,15 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::BooleanArgumentDescriptor firstArg{"stream"s, "Read standard input for text"s, nImO::ArgumentMode::Optional, false};
-    nImO::StringArgumentDescriptor  secondArg{"message"s, "Text to send to logging applications"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{true};
-    nImO::StdStringVector           arguments;
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::BooleanArgumentDescriptor>("stream"s, "Read standard input for text"s,
+                                                                                       nImO::ArgumentMode::Optional, false)};
+    auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("message"s, "Text to send to logging applications"s,
+                                                                                       nImO::ArgumentMode::Optional, ""s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{true};
+    nImO::StdStringVector   arguments{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -103,8 +105,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Write to the log applications"s, "nImOpost false \"aMessage\""s, 2022,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipLoggingOption | nImO::kSkipMachineOption, &arguments))
@@ -113,8 +115,8 @@ main
         try
         {
             nImO::ContextWithNetworking ourContext{progName, "post"s, optionValues._logging};
-            auto                        header{secondArg.getCurrentValue()};
-            bool                        readFromStdin{firstArg.getCurrentValue()};
+            auto                        header{secondArg->getCurrentValue()};
+            bool                        readFromStdin{firstArg->getCurrentValue()};
 
             if (readFromStdin)
             {

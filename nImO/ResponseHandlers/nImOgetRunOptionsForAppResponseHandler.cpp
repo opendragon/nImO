@@ -38,7 +38,7 @@
 
 #include <ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h>
 
-#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -97,20 +97,17 @@ nImO::GetRunOptionsForAppResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    stuff.describe(std::cerr) << "\n";//!!!
-    std::cerr << stuff << "\n"; //!!
-#if 0
     if (1 < stuff.size())
     {
-        auto    asLogical{stuff[1]->asLogical()};
+        auto    asString{stuff[1]->asString()};
 
-        if (nullptr == asLogical)
+        if (nullptr == asString)
         {
-            ODL_LOG("(nullptr == asLogical)"); //####
+            ODL_LOG("(nullptr == asString)"); //####
         }
         else
         {
-            _result = asLogical->getValue();
+            _result = asString->getValue();
             okSoFar = true;
         }
     }
@@ -118,7 +115,6 @@ nImO::GetRunOptionsForAppResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::GetRunOptionsForAppResponseHandler::doIt

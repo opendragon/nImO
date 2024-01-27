@@ -135,7 +135,7 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                         auto    appPath{appPathIterator->second->asString()->getValue()};
 
                         BP::ipstream    pipeStream{};
-                        BP::child       cc{appPath + " "s + MakeOption("d"s), BP::std_out > pipeStream};
+                        BP::child       cc{StdStringVector{appPath, MakeOption("d"s)}, BP::std_out > pipeStream};
                         std::string     line{};
 
                         if (std::getline(pipeStream, line))

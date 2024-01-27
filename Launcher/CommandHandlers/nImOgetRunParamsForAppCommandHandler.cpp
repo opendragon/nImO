@@ -135,7 +135,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         auto    appPath{appPathIterator->second->asString()->getValue()};
 
                         BP::ipstream    pipeStream{};
-                        BP::child       cc{appPath + " "s + MakeOption("a"s), BP::std_out > pipeStream};
+                        BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
                         std::string     line{};
                         auto            params{std::make_shared<Array>()};
 

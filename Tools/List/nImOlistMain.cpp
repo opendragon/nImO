@@ -1147,12 +1147,13 @@ main
     {
         choiceSet.insert(walker.first);
     }
-    nImO::StringsArgumentDescriptor firstArg{"choice"s, "Objects to report"s, nImO::ArgumentMode::Optional, "all"s, choiceSet};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{};
-    int                             exitCode{0};
+    auto                    firstArg{std::make_shared<nImO::StringsArgumentDescriptor>("choice"s, "Objects to report"s,
+                                                                                       nImO::ArgumentMode::Optional, "all"s, choiceSet)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "List information about objects in the nImO space"s, "nImOlist node"s, 2016,
                                      nImO::kCopyrightName, optionValues, helpForList, nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
@@ -1165,7 +1166,7 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                auto    choice{firstArg.getCurrentValue()};
+                auto    choice{firstArg->getCurrentValue()};
                 auto    match{lChoiceMap.find(choice)};
                 bool    shouldSanitize{nImO::OutputFlavour::kFlavourJSON == optionValues._flavour};
 

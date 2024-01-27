@@ -315,12 +315,12 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"appList"s, "File containing a list of applications"s, nImO::ArgumentMode::Optional, ""s,
-                                                kDefaultAppListFilePath};
-    nImO::DescriptorVector              argumentList{};
-    nImO::ServiceOptions                optionValues{};
-    int                                 exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("appList"s, "File containing a list of applications"s,
+                                                                                        nImO::ArgumentMode::Optional, ""s, kDefaultAppListFilePath)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::ServiceOptions    optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -328,7 +328,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
@@ -367,7 +367,7 @@ main
                             {
 std::cerr << "** Not fully implemented **\n";
                                 // Load the app list file and exit if not properly structured.
-                                if (loadApplicationInformation(ourContext, firstArg.getCurrentValue()))
+                                if (loadApplicationInformation(ourContext, firstArg->getCurrentValue()))
                                 {
                                     statusWithBool = proxy.clearAppListForLauncher(nodeName);
                                     if (statusWithBool.first.first)
@@ -404,30 +404,27 @@ std::cerr << "** Not fully implemented **\n";
                                         std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
-                                    if (! nImO::gPendingStop)
+                                    nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                    statusWithBool = proxy.clearAppListForLauncher(nodeName);
+                                    if (! statusWithBool.first.first)
                                     {
-                                        nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                        statusWithBool = proxy.clearAppListForLauncher(nodeName);
-                                        if (! statusWithBool.first.first)
+                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
+                                    }
+                                    statusWithBool = proxy.removeNode(nodeName);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
                                         {
-                                            std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                            ourContext->report(nodeName + " already unregistered."s);
+                                            std::cerr << nodeName << " already unregistered.\n";
                                             exitCode = 1;
                                         }
-                                        statusWithBool = proxy.removeNode(nodeName);
-                                        if (statusWithBool.first.first)
-                                        {
-                                            if (! statusWithBool.second)
-                                            {
-                                                ourContext->report(nodeName + " already unregistered."s);
-                                                std::cerr << nodeName << " already unregistered.\n";
-                                                exitCode = 1;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
-                                            exitCode = 1;
-                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
                                     }
                                 }
                             }

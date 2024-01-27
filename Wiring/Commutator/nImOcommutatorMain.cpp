@@ -91,12 +91,14 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::IntegerArgumentDescriptor firstArg{"numOut"s, "Number of output channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::BooleanArgumentDescriptor secondArg{"random"s, "True if random routing"s, nImO::ArgumentMode::Optional, false};
-    nImO::DescriptorVector          argumentList{};
-    nImO::ServiceOptions            optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
+                                                                                       nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
+    auto                    secondArg{std::make_shared<nImO::BooleanArgumentDescriptor>("random"s, "True if random routing"s,
+                                                                                        nImO::ArgumentMode::Optional, false)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::ServiceOptions    optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -104,8 +106,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
@@ -176,7 +178,7 @@ main
                                 }
                                 nImO::OutChannelVector  outChannels{};
 
-                                for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
+                                for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
 
@@ -219,7 +221,7 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    bool            randomRouting{secondArg.getCurrentValue()};
+                                    bool            randomRouting{secondArg->getCurrentValue()};
                                     const size_t    maxChannel{outChannels.size()};
                                     size_t          nextChannel{0};
 

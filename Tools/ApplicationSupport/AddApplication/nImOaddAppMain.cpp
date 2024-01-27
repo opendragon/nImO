@@ -89,12 +89,14 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile"s, "Path to application"s, nImO::ArgumentMode::Required, ""s, ".txt"s};
-    nImO::StringArgumentDescriptor      secondArg{"name"s, "Application name"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector              argumentList{};
-    nImO::StandardOptions               optionValues{};
-    int                                 exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("outFile"s, "Path to application"s,
+                                                                                        nImO::ArgumentMode::Required, ""s, ".txt"s)};
+    auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("name"s, "Application name"s,
+                                                                                       nImO::ArgumentMode::Optional, ""s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -102,8 +104,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Add application"s, "nImOaddApp /path-to-application [shortAppName]"s, 2020,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption |
                                      nImO::kSkipMachineOption))

@@ -117,14 +117,18 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from"s, "'Sending' channel"s, nImO::ArgumentMode::Required, "/out"s};
-    nImO::ChannelArgumentDescriptor secondArg{"to"s, "'Receiving' channel"s, nImO::ArgumentMode::Required, "/in"s};
-    nImO::StringsArgumentDescriptor thirdArg{"mode"s, "Transport mode"s, nImO::ArgumentMode::Optional | nImO::ArgumentMode::CaseInsensitive,
-                                                nImO::kProtocolAnyName, nImO::ChannelName::transportNames()};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::ChannelArgumentDescriptor>("from"s, "'Sending' channel"s,
+                                                                                       nImO::ArgumentMode::Required, "/out"s)};
+    auto                    secondArg{std::make_shared<nImO::ChannelArgumentDescriptor>("to"s, "'Receiving' channel"s,
+                                                                                        nImO::ArgumentMode::Required, "/in"s)};
+    auto                    thirdArg{std::make_shared<nImO::StringsArgumentDescriptor>("mode"s, "Transport mode"s,
+                                                                                       nImO::ArgumentMode::Optional |
+                                                                                       nImO::ArgumentMode::CaseInsensitive,
+                                                                                       nImO::kProtocolAnyName, nImO::ChannelName::transportNames())};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -132,9 +136,9 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
-    argumentList.push_back(&thirdArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
+    argumentList.push_back(thirdArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Connect two channels"s, "nImOconnect /out /in udp"s, 2016, nImO::kCopyrightName, optionValues, helpForConnect,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
@@ -148,9 +152,9 @@ main
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                fromChannel{firstArg.getCurrentValue()};
-                auto                toChannel{secondArg.getCurrentValue()};
-                auto                modeRequested{thirdArg.getCurrentValue()};
+                auto                fromChannel{firstArg->getCurrentValue()};
+                auto                toChannel{secondArg->getCurrentValue()};
+                auto                modeRequested{thirdArg->getCurrentValue()};
                 auto                fromNode{fromChannel->getNode()};
                 auto                fromPath{fromChannel->getPath()};
                 auto                toNode{toChannel->getNode()};

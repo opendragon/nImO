@@ -125,7 +125,7 @@ nImO::ProcessServiceOptions
     auto                baseHelpString{"  "s + MakeOption("b"s, "base"s) + " <name> \tSpecifies the base name for channels"s};
     Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", Option_::Arg::Required,
                                         baseHelpString.c_str()};
-    auto                configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify path to configuration file"s};
+    auto                configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify the path to the configuration file"s};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
                                             configHelpString.c_str()};
     auto                describeHelpString{"  "s + MakeOption("d"s, "describe"s) +
@@ -138,22 +138,22 @@ nImO::ProcessServiceOptions
     auto                helpHelpString{"  "s + MakeOption("h"s, "help"s) + " \tPrint usage and exit"s};
     Option_::Descriptor helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help", Option_::Arg::None,
                                         helpHelpString.c_str()};
-    auto                inTypeHelpString1{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecifies the data type for the input channel"s};
+    auto                inTypeHelpString1{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecify the data type for the input channel"s};
     Option_::Descriptor inTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
                                             inTypeHelpString1.c_str()};
-    auto                inTypeHelpString2{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecifies the data type for input channels"s};
+    auto                inTypeHelpString2{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecify the data type for input channels"s};
     Option_::Descriptor inTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
                                             inTypeHelpString2.c_str()};
-    auto                logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog application"s};
+    auto                logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog the application"s};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
                                         logHelpString.c_str()};
     auto                nodeHelpString{"  "s + MakeOption("n"s, "node"s) + " <name> \tSpecify a non-default node name to be used"s};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
                                         nodeHelpString.c_str()};
-    auto                outTypeHelpString1{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecifies the data type for the output channel"s};
+    auto                outTypeHelpString1{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecify the data type for the output channel"s};
     Option_::Descriptor outTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
                                             outTypeHelpString1.c_str()};
-    auto                outTypeHelpString2{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecifies the data type for output channels"s};
+    auto                outTypeHelpString2{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecify the data type for output channels"s};
     Option_::Descriptor outTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
                                             outTypeHelpString2.c_str()};
     auto                tagHelpString{"  "s + MakeOption("t"s, "tag"s) + " <tag> \tSpecify the tag to be used as part of the service name"s};
@@ -315,7 +315,7 @@ nImO::ProcessServiceOptions
     auto            options{std::make_unique<Option_::Option[]>(stats.options_max)};
     auto            buffer{std::make_unique<Option_::Option[]>(stats.buffer_max)};
     Option_::Parser parse{usage, argcWork, argvWork, options.get(), buffer.get(), 1};
-    std::string     badArgs;
+    std::string     badArgs{};
 
     if (parse.error())
     {
@@ -334,9 +334,9 @@ nImO::ProcessServiceOptions
     {
         for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
         {
-            Ptr(nImO::BaseArgumentDescriptor)   anArg{argumentDescriptions[ii]};
+            auto    anArg{argumentDescriptions[ii]};
 
-            if (anArg)
+            if (nullptr != anArg)
             {
                 std::cout << anArg->toString().c_str() << "\n";
             }

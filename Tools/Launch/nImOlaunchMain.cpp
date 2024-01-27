@@ -95,12 +95,14 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"launcher"s, "Launcher to use"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::StringArgumentDescriptor  secondArg{"service"s, "Service to launch"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("launcher"s, "Launcher to use"s,
+                                                                                      nImO::ArgumentMode::Optional, ""s)};
+    auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("service"s, "Service to launch"s,
+                                                                                       nImO::ArgumentMode::Optional, ""s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -108,8 +110,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launch a service"s, "nImOlaunch launcher-node passthrough"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption |
                                      nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
@@ -125,8 +127,8 @@ main
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
                 nImO::Connection    launcherConnection{};
-                auto                launcherName{firstArg.getCurrentValue()};
-                auto                serviceName{secondArg.getCurrentValue()};
+                auto                launcherName{firstArg->getCurrentValue()};
+                auto                serviceName{secondArg->getCurrentValue()};
 
                 if (launcherName.empty())
                 {
@@ -310,16 +312,24 @@ main
                 }
                 if (0 == exitCode)
                 {
-                    auto    argArray1{std::make_shared<nImO::Array>()};
-                    auto    handler1{std::make_unique<nImO::GetRunOptionsForAppResponseHandler>()};
+                    nImO::DescriptorVector  appDescriptors{};
+                    auto                    argArray1{std::make_shared<nImO::Array>()};
+                    auto                    handler1{std::make_unique<nImO::GetRunOptionsForAppResponseHandler>()};
 
                     argArray1->addValue(std::make_shared<nImO::String>(serviceName));
-                    auto    statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler1.get(),
-                                                                                             argArray1.get(), nImO::kGetRunOptionsForAppRequest,
-                                                                                             nImO::kGetRunOptionsForAppResponse)};
+                    auto            statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler1.get(),
+                                                                                                     argArray1.get(),
+                                                                                                     nImO::kGetRunOptionsForAppRequest,
+                                                                                                     nImO::kGetRunOptionsForAppResponse)};
+                    std::set<char>  availableOptions{};
+                    std::set<char>  optionNeedsString{};
 
                     if (statusWithBool.first)
                     {
+                        for (auto & walker : handler1->result())
+                        {
+                            availableOptions.insert(tolower(walker));
+                        }
                         auto    argArray2{std::make_shared<nImO::Array>()};
                         auto    handler2{std::make_unique<nImO::GetRunParamsForAppResponseHandler>()};
 
@@ -330,7 +340,20 @@ main
 
                         if (statusWithBool.first)
                         {
-//TBD save the available options and parameters
+                            for (auto & walker : handler2->result())
+                            {
+                                auto    descriptor{nImO::ConvertStringToArgument(walker)};
+
+                                if (nullptr == descriptor)
+                                {
+                                    ourContext->report("Bad argument descriptor: '" + walker + "'");
+                                    exitCode = 1;
+                                }
+                                else
+                                {
+                                    appDescriptors.push_back(descriptor);
+                                }
+                            }
                         }
                         else
                         {
@@ -345,11 +368,175 @@ main
                     }
                     if (0 == exitCode)
                     {
+                        std::cout << "Options for application:\n";
+                        for (auto charWalker : availableOptions)
+                        {
+                            std::cout << "\t" << charWalker << "\t";
+                            switch (charWalker)
+                            {
+                                case 'a' :
+                                    std::cout << "Report the argument formats";
+                                    break;
+
+                                case 'b' :
+                                    std::cout << "Specify the base name for channels"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'c' :
+                                    std::cout << "Specify the path to the configuration file"; // file path arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'e' :
+                                    std::cout << "Display more details";
+                                    break;
+
+                                case 'i' :
+                                    std::cout << "Specify the data type for the input channel(s)"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'l' :
+                                    std::cout << "Log the application";
+                                    break;
+
+                                case 'n' :
+                                    std::cout << "Specify a non-default node name to be used"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'o' :
+                                    std::cout << "Specify the data type for the output channel(s)"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 't' :
+                                    std::cout << "Specify the tag to be used as part of the service name"; // string arg required
+                                    optionNeedsString.insert(charWalker);
+                                    break;
+
+                                case 'w' :
+                                    std::cout << "Wait for connection(s)";
+                                    break;
+
+                                default :
+                                    std::cout << "<unexpected option '" << charWalker << "'";
+                                    break;
+
+                            }
+                            std::cout << "\n";
+                        }
+                        std::string             optionsSoFar{};
+                        nImO::StdStringVector   optionsToApply{};
+
+                        // Build up the option list:
+                        for ( ; ; )
+                        {
+                            if (! optionsSoFar.empty())
+                            {
+                                std::cout << "Options already selected: " << optionsSoFar << "\n";
+                            }
+                            std::cout << "Option to apply (empty line when finished): ";
+                            std::cout.flush();
+                            std::string inLine;
+
+                            if (getline(std::cin, inLine))
+                            {
+                                // Trim down the input
+                                inLine = nImO::LeftTrim(inLine);
+                                if (inLine.empty())
+                                {
+                                    break;
+
+                                }
+                                auto    aChar{StaticCast(char, tolower(inLine[0]))};
+
+                                if (availableOptions.end() == availableOptions.find(aChar))
+                                {
+                                    std::cout << "No such option." << "\n";
+                                }
+                                else
+                                {
+                                    optionsSoFar += " "s + aChar;
+                                    std::string newOption{aChar};
+
+                                    if (optionNeedsString.end() == optionNeedsString.find(aChar))
+                                    {
+                                        optionsToApply.push_back(newOption);
+                                    }
+                                    else
+                                    {
+                                        std::cout << "Argument for the option: ";
+                                        std::cout.flush();
+                                        if (getline(std::cin, inLine))
+                                        {
+                                            // Trim down the input
+                                            inLine = nImO::LeftTrim(inLine);
+                                            if (inLine.empty())
+                                            {
+                                                break;
+
+                                            }
+                                            inLine = nImO::RightTrim(inLine);
+                                            newOption += "\t" + inLine;
+                                            optionsToApply.push_back(newOption);
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                break;
+
+                            }
+                        }
 std::cerr << "** Unimplemented **\n";
-std::cerr << "launching " << serviceName << " on " << launcherName << "\n";//!!
-                    //TBD     ask which options are to be applied
-                    //TBD     ask for values for parameters
-                    //TBD     launch service via launcher with provided options and parameters
+                        //TBD     ask for values for parameters
+#if 0
+                        /*! @brief Convert to a printable representation.
+                         @return A printable representation of the descriptor. */
+                        virtual std::string
+                        toString
+                            (void) = 0;
+
+                        /*! @brief Check an input value against the constraints of the descriptor.
+                         @param[in] value The value to be checked.
+                         @return @c true if the value is within the domain of the descriptor and @c false
+                         otherwise. */
+                        virtual bool
+                        validate
+                            (const std::string &    value) = 0;
+#endif//0
+#if 0
+                        /*! @brief Update the arguments data from the parsed argument list.
+                         @param[in] arguments The argument sequence.
+                         @param[out] parseResult The parsed argument list.
+                         @param[out] badArgs The list of invalid or missing arguments.
+                         @return @c true if the parsed argument list matches the argument sequence and @c false
+                         otherwise. */
+                        bool
+                        ProcessArguments
+                            (const DescriptorVector &   arguments,
+                             Option_::Parser &          parseResult,
+                             std::string &              badArgs);
+
+                        /*! @brief Prompt the user for the value of each of the arguments.
+                         @param[in] arguments The argument sequence.
+                         @return @c true if all arguments are valid and @c false otherwise. */
+                        bool
+                        PromptForValues
+                            (const DescriptorVector &   arguments);
+#endif//0
+
+                        //TBD     launch service via launcher with provided options (in optionsToApply) and parameters
+
+                        std::cerr << "launching " << serviceName << " on " << launcherName << "\n";//!!
+
                     }
                 }
             }

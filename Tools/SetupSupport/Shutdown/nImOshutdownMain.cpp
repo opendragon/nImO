@@ -93,11 +93,13 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::StringArgumentDescriptor  firstArg{"node"s, "Node to be shutdown (if machine is not specified)"s, nImO::ArgumentMode::Optional, ""s};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
+                                                                                      "Node to be shutdown (if machine is not specified)"s,
+                                                                                      nImO::ArgumentMode::Optional, ""s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -105,7 +107,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown node"s, 2023,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
@@ -114,7 +116,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown"s, optionValues._logging)};
-            auto                nodeName{firstArg.getCurrentValue()};
+            auto                nodeName{firstArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))

@@ -1185,8 +1185,8 @@
 		F6755C152B63C30900168F75 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				F6755C162B63C30900168F75 /* nImOlaunchMain.cpp */,
 				F6755C172B63C30900168F75 /* nImOlaunch.rc.in */,
+				F6755C162B63C30900168F75 /* nImOlaunchMain.cpp */,
 				F6755C182B63C30900168F75 /* resource.h */,
 			);
 			path = Launch;

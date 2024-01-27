@@ -88,11 +88,12 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"outFile"s, "File to be written to"s, nImO::ArgumentMode::Required, ""s, ".txt"s, true};
-    nImO::DescriptorVector              argumentList{};
-    nImO::StandardOptions               optionValues{};
-    int                                 exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("outFile"s, "File to be written to"s,
+                                                                                        nImO::ArgumentMode::Required, ""s, ".txt"s, true)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -100,7 +101,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Store setup"s, "nImOstoreSetup ourApplicationSet"s, 2023, nImO::kCopyrightName,
                                      optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {

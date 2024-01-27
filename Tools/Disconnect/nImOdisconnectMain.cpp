@@ -93,11 +93,12 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::ChannelArgumentDescriptor firstArg{"from/to"s, "'Sending'or 'Receiving' channel"s, nImO::ArgumentMode::Required, "/out"s};
-    nImO::DescriptorVector          argumentList{};
-    nImO::StandardOptions           optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::ChannelArgumentDescriptor>("from/to"s, "'Sending'or 'Receiving' channel"s,
+                                                                                       nImO::ArgumentMode::Required, "/out"s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -105,7 +106,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Disconnect two channels"s, "nImOdisconnect /out"s, 2016, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
@@ -119,7 +120,7 @@ main
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                channel{firstArg.getCurrentValue()};
+                auto                channel{firstArg->getCurrentValue()};
                 auto                nodeName{channel->getNode()};
                 auto                path{channel->getPath()};
                 bool                reported{false};

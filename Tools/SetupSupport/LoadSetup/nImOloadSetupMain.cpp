@@ -88,11 +88,12 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                         progName{*argv};
-    nImO::FilePathArgumentDescriptor    firstArg{"inFile"s, "File to be read from"s, nImO::ArgumentMode::Required, ""s, ".txt"s};
-    nImO::DescriptorVector              argumentList{};
-    nImO::StandardOptions               optionValues{};
-    int                                 exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("inFile"s, "File to be read from"s,
+                                                                                        nImO::ArgumentMode::Required, ""s, ".txt"s)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::StandardOptions   optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -100,7 +101,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
+    argumentList.push_back(firstArg);
     if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Load setup"s, "nImOloadSetup ourApplicationSet"s, 2023, nImO::kCopyrightName,
                                      optionValues, nullptr, nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {

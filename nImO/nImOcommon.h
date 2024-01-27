@@ -797,9 +797,6 @@ namespace nImO
     /*! @brief A sequence of bytes. */
     using ByteVector = std::vector<uint8_t>;
 
-    /*! @brief A sequence of argument descriptors. */
-    using DescriptorVector = std::vector<Ptr(BaseArgumentDescriptor)>;
-
     /*! @brief The table type used for lookups. */
     using StdStringSet = std::set<std::string>;
 
@@ -808,6 +805,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to a BaseArgumentDescriptor. */
     using SpBaseArgumentDescriptor = std::shared_ptr<BaseArgumentDescriptor>;
+
+    /*! @brief A sequence of argument descriptors. */
+    using DescriptorVector = std::vector<SpBaseArgumentDescriptor>;
 
     /*! @brief A holder for a shared pointer to a BufferChunk. */
     using SpBufferChunk = std::shared_ptr<BufferChunk>;
@@ -1118,12 +1118,19 @@ namespace nImO
     Initialize
         (void);
 
+    /*! @brief Remove leading whitespace from a string.
+     @param[in] inString The string to be trimmed.
+     @return The input string with leading whitespace removed. */
+    std::string
+    LeftTrim
+        (const std::string &    inString);
+
     /*! @brief Construct a tab-delimited string from the command-line.
      @param[in] numArgs The number of arguments.
      @param[in] args The arguments.
      @return A tab-delimited string containing the arguments. */
     std::string
-    MakeStringFromComandLine
+    MakeStringFromCommandLine
         (const int      numArgs,
          Ptr(Ptr(char)) args);
 
@@ -1170,6 +1177,13 @@ namespace nImO
         (const TransportType    firstTransport,
          const TransportType    secondTransport,
          const TransportType    defaultTransport = TransportType::kUnknown);
+
+    /*! @brief Remove trailing whitespace from a string.
+     @param[in] inString The string to be trimmed.
+     @return The input string with trailing whitespace removed. */
+    std::string
+    RightTrim
+        (const std::string &    inString);
 
     /*! @brief Return a string with special characters escaped.
      @param[in] inString The string to be processed.

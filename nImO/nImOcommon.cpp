@@ -578,7 +578,24 @@ nImO::Initialize
 } // nImO::Initialize
 
 std::string
-nImO::MakeStringFromComandLine
+nImO::LeftTrim
+    (const std::string &    inString)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
+    std::string result{inString};
+
+    result.erase(result.begin(), std::find_if(result.begin(), result.end(),
+                                                [](unsigned char ch)
+                                                {
+                                                    return (! std::isspace(ch));
+                                                }));
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::LeftTrim
+
+std::string
+nImO::MakeStringFromCommandLine
     (const int      numArgs,
      Ptr(Ptr(char)) args)
 {
@@ -835,6 +852,23 @@ nImO::ResolveTransport
     }
     return result;
 } /* ResolveTransport */
+
+std::string
+nImO::RightTrim
+    (const std::string &    inString)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
+    std::string result{inString};
+
+    result.erase(std::find_if(result.rbegin(), result.rend(),
+                                [](unsigned char ch)
+                                {
+                                    return (! std::isspace(ch));
+                                }).base(), result.end());
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::RightTrim
 
 std::string
 nImO::SanitizeString

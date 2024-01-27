@@ -14462,7 +14462,7 @@ main
             {
                 auto    execPath{nImO::GetPathToExecutable()};
                 auto    currentDir{boost::filesystem::current_path().string()};
-                auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+                auto    commandLine{nImO::MakeStringFromCommandLine(argc - 1, argv + 1)};
 
                 SetSignalHandlers(catchSignal);
                 switch (selector)

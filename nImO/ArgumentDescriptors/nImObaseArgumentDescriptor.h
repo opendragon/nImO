@@ -460,20 +460,7 @@ namespace nImO
             /*! @brief @c true if the argument was valid and @c false otherwise. */
             bool _valid{false};
 
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // MAC_OR_LINUX_OR_BSD_
-            /*! @brief Filler to pad to alignment boundary */
-            char _filler[7];
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic pop
-# endif // MAC_OR_LINUX_OR_BSD_
-
     }; // BaseArgumentDescriptor
-
-    /*! @brief A sequence of argument descriptors. */
-    using DescriptorVector = std::vector<Ptr(BaseArgumentDescriptor)>;
 
     /*! @brief Generate the standard 'argument list' description from an argument sequence.
      @param[in] arguments The argument sequence.

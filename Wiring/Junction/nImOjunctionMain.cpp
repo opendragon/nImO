@@ -90,12 +90,14 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
-    std::string                     progName{*argv};
-    nImO::IntegerArgumentDescriptor firstArg{"numIn"s, "Number of input channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::IntegerArgumentDescriptor secondArg{"numOut"s, "Number of output channels"s, nImO::ArgumentMode::Optional, 1, true, 1, false, 0};
-    nImO::DescriptorVector          argumentList{};
-    nImO::ServiceOptions            optionValues{};
-    int                             exitCode{0};
+    std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
+                                                                                       nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
+    auto                    secondArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
+                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
+    nImO::DescriptorVector  argumentList{};
+    nImO::ServiceOptions    optionValues{};
+    int                     exitCode{0};
 
     ODL_INIT(progName.c_str(), kODLoggingOptionIncludeProcessID | //####
              kODLoggingOptionIncludeThreadID | kODLoggingOptionEnableThreadSupport | //####
@@ -103,8 +105,8 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    argumentList.push_back(&firstArg);
-    argumentList.push_back(&secondArg);
+    argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
     {
@@ -142,7 +144,7 @@ main
                             {
                                 auto    basePath{optionValues._base};
 
-                                for (int ii = 1, mm = firstArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
+                                for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
 
@@ -179,7 +181,7 @@ main
                                 }
                                 nImO::OutChannelVector  outChannels{};
 
-                                for (int ii = 1, mm = secondArg.getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
+                                for (int ii = 1, mm = secondArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
 

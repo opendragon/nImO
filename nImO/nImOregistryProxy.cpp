@@ -245,7 +245,7 @@ nImO::RegistryProxy::addNode
     ODL_P2("argv = ", argv, "nodeConnection = ", &nodeConnection); //####
     auto    execPath{nImO::GetPathToExecutable()};
     auto    launchDirectory{boost::filesystem::current_path().string()};
-    auto    commandLine{nImO::MakeStringFromComandLine(argc - 1, argv + 1)};
+    auto    commandLine{nImO::MakeStringFromCommandLine(argc - 1, argv + 1)};
     auto    argArray{std::make_shared<Array>()};
     auto    handler{std::make_unique<AddNodeResponseHandler>()};
     auto    connArray{std::make_shared<Array>()};

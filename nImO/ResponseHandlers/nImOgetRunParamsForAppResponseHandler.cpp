@@ -38,7 +38,7 @@
 
 #include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
 
-#include <BasicTypes/nImOlogical.h>
+#include <BasicTypes/nImOstring.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -97,28 +97,41 @@ nImO::GetRunParamsForAppResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    stuff.describe(std::cerr) << "\n";//!!!
-    std::cerr << stuff << "\n"; //!!
-#if 0
     if (1 < stuff.size())
     {
-        auto    asLogical{stuff[1]->asLogical()};
+        auto    asArray{stuff[1]->asArray()};
 
-        if (nullptr == asLogical)
+        if (nullptr == asArray)
         {
-            ODL_LOG("(nullptr == asLogical)"); //####
+            ODL_LOG("(nullptr == asArray)"); //####
         }
         else
         {
-            _result = asLogical->getValue();
             okSoFar = true;
+            for (auto & walker : *asArray)
+            {
+                if (nullptr == walker)
+                {
+                    ODL_LOG("(nullptr == walker)"); //####
+                    okSoFar = false;
+                }
+                else
+                {
+                    auto    asString{walker->asString()};
+
+                    if (nullptr == asString)
+                    {
+                        ODL_LOG("(nullptr == asString)"); //####
+                        okSoFar = false;
+                    }
+                    else
+                    {
+                        _result.push_back(asString->getValue());
+                    }
+                }
+            }
         }
     }
-    else
-    {
-        ODL_LOG("! (1 < stuff.size())"); //####
-    }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::GetRunParamsForAppResponseHandler::doIt

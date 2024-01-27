@@ -167,16 +167,6 @@ namespace nImO
             /*! @brief @c true if the value can be a system port and @c false otherwise. */
             bool    _isSystemPort{false};
 
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // MAC_OR_LINUX_OR_BSD_
-            /*! @brief Filler to pad to alignment boundary */
-            char    _filler[7];
-# if MAC_OR_LINUX_OR_BSD_
-#  pragma clang diagnostic pop
-# endif // MAC_OR_LINUX_OR_BSD_
-
     }; // PortArgumentDescriptor
 
 } // nImO

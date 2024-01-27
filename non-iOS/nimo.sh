@@ -22,7 +22,6 @@ function list_commands() {
     echo "    stores     store a setup"
     echo "    update     update an application"
     echo "    version    report the version numbers of the libraries"
-    echo "    view       GUI tool to manage a nImO installation"
     echo "    write      write to a channel"
 }
 
@@ -88,9 +87,6 @@ function usage_help() {
                 ;;
             "version")
                 nImOversion -h
-                ;;
-            "view")
-                nImOview -h
                 ;;
             "write")
                 nImOwrite -h
@@ -210,9 +206,6 @@ else
             ;;
         "version")
             nImOversion $*
-            ;;
-        "view")
-            nImOview $*
             ;;
         "write")
             if [[ $# -eq 0 ]]; then

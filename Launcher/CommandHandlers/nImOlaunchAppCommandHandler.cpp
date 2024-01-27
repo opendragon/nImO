@@ -44,6 +44,7 @@
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
 #include <nImOlauncherCommands.h>
+#include <nImOmainSupport.h>
 
 #pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunused-parameter"

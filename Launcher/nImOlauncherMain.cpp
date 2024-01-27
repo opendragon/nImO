@@ -159,11 +159,11 @@ loadApplicationInformation
     {
         workingPath = appListFilePath;
     }
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     if (0 == access(workingPath.c_str(), R_OK))
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     if (0 == _access(workingPath.c_str(), 4))
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     {
         std::ifstream   inStream{workingPath};
 
@@ -245,11 +245,11 @@ loadApplicationInformation
                                             }
                                         }
                                         // Check if the path exists!
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
                                         if (0 == access(pathValue.c_str(), R_OK))
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
                                         if (0 == _access(pathValue.c_str(), 4))
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
                                         {
                                             writeSubMap->addValue(descriptionKey, descriptionEntry->second);
                                             if (useOriginal)

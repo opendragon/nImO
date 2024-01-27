@@ -86,6 +86,15 @@ namespace nImO
     GetPathToExecutable
         (void);
 
+    /* @brief Generate a platform-specific representation of a command-line option.
+     @param[in] shortForm The short form of the option, usually a single character.
+     @param[in] longForm The longer form of the option.
+     @return A platform-specific representation of the command-line option. */
+    std::string
+    MakeOption
+        (const std::string &    shortForm,
+         const std::string &    longForm = ""s);
+
     /*! @brief Set the function object to be invoked when a system break signal is received.
      @param[in] sigHObject The function object to be invoked. */
     void

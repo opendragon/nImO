@@ -50,12 +50,12 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # include <unistd.h>
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
 # include <Windows.h>
 # include <io.h>
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -66,14 +66,14 @@
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # pragma GCC diagnostic push
 # pragma GCC diagnostic ignored "-Wunused-function"
-#endif // MAC_OR_LINUX_
+#endif // MAC_OR_LINUX_OR_BSD_
 #include <mdns.hpp>
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # pragma GCC diagnostic pop
-#endif // MAC_OR_LINUX_
+#endif // MAC_OR_LINUX_OR_BSD_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -110,11 +110,11 @@ static bool lInitialized{false};
 #endif // defined(__APPLE__)
 
 // Note that this MUST be a single-character string!!!
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 const std::string   nImO::kDirectorySeparator{"/"s};
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
 const std::string   nImO::kDirectorySeparator{"\\"s};
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
 const std::string   nImO::kStatusSeparator{"\t"s};
 
@@ -175,14 +175,14 @@ nImO::CanReadFromStandardInput
     (void)
 {
     ODL_ENTER(); //####
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     pid_t   fg{tcgetpgrp(STDIN_FILENO)};
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     HWND    wind{GetConsoleWindow()};
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     bool    result{false};
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     if (-1 == fg)
     {
         // Piped
@@ -198,9 +198,9 @@ nImO::CanReadFromStandardInput
         // Background
         result = false;
     }
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     result = (nullptr != wind);
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     ODL_EXIT_B(result); //####
     return result;
 } // nImO::CanReadFromStandardInput
@@ -606,7 +606,7 @@ nImO::NameOfSignal
 {
     CPtr(char)  result;
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     switch (theSignal)
     {
         case SIGHUP :
@@ -750,7 +750,7 @@ nImO::NameOfSignal
             break;
 
     }
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     switch (theSignal)
     {
         case SIGINT :
@@ -766,7 +766,7 @@ nImO::NameOfSignal
             break;
 
     }
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     return result;
 } // nImO::NameOfSignal
 
@@ -896,12 +896,12 @@ nImO::SetSignalHandlers
     (SignalHandler  theHandler)
 {
     ODL_ENTER(); //####
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     sigset_t            blocking;
     struct sigaction    act;
-#endif // MAC_OR_LINUX_
+#endif // MAC_OR_LINUX_OR_BSD_
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     act.sa_handler = theHandler;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
@@ -926,7 +926,7 @@ nImO::SetSignalHandlers
     sigemptyset(&blocking);
     sigaddset(&blocking, STANDARD_SIGNAL_TO_USE_);
     pthread_sigmask(SIG_BLOCK, &blocking, nullptr);
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
 # if (defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_))
     signal(SIGABRT, theHandler);
 # endif // defined(SIGABRT) && (SIGABRT != STANDARD_SIGNAL_TO_USE_)
@@ -948,6 +948,6 @@ nImO::SetSignalHandlers
 #if 0
     signal(SIGTERM, theHandler);
 #endif//0
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     ODL_EXIT(); //####
 } // nImO::SetSignalHandlers

@@ -47,47 +47,47 @@
 # include <ostream>
 
 // Make sure that a couple of critical macros are defined!
-# if (! defined(TRUE_))
-#  define TRUE_  1
-# endif // not defined(TRUE_)
-# if (! defined(FALSE_))
-#  define FALSE_ 0
-# endif // not defined(FALSE_)
+# if (! defined(TRUE))
+#  define TRUE  1
+# endif // not defined(TRUE)
+# if (! defined(FALSE))
+#  define FALSE 0
+# endif // not defined(FALSE)
 
 # undef BSD_
 # if defined(__FreeBSD__)
-#  define BSD_    TRUE_
+#  define BSD_    TRUE
 # elif defined(__NetBSD__)
-#  define BSD_    TRUE_
+#  define BSD_    TRUE
 # elif defined(__OpenBSD__)
-#  define BSD_    TRUE_
+#  define BSD_    TRUE
 # elif defined(__bsdi__)
-#  define BSD_    TRUE_
+#  define BSD_    TRUE
 # elif defined(__Dragonfly__)
-#  define BSD_    TRUE_
+#  define BSD_    TRUE
 # else // ! defined(__Dragonfly__)
-#  define BSD_    FALSE_
+#  define BSD_    FALSE
 # endif // ! defined(__Dragonfly__)
 
 # if (! defined(LINUX_))
 /*! @brief @c TRUE_ if Linux, FALSE_ otherwise. */
 #  if defined(__linux__)
-#   define LINUX_ TRUE_
+#   define LINUX_ TRUE
 #  else // not defined(__linux__)
-#   define LINUX_ FALSE_
+#   define LINUX_ FALSE
 #  endif // not defined(__linux__)
 # endif // not defined(LINUX_)
 
-# if (! defined(MAC_OR_LINUX_))
+# if (! defined(MAC_OR_LINUX_OR_BSD_))
 /* TRUE_ if non-Windows, FALSE_ if Windows. */
 #  if defined(__APPLE__)
-#   define MAC_OR_LINUX_ TRUE_
+#   define MAC_OR_LINUX_OR_BSD_ TRUE
 #  elif LINUX_
-#   define MAC_OR_LINUX_ TRUE_
+#   define MAC_OR_LINUX_OR_BSD_ TRUE
 #  else // not LINUX_
-#   define MAC_OR_LINUX_ BSD_
+#   define MAC_OR_LINUX_OR_BSD_ BSD
 #  endif // not LINUX_
-# endif // not defined(MAC_OR_LINUX_)
+# endif // not defined(MAC_OR_LINUX_OR_BSD_)
 
 using namespace std::string_literals;
 
@@ -115,19 +115,19 @@ using namespace std::string_literals;
 # include <sstream>
 # include <vector>
 
-# if MAC_OR_LINUX_
+# if MAC_OR_LINUX_OR_BSD_
 #  include <arpa/inet.h>
 #  include <sys/socket.h>
 #  define SOCKET         int /* Standard socket type in *nix. */
 #  define INVALID_SOCKET -1
-# else // not MAC_OR_LINUX_
+# else // not MAC_OR_LINUX_OR_BSD_
 #  pragma warning(push)
 #  pragma warning(disable: 4996)
 #  include <WinSock2.h>
 #  include <Ws2tcpip.h>
 #  include <iphlpapi.h>
 #  pragma warning(pop)
-# endif // not MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_OR_BSD_
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -153,11 +153,11 @@ using namespace std::string_literals;
 # define CHAR_DOUBLEQUOTE_  "\""
 
 /*! @brief The signal to use for internally-detected timeouts. */
-# if MAC_OR_LINUX_
+# if MAC_OR_LINUX_OR_BSD_
 #  define STANDARD_SIGNAL_TO_USE_   SIGUSR2
-# else // not MAC_OR_LINUX_
+# else // not MAC_OR_LINUX_OR_BSD_
 #  define STANDARD_SIGNAL_TO_USE_   42
-# endif // not MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_OR_BSD_
 
 /*! @brief A simple macro to make the pointer declarations a bit more readable. */
 # define Ptr(type_) type_ *

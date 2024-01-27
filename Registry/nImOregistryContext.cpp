@@ -418,13 +418,13 @@ nImO::RegistryContext::executeAnnouncer
             {
                 nfds = owner._sockets[isock] + 1;
             }
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option push -w-csu
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
             FD_SET(owner._sockets[isock], &readfs);
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option pop
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
         }
         if (! lAnnouncerThreadStop)
         {
@@ -444,13 +444,13 @@ nImO::RegistryContext::executeAnnouncer
                         mDNS::socket_listen(owner._sockets[isock], owner._buffer, kBufferCapacity,
                                             announcementServiceCallback, owner._announceData.get());
                     }
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option push -w-csu
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
                     FD_SET(owner._sockets[isock], &readfs);
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option pop
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
                 }
             }
             else

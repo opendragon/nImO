@@ -48,11 +48,11 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # include <unistd.h>
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
 # include <winsock.h>
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push

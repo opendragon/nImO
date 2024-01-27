@@ -231,10 +231,10 @@ namespace nImO
             /*! @brief The number of seconds before timeout occurs when searching for the Registry. */
             int _registrySearchTimeout{0};
 
-# if (! MAC_OR_LINUX_)
+# if (! MAC_OR_LINUX_OR_BSD_)
             /*! @brief Required for Windows networking. */
             WSADATA _wsaData;
-# endif // not MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_OR_BSD_
 
     }; // ContextWithNetworking
 

@@ -187,11 +187,11 @@ AddressArgumentDescriptor::parseArgString
         {
             defaultString = kSelfAddressIpAddress;
         }
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 < inet_pton(AF_INET, defaultString.c_str(), &addrBuff));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
         if (okSoFar)
         {
             result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);
@@ -241,22 +241,22 @@ AddressArgumentDescriptor::validate
     }
     if (_addrBuff)
     {
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
         setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
         ODL_B1("_valid <- ", isValid()); //####
     }
     else
     {
         struct in_addr  addrBuff;
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
         setValidity(0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
         ODL_B1("_valid <- ", isValid()); //####
     }
     if (isValid())

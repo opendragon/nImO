@@ -44,6 +44,7 @@
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
 #include <nImOlauncherCommands.h>
+#include <nImOmainSupport.h>
 
 #pragma clang diagnostic push
 # pragma clang diagnostic ignored "-Wunused-parameter"
@@ -134,7 +135,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         auto    appPath{appPathIterator->second->asString()->getValue()};
 
                         BP::ipstream    pipeStream{};
-                        BP::child       cc{appPath + " -a", BP::std_out > pipeStream};
+                        BP::child       cc{appPath + " "s + MakeOption("a"s), BP::std_out > pipeStream};
                         std::string     line{};
                         auto            params{std::make_shared<Array>()};
 

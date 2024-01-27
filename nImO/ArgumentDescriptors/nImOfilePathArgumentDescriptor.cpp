@@ -42,11 +42,11 @@
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # include <unistd.h>
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
 # include <io.h>
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
 #if defined(__APPLE__)
 # pragma clang diagnostic push
@@ -103,11 +103,11 @@ checkFilePath
         {
             if (0 < strlen(thePath))
             {
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
                 okSoFar = (0 == access("..", W_OK));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
                 okSoFar = (0 == _access("..", 2));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
             }
             else
             {
@@ -117,21 +117,21 @@ checkFilePath
         else
         {
             dirPath = dirPath.substr(0, lastDelim);
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == access(dirPath.c_str(), W_OK));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == _access(dirPath.c_str(), 2));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
         }
     }
     else if (0 < strlen(thePath))
     {
         // The file must exist and be readable.
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 == access(thePath, R_OK));
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 == _access(thePath, 4));
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     }
     else
     {

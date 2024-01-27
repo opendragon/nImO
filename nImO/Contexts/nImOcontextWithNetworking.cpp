@@ -117,18 +117,18 @@ nImO::ContextWithNetworking::ContextWithNetworking
     ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
     ODL_B1("logging = ", logging); //####
     ODL_I1("numReservedThreads = ", numReservedThreads); //####
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
     WORD    versionWanted{MAKEWORD(1, 1)};
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
     if (0 != WSAStartup(versionWanted, &_wsaData))
     {
         std::cerr << "Failed to initialize WinSock\n";
         throw "WinSock problem";
 
     }
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     try
     {
         // The number of threads requested should be one less than the number possible, to account for the main thread
@@ -289,9 +289,9 @@ nImO::ContextWithNetworking::~ContextWithNetworking
     }
     _work.reset(nullptr);
     _pool.join_all();
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
     WSACleanup();
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithNetworking::~ContextWithNetworking
 

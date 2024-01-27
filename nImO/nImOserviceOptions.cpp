@@ -39,6 +39,7 @@
 #include <nImOserviceOptions.h>
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <nImOmainSupport.h>
 
 #include <string>
 
@@ -116,40 +117,53 @@ nImO::ProcessServiceOptions
         kOptionWAIT
     }; // OptionIndex
 
-    bool    keepGoing{true};
-    auto    describePartText{"  --describe, -d \tPrint executable type, supported service options and description and exit"s};
-    auto    tagPartText{"  --tag, -t <tag> \tSpecify the tag to be used as part of the service name"s};
-
+    bool                keepGoing{true};
     Option_::Descriptor firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "", Option_::Arg::None, NULL};
+    auto                argsHelpString{"  "s + MakeOption("a"s, "args"s) + " \tReport the argument formats"s};
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
-                                        "  --args, -a \tReport the argument formats"};
+                                        argsHelpString.c_str()};
+    auto                baseHelpString{"  "s + MakeOption("b"s, "base"s) + " <name> \tSpecifies the base name for channels"s};
     Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", Option_::Arg::Required,
-                                        "  --base, -b <name> \tSpecifies the base name for channels"};
+                                        baseHelpString.c_str()};
+    auto                configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify path to configuration file"s};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
-                                            "  --config, -c <path> \tSpecify path to configuration file"};
+                                            configHelpString.c_str()};
+    auto                describeHelpString{"  "s + MakeOption("d"s, "describe"s) +
+                                            " \tPrint executable type, supported service options and description and exit"s};
     Option_::Descriptor describeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionDESCRIBE), 0, "d", "describe", Option_::Arg::None,
-                                            describePartText.c_str()};
+                                            describeHelpString.c_str()};
+    auto                expandedHelpString{"  "s + MakeOption("e"s, "expanded"s) + " \tDisplay more details"s};
     Option_::Descriptor expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
-                                            "expanded", Option_::Arg::None, "  --expanded, -e \tDisplay more details"};
+                                            "expanded", Option_::Arg::None, expandedHelpString.c_str()};
+    auto                helpHelpString{"  "s + MakeOption("h"s, "help"s) + " \tPrint usage and exit"s};
     Option_::Descriptor helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help", Option_::Arg::None,
-                                        "  --help, -h \tPrint usage and exit"};
+                                        helpHelpString.c_str()};
+    auto                inTypeHelpString1{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecifies the data type for the input channel"s};
     Option_::Descriptor inTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
-                                            "  --intype, -i <type> \tSpecifies the data type for the input channel"};
+                                            inTypeHelpString1.c_str()};
+    auto                inTypeHelpString2{"  "s + MakeOption("i"s, "intype"s) + " <type> \tSpecifies the data type for input channels"s};
     Option_::Descriptor inTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionINTYPE), 0, "i", "intype", Option_::Arg::Required,
-                                            "  --intype, -i <type> \tSpecifies the data type for input channels"};
+                                            inTypeHelpString2.c_str()};
+    auto                logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog application"s};
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
-                                        "  --log, -l \tLog application"};
+                                        logHelpString.c_str()};
+    auto                nodeHelpString{"  "s + MakeOption("n"s, "node"s) + " <name> \tSpecify a non-default node name to be used"s};
     Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
-                                        "  --node, -n <name> \tSpecify a non-default node name to be used"};
+                                        nodeHelpString.c_str()};
+    auto                outTypeHelpString1{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecifies the data type for the output channel"s};
     Option_::Descriptor outTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
-                                            "  --outtype, -o <type> \tSpecifies the data type for the output channel"};
+                                            outTypeHelpString1.c_str()};
+    auto                outTypeHelpString2{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecifies the data type for output channels"s};
     Option_::Descriptor outTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
-                                            "  --outtype, -o <type> \tSpecifies the data type for output channels"};
-    Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagPartText.c_str()};
+                                            outTypeHelpString2.c_str()};
+    auto                tagHelpString{"  "s + MakeOption("t"s, "tag"s) + " <tag> \tSpecify the tag to be used as part of the service name"s};
+    Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagHelpString.c_str()};
+    auto                versionHelpString{"  "s + MakeOption("v"s, "version"s) + " \tPrint version information and exit"s};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "version", Option_::Arg::None,
-                                            "  --version, -v \tPrint version information and exit"};
+                                            versionHelpString.c_str()};
+    auto                waitHelpString{"  "s + MakeOption("w"s, "wait"s) + " \tWait for connection(s)"s};
     Option_::Descriptor waitDescriptor{StaticCast(unsigned int, OptionIndex::kOptionWAIT), 0, "w", "wait", Option_::Arg::None,
-                                        "  --wait, -w \tWait for connection(s)"};
+                                        waitHelpString.c_str()};
     Option_::Descriptor lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     int                 argcWork{argc};
     Ptr(Ptr(char))      argvWork{argv};
@@ -228,11 +242,11 @@ nImO::ProcessServiceOptions
     Ptr(Option_::Descriptor)    usage{new Option_::Descriptor[descriptorCount]};
     Ptr(Option_::Descriptor)    usageWalker{usage};
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     firstDescriptor.help = strdup(usageString.c_str());
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     firstDescriptor.help = _strdup(usageString.c_str());
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
     if (0 == (skipOptions & kSkipArgsOption))
     {

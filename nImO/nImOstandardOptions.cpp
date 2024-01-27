@@ -43,6 +43,7 @@
 #include <BasicTypes/nImOvalue.h>
 #include <Containers/nImOmap.h>
 #include <Containers/nImOstringBuffer.h>
+#include <nImOmainSupport.h>
 
 #include <string>
 
@@ -130,11 +131,11 @@ nImO::LoadConfiguration
     {
         workingPath = configFilePath;
     }
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     if (0 == access(workingPath.c_str(), R_OK))
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     if (0 == _access(workingPath.c_str(), 4))
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     {
         std::ifstream   inStream{workingPath};
 
@@ -212,24 +213,30 @@ nImO::ProcessStandardOptions
     bool                        keepGoing{true};
     Option_::Descriptor         firstDescriptor{StaticCast(unsigned int, OptionIndex::kOptionUNKNOWN), 0, "", "",
                                                 Option_::Arg::None, nullptr};
+    auto                        configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify path to configuration file"s};
     Option_::Descriptor         configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config",
-                                                    Option_::Arg::Required,
-                                                    "  --config, -c <path> \tSpecify path to configuration file"};
+                                                Option_::Arg::Required, configHelpString.c_str()};
+    auto                        expandedHelpString{"  "s + MakeOption("e"s, "expanded"s) + " \tDisplay more details"s};
     Option_::Descriptor         expandedDescriptor{StaticCast(unsigned int, OptionIndex::kOptionEXPANDED), 0, "e",
-                                                    "expanded", Option_::Arg::None, "  --expanded, -e \tDisplay more details"};
+                                                    "expanded", Option_::Arg::None, expandedHelpString.c_str()};
+    auto                        helpHelpString{"  "s + MakeOption("h"s, "help"s) + "  \tPrint usage and exit"s};
     Option_::Descriptor         helpDescriptor{StaticCast(unsigned int, OptionIndex::kOptionHELP), 0, "h", "help",
-                                                Option_::Arg::None, "  --help, -h  \tPrint usage and exit"};
+                                                Option_::Arg::None, helpHelpString.c_str()};
+    auto                        jsonHelpString{"  "s + MakeOption("j"s, "json"s) + " \tGenerate output in JSON format"s};
     Option_::Descriptor         jsonDescriptor{StaticCast(unsigned int, OptionIndex::kOptionJSON), 0, "j", "json",
-                                                Option_::Arg::None, "  --json, -j \tGenerate output in JSON format"};
+                                                Option_::Arg::None, jsonHelpString.c_str()};
+    auto                        logHelpString{"  "s + MakeOption("l"s, "log"s) + " \tLog application"s};
     Option_::Descriptor         logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l",
-                                                "log", Option_::Arg::None, "  --log, -l \tLog application"};
+                                                "log", Option_::Arg::None, logHelpString.c_str()};
+    auto                        machineHelpString{"  "s + MakeOption("m"s, "machine"s) + " <name> \tSpecify machine to be referenced"s};
     Option_::Descriptor         machineDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMACHINE), 0, "m", "machine",
-                                                    Option_::Arg::Required,
-                                                    "  --machine, -m <name> \tSpecify machine to be referenced"};
+                                                    Option_::Arg::Required, machineHelpString.c_str()};
+    auto                        tabsHelpString{"  "s + MakeOption("t"s, "tabs"s) + " \tGenerate output in tab-format"s};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
-                                                Option_::Arg::None, "  --tabs, -t \tGenerate output in tab-format"};
+                                                Option_::Arg::None, tabsHelpString.c_str()};
+    auto                        versionHelpString{"  "s + MakeOption("v"s, "version"s) + " \tPrint version information and exit"s};
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v",
-                                                    "version", Option_::Arg::None, "  --version, -v \tPrint version information and exit"};
+                                                    "version", Option_::Arg::None, versionHelpString.c_str()};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
     Option_::Descriptor         usage[11]; // first, config, describe, expanded, help, json, log, machine, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
@@ -268,11 +275,11 @@ nImO::ProcessStandardOptions
         }
     }
     usageString += "\n\nOptions:"s;
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     firstDescriptor.help = strdup(usageString.c_str());
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     firstDescriptor.help = _strdup(usageString.c_str());
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     memcpy(usageWalker++, &firstDescriptor, sizeof(firstDescriptor));
     if (0 == (kSkipConfigFileOption & optionsToIgnore))
     {

@@ -46,14 +46,14 @@
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wnon-virtual-dtor"
 # endif // defined(__APPLE__)
-# if (! MAC_OR_LINUX_)
+# if (! MAC_OR_LINUX_OR_BSD_)
 #  pragma warning(push)
 #  pragma warning(disable: 4512)
-# endif // not MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_OR_BSD_
 # include <optionparser.hpp>
-# if (! MAC_OR_LINUX_)
+# if (! MAC_OR_LINUX_OR_BSD_)
 #  pragma warning(pop)
-# endif // not MAC_OR_LINUX_
+# endif // not MAC_OR_LINUX_OR_BSD_
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -460,15 +460,15 @@ namespace nImO
             /*! @brief @c true if the argument was valid and @c false otherwise. */
             bool _valid{false};
 
-# if MAC_OR_LINUX_
+# if MAC_OR_LINUX_OR_BSD_
 #  pragma clang diagnostic push
 #  pragma clang diagnostic ignored "-Wunused-private-field"
-# endif // MAC_OR_LINUX_
+# endif // MAC_OR_LINUX_OR_BSD_
             /*! @brief Filler to pad to alignment boundary */
             char _filler[7];
-# if MAC_OR_LINUX_
+# if MAC_OR_LINUX_OR_BSD_
 #  pragma clang diagnostic pop
-# endif // MAC_OR_LINUX_
+# endif // MAC_OR_LINUX_OR_BSD_
 
     }; // BaseArgumentDescriptor
 

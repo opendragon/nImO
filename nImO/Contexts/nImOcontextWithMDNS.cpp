@@ -38,9 +38,9 @@
 
 #include <Contexts/nImOcontextWithMDNS.h>
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
 # include <ifaddrs.h>
-#endif // MAC_OR_LINUX_
+#endif // MAC_OR_LINUX_OR_BSD_
 #include <string>
 
 //#include <odlEnable.h>
@@ -311,16 +311,16 @@ getLocalAddresses
     (void)
 {
     ODL_ENTER(); //####
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     Ptr(struct ifaddrs)         addresses{nullptr};
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress{nullptr};
     ULONG                       addressSize{8000};
     uint                        ret;
     uint                        numRetries{4};
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
 
-#if MAC_OR_LINUX_
+#if MAC_OR_LINUX_OR_BSD_
     if (-1 == getifaddrs(&addresses))
     {
         throw "Failed to get network adapter addresses";
@@ -368,7 +368,7 @@ getLocalAddresses
         }
     }
     freeifaddrs(addresses);
-#else // not MAC_OR_LINUX_
+#else // not MAC_OR_LINUX_OR_BSD_
     do
     {
         adapterAddress = ReinterpretCast(Ptr(IP_ADAPTER_ADDRESSES), malloc(addressSize));
@@ -448,7 +448,7 @@ getLocalAddresses
         }
     }
     free(adapterAddress);
-#endif // not MAC_OR_LINUX_
+#endif // not MAC_OR_LINUX_OR_BSD_
     if ((! nImO::ContextWithMDNS::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
     {
         throw "No usable network addresses found.";
@@ -670,13 +670,13 @@ nImO::ContextWithMDNS::executeBrowser
             {
                 nfds = owner._sockets[isock] + 1;
             }
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option push -w-csu
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
             FD_SET(owner._sockets[isock], &readfs);
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option pop
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
         }
         int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
 
@@ -694,13 +694,13 @@ nImO::ContextWithMDNS::executeBrowser
                     mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::ContextWithMDNS::kBufferCapacity, queryCallback, &handler,
                                      owner._queryId[isock]);
                 }
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option push -w-csu
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
                 FD_SET(owner._sockets[isock], &readfs);
-#if (! MAC_OR_LINUX_)
+#if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option pop
-#endif /* not MAC_OR_LINUX_ */
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
             }
             if (owner._requestNewScan)
             {

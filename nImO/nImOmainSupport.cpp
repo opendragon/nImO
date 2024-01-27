@@ -266,6 +266,38 @@ nImO::GetPathToExecutable
     return result;
 } // nImO::GetPathToExecutable
 
+std::string
+nImO::MakeOption
+    (const std::string &    shortForm,
+     const std::string &    longForm)
+{
+    ODL_ENTER(); //####
+    ODL_S2s("shortForm = ", shortForm, "longForm = ", longForm); //####
+    std::string result{};
+
+#if MAC_OR_LINUX_OR_BSD_
+    if (longForm.empty())
+    {
+        result = "-"s + shortForm;
+    }
+    else
+    {
+        result = "--"s + longForm + ", -"s + shortForm;
+    }
+#else /* not MAC_OR_LINUX_OR_BSD_ */
+    if (longForm.empty())
+    {
+        result = "/"s + shortForm;
+    }
+    else
+    {
+        result = "/"s + longForm + ", /"s + shortForm;
+    }
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
+    ODL_EXIT_s(result); //####
+    return result;
+} // nImO::MakeOption
+
 void
 nImO::SetSpecialBreakObject
     (Ptr(CallbackFunction)    sigObject)

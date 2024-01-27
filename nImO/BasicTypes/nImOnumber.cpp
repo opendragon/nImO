@@ -112,6 +112,17 @@ nImO::Number::asNumber
     return this;
 } // nImO::Number::asNumber
 
+void
+nImO::Number::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "number";
+    ODL_OBJEXIT(); //####
+} // nImO::Number::describe
+
 CPtr(char)
 nImO::Number::getInitialCharacters
     (void)

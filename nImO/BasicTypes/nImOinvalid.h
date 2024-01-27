@@ -95,6 +95,14 @@ namespace nImO
                 (Invalid &&	other)
                 noexcept;
 
+            /*! @brief Write a short description of the Value to a stream.
+             @param[in/out] output The stream to write to. */
+            void
+            describe
+                (std::ostream & output)
+                const
+                override;
+
             /*! @brief Return a textual description of the Flaw.
             @return A textual description of the Flaw. */
             std::string

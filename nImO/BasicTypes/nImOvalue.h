@@ -238,6 +238,13 @@ namespace nImO
                 (const Value &  other)
                 const;
 
+            /*! @brief Write a short description of the Value to a stream.
+             @param[in/out] output The stream to write to. */
+            virtual void
+            describe
+                (std::ostream & output)
+                const = 0;
+
             /*! @brief Return the enumeration type of an object.
              @return The enumeration type of an object. */
             virtual Enumerable

@@ -195,6 +195,17 @@ nImO::Array::deeplyEqualTo
     return result;
 } // nImO::Array::deeplyEqualTo
 
+void
+nImO::Array::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "array of " << size() << " elements";
+    ODL_OBJEXIT(); //####
+} // nImO::Array::describe
+
 bool
 nImO::Array::empty
     (void)
@@ -217,13 +228,11 @@ nImO::Array::equalTo
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            result &= aValue->equalTo(other);
+            result &= walker->equalTo(other);
         }
     }
     ODL_EXIT_B(result.value()); //####
@@ -447,13 +456,11 @@ nImO::Array::greaterThan
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            result &= aValue->greaterThan(other);
+            result &= walker->greaterThan(other);
         }
     }
     ODL_EXIT_B(result.value()); //####
@@ -470,13 +477,11 @@ nImO::Array::greaterThanOrEqual
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            result &= aValue->greaterThanOrEqual(other);
+            result &= walker->greaterThanOrEqual(other);
         }
     }
     ODL_EXIT_B(result.value()); //####
@@ -493,13 +498,11 @@ nImO::Array::lessThan
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            result &= aValue->lessThan(other);
+            result &= walker->lessThan(other);
         }
     }
     ODL_EXIT_B(result.value()); //####
@@ -516,13 +519,11 @@ nImO::Array::lessThanOrEqual
     ComparisonStatus    result{inherited2::begin() != inherited2::end()};
 
     // Note that all the values must be validated.
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            result &= aValue->lessThanOrEqual(other);
+            result &= walker->lessThanOrEqual(other);
         }
     }
     ODL_EXIT_B(result.value()); //####
@@ -555,13 +556,11 @@ nImO::Array::operator<<
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
     out << kStartArrayChar;
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            out << " " << *aValue;
+            out << " " << *walker;
         }
     }
     out << " " << kEndArrayChar;
@@ -581,17 +580,15 @@ nImO::Array::printToStringBuffer
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
             if ((! squished) || (! first))
             {
                 outBuffer.appendChar(' ');
             }
-            aValue->printToStringBuffer(outBuffer, squished);
+            walker->printToStringBuffer(outBuffer, squished);
             first = false;
         }
     }
@@ -617,11 +614,9 @@ nImO::Array::printToStringBufferAsJSON
     bool    first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
             if (! first)
             {
@@ -631,7 +626,7 @@ nImO::Array::printToStringBufferAsJSON
             {
                 outBuffer.appendChar(' ');
             }
-            aValue->printToStringBufferAsJSON(outBuffer, false, squished);
+            walker->printToStringBufferAsJSON(outBuffer, false, squished);
             first = false;
         }
     }
@@ -784,19 +779,17 @@ nImO::Array::writeToMessage
 
         outMessage.appendBytes(&startArray, sizeof(startArray));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{*walker};
-
-            if (nullptr != aValue)
+            if (nullptr != walker)
             {
                 // Check for sequences of Double values
-                auto    doubleValue{aValue->asDouble()};
+                auto    doubleValue{walker->asDouble()};
 
                 if (nullptr == doubleValue)
                 {
                     Double::writeValuesToMessage(doublesSeen, outMessage);
-                    aValue->writeToMessage(outMessage);
+                    walker->writeToMessage(outMessage);
                 }
                 else
                 {

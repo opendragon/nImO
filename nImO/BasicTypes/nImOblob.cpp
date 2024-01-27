@@ -254,6 +254,17 @@ nImO::Blob::deeplyEqualTo
     return result;
 } // nImO::Blob::deeplyEqualTo
 
+void
+nImO::Blob::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "blob of " << _size << " bytes";
+    ODL_OBJEXIT(); //####
+} // nImO::Blob::describe
+
 nImO::ComparisonStatus
 nImO::Blob::equalTo
     (const Value &  other)

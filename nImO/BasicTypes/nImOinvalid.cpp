@@ -125,6 +125,17 @@ nImO::Invalid::Invalid
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+void
+nImO::Invalid::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "invalid value";
+    ODL_OBJEXIT(); //####
+} // nImO::Invalid::describe
+
 std::string
 nImO::Invalid::getDescription
     (void)

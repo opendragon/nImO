@@ -159,6 +159,17 @@ nImO::Logical::deeplyEqualTo
     return result;
 } // nImO::Logical::deeplyEqualTo
 
+void
+nImO::Logical::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "logical";
+    ODL_OBJEXIT(); //####
+} // nImO::Logical::describe
+
 nImO::Enumerable
 nImO::Logical::enumerationType
     (void)

@@ -97,6 +97,7 @@ nImO::LaunchAppResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
+    stuff.describe(std::cerr); //!!
 #if 0
     if (1 < stuff.size())
     {

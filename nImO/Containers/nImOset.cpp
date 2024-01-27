@@ -229,6 +229,40 @@ nImO::Set::deeplyEqualTo
     return result;
 } // nImO::Set::deeplyEqualTo
 
+void
+nImO::Set::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "set of " << size() << " elements and a key type of ";
+    switch (_keyKind)
+    {
+        case Enumerable::Address :
+            output << "address";
+            break;
+
+        case Enumerable::Logical :
+            output << "logical";
+            break;
+
+        case Enumerable::Integer :
+            output << "integer";
+            break;
+
+        case Enumerable::String :
+            output << "string";
+            break;
+
+        default :
+            output << "<unknown>";
+            break;
+
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::Set::describe
+
 bool
 nImO::Set::empty
     (void)
@@ -258,13 +292,11 @@ nImO::Set::equalTo
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{*walker};
-
-                if (nullptr != aValue)
+                if (nullptr != walker)
                 {
-                    result &= aValue->equalTo(other);
+                    result &= walker->equalTo(other);
                 }
             }
         }
@@ -510,13 +542,11 @@ nImO::Set::greaterThan
     }
     else
     {
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{*walker};
-
-            if (nullptr != aValue)
+            if (nullptr != walker)
             {
-                result &= aValue->greaterThan(other);
+                result &= walker->greaterThan(other);
             }
         }
     }
@@ -541,13 +571,11 @@ nImO::Set::greaterThanOrEqual
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{*walker};
-
-                if (nullptr != aValue)
+                if (nullptr != walker)
                 {
-                    result &= aValue->greaterThanOrEqual(other);
+                    result &= walker->greaterThanOrEqual(other);
                 }
             }
         }
@@ -575,13 +603,11 @@ nImO::Set::lessThan
     }
     else
     {
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{*walker};
-
-            if (nullptr != aValue)
+            if (nullptr != walker)
             {
-                result &= aValue->lessThan(other);
+                result &= walker->lessThan(other);
             }
         }
     }
@@ -606,13 +632,11 @@ nImO::Set::lessThanOrEqual
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{*walker};
-
-                if (nullptr != aValue)
+                if (nullptr != walker)
                 {
-                    result &= aValue->lessThanOrEqual(other);
+                    result &= walker->lessThanOrEqual(other);
                 }
             }
         }
@@ -647,13 +671,11 @@ nImO::Set::operator<<
     ODL_OBJENTER(); //####
     ODL_P1("out = ", &out); //####
     out << kStartSetChar;
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
-            out << " " << *aValue;
+            out << " " << *walker;
         }
     }
     out << " " << kEndSetChar;
@@ -673,17 +695,15 @@ nImO::Set::printToStringBuffer
     bool first{true};
 
     outBuffer.appendChar(kStartSetChar);
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
             if ((! squished) || (! first))
             {
                 outBuffer.appendChar(' ');
             }
-            aValue->printToStringBuffer(outBuffer);
+            walker->printToStringBuffer(outBuffer);
             first = false;
         }
     }
@@ -709,11 +729,9 @@ nImO::Set::printToStringBufferAsJSON
     bool first{true};
 
     outBuffer.appendChar(kStartArrayChar);
-    for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+    for (auto & walker : *this)
     {
-        SpValue aValue{*walker};
-
-        if (nullptr != aValue)
+        if (nullptr != walker)
         {
             if (! first)
             {
@@ -723,7 +741,7 @@ nImO::Set::printToStringBufferAsJSON
             {
                 outBuffer.appendChar(' ');
             }
-            aValue->printToStringBufferAsJSON(outBuffer);
+            walker->printToStringBufferAsJSON(outBuffer);
             first = false;
         }
     }
@@ -899,13 +917,11 @@ nImO::Set::writeToMessage
 
         outMessage.appendBytes(&startSet, sizeof(startSet));
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{*walker};
-
-            if (nullptr != aValue)
+            if (nullptr != walker)
             {
-                aValue->writeToMessage(outMessage);
+                walker->writeToMessage(outMessage);
             }
         }
         outMessage.appendBytes(&endSet, sizeof(endSet));

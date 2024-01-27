@@ -155,6 +155,17 @@ nImO::Double::deeplyEqualTo
     return result;
 } // nImO::Double::deeplyEqualTo
 
+void
+nImO::Double::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "double";
+    ODL_OBJEXIT(); //####
+} // nImO::Double::describe
+
 nImO::Enumerable
 nImO::Double::enumerationType
     (void)

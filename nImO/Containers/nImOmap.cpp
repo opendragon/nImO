@@ -249,6 +249,40 @@ nImO::Map::deeplyEqualTo
     return result;
 } // nImO::Map::deeplyEqualTo
 
+void
+nImO::Map::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "map of " << size() << " elements and a key type of ";
+    switch (_keyKind)
+    {
+        case Enumerable::Address :
+            output << "address";
+            break;
+
+        case Enumerable::Logical :
+            output << "logical";
+            break;
+
+        case Enumerable::Integer :
+            output << "integer";
+            break;
+
+        case Enumerable::String :
+            output << "string";
+            break;
+
+        default :
+            output << "<unknown>";
+            break;
+
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::Map::describe
+
 bool
 nImO::Map::empty
     (void)
@@ -278,13 +312,11 @@ nImO::Map::equalTo
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{walker->first};
-
-                if (nullptr != aValue)
+                if (nullptr != walker.first)
                 {
-                    result &= aValue->equalTo(other);
+                    result &= walker.first->equalTo(other);
                 }
             }
         }
@@ -576,13 +608,11 @@ nImO::Map::greaterThan
     }
     else
     {
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{walker->first};
-
-            if (nullptr != aValue)
+            if (nullptr != walker.first)
             {
-                result &= aValue->greaterThan(other);
+                result &= walker.first->greaterThan(other);
             }
         }
     }
@@ -607,13 +637,11 @@ nImO::Map::greaterThanOrEqual
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{walker->first};
-
-                if (nullptr != aValue)
+                if (nullptr != walker.first)
                 {
-                    result &= aValue->greaterThanOrEqual(other);
+                    result &= walker.first->greaterThanOrEqual(other);
                 }
             }
         }
@@ -641,13 +669,11 @@ nImO::Map::lessThan
     }
     else
     {
-        for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+        for (auto & walker : *this)
         {
-            SpValue aValue{walker->first};
-
-            if (nullptr != aValue)
+            if (nullptr != walker.first)
             {
-                result &= aValue->lessThan(other);
+                result &= walker.first->lessThan(other);
             }
         }
     }
@@ -672,13 +698,11 @@ nImO::Map::lessThanOrEqual
         }
         else
         {
-            for (auto walker{inherited2::begin()}; inherited2::end() != walker; ++walker)
+            for (auto & walker : *this)
             {
-                SpValue aValue{walker->first};
-
-                if (nullptr != aValue)
+                if (nullptr != walker.first)
                 {
-                    result &= aValue->lessThanOrEqual(other);
+                    result &= walker.first->lessThanOrEqual(other);
                 }
             }
         }

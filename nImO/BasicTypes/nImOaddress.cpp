@@ -178,6 +178,17 @@ nImO::Address::deeplyEqualTo
     return result;
 } // nImO::Address::deeplyEqualTo
 
+void
+nImO::Address::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "address";
+    ODL_OBJEXIT(); //####
+} // nImO::Address::describe
+
 nImO::Enumerable
 nImO::Address::enumerationType
     (void)

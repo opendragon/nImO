@@ -117,6 +117,14 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Write a short description of the Value to a stream.
+             @param[in/out] output The stream to write to. */
+            void
+            describe
+                (std::ostream & output)
+                const
+                override;
+
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */

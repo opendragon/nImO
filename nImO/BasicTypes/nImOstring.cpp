@@ -161,6 +161,17 @@ nImO::String::deeplyEqualTo
     return result;
 } // nImO::String::deeplyEqualTo
 
+void
+nImO::String::describe
+    (std::ostream & output)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("output = ", &output); //####
+    output << "string";
+    ODL_OBJEXIT(); //####
+} // nImO::String::describe
+
 nImO::Enumerable
 nImO::String::enumerationType
     (void)

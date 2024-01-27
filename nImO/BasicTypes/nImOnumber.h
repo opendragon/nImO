@@ -85,6 +85,14 @@ namespace nImO
                 const
                 final;
 
+            /*! @brief Write a short description of the Value to a stream.
+             @param[in/out] output The stream to write to. */
+            void
+            describe
+                (std::ostream & output)
+                const
+                override;
+
             /*! @brief Return the characters that can appear as the start of a Number.
             @return The characters that can appear as the start of a Number. */
             static CPtr(char)

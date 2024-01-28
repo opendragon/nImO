@@ -108,7 +108,7 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all channels on node request received"s);
+    _owner->report("get information for all channels on node request received."s);
     if (1 < arguments.size())
     {
         auto    asString{arguments[1]->asString()};

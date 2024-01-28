@@ -82,6 +82,40 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
+std::string
+constructNodeNameFromOptions
+    (const std::string &            launcherName,
+     const std::string &            serviceName,
+     const nImO::StdStringVector &  theOptions)
+{
+    ODL_ENTER(); //####
+    ODL_S2s("launcherName = ", launcherName, "serviceName = ", serviceName); //####
+    std::string nodeName{launcherName};
+    std::string tag{};
+
+    for (auto & walker : theOptions)
+    {
+        if (0 < walker.length())
+        {
+            auto    optionChar{walker.substr(0, 1)[0]};
+            auto    optionValue{walker.substr(1, walker.length())};
+
+            if ('n' == optionChar)
+            {
+                nodeName = optionValue;
+            }
+            else if ('t' == optionChar)
+            {
+                tag = optionValue;
+            }
+        }
+    }
+    std::string result{nImO::ConstructNodeName(nodeName, serviceName, tag)};
+
+    ODL_EXIT_s(result); //####
+    return result;
+} // constructNodeNameFromOptions
+
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
@@ -226,7 +260,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Unknown node: '"s + launcherName + "'"s);
+                            ourContext->report("Unknown node: '"s + launcherName + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -300,7 +334,7 @@ main
                             }
                             if (! found)
                             {
-                                ourContext->report("Unknown service: '"s + serviceName + "' on launcher '" + launcherName + "'"s);
+                                ourContext->report("Unknown service: '"s + serviceName + "' on launcher '" + launcherName + "'."s);
                                 exitCode = 1;
                             }
                         }
@@ -353,7 +387,7 @@ main
 
                                 if (nullptr == descriptor)
                                 {
-                                    ourContext->report("Bad argument descriptor: '" + walker + "'");
+                                    ourContext->report("Bad argument descriptor: '" + walker + "'.");
                                     exitCode = 1;
                                 }
                                 else
@@ -503,47 +537,67 @@ main
 
                             }
                         }
-                        if (! appDescriptors.empty())
+                        // Check if the application already has been registered!
+                        auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
+                        auto    statusWithInfo{proxy.getNodeInformation(newNodeName)};
+
+                        if (statusWithInfo.first.first)
                         {
-                            std::cout << "Parameters for " << serviceName << " on " << launcherName << ":\n";
-                            for (auto & walker : appDescriptors)
+                            if (statusWithInfo.second._found)
                             {
-                                std::cout << "\t" << walker->describe() << "\n";
+                                ourContext->report("Node '"s + newNodeName + "'already present."s);
+                                exitCode = 1;
                             }
-                            do
+                            else
                             {
-                                std::cout << "Values for parameters:\n";
-                                if (PromptForValues(appDescriptors))
+                                if (! appDescriptors.empty())
                                 {
-                                    break;
+                                    std::cout << "Parameters for " << serviceName << " on " << launcherName << ":\n";
+                                    for (auto & walker : appDescriptors)
+                                    {
+                                        std::cout << "\t" << walker->describe() << "\n";
+                                    }
+                                    do
+                                    {
+                                        std::cout << "Values for parameters:\n";
+                                        if (PromptForValues(appDescriptors))
+                                        {
+                                            break;
 
+                                        }
+                                        std::cout << "A parameter failed to be set.\n";
+                                    }
+                                    while (true);
                                 }
-                                std::cout << "A parameter failed to be set.\n";
-                            }
-                            while (true);
-                        }
-                        auto    argArray2{std::make_shared<nImO::Array>()};
-                        auto    handler2{std::make_unique<nImO::LaunchAppResponseHandler>()};
-                        auto    optionsArray{std::make_shared<nImO::Array>()};
-                        auto    parametersArray{std::make_shared<nImO::Array>()};
+                                auto    argArray2{std::make_shared<nImO::Array>()};
+                                auto    handler2{std::make_unique<nImO::LaunchAppResponseHandler>()};
+                                auto    optionsArray{std::make_shared<nImO::Array>()};
+                                auto    parametersArray{std::make_shared<nImO::Array>()};
 
-                        for (auto & option : optionsToApply)
-                        {
-                            optionsArray->addValue(std::make_shared<nImO::String>(option));
+                                for (auto & option : optionsToApply)
+                                {
+                                    optionsArray->addValue(std::make_shared<nImO::String>(option));
+                                }
+                                for (auto & walker : appDescriptors)
+                                {
+                                    parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
+                                }
+                                argArray2->addValue(std::make_shared<nImO::String>(serviceName));
+                                argArray2->addValue(optionsArray);
+                                argArray2->addValue(parametersArray);
+                                statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
+                                                                                                   argArray2.get(), nImO::kLaunchAppRequest,
+                                                                                                   nImO::kLaunchAppResponse);
+                                if (! statusWithBool.first)
+                                {
+                                    std::cerr << "Problem launching the application '" << serviceName << "' on '" << launcherName + "'.\n";
+                                    exitCode = 1;
+                                }
+                            }
                         }
-                        for (auto & walker : appDescriptors)
+                        else
                         {
-                            parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
-                        }
-                        argArray2->addValue(std::make_shared<nImO::String>(serviceName));
-                        argArray2->addValue(optionsArray);
-                        argArray2->addValue(parametersArray);
-                        statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
-                                                                                           argArray2.get(), nImO::kLaunchAppRequest,
-                                                                                           nImO::kLaunchAppResponse);
-                        if (! statusWithBool.first)
-                        {
-                            std::cerr << "Problem launching the application '" << serviceName << "' on '" << launcherName + "'.\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
                             exitCode = 1;
                         }
                     }

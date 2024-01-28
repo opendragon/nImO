@@ -259,7 +259,8 @@ main
                                                                                 {
                                                                                     if (! outChannel->send(contents))
                                                                                     {
-                                                                                        ourContext->report("problem sending to "s + outChannelPath);
+                                                                                        ourContext->report("problem sending to '"s + outChannelPath +
+                                                                                                           "'."s);
                                                                                     }
                                                                                 }
                                                                             });

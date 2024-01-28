@@ -169,7 +169,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             ODL_S1("outString <- ", outString->c_str()); //####
             // send the encoded message to the requestor.
 #if defined(nImO_ChattyTcpUdpLogging)
-            context->report("sending response"s);
+            context->report("sending response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
                                       [context, &keepGoing, &okSoFar, responseText]
@@ -182,20 +182,20 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                context->report("async_write() operation cancelled"s);
+                                                context->report("async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                context->report("async_write() failed -> "s + ec.message());
+                                                context->report("async_write() failed -> "s + ec.message() + "."s);
                                             }
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
                                         }
                                         else
                                         {
-                                            context->report(responseText + " response sent"s);
+                                            context->report(responseText + " response sent."s);
                                             okSoFar = true;
                                             keepGoing = false;
                                         }

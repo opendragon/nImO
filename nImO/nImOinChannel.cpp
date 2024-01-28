@@ -126,13 +126,13 @@ nImO::InChannel::receiveTcpMessages
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                _context.report("async_read_until() operation cancelled"s);
+                                                _context.report("async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                auto    errMessage{"async_read_until() failed -> "s + ec.message()};
+                                                auto    errMessage{"async_read_until() failed -> "s + ec.message() + "."s};
 
                                                 _context.report(errMessage);
                                             }
@@ -144,7 +144,7 @@ nImO::InChannel::receiveTcpMessages
 
                                             ODL_S1s("trimmed <- ", trimmed); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            _context.report("got message"s);
+                                            _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             _inQueue.addRawBytesAsMessage(_index, trimmed);
                                             receiveTcpMessages();
@@ -171,13 +171,13 @@ nImO::InChannel::receiveUdpMessages
                                                if (BAErr::operation_aborted == ec)
                                                {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                   _context.report("async_read_until() operation cancelled"s);
+                                                   _context.report("async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                    ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                }
                                                else
                                                {
-                                                   auto    errMessage{"async_read_until() failed -> "s + ec.message()};
+                                                   auto    errMessage{"async_read_until() failed -> "s + ec.message() + "."s};
 
                                                    _context.report(errMessage);
                                                }
@@ -195,7 +195,7 @@ nImO::InChannel::receiveUdpMessages
 
                                                    ODL_S1s("trimmed <- ", trimmed); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                   _context.report("got message"s);
+                                                   _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                    _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, trimmed);
                                                }
@@ -283,13 +283,13 @@ nImO::InChannel::start
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                _context.report("async_accept() operation cancelled"s);
+                                                _context.report("async_accept() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                _context.report("async_accept() failed -> "s + ec.message());
+                                                _context.report("async_accept() failed -> "s + ec.message() + "."s);
                                             }
                                         }
                                         else

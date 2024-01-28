@@ -108,7 +108,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("clear app list for launcher request received"s);
+    _owner->report("clear app list for launcher request received."s);
     if (1 < arguments.size())
     {
         auto    launcherNodeNameString{arguments[1]->asString()};

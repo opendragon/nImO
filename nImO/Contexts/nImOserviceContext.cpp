@@ -203,7 +203,7 @@ nImO::ServiceContext::createCommandPort
 {
     ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    report("creating a command port"s);
+    report("creating a command port."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     _acceptor.open(BTCP::v4());
     _acceptor.listen();
@@ -219,7 +219,7 @@ nImO::ServiceContext::destroyCommandPort
 {
     ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    report("destroying a command port"s);
+    report("destroying a command port."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     _keepGoing = false;
     ODL_B1("_keepGoing <- ", _keepGoing); //####
@@ -229,7 +229,7 @@ nImO::ServiceContext::destroyCommandPort
         auto    sessionSocket{walker->getSocket()};
 
 #if defined(nImO_ChattyTcpUdpLogging)
-        report("closing a session"s);
+        report("closing a session."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
         if (nullptr != sessionSocket)
         {
@@ -307,13 +307,13 @@ nImO::ServiceContext::handleAccept
         if (BAErr::operation_aborted == error)
         {
 #if defined(nImO_ChattyTcpUdpLogging)
-            report("async_accept() operation cancelled"s);
+            report("async_accept() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
         }
         else
         {
-            report("async_accept() failed -> "s + error.message());
+            report("async_accept() failed -> "s + error.message() + "."s);
         }
         releaseSession = true;
     }
@@ -328,7 +328,7 @@ nImO::ServiceContext::handleAccept
             {
                 forgetSession(newSession);
 #if defined(nImO_ChattyTcpUdpLogging)
-                report("creating new session"s);
+                report("creating new session."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                 newSession = std::make_shared<CommandSession>(newSession->getContext());
                 ODL_P1("newSession <- ", newSession.get()); //####

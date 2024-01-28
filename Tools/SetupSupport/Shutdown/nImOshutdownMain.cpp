@@ -138,7 +138,7 @@ main
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + walker._name);
+                                    ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
@@ -174,7 +174,7 @@ main
                                             }
                                             else
                                             {
-                                                ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                                ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                                 okSoFar = false;
                                             }
                                         }
@@ -197,7 +197,7 @@ main
                                                 }
                                                 else
                                                 {
-                                                    ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                                    ourContext->report("Unknown node: '"s + toNode + "'."s);
                                                 }
                                             }
                                             else
@@ -218,7 +218,7 @@ main
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to "s + walker._name);
+                                    ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
                                     nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
@@ -233,7 +233,7 @@ main
                         }
                         // Give the Registry time to handle pending requests.
                         nImO::ConsumeSomeTime(ourContext.get(), 20);
-                        ourContext->report("sending shutdown request to Registry"s);
+                        ourContext->report("sending shutdown request to Registry."s);
                         // Send Shutdown command to Registry.
                         nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest,
                                                                          nImO::kShutDownResponse);
@@ -249,7 +249,7 @@ main
                                 // Close all connections for services on the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("closing all connections to node "s + nodeName);
+                                    ourContext->report("closing all connections to node '"s + nodeName + "'."s);
                                 }
                                 auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnNode(nodeName)};
 
@@ -276,7 +276,7 @@ main
                                                 }
                                                 else
                                                 {
-                                                    ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                                    ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                                     okSoFar = false;
                                                 }
                                             }
@@ -314,7 +314,7 @@ main
                                                     }
                                                     else
                                                     {
-                                                        ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                                        ourContext->report("Unknown node: '"s + toNode + "'."s);
                                                     }
                                                 }
                                                 else
@@ -335,14 +335,14 @@ main
                                 // Send Shutdown command to the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("sending shutdown request to "s + nodeName);
+                                    ourContext->report("sending shutdown request to '"s + nodeName + "'."s);
                                 }
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                             }
                             else
                             {
-                                ourContext->report("Unknown node: '"s + nodeName + "'"s);
+                                ourContext->report("Unknown node: '"s + nodeName + "'."s);
                             }
                         }
                         else
@@ -365,7 +365,7 @@ main
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to "s + walker._name);
+                                ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
@@ -378,7 +378,7 @@ main
                         }
                         if (optionValues._expanded)
                         {
-                            ourContext->report("closing all connections on machine "s + optionValues._machine);
+                            ourContext->report("closing all connections on machine '"s + optionValues._machine + "'."s);
                         }
                         auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnMachine(optionValues._machine)};
 
@@ -405,7 +405,7 @@ main
                                         }
                                         else
                                         {
-                                            ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                                            ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                             okSoFar = false;
                                         }
                                     }
@@ -443,7 +443,7 @@ main
                                             }
                                             else
                                             {
-                                                ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                                ourContext->report("Unknown node: '"s + toNode + "'."s);
                                             }
                                         }
                                         else
@@ -466,7 +466,7 @@ main
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to "s + walker._name);
+                                ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.

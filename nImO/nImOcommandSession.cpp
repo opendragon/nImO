@@ -189,7 +189,7 @@ nImO::CommandSession::~CommandSession
 {
     ODL_OBJENTER(); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    _owner->report("session being freed"s);
+    _owner->report("session being freed."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     ODL_OBJEXIT(); //####
 } // nImO::CommandSession::~CommandSession
@@ -219,19 +219,19 @@ nImO::CommandSession::start
                                             if (BAErr::operation_aborted == ec)
                                             {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                _owner->report("async_read_until() operation cancelled"s);
+                                                _owner->report("async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                             }
                                             else
                                             {
-                                                _owner->report("async_read_until() failed -> "s + ec.message());
+                                                _owner->report("async_read_until() failed -> "s + ec.message() + "."s);
                                             }
                                         }
                                         else
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            _owner->report("got request"s);
+                                            _owner->report("got request."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
                                                                 buffers_end(_buffer.data())}))

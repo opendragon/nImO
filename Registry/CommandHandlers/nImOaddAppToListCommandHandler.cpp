@@ -108,7 +108,7 @@ nImO::AddAppToListCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("add app to list received"s);
+    _owner->report("add app to list received."s);
     if (3 < arguments.size())
     {
         auto    launcherNodeNameString{arguments[1]->asString()};

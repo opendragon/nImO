@@ -706,7 +706,7 @@ nImO::ContextWithMDNS::executeBrowser
             {
                 owner._requestNewScan = false;
                 ODL_B1("owner._requestNewScan <- ", owner._requestNewScan); //####
-                owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME));
+                owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME) + "."s);
                 for (int isock = 0; isock < owner._numSockets; ++isock)
                 {
                     if (lBrowserThreadStop)
@@ -719,7 +719,7 @@ nImO::ContextWithMDNS::executeBrowser
                                                              nImO::ContextWithMDNS::kBufferCapacity, 0);
                     if (owner._queryId[isock] < 0)
                     {
-                        owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)));
+                        owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
                     }
                 }
             }
@@ -797,7 +797,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
                                                sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, _buffer, kBufferCapacity, 0);
             if (_queryId[isock] < 0)
             {
-                report("Failed to send mDNS query: "s + std::string(strerror(errno)));
+                report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
                 okSoFar = false;
             }
         }
@@ -806,7 +806,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             std::atomic_bool    timedOut{false};
             BAD_t               timeOutTimer{*getService()};
 
-            report("timeout = "s + std::to_string(getRegistrySearchTimeout()));
+            report("timeout = "s + std::to_string(getRegistrySearchTimeout()) + "."s);
             timeOutTimer.expires_from_now(boost::posix_time::seconds(getRegistrySearchTimeout()));
             timeOutTimer.async_wait([this, quietly, &timedOut]
                                    (const BSErr &   error)

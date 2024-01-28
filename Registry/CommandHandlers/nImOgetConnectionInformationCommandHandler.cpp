@@ -108,7 +108,7 @@ nImO::GetConnectionInformationCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get connection information request received"s);
+    _owner->report("get connection information request received."s);
     if (3 < arguments.size())
     {
         auto    asString1{arguments[1]->asString()};

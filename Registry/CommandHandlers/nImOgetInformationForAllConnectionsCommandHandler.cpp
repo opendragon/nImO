@@ -108,7 +108,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _owner->report("get information for all connections request received"s);
+    _owner->report("get information for all connections request received."s);
     if (0 < arguments.size())
     {
         auto    statusWithInfoVector{_registry->getInformationForAllConnections()};

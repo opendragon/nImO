@@ -116,7 +116,7 @@ nImO::LaunchAppCommandHandler::doIt
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
-    _ownerForLauncher->report("launch app request received"s);
+    _ownerForLauncher->report("launch app request received."s);
     if (0 < appList.size())
     {
         if (3 < arguments.size())

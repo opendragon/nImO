@@ -106,7 +106,7 @@ nImO::StartSenderCommandHandler::doIt
     ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    _ownerForInputOutput->report("start sender request received"s);
+    _ownerForInputOutput->report("start sender request received."s);
     if (1 < arguments.size())
     {
         auto    pathString{arguments[1]->asString()};

@@ -187,7 +187,7 @@ handleWriteCompletion
     ODL_P1("status = ", status.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    context->report("command sent"s);
+    context->report("command sent."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     auto    rB{std::make_shared<boost::asio::streambuf>()};
 
@@ -202,13 +202,13 @@ handleWriteCompletion
                                         if (BAErr::operation_aborted == ec3)
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            context->report("async_read_until() operation cancelled"s);
+                                            context->report("async_read_until() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec3)"); //####
                                         }
                                         else
                                         {
-                                            auto    errMessage{"async_read_until() failed -> "s + ec3.message()};
+                                            auto    errMessage{"async_read_until() failed -> "s + ec3.message() + "."s};
 
                                             context->report(errMessage);
                                             *status = std::make_pair(false, errMessage);
@@ -219,7 +219,7 @@ handleWriteCompletion
                                         std::string handleThis{buffers_begin(rB->data()), buffers_end(rB->data())};
 
 #if defined(nImO_ChattyTcpUdpLogging)
-                                        context->report("got response"s);
+                                        context->report("got response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         if (nullptr != handler)
                                         {
@@ -250,7 +250,7 @@ handleConnectCompletion
     ODL_P2("keepGoing = ", keepGoing.get(), "status = ", status.get()); //####
     ODL_S1s("responseKey = ", responseKey); //####
 #if defined(nImO_ChattyTcpUdpLogging)
-    context->report("command connection request accepted"s);
+    context->report("command connection request accepted."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     boost::asio::async_write(*socket, boost::asio::buffer(outString->c_str(), outString->length()),
                               [socket, context, handler, keepGoing, &responseKey, status]
@@ -263,13 +263,13 @@ handleConnectCompletion
                                     if (BAErr::operation_aborted == ec2)
                                     {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                        context->report("async_write() operation cancelled"s);
+                                        context->report("async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         ODL_LOG("(BAErr::operation_aborted == ec2)"); //####
                                     }
                                     else
                                     {
-                                        auto    errMessage{"async_write() failed -> "s + ec2.message()};
+                                        auto    errMessage{"async_write() failed -> "s + ec2.message() + "."s};
 
                                         context->report(errMessage);
                                         *status = std::make_pair(false, errMessage);
@@ -356,13 +356,13 @@ nImO::SendRequestWithArgumentsAndNonEmptyResponse
                                         if (BAErr::operation_aborted == ec1)
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            context->report("async_connect() operation cancelled"s);
+                                            context->report("async_connect() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }
                                         else
                                         {
-                                            auto    errMessage{"async_connect() failed -> "s + ec1.message()};
+                                            auto    errMessage{"async_connect() failed -> "s + ec1.message() + "."s};
 
                                             context->report(errMessage);
                                             *status = std::make_pair(false, errMessage);

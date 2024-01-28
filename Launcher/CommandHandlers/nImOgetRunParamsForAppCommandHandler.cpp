@@ -116,7 +116,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
-    _ownerForLauncher->report("get run params for app request received"s);
+    _ownerForLauncher->report("get run params for app request received."s);
     if (0 < appList.size())
     {
         if (1 < arguments.size())

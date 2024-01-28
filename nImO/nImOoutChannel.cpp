@@ -168,13 +168,13 @@ nImO::OutChannel::send
                                                     if (BAErr::operation_aborted == ec)
                                                     {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                        _context.report("async_send_to() operation cancelled"s);
+                                                        _context.report("async_send_to() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                         ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                     }
                                                     else
                                                     {
-                                                        auto    errMessage{"async_send_to() failed -> "s + ec.message()};
+                                                        auto    errMessage{"async_send_to() failed -> "s + ec.message() + "."s};
 
                                                         _context.report(errMessage);
                                                     }
@@ -197,13 +197,13 @@ nImO::OutChannel::send
                                                         if (BAErr::operation_aborted == ec)
                                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                            _context.report("async_write() operation cancelled"s);
+                                                            _context.report("async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                         }
                                                         else
                                                         {
-                                                            auto    errMessage{"async_write() failed -> "s + ec.message()};
+                                                            auto    errMessage{"async_write() failed -> "s + ec.message() + "."s};
 
                                                             _context.report(errMessage);
                                                         }
@@ -298,13 +298,13 @@ nImO::OutChannel::start
                                         if (BAErr::operation_aborted == ec)
                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            _context.report("async_connect() operation cancelled"s);
+                                            _context.report("async_connect() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                         }
                                         else
                                         {
-                                            auto    errMessage{"async_connect() failed -> "s + ec.message()};
+                                            auto    errMessage{"async_connect() failed -> "s + ec.message() + "."s};
 
                                             _context.report(errMessage);
                                         }

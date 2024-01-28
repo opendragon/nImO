@@ -257,7 +257,7 @@ main
                                                     {
                                                         if (! walker->send(contents))
                                                         {
-                                                            ourContext->report("problem sending to "s + walker->getName());
+                                                            ourContext->report("problem sending to '"s + walker->getName() + "'."s);
                                                             std::cerr << "problem sending to " << walker->getName() << "\n";
                                                             exitCode = 1;
                                                             break;

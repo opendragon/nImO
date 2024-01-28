@@ -355,7 +355,7 @@ main
                                 }
                                 else if (nImO::TransportType::kAny == resolvedMode)
                                 {
-                                    ourContext->report("requested transport mode is ambiguous"s);
+                                    ourContext->report("requested transport mode is ambiguous."s);
                                     exitCode = 1;
                                 }
                             }
@@ -400,7 +400,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Unknown node: '"s + fromNode + "'"s);
+                            ourContext->report("Unknown node: '"s + fromNode + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -420,7 +420,7 @@ main
                             }
                             else
                             {
-                                ourContext->report("Unknown node: '"s + toNode + "'"s);
+                                ourContext->report("Unknown node: '"s + toNode + "'."s);
                                 exitCode = 1;
                             }
                         }
@@ -454,7 +454,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "'"s);
+                            ourContext->report("Problem setting up the channel '"s + toNode + " "s + toPath + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -484,7 +484,7 @@ main
                         }
                         else
                         {
-                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "'"s);
+                            ourContext->report("Problem setting up the channel '"s + fromNode + " "s + fromPath + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -502,7 +502,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "'"s);
+                            ourContext->report("Problem starting the channel '"s + toNode + " "s + toPath + "'."s);
                             exitCode = 1;
                         }
                     }
@@ -518,7 +518,7 @@ main
 
                         if (! status.first)
                         {
-                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "'"s);
+                            ourContext->report("Problem starting the channel '"s + fromNode + " "s + fromPath + "'."s);
                             exitCode = 1;
                         }
                     }

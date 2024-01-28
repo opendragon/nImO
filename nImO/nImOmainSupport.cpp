@@ -164,21 +164,21 @@ nImO::CloseConnection
                         }
                         else
                         {
-                            context->report("Unknown node: '"s + toNode + "'"s);
+                            context->report("Unknown node: '"s + toNode + "'."s);
                         }
                     }
                     else
                     {
                         if (! reported)
                         {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                             reported = true;
                         }
                     }
                 }
                 else
                 {
-                    context->report("Unknown node: '"s + toNode + "'"s);
+                    context->report("Unknown node: '"s + toNode + "'."s);
                 }
             }
             else
@@ -327,7 +327,7 @@ nImO::StopConnection
 
     if (! statusWithBool.first)
     {
-        ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "'"s);
+        ourContext->report("Problem stopping the channel '"s + fromNode + " "s + fromPath + "'."s);
     }
     auto    argArray2{std::make_shared<nImO::Array>()};
     auto    handler2{std::make_unique<nImO::StopReceiverResponseHandler>()};
@@ -337,6 +337,6 @@ nImO::StopConnection
                                                                  kStopReceiverResponse);
     if (! statusWithBool.first)
     {
-        ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'"s);
+        ourContext->report("Problem stopping the channel '"s + toNode + " "s + toPath + "'."s);
     }
 } // nImO::StopConnection

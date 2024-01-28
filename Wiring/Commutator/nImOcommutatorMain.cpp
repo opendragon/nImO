@@ -273,7 +273,7 @@ main
 
                                                     if (! outChannel->send(contents))
                                                     {
-                                                        ourContext->report("problem sending to "s + outChannel->getName());
+                                                        ourContext->report("problem sending to '"s + outChannel->getName() + "'."s);
                                                         std::cerr << "problem sending to " << outChannel->getName() << "\n";
                                                         exitCode = 1;
                                                         break;

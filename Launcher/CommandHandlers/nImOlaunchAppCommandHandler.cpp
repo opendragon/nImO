@@ -118,51 +118,114 @@ nImO::LaunchAppCommandHandler::doIt
     _ownerForLauncher->report("launch app request received"s);
     if (0 < appList.size())
     {
-NIMO_UNUSED_VAR_(socket);
-NIMO_UNUSED_VAR_(arguments);
+        if (3 < arguments.size())
+        {
+            auto    appListIterator{appList.find(arguments[1])};
+
+            if (appList.end() != appListIterator)
+            {
+                auto    appInfoMap{appListIterator->second->asMap()};
+
+                if (nullptr != appInfoMap)
+                {
+                    auto    appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))};
+
+                    if (appInfoMap->end() != appPathIterator)
+                    {
+                        auto    appPath{appPathIterator->second->asString()->getValue()};
+                        auto    appOptionsArray{arguments[2]->asArray()};
+                        auto    appParametersArray{arguments[3]->asArray()};
+
+                        if ((nullptr != appOptionsArray) && (nullptr != appParametersArray))
+                        {
+                            StdStringVector commandLine{};
+
+                            commandLine.push_back(appPath);
+                            for (auto & walker : *appOptionsArray)
+                            {
+                                auto    anOptionString{walker->asString()};
+
+                                if (nullptr != anOptionString)
+                                {
+                                    auto    anOption{anOptionString->getValue()};
+
+                                    if (0 < anOption.length())
+                                    {
+                                        auto    optionChar{anOption.substr(0, 1)};
+                                        auto    optionValue{anOption.substr(1, anOption.length())};
+
+                                        commandLine.push_back(MakeOption(optionChar));
+                                        if (! optionValue.empty())
+                                        {
+                                            commandLine.push_back(optionValue);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (0 < anOption.length())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (nullptr != anOptionString)"); //####
+                                }
+                            }
+                            for (auto & walker : *appParametersArray)
+                            {
+                                auto    aParameterString{walker->asString()};
+
+                                if (nullptr != aParameterString)
+                                {
+                                    auto    aParameter{aParameterString->getValue()};
+
+                                    if (0 < aParameter.length())
+                                    {
+                                        commandLine.push_back(aParameter);
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (0 < aParameter.length())"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (nullptr != aParameterString)"); //####
+                                }
+                            }
+                            BP::child   cc{commandLine};
+
+                            cc.detach();
+                            okSoFar = sendSimpleResponse(socket, kLaunchAppResponse, "launch app"s, true);
+                        }
+                        else
+                        {
+                            ODL_LOG("! ((nullptr != appOptionsArray) && (nullptr != appParametersArray))"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (appInfoMap->end() != appPathIterator)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (nullptr != appInfoMap)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (appList.end() != appListIterator)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (3 < argments.size())"); //####
+        }
     }
     else
     {
         ODL_LOG("! (0 < appList.size())"); //####
     }
-#if 0
-    if (3 < arguments.size())
-    {
-        auto    pathString{arguments[1]->asString()};
-        auto    dataTypeString{arguments[2]->asString()};
-        auto    modeValue{arguments[3]->asInteger()};
-
-        if ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))
-        {
-            auto    theChannel{_ownerForLauncher->getInputChannel(pathString->getValue())};
-
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
-            {
-                if (theChannel->setUp(StaticCast(TransportType, modeValue->getIntegerValue())))
-                {
-                    auto    theConnection{theChannel->getConnection()};
-                    auto    infoArray{std::make_shared<Array>()};
-
-                    infoArray->addValue(std::make_shared<Address>(theConnection._address));
-                    infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kLaunchAppResponse, "set up receiver"s, infoArray);
-                }
-            }
-        }
-        else
-        {
-            ODL_LOG("! ((nullptr != pathString) && (nullptr != dataTypeString) && (nullptr != modeValue))"); //####
-        }
-    }
-    else
-    {
-        ODL_LOG("! (3 < arguments.size())"); //####
-    }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::LaunchAppCommandHandler::doIt

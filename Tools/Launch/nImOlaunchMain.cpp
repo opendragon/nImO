@@ -42,6 +42,7 @@
 #include <Contexts/nImOutilityContext.h>
 #include <ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h>
 #include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
+#include <ResponseHandlers/nImOlaunchAppResponseHandler.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -328,7 +329,13 @@ main
                     {
                         for (auto & walker : handler1->result())
                         {
-                            availableOptions.insert(tolower(walker));
+                            auto    aChar{tolower(walker)};
+
+                            if ('a' != aChar)
+                            {
+                                // A service will report options that we aren't going to use.
+                                availableOptions.insert(aChar);
+                            }
                         }
                         auto    argArray2{std::make_shared<nImO::Array>()};
                         auto    handler2{std::make_unique<nImO::GetRunParamsForAppResponseHandler>()};
@@ -342,7 +349,7 @@ main
                         {
                             for (auto & walker : handler2->result())
                             {
-                                auto    descriptor{nImO::ConvertStringToArgument(walker)};
+                                auto    descriptor{nImO::ConvertStringToDescriptor(walker)};
 
                                 if (nullptr == descriptor)
                                 {
@@ -368,14 +375,14 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        std::cout << "Options for application:\n";
+                        std::cout << "Options for " << serviceName << " on " << launcherName << ":\n";
                         for (auto charWalker : availableOptions)
                         {
                             std::cout << "\t" << charWalker << "\t";
                             switch (charWalker)
                             {
                                 case 'a' :
-                                    std::cout << "Report the argument formats";
+                                    // Ignore this option if it appears!
                                     break;
 
                                 case 'b' :
@@ -479,12 +486,13 @@ main
 
                                             }
                                             inLine = nImO::RightTrim(inLine);
-                                            newOption += "\t" + inLine;
+                                            newOption += inLine;
                                             optionsToApply.push_back(newOption);
                                         }
                                         else
                                         {
                                             break;
+
                                         }
                                     }
                                 }
@@ -495,48 +503,49 @@ main
 
                             }
                         }
-std::cerr << "** Unimplemented **\n";
-                        //TBD     ask for values for parameters
-#if 0
-                        /*! @brief Convert to a printable representation.
-                         @return A printable representation of the descriptor. */
-                        virtual std::string
-                        toString
-                            (void) = 0;
+                        if (! appDescriptors.empty())
+                        {
+                            std::cout << "Parameters for " << serviceName << " on " << launcherName << ":\n";
+                            for (auto & walker : appDescriptors)
+                            {
+                                std::cout << "\t" << walker->describe() << "\n";
+                            }
+                            do
+                            {
+                                std::cout << "Values for parameters:\n";
+                                if (PromptForValues(appDescriptors))
+                                {
+                                    break;
 
-                        /*! @brief Check an input value against the constraints of the descriptor.
-                         @param[in] value The value to be checked.
-                         @return @c true if the value is within the domain of the descriptor and @c false
-                         otherwise. */
-                        virtual bool
-                        validate
-                            (const std::string &    value) = 0;
-#endif//0
-#if 0
-                        /*! @brief Update the arguments data from the parsed argument list.
-                         @param[in] arguments The argument sequence.
-                         @param[out] parseResult The parsed argument list.
-                         @param[out] badArgs The list of invalid or missing arguments.
-                         @return @c true if the parsed argument list matches the argument sequence and @c false
-                         otherwise. */
-                        bool
-                        ProcessArguments
-                            (const DescriptorVector &   arguments,
-                             Option_::Parser &          parseResult,
-                             std::string &              badArgs);
+                                }
+                                std::cout << "A parameter failed to be set.\n";
+                            }
+                            while (true);
+                        }
+                        auto    argArray2{std::make_shared<nImO::Array>()};
+                        auto    handler2{std::make_unique<nImO::LaunchAppResponseHandler>()};
+                        auto    optionsArray{std::make_shared<nImO::Array>()};
+                        auto    parametersArray{std::make_shared<nImO::Array>()};
 
-                        /*! @brief Prompt the user for the value of each of the arguments.
-                         @param[in] arguments The argument sequence.
-                         @return @c true if all arguments are valid and @c false otherwise. */
-                        bool
-                        PromptForValues
-                            (const DescriptorVector &   arguments);
-#endif//0
-
-                        //TBD     launch service via launcher with provided options (in optionsToApply) and parameters
-
-                        std::cerr << "launching " << serviceName << " on " << launcherName << "\n";//!!
-
+                        for (auto & option : optionsToApply)
+                        {
+                            optionsArray->addValue(std::make_shared<nImO::String>(option));
+                        }
+                        for (auto & walker : appDescriptors)
+                        {
+                            parametersArray->addValue(std::make_shared<nImO::String>(walker->getProcessedValue()));
+                        }
+                        argArray2->addValue(std::make_shared<nImO::String>(serviceName));
+                        argArray2->addValue(optionsArray);
+                        argArray2->addValue(parametersArray);
+                        statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
+                                                                                           argArray2.get(), nImO::kLaunchAppRequest,
+                                                                                           nImO::kLaunchAppResponse);
+                        if (! statusWithBool.first)
+                        {
+                            std::cerr << "Problem launching the application '" << serviceName << "' on '" << launcherName + "'.\n";
+                            exitCode = 1;
+                        }
                     }
                 }
             }

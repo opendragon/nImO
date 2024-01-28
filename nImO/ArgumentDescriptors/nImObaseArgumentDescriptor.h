@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -242,6 +242,12 @@ namespace nImO
                 (void)
                 const = 0;
 
+            /*! @brief Convert to a description of the expected values.
+             @return A representation of the descriptor that describes the expected values. */
+            virtual std::string
+            describe
+                (void);
+
             /*! @brief Return the default value.
              @return The default value. */
             virtual std::string
@@ -353,8 +359,7 @@ namespace nImO
 
             /*! @brief Check an input value against the constraints of the descriptor.
              @param[in] value The value to be checked.
-             @return @c true if the value is within the domain of the descriptor and @c false
-             otherwise. */
+             @return @c true if the value is within the domain of the descriptor and @c false otherwise. */
             virtual bool
             validate
                 (const std::string &    value) = 0;
@@ -436,6 +441,13 @@ namespace nImO
         private :
             // Private methods.
 
+            /*! @brief Return the mode corresponding to a string.
+             @param[in] modeString The mode value as a string.
+             @return The mode corresponding to a string. */
+            static ArgumentMode
+            modeFromString
+                (const std::string &    modeString);
+
         public :
             // Public fields.
 
@@ -494,15 +506,8 @@ namespace nImO
      @param[in] inString The string to be analyzed.
      @return A newly allocated argument descriptor or @c nullptr if the string is not valid. */
     SpBaseArgumentDescriptor
-    ConvertStringToArgument
+    ConvertStringToDescriptor
         (const std::string &    inString);
-
-    /*! @brief Return the mode corresponding to a string.
-     @param[in] modeString The mode value as a string.
-     @return The mode corresponding to a string. */
-    ArgumentMode
-    ModeFromString
-        (const std::string &    modeString);
 
     /*! @brief Update the arguments data from the parsed argument list.
      @param[in] arguments The argument sequence.

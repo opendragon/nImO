@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -208,6 +208,18 @@ FilePathArgumentDescriptor::clone
     ODL_OBJEXIT_P(result.get());
     return result;
 } // FilePathArgumentDescriptor::clone
+
+std::string
+FilePathArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{BaseArgumentDescriptor::describe()};
+
+    result += ", a file path for "s + (_forOutput ? "output"s : "input"s) + " with a default value of "s + getDefaultValue();
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // FilePathArgumentDescriptor::describe
 
 std::string
 FilePathArgumentDescriptor::getDefaultValue

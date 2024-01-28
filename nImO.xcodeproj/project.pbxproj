@@ -468,7 +468,7 @@
 		F6E510ED2A1968C600D52E80 /* nImOatom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOatom.h; path = nImO/BasicTypes/nImOatom.h; sourceTree = "<group>"; };
 		F6E510EE2A1968C600D52E80 /* nImOvalue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOvalue.h; path = nImO/BasicTypes/nImOvalue.h; sourceTree = "<group>"; };
 		F6E511072A1970C000D52E80 /* nImOportArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOportArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOportArgumentDescriptor.cpp; sourceTree = "<group>"; };
-		F6E511082A1970C000D52E80 /* nImObooleanArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObooleanArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImObooleanArgumentDescriptor.h; sourceTree = "<group>"; };
+		F6E511082A1970C000D52E80 /* nImOlogicalArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOlogicalArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOlogicalArgumentDescriptor.h; sourceTree = "<group>"; };
 		F6E511092A1970C000D52E80 /* nImOdoubleArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOdoubleArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOdoubleArgumentDescriptor.h; sourceTree = "<group>"; };
 		F6E5110A2A1970C000D52E80 /* nImObaseArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObaseArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImObaseArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F6E5110B2A1970C000D52E80 /* nImOportArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOportArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOportArgumentDescriptor.h; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 		F6E511182A1970C100D52E80 /* nImOaddressArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOaddressArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOaddressArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F6E511192A1970C100D52E80 /* nImOchannelArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOchannelArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F6E5111A2A1970C100D52E80 /* nImOextraArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOextraArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOextraArgumentDescriptor.cpp; sourceTree = "<group>"; };
-		F6E5111B2A1970C100D52E80 /* nImObooleanArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObooleanArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImObooleanArgumentDescriptor.cpp; sourceTree = "<group>"; };
+		F6E5111B2A1970C100D52E80 /* nImOlogicalArgumentDescriptor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogicalArgumentDescriptor.cpp; path = nImO/ArgumentDescriptors/nImOlogicalArgumentDescriptor.cpp; sourceTree = "<group>"; };
 		F6E5111C2A1970C100D52E80 /* nImOintegerArgumentDescriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOintegerArgumentDescriptor.h; path = nImO/ArgumentDescriptors/nImOintegerArgumentDescriptor.h; sourceTree = "<group>"; };
 		F6E5111D2A198D7F00D52E80 /* nImOresponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOresponseHandler.h; path = nImO/ResponseHandlers/nImOresponseHandler.h; sourceTree = "<group>"; };
 		F6E5111E2A198D7F00D52E80 /* nImOresponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOresponseHandler.cpp; path = nImO/ResponseHandlers/nImOresponseHandler.cpp; sourceTree = "<group>"; };
@@ -704,8 +704,6 @@
 				F6E511122A1970C100D52E80 /* nImOaddressArgumentDescriptor.h */,
 				F6E5110A2A1970C000D52E80 /* nImObaseArgumentDescriptor.cpp */,
 				F6E511142A1970C100D52E80 /* nImObaseArgumentDescriptor.h */,
-				F6E5111B2A1970C100D52E80 /* nImObooleanArgumentDescriptor.cpp */,
-				F6E511082A1970C000D52E80 /* nImObooleanArgumentDescriptor.h */,
 				F6E511192A1970C100D52E80 /* nImOchannelArgumentDescriptor.cpp */,
 				F6E5110E2A1970C000D52E80 /* nImOchannelArgumentDescriptor.h */,
 				F6E511102A1970C100D52E80 /* nImOdoubleArgumentDescriptor.cpp */,
@@ -716,6 +714,8 @@
 				F6E511162A1970C100D52E80 /* nImOfilePathArgumentDescriptor.h */,
 				F6E5110D2A1970C000D52E80 /* nImOintegerArgumentDescriptor.cpp */,
 				F6E5111C2A1970C100D52E80 /* nImOintegerArgumentDescriptor.h */,
+				F6E5111B2A1970C100D52E80 /* nImOlogicalArgumentDescriptor.cpp */,
+				F6E511082A1970C000D52E80 /* nImOlogicalArgumentDescriptor.h */,
 				F6E511072A1970C000D52E80 /* nImOportArgumentDescriptor.cpp */,
 				F6E5110B2A1970C000D52E80 /* nImOportArgumentDescriptor.h */,
 				F6E5110F2A1970C100D52E80 /* nImOstringArgumentDescriptor.cpp */,

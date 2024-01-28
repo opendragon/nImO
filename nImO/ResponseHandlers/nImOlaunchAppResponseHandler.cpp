@@ -97,9 +97,6 @@ nImO::LaunchAppResponseHandler::doIt
     ODL_OBJENTER(); //####
     bool    okSoFar{false};
 
-    stuff.describe(std::cerr) << "\n"; //!!
-    std::cerr << stuff << "\n"; //!!
-#if 0
     if (1 < stuff.size())
     {
         auto    asLogical{stuff[1]->asLogical()};
@@ -118,7 +115,6 @@ nImO::LaunchAppResponseHandler::doIt
     {
         ODL_LOG("! (1 < stuff.size())"); //####
     }
-#endif//0
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
 } // nImO::LaunchAppResponseHandler::doIt

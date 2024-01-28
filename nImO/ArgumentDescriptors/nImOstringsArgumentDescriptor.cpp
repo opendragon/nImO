@@ -145,6 +145,32 @@ StringsArgumentDescriptor::clone
 } // StringsArgumentDescriptor::clone
 
 std::string
+StringsArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{inherited::describe()};
+    int         count = 0;
+    const int   maxCount = 4;
+
+    result += ", a string with a default value of "s + getDefaultValue() + " that is found in the set {"s;
+    for (auto walker{_allowedValues.begin()}; walker != _allowedValues.end(); ++walker)
+    {
+        result += " "s;
+        if (maxCount < ++count)
+        {
+            result += "..."s;
+            break;
+
+        }
+        result += *walker;
+    }
+    result += " } of strings"s;
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // StringsArgumentDescriptor::describe
+
+std::string
 StringsArgumentDescriptor::getDefaultValue
     (void)
 {
@@ -292,7 +318,7 @@ StringsArgumentDescriptor::toString
 {
     ODL_OBJENTER(); //####
     auto        result{prefixFields(ArgumentTypeTag::StringsTypeTag) + getParameterSeparator()};
-    std::string scratch;
+    std::string scratch{};
 
     for (auto & walker : _allowedValues)
     {

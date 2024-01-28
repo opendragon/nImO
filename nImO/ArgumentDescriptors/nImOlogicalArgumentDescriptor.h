@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ArgumentDescriptors/nImObooleanArgumentDescriptor.h
+//  File:       nImO/ArgumentDescriptors/nImOlogicalArgumentDescriptor.h
 //
 //  Project:    nImO
 //
@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -61,7 +61,7 @@ namespace nImO
      The external representation of a boolean argument description is:
 
      booleanTagAndInfo ::= 'B'; */
-    class BooleanArgumentDescriptor final : public BaseArgumentDescriptor
+    class LogicalArgumentDescriptor final : public BaseArgumentDescriptor
     {
 
         public :
@@ -84,7 +84,7 @@ namespace nImO
              @param[in] argDescription A description of the command-line argument.
              @param[in] argMode The mode of the command-line argument.
              @param[in] defaultValue The default value for the command-line argument. */
-            BooleanArgumentDescriptor
+            LogicalArgumentDescriptor
                 (const std::string &    argName,
                  const std::string &    argDescription,
                  const ArgumentMode     argMode,
@@ -92,14 +92,21 @@ namespace nImO
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            BooleanArgumentDescriptor
-                (const BooleanArgumentDescriptor & other);
+            LogicalArgumentDescriptor
+                (const LogicalArgumentDescriptor & other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            BooleanArgumentDescriptor
-                (BooleanArgumentDescriptor &&	other)
+            LogicalArgumentDescriptor
+                (LogicalArgumentDescriptor &&	other)
                 noexcept;
+
+            /*! @brief Convert to a description of the expected values.
+             @return A representation of the descriptor that describes the expected values. */
+            std::string
+            describe
+                (void)
+                override;
 
             /*! @brief Return the current value.
              @return The current value. */
@@ -110,6 +117,13 @@ namespace nImO
             {
                 return _currentValue;
             }
+
+            /*! @brief Return the default value.
+             @return The default value. */
+            std::string
+            getDefaultValue
+                (void)
+                override;
 
             /*! @brief Return @c true if the argument is for Logical arguments.
              @return @c true if the argument is for Logical arguments and @c false otherwise. */
@@ -122,16 +136,16 @@ namespace nImO
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            BooleanArgumentDescriptor &
+            LogicalArgumentDescriptor &
             operator=
-                (const BooleanArgumentDescriptor &  other);
+                (const LogicalArgumentDescriptor &  other);
 
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            BooleanArgumentDescriptor &
+            LogicalArgumentDescriptor &
             operator=
-                (BooleanArgumentDescriptor &&  other)
+                (LogicalArgumentDescriptor &&  other)
                 noexcept;
 
             /*! @brief Construct a descriptor, if at all possible, from the input string.
@@ -145,24 +159,10 @@ namespace nImO
              @param[in,out] other The object to be swapped with. */
             void
             swap
-                (BooleanArgumentDescriptor &   other);
+                (LogicalArgumentDescriptor &   other);
 
         protected :
             // Protected methods.
-
-            /*! @brief Return the default value.
-             @return The default value. */
-            std::string
-            getDefaultValue
-                (void)
-                override;
-
-            /*! @brief Return the default value as a human-readable string.
-             @return The default value as a human-readable string. */
-            std::string
-            getPrintableDefaultValue
-                (void)
-                override;
 
         private :
             // Private methods.
@@ -173,6 +173,13 @@ namespace nImO
             clone
                 (void)
                 const
+                override;
+
+            /*! @brief Return the default value as a human-readable string.
+             @return The default value as a human-readable string. */
+            std::string
+            getPrintableDefaultValue
+                (void)
                 override;
 
             /*! @brief Return the processed value.
@@ -219,7 +226,7 @@ namespace nImO
             /*! @brief The current value of the command-line argument. */
             bool    _currentValue{false};
 
-    }; // BooleanArgumentDescriptor
+    }; // LogicalArgumentDescriptor
 
 } // nImO
 

@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -40,12 +40,12 @@
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
 
 #include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOextraArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
@@ -142,6 +142,26 @@ BaseArgumentDescriptor::~BaseArgumentDescriptor
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
+std::string
+BaseArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{_argName};
+
+    if (isOptional())
+    {
+        result += " (optional)"s;
+    }
+    else if (isRequired())
+    {
+        result += " (required)"s;
+    }
+    result += ": "s + _argDescription;
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // BaseArgumentDescriptor::describe
+
 char
 BaseArgumentDescriptor::identifyDelimiter
     (const std::string &    valueToCheck)
@@ -196,6 +216,28 @@ BaseArgumentDescriptor::isLogical
     ODL_OBJEXIT_B(false); //####
     return false;
 } // BaseArgumentDescriptor::isLogical
+
+nImO::ArgumentMode
+BaseArgumentDescriptor::modeFromString
+    (const std::string &    modeString)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("modeString = ", modeString); //####
+    ArgumentMode result{ArgumentMode::Unknown};
+    int64_t      modeAsInt;
+
+    if (ConvertToInt64(modeString, modeAsInt))
+    {
+        // Check that only the known bits are set!
+        if (0 == (modeAsInt & ~ toUType(ArgumentMode::Mask)))
+        {
+            // Only known bits were set.
+            result = StaticCast(ArgumentMode, modeAsInt);
+        }
+    }
+    ODL_EXIT_I(StaticCast(int, result)); //####
+    return result;
+} // BaseArgumentDescriptor::modeFromString
 
 BaseArgumentDescriptor &
 BaseArgumentDescriptor::operator=
@@ -335,7 +377,7 @@ BaseArgumentDescriptor::partitionString
         }
         if (okSoFar)
         {
-            argMode = ModeFromString(modeString);
+            argMode = modeFromString(modeString);
             okSoFar = (ArgumentMode::Unknown != argMode);
         }
         else
@@ -540,7 +582,7 @@ nImO::CombineArguments
 } // nImO::CombineArguments
 
 SpBaseArgumentDescriptor
-nImO::ConvertStringToArgument
+nImO::ConvertStringToDescriptor
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -549,7 +591,7 @@ nImO::ConvertStringToArgument
 
     if (nullptr == result)
     {
-        result = BooleanArgumentDescriptor::parseArgString(inString);
+        result = LogicalArgumentDescriptor::parseArgString(inString);
     }
     if (nullptr == result)
     {
@@ -585,29 +627,7 @@ nImO::ConvertStringToArgument
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // nImO::ConvertStringToArguments
-
-nImO::ArgumentMode
-nImO::ModeFromString
-    (const std::string &    modeString)
-{
-    ODL_ENTER(); //####
-    ODL_S1s("modeString = ", modeString); //####
-    ArgumentMode result{ArgumentMode::Unknown};
-    int64_t      modeAsInt;
-
-    if (ConvertToInt64(modeString, modeAsInt))
-    {
-        // Check that only the known bits are set!
-        if (0 == (modeAsInt & ~ toUType(ArgumentMode::Mask)))
-        {
-            // Only known bits were set.
-            result = StaticCast(ArgumentMode, modeAsInt);
-        }
-    }
-    ODL_EXIT_I(StaticCast(int, result)); //####
-    return result;
-} // nImO::ModeFromString
+} // nImO::ConvertStringToDescriptors
 
 bool
 nImO::ProcessArguments
@@ -725,27 +745,17 @@ nImO::PromptForValues
     bool    result{true};
     char    inChar;
 
-    // Eat the trailing newline from the request.
-    inChar = std::cin.peek();
-    if (isspace(inChar))
-    {
-        // Eat it.
-        if (kEndOfLine == inChar)
-        {
-            std::cin.get();
-        }
-    }
     for (size_t ii = 0, mm = arguments.size(); mm > ii; ++ii)
     {
         auto    anArg{arguments[ii]};
 
-        if ((nullptr != anArg) && (! anArg->isRequired()) && (! anArg->isExtra()))
+        if ((nullptr != anArg) && (! anArg->isExtra()))
         {
             auto        currentValue{anArg->getProcessedValue()};
             auto        defaultValue{anArg->getDefaultValue()};
             std::string inputLine{};
 
-            std::cout << anArg->argumentDescription() << " (default=" << defaultValue << ", current=" << currentValue << "): ";
+            std::cout << "\t" << anArg->argumentDescription() << " (default=" << defaultValue << ", current=" << currentValue << "): ";
             std::cout.flush();
             // Eat whitespace until we get something useful.
             for ( ; ; )
@@ -776,17 +786,36 @@ nImO::PromptForValues
             {
                 if (inputLine.empty())
                 {
-                    if (currentValue.empty())
+                    if (anArg->isOptional())
                     {
                         inputLine = defaultValue;
+                        if (mm > (ii + 1))
+                        {
+                            std::cout << "An empty optional value has been entered.\n"
+                                            "The remaining arguments will be set to their defaults.\n";
+                        }
+                        if (! anArg->validate(inputLine))
+                        {
+                            result = false;
+                        }
+                        break;
+
                     }
                     else
                     {
-                        inputLine = currentValue;
+                        if (currentValue.empty())
+                        {
+                            inputLine = defaultValue;
+                        }
+                        else
+                        {
+                            inputLine = currentValue;
+                        }
                     }
                 }
                 if (! anArg->validate(inputLine))
                 {
+                    std::cout << "The value supplied does not meet the criteria for the parameter.\n";
                     result = false;
                 }
             }

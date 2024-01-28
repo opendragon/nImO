@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -130,6 +130,18 @@ StringArgumentDescriptor::clone
     ODL_OBJEXIT_P(result.get());
     return result;
 } // StringArgumentDescriptor::clone
+
+std::string
+StringArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{inherited::describe()};
+
+    result += ", a string with a default value of "s + getDefaultValue();
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // StringArgumentDescriptor::describe
 
 std::string
 StringArgumentDescriptor::getDefaultValue

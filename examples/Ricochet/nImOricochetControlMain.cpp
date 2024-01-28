@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Contexts/nImOmiscellaneousContext.h>
@@ -90,7 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::BooleanArgumentDescriptor>("random"s, "True if random path"s,
+    auto                    firstArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random path"s,
                                                                                        nImO::ArgumentMode::Optional, false)};
     auto                    secondArg{std::make_shared<nImO::PortArgumentDescriptor>("port"s, "Port for communication"s,
                                                                                      nImO::ArgumentMode::Optional, 2020)};

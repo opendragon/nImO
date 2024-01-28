@@ -338,7 +338,8 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging,
+                                                                                   nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new LauncherBreakHandler};
 
@@ -365,7 +366,6 @@ main
                         {
                             if (statusWithBool.second)
                             {
-std::cerr << "** Not fully implemented **\n";
                                 // Load the app list file and exit if not properly structured.
                                 if (loadApplicationInformation(ourContext, firstArg->getCurrentValue()))
                                 {

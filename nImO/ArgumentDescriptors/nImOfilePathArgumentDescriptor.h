@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -116,6 +116,20 @@ namespace nImO
                 (FilePathArgumentDescriptor &&	other)
                 noexcept;
 
+            /*! @brief Convert to a description of the expected values.
+             @return A representation of the descriptor that describes the expected values. */
+            std::string
+            describe
+                (void)
+                override;
+
+            /*! @brief Return the default value.
+            @return The default value. */
+            std::string
+            getDefaultValue
+                (void)
+                override;
+
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
@@ -156,13 +170,6 @@ namespace nImO
             clone
                 (void)
                 const
-                override;
-
-            /*! @brief Return the default value.
-            @return The default value. */
-            std::string
-            getDefaultValue
-                (void)
                 override;
 
             /*! @brief Return the default value as a human-readable string.

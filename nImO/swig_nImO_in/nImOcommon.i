@@ -2,12 +2,12 @@
 %{
 #include "ArgumentDescriptors/nImOaddressArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImObaseArgumentDescriptor.h"
-#include "ArgumentDescriptors/nImObooleanArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOchannelArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOdoubleArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOextraArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOfilePathArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOintegerArgumentDescriptor.h"
+#include "ArgumentDescriptors/nImOlogicalArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOportArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOstringArgumentDescriptor.h"
 #include "ArgumentDescriptors/nImOstringsArgumentDescriptor.h"

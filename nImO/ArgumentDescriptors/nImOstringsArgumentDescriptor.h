@@ -110,6 +110,13 @@ namespace nImO
                 (StringsArgumentDescriptor &&	other)
                 noexcept;
 
+            /*! @brief Convert to a description of the expected values.
+             @return A representation of the descriptor that describes the expected values. */
+            std::string
+            describe
+                (void)
+                override;
+
             /*! @brief Return the current value.
             @return The current value. */
             inline const std::string &
@@ -119,6 +126,13 @@ namespace nImO
             {
                 return _currentValue;
             }
+
+            /*! @brief Return the default value.
+            @return The default value. */
+            std::string
+            getDefaultValue
+                (void)
+                override;
 
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
@@ -151,20 +165,6 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Return the default value.
-            @return The default value. */
-            std::string
-            getDefaultValue
-                (void)
-                override;
-
-            /*! @brief Return the default value as a human-readable string.
-            @return The default value as a human-readable string. */
-            std::string
-            getPrintableDefaultValue
-                (void)
-                override;
-
         private :
             // Private methods.
 
@@ -174,6 +174,13 @@ namespace nImO
             clone
                 (void)
                 const
+                override;
+
+            /*! @brief Return the default value as a human-readable string.
+            @return The default value as a human-readable string. */
+            std::string
+            getPrintableDefaultValue
+                (void)
                 override;
 
             /*! @brief Return the processed value.

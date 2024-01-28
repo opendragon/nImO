@@ -37,11 +37,11 @@
 //--------------------------------------------------------------------------------------------------
 
 #include <ArgumentDescriptors/nImOaddressArgumentDescriptor.h>
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOfilePathArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOportArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringsArgumentDescriptor.h>
@@ -249,7 +249,7 @@ doTestBooleanArgumentDescriptors
         {
             case 1 :
                 // Test that 'reasonable' parameters work with the default value.
-                testDescriptor = std::make_shared<BooleanArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, true);
+                testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, true);
                 if (testDescriptor->validate(testDescriptor->getDefaultValue()) == expected)
                 {
                     result = 0;
@@ -267,7 +267,7 @@ doTestBooleanArgumentDescriptors
                 // Check the descriptor description.
                 if (2 == argc)
                 {
-                    testDescriptor = std::make_shared<BooleanArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
+                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required,
                                                                                  0 == strcmp(*argv, "true"));
                     if ((testDescriptor->toString() == fixDescriptorString(argv[1])) == expected)
                     {
@@ -280,7 +280,7 @@ doTestBooleanArgumentDescriptors
                 // Test input for validity.
                 if (1 == argc)
                 {
-                    testDescriptor = std::make_shared<BooleanArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, false);
+                    testDescriptor = std::make_shared<LogicalArgumentDescriptor>("descriptor", "something", ArgumentMode::Required, false);
                     if (testDescriptor->validate(*argv) == expected)
                     {
                         result = 0;

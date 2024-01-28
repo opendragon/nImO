@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
 #include <Containers/nImOarray.h>
 #include <Contexts/nImOcontextWithMDNS.h>
@@ -90,7 +90,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::BooleanArgumentDescriptor>("stream"s, "Read standard input for text"s,
+    auto                    firstArg{std::make_shared<nImO::LogicalArgumentDescriptor>("stream"s, "Read standard input for text"s,
                                                                                        nImO::ArgumentMode::Optional, false)};
     auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("message"s, "Text to send to logging applications"s,
                                                                                        nImO::ArgumentMode::Optional, ""s)};

@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -135,6 +135,18 @@ AddressArgumentDescriptor::clone
     return result;
 } // AddressArgumentDescriptor::clone
 
+std::string
+AddressArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{BaseArgumentDescriptor::describe()};
+
+    result += ", an IPv4 address with a default value of "s + getDefaultValue();
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // AddressArgumentDescriptor::describe
+
 AddressArgumentDescriptor &
 AddressArgumentDescriptor::operator=
     (const AddressArgumentDescriptor &   other)
@@ -239,16 +251,7 @@ AddressArgumentDescriptor::validate
     {
         testValue = value;
     }
-    if (_addrBuff)
-    {
-#if MAC_OR_LINUX_OR_BSD_
-        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
-#else // not MAC_OR_LINUX_OR_BSD_
-        setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
-#endif // not MAC_OR_LINUX_OR_BSD_
-        ODL_B1("_valid <- ", isValid()); //####
-    }
-    else
+    if (nullptr == _addrBuff)
     {
         struct in_addr  addrBuff;
 
@@ -256,6 +259,15 @@ AddressArgumentDescriptor::validate
         setValidity(0 < inet_pton(AF_INET, testValue.c_str(), &addrBuff));
 #else // not MAC_OR_LINUX_OR_BSD_
         setValidity(0 < InetPton(AF_INET, testValue.c_str(), &addrBuff));
+#endif // not MAC_OR_LINUX_OR_BSD_
+        ODL_B1("_valid <- ", isValid()); //####
+    }
+    else
+    {
+#if MAC_OR_LINUX_OR_BSD_
+        setValidity(0 < inet_pton(AF_INET, testValue.c_str(), _addrBuff));
+#else // not MAC_OR_LINUX_OR_BSD_
+        setValidity(0 < InetPton(AF_INET, testValue.c_str(), _addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
         ODL_B1("_valid <- ", isValid()); //####
     }

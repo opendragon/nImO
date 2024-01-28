@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -132,6 +132,17 @@ PortArgumentDescriptor::clone
     ODL_OBJEXIT_P(result.get());
     return result;
 } // PortArgumentDescriptor::clone
+
+std::string
+PortArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{BaseArgumentDescriptor::describe()};
+
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // PortArgumentDescriptor::describe
 
 PortArgumentDescriptor &
 PortArgumentDescriptor::operator=

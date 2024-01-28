@@ -60,12 +60,12 @@ add_library(${THIS_TARGET}
             "${DO_SHARED}"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOaddressArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.cpp"
-            "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObooleanArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOextraArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOfilePathArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOintegerArgumentDescriptor.cpp"
+            "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOlogicalArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.cpp"
             "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.cpp"
@@ -245,12 +245,12 @@ install(FILES
 install(FILES
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOaddressArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.h"
-        "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObooleanArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOextraArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOfilePathArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOintegerArgumentDescriptor.h"
+        "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOlogicalArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.h"
         "${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringsArgumentDescriptor.h"
@@ -375,8 +375,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOaddressArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObaseArgumentDescriptor.h
-        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObooleanArgumentDescriptor.cpp
-        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImObooleanArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOchannelArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOdoubleArgumentDescriptor.cpp
@@ -387,6 +385,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOfilePathArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOintegerArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOintegerArgumentDescriptor.h
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOlogicalArgumentDescriptor.cpp
+        ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOlogicalArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.cpp
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOportArgumentDescriptor.h
         ${THIS_SOURCE_DIR}/ArgumentDescriptors/nImOstringArgumentDescriptor.cpp

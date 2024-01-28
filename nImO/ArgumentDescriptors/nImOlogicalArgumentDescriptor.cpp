@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ArgumentDescriptors/nImObooleanArgumentDescriptor.cpp
+//  File:       nImO/ArgumentDescriptors/nImOlogicalArgumentDescriptor.cpp
 //
 //  Project:    nImO
 //
@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -37,7 +37,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -80,7 +80,7 @@ using namespace nImO;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-BooleanArgumentDescriptor::BooleanArgumentDescriptor
+LogicalArgumentDescriptor::LogicalArgumentDescriptor
     (const std::string &    argName,
      const std::string &    argDescription,
      const ArgumentMode     argMode,
@@ -92,19 +92,19 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
     ODL_I1("argMode = ", StaticCast(int64_t, argMode)); //####
     ODL_B1("defaultValue = ", defaultValue); //####
     ODL_EXIT_P(this); //####
-} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
+} // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 
-BooleanArgumentDescriptor::BooleanArgumentDescriptor
-    (const BooleanArgumentDescriptor & other) :
+LogicalArgumentDescriptor::LogicalArgumentDescriptor
+    (const LogicalArgumentDescriptor & other) :
         inherited{other}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
     ODL_ENTER(); //####
     ODL_P1("other = ", &other); //####
     ODL_EXIT_P(this); //####
-} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
+} // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 
-BooleanArgumentDescriptor::BooleanArgumentDescriptor
-    (BooleanArgumentDescriptor &&   other)
+LogicalArgumentDescriptor::LogicalArgumentDescriptor
+    (LogicalArgumentDescriptor &&   other)
     noexcept :
         inherited{std::move(other)}, _defaultValue{other._defaultValue}, _currentValue{other._currentValue}
 {
@@ -112,26 +112,38 @@ BooleanArgumentDescriptor::BooleanArgumentDescriptor
     ODL_P1("other = ", &other); //####
     other._currentValue = other._defaultValue = false;
     ODL_EXIT_P(this); //####
-} // BooleanArgumentDescriptor::BooleanArgumentDescriptor
+} // LogicalArgumentDescriptor::LogicalArgumentDescriptor
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 UpBaseArgumentDescriptor
-BooleanArgumentDescriptor::clone
+LogicalArgumentDescriptor::clone
     (void)
     const
 {
     ODL_OBJENTER(); //####
-    auto    result{std::make_unique<BooleanArgumentDescriptor>(*this)};
+    auto    result{std::make_unique<LogicalArgumentDescriptor>(*this)};
 
     ODL_OBJEXIT_P(result.get());
     return result;
-} // BooleanArgumentDescriptor::clone
+} // LogicalArgumentDescriptor::clone
 
 std::string
-BooleanArgumentDescriptor::getDefaultValue
+LogicalArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{inherited::describe()};
+
+    result += ", a logical with a default value of "s + getDefaultValue();
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // LogicalArgumentDescriptor::describe
+
+std::string
+LogicalArgumentDescriptor::getDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
@@ -139,10 +151,10 @@ BooleanArgumentDescriptor::getDefaultValue
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // BooleanArgumentDescriptor::getDefaultValue
+} // LogicalArgumentDescriptor::getDefaultValue
 
 std::string
-BooleanArgumentDescriptor::getPrintableDefaultValue
+LogicalArgumentDescriptor::getPrintableDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
@@ -150,10 +162,10 @@ BooleanArgumentDescriptor::getPrintableDefaultValue
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // BooleanArgumentDescriptor::getPrintableDefaultValue
+} // LogicalArgumentDescriptor::getPrintableDefaultValue
 
 std::string
-BooleanArgumentDescriptor::getProcessedValue
+LogicalArgumentDescriptor::getProcessedValue
     (void)
 {
     ODL_OBJENTER(); //####
@@ -161,37 +173,37 @@ BooleanArgumentDescriptor::getProcessedValue
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // BooleanArgumentDescriptor::getProcessedValue
+} // LogicalArgumentDescriptor::getProcessedValue
 
 bool
-BooleanArgumentDescriptor::isLogical
+LogicalArgumentDescriptor::isLogical
     (void)
     const
 {
     ODL_OBJENTER(); //####
     ODL_OBJEXIT_B(true); //####
     return true;
-} // BooleanArgumentDescriptor::isLogical
+} // LogicalArgumentDescriptor::isLogical
 
-BooleanArgumentDescriptor &
-BooleanArgumentDescriptor::operator=
-    (const BooleanArgumentDescriptor &   other)
+LogicalArgumentDescriptor &
+LogicalArgumentDescriptor::operator=
+    (const LogicalArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
     if (this != &other)
     {
-        BooleanArgumentDescriptor   temp{other};
+        LogicalArgumentDescriptor   temp{other};
 
         swap(temp);
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // BooleanArgumentDescriptor::operator=
+} // LogicalArgumentDescriptor::operator=
 
-BooleanArgumentDescriptor &
-BooleanArgumentDescriptor::operator=
-    (BooleanArgumentDescriptor &&   other)
+LogicalArgumentDescriptor &
+LogicalArgumentDescriptor::operator=
+    (LogicalArgumentDescriptor &&   other)
     noexcept
 {
     ODL_OBJENTER(); //####
@@ -205,10 +217,10 @@ BooleanArgumentDescriptor::operator=
     }
     ODL_OBJEXIT_P(this); //####
     return *this;
-} // BooleanArgumentDescriptor::operator=
+} // LogicalArgumentDescriptor::operator=
 
 SpBaseArgumentDescriptor
-BooleanArgumentDescriptor::parseArgString
+LogicalArgumentDescriptor::parseArgString
     (const std::string &    inString)
 {
     ODL_ENTER(); //####
@@ -246,26 +258,26 @@ BooleanArgumentDescriptor::parseArgString
         }
         if (okSoFar)
         {
-            result = std::make_shared<BooleanArgumentDescriptor>(name, description, argMode, defaultValue);
+            result = std::make_shared<LogicalArgumentDescriptor>(name, description, argMode, defaultValue);
         }
     }
     ODL_EXIT_P(result.get()); //####
     return result;
-} // BooleanArgumentDescriptor::parseArgString
+} // LogicalArgumentDescriptor::parseArgString
 
 void
-BooleanArgumentDescriptor::setToDefaultValue
+LogicalArgumentDescriptor::setToDefaultValue
     (void)
 {
     ODL_OBJENTER(); //####
     _currentValue = _defaultValue;
     ODL_B1("_currentValue <- ", _currentValue); //####
     ODL_OBJEXIT(); //####
-} // BooleanArgumentDescriptor::setToDefaultValue
+} // LogicalArgumentDescriptor::setToDefaultValue
 
 void
-BooleanArgumentDescriptor::swap
-    (BooleanArgumentDescriptor &   other)
+LogicalArgumentDescriptor::swap
+    (LogicalArgumentDescriptor &   other)
 {
     ODL_OBJENTER(); //####
     ODL_P1("other = ", &other); //####
@@ -273,10 +285,10 @@ BooleanArgumentDescriptor::swap
     std::swap(_defaultValue, other._defaultValue);
     std::swap(_currentValue, other._currentValue);
     ODL_OBJEXIT(); //####
-} // BooleanArgumentDescriptor::swap
+} // LogicalArgumentDescriptor::swap
 
 std::string
-BooleanArgumentDescriptor::toString
+LogicalArgumentDescriptor::toString
     (void)
 {
     ODL_OBJENTER(); //####
@@ -284,10 +296,10 @@ BooleanArgumentDescriptor::toString
 
     ODL_OBJEXIT_s(result); //####
     return result;
-} // BooleanArgumentDescriptor::toString
+} // LogicalArgumentDescriptor::toString
 
 bool
-BooleanArgumentDescriptor::validate
+LogicalArgumentDescriptor::validate
     (const std::string &    value)
 {
     ODL_OBJENTER(); //####
@@ -319,7 +331,7 @@ BooleanArgumentDescriptor::validate
     }
     ODL_OBJEXIT_B(isValid()); //####
     return isValid();
-} // BooleanArgumentDescriptor::validate
+} // LogicalArgumentDescriptor::validate
 
 #if defined(__APPLE__)
 # pragma mark Global functions

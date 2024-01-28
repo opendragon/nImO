@@ -9,7 +9,7 @@
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2015 by H Plus Technologies Ltd. and Simon Fraser University.
+//  Copyright:  (c) 2015 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -141,6 +141,34 @@ DoubleArgumentDescriptor::clone
     ODL_OBJEXIT_P(result.get());
     return result;
 } // DoubleArgumentDescriptor::clone
+
+std::string
+DoubleArgumentDescriptor::describe
+    (void)
+{
+    ODL_OBJENTER(); //####
+    std::string result{inherited::describe()};
+
+    result += ", a double with a default value of "s + getDefaultValue();
+    if (_hasMinimumValue)
+    {
+        if (_hasMaximumValue)
+        {
+            result += " with a maximum of "s + ConvertDoubleToString(_maximumValue) + " and a minimum of "s +
+                        ConvertDoubleToString(_minimumValue);
+        }
+        else
+        {
+            result += " and a minimum of "s + ConvertDoubleToString(_minimumValue);
+        }
+    }
+    else if (_hasMaximumValue)
+    {
+        result += " and a maximum of "s + ConvertDoubleToString(_maximumValue);
+    }
+    ODL_OBJEXIT_s(result); //####
+    return result;
+} // DoubleArgumentDescriptor::describe
 
 std::string
 DoubleArgumentDescriptor::getDefaultValue

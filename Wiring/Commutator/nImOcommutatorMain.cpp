@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImObooleanArgumentDescriptor.h>
 #include <ArgumentDescriptors/nImOintegerArgumentDescriptor.h>
+#include <ArgumentDescriptors/nImOlogicalArgumentDescriptor.h>
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
@@ -94,7 +94,7 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
-    auto                    secondArg{std::make_shared<nImO::BooleanArgumentDescriptor>("random"s, "True if random routing"s,
+    auto                    secondArg{std::make_shared<nImO::LogicalArgumentDescriptor>("random"s, "True if random routing"s,
                                                                                         nImO::ArgumentMode::Optional, false)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};

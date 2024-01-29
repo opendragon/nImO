@@ -85,7 +85,7 @@
 #  elif LINUX_
 #   define MAC_OR_LINUX_OR_BSD_ TRUE
 #  else // not LINUX_
-#   define MAC_OR_LINUX_OR_BSD_ BSD
+#   define MAC_OR_LINUX_OR_BSD_ BSD_
 #  endif // not LINUX_
 # endif // not defined(MAC_OR_LINUX_OR_BSD_)
 

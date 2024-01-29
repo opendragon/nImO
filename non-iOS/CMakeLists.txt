@@ -176,7 +176,7 @@ set(nImO_SQLITE_DIR "${PROJECT_SOURCE_DIR}/../SQLite")
 if(WIN32)
     set(nImO_RUN_CONFIG_DIR_ "C:/nImO/")
 else()
-    set(nImO_RUN_CONFIG_DIR_ "/opt/nImO/")
+    set(nImO_RUN_CONFIG_DIR_ "/etc/nImO/")
 endif()
 
 configure_file("${nImO_SOURCE_DIR}/nImO/nImOconfig.h.in" "${nImO_SOURCE_DIR}/nImO/nImOconfig.h")

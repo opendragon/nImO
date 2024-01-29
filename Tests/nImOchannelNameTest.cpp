@@ -122,6 +122,7 @@ doTestValidateNetworkName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -159,6 +160,7 @@ doTestValidateNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -196,6 +198,7 @@ doTestValidatePath
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -233,6 +236,7 @@ doTestValidateTransport
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -271,6 +275,7 @@ doTestParseChannelName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -316,6 +321,7 @@ doTestParseExpectedName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -361,6 +367,7 @@ doTestParseExtractNetwork
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -406,6 +413,7 @@ doTestParseExtractNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -451,6 +459,7 @@ doTestParseExtractPath
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -496,6 +505,7 @@ doTestParseExtractProtocol
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -557,6 +567,7 @@ doTestGeneratePath
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -689,6 +700,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

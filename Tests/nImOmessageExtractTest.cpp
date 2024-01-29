@@ -290,6 +290,7 @@ doTestExtractEmptyMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -373,6 +374,7 @@ doTestExtractLogicalMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -476,6 +478,7 @@ doTestExtractTinyIntegerMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -561,6 +564,7 @@ doTestExtractSmallIntegerMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -648,6 +652,7 @@ doTestExtractMediumIntegerMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -737,6 +742,7 @@ doTestExtractBigIntegerMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -801,6 +807,7 @@ doTestExtractEmptyStringMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -868,6 +875,7 @@ doTestExtractShortStringMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -954,6 +962,7 @@ doTestExtractMediumStringMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1018,6 +1027,7 @@ doTestExtractEmptyBlobMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1090,6 +1100,7 @@ doTestExtractSmallBlobMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1187,6 +1198,7 @@ doTestExtractMediumBlobMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1280,6 +1292,7 @@ doTestExtractSingleDoubleMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1346,6 +1359,7 @@ doTestExtractAddressMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1414,6 +1428,7 @@ doTestExtractEmptyArrayMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1482,6 +1497,7 @@ doTestExtractEmptyMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1550,6 +1566,7 @@ doTestExtractEmptySetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1627,6 +1644,7 @@ doTestExtractArrayOneLogicalMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1704,6 +1722,7 @@ doTestExtractArrayOneIntegerMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1786,6 +1805,7 @@ doTestExtractArrayOneDoubleMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1864,6 +1884,7 @@ doTestExtractArrayOneStringMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1942,6 +1963,7 @@ doTestExtractArrayOneBlobMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2024,6 +2046,7 @@ doTestExtractArrayOneArrayMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2106,6 +2129,7 @@ doTestExtractArrayOneMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2188,6 +2212,7 @@ doTestExtractArrayOneSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2268,6 +2293,7 @@ doTestExtractArrayWithOneAddressMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2349,6 +2375,7 @@ doTestExtractArrayTwoLogicalsMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2430,6 +2457,7 @@ doTestExtractArrayTwoIntegersMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2517,6 +2545,7 @@ doTestExtractArrayTwoDoublesMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2600,6 +2629,7 @@ doTestExtractArrayTwoStringsMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2683,6 +2713,7 @@ doTestExtractArrayTwoBlobsMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2774,6 +2805,7 @@ doTestExtractArrayTwoArraysMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2865,6 +2897,7 @@ doTestExtractArrayTwoMapsMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2956,6 +2989,7 @@ doTestExtractArrayTwoSetsMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3047,6 +3081,7 @@ doTestExtractArrayOneArrayOneMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3138,6 +3173,7 @@ doTestExtractArrayOneMapOneSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3229,6 +3265,7 @@ doTestExtractArrayOneSetOneArrayMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3483,6 +3520,7 @@ doTestExtractArrayWithManyDoublesMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3570,6 +3608,7 @@ doTestExtractArrayWithTwoAddressesMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3650,6 +3689,7 @@ doTestExtractLogicalMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3730,6 +3770,7 @@ doTestExtractIntegerMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3811,6 +3852,7 @@ doTestExtractStringMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3888,6 +3930,7 @@ doTestExtractLogicalSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3965,6 +4008,7 @@ doTestExtractIntegerSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4043,6 +4087,7 @@ doTestExtractStdStringSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4126,6 +4171,7 @@ doTestExtractAddressMapMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4206,6 +4252,7 @@ doTestExtractAddressSetMessage
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4546,6 +4593,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4805,6 +4853,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

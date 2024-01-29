@@ -206,6 +206,7 @@ doTestAddressArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -297,6 +298,7 @@ doTestBooleanArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -389,6 +391,7 @@ doTestChannelArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -485,6 +488,7 @@ doTestDoubleArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -581,6 +585,7 @@ doTestFilePathArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -677,6 +682,7 @@ doTestIntegerArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -773,6 +779,7 @@ doTestPortArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -853,6 +860,7 @@ doTestStringArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -982,6 +990,7 @@ doTestStringsArgumentDescriptors
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1098,6 +1107,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;

@@ -95,6 +95,7 @@ nImO::SinkContext::SinkContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::SinkContext::SinkContext

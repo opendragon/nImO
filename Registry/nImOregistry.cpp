@@ -505,6 +505,7 @@ performSQLstatementWithMultipleColumnResults
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT(); //####
     return status;
@@ -585,6 +586,7 @@ performSQLstatementWithNoResults
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT(); //####
     return status;
@@ -649,6 +651,7 @@ performSQLstatementWithNoResultsNoArgs
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT(); //####
     return status;
@@ -752,6 +755,7 @@ performSQLstatementWithSingleColumnResults
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT(); //####
     return status;
@@ -828,6 +832,7 @@ doEndTransaction
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT(); //####
     return status;
@@ -966,6 +971,7 @@ setupCountApplications
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1007,6 +1013,7 @@ setupCountChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1061,6 +1068,7 @@ setupInsertIntoApplications
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1127,6 +1135,7 @@ setupInsertIntoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1200,6 +1209,7 @@ setupInsertIntoConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1248,6 +1258,7 @@ setupInsertIntoMachines
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1327,6 +1338,7 @@ setupInsertIntoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1368,6 +1380,7 @@ setupSearchApplicationsNodeOnly
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1416,6 +1429,7 @@ setupSearchChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1457,6 +1471,7 @@ setupSearchChannelsMachineOnly
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1498,6 +1513,7 @@ setupSearchChannelsNodeOnly
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1546,6 +1562,7 @@ setupSearchConnectionsViaFrom
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1594,6 +1611,7 @@ setupSearchConnectionsViaTo
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1635,6 +1653,7 @@ setupSearchMachines
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1681,6 +1700,7 @@ setupSearchNodeConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1722,6 +1742,7 @@ setupSearchNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;
@@ -1763,6 +1784,7 @@ setupSearchNodesForApplication
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result);
     return result;

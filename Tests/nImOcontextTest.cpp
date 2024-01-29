@@ -126,6 +126,7 @@ doTestCreateContextWithMDNS
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -155,6 +156,7 @@ doTestCreateContextWithNetworking
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -187,6 +189,7 @@ doTestCreateFilterContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -216,6 +219,7 @@ doTestCreateMiscellaneousContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -248,6 +252,7 @@ doTestCreateServiceContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -280,6 +285,7 @@ doTestCreateSinkContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -312,6 +318,7 @@ doTestCreateSourceContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -341,6 +348,7 @@ doTestCreateTestContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -373,6 +381,7 @@ doTestCreateUtilityContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -405,6 +414,7 @@ doTestCreateRegistryContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -437,6 +447,7 @@ doTestCreateLauncherContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -473,6 +484,7 @@ doTestKindOfContextForContextWithNetworking
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -509,6 +521,7 @@ doTestKindOfContextForContextWithMDNS
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -545,6 +558,7 @@ doTestKindOfContextForServiceContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -581,6 +595,7 @@ doTestKindOfContextForUtilityContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -617,6 +632,7 @@ doTestKindOfContextForFilterContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -653,6 +669,7 @@ doTestKindOfContextForSinkContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -689,6 +706,7 @@ doTestKindOfContextForSourceContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -725,6 +743,7 @@ doTestKindOfContextForRegistryContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -761,6 +780,7 @@ doTestKindOfContextForLauncherContext
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -805,6 +825,7 @@ doTestCreateMDNSAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -849,6 +870,7 @@ doTestCreateMDNSAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -893,6 +915,7 @@ doTestCreateMDNSAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -937,6 +960,7 @@ doTestCreateMDNSAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -981,6 +1005,7 @@ doTestCreateMDNSAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1025,6 +1050,7 @@ doTestCreateMDNSAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1069,6 +1095,7 @@ doTestCreateMDNSAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1113,6 +1140,7 @@ doTestCreateMDNSAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1157,6 +1185,7 @@ doTestCreateMDNSAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1201,6 +1230,7 @@ doTestCreateMDNSAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1245,6 +1275,7 @@ doTestCreateNetworkingAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1289,6 +1320,7 @@ doTestCreateNetworkingAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1333,6 +1365,7 @@ doTestCreateNetworkingAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1377,6 +1410,7 @@ doTestCreateNetworkingAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1421,6 +1455,7 @@ doTestCreateNetworkingAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1465,6 +1500,7 @@ doTestCreateNetworkingAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1509,6 +1545,7 @@ doTestCreateNetworkingAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1553,6 +1590,7 @@ doTestCreateNetworkingAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1597,6 +1635,7 @@ doTestCreateNetworkingAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1641,6 +1680,7 @@ doTestCreateNetworkingAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1685,6 +1725,7 @@ doTestCreateFilterAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1729,6 +1770,7 @@ doTestCreateFilterAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1773,6 +1815,7 @@ doTestCreateFilterAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1817,6 +1860,7 @@ doTestCreateFilterAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1861,6 +1905,7 @@ doTestCreateFilterAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1905,6 +1950,7 @@ doTestCreateFilterAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1949,6 +1995,7 @@ doTestCreateFilterAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1993,6 +2040,7 @@ doTestCreateFilterAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2037,6 +2085,7 @@ doTestCreateFilterAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2081,6 +2130,7 @@ doTestCreateFilterAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2125,6 +2175,7 @@ doTestCreateMiscellaneousAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2169,6 +2220,7 @@ doTestCreateMiscellaneousAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2213,6 +2265,7 @@ doTestCreateMiscellaneousAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2257,6 +2310,7 @@ doTestCreateMiscellaneousAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2301,6 +2355,7 @@ doTestCreateMiscellaneousAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2345,6 +2400,7 @@ doTestCreateMiscellaneousAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2389,6 +2445,7 @@ doTestCreateMiscellaneousAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2433,6 +2490,7 @@ doTestCreateMiscellaneousAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2477,6 +2535,7 @@ doTestCreateMiscellaneousAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2521,6 +2580,7 @@ doTestCreateMiscellaneousAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2565,6 +2625,7 @@ doTestCreateServiceAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2609,6 +2670,7 @@ doTestCreateServiceAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2653,6 +2715,7 @@ doTestCreateServiceAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2697,6 +2760,7 @@ doTestCreateServiceAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2741,6 +2805,7 @@ doTestCreateServiceAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2785,6 +2850,7 @@ doTestCreateServiceAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2829,6 +2895,7 @@ doTestCreateServiceAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2873,6 +2940,7 @@ doTestCreateServiceAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2917,6 +2985,7 @@ doTestCreateServiceAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2961,6 +3030,7 @@ doTestCreateServiceAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3005,6 +3075,7 @@ doTestCreateSinkAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3049,6 +3120,7 @@ doTestCreateSinkAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3093,6 +3165,7 @@ doTestCreateSinkAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3137,6 +3210,7 @@ doTestCreateSinkAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3181,6 +3255,7 @@ doTestCreateSinkAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3225,6 +3300,7 @@ doTestCreateSinkAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3269,6 +3345,7 @@ doTestCreateSinkAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3313,6 +3390,7 @@ doTestCreateSinkAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3357,6 +3435,7 @@ doTestCreateSinkAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3401,6 +3480,7 @@ doTestCreateSinkAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3445,6 +3525,7 @@ doTestCreateSourceAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3489,6 +3570,7 @@ doTestCreateSourceAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3533,6 +3615,7 @@ doTestCreateSourceAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3577,6 +3660,7 @@ doTestCreateSourceAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3621,6 +3705,7 @@ doTestCreateSourceAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3665,6 +3750,7 @@ doTestCreateSourceAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3709,6 +3795,7 @@ doTestCreateSourceAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3753,6 +3840,7 @@ doTestCreateSourceAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3797,6 +3885,7 @@ doTestCreateSourceAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3841,6 +3930,7 @@ doTestCreateSourceAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3885,6 +3975,7 @@ doTestCreateTestAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3929,6 +4020,7 @@ doTestCreateTestAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3973,6 +4065,7 @@ doTestCreateTestAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4017,6 +4110,7 @@ doTestCreateTestAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4061,6 +4155,7 @@ doTestCreateTestAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4105,6 +4200,7 @@ doTestCreateTestAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4149,6 +4245,7 @@ doTestCreateTestAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4193,6 +4290,7 @@ doTestCreateTestAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4237,6 +4335,7 @@ doTestCreateTestAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4281,6 +4380,7 @@ doTestCreateTestAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4325,6 +4425,7 @@ doTestCreateUtilityAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4369,6 +4470,7 @@ doTestCreateUtilityAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4413,6 +4515,7 @@ doTestCreateUtilityAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4457,6 +4560,7 @@ doTestCreateUtilityAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4501,6 +4605,7 @@ doTestCreateUtilityAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4545,6 +4650,7 @@ doTestCreateUtilityAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4589,6 +4695,7 @@ doTestCreateUtilityAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4633,6 +4740,7 @@ doTestCreateUtilityAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4677,6 +4785,7 @@ doTestCreateUtilityAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4721,6 +4830,7 @@ doTestCreateUtilityAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4765,6 +4875,7 @@ doTestCreateRegistryAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4809,6 +4920,7 @@ doTestCreateRegistryAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4853,6 +4965,7 @@ doTestCreateRegistryAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4897,6 +5010,7 @@ doTestCreateRegistryAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4941,6 +5055,7 @@ doTestCreateRegistryAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4985,6 +5100,7 @@ doTestCreateRegistryAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5029,6 +5145,7 @@ doTestCreateRegistryAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5073,6 +5190,7 @@ doTestCreateRegistryAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5117,6 +5235,7 @@ doTestCreateRegistryAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5161,6 +5280,7 @@ doTestCreateRegistryAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5205,6 +5325,7 @@ doTestCreateRegistryAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5249,6 +5370,7 @@ doTestCreateMDNSAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5293,6 +5415,7 @@ doTestCreateNetworkingAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5337,6 +5460,7 @@ doTestCreateFilterAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5381,6 +5505,7 @@ doTestCreateMiscellaneousAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5425,6 +5550,7 @@ doTestCreateSinkAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5469,6 +5595,7 @@ doTestCreateSourceAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5513,6 +5640,7 @@ doTestCreateTestAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5557,6 +5685,7 @@ doTestCreateUtilityAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5601,6 +5730,7 @@ doTestCreateLauncherAndRegistryContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5645,6 +5775,7 @@ doTestCreateLauncherAndMDNSContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5689,6 +5820,7 @@ doTestCreateLauncherAndNetworkingContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5733,6 +5865,7 @@ doTestCreateLauncherAndFilterContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5777,6 +5910,7 @@ doTestCreateLauncherAndMiscellaneousContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5821,6 +5955,7 @@ doTestCreateLauncherAndServiceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5865,6 +6000,7 @@ doTestCreateLauncherAndSinkContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5909,6 +6045,7 @@ doTestCreateLauncherAndSourceContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5953,6 +6090,7 @@ doTestCreateLauncherAndTestContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5997,6 +6135,7 @@ doTestCreateLauncherAndUtilityContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6041,6 +6180,7 @@ doTestCreateLauncherAndLauncherContexts
         ODL_LOG("Exception caught"); //####
         EnableWaitForRegistry();
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6665,6 +6805,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

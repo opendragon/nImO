@@ -180,6 +180,7 @@ nImO::CommandSession::CommandSession
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::CommandSession::CommandSession

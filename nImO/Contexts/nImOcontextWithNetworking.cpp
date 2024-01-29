@@ -157,7 +157,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
 
         if (retValue)
         {
-            SpValue actualValue(*retValue);
+            SpValue actualValue{*retValue};
             auto    asAddress{actualValue->asAddress()};
 
             if (nullptr != asAddress)
@@ -177,7 +177,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kLoggerPortKey);
         if (retValue)
         {
-            SpValue actualValue(*retValue);
+            SpValue actualValue{*retValue};
             auto    asInteger{actualValue->asInteger()};
 
             if (nullptr != asInteger)
@@ -236,7 +236,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         }
         if (_loggingEnabled)
         {
-            std::lock_guard<std::mutex> loggerGuard(_loggerLock);
+            std::lock_guard<std::mutex> loggerGuard{_loggerLock};
 
             _logger = std::make_shared<Logger>(getService(), tagForLogging, _logConnection);
             ODL_P1("_logger <- ", _logger.get()); //####
@@ -244,7 +244,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
         retValue = GetConfiguredValue(kRegistryTimeoutKey);
         if (retValue)
         {
-            SpValue actualValue(*retValue);
+            SpValue actualValue{*retValue};
             auto    asInteger{actualValue->asInteger()};
 
             if (nullptr == asInteger)
@@ -274,6 +274,7 @@ nImO::ContextWithNetworking::ContextWithNetworking
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::ContextWithNetworking::ContextWithNetworking
@@ -363,7 +364,7 @@ nImO::ContextWithNetworking::report
 {
     ODL_OBJENTER(); //####
     ODL_S1("stringToSend = ", stringToSend); //####
-    bool    okSoFar;
+    bool    okSoFar{false};
 
     if (_loggingEnabled)
     {
@@ -393,7 +394,7 @@ nImO::ContextWithNetworking::report
 {
     ODL_OBJENTER(); //####
     ODL_S1s("stringToSend = ", stringToSend); //####
-    bool    okSoFar;
+    bool    okSoFar{false};
 
     if (_loggingEnabled)
     {
@@ -423,7 +424,7 @@ nImO::ContextWithNetworking::report
 {
     ODL_OBJENTER(); //####
     ODL_P1("stringsToSend = ", &stringsToSend); //####
-    bool    okSoFar;
+    bool    okSoFar{false};
 
     if (_loggingEnabled)
     {

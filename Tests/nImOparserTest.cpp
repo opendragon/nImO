@@ -191,6 +191,7 @@ doTestParseLogicalValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -267,6 +268,7 @@ doTestParseNumberValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -343,6 +345,7 @@ doTestParseStringValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -419,6 +422,7 @@ doTestParseAddressValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -495,6 +499,7 @@ doTestParseArrayValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -571,6 +576,7 @@ doTestParseSetValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -647,6 +653,7 @@ doTestParseMapValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -723,6 +730,7 @@ doTestParseImplicitArrayValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -825,6 +833,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

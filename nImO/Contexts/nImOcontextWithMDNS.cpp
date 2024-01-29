@@ -125,7 +125,7 @@ namespace nImO
             firstPartOfPath
                 (const std::string &    inString)
             {
-                std::string             outString;
+                std::string             outString{};
                 std::string::size_type  period{inString.find('.')};
 
                 if (std::string::npos == period)
@@ -146,9 +146,7 @@ namespace nImO
             {
                 if (_processing)
                 {
-                    _owner._havePort = false;
-                    _owner._haveAddress = false;
-                    _processing = false;
+                    _owner._havePort = _owner._haveAddress = _processing = false;
                     ODL_B3("_owner._havePort <- ", _owner._havePort, "_owner._haveAddress <- ", _owner._haveAddress, //####
                            "_processing <- ", _processing); //####
                 }
@@ -206,8 +204,7 @@ namespace nImO
                     {
                         _owner.report("PTR Data"s);
                         _owner._registryTag = firstPartOfPath(mdns_string_to_std_string(ptrData));
-                        _owner._havePort = false;
-                        _owner._haveAddress = false;
+                        _owner._havePort = _owner._haveAddress = false;
                         _processing = true;
                         ODL_B3("_owner._havePort <- ", _owner._havePort, "_owner._haveAddress <- ", _owner._haveAddress, //####
                                "_processing <- ", _processing); //####
@@ -316,7 +313,7 @@ getLocalAddresses
 #else // not MAC_OR_LINUX_OR_BSD_
     Ptr(IP_ADAPTER_ADDRESSES)   adapterAddress{nullptr};
     ULONG                       addressSize{8000};
-    uint                        ret;
+    uint                        ret{};
     uint                        numRetries{4};
 #endif // not MAC_OR_LINUX_OR_BSD_
 
@@ -324,6 +321,7 @@ getLocalAddresses
     if (-1 == getifaddrs(&addresses))
     {
         throw "Failed to get network adapter addresses";
+
     }
     bool    firstIpv4{true};
     bool    firstIpv6{true};
@@ -390,6 +388,7 @@ getLocalAddresses
     {
         free(adapterAddress);
         throw "Failed to get network adapter addresses";
+
     }
     bool    firstIpv4{true};
     bool    firstIpv6{true};
@@ -452,6 +451,7 @@ getLocalAddresses
     if ((! nImO::ContextWithMDNS::gHasIpv4) && (! nImO::ContextWithMDNS::gHasIpv6))
     {
         throw "No usable network addresses found.";
+        
     }
     ODL_EXIT(); //####
 } // getLocalAddresses
@@ -482,7 +482,7 @@ queryCallback
     NIMO_UNUSED_VAR_(nameLength);
     size_t                      workOffset{nameOffset};
     mDNS::string_t              fromAddrStr{nImO::IpAddressToMdnsString(lAddrBuffer, sizeof(lAddrBuffer), from, addrLen)};
-    mDNS::string_t              entryStr{mDNS::mDNSPrivate::string_extract(data, size, workOffset, lEntryBuffer, sizeof(lEntryBuffer))};
+    mDNS::string_t              entryStr{mDNSP::string_extract(data, size, workOffset, lEntryBuffer, sizeof(lEntryBuffer))};
     Ptr(nImO::RecordHandler)    handlerPtr{ReinterpretCast(Ptr(nImO::RecordHandler), userData)};
     nImO::RecordHandler &       handler{*handlerPtr};
 
@@ -640,59 +640,38 @@ nImO::ContextWithMDNS::executeBrowser
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", &owner); //####
-    RecordHandler   handler(owner);
-    struct timeval  timeout;
-
-    timeout.tv_sec = 10;
-    timeout.tv_usec = 0;
-    owner.report("browser thread starting."s);
-    lBrowserThreadStarted = true;
-    ODL_B1("lBrowserThreadStarted <- ", lBrowserThreadStarted); //####
-    for ( ; ; )
+    ODL_I1("owner._numSockets = ", owner._numSockets); //####
+    if (0 < owner._numSockets)
     {
-        if (lBrowserThreadStop || (owner._havePort && owner._haveAddress))
-        {
-            break;
+        RecordHandler   handler{owner};
+        struct timeval  timeout;
 
-        }
-        int     nfds = 0;
-        fd_set  readfs;
-
-        FD_ZERO(&readfs);
-        for (int isock = 0; isock < owner._numSockets; ++isock)
+        timeout.tv_sec = 10;
+        timeout.tv_usec = 0;
+        owner.report("browser thread starting."s);
+        lBrowserThreadStarted = true;
+        ODL_B1("lBrowserThreadStarted <- ", lBrowserThreadStarted); //####
+        for ( ; ; )
         {
-            if (lBrowserThreadStop)
+            if (lBrowserThreadStop || (owner._havePort && owner._haveAddress))
             {
                 break;
 
             }
-            if (owner._sockets[isock] >= nfds)
-            {
-                nfds = owner._sockets[isock] + 1;
-            }
-#if (! MAC_OR_LINUX_OR_BSD_)
-# pragma option push -w-csu
-#endif /* not MAC_OR_LINUX_OR_BSD_ */
-            FD_SET(owner._sockets[isock], &readfs);
-#if (! MAC_OR_LINUX_OR_BSD_)
-# pragma option pop
-#endif /* not MAC_OR_LINUX_OR_BSD_ */
-        }
-        int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
+            int     nfds = 0;
+            fd_set  readfs;
 
-        if (res >= 0)
-        {
-            for (int isock = 0; (0 < res) && (isock < owner._numSockets); ++isock)
+            FD_ZERO(&readfs);
+            for (int isock = 0; isock < owner._numSockets; ++isock)
             {
                 if (lBrowserThreadStop)
                 {
                     break;
 
                 }
-                if (FD_ISSET(owner._sockets[isock], &readfs))
+                if (owner._sockets[isock] >= nfds)
                 {
-                    mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::ContextWithMDNS::kBufferCapacity, queryCallback, &handler,
-                                     owner._queryId[isock]);
+                    nfds = owner._sockets[isock] + 1;
                 }
 #if (! MAC_OR_LINUX_OR_BSD_)
 # pragma option push -w-csu
@@ -702,32 +681,57 @@ nImO::ContextWithMDNS::executeBrowser
 # pragma option pop
 #endif /* not MAC_OR_LINUX_OR_BSD_ */
             }
-            if (owner._requestNewScan)
+            int    res{select(nfds, &readfs, nullptr, nullptr, &timeout)};
+
+            if (res >= 0)
             {
-                owner._requestNewScan = false;
-                ODL_B1("owner._requestNewScan <- ", owner._requestNewScan); //####
-                owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME) + "."s);
-                for (int isock = 0; isock < owner._numSockets; ++isock)
+                for (int isock = 0; (0 < res) && (isock < owner._numSockets); ++isock)
                 {
                     if (lBrowserThreadStop)
                     {
                         break;
 
                     }
-                    owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
-                                                             sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, owner._buffer,
-                                                             nImO::ContextWithMDNS::kBufferCapacity, 0);
-                    if (owner._queryId[isock] < 0)
+                    if (FD_ISSET(owner._sockets[isock], &readfs))
                     {
-                        owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
+                        mDNS::query_recv(owner._sockets[isock], owner._buffer, nImO::ContextWithMDNS::kBufferCapacity, queryCallback, &handler,
+                                         owner._queryId[isock]);
+                    }
+#if (! MAC_OR_LINUX_OR_BSD_)
+# pragma option push -w-csu
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
+                    FD_SET(owner._sockets[isock], &readfs);
+#if (! MAC_OR_LINUX_OR_BSD_)
+# pragma option pop
+#endif /* not MAC_OR_LINUX_OR_BSD_ */
+                }
+                if (owner._requestNewScan)
+                {
+                    owner._requestNewScan = false;
+                    ODL_B1("owner._requestNewScan <- ", owner._requestNewScan); //####
+                    owner.report("Sending mDNS query: "s + std::string(NIMO_REGISTRY_SERVICE_NAME) + "."s);
+                    for (int isock = 0; isock < owner._numSockets; ++isock)
+                    {
+                        if (lBrowserThreadStop)
+                        {
+                            break;
+
+                        }
+                        owner._queryId[isock] = mDNS::query_send(owner._sockets[isock], mDNS::kRecordTypePTR, NIMO_REGISTRY_SERVICE_NAME,
+                                                                 sizeof(NIMO_REGISTRY_SERVICE_NAME) - 1, owner._buffer,
+                                                                 nImO::ContextWithMDNS::kBufferCapacity, 0);
+                        if (owner._queryId[isock] < 0)
+                        {
+                            owner.report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            break;
+            else
+            {
+                break;
 
+            }
         }
     }
     lBrowserThreadStarted = false;
@@ -745,7 +749,7 @@ nImO::ContextWithMDNS::findRegistry
     ODL_OBJENTER(); //####
     ODL_P1("connection = ", &connection); //####
     ODL_B1("quietly = ", quietly); //####
-    bool    found;
+    bool    found{false};
 
     if (lWaitForRegistry && ((! _havePort) || (! _haveAddress)))
     {
@@ -757,10 +761,6 @@ nImO::ContextWithMDNS::findRegistry
         connection._port = _registryPort;
         stopGatheringAnnouncements();
         found = true;
-    }
-    else
-    {
-        found = false;
     }
     ODL_OBJEXIT_B(found); //####
     return found;
@@ -776,11 +776,9 @@ nImO::ContextWithMDNS::gatherAnnouncements
     {
         bool    okSoFar{true};
 
-        lBrowserThreadStopped = false;
-        lBrowserThreadStop = false;
+        lBrowserThreadStopped = lBrowserThreadStop = false;
         ODL_B2("lBrowserThreadStopped <- ", lBrowserThreadStopped, "lBrowserThreadStop <- ", lBrowserThreadStop); //####
-        _havePort = false;
-        _haveAddress = false;
+        _havePort = _haveAddress = false;
         ODL_B2("_havePort <- ", _havePort, "_haveAddress <- ", _haveAddress); //####
         _browserThread = new boost::thread([this]
                                             (void)
@@ -873,6 +871,7 @@ nImO::ContextWithMDNS::openSockets
             _sockets[_numSockets++] = sock;
         }
     }
+    ODL_I1("_numSockets = ", numSockets)
     ODL_OBJEXIT(); //####
 } // nImO::ContextWithMDNS::openSockets
 
@@ -903,7 +902,7 @@ nImO::ContextWithMDNS::waitForRegistry
     (void)
 {
     ODL_OBJENTER(); //####
-    bool    wasFound;
+    bool    wasFound{false};
 
     if (lWaitForRegistry)
     {
@@ -917,10 +916,6 @@ nImO::ContextWithMDNS::waitForRegistry
     {
         gatherAnnouncements(true);
         wasFound = (_havePort && _haveAddress);
-    }
-    else
-    {
-        wasFound = false;
     }
     ODL_OBJEXIT_B(wasFound); //####
     return wasFound;

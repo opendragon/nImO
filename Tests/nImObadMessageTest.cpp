@@ -200,6 +200,7 @@ doTestMessageInitialEndTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -256,6 +257,7 @@ doTestMessageTerminalStartTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -315,6 +317,7 @@ doTestEmptyMessageWithContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -375,6 +378,7 @@ doTestNonEmptyMessageWithoutContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -438,6 +442,7 @@ doTestNonEmptyMessageWithMismatchedInitialStartTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -501,6 +506,7 @@ doTestNonEmptyMessageWithMismatchedTerminalEndTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -563,6 +569,7 @@ doTestNonEmptyMessageWithInvalidContentTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -627,6 +634,7 @@ doTestNonEmptyMessageWithZeroDoubleCount
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -692,6 +700,7 @@ doTestNonEmptyMessageWithStringWithInvalidLength
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -757,6 +766,7 @@ doTestNonEmptyMessageWithBlobWithInvalidLength
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -825,6 +835,7 @@ doTestNonEmptyMessageWithArrayWithInitialEndTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -893,6 +904,7 @@ doTestNonEmptyMessageWithArrayWithTerminalStartTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -964,6 +976,7 @@ doTestNonEmptyMessageWithEmptyArrayWithContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1037,6 +1050,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithoutContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1109,6 +1123,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithInvalidCount
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1188,6 +1203,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooFewValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1270,6 +1286,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1362,6 +1379,7 @@ doTestNonEmptyMessageWithNonEmptyArrayWithTooManyDoubles
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1430,6 +1448,7 @@ doTestNonEmptyMessageWithMapWithInitialEndTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1498,6 +1517,7 @@ doTestNonEmptyMessageWithMapWithTerminalStartTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1569,6 +1589,7 @@ doTestNonEmptyMessageWithEmptyMapWithContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1642,6 +1663,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithoutContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1714,6 +1736,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithInvalidCount
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1799,6 +1822,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooFewValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1884,6 +1908,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithTooManyValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1966,6 +1991,7 @@ doTestNonEmptyMessageWithNonEmptyMapWithIncompletePair
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2034,6 +2060,7 @@ doTestNonEmptyMessageWithSetWithInitialEndTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2102,6 +2129,7 @@ doTestNonEmptyMessageWithSetWithTerminalStartTag
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2173,6 +2201,7 @@ doTestNonEmptyMessageWithEmptySetWithContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2246,6 +2275,7 @@ doTestNonEmptyMessageWithNonEmptySetWithoutContent
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2318,6 +2348,7 @@ doTestNonEmptyMessageWithNonEmptySetWithInvalidCount
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2397,6 +2428,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooFewValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2479,6 +2511,7 @@ doTestNonEmptyMessageWithNonEmptySetWithTooManyValues
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2678,6 +2711,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

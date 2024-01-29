@@ -100,6 +100,7 @@ nImO::Context::Context
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::Context::Context

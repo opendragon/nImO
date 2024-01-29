@@ -920,6 +920,7 @@ nImO::SanitizeString
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_s(outString); //####
     return outString;

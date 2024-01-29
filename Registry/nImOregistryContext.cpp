@@ -114,9 +114,8 @@ announcementServiceCallback
         {
             const nImO::AnnounceServiceData &   serviceData{*servicePtr};
             size_t                              offset{nameOffset};
-            mDNS::string_t                      name{mDNS::mDNSPrivate::string_extract(data, size, offset,
-                                                                                       nImO::ContextWithMDNS::gNameBuffer,
-                                                                                       sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+            mDNS::string_t                      name{mDNSP::string_extract(data, size, offset, nImO::ContextWithMDNS::gNameBuffer,
+                                                                           sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
             {
@@ -369,6 +368,7 @@ nImO::RegistryContext::RegistryContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::RegistryContext::RegistryContext

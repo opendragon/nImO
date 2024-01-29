@@ -91,6 +91,7 @@ nImO::TestContext::TestContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::TestContext::TestContext

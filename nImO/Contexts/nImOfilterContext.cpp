@@ -95,6 +95,7 @@ nImO::FilterContext::FilterContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::FilterContext::FilterContext

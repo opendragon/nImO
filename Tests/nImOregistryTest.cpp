@@ -185,6 +185,7 @@ doTestCreateRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -254,6 +255,7 @@ doTestEmptyRegistryForMachines
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -325,6 +327,7 @@ doTestMachineSetWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -409,6 +412,7 @@ doTestFindMachineWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -471,6 +475,7 @@ doTestAddMachineToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -549,6 +554,7 @@ doTestCountMachinesWithRegistryWithOneMachine
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -629,6 +635,7 @@ doTestMachineSetWithRegistryWithOneMachine
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -722,6 +729,7 @@ doTestFindMachineWithRegistryWithOneMachine
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -792,6 +800,7 @@ doTestAddTwoDistinctMachinesToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -878,6 +887,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -964,6 +974,7 @@ doTestAddTwoIdenticalMachinesToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1033,6 +1044,7 @@ doTestEmptyRegistryForNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1104,6 +1116,7 @@ doTestNodeSetWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1188,6 +1201,7 @@ doTestFindNodeWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1255,6 +1269,7 @@ doTestAddNodeToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1338,6 +1353,7 @@ doTestCountNodesWithRegistryWithOneNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1423,6 +1439,7 @@ doTestNodeSetWithRegistryWithOneNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1521,6 +1538,7 @@ doTestFindNodeWithRegistryWithOneNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1619,6 +1637,7 @@ doTestNodeDataAddedToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1694,6 +1713,7 @@ doTestRemoveNodeFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1785,6 +1805,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1878,6 +1899,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1969,6 +1991,7 @@ doTestFindNodeWithRegistryNodeRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2044,6 +2067,7 @@ doTestAddTwoDistinctNodesToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2135,6 +2159,7 @@ doTestCountNodesWithRegistryWithTwoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2235,6 +2260,7 @@ doTestNodeSetWithRegistryWithTwoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2341,6 +2367,7 @@ doTestFindNodeWithRegistryWithTwoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2432,6 +2459,7 @@ doTestRemoveNodesFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2539,6 +2567,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2648,6 +2677,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2770,6 +2800,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2863,6 +2894,7 @@ doTestAddTwoIdenticalNodesToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2934,6 +2966,7 @@ doTestNodeInfoWithRegistryWithNoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3034,6 +3067,7 @@ doTestNodeInfoWithRegistryWithOneNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3204,6 +3238,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3275,6 +3310,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3371,6 +3407,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3517,6 +3554,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3586,6 +3624,7 @@ doTestNodeInfoWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3667,6 +3706,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3753,6 +3793,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3854,6 +3895,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3935,6 +3977,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4036,6 +4079,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4165,6 +4209,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4244,6 +4289,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4328,6 +4374,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4420,6 +4467,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4489,6 +4537,7 @@ doTestCountChannelsWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4573,6 +4622,7 @@ doTestFindChannelWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4651,6 +4701,7 @@ doTestAddChannelToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4745,6 +4796,7 @@ doTestCountChannelsInRegistryWithOneChannel
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4854,6 +4906,7 @@ doTestFindChannelInRegistryWithOneChannel
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4948,6 +5001,7 @@ doTestAddTwoChannelsToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5058,6 +5112,7 @@ doTestCountChannelsInRegistryWithTwoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5183,6 +5238,7 @@ doTestFindChannelsInRegistryWithTwoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5269,6 +5325,7 @@ doTestAddTwoIdenticalChannelsToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5344,6 +5401,7 @@ doTestAddChannelWithBadNodeNameToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5419,6 +5477,7 @@ doTestAddChannelWithBadChannelNameToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5513,6 +5572,7 @@ doTestRemoveAllChannelsFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5623,6 +5683,7 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5748,6 +5809,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5842,6 +5904,7 @@ doTestRemoveOneChannelFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5952,6 +6015,7 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6077,6 +6141,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6163,6 +6228,7 @@ doTestRemoveNonexistentChannelFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6249,6 +6315,7 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6318,6 +6385,7 @@ doTestGetChannelInfoFromEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6425,6 +6493,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6573,6 +6642,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6658,6 +6728,7 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6734,6 +6805,7 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6805,6 +6877,7 @@ doTestGetChannelSetFromEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -6912,6 +6985,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7044,6 +7118,7 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7184,6 +7259,7 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7292,6 +7368,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7425,6 +7502,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7566,6 +7644,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7659,6 +7738,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7753,6 +7833,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7815,6 +7896,7 @@ doTestGetChannelInUseWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7877,6 +7959,7 @@ doTestSetChannelInUseWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -7939,6 +8022,7 @@ doTestClearChannelInUseWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8056,6 +8140,7 @@ doTestChannelInUseCanBeSet
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8196,6 +8281,7 @@ doTestChannelInUseCanBeCleared
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8283,6 +8369,7 @@ doTestGetChannelInUseWithBadNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8369,6 +8456,7 @@ doTestSetChannelInUseWithBadNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8455,6 +8543,7 @@ doTestClearChannelInUseWithBadNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8542,6 +8631,7 @@ doTestGetChannelInUseWithBadChannelName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8628,6 +8718,7 @@ doTestSetChannelInUseWithBadChannelName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8714,6 +8805,7 @@ static int
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8823,6 +8915,7 @@ doTestGetAndSetChannelInUse
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8885,6 +8978,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -8972,6 +9066,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9059,6 +9154,7 @@ doTestGetAndSetChannelInUseWithBadChannelName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9128,6 +9224,7 @@ doTestCountConnectionsWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9231,6 +9328,7 @@ doTestAddConnectionToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9350,6 +9448,7 @@ doTestCountConnectionsInRegistryWithOneConnection
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9479,6 +9578,7 @@ doTestAddTwoConnectionsToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9624,6 +9724,7 @@ doTestCountConnectionsInRegistryWithTwoConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9735,6 +9836,7 @@ doTestRemoveOneConnectionFromRegistryViaFrom
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9846,6 +9948,7 @@ doTestRemoveOneConnectionFromRegistryViaTo
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -9973,6 +10076,7 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10085,6 +10189,7 @@ doTestConnectChannelsWithRegistryWithBadChannelName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10197,6 +10302,7 @@ doTestConnectChannelsWithRegistryWithBadNodeName
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10268,6 +10374,7 @@ doTestGetConnectionsFromEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10404,6 +10511,7 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10594,6 +10702,7 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10784,6 +10893,7 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -10920,6 +11030,7 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11111,6 +11222,7 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11182,6 +11294,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11253,6 +11366,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11341,6 +11455,7 @@ doTestGetConnectionInfoWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11486,6 +11601,7 @@ doTestGetConnectionInfoInRegistryWithOneConnection
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11606,6 +11722,7 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11726,6 +11843,7 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11795,6 +11913,7 @@ doTestCountApplicationsWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11873,6 +11992,7 @@ TestAddApplicationWithOneLauncherToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -11967,6 +12087,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12053,6 +12174,7 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12155,6 +12277,7 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12217,6 +12340,7 @@ doTestClearApplicationsWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12303,6 +12427,7 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12405,6 +12530,7 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12507,6 +12633,7 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12625,6 +12752,7 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12719,6 +12847,7 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12829,6 +12958,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -12939,6 +13069,7 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13080,6 +13211,7 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13174,6 +13306,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13299,6 +13432,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13406,6 +13540,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13531,6 +13666,7 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13664,6 +13800,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13771,6 +13908,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13921,6 +14059,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -13990,6 +14129,7 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -14084,6 +14224,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -14194,6 +14335,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -14295,6 +14437,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -14419,6 +14562,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -15145,6 +15289,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

@@ -95,6 +95,7 @@ nImO::SourceContext::SourceContext
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_P(this); //####
 } // nImO::SourceContext::SourceContext

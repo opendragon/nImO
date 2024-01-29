@@ -249,6 +249,7 @@ doTestEmptyBufferChunk
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -314,6 +315,7 @@ doTestBufferChunkWithSingleByte
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -405,6 +407,7 @@ doTestFilledBufferChunk
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -496,6 +499,7 @@ doTestOverfilledBufferChunk
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -560,6 +564,7 @@ doTestBufferChunkReset
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -623,6 +628,7 @@ doTestEmptyStringBuffer
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -697,6 +703,7 @@ doTestStringBufferWithCharacters
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -770,6 +777,7 @@ doTestStringBufferWithLogical
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -841,6 +849,7 @@ doTestStringBufferWithInteger
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -914,6 +923,7 @@ doTestStringBufferWithString
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -982,6 +992,7 @@ doTestStringBufferWithSpecialCharacters
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1062,6 +1073,7 @@ doTestStringBufferWithDouble
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1135,6 +1147,7 @@ doTestBigStringBuffer
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1192,6 +1205,7 @@ doTestStringBufferWithEmptyBlob
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1275,6 +1289,7 @@ doTestStringBufferWithSmallBlob
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1358,6 +1373,7 @@ doTestStringBufferWithBigBlob
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1424,6 +1440,7 @@ doTestStringBufferReset
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1477,6 +1494,7 @@ doTestDefaultLogicalValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1545,6 +1563,7 @@ doTestLogicalValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1599,6 +1618,7 @@ doTestDefaultIntegerValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1692,6 +1712,7 @@ doTestNumberValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1745,6 +1766,7 @@ doTestDefaultStringValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1803,6 +1825,7 @@ doTestStringValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1858,6 +1881,7 @@ doTestStringValueWithEscapes
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1911,6 +1935,7 @@ doTestDefaultBlobValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -1992,6 +2017,7 @@ doTestSmallBlobValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2073,6 +2099,7 @@ doTestBigBlobValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2145,6 +2172,7 @@ doTestLogicalCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2238,6 +2266,7 @@ doTestIntegerCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2330,6 +2359,7 @@ doTestDoubleCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2402,6 +2432,7 @@ doTestStringCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2519,6 +2550,7 @@ doTestBlobCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2573,6 +2605,7 @@ doTestDefaultAddressValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2637,6 +2670,7 @@ doTestAddressValue
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2724,6 +2758,7 @@ doTestAddressCopyAndAssign
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -2843,6 +2878,7 @@ doTestValidLogicalCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3281,6 +3317,7 @@ doTestValidNumberCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3425,6 +3462,7 @@ doTestValidStringCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3579,6 +3617,7 @@ doTestValidBlobCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3683,6 +3722,7 @@ doTestInvalidLogicalCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3787,6 +3827,7 @@ doTestInvalidNumberCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3891,6 +3932,7 @@ doTestInvalidStringCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -3995,6 +4037,7 @@ doTestInvalidBlobCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4133,6 +4176,7 @@ doTestValidAddressCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4237,6 +4281,7 @@ doTestInvalidAddressCompares
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4290,6 +4335,7 @@ doTestDefaultLogicalValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4358,6 +4404,7 @@ doTestLogicalValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4412,6 +4459,7 @@ doTestDefaultIntegerValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4505,6 +4553,7 @@ doTestNumberValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4558,6 +4607,7 @@ doTestDefaultStringValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4616,6 +4666,7 @@ doTestStringValueAsJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4670,6 +4721,7 @@ doTestDefaultAddressValueJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -4734,6 +4786,7 @@ doTestAddressValueJSON
     {
         ODL_LOG("Exception caught"); //####
         throw;
+
     }
     ODL_EXIT_I(result); //####
     return result;
@@ -5018,6 +5071,7 @@ main
     {
         ODL_LOG("Exception caught"); //####
         throw;
+        
     }
     ODL_EXIT_I(result); //####
     return result;

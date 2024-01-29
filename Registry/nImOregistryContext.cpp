@@ -115,8 +115,8 @@ announcementServiceCallback
             const nImO::AnnounceServiceData &   serviceData{*servicePtr};
             size_t                              offset{nameOffset};
             mDNS::string_t                      name{mDNS::mDNSPrivate::string_extract(data, size, offset,
-                                                                                    nImO::ContextWithMDNS::gNameBuffer,
-                                                                        sizeof(nImO::ContextWithMDNS::gNameBuffer))};
+                                                                                       nImO::ContextWithMDNS::gNameBuffer,
+                                                                                       sizeof(nImO::ContextWithMDNS::gNameBuffer))};
 
             if (((sizeof(kDnsSd) - 1) == name.length) && (0 == strncmp(name.str, kDnsSd, sizeof(kDnsSd) - 1)))
             {
@@ -499,7 +499,7 @@ nImO::RegistryContext::makePortAnnouncement
         {
             mDNS::string_t  addressString{Ipv4AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
                                                                   nImO::ContextWithMDNS::gServiceAddressIpv4,
-                                                            sizeof(nImO::ContextWithMDNS::gServiceAddressIpv4))};
+                                                                  sizeof(nImO::ContextWithMDNS::gServiceAddressIpv4))};
 
             hostAddress = addressString.str;
             release_mdns_string(addressString);

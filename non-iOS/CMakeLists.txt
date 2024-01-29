@@ -269,8 +269,7 @@ install(FILES
         ${CMAKE_CURRENT_BINARY_DIR}/nimo-config.txt
         ${CMAKE_CURRENT_BINARY_DIR}/nimo-services.txt
         DESTINATION ${nImO_RUN_CONFIG_DIR_}
-        COMPONENT configurations
-        PERMISSIONS OWNER_WRITE WORLD_READ)
+        COMPONENT configurations)
 
 install(PROGRAMS
         ${CMAKE_CURRENT_BINARY_DIR}/nimo.sh

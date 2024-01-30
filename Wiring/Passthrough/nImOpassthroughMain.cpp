@@ -254,53 +254,53 @@ main
                                         {
                                             bool    alreadyReported{false};
 
-                                            nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
+                                            nImO::gKeepRunning = true; // So that the calls to 'CloseConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                             nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                         }
                                         std::cerr << "done.\n";
                                     }
                                 }
+                                if (inValid)
+                                {
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(inChannelPath + " already unregistered."s);
+                                            std::cerr << inChannelPath << " already unregistered.\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
+                                    }
+                                }
+                                if (outValid)
+                                {
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(outChannelPath + " already unregistered."s);
+                                            std::cerr << outChannelPath << " already unregistered.\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
+                                    }
+                                }
                                 if (! nImO::gPendingStop)
                                 {
-                                    if (inValid)
-                                    {
-                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                        statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
-                                        if (statusWithBool.first.first)
-                                        {
-                                            if (! statusWithBool.second)
-                                            {
-                                                ourContext->report(inChannelPath + " already unregistered."s);
-                                                std::cerr << inChannelPath << " already unregistered.\n";
-                                                exitCode = 1;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
-                                            exitCode = 1;
-                                        }
-                                    }
-                                    if (outValid)
-                                    {
-                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                        statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
-                                        if (statusWithBool.first.first)
-                                        {
-                                            if (! statusWithBool.second)
-                                            {
-                                                ourContext->report(outChannelPath + " already unregistered."s);
-                                                std::cerr << outChannelPath << " already unregistered.\n";
-                                                exitCode = 1;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
-                                            exitCode = 1;
-                                        }
-                                    }
                                     nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                                     statusWithBool = proxy.removeNode(nodeName);
                                     if (statusWithBool.first.first)

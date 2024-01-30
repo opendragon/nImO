@@ -338,27 +338,27 @@ main
                                         std::cerr << "done.\n";
                                     }
                                 }
-                                if (! nImO::gPendingStop)
+                                if (outValid)
                                 {
-                                    if (outValid)
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
+                                    if (statusWithBool.first.first)
                                     {
-                                        nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                        statusWithBool = proxy.removeChannel(nodeName, outChannelPath);
-                                        if (statusWithBool.first.first)
+                                        if (! statusWithBool.second)
                                         {
-                                            if (! statusWithBool.second)
-                                            {
-                                                ourContext->report(outChannelPath + " already unregistered."s);
-                                                std::cerr << outChannelPath << " already unregistered.\n";
-                                                exitCode = 1;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                            ourContext->report(outChannelPath + " already unregistered."s);
+                                            std::cerr << outChannelPath << " already unregistered.\n";
                                             exitCode = 1;
                                         }
                                     }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
+                                    }
+                                }
+                                if (! nImO::gPendingStop)
+                                {
                                     nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
                                     statusWithBool = proxy.removeNode(nodeName);
                                     if (statusWithBool.first.first)

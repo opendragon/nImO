@@ -404,27 +404,30 @@ main
                                         std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
-                                    nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
+                                    nImO::gKeepRunning = true; // So that the calls to 'clearAppListForLauncher' and 'removeNode' won't fail...
                                     statusWithBool = proxy.clearAppListForLauncher(nodeName);
                                     if (! statusWithBool.first.first)
                                     {
                                         std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
                                         exitCode = 1;
                                     }
-                                    statusWithBool = proxy.removeNode(nodeName);
-                                    if (statusWithBool.first.first)
+                                    if (! nImO::gPendingStop)
                                     {
-                                        if (! statusWithBool.second)
+                                       statusWithBool = proxy.removeNode(nodeName);
+                                        if (statusWithBool.first.first)
                                         {
-                                            ourContext->report(nodeName + " already unregistered."s);
-                                            std::cerr << nodeName << " already unregistered.\n";
+                                            if (! statusWithBool.second)
+                                            {
+                                                ourContext->report(nodeName + " already unregistered."s);
+                                                std::cerr << nodeName << " already unregistered.\n";
+                                                exitCode = 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
                                             exitCode = 1;
                                         }
-                                    }
-                                    else
-                                    {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
-                                        exitCode = 1;
                                     }
                                 }
                             }

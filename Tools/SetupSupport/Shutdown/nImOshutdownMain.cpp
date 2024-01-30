@@ -143,6 +143,12 @@ main
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                    auto    statusWithBool{proxy.removeNode(walker._name)};
+
+                                    if (! statusWithBool.first.first)
+                                    {
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                    }
                                 }
                             }
                             if (optionValues._expanded)
@@ -185,15 +191,14 @@ main
                                         }
                                         if (okSoFar)
                                         {
-                                            nImO::Connection    toConnection;
-
                                             statusWithNodeInfo = proxy.getNodeInformation(toNode);
                                             if (statusWithNodeInfo.first.first)
                                             {
                                                 if (statusWithNodeInfo.second._found)
                                                 {
-                                                    toConnection = statusWithNodeInfo.second._connection;
-                                                    StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                    bool    reported{false};
+
+                                                    nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
                                                 }
                                                 else
                                                 {
@@ -223,6 +228,12 @@ main
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                    auto    statusWithBool{proxy.removeNode(walker._name)};
+
+                                    if (! statusWithBool.first.first)
+                                    {
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                    }
                                 }
                             }
                         }
@@ -287,15 +298,14 @@ main
                                             }
                                             if (okSoFar)
                                             {
-                                                nImO::Connection    toConnection;
-
                                                 statusWithNodeInfo = proxy.getNodeInformation(toNode);
                                                 if (statusWithNodeInfo.first.first)
                                                 {
                                                     if (statusWithNodeInfo.second._found)
                                                     {
-                                                        toConnection = statusWithNodeInfo.second._connection;
-                                                        StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                        bool    reported{false};
+
+                                                        nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
                                                         auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
 
                                                         if (! statusWithBool.first.first)
@@ -339,6 +349,12 @@ main
                                 }
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
+                                auto    statusWithBool{proxy.removeNode(nodeName)};
+
+                                if (! statusWithBool.first.first)
+                                {
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                }
                             }
                             else
                             {
@@ -370,6 +386,12 @@ main
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                auto    statusWithBool{proxy.removeNode(walker._name)};
+
+                                if (! statusWithBool.first.first)
+                                {
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                }
                             }
                             else
                             {
@@ -416,15 +438,14 @@ main
                                     }
                                     if (okSoFar)
                                     {
-                                        nImO::Connection    toConnection;
-
                                         statusWithNodeInfo = proxy.getNodeInformation(toNode);
                                         if (statusWithNodeInfo.first.first)
                                         {
                                             if (statusWithNodeInfo.second._found)
                                             {
-                                                toConnection = statusWithNodeInfo.second._connection;
-                                                StopConnection(ourContext, fromConnection, fromNode, fromPath, toConnection, toNode, toPath);
+                                                bool    reported{false};
+
+                                                nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
                                                 auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
 
                                                 if (! statusWithBool.first.first)
@@ -471,6 +492,12 @@ main
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
+                                auto    statusWithBool{proxy.removeNode(walker._name)};
+
+                                if (! statusWithBool.first.first)
+                                {
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                }
                             }
                             else
                             {

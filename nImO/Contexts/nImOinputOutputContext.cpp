@@ -38,6 +38,7 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
+#include <CommandHandlers/nImOgetChannelStatisticsCommandHandler.h>
 #include <CommandHandlers/nImOsetUpReceiverCommandHandler.h>
 #include <CommandHandlers/nImOsetUpSenderCommandHandler.h>
 #include <CommandHandlers/nImOstartReceiverCommandHandler.h>
@@ -345,6 +346,16 @@ nImO::AddInputOutputHandlers
 
             ODL_P1("newHandler6 <- ", newHandler6.get()); //####
             if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead)
+        {
+            auto    newHandler7{std::make_shared<GetChannelStatisticsCommandHandler>(context)};
+
+            ODL_P1("newHandler7 <- ", newHandler7.get()); //####
+            if (! actualContext->addHandler(kGetChannelStatisticsRequest, newHandler7))
             {
                 goAhead = false;
             }

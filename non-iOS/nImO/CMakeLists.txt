@@ -80,6 +80,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp"
@@ -116,6 +117,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp"
@@ -165,6 +167,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/nImObaseChannel.cpp"
             "${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp"
             "${THIS_SOURCE_DIR}/nImOchannelName.cpp"
+            "${THIS_SOURCE_DIR}/nImOchannelStatistics.cpp"
             "${THIS_SOURCE_DIR}/nImOcommandHandler.cpp"
             "${THIS_SOURCE_DIR}/nImOcommandSession.cpp"
             "${THIS_SOURCE_DIR}/nImOcommon.cpp"
@@ -212,6 +215,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImObaseChannel.h"
         "${THIS_SOURCE_DIR}/nImOcallbackFunction.h"
         "${THIS_SOURCE_DIR}/nImOchannelName.h"
+        "${THIS_SOURCE_DIR}/nImOchannelStatistics.h"
         "${THIS_SOURCE_DIR}/nImOcommandHandler.h"
         "${THIS_SOURCE_DIR}/nImOcommandSession.h"
         "${THIS_SOURCE_DIR}/nImOcommon.h"
@@ -273,6 +277,7 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h"
@@ -321,6 +326,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.h"
@@ -404,6 +410,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h
@@ -449,6 +457,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp
@@ -542,6 +552,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImObaseChannel.cpp ${THIS_SOURCE_DIR}/nImObaseChannel.h
         ${THIS_SOURCE_DIR}/nImOcallbackFunction.cpp ${THIS_SOURCE_DIR}/nImOcallbackFunction.h
         ${THIS_SOURCE_DIR}/nImOchannelName.cpp ${THIS_SOURCE_DIR}/nImOchannelName.h
+        ${THIS_SOURCE_DIR}/nImOchannelStatistics.cpp ${THIS_SOURCE_DIR}/nImOchannelStatistics.h
         ${THIS_SOURCE_DIR}/nImOcommandHandler.cpp ${THIS_SOURCE_DIR}/nImOcommandHandler.h
         ${THIS_SOURCE_DIR}/nImOcommandSession.cpp ${THIS_SOURCE_DIR}/nImOcommandSession.h
         ${THIS_SOURCE_DIR}/nImOcommon.cpp ${THIS_SOURCE_DIR}/nImOcommon.h

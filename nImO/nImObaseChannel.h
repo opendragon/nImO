@@ -39,7 +39,7 @@
 #if (! defined(nImObaseChannel_H_))
 # define nImObaseChannel_H_ /* Header guard */
 
-# include <nImOcommon.h>
+# include <nImOchannelStatistics.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -95,6 +95,17 @@ namespace nImO
                 const
             {
                 return _name;
+            }
+
+            /*! @brief Retrieve the current statistics.
+             @param[out] numberOfBytes The number of bytes transferred.
+             @param[out] numberOfMessage The number of messages transferred. */
+            inline void
+            getStatistics
+                (int64_t &  numberOfBytes,
+                 int64_t &  numberOfMessages)
+            {
+                _statistics.get(numberOfBytes, numberOfMessages);
             }
 
             /*! @brief Return @c true if the channel is connected.
@@ -168,6 +179,9 @@ namespace nImO
 
             /*! @brief @c true once a UDP connection has been established. */
             std::atomic_bool    _udpConnected{false};
+
+            /*! @brief The transfer statistics for the channel. */
+            ChannelStatistics    _statistics{};
 
         private :
             // Private fields.

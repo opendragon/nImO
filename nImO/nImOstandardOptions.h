@@ -127,7 +127,7 @@ namespace nImO
 
     /*! @brief Convenience structure for standard options. */
     struct StandardOptions
-{
+    {
         /*! @brief The configuration file path set by a command-line option. */
         std::string _configFilePath{};
 

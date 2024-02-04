@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommands.h
+//  File:       nImO/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO I/O services.
+//  Contains:   The class declaration for the nImO get channel statistics command handler.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-08-07
+//  Created:    2024-02-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinputOutputCommands_H_))
-# define nImOinputOutputCommands_H_ /* Header guard */
+#if (! defined(nImOgetChannelStatisticsCommandHandler_H_))
+# define nImOgetChannelStatisticsCommandHandler_H_ /* Header guard */
 
-# include <nImOcommonCommands.h>
+# include <CommandHandlers/nImOinputOutputCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,56 +47,65 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO I/O services. */
+ @brief The class declaration for the %nImO get channel statistics command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    /*! @brief A class to provide a handler for the get channel statistics command. */
+    class GetChannelStatisticsCommandHandler final : public InputOutputCommandHandler
+    {
 
-    /*! @brief The 'getChannelStatistics' request. */
-    const std::string   kGetChannelStatisticsRequest{"getChannelStatistics."s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The 'getChannelStatistics' response. */
-    const std::string   kGetChannelStatisticsResponse{"getChannelStatistics="s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'setUpReceiver' request. */
-    const std::string   kSetUpReceiverRequest{"setUpReceiver."s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'setUpReceiver' response. */
-    const std::string   kSetUpReceiverResponse{"setUpReceiver="s};
+            /*! @brief The class that this class is derived from. */
+            using inherited = InputOutputCommandHandler;
 
-    /*! @brief The 'setUpSender' request. */
-    const std::string   kSetUpSenderRequest{"setUpSender."s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'setUpSender' response. */
-    const std::string   kSetUpSenderResponse{"setUpSender="s};
+            /*! @brief The constructor.
+             @param[in] owner The owning Context. */
+            GetChannelStatisticsCommandHandler
+                (SpInputOutputContext   owner);
 
-    /*! @brief The 'startReceiver' request. */
-    const std::string   kStartReceiverRequest{"startReceiver."s};
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
+            bool
+            doIt
+                (BTCP::socket & socket,
+                 const Array &  arguments)
+                const
+                override;
 
-    /*! @brief The 'startReceiver' response. */
-    const std::string   kStartReceiverResponse{"startReceiver="s};
+        protected :
+            // Protected methods.
 
-    /*! @brief The 'startSender' request. */
-    const std::string   kStartSenderRequest{"startSender."s};
+        private :
+            // Private methods.
 
-    /*! @brief The 'startSender' response. */
-    const std::string   kStartSenderResponse{"startSender="s};
+        public :
+            // Public fields.
 
-    /*! @brief The 'stopReceiver' request. */
-    const std::string   kStopReceiverRequest{"stopReceiver."s};
+        protected :
+            // Protected fields.
 
-    /*! @brief The 'stopReceiver' response. */
-    const std::string   kStopReceiverResponse{"stopReceiver="s};
+        private :
+            // Private fields.
 
-    /*! @brief The 'stopSender' request. */
-    const std::string   kStopSenderRequest{"stopSender."s};
-
-    /*! @brief The 'stopSender' response. */
-    const std::string   kStopSenderResponse{"stopSender="s};
+    }; // GetChannelStatisticsCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOinputOutputCommands_H_)
+#endif // not defined(nImOgetChannelStatisticsCommandHandler_H_)

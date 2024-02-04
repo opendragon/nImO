@@ -40,10 +40,13 @@
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOmap.h>
 #include <Contexts/nImOutilityContext.h>
+#include <ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h>
 #include <nImOchannelName.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
+#include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
 
 #include <string>
@@ -369,7 +372,8 @@ listApplications
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listChannels
-    (nImO::RegistryProxy &      proxy,
+    (nImO::SpUtilityContext     ourContext,
+     nImO::RegistryProxy &      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
@@ -427,7 +431,7 @@ listChannels
             {
                 std::cout << " [ ";
             }
-            for (auto walker{channels.begin()}; walker != channels.end(); )
+            for (auto walker{channels.begin()}; (walker != channels.end()) && okSoFar; )
             {
                 auto    theInfo{*walker};
 
@@ -485,7 +489,11 @@ listChannels
                                         CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << dataType << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "isOutput" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._isOutput << ", "
                                         CHAR_DOUBLEQUOTE_ "modes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << modes << CHAR_DOUBLEQUOTE_ ", "
-                                        CHAR_DOUBLEQUOTE_ "inUse" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._inUse << " }";
+                                        CHAR_DOUBLEQUOTE_ "inUse" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._inUse;
+                            if (! options._expanded)
+                            {
+                                std::cout << " }";
+                            }
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
@@ -496,6 +504,69 @@ listChannels
                         default :
                             break;
 
+                    }
+                    if (options._expanded)
+                    {
+                        // We need to ask the node that holds the channel for the channel statistics
+                        auto    statusWithNodeInfo{proxy.getNodeInformation(node)};
+                        int64_t numBytes{0};
+                        int64_t numMessages{0};
+
+                        if (statusWithNodeInfo.first.first)
+                        {
+                            if (statusWithNodeInfo.second._found)
+                            {
+                                auto                argArray{std::make_shared<nImO::Array>()};
+                                auto                handler{std::make_unique<nImO::GetChannelStatisticsResponseHandler>()};
+                                nImO::Connection    aConnection{statusWithNodeInfo.second._connection};
+
+                                argArray->addValue(std::make_shared<nImO::String>(path));
+                                auto    statusWithBool{nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, aConnection, handler.get(),
+                                                                                                         argArray.get(),
+                                                                                                         nImO::kGetChannelStatisticsRequest,
+                                                                                                         nImO::kGetChannelStatisticsResponse)};
+
+                                if (statusWithBool.first)
+                                {
+                                    handler->result(numBytes, numMessages);
+                                }
+                                else
+                                {
+                                    std::cerr << "Problem with getting the channel statistics for node '" << node << "'.\n";
+                                    okSoFar = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                            okSoFar = false;
+                        }
+                        if (okSoFar)
+                        {
+                            switch (options._flavour)
+                            {
+                                case nImO::OutputFlavour::kFlavourNormal :
+                                    std::cout << " " << numBytes << " " << numMessages;
+                                    break;
+
+                                case nImO::OutputFlavour::kFlavourJSON :
+                                    std::cout << ", " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << numBytes <<
+                                                CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
+                                                numMessages << CHAR_DOUBLEQUOTE_ " }";
+
+
+                                    break;
+
+                                case nImO::OutputFlavour::kFlavourTabs :
+                                    std::cout << "\t" << numBytes << "\t" << numMessages;
+                                    break;
+
+                                default :
+                                    break;
+
+                            }
+                        }
                     }
                     ++walker;
                     if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -1184,7 +1255,7 @@ main
                             break;
 
                         case Choice::kChan :
-                            if (! listChannels(proxy, optionValues, shouldSanitize))
+                            if (! listChannels(ourContext, proxy, optionValues, shouldSanitize))
                             {
                                 exitCode = 1;
                             }
@@ -1215,7 +1286,7 @@ main
                             if (! (listMachines(proxy, optionValues, shouldSanitize, Placement::kFirst) &&
                                    listNodes(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
                                    listApplications(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
-                                   listChannels(proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
+                                   listChannels(ourContext, proxy, optionValues, shouldSanitize, Placement::kMiddle) &&
                                    listConnections(proxy, optionValues, shouldSanitize, Placement::kLast)))
                             {
                                 exitCode = 1;

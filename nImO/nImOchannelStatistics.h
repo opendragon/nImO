@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOinputOutputCommands.h
+//  File:       nImO/nImOchannelStatistics.h
 //
 //  Project:    nImO
 //
-//  Contains:   The type declarations for commands sent to nImO I/O services.
+//  Contains:   The class declaration for information about nImO connections.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-08-07
+//  Created:    2024-02-04
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOinputOutputCommands_H_))
-# define nImOinputOutputCommands_H_ /* Header guard */
+#if (! defined(nImOchannelStatistics_H_))
+# define nImOchannelStatistics_H_ /* Header guard */
 
-# include <nImOcommonCommands.h>
+# include <nImOcommon.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,56 +47,84 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The type declarations for commands sent to %nImO I/O services. */
+ @brief The class declaration for information about %nImO connections. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
+    class InputOutputContext;
 
-    /*! @brief The 'getChannelStatistics' request. */
-    const std::string   kGetChannelStatisticsRequest{"getChannelStatistics."s};
+    /*! @brief Information structure for channels. */
+    class ChannelStatistics final
+    {
 
-    /*! @brief The 'getChannelStatistics' response. */
-    const std::string   kGetChannelStatisticsResponse{"getChannelStatistics="s};
+        public :
+            // Public type definitions.
 
-    /*! @brief The 'setUpReceiver' request. */
-    const std::string   kSetUpReceiverRequest{"setUpReceiver."s};
+        protected :
+            // Protected type definitions.
 
-    /*! @brief The 'setUpReceiver' response. */
-    const std::string   kSetUpReceiverResponse{"setUpReceiver="s};
+        private :
+            // Private type definitions.
 
-    /*! @brief The 'setUpSender' request. */
-    const std::string   kSetUpSenderRequest{"setUpSender."s};
+        public :
+            // Public methods.
 
-    /*! @brief The 'setUpSender' response. */
-    const std::string   kSetUpSenderResponse{"setUpSender="s};
+            /*! @brief The constructor.
+             @param[in] choice The choice value associated with the description.
+             @param[in] description The text describing the choice. */
+            ChannelStatistics
+                (void)
+            {
+            }
 
-    /*! @brief The 'startReceiver' request. */
-    const std::string   kStartReceiverRequest{"startReceiver."s};
+            /*! @brief Reset the statistics. */
+            void
+            clear
+                (void);
 
-    /*! @brief The 'startReceiver' response. */
-    const std::string   kStartReceiverResponse{"startReceiver="s};
+            /*! @brief Retrieve the current statistics.
+             @param[out] numberOfBytes The number of bytes transferred.
+             @param[out] numberOfMessage The number of messages transferred. */
+            void
+            get
+                (int64_t &  numberOfBytes,
+                 int64_t &  numberOfMessages);
 
-    /*! @brief The 'startSender' request. */
-    const std::string   kStartSenderRequest{"startSender."s};
+            /*! @brief Update the statistics.
+             @param[in] additionalBytes The number of bytes transferred. */
+            void
+            update
+                (const int64_t  additionalBytes);
 
-    /*! @brief The 'startSender' response. */
-    const std::string   kStartSenderResponse{"startSender="s};
+        protected :
+            // Protected methods.
 
-    /*! @brief The 'stopReceiver' request. */
-    const std::string   kStopReceiverRequest{"stopReceiver."s};
+        private :
+            // Private methods.
 
-    /*! @brief The 'stopReceiver' response. */
-    const std::string   kStopReceiverResponse{"stopReceiver="s};
+        public :
+            // Public fields.
 
-    /*! @brief The 'stopSender' request. */
-    const std::string   kStopSenderRequest{"stopSender."s};
+        protected :
+            // Protected fields.
 
-    /*! @brief The 'stopSender' response. */
-    const std::string   kStopSenderResponse{"stopSender="s};
+        private :
+            // Private fields.
+
+            /*! @brief The number of bytes transferred. */
+            int64_t _numberOfBytes{0};
+
+            /*! @brief The number of messages transferred. */
+            int64_t _numberOfMessages{0};
+
+            /*! @brief Mutual-exclusion protection. */
+            mutable std::mutex  _lock;
+
+    }; // ChannelStatistics
 
 } // nImO
 
-#endif // not defined(nImOinputOutputCommands_H_)
+#endif // not defined(nImOchannelStatistics_H_)

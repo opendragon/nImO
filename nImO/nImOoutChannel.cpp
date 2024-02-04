@@ -162,7 +162,6 @@ nImO::OutChannel::send
                                               (const BSErr          ec,
                                                const std::size_t    length)
                                               {
-                                                NIMO_UNUSED_VAR_(length);
                                                 if (ec)
                                                 {
                                                     if (BAErr::operation_aborted == ec)
@@ -179,6 +178,10 @@ nImO::OutChannel::send
                                                         _context.report(errMessage);
                                                     }
                                                 }
+                                                else
+                                                {
+                                                    _statistics.update(length);
+                                                }
                                               });
                     okSoFar = true;
                 }
@@ -191,7 +194,6 @@ nImO::OutChannel::send
                                                  (const BSErr &        ec,
                                                   const std::size_t    bytes_transferred)
                                                  {
-                                                    NIMO_UNUSED_VAR_(bytes_transferred);
                                                     if (ec)
                                                     {
                                                         if (BAErr::operation_aborted == ec)
@@ -207,6 +209,10 @@ nImO::OutChannel::send
 
                                                             _context.report(errMessage);
                                                         }
+                                                    }
+                                                    else
+                                                    {
+                                                        _statistics.update(bytes_transferred);
                                                     }
                                                  });
                     }

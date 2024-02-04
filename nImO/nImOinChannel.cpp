@@ -120,6 +120,7 @@ nImO::InChannel::receiveTcpMessages
                                     (const BSErr &      ec,
                                      const std::size_t  size)
                                     {
+                                        NIMO_UNUSED_VAR_(size);
                                         if (ec)
                                         {
                                             if (BAErr::operation_aborted == ec)
@@ -146,7 +147,7 @@ nImO::InChannel::receiveTcpMessages
                                             _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                             _inQueue.addRawBytesAsMessage(_index, trimmed);
-                                            _statistics.update(size);
+                                            _statistics.update(trimmed.length());
                                             receiveTcpMessages();
                                         }
                                     });
@@ -198,7 +199,7 @@ nImO::InChannel::receiveUdpMessages
                                                    _context.report("got message."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                    _inQueue.addRawBytesAsMessage(_index, senderAddress, senderPort, trimmed);
-                                                   _statistics.update(length);
+                                                   _statistics.update(trimmed.length());
                                                }
                                                receiveUdpMessages();
                                            }

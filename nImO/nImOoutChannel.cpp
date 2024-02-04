@@ -180,7 +180,7 @@ nImO::OutChannel::send
                                                 }
                                                 else
                                                 {
-                                                    _statistics.update(length);
+                                                    _statistics.update(length - (kMessageSentinel.length() + 1));
                                                 }
                                               });
                     okSoFar = true;
@@ -212,7 +212,7 @@ nImO::OutChannel::send
                                                     }
                                                     else
                                                     {
-                                                        _statistics.update(bytes_transferred);
+                                                        _statistics.update(bytes_transferred - (kMessageSentinel.length() + 1));
                                                     }
                                                  });
                     }

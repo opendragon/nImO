@@ -587,7 +587,7 @@ if(nImO_DO_SWIG)
 
     set(CMAKE_SWIG_OUTDIR "${THIS_SOURCE_DIR}/swig_nImO_out_csharp")
 
-    swig_add_module(${OTHER_TARGET_CSHARP} csharp ${nImO_SWIG_SOURCES})
+    swig_add_library(${OTHER_TARGET_CSHARP} LANGUAGE csharp SOURCES ${nImO_SWIG_SOURCES})
 
     swig_link_libraries(${OTHER_TARGET_CSHARP}
                         ${THIS_TARGET}
@@ -610,7 +610,7 @@ if(nImO_DO_SWIG)
     find_package(PythonLibs)
     include_directories(${PYTHON_INCLUDE_PATH})
 
-    swig_add_module(${OTHER_TARGET_PYTHON} python ${nImO_SWIG_SOURCES})
+    swig_add_library(${OTHER_TARGET_PYTHON} LANGUAGE python SOURCES ${nImO_SWIG_SOURCES})
 
     swig_link_libraries(${OTHER_TARGET_PYTHON}
                         ${THIS_TARGET}

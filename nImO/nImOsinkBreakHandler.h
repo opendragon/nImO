@@ -74,7 +74,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] theContext The input/output context that is active. */
+             @param[in] theContext The sink context that is active. */
             SinkBreakHandler
                 (Ptr(SinkContext)   theContext);
 
@@ -100,7 +100,7 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The input/output context that is active. */
+            /*! @brief The sink context that is active. */
             Ptr(nImO::SinkContext)  _context;
 
     }; // SinkBreakHandler

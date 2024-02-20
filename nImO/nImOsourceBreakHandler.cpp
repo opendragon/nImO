@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOfilterBreakHandler.h
+//  File:       nImO/nImOsourceBreakHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO handling callbacks for SinkContexts.
+//  Contains:   The class definition for nImO handling callbacks.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,79 +32,69 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-12
+//  Created:    2024-02-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOfilterBreakHandler_H_))
-# define nImOfilterBreakHandler_H_ /* Header guard */
+#include <nImOsourceBreakHandler.h>
 
-# include <Contexts/nImOfilterContext.h>
-# include <nImOcallbackFunction.h>
+//#include <odlEnable.h>
+#include <odlInclude.h>
 
-# if defined(__APPLE__)
-#  pragma clang diagnostic push
-#  pragma clang diagnostic ignored "-Wunknown-pragmas"
-#  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
-# endif // defined(__APPLE__)
+#if defined(__APPLE__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wunknown-pragmas"
+# pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
+#endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO callbacks for FilterContexts. */
-# if defined(__APPLE__)
-#  pragma clang diagnostic pop
-# endif // defined(__APPLE__)
+ @brief The class definition for %nImO callbacks. */
+#if defined(__APPLE__)
+# pragma clang diagnostic pop
+#endif // defined(__APPLE__)
 
-namespace nImO
+#if defined(__APPLE__)
+# pragma mark Namespace references
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Private structures, constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Global constants and variables
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Local functions
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+#if defined(__APPLE__)
+# pragma mark Constructors and Destructors
+#endif // defined(__APPLE__)
+
+nImO::SourceBreakHandler::SourceBreakHandler
+    (void) :
+        inherited()
 {
-    /*! @brief A class to provide values that are used for handling callbacks for the application. */
-    class FilterBreakHandler final : public CallbackFunction
-    {
-        public :
-            // Public type definitions.
+} // nImO::SourceBreakHandler::SourceBreakHandler
 
-        protected :
-            // Protected type definitions.
+#if defined(__APPLE__)
+# pragma mark Actions and Accessors
+#endif // defined(__APPLE__)
 
-        private :
-            // Private type definitions.
+void
+nImO::SourceBreakHandler::operator()
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT(); //####
+} // nImO::SourceBreakHandler::operator()
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = CallbackFunction;
-
-        public :
-            // Public methods.
-
-            /*! @brief The constructor.
-             @param[in] theContext The filter context that is active. */
-            FilterBreakHandler
-                (Ptr(FilterContext) theContext);
-
-        protected :
-            // Protected methods.
-
-        private :
-            // Private methods.
-
-            /*! @brief Process a break signal. */
-            void
-            operator()
-                (void)
-                const
-                override;
-
-        public :
-            // Public fields.
-
-        protected :
-            // Protected fields.
-
-        private :
-            // Private fields.
-
-            /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context;
-
-    }; // FilterBreakHandler
-
-} // nImO
-
-#endif // not defined(nImOfilterBreakHandler_H_)
+#if defined(__APPLE__)
+# pragma mark Global functions
+#endif // defined(__APPLE__)

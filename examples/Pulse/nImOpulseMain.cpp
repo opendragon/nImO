@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOwriteMain.cpp
+//  File:       nImOpulseMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to write to a nImO channel.
+//  Contains:   A wiring application to demonstrate using the nImO library in a program.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2016 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,22 +32,20 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2016-02-19
+//  Created:    2024-02-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ArgumentDescriptors/nImOchannelArgumentDescriptor.h>
-#include <ArgumentDescriptors/nImOstringArgumentDescriptor.h>
-#include <Containers/nImOstringBuffer.h>
+#include <ArgumentDescriptors/nImOdoubleArgumentDescriptor.h>
 #include <Contexts/nImOsourceContext.h>
-#include <nImOcallbackFunction.h>
 #include <nImOchannelName.h>
+#include <nImOfilterBreakHandler.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 #include <nImOsourceBreakHandler.h>
 
-#include <chrono>
+//#include <boost/date_time/posix_time/posix_time.hpp>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -58,10 +56,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to write to a #nImO channel. */
+ @brief A wiring application to demonstrate using the nImO library in a program. */
 
-/*! @dir Write
- @brief The set of files that implement the Write application. */
+/*! @dir Passthrough
+ @brief The set of files that implement the Delay application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -70,17 +68,9 @@
 # pragma mark Namespace references
 #endif // defined(__APPLE__)
 
-using namespace std::chrono_literals;
-
 #if defined(__APPLE__)
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
-
-/*! @brief Used to protect the received text. */
-std::mutex  lReceivedLock{};
-
-/*! @brief Used to indicate that there is some received text. */
-std::condition_variable lReceivedCondition{};
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -90,36 +80,11 @@ std::condition_variable lReceivedCondition{};
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Handle console input.
- @param[out] outLine where to place the received text. */
-static void
-gatherLines
-    (std::string &  outLine)
-{
-    std::string inLine{};
-
-    for ( ; nImO::gKeepRunning; )
-    {
-        boost::this_thread::yield();
-        if (getline(std::cin, inLine))
-        {
-            {
-                std::lock_guard<std::mutex>  lock{lReceivedLock};
-
-                outLine = inLine;
-            }
-            lReceivedCondition.notify_one();
-        }
-    }
-    lReceivedCondition.notify_one();
-} // gatherLines
-
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
-/*! @brief The entry point for writing to a #nImO channel.
-
+/*! @brief The entry point for the wiring application.
  @param[in] argc The number of arguments in 'argv'.
  @param[in] argv The arguments to be used with the application.
  @return @c 0. */
@@ -129,6 +94,8 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
+    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("pulse"s, "Number of seconds between messages"s,
+                                                                                      nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -139,15 +106,17 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Write to a channel"s, 2016, nImO::kCopyrightName, optionValues,
-                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption))
+    argumentList.push_back(firstArg);
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Pulse"s, 2023, nImO::kCopyrightName, optionValues,
+                                    nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
+                                    nImO::kSkipOutTypeOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "write"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Write"s, optionValues._logging, nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "pulse"s, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Pulse"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SourceBreakHandler{}};
 
@@ -168,19 +137,21 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::InputService,
+                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::FilterService,
                                                        ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
                             {
+                                bool        inValid{false};
                                 bool        outValid{false};
+                                std::string inChannelPath;
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {
-                                    statusWithBool = proxy.addChannel(nodeName, outChannelPath, true, optionValues._outType,
+                                    statusWithBool = proxy.addChannel(nodeName, outChannelPath, true, "Signal"s,
                                                                       nImO::TransportType::kAny);
                                     if (statusWithBool.first.first)
                                     {
@@ -213,77 +184,92 @@ main
 
                                     if (outChannel)
                                     {
+                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
+
                                         if (optionValues._waitForConnections)
                                         {
+                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             bool    connected{false};
 
                                             ourContext->report("waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
-                                                connected = outChannel->isConnected();
+                                                connected = (inChannel->isConnected() && outChannel->isConnected());
                                             }
                                         }
-                                        ourContext->report("waiting for input."s);
-                                        nImO::StringBuffer  inBuffer;
-                                        std::string         inLine;
-                                        auto                aThread{new boost::thread([&inLine]
-                                                                                        (void)
-                                                                                        {
-                                                                                            gatherLines(inLine);
-                                                                                        })};
+                                        if (nImO::gKeepRunning)
+                                        {
+                                            ourContext->report("waiting for messages."s);
+                                            std::cerr << "ready.\n";
+                                        }
+                                        std::set<nImO::SpDeadlineTimer> timers{};
 
-                                        ODL_P1("aThread = ", aThread); //####
-                                        aThread->detach();
-                                        std::cerr << "ready.\n";
                                         for ( ; nImO::gKeepRunning; )
                                         {
-                                            {
-                                                // Check for text.
-                                                std::unique_lock<std::mutex>    lock{lReceivedLock};
+                                            boost::this_thread::yield();
+                                            auto    nextData{ourContext->getNextMessage()};
 
-                                                for ( ; nImO::gKeepRunning && inLine.empty(); )
-                                                {
-                                                    boost::this_thread::yield();
-                                                    lReceivedCondition.wait_for(lock, 10ms,
-                                                                                  []
-                                                                                  (void)
-                                                                                  {
-                                                                                    return (! nImO::gKeepRunning);
-                                                                                  });
-                                                }
-                                            }
                                             if (nImO::gKeepRunning)
                                             {
-                                                inBuffer.addString("\n" + inLine);
-                                                inLine.clear();
-                                                auto    readValue{inBuffer.convertToValue()};
-
-                                                if (readValue)
+                                                if (nextData)
                                                 {
-                                                    inBuffer.reset();
-                                                    if (nImO::gKeepRunning)
-                                                    {
-                                                        if (! outChannel->send(readValue))
-                                                        {
-                                                            ourContext->report("problem sending to '"s + outChannelPath + "'."s);
-                                                            std::cerr << "problem sending to " << outChannelPath << "\n";
-                                                            exitCode = 1;
-                                                            break;
+                                                    auto    contents{nextData->_receivedMessage};
 
-                                                        }
+                                                    if (contents)
+                                                    {
+                                                        auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
+
+                                                        timers.insert(aTimer);
+                                                        aTimer->expires_from_now(delayTime);
+                                                        aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
+                                                                           (const BSErr & error)
+                                                                           {
+                                                                                if ((! error) && nImO::gKeepRunning)
+                                                                                {
+                                                                                    if (! outChannel->send(contents))
+                                                                                    {
+                                                                                        ourContext->report("problem sending to '"s + outChannelPath +
+                                                                                                           "'."s);
+                                                                                    }
+                                                                                }
+                                                                            });
                                                     }
                                                 }
                                             }
+                                        }
+                                        for (auto & walker : timers)
+                                        {
+                                            walker->cancel();
                                         }
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};
 
-                                            nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
+                                            nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
+                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                         }
                                         std::cerr << "done.\n";
+                                    }
+                                }
+                                if (inValid)
+                                {
+                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
+                                    statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
+                                    if (statusWithBool.first.first)
+                                    {
+                                        if (! statusWithBool.second)
+                                        {
+                                            ourContext->report(inChannelPath + " already unregistered."s);
+                                            std::cerr << inChannelPath << " already unregistered.\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        exitCode = 1;
                                     }
                                 }
                                 if (outValid)

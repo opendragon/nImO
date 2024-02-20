@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/nImOfilterBreakHandler.h
+//  File:       nImO/nImOsourceBreakHandler.h
 //
 //  Project:    nImO
 //
@@ -32,14 +32,13 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-01-12
+//  Created:    2024-02-20
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOfilterBreakHandler_H_))
-# define nImOfilterBreakHandler_H_ /* Header guard */
+#if (! defined(nImOsourceBreakHandler_H_))
+# define nImOsourceBreakHandler_H_ /* Header guard */
 
-# include <Contexts/nImOfilterContext.h>
 # include <nImOcallbackFunction.h>
 
 # if defined(__APPLE__)
@@ -48,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO callbacks for FilterContexts. */
+ @brief The class declaration for %nImO callbacks for SourceContexts. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -56,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide values that are used for handling callbacks for the application. */
-    class FilterBreakHandler final : public CallbackFunction
+    class SourceBreakHandler final : public CallbackFunction
     {
         public :
             // Public type definitions.
@@ -74,9 +73,9 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] theContext The filter context that is active. */
-            FilterBreakHandler
-                (Ptr(FilterContext) theContext);
+             @param[in] theContext The source context that is active. */
+            SourceBreakHandler
+                (void);
 
         protected :
             // Protected methods.
@@ -99,9 +98,6 @@ namespace nImO
 
         private :
             // Private fields.
-
-            /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context;
 
     }; // FilterBreakHandler
 

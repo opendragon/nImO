@@ -188,6 +188,12 @@
 		F65F3A8F2A1A804E005BCE2B /* nImOgetChannelInformationResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInformationResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp; sourceTree = "<group>"; };
 		F65F3A902A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetChannelInformationCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.cpp; sourceTree = "<group>"; };
 		F65F3A912A1A813A005BCE2B /* nImOgetChannelInformationCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetChannelInformationCommandHandler.h; path = Registry/CommandHandlers/nImOgetChannelInformationCommandHandler.h; sourceTree = "<group>"; };
+		F65F86082B84E3CB0035119D /* nImOpulseMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOpulseMain.cpp; path = examples/Pulse/nImOpulseMain.cpp; sourceTree = "<group>"; };
+		F65F86092B84E3CB0035119D /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = examples/Pulse/resource.h; sourceTree = "<group>"; };
+		F65F860A2B84E3CB0035119D /* nImOpulse.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOpulse.rc.in; path = examples/Pulse/nImOpulse.rc.in; sourceTree = "<group>"; };
+		F65F860C2B84E4720035119D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/Pulse/CMakeLists.txt"; sourceTree = "<group>"; };
+		F65F860E2B84E7E10035119D /* nImOsourceBreakHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsourceBreakHandler.cpp; path = nImO/nImOsourceBreakHandler.cpp; sourceTree = "<group>"; };
+		F65F860F2B84E7E10035119D /* nImOsourceBreakHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nImOsourceBreakHandler.h; path = nImO/nImOsourceBreakHandler.h; sourceTree = "<group>"; };
 		F66847802B5C473400E81E01 /* nImOgetInformationForAllApplicationsCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllApplicationsCommandHandler.h; path = Registry/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.h; sourceTree = "<group>"; };
 		F66847812B5C473400E81E01 /* nImOgetInformationForAllApplicationsCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllApplicationsCommandHandler.cpp; path = Registry/CommandHandlers/nImOgetInformationForAllApplicationsCommandHandler.cpp; sourceTree = "<group>"; };
 		F66847822B5C4E2000E81E01 /* nImOaddAppToListResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOaddAppToListResponseHandler.h; path = nImO/ResponseHandlers/nImOaddAppToListResponseHandler.h; sourceTree = "<group>"; };
@@ -1182,6 +1188,24 @@
 			path = Connect;
 			sourceTree = "<group>";
 		};
+		F65F860B2B84E3D90035119D /* Pulse */ = {
+			isa = PBXGroup;
+			children = (
+				F65F860A2B84E3CB0035119D /* nImOpulse.rc.in */,
+				F65F86082B84E3CB0035119D /* nImOpulseMain.cpp */,
+				F65F86092B84E3CB0035119D /* resource.h */,
+			);
+			name = Pulse;
+			sourceTree = "<group>";
+		};
+		F65F860D2B84E47F0035119D /* Pulse */ = {
+			isa = PBXGroup;
+			children = (
+				F65F860C2B84E4720035119D /* CMakeLists.txt */,
+			);
+			name = Pulse;
+			sourceTree = "<group>";
+		};
 		F6755C132B63C0C500168F75 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -1243,6 +1267,7 @@
 		F68373EA240409500030F969 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				F65F860B2B84E3D90035119D /* Pulse */,
 				F68373EB240409690030F969 /* Ricochet */,
 			);
 			name = examples;
@@ -1264,6 +1289,7 @@
 			isa = PBXGroup;
 			children = (
 				F68373F4240409F80030F969 /* CMakeLists.txt */,
+				F65F860D2B84E47F0035119D /* Pulse */,
 				F68373F2240409D70030F969 /* Ricochet */,
 			);
 			name = examples;
@@ -1550,6 +1576,8 @@
 				F67B359629BCF738000FC147 /* nImOserviceOptions.h */,
 				F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */,
 				F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */,
+				F65F860E2B84E7E10035119D /* nImOsourceBreakHandler.cpp */,
+				F65F860F2B84E7E10035119D /* nImOsourceBreakHandler.h */,
 				F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */,
 				F67B359429BCD51E000FC147 /* nImOstandardOptions.h */,
 				F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */,

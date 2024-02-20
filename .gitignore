@@ -35,6 +35,9 @@ nImO/swig_nImO_out_python
 nImOConfigVersion.cmake
 nImOconfig.h
 nImOconfig.hpp
+non-iOS/examples/Pulse/nImOpulse
+non-iOS/examples/Pulse/nImOpulse.dir/
+non-iOS/examples/Pulse/nImOpulse.rc
 non-iOS/examples/Ricochet/nImOricochet
 non-iOS/examples/Ricochet/nImOricochet.dir/
 non-iOS/examples/Ricochet/nImOricochet.rc

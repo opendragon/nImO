@@ -134,5 +134,6 @@
 #include "nImOrequestResponse.h"
 #include "nImOserviceOptions.h"
 #include "nImOsinkBreakHandler.h"
+#include "nImOsourceBreakHandler.h"
 #include "nImOstandardOptions.h"
 %}

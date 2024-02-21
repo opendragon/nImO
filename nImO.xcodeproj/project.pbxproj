@@ -401,6 +401,7 @@
 		F6DD791A2B46DD0C006E261A /* nImOcontainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcontainer.cpp; path = nImO/Containers/nImOcontainer.cpp; sourceTree = "<group>"; };
 		F6DD791B2B46DD0C006E261A /* nImObufferChunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImObufferChunk.h; path = nImO/Containers/nImObufferChunk.h; sourceTree = "<group>"; };
 		F6DD791C2B46DD0C006E261A /* nImObufferChunk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImObufferChunk.cpp; path = nImO/Containers/nImObufferChunk.cpp; sourceTree = "<group>"; };
+		F6E33DA92B8636BC00152982 /* nImOstandardChannels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstandardChannels.h; path = nImO/nImOstandardChannels.h; sourceTree = "<group>"; };
 		F6E510812A19675600D52E80 /* nImOgetNamesOfNodesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNamesOfNodesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNamesOfNodesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510822A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllMachinesResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.cpp; sourceTree = "<group>"; };
 		F6E510832A19675600D52E80 /* nImOgetInformationForAllMachinesResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetInformationForAllMachinesResponseHandler.h; path = nImO/ResponseHandlers/nImOgetInformationForAllMachinesResponseHandler.h; sourceTree = "<group>"; };
@@ -1578,6 +1579,7 @@
 				F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */,
 				F65F860E2B84E7E10035119D /* nImOsourceBreakHandler.cpp */,
 				F65F860F2B84E7E10035119D /* nImOsourceBreakHandler.h */,
+				F6E33DA92B8636BC00152982 /* nImOstandardChannels.h */,
 				F67B359329BCD51E000FC147 /* nImOstandardOptions.cpp */,
 				F67B359429BCD51E000FC147 /* nImOstandardOptions.h */,
 				F6EE0ADD1CA2C7F4004748ED /* optionparser.cpp */,

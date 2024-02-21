@@ -782,7 +782,7 @@ namespace nImO
     /*! @brief The line length for command-line help output. */
     constexpr size_t    kHelpLineLength{250};
 
-    /*! @brief The standard copyright holder name to use for m+m-created executables. */
+    /*! @brief The standard copyright holder name to use for nImO-created executables. */
     const std::string   kCopyrightName{"OpenDragon"s};
 
     /*! @brief The IP address for the loopback address for the machine that is running the executable. */

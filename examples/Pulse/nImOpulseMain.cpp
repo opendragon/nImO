@@ -44,6 +44,7 @@
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 #include <nImOsourceBreakHandler.h>
+#include <nImOstandardChannels.h>
 
 //#include <boost/date_time/posix_time/posix_time.hpp>
 
@@ -143,16 +144,15 @@ main
                         {
                             if (statusWithBool.second)
                             {
-                                bool        inValid{false};
                                 bool        outValid{false};
-                                std::string inChannelPath;
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {
-                                    statusWithBool = proxy.addChannel(nodeName, outChannelPath, true, "Signal"s,
-                                                                      nImO::TransportType::kAny);
+                                    // Note the fixed data type and the restriction to TCP.
+                                    statusWithBool = proxy.addChannel(nodeName, outChannelPath, true, nImO::kLogicDataType,
+                                                                      nImO::TransportType::kTCP);
                                     if (statusWithBool.first.first)
                                     {
                                         if (statusWithBool.second)
@@ -188,14 +188,13 @@ main
 
                                         if (optionValues._waitForConnections)
                                         {
-                                            auto    inChannel{ourContext->getInputChannel(inChannelPath)};
                                             bool    connected{false};
 
                                             ourContext->report("waiting for connection(s)."s);
                                             for ( ; nImO::gKeepRunning && (! connected); )
                                             {
                                                 boost::this_thread::yield();
-                                                connected = (inChannel->isConnected() && outChannel->isConnected());
+                                                connected = outChannel->isConnected();
                                             }
                                         }
                                         if (nImO::gKeepRunning)
@@ -218,6 +217,7 @@ main
 
                                                     if (contents)
                                                     {
+                                                        //TBD!!!
                                                         auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 
                                                         timers.insert(aTimer);
@@ -248,28 +248,8 @@ main
 
                                             nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
-                                            nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                         }
                                         std::cerr << "done.\n";
-                                    }
-                                }
-                                if (inValid)
-                                {
-                                    nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
-                                    if (statusWithBool.first.first)
-                                    {
-                                        if (! statusWithBool.second)
-                                        {
-                                            ourContext->report(inChannelPath + " already unregistered."s);
-                                            std::cerr << inChannelPath << " already unregistered.\n";
-                                            exitCode = 1;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
-                                        exitCode = 1;
                                     }
                                 }
                                 if (outValid)

@@ -242,6 +242,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/nImOserviceOptions.h"
         "${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h"
         "${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h"
+        "${THIS_SOURCE_DIR}/nImOstandardChannels.h"
         "${THIS_SOURCE_DIR}/nImOstandardOptions.h"
         "${THIS_SOURCE_DIR}/optionparser.hpp"
         "${THIS_SOURCE_DIR}/whereami.h"
@@ -579,31 +580,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/nImOserviceOptions.cpp ${THIS_SOURCE_DIR}/nImOserviceOptions.h
         ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsinkBreakHandler.h
         ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.cpp ${THIS_SOURCE_DIR}/nImOsourceBreakHandler.h
+        ${THIS_SOURCE_DIR}/nImOstandardChannels.h
         ${THIS_SOURCE_DIR}/nImOstandardOptions.cpp ${THIS_SOURCE_DIR}/nImOstandardOptions.h)
 
     include_directories("${nImO_SOURCE_DIR}/nImO")
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES CPLUSPLUS ON)
     set_source_files_properties(swig_nImO_in/nImOcommon.i PROPERTIES SWIG_FLAGS "-includeall")
-
-    set(CMAKE_SWIG_OUTDIR "${THIS_SOURCE_DIR}/swig_nImO_out_csharp")
-
-    swig_add_library(${OTHER_TARGET_CSHARP} LANGUAGE csharp SOURCES ${nImO_SWIG_SOURCES})
-
-    swig_link_libraries(${OTHER_TARGET_CSHARP}
-                        ${THIS_TARGET}
-                        ${ODL_LIBRARY})
-
-    install(TARGETS
-            ${OTHER_TARGET_CSHARP}
-            EXPORT ${PROJECT_NAME}
-            DESTINATION ${LIB_DEST}
-            COMPONENT libraries)
-
-    install(FILES
-            swig_nImO_out_csharp/nImO.cs
-            swig_nImO_out_csharp/nImOPINVOKE.cs
-            DESTINATION csharp/nImO
-            COMPONENT headers)
 
     set(CMAKE_SWIG_OUTDIR "${THIS_SOURCE_DIR}/swig_nImO_out_python")
 

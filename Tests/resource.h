@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by m+mVersion.rc
+// Used by nImO*Test.rc
 
 // Next default values for new objects
 //

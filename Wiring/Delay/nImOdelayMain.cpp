@@ -214,8 +214,6 @@ main
 
                                     if (outChannel)
                                     {
-                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
-
                                         if (optionValues._waitForConnections)
                                         {
                                             auto    inChannel{ourContext->getInputChannel(inChannelPath)};
@@ -233,6 +231,8 @@ main
                                             ourContext->report("waiting for messages."s);
                                             std::cerr << "ready.\n";
                                         }
+                                        int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
+                                        auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         for ( ; nImO::gKeepRunning; )

@@ -360,3 +360,34 @@ add_test(NAME TestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunc
 add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher COMMAND ${THIS_TARGET} 524)
 ## Test get node names in Registry with one matching application from two launchers
 add_test(NAME TestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers COMMAND ${THIS_TARGET} 525)
+
+## Test count channels on node in empty Registry
+add_test(NAME TestCountChannelsOnNodeInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 600)
+## Test count input channels on node in empty Registry
+add_test(NAME TestCountInputChannelsOnNodeInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 601)
+## Test count output channels on node in empty Registry
+add_test(NAME TestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry COMMAND ${THIS_TARGET} 602)
+## Test count channels on node with one input channel in Registry
+add_test(NAME TestCountChannelsOnNodeWithOneInputChannelInRegistry COMMAND ${THIS_TARGET} 603)
+## Test count input channels on node with one input channel in Registry
+add_test(NAME TestCountInputChannelsOnNodeWithOneInputChannelInRegistry COMMAND ${THIS_TARGET} 604)
+## Test count output channels on node with one input channel in Registry
+add_test(NAME TestCountOutputChannelsOnNodeWithOneInputChannelInRegistry COMMAND ${THIS_TARGET} 605)
+## Test count channels on node with one output channel in Registry
+add_test(NAME TestCountChannelsOnNodeWithOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 606)
+## Test count input channels on node with one output channel in Registry
+add_test(NAME TestCountInputChannelsOnNodeWithOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 607)
+## Test count output channels on node with one output channel in Registry
+add_test(NAME TestCountOutputChannelsOnNodeWithOneoutputChannelInRegistry COMMAND ${THIS_TARGET} 608)
+## Test count channels on node with one input channel and one output channel in Registry
+add_test(NAME TestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 609)
+## Test count input channels on node with one input channel and one output channel in Registry
+add_test(NAME TestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 610)
+## Test count output channels on node with one input channel and one output channel in Registry
+add_test(NAME TestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 611)
+## Test count channels on second node with node with one input channel and one output channel in Registry
+add_test(NAME TestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 612)
+## Test count input channels on second node with node with one input channel and one output channel in Registry
+add_test(NAME TestCountInputChannelsOnOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 613)
+## Test count output channels on second node with node with one input channel and one output channel in Registry
+add_test(NAME TestCountOutputChannelsOnOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry COMMAND ${THIS_TARGET} 614)

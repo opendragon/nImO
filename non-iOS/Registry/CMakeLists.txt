@@ -87,9 +87,11 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfInputChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfMachinesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetNumberOfOutputChannelsOnNodeCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOisChannelPresentCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOisMachinePresentCommandHandler.cpp
                ${THIS_SOURCE_DIR}/CommandHandlers/nImOisNodePresentCommandHandler.cpp

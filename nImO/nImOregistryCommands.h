@@ -290,6 +290,12 @@ namespace nImO
     /*! @brief The 'getNumberOfConnections' response. */
     const std::string   kGetNumberOfConnectionsResponse{"getNumberOfConnections="s};
 
+    /*! @brief The request to get the number of input channels on a node in the Registry. */
+    const std::string   kGetNumberOfInputChannelsOnNodeRequest{"getNumberOfInputChannelsOnNode?"s};
+
+    /*! @brief The 'getNumberOfInputChannelsOnNode' response. */
+    const std::string   kGetNumberOfInputChannelsOnNodeResponse{"getNumberOfInputChannelsOnNode="s};
+
     /*! @brief The request to get the number of machines in the Registry. */
     const std::string   kGetNumberOfMachinesRequest{"getNumberOfMachines?"s};
 
@@ -307,6 +313,12 @@ namespace nImO
 
     /*! @brief The 'getNumberOfNodesOnMachine' response. */
     const std::string   kGetNumberOfNodesOnMachineResponse{"getNumberOfNodesOnMachine="s};
+
+    /*! @brief The request to get the number of output channels on a node in the Registry. */
+    const std::string   kGetNumberOfOutputChannelsOnNodeRequest{"getNumberOfOutputChannelsOnNode?"s};
+
+    /*! @brief The 'getNumberOfOutputChannelsOnNode' response. */
+    const std::string   kGetNumberOfOutputChannelsOnNodeResponse{"getNumberOfOutputChannelsOnNode="s};
 
     /*! @brief The request to check if a channel is present in the Registry. */
     const std::string   kIsChannelPresentRequest{"isChannelPresent?"s};

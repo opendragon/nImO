@@ -69,9 +69,11 @@
 #include "CommandHandlers/nImOgetNumberOfChannelsCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfConnectionsCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfInputChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfMachinesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesCommandHandler.h"
 #include "CommandHandlers/nImOgetNumberOfNodesOnMachineCommandHandler.h"
+#include "CommandHandlers/nImOgetNumberOfOutputChannelsOnNodeCommandHandler.h"
 #include "CommandHandlers/nImOisChannelPresentCommandHandler.h"
 #include "CommandHandlers/nImOisMachinePresentCommandHandler.h"
 #include "CommandHandlers/nImOisNodePresentCommandHandler.h"
@@ -248,12 +250,16 @@ main
                                                   std::make_shared<nImO::GetNumberOfChannelsCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfConnectionsRequest,
                                                   std::make_shared<nImO::GetNumberOfConnectionsCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfInputChannelsOnNodeRequest,
+                                                  std::make_shared<nImO::GetNumberOfInputChannelsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfMachinesRequest,
                                                   std::make_shared<nImO::GetNumberOfMachinesCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesOnMachineRequest,
                                                   std::make_shared<nImO::GetNumberOfNodesOnMachineCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kGetNumberOfNodesRequest,
                                                   std::make_shared<nImO::GetNumberOfNodesCommandHandler>(ourContext, theRegistry));
+                    asRegistryContext->addHandler(nImO::kGetNumberOfOutputChannelsOnNodeRequest,
+                                                  std::make_shared<nImO::GetNumberOfOutputChannelsOnNodeCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kIsChannelPresentRequest,
                                                   std::make_shared<nImO::IsChannelPresentCommandHandler>(ourContext, theRegistry));
                     asRegistryContext->addHandler(nImO::kIsMachinePresentRequest,

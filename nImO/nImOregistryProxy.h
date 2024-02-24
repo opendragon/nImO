@@ -352,6 +352,13 @@ namespace nImO
             getNumberOfConnections
                 (void);
 
+            /*! @brief Return the number of input channels associated with a node in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and the number of input channels if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfInputChannelsOnNode
+                (const std::string &    nodeName);
+
             /*! @brief Return the number of machines in the Registry.
              @return @c true and the number of machines if the operation was successfully performed and @c false and an error string otherwise. */
             IntOrFailure
@@ -370,6 +377,13 @@ namespace nImO
             IntOrFailure
             getNumberOfNodesOnMachine
                 (const std::string &    machineName);
+
+            /*! @brief Return the number of output channels associated with a node in the Registry.
+             @param[in] nodeName The name of the node to be located in the Registry.
+             @return @c true and the number of output channels if the operation was successfully performed and @c false and an error string otherwise. */
+            IntOrFailure
+            getNumberOfOutputChannelsOnNode
+                (const std::string &    nodeName);
 
             /*! @brief Check if a channel is in the Registry.
              @param[in] nodeName The name of the node to be checked.

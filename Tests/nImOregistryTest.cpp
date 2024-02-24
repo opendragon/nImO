@@ -14569,6 +14569,1428 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
 } // doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
 
 #if defined(__APPLE__)
+# pragma mark *** Test Case 600 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName1)};
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 601 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName1)};
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 602 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName1)};
+
+            if (statusWithInt.first.first)
+            {
+                if (0 == statusWithInt.second)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == statusWithInt.second)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (statusWithInt.first.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 603 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsOnNodeWithOneInputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsOnNodeWithOneInputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 604 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 605 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (0 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (0 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 606 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 607 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (0 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (0 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 608 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, true, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName1)};
+
+                        if (statusWithInt.first.first)
+                        {
+                            if (1 == statusWithInt.second)
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (1 == statusWithInt.second)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (statusWithInt.first.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 609 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName1)};
+
+                            if (statusWithInt.first.first)
+                            {
+                                if (2 == statusWithInt.second)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (2 == statusWithInt.second)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInt.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 610 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName1)};
+
+                            if (statusWithInt.first.first)
+                            {
+                                if (1 == statusWithInt.second)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == statusWithInt.second)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInt.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 611 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName1)};
+
+                            if (statusWithInt.first.first)
+                            {
+                                if (1 == statusWithInt.second)
+                                {
+                                    result = 0;
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (1 == statusWithInt.second)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (statusWithInt.first.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 612 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName2)};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (0 == statusWithInt.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 613 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName2)};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (0 == statusWithInt.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 614 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+    (CPtr(char)                     launchPath,
+     const int                      argc,
+     Ptr(Ptr(char))                 argv,
+     nImO::SpContextWithNetworking  context,
+     const std::string &            execPath,
+     const std::string &            currentDir,
+     const std::string &            commandLine)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    NIMO_UNUSED_VAR_(execPath);
+    NIMO_UNUSED_VAR_(currentDir);
+    NIMO_UNUSED_VAR_(commandLine);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    aRegistry{std::make_unique<nImO::Registry>(context)};
+
+        if (nullptr == aRegistry)
+        {
+            ODL_LOG("(nullptr == aRegistry)"); //####
+        }
+        else
+        {
+            auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
+
+            if (status.first)
+            {
+                status = aRegistry->addNode(kNodeName1, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                if (status.first)
+                {
+                    status = aRegistry->addNode(kNodeName2, execPath, currentDir, commandLine, nImO::ServiceType::GenericService);
+                    if (status.first)
+                    {
+                        status = aRegistry->addChannel(kNodeName1, kChannelPath1, false, ""s, nImO::TransportType::kTCP);
+                        if (status.first)
+                        {
+                            status = aRegistry->addChannel(kNodeName1, kChannelPath2, true, ""s, nImO::TransportType::kTCP);
+                            if (status.first)
+                            {
+                                auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName2)};
+
+                                if (statusWithInt.first.first)
+                                {
+                                    if (0 == statusWithInt.second)
+                                    {
+                                        result = 0;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (0 == statusWithInt.second)"); //####
+                                    }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (statusWithInt.first.first)"); //####
+                                }
+                            }
+                            else
+                            {
+                                ODL_LOG("! (status.first)"); //####
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (status.first)"); //####
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (status.first)"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (status.first)"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (status.first)"); //####
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry
+
+#if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
 
@@ -15264,6 +16686,88 @@ main
                     case 525 :
                         result = doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers(*argv, argc - 1, argv + 2, ourContext,
                                                                                                         execPath, currentDir, commandLine);
+                        break;
+
+                    case 600 :
+                        result = doTestCountChannelsOnNodeInRegistryWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                      commandLine);
+                        break;
+
+                    case 601 :
+                        result = doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                           currentDir, commandLine);
+                        break;
+
+                    case 602 :
+                        result = doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                            currentDir, commandLine);
+                        break;
+
+                    case 603 :
+                        result = doTestCountChannelsOnNodeWithOneInputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                        commandLine);
+                        break;
+
+                    case 604 :
+                        result = doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                             currentDir, commandLine);
+                        break;
+
+                    case 605 :
+                        result = doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                              currentDir, commandLine);
+                        break;
+
+                    case 606 :
+                        result = doTestCountChannelsOnNodeWithOneOutputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath, currentDir,
+                                                                                         commandLine);
+                        break;
+
+                    case 607 :
+                        result = doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                              currentDir, commandLine);
+                        break;
+
+                    case 608 :
+                        result = doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext, execPath,
+                                                                                               currentDir, commandLine);
+                        break;
+
+                    case 609 :
+                        result = doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1, argv + 2, ourContext,
+                                                                                                           execPath, currentDir, commandLine);
+                        break;
+
+                    case 610 :
+                        result = doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1, argv + 2,
+                                                                                                                ourContext, execPath, currentDir,
+                                                                                                                commandLine);
+                        break;
+
+                    case 611 :
+                        result = doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1, argv + 2,
+                                                                                                                 ourContext, execPath, currentDir,
+                                                                                                                 commandLine);
+                        break;
+
+                    case 612 :
+                        result = doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1, argv + 2,
+                                                                                                                         ourContext, execPath,
+                                                                                                                         currentDir, commandLine);
+                        break;
+
+                    case 613 :
+                        result = doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1,
+                                                                                                                              argv + 2, ourContext,
+                                                                                                                              execPath, currentDir,
+                                                                                                                              commandLine);
+                        break;
+
+                    case 614 :
+                        result = doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInRegistry(*argv, argc - 1,
+                                                                                                                               argv + 2, ourContext,
+                                                                                                                               execPath, currentDir,
+                                                                                                                               commandLine);
                         break;
 
                     default :

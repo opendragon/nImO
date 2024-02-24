@@ -3639,7 +3639,7 @@ nImO::Registry::getNumberOfChannels
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannels
 
@@ -3678,7 +3678,7 @@ nImO::Registry::getNumberOfChannelsOnNode
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfChannelsOnNode
 
@@ -3717,9 +3717,49 @@ nImO::Registry::getNumberOfConnections
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfConnections
+
+nImO::IntOrFailure
+nImO::Registry::getNumberOfInputChannelsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StdStringVector     results;
+        static CPtr(char)   countChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND "
+                                            CHANNEL_IS_OUTPUT_C_ " = 0"};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countChannels, setupCountChannels, &nodeName);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, count};
+} // nImO::Registry::getNumberOfInputChannelsOnNode
 
 nImO::IntOrFailure
 nImO::Registry::getNumberOfMachines
@@ -3756,7 +3796,7 @@ nImO::Registry::getNumberOfMachines
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfMachines
 
@@ -3795,7 +3835,7 @@ nImO::Registry::getNumberOfNodes
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodes
 
@@ -3835,9 +3875,49 @@ nImO::Registry::getNumberOfNodesOnMachine
     {
         ODL_LOG("! (status.first)"); //####
     }
-   ODL_OBJEXIT(); //####
+    ODL_OBJEXIT(); //####
     return IntOrFailure{status, count};
 } // nImO::Registry::getNumberOfNodesOnMachine
+
+nImO::IntOrFailure
+nImO::Registry::getNumberOfOutputChannelsOnNode
+    (const std::string &    nodeName)
+    const
+{
+    ODL_OBJENTER(); //####
+    int     count{-1};
+    auto    status{doBeginTransaction(_owner, _dbHandle)};
+
+    if (status.first)
+    {
+        StdStringVector     results;
+        static CPtr(char)   countChannels{"SELECT COUNT(*) FROM " CHANNELS_T_ " WHERE " CHANNEL_NODE_C_ " = @" CHANNEL_NODE_C_ " AND "
+                                            CHANNEL_IS_OUTPUT_C_ " = 1"};
+
+        status = performSQLstatementWithSingleColumnResults(_owner, _dbHandle, results, countChannels, setupCountChannels, &nodeName);
+        if (status.first)
+        {
+            size_t  pos;
+
+            count = stoi(results[0], &pos);
+            if (0 == pos)
+            {
+                count = -1;
+            }
+        }
+        else
+        {
+            ODL_LOG("! (status.first)"); //####
+        }
+        doEndTransaction(_owner, _dbHandle, status.first);
+    }
+    else
+    {
+        ODL_LOG("! (status.first)"); //####
+    }
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, count};
+} // nImO::Registry::getNumberOfOutputChannelsOnNode
 
 nImO::BoolOrFailure
 nImO::Registry::isChannelPresent

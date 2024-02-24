@@ -94,9 +94,13 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    constexpr double        tinyValue{1e-6};
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("pulse"s, "Number of seconds between messages"s,
-                                                                                      nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
+    auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("duration"s, "Number of seconds for full cycle"s,
+                                                                                      nImO::ArgumentMode::Optional, 1.0, true, tinyValue, false, 0.0)};
+    auto                    secondArg{std::make_shared<nImO::DoubleArgumentDescriptor>("dutyCycle"s, "Fraction of 'on' time"s,
+                                                                                       nImO::ArgumentMode::Optional, 0.5, true, tinyValue, true,
+                                                                                       1.0 - tinyValue)};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
     int                     exitCode{0};
@@ -108,6 +112,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
+    argumentList.push_back(secondArg);
     if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Pulse"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
                                     nImO::kSkipOutTypeOption))
@@ -184,8 +189,6 @@ main
 
                                     if (outChannel)
                                     {
-                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
-
                                         if (optionValues._waitForConnections)
                                         {
                                             bool    connected{false};
@@ -197,44 +200,38 @@ main
                                                 connected = outChannel->isConnected();
                                             }
                                         }
-                                        if (nImO::gKeepRunning)
-                                        {
-                                            ourContext->report("waiting for messages."s);
-                                            std::cerr << "ready.\n";
-                                        }
+#if 0
+                                        //TBD!!
+                                        auto    delayTime{boost::posix_time::milliseconds(StaticCast(int, 1000.0 * firstArg->getCurrentValue()))};
+
                                         std::set<nImO::SpDeadlineTimer> timers{};
 
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             boost::this_thread::yield();
-                                            auto    nextData{ourContext->getNextMessage()};
-
                                             if (nImO::gKeepRunning)
                                             {
-                                                if (nextData)
+//                                                auto    contents{nextData->_receivedMessage};
+
+//                                                if (contents)
                                                 {
-                                                    auto    contents{nextData->_receivedMessage};
+                                                    //TBD!!!
+                                                    auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
 
-                                                    if (contents)
-                                                    {
-                                                        //TBD!!!
-                                                        auto    aTimer{std::make_shared<BAD_t>(*ourContext->getService())};
-
-                                                        timers.insert(aTimer);
-                                                        aTimer->expires_from_now(delayTime);
-                                                        aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
-                                                                           (const BSErr & error)
-                                                                           {
-                                                                                if ((! error) && nImO::gKeepRunning)
-                                                                                {
-                                                                                    if (! outChannel->send(contents))
-                                                                                    {
-                                                                                        ourContext->report("problem sending to '"s + outChannelPath +
-                                                                                                           "'."s);
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                    }
+                                                    timers.insert(aTimer);
+                                                    aTimer->expires_from_now(delayTime);
+//                                                    aTimer->async_wait([&outChannel, &ourContext, contents, outChannelPath, aTimer]
+//                                                                       (const BSErr & error)
+//                                                                       {
+//                                                                            if ((! error) && nImO::gKeepRunning)
+//                                                                            {
+//                                                                                if (! outChannel->send(contents))
+//                                                                                {
+//                                                                                    ourContext->report("problem sending to '"s + outChannelPath +
+//                                                                                                       "'."s);
+//                                                                                }
+//                                                                            }
+//                                                                        });
                                                 }
                                             }
                                         }
@@ -242,6 +239,7 @@ main
                                         {
                                             walker->cancel();
                                         }
+#endif//0
                                         if (! nImO::gPendingStop)
                                         {
                                             bool    alreadyReported{false};

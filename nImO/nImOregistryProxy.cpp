@@ -78,9 +78,11 @@
 #include <ResponseHandlers/nImOgetNumberOfChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfChannelsResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfInputChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfMachinesResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesOnMachineResponseHandler.h>
 #include <ResponseHandlers/nImOgetNumberOfNodesResponseHandler.h>
+#include <ResponseHandlers/nImOgetNumberOfOutputChannelsOnNodeResponseHandler.h>
 #include <ResponseHandlers/nImOisChannelPresentResponseHandler.h>
 #include <ResponseHandlers/nImOisMachinePresentResponseHandler.h>
 #include <ResponseHandlers/nImOisNodePresentResponseHandler.h>
@@ -721,6 +723,23 @@ nImO::RegistryProxy::getNumberOfConnections
 } // nImO::RegistryProxy::getNumberOfConnections
 
 nImO::IntOrFailure
+nImO::RegistryProxy::getNumberOfInputChannelsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetNumberOfInputChannelsOnNodeResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetNumberOfInputChannelsOnNodeRequest, kGetNumberOfInputChannelsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfInputChannelsOnNode
+
+nImO::IntOrFailure
 nImO::RegistryProxy::getNumberOfMachines
     (void)
 {
@@ -762,6 +781,23 @@ nImO::RegistryProxy::getNumberOfNodesOnMachine
     ODL_OBJEXIT(); //####
     return IntOrFailure{status, handler->result()};
 } // nImO::RegistryProxy::getNumberOfNodesOnMachine
+
+nImO::IntOrFailure
+nImO::RegistryProxy::getNumberOfOutputChannelsOnNode
+    (const std::string &    nodeName)
+{
+    ODL_OBJENTER(); //####
+    ODL_S1s("nodeName = ", nodeName); //####
+    auto    argArray{std::make_shared<Array>()};
+    auto    handler{std::make_unique<GetNumberOfOutputChannelsOnNodeResponseHandler>()};
+
+    argArray->addValue(std::make_shared<String>(nodeName));
+    auto    status{SendRequestWithArgumentsAndNonEmptyResponse(_context, _connection, handler.get(), argArray.get(),
+                                                               kGetNumberOfOutputChannelsOnNodeRequest, kGetNumberOfOutputChannelsOnNodeResponse)};
+
+    ODL_OBJEXIT(); //####
+    return IntOrFailure{status, handler->result()};
+} // nImO::RegistryProxy::getNumberOfOutputChannelsOnNode
 
 nImO::BoolOrFailure
 nImO::RegistryProxy::isChannelPresent

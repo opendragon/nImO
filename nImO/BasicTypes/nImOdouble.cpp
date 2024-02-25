@@ -306,9 +306,9 @@ nImO::Double::extractValue
             if (okSoFar)
             {
                 result = std::make_shared<Double>(B2D(holder));
-                if ((nullptr != parentValue) && (nullptr != result))
+                if (parentValue && result)
                 {
-                    ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+                    ODL_LOG("(parentValue && result)"); //####
                     parentValue->addValue(result);
                 }
             }

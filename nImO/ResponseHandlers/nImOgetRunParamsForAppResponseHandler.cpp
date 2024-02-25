@@ -110,12 +110,7 @@ nImO::GetRunParamsForAppResponseHandler::doIt
             okSoFar = true;
             for (auto & walker : *asArray)
             {
-                if (nullptr == walker)
-                {
-                    ODL_LOG("(nullptr == walker)"); //####
-                    okSoFar = false;
-                }
-                else
+                if (walker)
                 {
                     auto    asString{walker->asString()};
 
@@ -128,6 +123,11 @@ nImO::GetRunParamsForAppResponseHandler::doIt
                     {
                         _result.push_back(asString->getValue());
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (walker)"); //####
+                    okSoFar = false;
                 }
             }
         }

@@ -127,11 +127,7 @@ extractValueAndCheck
 
     ODL_P1("extractedValue <- ", extractedValue.get()); //####
     stuff.close();
-    if (nullptr == extractedValue)
-    {
-        ODL_LOG("(nullptr == extractedValue)"); //####
-    }
-    else
+    if (extractedValue)
     {
         auto    asFlaw{extractedValue->asFlaw()};
 
@@ -159,6 +155,10 @@ extractValueAndCheck
             ODL_LOG(asFlaw->getDescription().c_str()); //####
         }
     }
+    else
+    {
+        ODL_LOG("! (extractedValue)"); //####
+    }
     if (0 == result)
     {
         // And now, let's make sure that 'short' messages are handled correctly:
@@ -169,7 +169,7 @@ extractValueAndCheck
             extractedValue = stuff.getValue();
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             stuff.close();
-            if (nullptr != extractedValue)
+            if (extractedValue)
             {
                 auto    asFlaw{extractedValue->asFlaw()};
 
@@ -218,11 +218,7 @@ doTestExtractEmptyMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   bytesToInsert[]
             {
@@ -238,11 +234,7 @@ doTestExtractEmptyMessage
             ODL_P1("extractedValue <- ", extractedValue.get()); //####
             if (stuff->readAtEnd())
             {
-                if (nullptr == extractedValue)
-                {
-                    ODL_LOG("Null Value read"); //####
-                }
-                else
+                if (extractedValue)
                 {
                     auto    asFlaw{extractedValue->asFlaw()};
 
@@ -258,12 +250,7 @@ doTestExtractEmptyMessage
                         stuff->close();
                         if (stuff->readAtEnd())
                         {
-                            if (nullptr == extractedValue)
-                            {
-                                ODL_LOG("(nullptr == extractedValue)"); //####
-                                result = 0;
-                            }
-                            else
+                            if (extractedValue)
                             {
                                 asFlaw = extractedValue->asFlaw();
                                 if (nullptr == asFlaw)
@@ -275,15 +262,28 @@ doTestExtractEmptyMessage
                                     ODL_LOG(asFlaw->getDescription().c_str()); //####
                                 }
                             }
+                            else
+                            {
+                                ODL_LOG("(nullptr == extractedValue)"); //####
+                                result = 0;
+                            }
                         }
                         stuff->reset();
                     }
+                }
+                else
+                {
+                    ODL_LOG("Null Value read"); //####
                 }
             }
             else
             {
                 ODL_LOG("! (stuff->readAtEnd())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -324,11 +324,7 @@ doTestExtractLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForTrue[]
             {
@@ -369,6 +365,10 @@ doTestExtractLogicalMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForFalse, insertedFalseCount, falseValue);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -408,11 +408,7 @@ doTestExtractTinyIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMinus12[]
             {
@@ -473,6 +469,10 @@ doTestExtractTinyIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus12, insertedPlus12Count, plus12Value);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -512,11 +512,7 @@ doTestExtractSmallIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMinus144[]
             {
@@ -559,6 +555,10 @@ doTestExtractSmallIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus144, insertedPlus144Count, plus144Value);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -598,11 +598,7 @@ doTestExtractMediumIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMinus1234567[]
             {
@@ -647,6 +643,10 @@ doTestExtractMediumIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus1234567, insertedPlus1234567Count, plus1234567Value);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -686,11 +686,7 @@ doTestExtractBigIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMinusBigNumber[]
             {
@@ -737,6 +733,10 @@ doTestExtractBigIntegerMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlusBigNumber, insertedPlusBigNumberCount, plusBigNumberValue);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -776,11 +776,7 @@ doTestExtractEmptyStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForEmptyString[]
             {
@@ -801,6 +797,10 @@ doTestExtractEmptyStringMessage
             String                  emptyStringValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyString, insertedEmptyStringCount, emptyStringValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -841,11 +841,7 @@ doTestExtractShortStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForShortString[]
             {
@@ -869,6 +865,10 @@ doTestExtractShortStringMessage
             String                  shortStringValue{"abcdef"};
 
             result = extractValueAndCheck(*stuff, insertedBytesForShortString, insertedShortStringCount, shortStringValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -909,11 +909,7 @@ doTestExtractMediumStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMediumString[]
             {
@@ -957,6 +953,10 @@ doTestExtractMediumStringMessage
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumString, insertedMediumStringCount, mediumStringValue);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -996,11 +996,7 @@ doTestExtractEmptyBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForEmptyBlob[]
             {
@@ -1021,6 +1017,10 @@ doTestExtractEmptyBlobMessage
             Blob                    emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyBlob, insertedEmptyBlobCount, emptyBlobValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1061,11 +1061,7 @@ doTestExtractSmallBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForSmallBlob[]
             {
@@ -1094,6 +1090,10 @@ doTestExtractSmallBlobMessage
             Blob                    smallBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedBytesForSmallBlob, insertedSmallBlobCount, smallBlobValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1134,11 +1134,7 @@ doTestExtractMediumBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForMediumBlob[]
             {
@@ -1193,6 +1189,10 @@ doTestExtractMediumBlobMessage
 
             result = extractValueAndCheck(*stuff, insertedBytesForMediumBlob, insertedMediumBlobCount, mediumBlobValue);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -1232,11 +1232,7 @@ doTestExtractSingleDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForPlus42Point5[]
             {
@@ -1287,6 +1283,10 @@ doTestExtractSingleDoubleMessage
                 result = extractValueAndCheck(*stuff, insertedBytesForPlus42Point5, insertedPlus42Point5Count, plus42Point5Value);
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -1326,11 +1326,7 @@ doTestExtractAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForAddress[]
             {
@@ -1353,6 +1349,10 @@ doTestExtractAddressMessage
             Address                 addressValue{0x12345678};
 
             result = extractValueAndCheck(*stuff, insertedBytesForAddress, insertedAddressCount, addressValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1393,11 +1393,7 @@ doTestExtractEmptyArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForEmptyArray[]
             {
@@ -1422,6 +1418,10 @@ doTestExtractEmptyArrayMessage
             Array                   emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyArray, insertedEmptyArrayCount, emptyArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1462,11 +1462,7 @@ doTestExtractEmptyMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForEmptyMap[]
             {
@@ -1491,6 +1487,10 @@ doTestExtractEmptyMapMessage
             Map                     emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptyMap, insertedEmptyMapCount, emptyMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1531,11 +1531,7 @@ doTestExtractEmptySetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForEmptySet[]
             {
@@ -1560,6 +1556,10 @@ doTestExtractEmptySetMessage
             Set                     emptySet;
 
             result = extractValueAndCheck(*stuff, insertedBytesForEmptySet, insertedEmptySetCount, emptySet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1600,11 +1600,7 @@ doTestExtractArrayOneLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneLogical[]
             {
@@ -1638,6 +1634,10 @@ doTestExtractArrayOneLogicalMessage
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneLogical, insertedArrayOneLogicalCount, arrayOneLogical);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1678,11 +1678,7 @@ doTestExtractArrayOneIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneInteger[]
             {
@@ -1716,6 +1712,10 @@ doTestExtractArrayOneIntegerMessage
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneInteger, insertedArrayOneIntegerCount, arrayOneInteger);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1756,11 +1756,7 @@ doTestExtractArrayOneDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneDouble[]
             {
@@ -1799,6 +1795,10 @@ doTestExtractArrayOneDoubleMessage
 
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneDouble, insertedArrayOneDoubleCount, arrayOneDouble);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1839,11 +1839,7 @@ doTestExtractArrayOneStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneString[]
             {
@@ -1878,6 +1874,10 @@ doTestExtractArrayOneStringMessage
 
             arrayOneString.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneString, insertedArrayOneStringCount, arrayOneString);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1918,11 +1918,7 @@ doTestExtractArrayOneBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneBlob[]
             {
@@ -1957,6 +1953,10 @@ doTestExtractArrayOneBlobMessage
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneBlob, insertedArrayOneBlobCount, arrayOneBlob);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1997,11 +1997,7 @@ doTestExtractArrayOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneArray[]
             {
@@ -2040,6 +2036,10 @@ doTestExtractArrayOneArrayMessage
 
             arrayOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArray, insertedArrayOneArrayCount, arrayOneArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2080,11 +2080,7 @@ doTestExtractArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneMap[]
             {
@@ -2123,6 +2119,10 @@ doTestExtractArrayOneMapMessage
 
             arrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMap, insertedArrayOneMapCount, arrayOneMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2163,11 +2163,7 @@ doTestExtractArrayOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneSet[]
             {
@@ -2206,6 +2202,10 @@ doTestExtractArrayOneSetMessage
 
             arrayOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSet, insertedArrayOneSetCount, arrayOneSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2246,11 +2246,7 @@ doTestExtractArrayWithOneAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneAddress[]
             {
@@ -2287,6 +2283,10 @@ doTestExtractArrayWithOneAddressMessage
 
             arrayOneAddress.addValue(std::make_shared<Address>(0x12345678));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneAddress, insertedArrayOneAddressCount, arrayOneAddress);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2327,11 +2327,7 @@ doTestExtractArrayTwoLogicalsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoLogicals[]
             {
@@ -2369,6 +2365,10 @@ doTestExtractArrayTwoLogicalsMessage
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoLogicals, insertedArrayTwoLogicalsCount, arrayTwoLogicals);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2409,11 +2409,7 @@ doTestExtractArrayTwoIntegersMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoIntegers[]
             {
@@ -2451,6 +2447,10 @@ doTestExtractArrayTwoIntegersMessage
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoIntegers, insertedArrayTwoIntegersCount, arrayTwoIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2491,11 +2491,7 @@ doTestExtractArrayTwoDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoDoubles[]
             {
@@ -2540,6 +2536,10 @@ doTestExtractArrayTwoDoublesMessage
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoDoubles, insertedArrayTwoDoublesCount, arrayTwoDoubles);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -2579,11 +2579,7 @@ doTestExtractArrayTwoStringsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoStrings[]
             {
@@ -2624,6 +2620,10 @@ doTestExtractArrayTwoStringsMessage
             arrayTwoStrings.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoStrings, insertedArrayTwoStringsCount, arrayTwoStrings);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -2663,11 +2663,7 @@ doTestExtractArrayTwoBlobsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoBlobs[]
             {
@@ -2708,6 +2704,10 @@ doTestExtractArrayTwoBlobsMessage
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoBlobs, insertedArrayTwoBlobsCount, arrayTwoBlobs);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -2747,11 +2747,7 @@ doTestExtractArrayTwoArraysMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoArrays[]
             {
@@ -2800,6 +2796,10 @@ doTestExtractArrayTwoArraysMessage
             arrayTwoArrays.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoArrays, insertedArrayTwoArraysCount, arrayTwoArrays);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -2839,11 +2839,7 @@ doTestExtractArrayTwoMapsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoMaps[]
             {
@@ -2892,6 +2888,10 @@ doTestExtractArrayTwoMapsMessage
             arrayTwoMaps.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoMaps, insertedArrayTwoMapsCount, arrayTwoMaps);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -2931,11 +2931,7 @@ doTestExtractArrayTwoSetsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoSets[]
             {
@@ -2984,6 +2980,10 @@ doTestExtractArrayTwoSetsMessage
             arrayTwoSets.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoSets, insertedArrayTwoSetsCount, arrayTwoSets);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3023,11 +3023,7 @@ doTestExtractArrayOneArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneArrayOneMap[]
             {
@@ -3076,6 +3072,10 @@ doTestExtractArrayOneArrayOneMapMessage
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneArrayOneMap, insertedArrayOneArrayOneMapCount, arrayOneArrayOneMap);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3115,11 +3115,7 @@ doTestExtractArrayOneMapOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneMapOneSet[]
             {
@@ -3168,6 +3164,10 @@ doTestExtractArrayOneMapOneSetMessage
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneMapOneSet, insertedArrayOneMapOneSetCount, arrayOneMapOneSet);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3207,11 +3207,7 @@ doTestExtractArrayOneSetOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayOneSetOneArray[]
             {
@@ -3260,6 +3256,10 @@ doTestExtractArrayOneSetOneArrayMessage
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedBytesForArrayOneSetOneArray, insertedArrayOneSetOneArrayCount, arrayOneSetOneArray);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3299,11 +3299,7 @@ doTestExtractArrayWithManyDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             constexpr size_t        numValues{43};
             static const DataKind   insertedBytesForArrayManyDoubles[]
@@ -3515,6 +3511,10 @@ doTestExtractArrayWithManyDoublesMessage
             }
             result = extractValueAndCheck(*stuff, insertedBytesForArrayManyDoubles, insertedArrayManyDoublesCount, arrayManyDoubles);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3554,11 +3554,7 @@ doTestExtractArrayWithTwoAddressesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForArrayTwoAddresses[]
             {
@@ -3603,6 +3599,10 @@ doTestExtractArrayWithTwoAddressesMessage
             arrayTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
             result = extractValueAndCheck(*stuff, insertedBytesForArrayTwoAddresses, insertedArrayTwoAddressesCount, arrayTwoAddresses);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -3642,11 +3642,7 @@ doTestExtractLogicalMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForLogicalMap[]
             {
@@ -3683,6 +3679,10 @@ doTestExtractLogicalMapMessage
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalMap, insertedLogicalMapCount, logicalMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3723,11 +3723,7 @@ doTestExtractIntegerMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForIntegerMap[]
             {
@@ -3764,6 +3760,10 @@ doTestExtractIntegerMapMessage
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerMap, insertedIntegerMapCount, integerMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3804,11 +3804,7 @@ doTestExtractStringMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForStringMap[]
             {
@@ -3846,6 +3842,10 @@ doTestExtractStringMapMessage
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForStringMap, insertedStringMapCount, stringMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3886,11 +3886,7 @@ doTestExtractLogicalSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForLogicalSet[]
             {
@@ -3924,6 +3920,10 @@ doTestExtractLogicalSetMessage
 
             logicalSet.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedBytesForLogicalSet, insertedLogicalSetCount, logicalSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3964,11 +3964,7 @@ doTestExtractIntegerSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForIntegerSet[]
             {
@@ -4002,6 +3998,10 @@ doTestExtractIntegerSetMessage
 
             integerSet.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedBytesForIntegerSet, insertedIntegerSetCount, integerSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4042,11 +4042,7 @@ doTestExtractStdStringSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForStdStringSet[]
             {
@@ -4081,6 +4077,10 @@ doTestExtractStdStringSetMessage
 
             stringSet.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedBytesForStdStringSet, insertedStdStringSetCount, stringSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4121,11 +4121,7 @@ doTestExtractAddressMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForAddressMap[]
             {
@@ -4166,6 +4162,10 @@ doTestExtractAddressMapMessage
             addressMap.addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedBytesForAddressMap, insertedAddressMapCount, addressMap);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -4205,11 +4205,7 @@ doTestExtractAddressSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const DataKind   insertedBytesForAddressSet[]
             {
@@ -4246,6 +4242,10 @@ doTestExtractAddressSetMessage
 
             addressSet.addValue(std::make_shared<Address>());
             result = extractValueAndCheck(*stuff, insertedBytesForAddressSet, insertedAddressSetCount, addressSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4286,11 +4286,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             constexpr size_t    kNumValues{18};
             auto                arrayWithIntegers{std::make_shared<Array>()};
@@ -4316,11 +4312,7 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 auto    extractedValue{stuff->getValue(true)};
 
                 ODL_P1("extractedValue <- ", extractedValue.get()); //####
-                if (nullptr == extractedValue)
-                {
-                    ODL_LOG("(nullptr == extractedValue)"); //####
-                }
-                else
+                if (extractedValue)
                 {
                     auto    asFlaw{extractedValue->asFlaw()};
 
@@ -4343,6 +4335,10 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                     {
                         ODL_LOG("! (stuff->readAtEnd())"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (extractedValue)"); //####
                 }
                 if (0 == result)
                 {
@@ -4587,6 +4583,10 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
             {
                 ODL_LOG("! (arrayWithIntegers.size() == ((2 * kNumValues) + 1))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)

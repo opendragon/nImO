@@ -170,11 +170,7 @@ main
             {
                 auto    theRegistry{std::make_shared<nImO::Registry>(ourContext, optionValues._logging)};
 
-                if (nullptr == theRegistry)
-                {
-                    ourContext->report("Could not create Registry."s);
-                }
-                else
+                if (theRegistry)
                 {
                     auto    asRegistryContext{ReinterpretCast(Ptr(nImO::RegistryContext), ourContext.get())};
 
@@ -288,6 +284,10 @@ main
                         asRegistryContext->removeAnnouncement();
                         std::cerr << "done.\n";
                     }
+                }
+                else
+                {
+                    ourContext->report("Could not create Registry."s);
                 }
             }
             nImO::EnableWaitForRegistry();

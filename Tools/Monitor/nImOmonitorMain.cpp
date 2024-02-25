@@ -379,7 +379,7 @@ main
                             std::string computerNameText;
                             std::string commandPortText;
 
-                            if (nullptr != theTag)
+                            if (theTag)
                             {
                                 auto    asString{theTag->asString()};
 
@@ -388,7 +388,7 @@ main
                                     tagText = "#"s + asString->getValue();
                                 }
                             }
-                            if (nullptr != theComputerName)
+                            if (theComputerName)
                             {
                                 auto    asString{theComputerName->asString()};
 
@@ -397,7 +397,7 @@ main
                                     computerNameText = asString->getValue();
                                 }
                             }
-                            if (nullptr != theCommandPort)
+                            if (theCommandPort)
                             {
                                 auto    asInteger{theCommandPort->asInteger()};
 

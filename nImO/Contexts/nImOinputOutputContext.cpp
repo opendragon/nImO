@@ -117,13 +117,13 @@ bool
 nImO::InputOutputContext::addInputChannel
     (const std::string &    path)
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_S1s("path = ", path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
     const auto  result = _inputChannelMap.insert({adjustedName, std::make_shared<InChannel>(_receiveQueue, *this, adjustedName,
                                                                                             _inputChannelMap.size())});
 
-    ODL_EXIT_B(result.second); //####
+    ODL_OBJEXIT_B(result.second); //####
     return result.second;
 } // nImO::InputOutputContext::addInputChannel
 
@@ -131,12 +131,12 @@ bool
 nImO::InputOutputContext::addOutputChannel
     (const std::string &    path)
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_S1s("path = ", path); //####
     auto        adjustedName{ConvertToLowerCase(path)};
     const auto  result = _outputChannelMap.insert({adjustedName, std::make_shared<OutChannel>(*this, adjustedName, _outputChannelMap.size())});
 
-    ODL_EXIT_B(result.second); //####
+    ODL_OBJEXIT_B(result.second); //####
     return result.second;
 } // nImO::InputOutputContext::addOutputChannel
 
@@ -206,7 +206,7 @@ nImO::InputOutputContext::getInputChannel
     (const std::string &    path)
     const
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_S1s("path = ", path); //####
     SpInChannel result;
     auto        match{_inputChannelMap.find(ConvertToLowerCase(path))};
@@ -215,7 +215,7 @@ nImO::InputOutputContext::getInputChannel
     {
         result = match->second;
     }
-    ODL_EXIT_P(result.get()); //####
+    ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::InputOutputContext::getInputChannel
 
@@ -224,14 +224,14 @@ nImO::InputOutputContext::getInputChannelNames
     (nImO::StdStringVector &    names)
     const
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
     for (auto & walker : _inputChannelMap)
     {
         names.push_back(walker.second->getName());
     }
-    ODL_EXIT(); //####
+    ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getInputChannelNames
 
 nImO::SpOutChannel
@@ -239,7 +239,7 @@ nImO::InputOutputContext::getOutputChannel
     (const std::string &    path)
     const
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_S1s("path = ", path); //####
     SpOutChannel    result;
     auto            match{_outputChannelMap.find(ConvertToLowerCase(path))};
@@ -248,7 +248,7 @@ nImO::InputOutputContext::getOutputChannel
     {
         result = match->second;
     }
-    ODL_EXIT_P(result.get()); //####
+    ODL_OBJEXIT_P(result.get()); //####
     return result;
 } // nImO::InputOutputContext::getOutputChannel
 
@@ -257,23 +257,23 @@ nImO::InputOutputContext::getOutputChannelNames
     (nImO::StdStringVector &    names)
     const
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     ODL_P1("names = ", &names); //####
     names.clear();
     for (auto & walker : _outputChannelMap)
     {
         names.push_back(walker.second->getName());
     }
-    ODL_EXIT(); //####
+    ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::getOutputChannelNames
 
 void
 nImO::InputOutputContext::stopInputQueue
     (void)
 {
-    ODL_ENTER(); //####
+    ODL_OBJENTER(); //####
     _receiveQueue.stop();
-    ODL_EXIT(); //####
+    ODL_OBJEXIT(); //####
 } // nImO::InputOutputContext::stopInputQueue
 
 #if defined(__APPLE__)
@@ -288,15 +288,13 @@ nImO::AddInputOutputHandlers
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
-    auto    actualContext{context.get()};
-
-    if (nullptr != actualContext)
+    if (context)
     {
         bool    goAhead{true};
         auto    newHandler1{std::make_shared<StartReceiverCommandHandler>(context)};
 
         ODL_P1("newHandler1 <- ", newHandler1.get()); //####
-        if (! actualContext->addHandler(kStartReceiverRequest, newHandler1))
+        if (! context->addHandler(kStartReceiverRequest, newHandler1))
         {
             goAhead = false;
         }
@@ -305,7 +303,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler2{std::make_shared<StartSenderCommandHandler>(context)};
 
             ODL_P1("newHandler2 <- ", newHandler2.get()); //####
-            if (! actualContext->addHandler(kStartSenderRequest, newHandler2))
+            if (! context->addHandler(kStartSenderRequest, newHandler2))
             {
                 goAhead = false;
             }
@@ -315,7 +313,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler3{std::make_shared<StopReceiverCommandHandler>(context)};
 
             ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! actualContext->addHandler(kStopReceiverRequest, newHandler3))
+            if (! context->addHandler(kStopReceiverRequest, newHandler3))
             {
                 goAhead = false;
             }
@@ -325,7 +323,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler4{std::make_shared<StopSenderCommandHandler>(context)};
 
             ODL_P1("newHandler4 <- ", newHandler4.get()); //####
-            if (! actualContext->addHandler(kStopSenderRequest, newHandler4))
+            if (! context->addHandler(kStopSenderRequest, newHandler4))
             {
                 goAhead = false;
             }
@@ -335,7 +333,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler5{std::make_shared<SetUpReceiverCommandHandler>(context)};
 
             ODL_P1("newHandler5 <- ", newHandler5.get()); //####
-            if (! actualContext->addHandler(kSetUpReceiverRequest, newHandler5))
+            if (! context->addHandler(kSetUpReceiverRequest, newHandler5))
             {
                 goAhead = false;
             }
@@ -345,7 +343,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler6{std::make_shared<SetUpSenderCommandHandler>(context)};
 
             ODL_P1("newHandler6 <- ", newHandler6.get()); //####
-            if (! actualContext->addHandler(kSetUpSenderRequest, newHandler6))
+            if (! context->addHandler(kSetUpSenderRequest, newHandler6))
             {
                 goAhead = false;
             }
@@ -355,7 +353,7 @@ nImO::AddInputOutputHandlers
             auto    newHandler7{std::make_shared<GetChannelStatisticsCommandHandler>(context)};
 
             ODL_P1("newHandler7 <- ", newHandler7.get()); //####
-            if (! actualContext->addHandler(kGetChannelStatisticsRequest, newHandler7))
+            if (! context->addHandler(kGetChannelStatisticsRequest, newHandler7))
             {
                 goAhead = false;
             }

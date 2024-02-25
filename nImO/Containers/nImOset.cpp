@@ -148,11 +148,7 @@ nImO::Set::addValue
     ODL_P1("val = ", val.get()); //####
     InsertResult    result;
 
-    if (nullptr == val)
-    {
-        result = { inherited2::end(), false };
-    }
-    else
+    if (val)
     {
         if (Enumerable::Unknown == _keyKind)
         {
@@ -166,6 +162,10 @@ nImO::Set::addValue
         {
             result = { inherited2::end(), false };
         }
+    }
+    else
+    {
+        result = { inherited2::end(), false };
     }
     ODL_OBJEXIT(); //####
     return result;
@@ -211,10 +211,10 @@ nImO::Set::deeplyEqualTo
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisValue{*thisWalker};
-                SpValue otherValue{*otherWalker};
+                auto    thisValue{*thisWalker};
+                auto    otherValue{*otherWalker};
 
-                if ((nullptr != thisValue) && (nullptr != otherValue))
+                if (thisValue && otherValue)
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
                 }
@@ -295,7 +295,7 @@ nImO::Set::equalTo
         {
             for (auto & walker : *this)
             {
-                if (nullptr != walker)
+                if (walker)
                 {
                     result &= walker->equalTo(other);
                 }
@@ -384,12 +384,7 @@ nImO::Set::extractValue
                     auto    aSet{std::make_shared<Set>()};
 
                     result = aSet;
-                    if (nullptr == result)
-                    {
-                        ODL_LOG("(nullptr == result)"); //####
-                        result = std::make_shared<Invalid>("Could not allocate a Set");
-                    }
-                    else
+                    if (result)
                     {
                         bool    okSoFar{true};
 
@@ -406,24 +401,27 @@ nImO::Set::extractValue
                             }
                             else
                             {
-                                SpValue aValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
+                                auto    aValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
 
-                                if (nullptr == aValue)
+                                if (aValue)
                                 {
-                                    ODL_LOG("(nullptr == aValue)"); //####
-                                    result = std::make_shared<Invalid>("Null Value read", position);
-                                    okSoFar = false;
-                                }
-                                else if (aValue->asFlaw())
-                                {
-                                    ODL_LOG("(aValue->asFlaw())"); //####
-                                    result = aValue;
-                                    okSoFar = false;
+                                    if (aValue->asFlaw())
+                                    {
+                                        ODL_LOG("(aValue->asFlaw())"); //####
+                                        result = aValue;
+                                        okSoFar = false;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (aValue->asFlaw())"); //####
+                                        aSet->addValue(aValue);
+                                    }
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (aValue->asFlaw())"); //####
-                                    aSet->addValue(aValue);
+                                    ODL_LOG("! (aValue)"); //####
+                                    result = std::make_shared<Invalid>("Null Value read", position);
+                                    okSoFar = false;
                                 }
                             }
                         }
@@ -460,6 +458,11 @@ nImO::Set::extractValue
                             }
                         }
                     }
+                    else
+                    {
+                        ODL_LOG("! (result)"); //####
+                        result = std::make_shared<Invalid>("Could not allocate a Set");
+                    }
                 }
             }
             else
@@ -468,9 +471,9 @@ nImO::Set::extractValue
             }
         }
     }
-    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
+    if (parentValue && result && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))"); //####
+        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -545,7 +548,7 @@ nImO::Set::greaterThan
     {
         for (auto & walker : *this)
         {
-            if (nullptr != walker)
+            if (walker)
             {
                 result &= walker->greaterThan(other);
             }
@@ -606,7 +609,7 @@ nImO::Set::lessThan
     {
         for (auto & walker : *this)
         {
-            if (nullptr != walker)
+            if (walker)
             {
                 result &= walker->lessThan(other);
             }
@@ -635,7 +638,7 @@ nImO::Set::lessThanOrEqual
         {
             for (auto & walker : *this)
             {
-                if (nullptr != walker)
+                if (walker)
                 {
                     result &= walker->lessThanOrEqual(other);
                 }
@@ -674,7 +677,7 @@ nImO::Set::operator<<
     out << kStartSetChar;
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             out << " " << *walker;
         }
@@ -698,7 +701,7 @@ nImO::Set::printToStringBuffer
     outBuffer.appendChar(kStartSetChar);
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             if ((! squished) || (! first))
             {
@@ -732,7 +735,7 @@ nImO::Set::printToStringBufferAsJSON
     outBuffer.appendChar(kStartArrayChar);
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             if (! first)
             {
@@ -834,12 +837,7 @@ nImO::Set::readFromStringBuffer
                 auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
-                if (nullptr == element)
-                {
-                    ODL_LOG("(nullptr == element)"); //####
-                    done = true;
-                }
-                else
+                if (element)
                 {
                     auto    elementType{element->enumerationType()};
 
@@ -868,6 +866,11 @@ nImO::Set::readFromStringBuffer
                     {
                         result->addValue(element);
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (element)"); //####
+                    done = true;
                 }
             }
         }
@@ -920,7 +923,7 @@ nImO::Set::writeToMessage
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
         for (auto & walker : *this)
         {
-            if (nullptr != walker)
+            if (walker)
             {
                 walker->writeToMessage(outMessage);
             }

@@ -177,10 +177,10 @@ nImO::Array::deeplyEqualTo
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisValue{*thisWalker};
-                SpValue otherValue{*otherWalker};
+                auto    thisValue{*thisWalker};
+                auto    otherValue{*otherWalker};
 
-                if ((nullptr != thisValue) && (nullptr != otherValue))
+                if (thisValue && otherValue)
                 {
                     result = thisValue->deeplyEqualTo(*otherValue);
                 }
@@ -231,7 +231,7 @@ nImO::Array::equalTo
     // Note that all the values must be validated.
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             result &= walker->equalTo(other);
         }
@@ -310,12 +310,7 @@ nImO::Array::extractValue
                     auto    anArray{std::make_shared<Array>()};
 
                     result = anArray;
-                    if (nullptr == result)
-                    {
-                        ODL_LOG("(nullptr == result)"); //####
-                        result = std::make_shared<Invalid>("Could not allocate an Array");
-                    }
-                    else
+                    if (result)
                     {
                         bool    okSoFar{true};
 
@@ -332,21 +327,24 @@ nImO::Array::extractValue
                             }
                             else
                             {
-                                SpValue aValue{getValueFromMessage(theMessage, position, aByte, anArray)};
+                                auto    aValue{getValueFromMessage(theMessage, position, aByte, anArray)};
 
                                 // Note that it is the responsibility of the extractor to add to
                                 // this Array, so it's not correct for this loop to perform an
                                 // append operation.
-                                if (nullptr == aValue)
+                                if (aValue)
+                                {
+                                    if (aValue->asFlaw())
+                                    {
+                                        ODL_LOG("(aValue->asFlaw())"); //####
+                                        result = aValue;
+                                        okSoFar = false;
+                                    }
+                                }
+                                else
                                 {
                                     ODL_LOG("(nullptr == aValue)"); //####
                                     result = std::make_shared<Invalid>("Null Value read", position);
-                                    okSoFar = false;
-                                }
-                                else if (aValue->asFlaw())
-                                {
-                                    ODL_LOG("(aValue->asFlaw())"); //####
-                                    result = aValue;
                                     okSoFar = false;
                                 }
                             }
@@ -383,6 +381,11 @@ nImO::Array::extractValue
                             }
                         }
                     }
+                    else
+                    {
+                        ODL_LOG("! (result)"); //####
+                        result = std::make_shared<Invalid>("Could not allocate an Array");
+                    }
                 }
             }
             else
@@ -391,9 +394,9 @@ nImO::Array::extractValue
             }
         }
     }
-    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
+    if (parentValue && result && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))"); //####
+        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -459,7 +462,7 @@ nImO::Array::greaterThan
     // Note that all the values must be validated.
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             result &= walker->greaterThan(other);
         }
@@ -480,7 +483,7 @@ nImO::Array::greaterThanOrEqual
     // Note that all the values must be validated.
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             result &= walker->greaterThanOrEqual(other);
         }
@@ -501,7 +504,7 @@ nImO::Array::lessThan
     // Note that all the values must be validated.
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             result &= walker->lessThan(other);
         }
@@ -522,7 +525,7 @@ nImO::Array::lessThanOrEqual
     // Note that all the values must be validated.
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             result &= walker->lessThanOrEqual(other);
         }
@@ -559,7 +562,7 @@ nImO::Array::operator<<
     out << kStartArrayChar;
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             out << " " << *walker;
         }
@@ -583,7 +586,7 @@ nImO::Array::printToStringBuffer
     outBuffer.appendChar(kStartArrayChar);
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             if ((! squished) || (! first))
             {
@@ -617,7 +620,7 @@ nImO::Array::printToStringBufferAsJSON
     outBuffer.appendChar(kStartArrayChar);
     for (auto & walker : *this)
     {
-        if (nullptr != walker)
+        if (walker)
         {
             if (! first)
             {
@@ -719,14 +722,14 @@ nImO::Array::readFromStringBuffer
                 auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
-                if (nullptr == element)
+                if (element)
                 {
-                    ODL_LOG("(nullptr == element)"); //####
-                    done = true;
+                    result->addValue(element);
                 }
                 else
                 {
-                    result->addValue(element);
+                    ODL_LOG("! (element)"); //####
+                    done = true;
                 }
             }
         }
@@ -782,7 +785,7 @@ nImO::Array::writeToMessage
         writeInt64ToMessage(outMessage, StaticCast(int, inherited2::size()) + kDataKindIntegerShortValueMinValue - 1);
         for (auto & walker : *this)
         {
-            if (nullptr != walker)
+            if (walker)
             {
                 // Check for sequences of Double values
                 auto    doubleValue{walker->asDouble()};

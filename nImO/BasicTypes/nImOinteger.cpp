@@ -243,9 +243,9 @@ nImO::Integer::extractValue
         ODL_LOG("! (numStatus::Successful == status)"); //####
         result.reset();
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if (parentValue && result)
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("(parentValue && result)"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####

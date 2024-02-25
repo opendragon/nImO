@@ -310,45 +310,48 @@ nImO::Message::getValue
                         result = Value::getValueFromMessage(*this, _readPosition, aByte, nullptr);
                         ODL_P1("result <- ", result.get()); //####
                         ODL_I1("_readPosition <- ", _readPosition); //####
-                        if (nullptr == result)
+                        if (result)
                         {
-                            result = std::make_shared<Invalid>("Null Value read", _readPosition);
-                        }
-                        else if (! result->asFlaw())
-                        {
-                            ODL_LOG("(! result->asFlaw())"); //####
-                            aByte = getByte(_readPosition, atEnd);
-                            ODL_X1("aByte <- ", aByte); //####
-                            ODL_B1("atEnd <- ", atEnd); //####
-                            if (atEnd)
+                            if (! result->asFlaw())
                             {
-                                ODL_LOG("(atEnd)"); //####
-                                _readPosition = savedPosition;
-                                ODL_I1("_readPosition <- ", _readPosition); //####
-                                result.reset();
-                                ODL_P1("result <- ", result.get()); //####
-                            }
-                            else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
-                            {
-                                nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
-                                ODL_X1("nextTag <- ", toUType(nextTag)); //####
-                                if (nextTag == initTag)
+                                ODL_LOG("(! result->asFlaw())"); //####
+                                aByte = getByte(_readPosition, atEnd);
+                                ODL_X1("aByte <- ", aByte); //####
+                                ODL_B1("atEnd <- ", atEnd); //####
+                                if (atEnd)
                                 {
-                                    // Step to the next byte.
-                                    ++_readPosition;
+                                    ODL_LOG("(atEnd)"); //####
+                                    _readPosition = savedPosition;
+                                    ODL_I1("_readPosition <- ", _readPosition); //####
+                                    result.reset();
+                                    ODL_P1("result <- ", result.get()); //####
+                                }
+                                else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+                                {
+                                    nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
+                                    ODL_X1("nextTag <- ", toUType(nextTag)); //####
+                                    if (nextTag == initTag)
+                                    {
+                                        // Step to the next byte.
+                                        ++_readPosition;
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (nextTag == initTag)"); //####
+                                        result = std::make_shared<Invalid>("Message with mismatched end Value tag", _readPosition);
+                                    }
                                 }
                                 else
                                 {
-                                    ODL_LOG("! (nextTag == initTag)"); //####
-                                    result = std::make_shared<Invalid>("Message with mismatched end Value tag", _readPosition);
+                                    ODL_LOG("! (kTermNonEmptyMessageValue == " //####
+                                            "(aByte & kInitTermMessageMask))"); //####
+                                    result = std::make_shared<Invalid>("Message with incorrect end tag", _readPosition);
                                 }
                             }
-                            else
-                            {
-                                ODL_LOG("! (kTermNonEmptyMessageValue == " //####
-                                        "(aByte & kInitTermMessageMask))"); //####
-                                result = std::make_shared<Invalid>("Message with incorrect end tag", _readPosition);
-                            }
+                        }
+                        else
+                        {
+                            result = std::make_shared<Invalid>("Null Value read", _readPosition);
                         }
                     }
                     else

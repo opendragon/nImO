@@ -115,14 +115,14 @@ nImO::StartSenderCommandHandler::doIt
         {
             auto    theChannel{_ownerForInputOutput->getOutputChannel(pathString->getValue())};
 
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
+            if (theChannel)
             {
                 // Send the response to the requestor.
                 okSoFar = sendSimpleResponse(socket, kStartSenderResponse, "start sender"s, theChannel->start());
+            }
+            else
+            {
+                ODL_LOG("! (theChannel)"); //####
             }
         }
         else

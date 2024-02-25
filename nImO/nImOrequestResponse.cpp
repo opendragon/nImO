@@ -113,14 +113,14 @@ handleResponse
         {
             auto    stuff{std::make_unique<nImO::Message>()};
 
-            if ((nullptr != stuff) && (0 < rawStuff.size()))
+            if (stuff && (0 < rawStuff.size()))
             {
                 stuff->open(false);
                 stuff->appendBytes(rawStuff.data(), rawStuff.size());
                 auto    contents{stuff->getValue()};
 
                 stuff->close();
-                if (stuff->readAtEnd() && (nullptr != contents))
+                if (stuff->readAtEnd() && contents)
                 {
                     auto    asArray{contents->asArray()};
 
@@ -152,12 +152,12 @@ handleResponse
                 }
                 else
                 {
-                    ODL_LOG("! (stuff->readAtEnd() && (nullptr != contents))"); //####
+                    ODL_LOG("! (stuff->readAtEnd() && contents)"); //####
                 }
             }
             else
             {
-                ODL_LOG("! ((nullptr != stuff) && (0 < rawStuff.size()))"); //####
+                ODL_LOG("! (stuff && (0 < rawStuff.size()))"); //####
             }
         }
         else

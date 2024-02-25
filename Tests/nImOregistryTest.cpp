@@ -172,13 +172,13 @@ doTestCreateRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
+        if (aRegistry)
         {
-            ODL_LOG("(nullptr == aRegistry)"); //####
+            result = 0;
         }
         else
         {
-            result = 0;
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -226,11 +226,7 @@ doTestEmptyRegistryForMachines
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfMachines()};
 
@@ -249,6 +245,10 @@ doTestEmptyRegistryForMachines
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -296,11 +296,7 @@ doTestMachineSetWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithStrings{aRegistry->getNamesOfMachines()};
 
@@ -321,6 +317,10 @@ doTestMachineSetWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithStrings.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -368,11 +368,7 @@ doTestFindMachineWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithBool{aRegistry->isMachinePresent(kMachineName1)};
 
@@ -406,6 +402,10 @@ doTestFindMachineWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -453,11 +453,7 @@ doTestAddMachineToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -469,6 +465,10 @@ doTestAddMachineToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -516,11 +516,7 @@ doTestCountMachinesWithRegistryWithOneMachine
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -548,6 +544,10 @@ doTestCountMachinesWithRegistryWithOneMachine
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -595,11 +595,7 @@ doTestMachineSetWithRegistryWithOneMachine
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -629,6 +625,10 @@ doTestMachineSetWithRegistryWithOneMachine
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -676,11 +676,7 @@ doTestFindMachineWithRegistryWithOneMachine
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -723,6 +719,10 @@ doTestFindMachineWithRegistryWithOneMachine
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -770,11 +770,7 @@ doTestAddTwoDistinctMachinesToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -794,6 +790,10 @@ doTestAddTwoDistinctMachinesToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -841,11 +841,7 @@ doTestCountMachinesWithRegistryWithTwoMachines
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -881,6 +877,10 @@ doTestCountMachinesWithRegistryWithTwoMachines
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -928,11 +928,7 @@ doTestAddTwoIdenticalMachinesToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(kMachineName1, kMachineAddress1)};
 
@@ -968,6 +964,10 @@ doTestAddTwoIdenticalMachinesToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1015,11 +1015,7 @@ doTestEmptyRegistryForNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfNodes()};
 
@@ -1038,6 +1034,10 @@ doTestEmptyRegistryForNodes
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1085,11 +1085,7 @@ doTestNodeSetWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithStrings{aRegistry->getNamesOfNodes()};
 
@@ -1110,6 +1106,10 @@ doTestNodeSetWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithStrings.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1157,11 +1157,7 @@ doTestFindNodeWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithBool{aRegistry->isNodePresent(kNodeName1)};
 
@@ -1195,6 +1191,10 @@ doTestFindNodeWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1239,11 +1239,7 @@ doTestAddNodeToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1263,6 +1259,10 @@ doTestAddNodeToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1307,11 +1307,7 @@ doTestCountNodesWithRegistryWithOneNode
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1347,6 +1343,10 @@ doTestCountNodesWithRegistryWithOneNode
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1391,11 +1391,7 @@ doTestNodeSetWithRegistryWithOneNode
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1433,6 +1429,10 @@ doTestNodeSetWithRegistryWithOneNode
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1477,11 +1477,7 @@ doTestFindNodeWithRegistryWithOneNode
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1533,6 +1529,10 @@ doTestFindNodeWithRegistryWithOneNode
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -1576,11 +1576,7 @@ doTestNodeDataAddedToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -1632,6 +1628,10 @@ doTestNodeDataAddedToRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -1675,11 +1675,7 @@ doTestRemoveNodeFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1707,6 +1703,10 @@ doTestRemoveNodeFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -1751,11 +1751,7 @@ doTestCountNodesWithRegistryWithNodeRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1800,6 +1796,10 @@ doTestCountNodesWithRegistryWithNodeRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -1843,11 +1843,7 @@ doTestNodeSetWithRegistryWithNodeRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1894,6 +1890,10 @@ doTestNodeSetWithRegistryWithNodeRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -1937,11 +1937,7 @@ doTestFindNodeWithRegistryNodeRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -1986,6 +1982,10 @@ doTestFindNodeWithRegistryNodeRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2029,11 +2029,7 @@ doTestAddTwoDistinctNodesToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2061,6 +2057,10 @@ doTestAddTwoDistinctNodesToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -2105,11 +2105,7 @@ doTestCountNodesWithRegistryWithTwoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2154,6 +2150,10 @@ doTestCountNodesWithRegistryWithTwoNodes
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2197,11 +2197,7 @@ doTestNodeSetWithRegistryWithTwoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2255,6 +2251,10 @@ doTestNodeSetWithRegistryWithTwoNodes
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2298,11 +2298,7 @@ doTestFindNodeWithRegistryWithTwoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2362,6 +2358,10 @@ doTestFindNodeWithRegistryWithTwoNodes
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2405,11 +2405,7 @@ doTestRemoveNodesFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-       if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2454,6 +2450,10 @@ doTestRemoveNodesFromRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2497,11 +2497,7 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2562,6 +2558,10 @@ doTestCountNodesWithRegistryWithAllNodesRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2605,11 +2605,7 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2672,6 +2668,10 @@ doTestNodeSetWithRegistryWithAllNodesRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2715,11 +2715,7 @@ doTestFindNodeWithRegistryAllNodesRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2795,6 +2791,10 @@ doTestFindNodeWithRegistryAllNodesRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -2838,11 +2838,7 @@ doTestAddTwoIdenticalNodesToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -2888,6 +2884,10 @@ doTestAddTwoIdenticalNodesToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -2935,11 +2935,7 @@ doTestNodeInfoWithRegistryWithNoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getInformationForAllNodes()};
 
@@ -2960,6 +2956,10 @@ doTestNodeInfoWithRegistryWithNoNodes
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -3004,11 +3004,7 @@ doTestNodeInfoWithRegistryWithOneNode
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -3062,6 +3058,10 @@ doTestNodeInfoWithRegistryWithOneNode
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -3105,11 +3105,7 @@ doTestNodeInfoWithRegistryWithTwoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -3233,6 +3229,10 @@ doTestNodeInfoWithRegistryWithTwoNodes
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -3279,11 +3279,7 @@ doTestLaunchDetailsWithRegistryWithNoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithDetails{aRegistry->getLaunchDetails(kNodeName1)};
 
@@ -3304,6 +3300,10 @@ doTestLaunchDetailsWithRegistryWithNoNodes
             {
                 ODL_LOG("! (statusWithDetails.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -3348,11 +3348,7 @@ doTestLaunchDetailsWithRegistryWithOneNode
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -3402,6 +3398,10 @@ doTestLaunchDetailsWithRegistryWithOneNode
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -3445,11 +3445,7 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -3549,6 +3545,10 @@ doTestLaunchDetailsWithRegistryWithTwoNodes
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -3595,11 +3595,7 @@ doTestNodeInfoWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getNodeInformation(kNodeName1)};
 
@@ -3618,6 +3614,10 @@ doTestNodeInfoWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -3665,11 +3665,7 @@ doTestNodeSetWithEmptyRegistryViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -3700,6 +3696,10 @@ doTestNodeSetWithEmptyRegistryViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -3744,11 +3744,7 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -3787,6 +3783,10 @@ doTestNodeSetWithRegistryWithOneNodeViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -3831,11 +3831,7 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -3890,6 +3886,10 @@ doTestNodeSetWithRegistryWithTwoNodesViaMachineName
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -3936,11 +3936,7 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -3971,6 +3967,10 @@ doTestNodeInfoWithRegistryWithEmptyRegistryViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4015,11 +4015,7 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -4074,6 +4070,10 @@ doTestNodeInfoWithRegistryWithOneNodeViaMachineName
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -4117,11 +4117,7 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    randomAddress1{StaticCast(IPv4Address, nImO::RandomUnsigned())};
             auto    randomPort1{StaticCast(IPv4Port, nImO::RandomUnsigned())};
@@ -4204,6 +4200,10 @@ doTestNodeInfoWithRegistryWithTwoNodesViaMachineName
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -4250,11 +4250,7 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -4283,6 +4279,10 @@ doTestCountNodesWithRegistryWithEmptyRegistryViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4327,11 +4327,7 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -4368,6 +4364,10 @@ doTestCountNodesWithRegistryWithOneNodeViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4412,11 +4412,7 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -4461,6 +4457,10 @@ doTestCountNodesWithRegistryWithTwoNodesViaMachineName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4508,11 +4508,7 @@ doTestCountChannelsWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfChannels()};
 
@@ -4531,6 +4527,10 @@ doTestCountChannelsWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4578,11 +4578,7 @@ doTestFindChannelWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithBool{aRegistry->isChannelPresent(kNodeName1, kChannelPath1)};
 
@@ -4616,6 +4612,10 @@ doTestFindChannelWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4663,11 +4663,7 @@ doTestAddChannelToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -4695,6 +4691,10 @@ doTestAddChannelToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4742,11 +4742,7 @@ doTestCountChannelsInRegistryWithOneChannel
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -4790,6 +4786,10 @@ doTestCountChannelsInRegistryWithOneChannel
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -4837,11 +4837,7 @@ doTestFindChannelInRegistryWithOneChannel
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -4901,6 +4897,10 @@ doTestFindChannelInRegistryWithOneChannel
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -4947,11 +4947,7 @@ doTestAddTwoChannelsToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -4995,6 +4991,10 @@ doTestAddTwoChannelsToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5042,11 +5042,7 @@ doTestCountChannelsInRegistryWithTwoChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5107,6 +5103,10 @@ doTestCountChannelsInRegistryWithTwoChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -5153,11 +5153,7 @@ doTestFindChannelsInRegistryWithTwoChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5233,6 +5229,10 @@ doTestFindChannelsInRegistryWithTwoChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -5279,11 +5279,7 @@ doTestAddTwoIdenticalChannelsToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5319,6 +5315,10 @@ doTestAddTwoIdenticalChannelsToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5363,11 +5363,7 @@ doTestAddChannelWithBadNodeNameToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5395,6 +5391,10 @@ doTestAddChannelWithBadNodeNameToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5439,11 +5439,7 @@ doTestAddChannelWithBadChannelNameToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5471,6 +5467,10 @@ doTestAddChannelWithBadChannelNameToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5518,11 +5518,7 @@ doTestRemoveAllChannelsFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5566,6 +5562,10 @@ doTestRemoveAllChannelsFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5613,11 +5613,7 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5678,6 +5674,10 @@ doTestCountChannelsWithRegistryWithAllChannelsRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -5724,11 +5724,7 @@ doTestFindChannelWithRegistryAllChannelsRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5804,6 +5800,10 @@ doTestFindChannelWithRegistryAllChannelsRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -5850,11 +5850,7 @@ doTestRemoveOneChannelFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -5898,6 +5894,10 @@ doTestRemoveOneChannelFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -5945,11 +5945,7 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6010,6 +6006,10 @@ doTestCountChannelsWithRegistryWithOneChannelRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -6056,11 +6056,7 @@ doTestFindChannelWithRegistryOneChannelRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6136,6 +6132,10 @@ doTestFindChannelWithRegistryOneChannelRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -6182,11 +6182,7 @@ doTestRemoveNonexistentChannelFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6222,6 +6218,10 @@ doTestRemoveNonexistentChannelFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6269,11 +6269,7 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6309,6 +6305,10 @@ doTestRemoveChannelFromNonexistentNodeFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6356,11 +6356,7 @@ doTestGetChannelInfoFromEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getChannelInformation(kNodeName1, kChannelPath1)};
 
@@ -6379,6 +6375,10 @@ doTestGetChannelInfoFromEmptyRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6426,11 +6426,7 @@ doTestGetChannelInfoFromRegistryWithOneChannel
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6488,6 +6484,10 @@ doTestGetChannelInfoFromRegistryWithOneChannel
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -6534,11 +6534,7 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6637,6 +6633,10 @@ doTestGetChannelInfoFromRegistryWithTwoChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -6680,11 +6680,7 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6722,6 +6718,10 @@ doTestGetChannelInfoWithBadNodeNameFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6766,11 +6766,7 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6799,6 +6795,10 @@ doTestGetChannelInfoWithBadChannelNameFromRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6846,11 +6846,7 @@ doTestGetChannelSetFromEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getInformationForAllChannels()};
 
@@ -6871,6 +6867,10 @@ doTestGetChannelSetFromEmptyRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -6915,11 +6915,7 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -6980,6 +6976,10 @@ doTestGetChannelSetForNodeFromRegistryWithOneChannel
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7023,11 +7023,7 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -7113,6 +7109,10 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7156,11 +7156,7 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -7254,6 +7250,10 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7297,11 +7297,7 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -7363,6 +7359,10 @@ doTestGetChannelSetForMachineFromRegistryWithOneChannel
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7406,11 +7406,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -7497,6 +7493,10 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7540,11 +7540,7 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -7639,6 +7635,10 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7682,11 +7682,7 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -7733,6 +7729,10 @@ doTestGetChannelSetWithBadNodeNameFromRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7776,11 +7776,7 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -7828,6 +7824,10 @@ doTestGetChannelSetWithBadMachineNameFromRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -7874,11 +7874,7 @@ doTestGetChannelInUseWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithBool{aRegistry->getChannelInUse(kNodeName1, kChannelPath1)};
 
@@ -7890,6 +7886,10 @@ doTestGetChannelInUseWithEmptyRegistry
             {
                 result = 0;
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -7937,11 +7937,7 @@ doTestSetChannelInUseWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->setChannelInUse(kNodeName1, kChannelPath1)};
 
@@ -7953,6 +7949,10 @@ doTestSetChannelInUseWithEmptyRegistry
             {
                 result = 0;
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8000,11 +8000,7 @@ doTestClearChannelInUseWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->clearChannelInUse(kNodeName1, kChannelPath1)};
 
@@ -8016,6 +8012,10 @@ doTestClearChannelInUseWithEmptyRegistry
             {
                 result = 0;
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8063,11 +8063,7 @@ doTestChannelInUseCanBeSet
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8135,6 +8131,10 @@ doTestChannelInUseCanBeSet
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -8181,11 +8181,7 @@ doTestChannelInUseCanBeCleared
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8276,6 +8272,10 @@ doTestChannelInUseCanBeCleared
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -8322,11 +8322,7 @@ doTestGetChannelInUseWithBadNodeName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8363,6 +8359,10 @@ doTestGetChannelInUseWithBadNodeName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8410,11 +8410,7 @@ doTestSetChannelInUseWithBadNodeName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8450,6 +8446,10 @@ doTestSetChannelInUseWithBadNodeName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8497,11 +8497,7 @@ doTestClearChannelInUseWithBadNodeName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8537,6 +8533,10 @@ doTestClearChannelInUseWithBadNodeName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8584,11 +8584,7 @@ doTestGetChannelInUseWithBadChannelName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8625,6 +8621,10 @@ doTestGetChannelInUseWithBadChannelName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8672,11 +8672,7 @@ doTestSetChannelInUseWithBadChannelName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8712,6 +8708,10 @@ doTestSetChannelInUseWithBadChannelName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8759,11 +8759,7 @@ static int
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8799,6 +8795,10 @@ static int
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -8846,11 +8846,7 @@ doTestGetAndSetChannelInUse
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -8910,6 +8906,10 @@ doTestGetAndSetChannelInUse
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -8956,11 +8956,7 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithBool{aRegistry->getChannelInUseAndSet(kNodeName1, kChannelPath1)};
 
@@ -8972,6 +8968,10 @@ doTestGetAndSetChannelInUseWithEmptyRegistry
             {
                 result = 0;
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -9019,11 +9019,7 @@ doTestGetAndSetChannelInUseWithBadNodeName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9060,6 +9056,10 @@ doTestGetAndSetChannelInUseWithBadNodeName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -9107,11 +9107,7 @@ doTestGetAndSetChannelInUseWithBadChannelName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9148,6 +9144,10 @@ doTestGetAndSetChannelInUseWithBadChannelName
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -9195,11 +9195,7 @@ doTestCountConnectionsWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-       if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfConnections()};
 
@@ -9218,6 +9214,10 @@ doTestCountConnectionsWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -9265,11 +9265,7 @@ doTestAddConnectionToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9323,6 +9319,10 @@ doTestAddConnectionToRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9369,11 +9369,7 @@ doTestCountConnectionsInRegistryWithOneConnection
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9443,6 +9439,10 @@ doTestCountConnectionsInRegistryWithOneConnection
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9489,11 +9489,7 @@ doTestAddTwoConnectionsToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9573,6 +9569,10 @@ doTestAddTwoConnectionsToRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9619,11 +9619,7 @@ doTestCountConnectionsInRegistryWithTwoConnections
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9719,6 +9715,10 @@ doTestCountConnectionsInRegistryWithTwoConnections
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9765,11 +9765,7 @@ doTestRemoveOneConnectionFromRegistryViaFrom
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9831,6 +9827,10 @@ doTestRemoveOneConnectionFromRegistryViaFrom
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9877,11 +9877,7 @@ doTestRemoveOneConnectionFromRegistryViaTo
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -9943,6 +9939,10 @@ doTestRemoveOneConnectionFromRegistryViaTo
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -9989,11 +9989,7 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -10071,6 +10067,10 @@ doTestCountConnectionsWithRegistryWithOneConnectionRemoved
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10117,11 +10117,7 @@ doTestConnectChannelsWithRegistryWithBadChannelName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -10184,6 +10180,10 @@ doTestConnectChannelsWithRegistryWithBadChannelName
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10230,11 +10230,7 @@ doTestConnectChannelsWithRegistryWithBadNodeName
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -10297,6 +10293,10 @@ doTestConnectChannelsWithRegistryWithBadNodeName
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10343,11 +10343,7 @@ doTestGetConnectionsFromEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getInformationForAllConnections()};
 
@@ -10368,6 +10364,10 @@ doTestGetConnectionsFromEmptyRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -10415,11 +10415,7 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -10506,6 +10502,10 @@ doTestGetConnectionsForNodeFromRegistryWithOneConnection
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10552,11 +10552,7 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -10697,6 +10693,10 @@ doTestGetConnectionsForNodeFromRegistryWithTwoConnections
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10743,11 +10743,7 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -10888,6 +10884,10 @@ doTestGetConnectionsForNodesFromRegistryWithTwoNodesWithConnections
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -10934,11 +10934,7 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -11025,6 +11021,10 @@ doTestGetConnectionsForMachineFromRegistryWithOneConnection
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -11071,11 +11071,7 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    machineName{nImO::GetShortComputerName()};
             auto    status{aRegistry->addMachine(machineName)};
@@ -11217,6 +11213,10 @@ doTestGetConnectionsForMachineFromRegistryWithTwoConnections
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -11263,11 +11263,7 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnNode(kBadNodeName)};
 
@@ -11288,6 +11284,10 @@ doTestGetConnectionsWithBadNodeNameFromRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -11335,11 +11335,7 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getInformationForAllConnectionsOnMachine(kBadMachineName)};
 
@@ -11360,6 +11356,10 @@ doTestGetConnectionsWithBadMachineNameFromRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -11407,11 +11407,7 @@ doTestGetConnectionInfoWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInfo{aRegistry->getConnectionInformation(kNodeName1, kChannelPath1, false)};
 
@@ -11449,6 +11445,10 @@ doTestGetConnectionInfoWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -11496,11 +11496,7 @@ doTestGetConnectionInfoInRegistryWithOneConnection
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -11596,6 +11592,10 @@ doTestGetConnectionInfoInRegistryWithOneConnection
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -11642,11 +11642,7 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -11717,6 +11713,10 @@ doTestGetConnectionInfoWithBadNodeNameFromRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -11763,11 +11763,7 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -11838,6 +11834,10 @@ doTestGetConnectionInfoWithBadChannelNameFromRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -11884,11 +11884,7 @@ doTestCountApplicationsWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfApplications()};
 
@@ -11907,6 +11903,10 @@ doTestCountApplicationsWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -11954,11 +11954,7 @@ TestAddApplicationWithOneLauncherToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -11986,6 +11982,10 @@ TestAddApplicationWithOneLauncherToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12033,11 +12033,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12081,6 +12077,10 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncher
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12128,11 +12128,7 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12168,6 +12164,10 @@ doTestAddTwoApplicationsFromOneLauncherToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12215,11 +12215,7 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12272,6 +12268,10 @@ doTestCountApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -12318,11 +12318,7 @@ doTestClearApplicationsWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->clearAppListForLauncher(kNodeName1)};
 
@@ -12334,6 +12330,10 @@ doTestClearApplicationsWithEmptyRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12381,11 +12381,7 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12421,6 +12417,10 @@ doTestClearApplicationsInRegistryWithOneApplicationFromOneLauncher
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12468,11 +12468,7 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12525,6 +12521,10 @@ doTestCountAfterClearApplicationsInRegistryWithOneApplicationFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -12571,11 +12571,7 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12628,6 +12624,10 @@ doTestClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -12674,11 +12674,7 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12747,6 +12743,10 @@ doTestCountAfterClearApplicationsInRegistryWithTwoApplicationsFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -12793,11 +12793,7 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12841,6 +12837,10 @@ doTestAddApplicationsFromTwoLaunchersToRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -12888,11 +12888,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -12953,6 +12949,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -12999,11 +12999,7 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13064,6 +13060,10 @@ doTestClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13110,11 +13110,7 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13206,6 +13202,10 @@ doTestCountAfterClearApplicationsInRegistryWithApplicationsFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13252,11 +13252,7 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13300,6 +13296,10 @@ doTestCountApplicationsInRegistryWithOneApplicationFromOneLauncherPerLauncher
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -13347,11 +13347,7 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13427,6 +13423,10 @@ doTestCountApplicationsInRegistryWithApplicationsFromTwoLaunchersPerLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13473,11 +13473,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13535,6 +13531,10 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13581,11 +13581,7 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13661,6 +13657,10 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13707,11 +13707,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13795,6 +13791,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13841,11 +13841,7 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -13903,6 +13899,10 @@ doTestGetApplicationInformationInRegistryWithOneApplicationFromOneLauncherPerLau
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -13949,11 +13949,7 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14054,6 +14050,10 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchersPerLaun
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -14100,11 +14100,7 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithNames{aRegistry->getNodesWithApplication(kAppName1)};
 
@@ -14123,6 +14119,10 @@ doTestGetNodeNamesInRegistryWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14170,11 +14170,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14218,6 +14214,10 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromOneLauncher
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14265,11 +14265,7 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14330,6 +14326,10 @@ doTestGetNodeNamesInRegistryWithOneUnmatchingApplicationFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -14376,11 +14376,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14432,6 +14428,10 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromOneLauncher
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -14478,11 +14478,7 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14557,6 +14553,10 @@ doTestGetNodeNamesInRegistryWithOneMatchingApplicationFromTwoLaunchers
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -14603,11 +14603,7 @@ doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfChannelsOnNode(kNodeName1)};
 
@@ -14626,6 +14622,10 @@ doTestCountChannelsOnNodeInRegistryWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14673,11 +14673,7 @@ doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfInputChannelsOnNode(kNodeName1)};
 
@@ -14696,6 +14692,10 @@ doTestCountInputChannelsOnNodeInRegistryWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14743,11 +14743,7 @@ doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    statusWithInt{aRegistry->getNumberOfOutputChannelsOnNode(kNodeName1)};
 
@@ -14766,6 +14762,10 @@ doTestCountOutputChannelsOnNodeInRegistryWithEmptyRegistry
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14813,11 +14813,7 @@ doTestCountChannelsOnNodeWithOneInputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14861,6 +14857,10 @@ doTestCountChannelsOnNodeWithOneInputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -14908,11 +14908,7 @@ doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -14956,6 +14952,10 @@ doTestCountInputChannelsOnNodeWithOneInputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -15003,11 +15003,7 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15051,6 +15047,10 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -15098,11 +15098,7 @@ doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15146,6 +15142,10 @@ doTestCountChannelsOnNodeWithOneOutputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -15193,11 +15193,7 @@ doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15241,6 +15237,10 @@ doTestCountInputChannelsOnNodeWithOneOutputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -15288,11 +15288,7 @@ doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15336,6 +15332,10 @@ doTestCountOutputChannelsOnNodeWithOneOutputChannelInRegistry
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)
@@ -15383,11 +15383,7 @@ doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15440,6 +15436,10 @@ doTestCountChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -15486,11 +15486,7 @@ doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15543,6 +15539,10 @@ doTestCountInputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -15589,11 +15589,7 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15646,6 +15642,10 @@ doTestCountOutputChannelsOnNodeWithOneInputChannelAndOneOutputChannelInRegistry
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -15692,11 +15692,7 @@ doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInR
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15757,6 +15753,10 @@ doTestCountChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChannelInR
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -15803,11 +15803,7 @@ doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChann
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15868,6 +15864,10 @@ doTestCountInputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChann
                 ODL_LOG("! (status.first)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
+        }
     }
     catch (...)
     {
@@ -15914,11 +15914,7 @@ doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChan
     {
         auto    aRegistry{std::make_unique<nImO::Registry>(context)};
 
-        if (nullptr == aRegistry)
-        {
-            ODL_LOG("(nullptr == aRegistry)"); //####
-        }
-        else
+        if (aRegistry)
         {
             auto    status{aRegistry->addMachine(nImO::GetShortComputerName())};
 
@@ -15978,6 +15974,10 @@ doTestCountOutputChannelsOnSecondNodeWithNodeWithOneInputChannelAndOneOutputChan
             {
                 ODL_LOG("! (status.first)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (aRegistry)"); //####
         }
     }
     catch (...)

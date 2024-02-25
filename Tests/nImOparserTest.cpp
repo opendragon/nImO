@@ -155,11 +155,7 @@ doTestParseLogicalValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asLogical())
             {
@@ -185,6 +181,10 @@ doTestParseLogicalValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -232,11 +232,7 @@ doTestParseNumberValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asNumber())
             {
@@ -262,6 +258,10 @@ doTestParseNumberValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -309,11 +309,7 @@ doTestParseStringValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asString())
             {
@@ -339,6 +335,10 @@ doTestParseStringValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -386,11 +386,7 @@ doTestParseAddressValue
         {
             ODL_LOG("((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asAddress())
             {
@@ -416,6 +412,10 @@ doTestParseAddressValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -463,11 +463,7 @@ doTestParseArrayValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asArray())
             {
@@ -493,6 +489,10 @@ doTestParseArrayValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -540,11 +540,7 @@ doTestParseSetValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asSet())
             {
@@ -570,6 +566,10 @@ doTestParseSetValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -617,11 +617,7 @@ doTestParseMapValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asMap())
             {
@@ -647,6 +643,10 @@ doTestParseMapValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)
@@ -694,11 +694,7 @@ doTestParseImplicitArrayValue
         {
             ODL_LOG("! ((nullptr != readValue) == expected)"); //####
         }
-        if (nullptr == readValue)
-        {
-            ODL_LOG("(nullptr == readValue)"); //####
-        }
-        else
+        if (readValue)
         {
             if (nullptr == readValue->asArray())
             {
@@ -724,6 +720,10 @@ doTestParseImplicitArrayValue
                     result = 1;
                 }
             }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
         }
     }
     catch (...)

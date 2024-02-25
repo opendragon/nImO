@@ -131,7 +131,7 @@ namespace nImO
             addValue
                 (SpValue    newElement)
             {
-                if (nullptr != newElement)
+                if (newElement)
                 {
                     inherited2::emplace_back(newElement);
                 }

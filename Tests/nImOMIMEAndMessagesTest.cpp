@@ -209,11 +209,7 @@ extractValueAndCheck
             stuff.close();
             if (stuff.readAtEnd())
             {
-                if (nullptr == extractedValue)
-                {
-                    ODL_LOG("(nullptr == extractedValue)"); //####
-                }
-                else
+                if (extractedValue)
                 {
                     auto    asFlaw{extractedValue->asFlaw()};
 
@@ -240,6 +236,10 @@ extractValueAndCheck
                         ODL_LOG("! (nullptr == asFlaw)"); //####
                         ODL_LOG(asFlaw->getDescription().c_str()); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (extractedValue)"); //####
                 }
             }
             else
@@ -718,11 +718,7 @@ doTestMIMEInsertEmptyMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             stuff->open(true);
             stuff->close();
@@ -764,6 +760,10 @@ doTestMIMEInsertEmptyMessage
                 ODL_LOG("! (0 < stuff->getLength())"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -803,11 +803,7 @@ doTestMIMEExtractEmptyMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             StdStringVector inVec;
             ByteVector      outBytes;
@@ -825,12 +821,7 @@ doTestMIMEExtractEmptyMessage
                     stuff->close();
                     if (stuff->readAtEnd())
                     {
-                        if (nullptr == extractedValue)
-                        {
-                            ODL_LOG("(nullptr == extractedValue)"); //####
-                            result = 0;
-                        }
-                        else
+                        if (extractedValue)
                         {
                             auto    asFlaw{extractedValue->asFlaw()};
 
@@ -842,6 +833,11 @@ doTestMIMEExtractEmptyMessage
                             {
                                 ODL_LOG(asFlaw->getDescription().c_str()); //####
                             }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (extractedValue)"); //####
+                            result = 0;
                         }
                     }
                     else
@@ -859,6 +855,10 @@ doTestMIMEExtractEmptyMessage
             {
                 ODL_LOG("! (DecodeMIMEToBytes(inVec, outBytes))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -899,11 +899,7 @@ doTestMIMEInsertLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                falseValue{std::make_shared<Logical>(false)};
             auto                trueValue{std::make_shared<Logical>(true)};
@@ -917,6 +913,10 @@ doTestMIMEInsertLogicalMessage
             {
                 result = setValueAndCheck(*stuff, falseValue, expectedFalseLines, expectedFalseLinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -957,11 +957,7 @@ doTestMIMEExtractLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedTrueLines[]{ "98H/"s };
             constexpr size_t    insertedTrueLinesCount{numElementsInArray(insertedTrueLines)};
@@ -975,6 +971,10 @@ doTestMIMEExtractLogicalMessage
             {
                 result = extractValueAndCheck(*stuff, insertedFalseLines, insertedFalseLinesCount, falseValue);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1015,11 +1015,7 @@ doTestMIMEInsertTinyIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                minus12Value{std::make_shared<Integer>(-12)};
             auto                zeroValue{std::make_shared<Integer>()};
@@ -1040,6 +1036,10 @@ doTestMIMEInsertTinyIntegerMessage
             {
                 result = setValueAndCheck(*stuff, plus12Value, expectedPlus12Lines, expectedPlus12LinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1080,11 +1080,7 @@ doTestMIMEExtractTinyIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedMinus12Lines[]{ "9BT8"s };
             constexpr size_t    insertedMinus12LinesCount{numElementsInArray(insertedMinus12Lines)};
@@ -1105,6 +1101,10 @@ doTestMIMEExtractTinyIntegerMessage
             {
                 result = extractValueAndCheck(*stuff, insertedPlus12Lines, insertedPlus12LinesCount, plus12Value);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1145,11 +1145,7 @@ doTestMIMEInsertSmallIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                minus144Value{std::make_shared<Integer>(-144)};
             auto                plus144Value{std::make_shared<Integer>(144)};
@@ -1163,6 +1159,10 @@ doTestMIMEInsertSmallIntegerMessage
             {
                 result = setValueAndCheck(*stuff, plus144Value, expectedPlus144Lines, expectedPlus144LinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1203,11 +1203,7 @@ doTestMIMEExtractSmallIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedMinus144Lines[]{ "9CH/cPw="s };
             constexpr size_t    insertedMinus144LinesCount{numElementsInArray(insertedMinus144Lines)};
@@ -1221,6 +1217,10 @@ doTestMIMEExtractSmallIntegerMessage
             {
                 result = extractValueAndCheck(*stuff, insertedPlus144Lines, insertedPlus144LinesCount, plus144Value);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1261,11 +1261,7 @@ doTestMIMEInsertMediumIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                minus1234567Value{std::make_shared<Integer>(-1234567)};
             auto                plus1234567Value{std::make_shared<Integer>(1234567)};
@@ -1279,6 +1275,10 @@ doTestMIMEInsertMediumIntegerMessage
             {
                 result = setValueAndCheck(*stuff, plus1234567Value, expectedPlus1234567Lines, expectedPlus1234567LinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1319,11 +1319,7 @@ doTestMIMEExtractMediumIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedMinus1234567Lines[]{ "9CLtKXn8"s };
             constexpr size_t    insertedMinus1234567LinesCount{numElementsInArray(insertedMinus1234567Lines)};
@@ -1337,6 +1333,10 @@ doTestMIMEExtractMediumIntegerMessage
             {
                 result = extractValueAndCheck(*stuff, insertedPlus1234567Lines, insertedPlus1234567LinesCount, plus1234567Value);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1377,11 +1377,7 @@ doTestMIMEInsertBigIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                minusBigNumberValue{std::make_shared<Integer>(-20015998343868)};
             auto                plusBigNumberValue{std::make_shared<Integer>(20015998343868)};
@@ -1395,6 +1391,10 @@ doTestMIMEInsertBigIntegerMessage
             {
                 result = setValueAndCheck(*stuff, plusBigNumberValue, expectedPlusBigNumberLines, expectedPlusBigNumberLinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1435,11 +1435,7 @@ doTestMIMEExtractBigIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedMinusBigNumberLines[]{ "9CXty6mHZUT8"s };
             constexpr size_t    insertedMinusBigNumberLinesCount{numElementsInArray(insertedMinusBigNumberLines)};
@@ -1453,6 +1449,10 @@ doTestMIMEExtractBigIntegerMessage
             {
                 result = extractValueAndCheck(*stuff, insertedPlusBigNumberLines, insertedPlusBigNumberLinesCount, plusBigNumberValue);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1493,17 +1493,17 @@ doTestMIMEInsertEmptyStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                emptyStringValue{std::make_shared<String>()};
             std::string         expectedEmptyStringLines[]{ "9oD+"s };
             constexpr size_t    expectedEmptyStringLinesCount{numElementsInArray(expectedEmptyStringLines)};
 
             result = setValueAndCheck(*stuff, emptyStringValue, expectedEmptyStringLines, expectedEmptyStringLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1544,17 +1544,17 @@ doTestMIMEExtractEmptyStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedEmptyStringLines[]{ "9oD+"s };
             constexpr size_t    insertedEmptyStringLinesCount{numElementsInArray(insertedEmptyStringLines)};
             String              emptyStringValue;
 
             result = extractValueAndCheck(*stuff, insertedEmptyStringLines, insertedEmptyStringLinesCount, emptyStringValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1595,17 +1595,17 @@ doTestMIMEInsertShortStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                shortStringValue{std::make_shared<String>("abcdef"s)};
             std::string         expectedShortStringLines[]{ "9oZhYmNkZWb+"s };
             constexpr size_t    expectedShortStringLinesCount{numElementsInArray(expectedShortStringLines)};
 
             result = setValueAndCheck(*stuff, shortStringValue, expectedShortStringLines, expectedShortStringLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1646,17 +1646,17 @@ doTestMIMEExtractShortStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedShortStringLines[]{ "9oZhYmNkZWb+"s };
             constexpr size_t    insertedShortStringLinesCount{numElementsInArray(insertedShortStringLines)};
             String              shortStringValue{"abcdef"s};
 
             result = extractValueAndCheck(*stuff, insertedShortStringLines, insertedShortStringLinesCount, shortStringValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1697,17 +1697,17 @@ doTestMIMEInsertMediumStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                mediumStringValue{std::make_shared<String>("abcdefabcdefabcdefabcdefabcdefabcdefabcdef"s)};
             std::string         expectedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g=="s };
             constexpr size_t    expectedMediumStringLinesCount{numElementsInArray(expectedMediumStringLines)};
 
             result = setValueAndCheck(*stuff, mediumStringValue, expectedMediumStringLines, expectedMediumStringLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1748,17 +1748,17 @@ doTestMIMEExtractMediumStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedMediumStringLines[]{ "9pAqYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVmYWJjZGVm/g=="s };
             constexpr size_t    insertedMediumStringLinesCount{numElementsInArray(insertedMediumStringLines)};
             String              mediumStringValue{"abcdefabcdefabcdefabcdefabcdefabcdefabcdef"s};
 
             result = extractValueAndCheck(*stuff, insertedMediumStringLines, insertedMediumStringLinesCount, mediumStringValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1799,17 +1799,17 @@ doTestMIMEInsertEmptyBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                emptyBlobValue{std::make_shared<Blob>()};
             std::string         expectedEmptyBlobLines[]{ "9qD+"s };
             constexpr size_t    expectedEmptyBlobLinesCount{numElementsInArray(expectedEmptyBlobLines)};
 
             result = setValueAndCheck(*stuff, emptyBlobValue, expectedEmptyBlobLines, expectedEmptyBlobLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1850,17 +1850,17 @@ doTestMIMEExtractEmptyBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedEmptyBlobLines[]{ "9qD+"s };
             constexpr size_t    insertedEmptyBlobLinesCount{numElementsInArray(insertedEmptyBlobLines)};
             Blob                emptyBlobValue;
 
             result = extractValueAndCheck(*stuff, insertedEmptyBlobLines, insertedEmptyBlobLinesCount, emptyBlobValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1901,11 +1901,7 @@ doTestMIMEInsertSmallBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const uint8_t    actualData[]
             {
@@ -1917,6 +1913,10 @@ doTestMIMEInsertSmallBlobMessage
             constexpr size_t        expectedSmallBlobLinesCount{numElementsInArray(expectedSmallBlobLines)};
 
             result = setValueAndCheck(*stuff, smallBlobValue, expectedSmallBlobLines, expectedSmallBlobLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1957,11 +1957,7 @@ doTestMIMEExtractSmallBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string             insertedSmallBlobLines[]{ "9qYSIzRFVmf+"s };
             constexpr size_t        insertedSmallBlobLinesCount{numElementsInArray(insertedSmallBlobLines)};
@@ -1973,6 +1969,10 @@ doTestMIMEExtractSmallBlobMessage
             Blob                    smallBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedSmallBlobLines, insertedSmallBlobLinesCount, smallBlobValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2013,11 +2013,7 @@ doTestMIMEInsertMediumBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             static const uint8_t    actualData[]
             {
@@ -2035,6 +2031,10 @@ doTestMIMEInsertMediumBlobMessage
             constexpr size_t        expectedMediumBlobLinesCount{numElementsInArray(expectedMediumBlobLines)};
 
             result = setValueAndCheck(*stuff, mediumBlobValue, expectedMediumBlobLines, expectedMediumBlobLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2075,11 +2075,7 @@ doTestMIMEExtractMediumBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string             insertedMediumBlobLines[]{ "9rAqEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZnEiM0RVZn/g=="s };
             constexpr size_t        insertedMediumBlobLinesCount{numElementsInArray(insertedMediumBlobLines)};
@@ -2097,6 +2093,10 @@ doTestMIMEExtractMediumBlobMessage
             Blob                    mediumBlobValue{actualData, actualDataCount};
 
             result = extractValueAndCheck(*stuff, insertedMediumBlobLines, insertedMediumBlobLinesCount, mediumBlobValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2137,11 +2137,7 @@ doTestMIMEInsertSingleDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                plus42Point5Value{std::make_shared<Double>(42.5)};
             auto                minus42Point5Value{std::make_shared<Double>(-42.5)};
@@ -2155,6 +2151,10 @@ doTestMIMEInsertSingleDoubleMessage
             {
                 result = setValueAndCheck(*stuff, minus42Point5Value, expectedMinus42Point5Lines, expectedMinus42Point5LinesCount);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2195,11 +2195,7 @@ doTestMIMEExtractSingleDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedPlus42Point5Lines[]{ "9UBARUAAAAAAAP0="s };
             constexpr size_t    insertedPlus42Point5LinesCount{numElementsInArray(insertedPlus42Point5Lines)};
@@ -2213,6 +2209,10 @@ doTestMIMEExtractSingleDoubleMessage
             {
                 result = extractValueAndCheck(*stuff, insertedMinus42Point5Lines, insertedMinus42Point5LinesCount, minus42Point5Value);
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2253,17 +2253,17 @@ doTestMIMEInsertAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                addressValue{std::make_shared<Address>(0x12345678)};
             std::string         expectedAddressLines[]{ "98QSNFZ4/w=="s };
             constexpr size_t    expectedAddressLinesCount{numElementsInArray(expectedAddressLines)};
 
             result = setValueAndCheck(*stuff, addressValue, expectedAddressLines, expectedAddressLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2304,17 +2304,17 @@ doTestMIMEExtractAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedAddressLines[]{ "98QSNFZ4/w=="s };
             constexpr size_t    insertedAddressLinesCount{numElementsInArray(insertedAddressLines)};
             Address             addressValue{0x12345678};
 
             result = extractValueAndCheck(*stuff, insertedAddressLines, insertedAddressLinesCount, addressValue);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2355,17 +2355,17 @@ doTestMIMEInsertEmptyArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                emptyArray{std::make_shared<Array>()};
             std::string         expectedEmptyArrayLines[]{ "99Dg/w=="s };
             constexpr size_t    expectedEmptyArrayLinesCount{numElementsInArray(expectedEmptyArrayLines)};
 
             result = setValueAndCheck(*stuff, emptyArray, expectedEmptyArrayLines, expectedEmptyArrayLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2406,17 +2406,17 @@ doTestMIMEExtractEmptyArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedEmptyArrayLines[]{ "99Dg/w=="s };
             constexpr size_t    insertedEmptyArrayLinesCount{numElementsInArray(insertedEmptyArrayLines)};
             Array               emptyArray;
 
             result = extractValueAndCheck(*stuff, insertedEmptyArrayLines, insertedEmptyArrayLinesCount, emptyArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2457,17 +2457,17 @@ doTestMIMEInsertEmptyMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                emptyMap{std::make_shared<Map>()};
             std::string         expectedEmptyMapLines[]{ "99Tk/w=="s };
             constexpr size_t    expectedEmptyMapLinesCount{numElementsInArray(expectedEmptyMapLines)};
 
             result = setValueAndCheck(*stuff, emptyMap, expectedEmptyMapLines, expectedEmptyMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2508,17 +2508,17 @@ doTestMIMEExtractEmptyMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedEmptyMapLines[]{ "99Tk/w=="s };
             constexpr size_t    insertedEmptyMapLinesCount{numElementsInArray(insertedEmptyMapLines)};
             Map                 emptyMap;
 
             result = extractValueAndCheck(*stuff, insertedEmptyMapLines, insertedEmptyMapLinesCount, emptyMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2559,17 +2559,17 @@ doTestMIMEInsertEmptySetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                emptySet{std::make_shared<Set>()};
             std::string         expectedEmptySetLines[]{ "99jo/w=="s };
             constexpr size_t    expectedEmptySetLinesCount{numElementsInArray(expectedEmptySetLines)};
 
             result = setValueAndCheck(*stuff, emptySet, expectedEmptySetLines, expectedEmptySetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2610,17 +2610,17 @@ doTestMIMEExtractEmptySetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedEmptySetLines[]{ "99jo/w=="s };
             constexpr size_t    insertedEmptySetLinesCount{numElementsInArray(insertedEmptySetLines)};
             Set                 emptySet;
 
             result = extractValueAndCheck(*stuff, insertedEmptySetLines, insertedEmptySetLinesCount, emptySet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2661,11 +2661,7 @@ doTestMIMEInsertArrayOneLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneLogical{std::make_shared<Array>()};
             std::string         expectedArrayOneLogicalLines[]{ "99EQwOH/"s };
@@ -2673,6 +2669,10 @@ doTestMIMEInsertArrayOneLogicalMessage
 
             arrayOneLogical->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayOneLogical, expectedArrayOneLogicalLines, expectedArrayOneLogicalLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2713,11 +2713,7 @@ doTestMIMEExtractArrayOneLogicalMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneLogicalLines[]{ "99EQwOH/"s };
             constexpr size_t    insertedArrayOneLogicalLinesCount{numElementsInArray(insertedArrayOneLogicalLines)};
@@ -2725,6 +2721,10 @@ doTestMIMEExtractArrayOneLogicalMessage
 
             arrayOneLogical.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedArrayOneLogicalLines, insertedArrayOneLogicalLinesCount, arrayOneLogical);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2765,11 +2765,7 @@ doTestMIMEInsertArrayOneIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneInteger{std::make_shared<Array>()};
             std::string         expectedArrayOneIntegerLines[]{ "99EQAOH/"s };
@@ -2777,6 +2773,10 @@ doTestMIMEInsertArrayOneIntegerMessage
 
             arrayOneInteger->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayOneInteger, expectedArrayOneIntegerLines, expectedArrayOneIntegerLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2817,11 +2817,7 @@ doTestMIMEExtractArrayOneIntegerMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneIntegerLines[]{ "99EQAOH/"s };
             constexpr size_t    insertedArrayOneIntegerLinesCount{numElementsInArray(insertedArrayOneIntegerLines)};
@@ -2829,6 +2825,10 @@ doTestMIMEExtractArrayOneIntegerMessage
 
             arrayOneInteger.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedArrayOneIntegerLines, insertedArrayOneIntegerLinesCount, arrayOneInteger);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2869,11 +2869,7 @@ doTestMIMEInsertArrayOneDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneDouble{std::make_shared<Array>()};
             std::string         expectedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8="s };
@@ -2881,6 +2877,10 @@ doTestMIMEInsertArrayOneDoubleMessage
 
             arrayOneDouble->addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayOneDouble, expectedArrayOneDoubleLines, expectedArrayOneDoubleLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2921,11 +2921,7 @@ doTestMIMEExtractArrayOneDoubleMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneDoubleLines[]{ "99EQQAAAAAAAAAAA4f8="s };
             constexpr size_t    insertedArrayOneDoubleLinesCount{numElementsInArray(insertedArrayOneDoubleLines)};
@@ -2933,6 +2929,10 @@ doTestMIMEExtractArrayOneDoubleMessage
 
             arrayOneDouble.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedArrayOneDoubleLines, insertedArrayOneDoubleLinesCount, arrayOneDouble);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2973,11 +2973,7 @@ doTestMIMEInsertArrayOneStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneString{std::make_shared<Array>()};
             std::string         expectedArrayOneStringLines[]{ "99EQgOH/"s };
@@ -2985,6 +2981,10 @@ doTestMIMEInsertArrayOneStringMessage
 
             arrayOneString->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayOneString, expectedArrayOneStringLines, expectedArrayOneStringLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3025,11 +3025,7 @@ doTestMIMEExtractArrayOneStringMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneStringLines[]{ "99EQgOH/"s };
             constexpr size_t    insertedArrayOneStringLinesCount{numElementsInArray(insertedArrayOneStringLines)};
@@ -3037,6 +3033,10 @@ doTestMIMEExtractArrayOneStringMessage
 
             arrayOneString.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedArrayOneStringLines, insertedArrayOneStringLinesCount, arrayOneString);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3077,11 +3077,7 @@ doTestMIMEInsertArrayOneBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneBlob{std::make_shared<Array>()};
             std::string         expectedArrayOneBlobLines[]{ "99EQoOH/"s };
@@ -3089,6 +3085,10 @@ doTestMIMEInsertArrayOneBlobMessage
 
             arrayOneBlob->addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayOneBlob, expectedArrayOneBlobLines, expectedArrayOneBlobLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3129,11 +3129,7 @@ doTestMIMEExtractArrayOneBlobMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneBlobLines[]{ "99EQoOH/"s };
             constexpr size_t    insertedArrayOneBlobLinesCount{numElementsInArray(insertedArrayOneBlobLines)};
@@ -3141,6 +3137,10 @@ doTestMIMEExtractArrayOneBlobMessage
 
             arrayOneBlob.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedArrayOneBlobLines, insertedArrayOneBlobLinesCount, arrayOneBlob);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3181,11 +3181,7 @@ doTestMIMEInsertArrayOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneArray{std::make_shared<Array>()};
             std::string         expectedArrayOneArrayLines[]{ "99EQ0ODh/w=="s };
@@ -3193,6 +3189,10 @@ doTestMIMEInsertArrayOneArrayMessage
 
             arrayOneArray->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneArray, expectedArrayOneArrayLines, expectedArrayOneArrayLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3233,11 +3233,7 @@ doTestMIMEExtractArrayOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneArrayLines[]{ "99EQ0ODh/w=="s };
             constexpr size_t    insertedArrayOneArrayLinesCount{numElementsInArray(insertedArrayOneArrayLines)};
@@ -3245,6 +3241,10 @@ doTestMIMEExtractArrayOneArrayMessage
 
             arrayOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedArrayOneArrayLines, insertedArrayOneArrayLinesCount, arrayOneArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3285,11 +3285,7 @@ doTestMIMEInsertArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneMap{std::make_shared<Array>()};
             std::string         expectedArrayOneMapLines[]{ "99EQ1OTh/w=="s };
@@ -3297,6 +3293,10 @@ doTestMIMEInsertArrayOneMapMessage
 
             arrayOneMap->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneMap, expectedArrayOneMapLines, expectedArrayOneMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3337,11 +3337,7 @@ doTestMIMEExtractArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneMapLines[]{ "99EQ1OTh/w=="s };
             constexpr size_t    insertedArrayOneMapLinesCount{numElementsInArray(insertedArrayOneMapLines)};
@@ -3349,6 +3345,10 @@ doTestMIMEExtractArrayOneMapMessage
 
             arrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedArrayOneMapLines, insertedArrayOneMapLinesCount, arrayOneMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3389,11 +3389,7 @@ doTestMIMEInsertArrayOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneSet{std::make_shared<Array>()};
             std::string         expectedArrayOneSetLines[]{ "99EQ2Ojh/w=="s };
@@ -3401,6 +3397,10 @@ doTestMIMEInsertArrayOneSetMessage
 
             arrayOneSet->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneSet, expectedArrayOneSetLines, expectedArrayOneSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3441,11 +3441,7 @@ doTestMIMEExtractArrayOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneSetLines[]{ "99EQ2Ojh/w=="s };
             constexpr size_t    insertedArrayOneSetLinesCount{numElementsInArray(insertedArrayOneSetLines)};
@@ -3453,6 +3449,10 @@ doTestMIMEExtractArrayOneSetMessage
 
             arrayOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedArrayOneSetLines, insertedArrayOneSetLinesCount, arrayOneSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3493,11 +3493,7 @@ doTestMIMEInsertArrayWithOneAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneAddress{std::make_shared<Array>()};
             std::string         expectedArrayOneAddressLines[]{ "99EQxDRWeKvh/w=="s };
@@ -3505,6 +3501,10 @@ doTestMIMEInsertArrayWithOneAddressMessage
 
             arrayOneAddress->addValue(std::make_shared<Address>(0x345678AB));
             result = setValueAndCheck(*stuff, arrayOneAddress, expectedArrayOneAddressLines, expectedArrayOneAddressLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3545,11 +3545,7 @@ doTestMIMEExtractArrayWithOneAddressMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneAddressLines[]{ "99EQxDRWeKvh/w=="s };
             constexpr size_t    insertedArrayOneAddressLinesCount{numElementsInArray(insertedArrayOneAddressLines)};
@@ -3557,6 +3553,10 @@ doTestMIMEExtractArrayWithOneAddressMessage
 
             arrayOneAddress.addValue(std::make_shared<Address>(0x345678AB));
             result = extractValueAndCheck(*stuff, insertedArrayOneAddressLines, insertedArrayOneAddressLinesCount, arrayOneAddress);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3597,11 +3597,7 @@ doTestMIMEInsertArrayTwoLogicalsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoLogicals{std::make_shared<Array>()};
             std::string         expectedArrayTwoLogicalsLines[]{ "99ERwMDh/w=="s };
@@ -3610,6 +3606,10 @@ doTestMIMEInsertArrayTwoLogicalsMessage
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
             arrayTwoLogicals->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, arrayTwoLogicals, expectedArrayTwoLogicalsLines, expectedArrayTwoLogicalsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3650,11 +3650,7 @@ doTestMIMEExtractArrayTwoLogicalsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoLogicalsLines[]{ "99ERwMDh/w=="s };
             constexpr size_t    insertedArrayTwoLogicalsLinesCount{numElementsInArray(insertedArrayTwoLogicalsLines)};
@@ -3663,6 +3659,10 @@ doTestMIMEExtractArrayTwoLogicalsMessage
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             arrayTwoLogicals.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoLogicalsLines, insertedArrayTwoLogicalsLinesCount, arrayTwoLogicals);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3703,11 +3703,7 @@ doTestMIMEInsertArrayTwoIntegersMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoIntegers{std::make_shared<Array>()};
             std::string         expectedArrayTwoIntegersLines[]{ "99ERAADh/w=="s };
@@ -3716,6 +3712,10 @@ doTestMIMEInsertArrayTwoIntegersMessage
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
             arrayTwoIntegers->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, arrayTwoIntegers, expectedArrayTwoIntegersLines, expectedArrayTwoIntegersLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3756,11 +3756,7 @@ doTestMIMEExtractArrayTwoIntegersMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoIntegersLines[]{ "99ERAADh/w=="s };
             constexpr size_t    insertedArrayTwoIntegersLinesCount{numElementsInArray(insertedArrayTwoIntegersLines)};
@@ -3769,6 +3765,10 @@ doTestMIMEExtractArrayTwoIntegersMessage
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             arrayTwoIntegers.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoIntegersLines, insertedArrayTwoIntegersLinesCount, arrayTwoIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3809,11 +3809,7 @@ doTestMIMEInsertArrayTwoDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoDoubles{std::make_shared<Array>()};
             std::string         expectedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w=="s };
@@ -3822,6 +3818,10 @@ doTestMIMEInsertArrayTwoDoublesMessage
             arrayTwoDoubles->addValue(std::make_shared<Double>());
             arrayTwoDoubles->addValue(std::make_shared<Double>());
             result = setValueAndCheck(*stuff, arrayTwoDoubles, expectedArrayTwoDoublesLines, expectedArrayTwoDoublesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3862,11 +3862,7 @@ doTestMIMEExtractArrayTwoDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoDoublesLines[]{ "99ERQQAAAAAAAAAAAAAAAAAAAADh/w=="s };
             constexpr size_t    insertedArrayTwoDoublesLinesCount{numElementsInArray(insertedArrayTwoDoublesLines)};
@@ -3875,6 +3871,10 @@ doTestMIMEExtractArrayTwoDoublesMessage
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             arrayTwoDoubles.addValue(std::make_shared<Double>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoDoublesLines, insertedArrayTwoDoublesLinesCount, arrayTwoDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3915,11 +3915,7 @@ doTestMIMEInsertArrayTwoStringsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoStrings{std::make_shared<Array>()};
             std::string         expectedArrayTwoStringsLines[]{ "99ERgIDh/w=="s };
@@ -3928,6 +3924,10 @@ doTestMIMEInsertArrayTwoStringsMessage
             arrayTwoStrings->addValue(std::make_shared<String>());
             arrayTwoStrings->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, arrayTwoStrings, expectedArrayTwoStringsLines, expectedArrayTwoStringsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -3968,11 +3968,7 @@ doTestMIMEExtractArrayTwoStringsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoStringsLines[]{ "99ERgIDh/w=="s };
             constexpr size_t    insertedArrayTwoStringsLinesCount{numElementsInArray(insertedArrayTwoStringsLines)};
@@ -3981,6 +3977,10 @@ doTestMIMEExtractArrayTwoStringsMessage
             arrayTwoStrings.addValue(std::make_shared<String>());
             arrayTwoStrings.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoStringsLines, insertedArrayTwoStringsLinesCount, arrayTwoStrings);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4021,11 +4021,7 @@ doTestMIMEInsertArrayTwoBlobsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoBlobs{std::make_shared<Array>()};
             std::string         expectedArrayTwoBlobsLines[]{ "99ERoKDh/w=="s };
@@ -4034,6 +4030,10 @@ doTestMIMEInsertArrayTwoBlobsMessage
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
             arrayTwoBlobs->addValue(std::make_shared<Blob>());
             result = setValueAndCheck(*stuff, arrayTwoBlobs, expectedArrayTwoBlobsLines, expectedArrayTwoBlobsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4074,11 +4074,7 @@ doTestMIMEExtractArrayTwoBlobsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoBlobsLines[]{ "99ERoKDh/w=="s };
             constexpr size_t    insertedArrayTwoBlobsLinesCount{numElementsInArray(insertedArrayTwoBlobsLines)};
@@ -4087,6 +4083,10 @@ doTestMIMEExtractArrayTwoBlobsMessage
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             arrayTwoBlobs.addValue(std::make_shared<Blob>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoBlobsLines, insertedArrayTwoBlobsLinesCount, arrayTwoBlobs);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4127,11 +4127,7 @@ doTestMIMEInsertArrayTwoArraysMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoArrays{std::make_shared<Array>()};
             std::string         expectedArrayTwoArraysLines[]{ "99ER0ODQ4OH/"s };
@@ -4140,6 +4136,10 @@ doTestMIMEInsertArrayTwoArraysMessage
             arrayTwoArrays->addValue(std::make_shared<Array>());
             arrayTwoArrays->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayTwoArrays, expectedArrayTwoArraysLines, expectedArrayTwoArraysLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4180,11 +4180,7 @@ doTestMIMEExtractArrayTwoArraysMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoArraysLines[]{ "99ER0ODQ4OH/"s };
             constexpr size_t    insertedArrayTwoArraysLinesCount{numElementsInArray(insertedArrayTwoArraysLines)};
@@ -4193,6 +4189,10 @@ doTestMIMEExtractArrayTwoArraysMessage
             arrayTwoArrays.addValue(std::make_shared<Array>());
             arrayTwoArrays.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoArraysLines, insertedArrayTwoArraysLinesCount, arrayTwoArrays);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4233,11 +4233,7 @@ doTestMIMEInsertArrayTwoMapsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoMaps{std::make_shared<Array>()};
             std::string         expectedArrayTwoMapsLines[]{ "99ER1OTU5OH/"s };
@@ -4246,6 +4242,10 @@ doTestMIMEInsertArrayTwoMapsMessage
             arrayTwoMaps->addValue(std::make_shared<Map>());
             arrayTwoMaps->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayTwoMaps, expectedArrayTwoMapsLines, expectedArrayTwoMapsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4286,11 +4286,7 @@ doTestMIMEExtractArrayTwoMapsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoMapsLines[]{ "99ER1OTU5OH/"s };
             constexpr size_t    insertedArrayTwoMapsLinesCount{numElementsInArray(insertedArrayTwoMapsLines)};
@@ -4299,6 +4295,10 @@ doTestMIMEExtractArrayTwoMapsMessage
             arrayTwoMaps.addValue(std::make_shared<Map>());
             arrayTwoMaps.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoMapsLines, insertedArrayTwoMapsLinesCount, arrayTwoMaps);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4339,11 +4339,7 @@ doTestMIMEInsertArrayTwoSetsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoSets{std::make_shared<Array>()};
             std::string         expectedArrayTwoSetsLines[]{ "99ER2OjY6OH/"s };
@@ -4352,6 +4348,10 @@ doTestMIMEInsertArrayTwoSetsMessage
             arrayTwoSets->addValue(std::make_shared<Set>());
             arrayTwoSets->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayTwoSets, expectedArrayTwoSetsLines, expectedArrayTwoSetsLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4392,11 +4392,7 @@ doTestMIMEExtractArrayTwoSetsMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoSetsLines[]{ "99ER2OjY6OH/"s };
             constexpr size_t    insertedArrayTwoSetsLinesCount{numElementsInArray(insertedArrayTwoSetsLines)};
@@ -4405,6 +4401,10 @@ doTestMIMEExtractArrayTwoSetsMessage
             arrayTwoSets.addValue(std::make_shared<Set>());
             arrayTwoSets.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedArrayTwoSetsLines, insertedArrayTwoSetsLinesCount, arrayTwoSets);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4445,11 +4445,7 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneArrayOneMap{std::make_shared<Array>()};
             std::string         expectedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/"s };
@@ -4458,6 +4454,10 @@ doTestMIMEInsertArrayOneArrayOneMapMessage
             arrayOneArrayOneMap->addValue(std::make_shared<Array>());
             arrayOneArrayOneMap->addValue(std::make_shared<Map>());
             result = setValueAndCheck(*stuff, arrayOneArrayOneMap, expectedArrayOneArrayOneMapLines, expectedArrayOneArrayOneMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4498,11 +4498,7 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneArrayOneMapLines[]{ "99ER0ODU5OH/"s };
             constexpr size_t    insertedArrayOneArrayOneMapLinesCount{numElementsInArray(insertedArrayOneArrayOneMapLines)};
@@ -4511,6 +4507,10 @@ doTestMIMEExtractArrayOneArrayOneMapMessage
             arrayOneArrayOneMap.addValue(std::make_shared<Array>());
             arrayOneArrayOneMap.addValue(std::make_shared<Map>());
             result = extractValueAndCheck(*stuff, insertedArrayOneArrayOneMapLines, insertedArrayOneArrayOneMapLinesCount, arrayOneArrayOneMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4551,11 +4551,7 @@ doTestMIMEInsertArrayOneMapOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneMapOneSet{std::make_shared<Array>()};
             std::string         expectedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/"s };
@@ -4564,6 +4560,10 @@ doTestMIMEInsertArrayOneMapOneSetMessage
             arrayOneMapOneSet->addValue(std::make_shared<Map>());
             arrayOneMapOneSet->addValue(std::make_shared<Set>());
             result = setValueAndCheck(*stuff, arrayOneMapOneSet, expectedArrayOneMapOneSetLines, expectedArrayOneMapOneSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4604,11 +4604,7 @@ doTestMIMEExtractArrayOneMapOneSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneMapOneSetLines[]{ "99ER1OTY6OH/"s };
             constexpr size_t    insertedArrayOneMapOneSetLinesCount{numElementsInArray(insertedArrayOneMapOneSetLines)};
@@ -4617,6 +4613,10 @@ doTestMIMEExtractArrayOneMapOneSetMessage
             arrayOneMapOneSet.addValue(std::make_shared<Map>());
             arrayOneMapOneSet.addValue(std::make_shared<Set>());
             result = extractValueAndCheck(*stuff, insertedArrayOneMapOneSetLines, insertedArrayOneMapOneSetLinesCount, arrayOneMapOneSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4657,11 +4657,7 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayOneSetOneArray{std::make_shared<Array>()};
             std::string         expectedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/"s };
@@ -4670,6 +4666,10 @@ doTestMIMEInsertArrayOneSetOneArrayMessage
             arrayOneSetOneArray->addValue(std::make_shared<Set>());
             arrayOneSetOneArray->addValue(std::make_shared<Array>());
             result = setValueAndCheck(*stuff, arrayOneSetOneArray, expectedArrayOneSetOneArrayLines, expectedArrayOneSetOneArrayLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4710,11 +4710,7 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayOneSetOneArrayLines[]{ "99ER2OjQ4OH/"s };
             constexpr size_t    insertedArrayOneSetOneArrayLinesCount{numElementsInArray(insertedArrayOneSetOneArrayLines)};
@@ -4723,6 +4719,10 @@ doTestMIMEExtractArrayOneSetOneArrayMessage
             arrayOneSetOneArray.addValue(std::make_shared<Set>());
             arrayOneSetOneArray.addValue(std::make_shared<Array>());
             result = extractValueAndCheck(*stuff, insertedArrayOneSetOneArrayLines, insertedArrayOneSetOneArrayLinesCount, arrayOneSetOneArray);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4763,11 +4763,7 @@ doTestMIMEInsertArrayWithManyDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             constexpr size_t    numValues{43};
             auto                arrayManyDoubles{std::make_shared<Array>()};
@@ -4786,6 +4782,10 @@ doTestMIMEInsertArrayWithManyDoublesMessage
                 arrayManyDoubles->addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
             result = setValueAndCheck(*stuff, arrayManyDoubles, expectedArrayManyDoublesLines, expectedArrayManyDoublesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4826,11 +4826,7 @@ doTestMIMEExtractArrayWithManyDoublesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             constexpr size_t    numValues{43};
             std::string         insertedArrayManyDoublesLines[]{
@@ -4849,6 +4845,10 @@ doTestMIMEExtractArrayWithManyDoublesMessage
                 arrayManyDoubles.addValue(std::make_shared<Double>(StaticCast(double, ii)));
             }
             result = extractValueAndCheck(*stuff, insertedArrayManyDoublesLines, insertedArrayManyDoublesLinesCount, arrayManyDoubles);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4889,11 +4889,7 @@ doTestMIMEInsertArrayWithTwoAddressesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayTwoAddresses{std::make_shared<Array>()};
             std::string         expectedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/"s };
@@ -4902,6 +4898,10 @@ doTestMIMEInsertArrayWithTwoAddressesMessage
             arrayTwoAddresses->addValue(std::make_shared<Address>(0x12345678));
             arrayTwoAddresses->addValue(std::make_shared<Address>(0x345678AB));
             result = setValueAndCheck(*stuff, arrayTwoAddresses, expectedArrayTwoAddressesLines, expectedArrayTwoAddressesLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4942,11 +4942,7 @@ doTestMIMEExtractArrayWithTwoAddressesMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayTwoAddressesLines[]{ "99ERxBI0VnjENFZ4q+H/"s };
             constexpr size_t    insertedArrayTwoAddressesLinesCount{numElementsInArray(insertedArrayTwoAddressesLines)};
@@ -4955,6 +4951,10 @@ doTestMIMEExtractArrayWithTwoAddressesMessage
             arrayTwoAddresses.addValue(std::make_shared<Address>(0x12345678));
             arrayTwoAddresses.addValue(std::make_shared<Address>(0x345678AB));
             result = extractValueAndCheck(*stuff, insertedArrayTwoAddressesLines, insertedArrayTwoAddressesLinesCount, arrayTwoAddresses);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4995,11 +4995,7 @@ doTestMIMEInsertLogicalMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                logicalMap{std::make_shared<Map>()};
             std::string         expectedLogicalMapLines[]{ "99UQwA3l/w=="s };
@@ -5007,6 +5003,10 @@ doTestMIMEInsertLogicalMapMessage
 
             logicalMap->addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, logicalMap, expectedLogicalMapLines, expectedLogicalMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5047,11 +5047,7 @@ doTestMIMEExtractLogicalMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedLogicalMapLines[]{ "99UQwA3l/w=="s };
             constexpr size_t    insertedLogicalMapLinesCount{numElementsInArray(insertedLogicalMapLines)};
@@ -5059,6 +5055,10 @@ doTestMIMEExtractLogicalMapMessage
 
             logicalMap.addValue(std::make_shared<Logical>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedLogicalMapLines, insertedLogicalMapLinesCount, logicalMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5099,11 +5099,7 @@ doTestMIMEInsertIntegerMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                integerMap{std::make_shared<Map>()};
             std::string         expectedIntegerMapLines[]{ "99UQAA3l/w=="s };
@@ -5111,6 +5107,10 @@ doTestMIMEInsertIntegerMapMessage
 
             integerMap->addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, integerMap, expectedIntegerMapLines, expectedIntegerMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5151,11 +5151,7 @@ doTestMIMEExtractIntegerMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedIntegerMapLines[]{ "99UQAA3l/w=="s };
             constexpr size_t    insertedIntegerMapLinesCount{numElementsInArray(insertedIntegerMapLines)};
@@ -5163,6 +5159,10 @@ doTestMIMEExtractIntegerMapMessage
 
             integerMap.addValue(std::make_shared<Integer>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedIntegerMapLines, insertedIntegerMapLinesCount, integerMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5203,11 +5203,7 @@ doTestMIMEInsertStringMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                stringMap{std::make_shared<Map>()};
             std::string         expectedStringMapLines[]{ "99UQgA3l/w=="s };
@@ -5215,6 +5211,10 @@ doTestMIMEInsertStringMapMessage
 
             stringMap->addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, stringMap, expectedStringMapLines, expectedStringMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5255,11 +5255,7 @@ doTestMIMEExtractStringMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedStringMapLines[]{ "99UQgA3l/w=="s };
             constexpr size_t    insertedStringMapLinesCount{numElementsInArray(insertedStringMapLines)};
@@ -5267,6 +5263,10 @@ doTestMIMEExtractStringMapMessage
 
             stringMap.addValue(std::make_shared<String>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedStringMapLines, insertedStringMapLinesCount, stringMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5307,11 +5307,7 @@ doTestMIMEInsertLogicalSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                logicalSet{std::make_shared<Set>()};
             std::string         expectedLogicalSetLines[]{ "99kQwOn/"s };
@@ -5319,6 +5315,10 @@ doTestMIMEInsertLogicalSetMessage
 
             logicalSet->addValue(std::make_shared<Logical>());
             result = setValueAndCheck(*stuff, logicalSet, expectedLogicalSetLines, expectedLogicalSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5359,11 +5359,7 @@ doTestMIMEExtractLogicalSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedLogicalSetLines[]{ "99kQwOn/"s };
             constexpr size_t    insertedLogicalSetLinesCount{numElementsInArray(insertedLogicalSetLines)};
@@ -5371,6 +5367,10 @@ doTestMIMEExtractLogicalSetMessage
 
             logicalSet.addValue(std::make_shared<Logical>());
             result = extractValueAndCheck(*stuff, insertedLogicalSetLines, insertedLogicalSetLinesCount, logicalSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5411,11 +5411,7 @@ doTestMIMEInsertIntegerSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                integerSet{std::make_shared<Set>()};
             std::string         expectedIntegerSetLines[]{ "99kQAOn/"s };
@@ -5423,6 +5419,10 @@ doTestMIMEInsertIntegerSetMessage
 
             integerSet->addValue(std::make_shared<Integer>());
             result = setValueAndCheck(*stuff, integerSet, expectedIntegerSetLines, expectedIntegerSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5463,11 +5463,7 @@ doTestMIMEExtractIntegerSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedIntegerSetLines[]{ "99kQAOn/"s };
             constexpr size_t    insertedIntegerSetLinesCount{numElementsInArray(insertedIntegerSetLines)};
@@ -5475,6 +5471,10 @@ doTestMIMEExtractIntegerSetMessage
 
             integerSet.addValue(std::make_shared<Integer>());
             result = extractValueAndCheck(*stuff, insertedIntegerSetLines, insertedIntegerSetLinesCount, integerSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5515,11 +5515,7 @@ doTestMIMEInsertStdStringSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                stringSet{std::make_shared<Set>()};
             std::string         expectedStdStringSetLines[]{ "99kQgOn/"s };
@@ -5527,6 +5523,10 @@ doTestMIMEInsertStdStringSetMessage
 
             stringSet->addValue(std::make_shared<String>());
             result = setValueAndCheck(*stuff, stringSet, expectedStdStringSetLines, expectedStdStringSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5567,11 +5567,7 @@ doTestMIMEExtractStdStringSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedStdStringSetLines[]{ "99kQgOn/"s };
             constexpr size_t    insertedStdStringSetLinesCount{numElementsInArray(insertedStdStringSetLines)};
@@ -5579,6 +5575,10 @@ doTestMIMEExtractStdStringSetMessage
 
             stringSet.addValue(std::make_shared<String>());
             result = extractValueAndCheck(*stuff, insertedStdStringSetLines, insertedStdStringSetLinesCount, stringSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5619,11 +5619,7 @@ doTestMIMEInsertAddressMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                addressMap{std::make_shared<Map>()};
             std::string         expectedAddressMapLines[]{ "99UQxAAAAAAN5f8="s };
@@ -5631,6 +5627,10 @@ doTestMIMEInsertAddressMapMessage
 
             addressMap->addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
             result = setValueAndCheck(*stuff, addressMap, expectedAddressMapLines, expectedAddressMapLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5671,11 +5671,7 @@ doTestMIMEExtractAddressMapMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedAddressMapLines[]{ "99UQxAAAAAAN5f8="s };
             constexpr size_t    insertedAddressMapLinesCount{numElementsInArray(insertedAddressMapLines)};
@@ -5683,6 +5679,10 @@ doTestMIMEExtractAddressMapMessage
 
             addressMap.addValue(std::make_shared<Address>(), std::make_shared<Integer>(13));
             result = extractValueAndCheck(*stuff, insertedAddressMapLines, insertedAddressMapLinesCount, addressMap);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5723,11 +5723,7 @@ doTestMIMEInsertAddressSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                addressSet{std::make_shared<Set>()};
             std::string         expectedAddressSetLines[]{ "99kQxAAAAADp/w=="s };
@@ -5735,6 +5731,10 @@ doTestMIMEInsertAddressSetMessage
 
             addressSet->addValue(std::make_shared<Address>());
             result = setValueAndCheck(*stuff, addressSet, expectedAddressSetLines, expectedAddressSetLinesCount);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5775,11 +5775,7 @@ doTestMIMEExtractAddressSetMessage
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedAddressSetLines[]{ "99kQxAAAAADp/w=="s };
             constexpr size_t    insertedAddressSetLinesCount{numElementsInArray(insertedAddressSetLines)};
@@ -5787,6 +5783,10 @@ doTestMIMEExtractAddressSetMessage
 
             addressSet.addValue(std::make_shared<Address>());
             result = extractValueAndCheck(*stuff, insertedAddressSetLines, insertedAddressSetLinesCount, addressSet);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -5827,11 +5827,7 @@ doTestMIMEInsertArrayWithRangeOfIntegers
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto                arrayWithRangeOfIntegers{std::make_shared<Array>()};
             std::string         expectedArrayWithRangeOfIntegersLines[]{
@@ -5880,6 +5876,10 @@ doTestMIMEInsertArrayWithRangeOfIntegers
             result = setValueAndCheck(*stuff, arrayWithRangeOfIntegers, expectedArrayWithRangeOfIntegersLines,
                                       expectedArrayWithRangeOfIntegersLinesCount);
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -5919,11 +5919,7 @@ doTestMIMEExtractArrayWithRangeOfIntegers
     {
         auto    stuff{std::make_unique<Message>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             std::string         insertedArrayWithRangeOfIntegersLines[]{
                                     "99EgEwEKIGQhA+ghJxAiAYagIg9CQCMAmJaAIwX14QAjO5rKACQCVAvkACQXSHboACUA6NSl"s,
@@ -5971,6 +5967,10 @@ doTestMIMEExtractArrayWithRangeOfIntegers
             arrayWithRangeOfIntegers.addValue(std::make_shared<Integer>(-100000000000000000));
             result = extractValueAndCheck(*stuff, insertedArrayWithRangeOfIntegersLines, insertedArrayWithRangeOfIntegersLinesCount,
                                           arrayWithRangeOfIntegers);
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)

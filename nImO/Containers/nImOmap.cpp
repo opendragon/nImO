@@ -152,11 +152,7 @@ nImO::Map::addValue
     ODL_P2("newKey = ", newKey.get(), "newValue = ", newValue.get()); //####
     InsertResult result;
 
-    if ((nullptr == newKey) || (nullptr == newValue))
-    {
-        result = InsertResult(inherited2::end(), false);
-    }
-    else
+    if (newKey && newValue)
     {
         if (Enumerable::Unknown == _keyKind)
         {
@@ -172,6 +168,10 @@ nImO::Map::addValue
         {
             result = InsertResult(inherited2::end(), false);
         }
+    }
+    else
+    {
+        result = InsertResult(inherited2::end(), false);
     }
     ODL_OBJEXIT(); //####
     return result;
@@ -217,18 +217,18 @@ nImO::Map::deeplyEqualTo
 
             for (result = true; result && (thisWalker != inherited2::end()); ++thisWalker, ++otherWalker)
             {
-                SpValue thisKey{thisWalker->first};
-                SpValue otherKey{otherWalker->first};
+                auto    thisKey{thisWalker->first};
+                auto    otherKey{otherWalker->first};
 
-                if ((nullptr != thisKey) && (nullptr != otherKey))
+                if (thisKey && otherKey)
                 {
                     result = thisKey->deeplyEqualTo(*otherKey);
                     if (0 != result)
                     {
-                        SpValue thisValue{thisWalker->second};
-                        SpValue otherValue{otherWalker->second};
+                        auto    thisValue{thisWalker->second};
+                        auto    otherValue{otherWalker->second};
 
-                        if ((nullptr != thisValue) && (nullptr != otherValue))
+                        if (thisValue && otherValue)
                         {
                             result = thisValue->deeplyEqualTo(*otherValue);
                         }
@@ -315,7 +315,7 @@ nImO::Map::equalTo
         {
             for (auto & walker : *this)
             {
-                if (nullptr != walker.first)
+                if (walker.first)
                 {
                     result &= walker.first->equalTo(other);
                 }
@@ -404,12 +404,7 @@ nImO::Map::extractValue
                     auto    aMap{std::make_shared<Map>()};
 
                     result = aMap;
-                    if (nullptr == result)
-                    {
-                        ODL_LOG("(nullptr == result)"); //####
-                        result = std::make_shared<Invalid>("Could not allocate a Map");
-                    }
-                    else
+                    if (result)
                     {
                         bool    okSoFar{true};
 
@@ -426,54 +421,60 @@ nImO::Map::extractValue
                             }
                             else
                             {
-                                SpValue keyValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
+                                auto    keyValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
 
-                                if (nullptr == keyValue)
+                                if (keyValue)
                                 {
-                                    ODL_LOG("(nullptr == aValue)"); //####
-                                    result = std::make_shared<Invalid>("Null key Value read", position);
-                                    okSoFar = false;
-                                }
-                                else if (keyValue->asFlaw())
-                                {
-                                    ODL_LOG("(keyValue->asFlaw())"); //####
-                                    result = keyValue;
-                                    okSoFar = false;
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (keyValue->asFlaw())"); //####
-                                    aByte = theMessage.getByte(position, atEnd);
-                                    ODL_X1("aByte <- ", aByte); //####
-                                    ODL_B1("atEnd <- ", atEnd); //####
-                                    if (atEnd)
+                                    if (keyValue->asFlaw())
                                     {
-                                        ODL_LOG("(atEnd)"); //####
-                                        result.reset();
+                                        ODL_LOG("(keyValue->asFlaw())"); //####
+                                        result = keyValue;
                                         okSoFar = false;
                                     }
                                     else
                                     {
-                                        SpValue vValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
-
-                                        if (nullptr == vValue)
+                                        ODL_LOG("! (keyValue->asFlaw())"); //####
+                                        aByte = theMessage.getByte(position, atEnd);
+                                        ODL_X1("aByte <- ", aByte); //####
+                                        ODL_B1("atEnd <- ", atEnd); //####
+                                        if (atEnd)
                                         {
-                                            ODL_LOG("(nullptr == aValue)"); //####
-                                            result = std::make_shared<Invalid>("Null value Value read", position);
-                                            okSoFar = false;
-                                        }
-                                        else if (vValue->asFlaw())
-                                        {
-                                            ODL_LOG("(vValue->asFlaw())"); //####
-                                            result = vValue;
+                                            ODL_LOG("(atEnd)"); //####
+                                            result.reset();
                                             okSoFar = false;
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (vValue->asFlaw())"); //####
-                                            aMap->addValue(keyValue, vValue);
+                                            auto    vValue{getValueFromMessage(theMessage, position, aByte, nullptr)};
+
+                                            if (vValue)
+                                            {
+                                                if (vValue->asFlaw())
+                                                {
+                                                    ODL_LOG("(vValue->asFlaw())"); //####
+                                                    result = vValue;
+                                                    okSoFar = false;
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! (vValue->asFlaw())"); //####
+                                                    aMap->addValue(keyValue, vValue);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (vValue)"); //####
+                                                result = std::make_shared<Invalid>("Null value Value read", position);
+                                                okSoFar = false;
+                                            }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (aValue)"); //####
+                                    result = std::make_shared<Invalid>("Null key Value read", position);
+                                    okSoFar = false;
                                 }
                             }
                         }
@@ -510,6 +511,11 @@ nImO::Map::extractValue
                             }
                         }
                     }
+                    else
+                    {
+                        ODL_LOG("! (result)"); //####
+                        result = std::make_shared<Invalid>("Could not allocate a Map");
+                    }
                 }
             }
             else
@@ -518,9 +524,9 @@ nImO::Map::extractValue
             }
         }
     }
-    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
+    if (parentValue && result && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))"); //####
+        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -611,7 +617,7 @@ nImO::Map::greaterThan
     {
         for (auto & walker : *this)
         {
-            if (nullptr != walker.first)
+            if (walker.first)
             {
                 result &= walker.first->greaterThan(other);
             }
@@ -640,7 +646,7 @@ nImO::Map::greaterThanOrEqual
         {
             for (auto & walker : *this)
             {
-                if (nullptr != walker.first)
+                if (walker.first)
                 {
                     result &= walker.first->greaterThanOrEqual(other);
                 }
@@ -672,7 +678,7 @@ nImO::Map::lessThan
     {
         for (auto & walker : *this)
         {
-            if (nullptr != walker.first)
+            if (walker.first)
             {
                 result &= walker.first->lessThan(other);
             }
@@ -701,7 +707,7 @@ nImO::Map::lessThanOrEqual
         {
             for (auto & walker : *this)
             {
-                if (nullptr != walker.first)
+                if (walker.first)
                 {
                     result &= walker.first->lessThanOrEqual(other);
                 }
@@ -910,15 +916,10 @@ nImO::Map::readFromStringBuffer
             }
             else
             {
-                SpValue keyValue{Value::readFromStringBuffer(inBuffer, localIndex)};
+                auto    keyValue{Value::readFromStringBuffer(inBuffer, localIndex)};
 
                 ODL_I1("localIndex <- ", localIndex); //####
-                if (nullptr == keyValue)
-                {
-                    ODL_LOG("(nullptr == keyValue)"); //####
-                    done = true;
-                }
-                else
+                if (keyValue)
                 {
                     auto    elementType{keyValue->enumerationType()};
 
@@ -939,7 +940,12 @@ nImO::Map::readFromStringBuffer
                         }
                     }
                 }
-                if (nullptr != keyValue)
+                else
+                {
+                    ODL_LOG("! (keyValue)"); //####
+                    done = true;
+                }
+                if (keyValue)
                 {
                     inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
                     ODL_I1("localIndex = ", localIndex); //####
@@ -959,16 +965,16 @@ nImO::Map::readFromStringBuffer
                     else if (kKeyValueSeparator == aChar)
                     {
                         ++localIndex;
-                        SpValue assocValue{Value::readFromStringBuffer(inBuffer, localIndex)};
+                        auto    assocValue{Value::readFromStringBuffer(inBuffer, localIndex)};
 
-                        if (nullptr == assocValue)
+                        if (assocValue)
                         {
-                            ODL_LOG("(nullptr == assocValue)"); //####
-                            done = true;
+                            result->addValue(keyValue, assocValue);
                         }
                         else
                         {
-                            result->addValue(keyValue, assocValue);
+                            ODL_LOG("! (assocValue)"); //####
+                            done = true;
                         }
                     }
                 }

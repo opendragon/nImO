@@ -146,20 +146,20 @@ nImO::LoadConfiguration
             inStream >> readString;
             auto    readValue{readString.convertToValue()};
 
-            if ((nullptr != readValue) && (nullptr != readValue->asMap()))
+            if (readValue && (nullptr != readValue->asMap()))
             {
                 // Check the structure of the value read.
                 lConfigurationValues = readValue;
             }
             else
             {
-                if (nullptr == readValue)
+                if (readValue)
                 {
-                    std::cerr << "warning: could not parse contents of configuration file.\n";
+                    std::cerr << "warning: configuration file did not have the correct structure.\n";
                 }
                 else
                 {
-                    std::cerr << "warning: configuration file did not have the correct structure.\n";
+                    std::cerr << "warning: could not parse contents of configuration file.\n";
                 }
             }
         }

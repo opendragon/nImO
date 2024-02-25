@@ -277,9 +277,9 @@ nImO::Address::extractValue
     {
         result = std::make_shared<Address>(accumulator);
     }
-    if ((nullptr != parentValue) && (nullptr != result))
+    if (parentValue && result)
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("(parentValue && result)"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -671,7 +671,7 @@ nImO::Address::readFromStringBuffer
     {
         ODL_LOG("! ((! atEnd) && (kStartAddressChar == aChar))"); //####
     }
-    if (nullptr != result)
+    if (result)
     {
         position = localIndex;
     }

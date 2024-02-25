@@ -238,10 +238,10 @@ nImO::StringBuffer::convertToValue
 {
     ODL_OBJENTER(); //####
     size_t  position{0};
-    SpValue result{Value::readFromStringBuffer(*this, position)};
+    auto    result{Value::readFromStringBuffer(*this, position)};
 
     ODL_P1("result <- ", result.get()); //####
-    if (nullptr != result)
+    if (result)
     {
         bool    atEnd{false};
         bool    done{false};
@@ -255,7 +255,7 @@ nImO::StringBuffer::convertToValue
             skipOverWhiteSpace(position, aChar, atEnd);
             if (atEnd)
             {
-                if (nullptr != holder)
+                if (holder)
                 {
                     holder->addValue(result);
                 }
@@ -263,7 +263,7 @@ nImO::StringBuffer::convertToValue
             }
             else
             {
-                if (nullptr == holder)
+                if (! holder)
                 {
                     holder = std::make_shared<Array>();
                     ODL_P1("holder <- ", holder.get()); //####
@@ -271,7 +271,7 @@ nImO::StringBuffer::convertToValue
                 holder->addValue(result);
                 result = Value::readFromStringBuffer(*this, position);
                 ODL_P1("result <- ", result.get()); //####
-                if (nullptr == result)
+                if (! result)
                 {
                     ODL_LOG("(! result)"); //####
                     valid = false;
@@ -281,7 +281,7 @@ nImO::StringBuffer::convertToValue
         }
         if (valid)
         {
-            if (nullptr != holder)
+            if (holder)
             {
                 result = holder;
                 ODL_P1("result <- ", result.get()); //####

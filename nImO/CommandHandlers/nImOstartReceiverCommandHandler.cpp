@@ -117,17 +117,17 @@ nImO::StartReceiverCommandHandler::doIt
         {
             auto    theChannel{_ownerForInputOutput->getInputChannel(pathString->getValue())};
 
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
+            if (theChannel)
             {
                 auto    senderAddress{addressValue->getAddressValue()};
                 auto    senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
 
                 // Send the response to the requestor.
                 okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort));
+            }
+            else
+            {
+                ODL_LOG("! (theChannel)"); //####
             }
         }
         else

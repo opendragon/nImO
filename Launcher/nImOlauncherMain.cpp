@@ -174,11 +174,7 @@ loadApplicationInformation
             inStream >> readString;
             auto    readValue{readString.convertToValue()};
 
-            if (nullptr == readValue)
-            {
-                std::cerr << "Could not parse contents of application file list file.\n";
-            }
-            else
+            if (readValue)
             {
                 auto    asMap{readValue->asMap()};
 
@@ -287,6 +283,10 @@ loadApplicationInformation
                         std::cerr << "Application file list file did not have the correct structure.\n";
                     }
                 }
+            }
+            else
+            {
+                std::cerr << "Could not parse contents of application file list file.\n";
             }
         }
         else

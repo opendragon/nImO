@@ -121,15 +121,13 @@ nImO::AddLauncherHandlers
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
-    auto    actualContext{context.get()};
-
-    if (nullptr != actualContext)
+    if (context)
     {
         bool    goAhead{true};
         auto    newHandler1{std::make_shared<GetRunOptionsForAppCommandHandler>(context)};
 
         ODL_P1("newHandler1 <- ", newHandler1.get()); //####
-        if (! actualContext->addHandler(kGetRunOptionsForAppRequest, newHandler1))
+        if (! context->addHandler(kGetRunOptionsForAppRequest, newHandler1))
         {
             goAhead = false;
         }
@@ -138,7 +136,7 @@ nImO::AddLauncherHandlers
             auto    newHandler2{std::make_shared<GetRunParamsForAppCommandHandler>(context)};
 
             ODL_P1("newHandler2 <- ", newHandler2.get()); //####
-            if (! actualContext->addHandler(kGetRunParamsForAppRequest, newHandler2))
+            if (! context->addHandler(kGetRunParamsForAppRequest, newHandler2))
             {
                 goAhead = false;
             }
@@ -148,7 +146,7 @@ nImO::AddLauncherHandlers
             auto    newHandler3{std::make_shared<LaunchAppCommandHandler>(context)};
 
             ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! actualContext->addHandler(kLaunchAppRequest, newHandler3))
+            if (! context->addHandler(kLaunchAppRequest, newHandler3))
             {
                 goAhead = false;
             }

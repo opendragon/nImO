@@ -385,14 +385,14 @@ main
                             {
                                 auto    descriptor{nImO::ConvertStringToDescriptor(walker)};
 
-                                if (nullptr == descriptor)
+                                if (descriptor)
                                 {
-                                    ourContext->report("Bad argument descriptor: '" + walker + "'.");
-                                    exitCode = 1;
+                                    appDescriptors.push_back(descriptor);
                                 }
                                 else
                                 {
-                                    appDescriptors.push_back(descriptor);
+                                    ourContext->report("Bad argument descriptor: '" + walker + "'.");
+                                    exitCode = 1;
                                 }
                             }
                         }

@@ -224,6 +224,7 @@ namespace nImO
     }; // InputOutputContext
 
     /*! @brief Add the standard command handlers for an InputOutputContext.
+     Note that this can't be a member function as the newly-added handlers need to access the shared pointer.
      @param[in] context The Context to be updated.
      @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
     void

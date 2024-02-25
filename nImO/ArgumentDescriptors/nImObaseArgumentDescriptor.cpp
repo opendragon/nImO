@@ -589,39 +589,39 @@ nImO::ConvertStringToDescriptor
     ODL_S1s("inString = ", inString); //####
     auto    result{AddressArgumentDescriptor::parseArgString(inString)};
 
-    if (nullptr == result)
+    if (! result)
     {
         result = LogicalArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = ChannelArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = DoubleArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = ExtraArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = FilePathArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = IntegerArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = PortArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = StringArgumentDescriptor::parseArgString(inString);
     }
-    if (nullptr == result)
+    if (! result)
     {
         result = StringsArgumentDescriptor::parseArgString(inString);
     }

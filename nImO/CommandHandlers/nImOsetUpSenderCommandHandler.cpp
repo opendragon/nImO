@@ -119,11 +119,7 @@ nImO::SetUpSenderCommandHandler::doIt
         {
             auto    theChannel{_ownerForInputOutput->getOutputChannel(pathString->getValue())};
 
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
+            if (theChannel)
             {
                 auto    receiveAddress{addressValue->getAddressValue()};
                 auto    receivePort{StaticCast(IPv4Port, portValue->getIntegerValue())};
@@ -138,6 +134,10 @@ nImO::SetUpSenderCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
                     okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray);
                 }
+            }
+            else
+            {
+                ODL_LOG("! (theChannel)"); //####
             }
         }
         else

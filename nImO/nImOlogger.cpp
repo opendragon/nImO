@@ -203,11 +203,7 @@ nImO::Logger::report
     ODL_P1("valueToSend = ",valueToSend.get()); //####
     bool    okSoFar{false};
 
-    if (nullptr == valueToSend)
-    {
-        ODL_LOG("(nullptr == valueToSend)"); //####
-    }
-    else
+    if (valueToSend)
     {
         Message messageToSend;
         auto    messageMap{std::make_shared<Map>()};
@@ -253,6 +249,10 @@ nImO::Logger::report
         {
             ODL_LOG("! (0 < messageToSend.getLength())"); //####
         }
+    }
+    else
+    {
+        ODL_LOG("! (valueToSend)"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -124,106 +124,109 @@ nImO::OutChannel::send
     ODL_P1("valueToSend = ",valueToSend.get()); //####
     bool    okSoFar{false};
 
-    if (nullptr == valueToSend)
+    if (valueToSend)
     {
-        ODL_LOG("(nullptr == valueToSend)"); //####
-    }
-    else if (TransportType::kUnknown == _connection._transport)
-    {
-        okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
-    }
-    else
-    {
-        Message messageToSend;
-
-        messageToSend.open(true);
-        messageToSend.setValue(valueToSend);
-        messageToSend.close();
-        if (0 < messageToSend.getLength())
+        if (TransportType::kUnknown == _connection._transport)
         {
-            auto    asString{messageToSend.getBytes()};
+            okSoFar = true; // if the channel hasn't been configured, just throw the message away but it's not an error.
+        }
+        else
+        {
+            Message messageToSend;
 
-            if (asString.empty())
+            messageToSend.open(true);
+            messageToSend.setValue(valueToSend);
+            messageToSend.close();
+            if (0 < messageToSend.getLength())
             {
-                ODL_LOG("(asString.empty())"); //####
-            }
-            else
-            {
-                StdStringVector outVec;
+                auto    asString{messageToSend.getBytes()};
 
-                EncodeBytesAsMIME(outVec, asString);
-                auto    outString{PackageMessage(outVec)};
-
-                // send the encoded message to the receiver
-                if (TransportType::kUDP == _connection._transport)
+                if (asString.empty())
                 {
-                    _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
-                                              [this, outString]
-                                              (const BSErr          ec,
-                                               const std::size_t    length)
-                                              {
-                                                if (ec)
-                                                {
-                                                    if (BAErr::operation_aborted == ec)
-                                                    {
-#if defined(nImO_ChattyTcpUdpLogging)
-                                                        _context.report("async_send_to() operation cancelled."s);
-#endif /* defined(nImO_ChattyTcpUdpLogging) */
-                                                        ODL_LOG("(BAErr::operation_aborted == ec)"); //####
-                                                    }
-                                                    else
-                                                    {
-                                                        auto    errMessage{"async_send_to() failed -> "s + ec.message() + "."s};
-
-                                                        _context.report(errMessage);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    _statistics.update(length - (kMessageSentinel.length() + 1));
-                                                }
-                                              });
-                    okSoFar = true;
+                    ODL_LOG("(asString.empty())"); //####
                 }
-                else if (TransportType::kTCP == _connection._transport)
+                else
                 {
-                    if (_tcpConnected)
+                    StdStringVector outVec;
+
+                    EncodeBytesAsMIME(outVec, asString);
+                    auto    outString{PackageMessage(outVec)};
+
+                    // send the encoded message to the receiver
+                    if (TransportType::kUDP == _connection._transport)
                     {
-                        boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
-                                                 [this, outString]
-                                                 (const BSErr &        ec,
-                                                  const std::size_t    bytes_transferred)
-                                                 {
+                        _udpSocket->async_send_to(boost::asio::buffer(*outString), _udpSendpoint,
+                                                  [this, outString]
+                                                  (const BSErr          ec,
+                                                   const std::size_t    length)
+                                                  {
                                                     if (ec)
                                                     {
                                                         if (BAErr::operation_aborted == ec)
                                                         {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                            _context.report("async_write() operation cancelled."s);
+                                                            _context.report("async_send_to() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                             ODL_LOG("(BAErr::operation_aborted == ec)"); //####
                                                         }
                                                         else
                                                         {
-                                                            auto    errMessage{"async_write() failed -> "s + ec.message() + "."s};
+                                                            auto    errMessage{"async_send_to() failed -> "s + ec.message() + "."s};
 
                                                             _context.report(errMessage);
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        _statistics.update(bytes_transferred - (kMessageSentinel.length() + 1));
+                                                        _statistics.update(length - (kMessageSentinel.length() + 1));
                                                     }
-                                                 });
+                                                  });
+                        okSoFar = true;
                     }
-                    okSoFar = true;
+                    else if (TransportType::kTCP == _connection._transport)
+                    {
+                        if (_tcpConnected)
+                        {
+                            boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
+                                                     [this, outString]
+                                                     (const BSErr &        ec,
+                                                      const std::size_t    bytes_transferred)
+                                                     {
+                                                        if (ec)
+                                                        {
+                                                            if (BAErr::operation_aborted == ec)
+                                                            {
+#if defined(nImO_ChattyTcpUdpLogging)
+                                                                _context.report("async_write() operation cancelled."s);
+#endif /* defined(nImO_ChattyTcpUdpLogging) */
+                                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                            }
+                                                            else
+                                                            {
+                                                                auto    errMessage{"async_write() failed -> "s + ec.message() + "."s};
+
+                                                                _context.report(errMessage);
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            _statistics.update(bytes_transferred - (kMessageSentinel.length() + 1));
+                                                        }
+                                                     });
+                        }
+                        okSoFar = true;
+                    }
                 }
             }
+            else
+            {
+                ODL_LOG("! (0 < messageToSend.getLength())"); //####
+            }
         }
-        else
-        {
-            ODL_LOG("! (0 < messageToSend.getLength())"); //####
-        }
+    }
+    else
+    {
+        ODL_LOG("! (valueToSend)"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

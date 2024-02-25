@@ -302,9 +302,9 @@ nImO::String::extractValue
     {
         result = std::make_shared<String>();
     }
-    if ((nullptr != parentValue) && (nullptr != result) && (! result->asFlaw()))
+    if (parentValue && result && (! result->asFlaw()))
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("(parentValue && result && (! result->asFlaw()))"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -833,7 +833,7 @@ nImO::String::readFromStringBuffer
         if (valid)
         {
             result = std::make_shared<String>(holding.getString());
-            if (nullptr != result)
+            if (result)
             {
                 position = localIndex;
             }

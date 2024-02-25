@@ -170,7 +170,6 @@ nImO::ChunkArray::appendBytes
                 }
                 else
                 {
-                    ODL_LOG("! (nullptr == lastChunk)"); //####
                     auto    newBuffers{new Ptr(BufferChunk)[_numChunks + 1]};
 
                     if (nullptr == newBuffers)
@@ -181,7 +180,6 @@ nImO::ChunkArray::appendBytes
                     }
                     else
                     {
-                        ODL_LOG("! (nullptr == newBuffers)"); //####
                         memcpy(newBuffers, _buffers, sizeof(*_buffers) * _numChunks);
                         delete[] _buffers;
                         _buffers = newBuffers;

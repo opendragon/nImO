@@ -232,9 +232,9 @@ nImO::Logical::extractValue
 
     ++position; // We will always accept the lead byte
     ODL_I1("position <- ", position); //####
-    if ((nullptr != parentValue) && (nullptr != result))
+    if (parentValue && result)
     {
-        ODL_LOG("((nullptr != parentValue) && (nullptr != result))"); //####
+        ODL_LOG("(parentValue && result)"); //####
         parentValue->addValue(result);
     }
     ODL_EXIT_P(result.get()); //####
@@ -588,7 +588,7 @@ nImO::Logical::readFromStringBuffer
             result = std::make_shared<Logical>(candidateValue);
         }
     }
-    if (nullptr != result)
+    if (result)
     {
         position = localIndex;
     }

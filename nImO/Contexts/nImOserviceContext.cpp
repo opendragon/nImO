@@ -138,7 +138,7 @@ nImO::ServiceContext::addHandler
     ODL_P1("theHandler = ", theHandler.get()); //####
     bool    okSoFar{false};
 
-    if ((nullptr != theHandler) && (0 < commandName.size()))
+    if (theHandler && (0 < commandName.size()))
     {
         const auto result = _commandHandlers.insert({commandName, theHandler});
 
@@ -155,7 +155,7 @@ nImO::ServiceContext::addStandardHandlers
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
-    if (nullptr != context)
+    if (context)
     {
         auto    newHandler{std::make_shared<ShutdownCommandHandler>(context, shutdownCallback)};
 

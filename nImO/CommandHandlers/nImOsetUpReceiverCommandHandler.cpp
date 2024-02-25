@@ -117,11 +117,7 @@ nImO::SetUpReceiverCommandHandler::doIt
         {
             auto    theChannel{_ownerForInputOutput->getInputChannel(pathString->getValue())};
 
-            if (nullptr == theChannel)
-            {
-                ODL_LOG("(nullptr == theChannel)"); //####
-            }
-            else
+            if (theChannel)
             {
                 if (theChannel->setUp(StaticCast(TransportType, modeValue->getIntegerValue())))
                 {
@@ -132,6 +128,10 @@ nImO::SetUpReceiverCommandHandler::doIt
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
                     okSoFar = sendComplexResponse(socket, kSetUpReceiverResponse, "set up receiver"s, infoArray);
                 }
+            }
+            else
+            {
+                ODL_LOG("! (theChannel)"); //####
             }
         }
         else

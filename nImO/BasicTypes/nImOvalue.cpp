@@ -655,13 +655,13 @@ nImO::Value::readFromStringBuffer
             else
             {
                 result = handler(inBuffer, localIndex);
-                if (nullptr == result)
+                if (result)
                 {
-                    ODL_LOG("(nullptr == result)"); //####
+                    position = localIndex;
                 }
                 else
                 {
-                    position = localIndex;
+                    ODL_LOG("! (result)"); //####
                 }
             }
         }

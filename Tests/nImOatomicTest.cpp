@@ -229,11 +229,7 @@ doTestEmptyBufferChunk
     {
         auto    stuff{std::make_unique<BufferChunk>(false)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == stuff->getDataSize())
             {
@@ -243,6 +239,10 @@ doTestEmptyBufferChunk
             {
                 ODL_LOG("! (0 == stuff->getDataSize())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -283,11 +283,7 @@ doTestBufferChunkWithSingleByte
     {
         auto    stuff{std::make_unique<BufferChunk>(false)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
@@ -309,6 +305,10 @@ doTestBufferChunkWithSingleByte
             {
                 ODL_LOG("! (1 == stuff->getDataSize())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -349,11 +349,7 @@ doTestFilledBufferChunk
     {
         auto    stuff{std::make_unique<BufferChunk>(false)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             size_t  howMuch{stuff->getAvailableBytes()};
 
@@ -402,6 +398,10 @@ doTestFilledBufferChunk
                 ODL_LOG("! (1 < howMuch)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -441,11 +441,7 @@ doTestOverfilledBufferChunk
     {
         auto    stuff{std::make_unique<BufferChunk>(false)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             size_t  howMuch{stuff->getAvailableBytes()};
 
@@ -494,6 +490,10 @@ doTestOverfilledBufferChunk
                 ODL_LOG("! (1 < howMuch)"); //####
             }
         }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
     }
     catch (...)
     {
@@ -533,11 +533,7 @@ doTestBufferChunkReset
     {
         auto    stuff{std::make_unique<BufferChunk>(false)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             uint8_t data{StaticCast(uint8_t, ReinterpretCast(intptr_t, stuff.get()) & 0x00FF)};
 
@@ -558,6 +554,10 @@ doTestBufferChunkReset
             {
                 ODL_LOG("! (1 == stuff->getDataSize())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -598,11 +598,7 @@ doTestEmptyStringBuffer
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == stuff->getLength())
             {
@@ -622,6 +618,10 @@ doTestEmptyStringBuffer
             {
                 ODL_LOG("! (0 == stuff->getLength())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -665,11 +665,7 @@ doTestStringBufferWithCharacters
             size_t      outLength{strlen(outString)};
             auto        stuff{std::make_unique<StringBuffer>()};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 stuff->addString(inString);
                 size_t  resultLength{stuff->getLength()};
@@ -692,6 +688,10 @@ doTestStringBufferWithCharacters
                 {
                     ODL_LOG("! (resultLength == outLength)"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
             }
         }
         else
@@ -742,11 +742,7 @@ doTestStringBufferWithLogical
             {
                 auto    stuff{std::make_unique<StringBuffer>()};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     bool asBool{0 != value};
 
@@ -761,6 +757,10 @@ doTestStringBufferWithLogical
                     {
                         ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
             else
@@ -816,11 +816,7 @@ doTestStringBufferWithInteger
             {
                 auto    stuff{std::make_unique<StringBuffer>()};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     stuff->addLong(value);
                     auto    resultString{stuff->getString()};
@@ -833,6 +829,10 @@ doTestStringBufferWithInteger
                     {
                         ODL_LOG("! (0 == resultString.compare(outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
             else
@@ -886,11 +886,7 @@ doTestStringBufferWithString
             size_t      outLength{strlen(outString)};
             auto        stuff{std::make_unique<StringBuffer>()};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 stuff->addString(inString, true);
                 size_t  resultLength{stuff->getLength()};
@@ -912,6 +908,10 @@ doTestStringBufferWithString
                 {
                     ODL_LOG("! (resultLength == outLength)"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
             }
         }
         else
@@ -960,11 +960,7 @@ doTestStringBufferWithSpecialCharacters
         size_t      outLength{strlen(outString)};
         auto        stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             stuff->addString(inString, true);
             size_t  resultLength{stuff->getLength()};
@@ -986,6 +982,10 @@ doTestStringBufferWithSpecialCharacters
             {
                 ODL_LOG("! (resultLength == outLength)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1031,11 +1031,7 @@ doTestStringBufferWithDouble
             {
                 auto    stuff{std::make_unique<StringBuffer>()};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     stuff->addDouble(value);
                     auto    resultString{stuff->getString()};
@@ -1057,6 +1053,10 @@ doTestStringBufferWithDouble
                         ODL_LOG("(*outString || resultString[ii])"); //####
                         result = 1;
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
             else
@@ -1107,11 +1107,7 @@ doTestBigStringBuffer
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             CPtr(char)  bigString{"abcdefghijklmnopqrstuvwxyz0123456789"};
             size_t      bigLength{strlen(bigString)};
@@ -1141,6 +1137,10 @@ doTestBigStringBuffer
             {
                 ODL_LOG("! ((bigLength * kBigTestSize) == length)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1181,11 +1181,7 @@ doTestStringBufferWithEmptyBlob
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             stuff->addBytes(nullptr, 0);
             auto        resultString{stuff->getString()};
@@ -1199,6 +1195,10 @@ doTestStringBufferWithEmptyBlob
             {
                 ODL_LOG("! (0 == resultString.compare(expectedString))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1239,15 +1239,11 @@ doTestStringBufferWithSmallBlob
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
-            if (nullptr != smallBlob)
+            if (smallBlob)
             {
                 for (size_t ii = 0; kSmallTestSize > ii; ++ii)
                 {
@@ -1281,8 +1277,12 @@ doTestStringBufferWithSmallBlob
             }
             else
             {
-                ODL_LOG("! (nullptr != smallBlob)"); //####
+                ODL_LOG("! (smallBlob)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1323,15 +1323,11 @@ doTestStringBufferWithBigBlob
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
-            if (nullptr != bigBlob)
+            if (bigBlob)
             {
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
@@ -1365,8 +1361,12 @@ doTestStringBufferWithBigBlob
             }
             else
             {
-                ODL_LOG("! (nullptr != bigBlob)"); //####
+                ODL_LOG("! (bigBlob)"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1407,11 +1407,7 @@ doTestStringBufferReset
     {
         auto    stuff{std::make_unique<StringBuffer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             stuff->addString("abcdef");
             stuff->reset();
@@ -1434,6 +1430,10 @@ doTestStringBufferReset
             {
                 ODL_LOG("! (0 == stuff->getLength())"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1474,11 +1474,7 @@ doTestDefaultLogicalValue
     {
         auto    stuff{std::make_unique<Logical>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithString(*stuff, "false"))
             {
@@ -1488,6 +1484,10 @@ doTestDefaultLogicalValue
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, \"false\"))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1533,11 +1533,7 @@ doTestLogicalValue
             {
                 auto    stuff{std::make_unique<Logical>(0 != value)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1547,6 +1543,10 @@ doTestLogicalValue
                     {
                         ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
             else
@@ -1597,11 +1597,7 @@ doTestDefaultIntegerValue
     {
         auto    stuff{std::make_unique<Integer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if ((0 == compareValueWithString(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
@@ -1612,6 +1608,10 @@ doTestDefaultIntegerValue
                 ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0\")) && " //####
                         "(nullptr != stuff->asInteger()))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1657,11 +1657,7 @@ doTestNumberValue
             {
                 auto    stuff{std::make_unique<Integer>(intValue)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -1672,6 +1668,10 @@ doTestNumberValue
                         ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                     }
                 }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
             }
             else
             {
@@ -1681,11 +1681,7 @@ doTestNumberValue
                 {
                     auto    stuff{std::make_unique<Double>(floatValue)};
 
-                    if (nullptr == stuff)
-                    {
-                        ODL_LOG("(nullptr == stuff)"); //####
-                    }
-                    else
+                    if (stuff)
                     {
                         if (0 == compareValueWithString(*stuff, outString))
                         {
@@ -1695,6 +1691,10 @@ doTestNumberValue
                         {
                             ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                         }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (stuff)"); //####
                     }
                 }
                 else
@@ -1746,11 +1746,7 @@ doTestDefaultStringValue
     {
         auto    stuff{std::make_unique<String>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithString(*stuff, "\"\""))
             {
@@ -1760,6 +1756,10 @@ doTestDefaultStringValue
             {
                 ODL_LOG("(0 == compareValueWithString(*stuff, \"\\\"\\\"\"))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1800,11 +1800,7 @@ doTestStringValue
         {
             auto    stuff{std::make_unique<String>(*argv)};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 if (0 == compareValueWithString(*stuff, argv[1]))
                 {
@@ -1814,6 +1810,10 @@ doTestStringValue
                 {
                     ODL_LOG("! (0 == compareValueWithString(*stuff, argv[1]))"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
             }
         }
         else
@@ -1861,11 +1861,7 @@ doTestStringValueWithEscapes
         CPtr(char)  outString{"\"abc\\tdef\\f\\rghi\\M-B\""};
         auto        stuff{std::make_unique<String>(inString)};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithString(*stuff, outString))
             {
@@ -1875,6 +1871,10 @@ doTestStringValueWithEscapes
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1915,11 +1915,7 @@ doTestDefaultBlobValue
     {
         auto    stuff{std::make_unique<Blob>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithString(*stuff, "%0%%"))
             {
@@ -1929,6 +1925,10 @@ doTestDefaultBlobValue
             {
                 ODL_LOG("! (0 == compareValueWithString(*stuff, \"%0%%\"))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -1979,11 +1979,7 @@ doTestSmallBlobValue
             }
             auto    stuff{std::make_unique<Blob>(smallBlob.get(), kSmallTestSize)};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 auto    expectedString{"%"s + std::to_string(kSmallTestSize) + "%"s};
 
@@ -2006,6 +2002,10 @@ doTestSmallBlobValue
                     ODL_LOG("! (0 == compareValueWithString(*stuff, " //####
                             "expectedString.c_str()))"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
             }
         }
         else
@@ -2051,7 +2051,7 @@ doTestBigBlobValue
     {
         auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
 
-        if (nullptr != bigBlob)
+        if (bigBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -2061,11 +2061,7 @@ doTestBigBlobValue
             }
             auto    stuff{std::make_unique<Blob>(bigBlob.get(), kBigTestSize)};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 auto    expectedString{"%"s + std::to_string(kBigTestSize) + "%"s};
 
@@ -2089,10 +2085,14 @@ doTestBigBlobValue
                             "expectedString.c_str()))"); //####
                 }
             }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
+            }
         }
         else
         {
-            ODL_LOG("! (nullptr != bigBlob)"); //####
+            ODL_LOG("! (bigBlob)"); //####
         }
     }
     catch (...)
@@ -2467,7 +2467,7 @@ doTestBlobCopyAndAssign
         auto    bigBlob{std::make_unique<uint8_t[]>(kBigTestSize)};
         auto    smallBlob{std::make_unique<uint8_t[]>(kSmallTestSize)};
 
-        if ((nullptr != bigBlob) && (nullptr != smallBlob))
+        if (bigBlob && smallBlob)
         {
             for (size_t ii = 0; kBigTestSize > ii; ++ii)
             {
@@ -2584,11 +2584,7 @@ doTestDefaultAddressValue
     {
         auto    stuff{std::make_unique<Address>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if ((0 == compareValueWithString(*stuff, "@0.0.0.0")) && (nullptr != stuff->asAddress()))
             {
@@ -2599,6 +2595,10 @@ doTestDefaultAddressValue
                 ODL_LOG("! ((0 == compareValueWithString(*stuff, \"0.0.0.0\")) && " //####
                         "(nullptr != stuff->asAddress()))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -2644,11 +2644,7 @@ doTestAddressValue
             {
                 auto    stuff{std::make_unique<Address>(asBytes)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithString(*stuff, outString))
                     {
@@ -2658,6 +2654,10 @@ doTestAddressValue
                     {
                         ODL_LOG("! (0 == compareValueWithString(*stuff, outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
         }
@@ -4315,11 +4315,7 @@ doTestDefaultLogicalValueAsJSON
     {
         auto    stuff{std::make_unique<Logical>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithStringAsJSON(*stuff, "false"))
             {
@@ -4329,6 +4325,10 @@ doTestDefaultLogicalValueAsJSON
             {
                 ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, \"false\"))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4374,11 +4374,7 @@ doTestLogicalValueAsJSON
             {
                 auto    stuff{std::make_unique<Logical>(0 != value)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -4388,6 +4384,10 @@ doTestLogicalValueAsJSON
                     {
                         ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
             else
@@ -4438,11 +4438,7 @@ doTestDefaultIntegerValueAsJSON
     {
         auto    stuff{std::make_unique<Integer>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "0")) && (nullptr != stuff->asInteger()))
             {
@@ -4453,6 +4449,10 @@ doTestDefaultIntegerValueAsJSON
                 ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"0\")) && " //####
                         "(nullptr != stuff->asInteger()))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4498,11 +4498,7 @@ doTestNumberValueAsJSON
             {
                 auto    stuff{std::make_unique<Integer>(intValue)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -4513,6 +4509,10 @@ doTestNumberValueAsJSON
                         ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
                     }
                 }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
+                }
             }
             else
             {
@@ -4522,11 +4522,7 @@ doTestNumberValueAsJSON
                 {
                     auto    stuff{std::make_unique<Double>(floatValue)};
 
-                    if (nullptr == stuff)
-                    {
-                        ODL_LOG("(nullptr == stuff)"); //####
-                    }
-                    else
+                    if (stuff)
                     {
                         if (0 == compareValueWithStringAsJSON(*stuff, outString))
                         {
@@ -4536,6 +4532,10 @@ doTestNumberValueAsJSON
                         {
                             ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
                         }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (stuff)"); //####
                     }
                 }
                 else
@@ -4587,11 +4587,7 @@ doTestDefaultStringValueAsJSON
     {
         auto    stuff{std::make_unique<String>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if (0 == compareValueWithStringAsJSON(*stuff, "\"\""))
             {
@@ -4601,6 +4597,10 @@ doTestDefaultStringValueAsJSON
             {
                 ODL_LOG("(0 == compareValueWithStringAsJSON(*stuff, \"\\\"\\\"\"))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4641,11 +4641,7 @@ doTestStringValueAsJSON
         {
             auto    stuff{std::make_unique<String>(*argv)};
 
-            if (nullptr == stuff)
-            {
-                ODL_LOG("(nullptr == stuff)"); //####
-            }
-            else
+            if (stuff)
             {
                 if (0 == compareValueWithStringAsJSON(*stuff, argv[1]))
                 {
@@ -4655,6 +4651,10 @@ doTestStringValueAsJSON
                 {
                     ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, argv[1]))"); //####
                 }
+            }
+            else
+            {
+                ODL_LOG("! (stuff)"); //####
             }
         }
         else
@@ -4700,11 +4700,7 @@ doTestDefaultAddressValueJSON
     {
         auto    stuff{std::make_unique<Address>()};
 
-        if (nullptr == stuff)
-        {
-            ODL_LOG("(nullptr == stuff)"); //####
-        }
-        else
+        if (stuff)
         {
             if ((0 == compareValueWithStringAsJSON(*stuff, "\"0.0.0.0\"")) && (nullptr != stuff->asAddress()))
             {
@@ -4715,6 +4711,10 @@ doTestDefaultAddressValueJSON
                 ODL_LOG("! ((0 == compareValueWithStringAsJSON(*stuff, \"\\\"0\\\"\")) && " //####
                         "(nullptr != stuff->asAddress()))"); //####
             }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
         }
     }
     catch (...)
@@ -4760,11 +4760,7 @@ doTestAddressValueJSON
             {
                 auto    stuff{std::make_unique<Address>(asBytes)};
 
-                if (nullptr == stuff)
-                {
-                    ODL_LOG("(nullptr == stuff)"); //####
-                }
-                else
+                if (stuff)
                 {
                     if (0 == compareValueWithStringAsJSON(*stuff, outString))
                     {
@@ -4774,6 +4770,10 @@ doTestAddressValueJSON
                     {
                         ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, outString))"); //####
                     }
+                }
+                else
+                {
+                    ODL_LOG("! (stuff)"); //####
                 }
             }
         }

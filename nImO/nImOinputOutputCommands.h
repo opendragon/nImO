@@ -55,6 +55,15 @@
 namespace nImO
 {
 
+    /*! @brief The value for the channel limits that represents no limit. */
+    constexpr   int64_t kUnlimitedChannels{-1};
+
+    /*! @brief The 'getChannelLimits' request. */
+    const std::string   kGetChannelLimitsRequest{"getChannelLimits."s};
+
+    /*! @brief The 'getChannelLimits' response. */
+    const std::string   kGetChannelLimitsResponse{"getChannelLimits="s};
+
     /*! @brief The 'getChannelStatistics' request. */
     const std::string   kGetChannelStatisticsRequest{"getChannelStatistics."s};
 

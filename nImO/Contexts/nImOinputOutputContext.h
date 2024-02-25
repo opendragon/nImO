@@ -138,6 +138,19 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Retrieve the maximum number of allowed input and output channels.
+             @param[out] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.
+             @param[out] maxOutputChannels The maximum number of allowed output channels, @c -1 if unrestricted. */
+            inline void
+            getChannelLimits
+                (int64_t &  maxInputChannels,
+                 int64_t &  maxOutputChannels)
+                const
+            {
+                maxInputChannels = _maxInputChannels;
+                maxOutputChannels = _maxOutputChannels;
+            }
+
             /*! @brief Get an input channel.
              @param[in] path The path associated with the channel.
              @return The input channel with the provided name. */
@@ -176,6 +189,18 @@ namespace nImO
             getOutputChannelNames
                 (StdStringVector &  names)
                 const;
+
+            /*! @brief Specify the maximum number of allowed input and output channels.
+             @param[in] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.
+             @param[in] maxOutputChannels The maximum number of allowed output channels, @c -1 if unrestricted. */
+            inline void
+            setChannelLimits
+                (const int64_t  maxInputChannels,
+                 const int64_t  maxOutputChannels)
+            {
+                _maxInputChannels = maxInputChannels;
+                _maxOutputChannels = maxOutputChannels;
+            }
 
             /*! @brief Stop activity on the input queue. */
             void
@@ -220,6 +245,12 @@ namespace nImO
 
             /*! @brief The sequence of received packages. */
             ReceiveQueue    _receiveQueue;
+
+            /*! @brief The maximum number of input channels allowed. */
+            int64_t _maxInputChannels{0};
+
+            /*! @brief The maximum number of output channels allowed. */
+            int64_t _maxOutputChannels{0};
 
     }; // InputOutputContext
 

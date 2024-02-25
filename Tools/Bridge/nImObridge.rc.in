@@ -72,7 +72,7 @@ BEGIN
             VALUE "InternalName", "nImObridge.exe\0"
             VALUE "LegalCopyright", "(c) 2019 by @nImO_COMPANY@.\0"
             VALUE "OriginalFilename", "nImObridge.exe\0"
-            VALUE "ProductName", "Bridge\0"
+            VALUE "ProductName", "nImO\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END
     END

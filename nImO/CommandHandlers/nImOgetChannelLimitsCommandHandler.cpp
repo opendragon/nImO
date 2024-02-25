@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp
+//  File:       nImO/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for a functor used with the nImO request/response mechanism.
+//  Contains:   The class definition for the nImO get channel limits command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,13 +32,19 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-02-04
+//  Created:    2024-02-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h>
+#include <CommandHandlers/nImOgetChannelLimitsCommandHandler.h>
 
+#include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOinteger.h>
+#include <BasicTypes/nImOstring.h>
+#include <Containers/nImOarray.h>
+#include <nImOinChannel.h>
+#include <nImOinputOutputCommands.h>
+#include <nImOoutChannel.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>
@@ -49,7 +55,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for a functor used with the %nImO request/response mechanism. */
+ @brief The class definition for the %nImO get channel limits command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -78,64 +84,49 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetChannelStatisticsResponseHandler::GetChannelStatisticsResponseHandler
-    (void) :
-        inherited{}
+nImO::GetChannelLimitsCommandHandler::GetChannelLimitsCommandHandler
+    (SpInputOutputContext   owner) :
+        inherited{owner}
 {
     ODL_ENTER(); //####
+    ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetChannelStatisticsResponseHandler::GetChannelStatisticsResponseHandler
+} // nImO::GetChannelLimitsCommandHandler::GetChannelLimitsCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetChannelStatisticsResponseHandler::doIt
-    (const Array &  stuff)
+nImO::GetChannelLimitsCommandHandler::doIt
+    (BTCP::socket & socket,
+     const Array &  arguments)
+    const
 {
     ODL_OBJENTER(); //####
+    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
     bool    okSoFar{false};
 
-    if (1 < stuff.size())
+    _ownerForInputOutput->report("get channel limits request received."s);
+    if (0 < arguments.size())
     {
-        auto    infoArray{stuff[1]->asArray()};
-        
-        if (nullptr == infoArray)
-        {
-            ODL_LOG("(nullptr == infoArray)"); //####
-        }
-        else
-        {
-            if (1 < infoArray->size())
-            {
-                auto    bytesPtr{(*infoArray)[0]->asInteger()};
-                auto    messagesPtr{(*infoArray)[1]->asInteger()};
+        int64_t maxInputChannels{0};
+        int64_t maxOutputChannels{0};
 
-                if ((nullptr != bytesPtr) && (nullptr != messagesPtr))
-                {
-                    _byteCount = bytesPtr->getIntegerValue();
-                    _messageCount = messagesPtr->getIntegerValue();
-                    okSoFar = true;
-                }
-                else
-                {
-                    ODL_LOG("! ((nullptr != bytesPtr) && (nullptr != messagesPtr))"); //####
-                }
-            }
-            else
-            {
-                ODL_LOG("! (1 < infoArray->size())"); //####
-            }
-        }
+        _ownerForInputOutput->getChannelLimits(maxInputChannels, maxOutputChannels);
+        auto    infoArray{std::make_shared<Array>()};
+
+        infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
+        infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
+        okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray);
     }
     else
     {
-        ODL_LOG("! (1 < stuff.size())"); //####
+        ODL_LOG("! (0 < arguments.size())"); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetChannelStatisticsResponseHandler::doIt
+} // nImO::GetChannelLimitsCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

@@ -40,6 +40,7 @@
 #include <Contexts/nImOfilterContext.h>
 #include <nImOchannelName.h>
 #include <nImOfilterBreakHandler.h>
+#include <nImOinputOutputCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
@@ -120,6 +121,7 @@ main
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);
+            ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);
             nImO::AddInputOutputHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {

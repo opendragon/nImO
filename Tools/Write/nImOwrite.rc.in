@@ -72,7 +72,7 @@ BEGIN
             VALUE "InternalName", "nImOwrite.exe\0"
             VALUE "LegalCopyright", "(c) 2016 by @nImO_COMPANY@.\0"
             VALUE "OriginalFilename", "nImOwrite.exe\0"
-            VALUE "ProductName", "Write\0"
+            VALUE "ProductName", "nImO\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END
     END

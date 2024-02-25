@@ -80,6 +80,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp"
@@ -117,6 +118,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelLimitsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.cpp"
@@ -282,6 +284,7 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h"
@@ -331,6 +334,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelLimitsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetInformationForAllApplicationsOnNodeResponseHandler.h"
@@ -417,16 +421,26 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h
         ${THIS_SOURCE_DIR}/Containers/nImOarray.cpp ${THIS_SOURCE_DIR}/Containers/nImOarray.h
         ${THIS_SOURCE_DIR}/Containers/nImObufferChunk.cpp ${THIS_SOURCE_DIR}/Containers/nImObufferChunk.h
         ${THIS_SOURCE_DIR}/Containers/nImOchunkArray.cpp ${THIS_SOURCE_DIR}/Containers/nImOchunkArray.h
@@ -464,6 +478,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseAndSetResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInUseResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelLimitsResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelLimitsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetConnectionInformationResponseHandler.cpp

@@ -118,6 +118,7 @@ main
             auto                cleanup{new nImO::SinkBreakHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);
+            ourContext->setChannelLimits(1, 0);
             nImO::AddInputOutputHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {

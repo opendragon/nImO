@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h
+//  File:       nImO/ResponseHandlers/nImOgetChannelLimitsResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetChannelStatisticsResponseHandler_H_))
-# define nImOgetChannelStatisticsResponseHandler_H_ /* Header guard */
+#if (! defined(nImOgetChannelLimitsResponseHandler_H_))
+# define nImOgetChannelLimitsResponseHandler_H_ /* Header guard */
 
 # include <ResponseHandlers/nImOresponseHandler.h>
 
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class GetChannelStatisticsResponseHandler final : public ResponseHandler
+    class GetChannelLimitsResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -74,7 +74,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor. */
-            GetChannelStatisticsResponseHandler
+            GetChannelLimitsResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -86,16 +86,16 @@ namespace nImO
                 override;
 
             /*! @brief Return the received values.
-             @param[out] byteCount The number of bytes transferred.
-             @param[out] messageCount The number of messages transferred. */
+             @param[out] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.
+             @param[out] maxOutputChannels The maximum number of allowed output channels, @c -1 if unrestricted. */
             inline void
             result
-                (int64_t &  byteCount,
-                 int64_t &  messageCount)
+                (int64_t &  maxInputChannels,
+                 int64_t &  maxOutputChannels)
                 const
             {
-                byteCount = _byteCount;
-                messageCount = _messageCount;
+                maxInputChannels = _maxInputChannels;
+                maxOutputChannels = _maxOutputChannels;
             }
 
         protected :
@@ -113,14 +113,14 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The received value for the number of bytes transferred. */
-            int64_t    _byteCount{0};
+        /*! @brief The received value for the maximum number of input channels allowed. */
+        int64_t _maxInputChannels{0};
 
-            /*! @brief The received value for the number of messages transferred. */
-            int64_t    _messageCount{0};
+        /*! @brief The received value for the maximum number of output channels allowed. */
+        int64_t _maxOutputChannels{0};
 
-    }; // GetChannelStatisticsResponseHandler
+    }; // GetChannelLimitsResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOgetChannelStatisticsResponseHandler_H_)
+#endif // not defined(nImOgetChannelLimitsResponseHandler_H_)

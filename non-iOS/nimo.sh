@@ -4,7 +4,8 @@ THIS_FILE_NAME=$(basename $0)
 
 function list_commands() {
     echo "  where <command> is"
-    echo "    add        add an application"
+    echo "    adda       add an application"
+    echo "    addc       add a channel to a node"
     echo "    bridge     connect two subnets"
     echo "    connect    connect two channels together"
     echo "    disconnect break the connection between two channels"
@@ -37,8 +38,11 @@ function usage_help() {
     else
         COMMAND=$1
         case $COMMAND in
-            "add")
+            "adda")
                nImOaddApp -h
+                ;;
+            "addc")
+               nImOaddChannel -h
                 ;;
             "bridge")
                nImObridge -h
@@ -104,11 +108,18 @@ else
     COMMAND=$1
     shift
     case $COMMAND in
-        "add")
+        "adda")
             if [[ $# -eq 0 ]]; then
-                usage_help add
+                usage_help adda
             else
                 nImOaddApp $*
+            fi
+            ;;
+        "addc")
+            if [[ $# -eq 0 ]]; then
+                usage_help addc
+            else
+                nImOaddChannel $*
             fi
             ;;
         "bridge")

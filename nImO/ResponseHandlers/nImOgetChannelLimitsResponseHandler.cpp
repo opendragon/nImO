@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOgetChannelLimitsResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -32,11 +32,11 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-02-04
+//  Created:    2024-02-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h>
+#include <ResponseHandlers/nImOgetChannelLimitsResponseHandler.h>
 
 #include <BasicTypes/nImOinteger.h>
 
@@ -78,20 +78,20 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::GetChannelStatisticsResponseHandler::GetChannelStatisticsResponseHandler
+nImO::GetChannelLimitsResponseHandler::GetChannelLimitsResponseHandler
     (void) :
         inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::GetChannelStatisticsResponseHandler::GetChannelStatisticsResponseHandler
+} // nImO::GetChannelLimitsResponseHandler::GetChannelLimitsResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::GetChannelStatisticsResponseHandler::doIt
+nImO::GetChannelLimitsResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -109,18 +109,18 @@ nImO::GetChannelStatisticsResponseHandler::doIt
         {
             if (1 < infoArray->size())
             {
-                auto    bytesPtr{(*infoArray)[0]->asInteger()};
-                auto    messagesPtr{(*infoArray)[1]->asInteger()};
+                auto    maximumInputChannelsPtr{(*infoArray)[0]->asInteger()};
+                auto    maximumOutputChannelsPtr{(*infoArray)[1]->asInteger()};
 
-                if ((nullptr != bytesPtr) && (nullptr != messagesPtr))
+                if ((nullptr != maximumInputChannelsPtr) && (nullptr != maximumOutputChannelsPtr))
                 {
-                    _byteCount = bytesPtr->getIntegerValue();
-                    _messageCount = messagesPtr->getIntegerValue();
+                    _maxInputChannels = maximumInputChannelsPtr->getIntegerValue();
+                    _maxOutputChannels = maximumOutputChannelsPtr->getIntegerValue();
                     okSoFar = true;
                 }
                 else
                 {
-                    ODL_LOG("! ((nullptr != bytesPtr) && (nullptr != messagesPtr))"); //####
+                    ODL_LOG("! ((nullptr != maximumInputChannelsPtr) && (nullptr != maximumOutputChannelsPtr))"); //####
                 }
             }
             else
@@ -135,7 +135,7 @@ nImO::GetChannelStatisticsResponseHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::GetChannelStatisticsResponseHandler::doIt
+} // nImO::GetChannelLimitsResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

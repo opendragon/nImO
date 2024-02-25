@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOgetChannelStatisticsResponseHandler.h
+//  File:       nImO/CommandHandlers/nImOgetChannelLimitsCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for a functor used with the nImO request/response mechanism.
+//  Contains:   The class declaration for the nImO get channel limits command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -32,14 +32,14 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2024-02-04
+//  Created:    2024-02-25
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOgetChannelStatisticsResponseHandler_H_))
-# define nImOgetChannelStatisticsResponseHandler_H_ /* Header guard */
+#if (! defined(nImOgetChannelLimitsCommandHandler_H_))
+# define nImOgetChannelLimitsCommandHandler_H_ /* Header guard */
 
-# include <ResponseHandlers/nImOresponseHandler.h>
+# include <CommandHandlers/nImOinputOutputCommandHandler.h>
 
 # if defined(__APPLE__)
 #  pragma clang diagnostic push
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for a functor used with the %nImO request/response mechanism. */
+ @brief The class declaration for the %nImO get channel limits command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class GetChannelStatisticsResponseHandler final : public ResponseHandler
+    /*! @brief A class to provide a handler for the get channel limits command. */
+    class GetChannelLimitsCommandHandler final : public InputOutputCommandHandler
     {
 
         public :
@@ -68,35 +68,26 @@ namespace nImO
             // Private type definitions.
 
             /*! @brief The class that this class is derived from. */
-            using inherited = nImO::ResponseHandler;
+            using inherited = InputOutputCommandHandler;
 
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
-            GetChannelStatisticsResponseHandler
-                (void);
+            /*! @brief The constructor.
+             @param[in] owner The owning Context. */
+            GetChannelLimitsCommandHandler
+                (SpInputOutputContext   owner);
 
-            /*! @brief Handle the response, returning @c true if successful.
-             @param[in] stuff The data included in the response.
-             @return @c true if the response was correctly structured. */
+            /*! @brief Handle the command, returning @c true if successful.
+             @param[in] socket The socket where the response should be sent.
+             @param[in] arguments The arguments to the command, with the first element being the command received.
+             @return @c true if a response was sent. */
             bool
             doIt
-                (const Array &  stuff)
-                override;
-
-            /*! @brief Return the received values.
-             @param[out] byteCount The number of bytes transferred.
-             @param[out] messageCount The number of messages transferred. */
-            inline void
-            result
-                (int64_t &  byteCount,
-                 int64_t &  messageCount)
+                (BTCP::socket & socket,
+                 const Array &  arguments)
                 const
-            {
-                byteCount = _byteCount;
-                messageCount = _messageCount;
-            }
+                override;
 
         protected :
             // Protected methods.
@@ -113,14 +104,8 @@ namespace nImO
         private :
             // Private fields.
 
-            /*! @brief The received value for the number of bytes transferred. */
-            int64_t    _byteCount{0};
-
-            /*! @brief The received value for the number of messages transferred. */
-            int64_t    _messageCount{0};
-
-    }; // GetChannelStatisticsResponseHandler
+    }; // GetChannelLimitsCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOgetChannelStatisticsResponseHandler_H_)
+#endif // not defined(nImOgetChannelLimitsCommandHandler_H_)

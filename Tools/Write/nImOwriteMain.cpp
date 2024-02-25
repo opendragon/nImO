@@ -152,6 +152,7 @@ main
             auto                cleanup{new nImO::SourceBreakHandler{}};
 
             nImO::SetSpecialBreakObject(cleanup);
+            ourContext->setChannelLimits(0, 1);
             nImO::AddInputOutputHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {

@@ -72,7 +72,7 @@ BEGIN
             VALUE "InternalName", "nImOlaunch.exe\0"
             VALUE "LegalCopyright", "(c) 2024 by @nImO_COMPANY@.\0"
             VALUE "OriginalFilename", "nImOlaunch.exe\0"
-            VALUE "ProductName", "Launch\0"
+            VALUE "ProductName", "nImO\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END
     END

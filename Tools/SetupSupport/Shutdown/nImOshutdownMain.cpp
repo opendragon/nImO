@@ -147,7 +147,7 @@ main
 
                                     if (! statusWithBool.first.first)
                                     {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                     }
                                 }
                             }
@@ -186,7 +186,7 @@ main
                                         }
                                         else
                                         {
-                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                             okSoFar = false;
                                         }
                                         if (okSoFar)
@@ -207,7 +207,7 @@ main
                                             }
                                             else
                                             {
-                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                             }
                                         }
                                     }
@@ -215,7 +215,7 @@ main
                             }
                             else
                             {
-                                std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << "\n";
+                                std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << ".\n";
                                 exitCode = 1;
                             }
                             // Send Shutdown command to all other nodes.
@@ -232,14 +232,14 @@ main
 
                                     if (! statusWithBool.first.first)
                                     {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
+                            std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
                             exitCode = 1;
                         }
                         // Give the Registry time to handle pending requests.
@@ -293,7 +293,7 @@ main
                                             }
                                             else
                                             {
-                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                                 okSoFar = false;
                                             }
                                             if (okSoFar)
@@ -310,7 +310,7 @@ main
 
                                                         if (! statusWithBool.first.first)
                                                         {
-                                                            std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                            std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                             okSoFar = false;
                                                         }
                                                         if (okSoFar)
@@ -318,7 +318,7 @@ main
                                                             statusWithBool = proxy.clearChannelInUse(toNode, toPath);
                                                             if (! statusWithBool.first.first)
                                                             {
-                                                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                             }
                                                         }
                                                     }
@@ -329,7 +329,7 @@ main
                                                 }
                                                 else
                                                 {
-                                                    std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                                    std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                                     exitCode = 1;
                                                 }
                                             }
@@ -339,7 +339,7 @@ main
                                 else
                                 {
                                     std::cerr << "Problem with 'getInformationForAllConnectionsOnNode': " << statusWithAllConnections.first.second <<
-                                                "\n";
+                                                ".\n";
                                     exitCode = 1;
                                 }
                                 // Send Shutdown command to the node.
@@ -353,7 +353,7 @@ main
 
                                 if (! statusWithBool.first.first)
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                 }
                             }
                             else
@@ -363,7 +363,7 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << ".\n";
                             exitCode = 1;
                         }
                     }
@@ -390,7 +390,7 @@ main
 
                                 if (! statusWithBool.first.first)
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                 }
                             }
                             else
@@ -433,7 +433,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                         okSoFar = false;
                                     }
                                     if (okSoFar)
@@ -450,7 +450,7 @@ main
 
                                                 if (! statusWithBool.first.first)
                                                 {
-                                                    std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                    std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                     okSoFar = false;
                                                 }
                                                 if (okSoFar)
@@ -458,7 +458,7 @@ main
                                                     statusWithBool = proxy.clearChannelInUse(toNode, toPath);
                                                     if (! statusWithBool.first.first)
                                                     {
-                                                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                     }
                                                 }
                                             }
@@ -469,7 +469,7 @@ main
                                         }
                                         else
                                         {
-                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                             exitCode = 1;
                                         }
                                     }
@@ -479,7 +479,7 @@ main
                         else
                         {
                             std::cerr << "Problem with 'getInformationForAllConnectionsOnMachine': " << statusWithAllConnections.first.second <<
-                                        "\n";
+                                        ".\n";
                             exitCode = 1;
                         }
                         // Send Shutdown command to all other nodes on the machine.
@@ -496,7 +496,7 @@ main
 
                                 if (! statusWithBool.first.first)
                                 {
-                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                    std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                 }
                             }
                             else
@@ -507,7 +507,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
+                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
                         exitCode = 1;
                     }
                 }

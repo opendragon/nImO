@@ -89,15 +89,17 @@
  @param[in] handler The request-specific handler, @c nullptr if not needed.
  @param[in] incoming The response to be processed.
  @param[in] expectedKey The expected reponse key.
+ @param[out] failureReason A description of the reason for a failure.
  @return @c true if there were no issues with the response. */
 static bool
 handleResponse
     (Ptr(nImO::ResponseHandler) handler,
      const std::string &        incoming,
-     const std::string &        expectedKey)
+     const std::string &        expectedKey,
+     std::string &              failureReason)
 {
     ODL_ENTER(); //####
-    ODL_P1("handler = ", handler); //####
+    ODL_P2("handler = ", handler, "failureReason = ", &failureReason); //####
     ODL_S2s("incoming = ", incoming, "expectedKey = ", expectedKey); //####
     bool    wasOK{false};
 
@@ -131,6 +133,7 @@ handleResponse
                         if (nullptr == response)
                         {
                             ODL_LOG("(nullptr == response)"); //####
+                            failureReason = "Message did not contain a string"s;
                         }
                         else
                         {
@@ -138,36 +141,47 @@ handleResponse
                             if (expectedKey == response->getValue())
                             {
                                 wasOK = handler->doIt(*asArray);
+                                if (! wasOK)
+                                {
+                                    ODL_LOG("(! wasOK)"); //####
+                                    failureReason = "Response handler rejected message"s;
+                                }
                             }
                             else
                             {
                                 ODL_LOG("! (expectedKey == response->getValue())"); //####
+                                failureReason = "Unexpected response '" + response->getValue() + "'"s;
                             }
                         }
                     }
                     else
                     {
                         ODL_LOG("! ((nullptr != asArray) && (0 < asArray->size()))"); //####
+                        failureReason = "Invalid message format"s;
                     }
                 }
                 else
                 {
                     ODL_LOG("! (stuff->readAtEnd() && contents)"); //####
+                    failureReason = "Incomplete message"s;
                 }
             }
             else
             {
                 ODL_LOG("! (stuff && (0 < rawStuff.size()))"); //####
+                failureReason = "Decoded message was empty"s;
             }
         }
         else
         {
             ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
+            failureReason = "Could not decode message"s;
         }
     }
     else
     {
         ODL_LOG("! (nullptr != handler)"); //####
+        failureReason = "No handler provided"s;
     }
     ODL_EXIT_B(wasOK); //####
     return wasOK;
@@ -223,9 +237,11 @@ handleWriteCompletion
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                         if (nullptr != handler)
                                         {
-                                            if (! handleResponse(handler, handleThis, responseKey))
+                                            std::string failureReason{};
+
+                                            if (! handleResponse(handler, handleThis, responseKey, failureReason))
                                             {
-                                                *status = std::make_pair(false, "handleResponse() failed"s);
+                                                *status = std::make_pair(false, failureReason);
                                             }
                                         }
                                     }

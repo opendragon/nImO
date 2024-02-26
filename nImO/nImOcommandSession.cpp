@@ -86,10 +86,11 @@ static bool
 processRequest
     (nImO::SpServiceContext owner,
      nImO::SpSocketTCP      socket,
-     const std::string &    incoming)
+     const std::string &    incoming,
+     std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P2("owner = ", owner.get(), "socket = ", socket.get()); //####
+    ODL_P3("owner = ", owner.get(), "socket = ", socket.get(), "reason = ", reason); //####
     ODL_S1s("incoming = ", incoming); //####
     // We need to strip off the Message separator first.
     bool                okSoFar{false};
@@ -120,6 +121,7 @@ processRequest
                     if (nullptr == request)
                     {
                         ODL_LOG("(nullptr == request)"); //####
+                        reason = "Message did not contain a string"s;
                     }
                     else
                     {
@@ -128,31 +130,36 @@ processRequest
                         if (nullptr == handler)
                         {
                             ODL_LOG("(nullptr == handler)"); //####
+                            reason = "Request not recognized"s;
                         }
                         else
                         {
-                            okSoFar = handler->doIt(*socket.get(), *asArray);
+                            okSoFar = handler->doIt(*socket.get(), *asArray, reason);
                         }
                     }
                 }
                 else
                 {
                     ODL_LOG("! ((nullptr != asArray) && (0 < asArray->size()))"); //####
+                    reason = "Invalid message format"s;
                 }
             }
             else
             {
                 ODL_LOG("! (stuff->readAtEnd() && (nullptr != contents))"); //####
+                reason = "Incomplete message"s;
             }
         }
         else
         {
             ODL_LOG("! ((nullptr != stuff) && (0 < rawStuff.size()))"); //####
+            reason = "Decoded message was empty"s;
         }
     }
     else
     {
         ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
+        reason = "Could not decode message"s;
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -231,13 +238,14 @@ nImO::CommandSession::start
                                         }
                                         else
                                         {
+                                            std::string reason{};
+
 #if defined(nImO_ChattyTcpUdpLogging)
                                             _owner->report("got request."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-                                            if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()),
-                                                                buffers_end(_buffer.data())}))
+                                            if (! processRequest(_owner, _socket, std::string{buffers_begin(_buffer.data()), buffers_end(_buffer.data())}, reason))
                                             {
-                                                CommandHandler::SendBadResponse(_owner, _socket);
+                                                CommandHandler::SendBadResponse(_owner, _socket, reason);
                                             }
                                         }
                                         keepGoing = false;

@@ -86,17 +86,17 @@ nImO::SinkBreakHandler::SinkBreakHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::SinkBreakHandler::operator()
     (void)
-    const
 {
     ODL_OBJENTER(); //####
     if (nullptr != _context)
     {
         _context->stopInputQueue();
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
 } // nImO::SinkBreakHandler::operator()
 
 #if defined(__APPLE__)

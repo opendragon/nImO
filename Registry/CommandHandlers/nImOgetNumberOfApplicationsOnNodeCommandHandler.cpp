@@ -99,12 +99,13 @@ nImO::GetNumberOfApplicationsOnNodeCommandHandler::GetNumberOfApplicationsOnNode
 bool
 nImO::GetNumberOfApplicationsOnNodeCommandHandler::doIt
     (BTCP::socket & socket,
-     const Array &  arguments)
+     const Array &  arguments,
+     std::string &  reason)
     const
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get number of applications on node request received."s);

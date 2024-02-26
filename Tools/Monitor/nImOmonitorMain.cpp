@@ -198,16 +198,17 @@ class MonitorBreakHandler final : public nImO::CallbackFunction
     private :
         // Private methods.
 
-        /*! @brief Process a break signal. */
-        void
+        /*! @brief Process a break signal.
+         @return @c true on success. */
+        bool
         operator()
             (void)
-            const
             override
         {
             ODL_OBJENTER(); //####
             lReceiveQueue.stop();
-            ODL_OBJEXIT(); //####
+            ODL_OBJEXIT_B(true); //####
+            return true;
         }
 
     public :

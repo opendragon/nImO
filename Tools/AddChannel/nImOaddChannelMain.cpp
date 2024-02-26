@@ -47,6 +47,8 @@
 #include <nImOregistryProxy.h>
 #include <nImOrequestResponse.h>
 #include <nImOstandardOptions.h>
+#include <ResponseHandlers/nImOaddInputChannelResponseHandler.h>
+#include <ResponseHandlers/nImOaddOutputChannelResponseHandler.h>
 #include <ResponseHandlers/nImOgetChannelLimitsResponseHandler.h>
 
 #include <string>
@@ -150,7 +152,7 @@ main
                             }
                             else
                             {
-                                std::cerr << "Problem with 'getNumberOfOutputChannelsOnNode': " << statusWithInt.first.second << "\n";
+                                std::cerr << "Problem with 'getNumberOfOutputChannelsOnNode': " << statusWithInt.first.second << ".\n";
                                 exitCode = 1;
                             }
                         }
@@ -164,7 +166,7 @@ main
                             }
                             else
                             {
-                                std::cerr << "Problem with 'getNumberOfOutputChannelsOnNode': " << statusWithInt.first.second << "\n";
+                                std::cerr << "Problem with 'getNumberOfOutputChannelsOnNode': " << statusWithInt.first.second << ".\n";
                                 exitCode = 1;
                             }
                         }
@@ -173,32 +175,62 @@ main
                             nImO::Connection    nodeConnection{statusWithInfo.second._connection};
                             int64_t             maxInputChannels;
                             int64_t             maxOutputChannels;
-                            auto                handler{std::make_unique<nImO::GetChannelLimitsResponseHandler>()};
-                            auto                status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, nodeConnection, handler.get(),
-                                                                                                           nImO::kGetChannelLimitsRequest,
-                                                                                                           nImO::kGetChannelLimitsResponse)};
+                            auto                handler1{std::make_unique<nImO::GetChannelLimitsResponseHandler>()};
+                            auto                statusWithLimits{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, nodeConnection,
+                                                                                                                     handler1.get(),
+                                                                                                                     nImO::kGetChannelLimitsRequest,
+                                                                                                                     nImO::kGetChannelLimitsResponse)};
 
-                            handler->result(maxInputChannels, maxOutputChannels);
-                            if (forOutput)
+                            if (statusWithLimits.first)
                             {
-                                if ((nImO::kUnlimitedChannels != maxOutputChannels) && (existingChannelCount >= maxOutputChannels))
+                                handler1->result(maxInputChannels, maxOutputChannels);
+                                if (forOutput)
                                 {
-                                    std::cerr << "No more available output channels on node " << nodeName << ".\n";
-                                    exitCode = 1;
+                                    if ((nImO::kUnlimitedChannels != maxOutputChannels) && (existingChannelCount >= maxOutputChannels))
+                                    {
+                                        std::cerr << "No more available output channels on node " << nodeName << ".\n";
+                                        exitCode = 1;
+                                    }
+                                    else
+                                    {
+                                        auto    handler2{std::make_unique<nImO::AddOutputChannelResponseHandler>()};
+                                        auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, nodeConnection, handler2.get(),
+                                                                                                           nImO::kAddOutputChannelRequest,
+                                                                                                           nImO::kAddOutputChannelResponse)};
+
+                                        if (! status.first)
+                                        {
+                                            std::cerr << "Problem with 'addOutputChannel': " << status.second << ".\n";
+                                            exitCode = 1;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if ((nImO::kUnlimitedChannels != maxInputChannels) && (existingChannelCount >= maxInputChannels))
+                                    {
+                                        std::cerr << "No more available input channels on node " << nodeName << ".\n";
+                                        exitCode = 1;
+                                    }
+                                    else
+                                    {
+                                        auto    handler3{std::make_unique<nImO::AddInputChannelResponseHandler>()};
+                                        auto    status{nImO::SendRequestWithNoArgumentsAndNonEmptyResponse(ourContext, nodeConnection, handler3.get(),
+                                                                                                           nImO::kAddInputChannelRequest,
+                                                                                                           nImO::kAddInputChannelResponse)};
+
+                                        if (! status.first)
+                                        {
+                                            std::cerr << "Problem with 'addInputChannel': " << status.second << ".\n";
+                                            exitCode = 1;
+                                        }
+                                    }
                                 }
                             }
                             else
                             {
-                                if ((nImO::kUnlimitedChannels != maxInputChannels) && (existingChannelCount >= maxInputChannels))
-                                {
-                                    std::cerr << "No more available input channels on node " << nodeName << ".\n";
-                                    exitCode = 1;
-                                }
-                            }
-                            if (0 == exitCode)
-                            {
-                                //TBD
-                                std::cerr << "** unimplemented **\n";
+                                std::cerr << "Problem with 'getChannelLimits': " << statusWithLimits.second << ".\n";
+                                exitCode = 1;
                             }
                         }
                     }
@@ -210,7 +242,7 @@ main
                 }
                 else
                 {
-                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
+                    std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << ".\n";
                     exitCode = 1;
                 }
             }

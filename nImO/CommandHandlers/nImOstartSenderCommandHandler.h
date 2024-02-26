@@ -81,11 +81,13 @@ namespace nImO
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
              @param[in] arguments The arguments to the command, with the first element being the command received.
+             @param[out] failureReason The reason for a failure to send a response.
              @return @c true if a response was sent. */
             bool
             doIt
                 (BTCP::socket & socket,
-                 const Array &  arguments)
+                 const Array &  arguments,
+                 std::string &  reason)
                 const
                 override;
 

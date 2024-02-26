@@ -176,7 +176,7 @@ main
                 }
                 else
                 {
-                    std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << "\n";
+                    std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << ".\n";
                     exitCode = 1;
                 }
                 if (0 == exitCode)
@@ -192,7 +192,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'isChannelPresent': " << statusWithBool.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -215,7 +215,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -230,7 +230,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'getChannelInUseAndSet': " << statusWithBool.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -277,7 +277,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << "\n";
+                        std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << ".\n";
                         exitCode = 1;
                     }
                     if (0 == exitCode)
@@ -299,7 +299,7 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getChannelInformation': " << statusWithChannelInfo.first.second << ".\n";
                             exitCode = 1;
                         }
                     }
@@ -382,7 +382,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'addConnection': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'addConnection': " << statusWithBool.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -406,7 +406,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                         exitCode = 1;
                     }
                     if (0 == exitCode)
@@ -426,7 +426,7 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                             exitCode = 1;
                         }
                     }
@@ -532,7 +532,7 @@ main
                             statusWithBool = proxy.clearChannelInUse(fromNode, fromPath);
                             if (! statusWithBool.first.first)
                             {
-                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                             }
                         }
                     }
@@ -543,7 +543,7 @@ main
                             statusWithBool = proxy.clearChannelInUse(toNode, toPath);
                             if (! statusWithBool.first.first)
                             {
-                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                                std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                             }
                         }
                     }

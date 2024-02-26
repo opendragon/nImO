@@ -88,11 +88,13 @@ namespace nImO
             /*! @brief Handle the command, returning @c true if successful.
              @param[in] socket The socket where the response should be sent.
              @param[in] arguments The arguments to the command, with the first element being the command received.
+             @param[out] failureReason The reason for a failure to send a response.
              @return @c true if a response was sent. */
             virtual bool
             doIt
                 (BTCP::socket & socket,
-                 const Array &  arguments)
+                 const Array &  arguments,
+                 std::string &  reason)
                 const = 0;
 
             /*! @brief The copy assignment operator.
@@ -111,11 +113,13 @@ namespace nImO
 
             /*! @brief Send a response to satisfy the requesters pending read.
              @parm[in] context The context for the responder.
-             @param[in,out] socket The TCP/IP socket to use for communication. */
+             @param[in,out] socket The TCP/IP socket to use for communication.
+             @param[in] reason The failure reason, if specified. */
             static void
             SendBadResponse
-                (SpServiceContext   context,
-                 SpSocketTCP        socket);
+                (SpServiceContext       context,
+                 SpSocketTCP            socket,
+                 const std::string &    reason);
 
         protected :
             // Protected methods.

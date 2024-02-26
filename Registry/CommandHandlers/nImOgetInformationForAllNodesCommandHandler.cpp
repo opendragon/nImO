@@ -100,12 +100,13 @@ nImO::GetInformationForAllNodesCommandHandler::GetInformationForAllNodesCommandH
 bool
 nImO::GetInformationForAllNodesCommandHandler::doIt
     (BTCP::socket & socket,
-     const Array &  arguments)
+     const Array &  arguments,
+     std::string &  reason)
     const
 {
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
     bool    okSoFar{false};
 
     _owner->report("get information for all nodes request received."s);

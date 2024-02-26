@@ -185,7 +185,7 @@ nImO::CloseConnection
             {
                 if (! reported)
                 {
-                    std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                    std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                     reported = true;
                 }
             }
@@ -208,7 +208,7 @@ nImO::CloseConnection
                 {
                     if (! reported)
                     {
-                        std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'removeConnection': " << statusWithBool.first.second << ".\n";
                         reported = true;
                     }
                 }
@@ -217,7 +217,7 @@ nImO::CloseConnection
                 {
                     if (! reported)
                     {
-                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                         reported = true;
                     }
                 }
@@ -226,7 +226,7 @@ nImO::CloseConnection
                 {
                     if (! reported)
                     {
-                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << "\n";
+                        std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                         reported = true;
                     }
                 }
@@ -237,7 +237,7 @@ nImO::CloseConnection
     {
         if (! reported)
         {
-            std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << "\n";
+            std::cerr << "Problem with 'getConnectionInformation': " << statusWithInfo.first.second << ".\n";
             reported = true;
         }
     }

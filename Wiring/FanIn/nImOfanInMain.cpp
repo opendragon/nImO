@@ -70,6 +70,73 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
+namespace FanIn_Private
+{
+    /*! @brief A class to provide values that are used for handling callbacks for the application. */
+    class AddInputChannelCallbackHandler final : public nImO::CallbackFunction
+    {
+        public :
+            // Public type definitions.
+
+        protected :
+            // Protected type definitions.
+
+        private :
+            // Private type definitions.
+
+            /*! @brief The class that this class is derived from. */
+            using inherited = CallbackFunction;
+
+        public :
+            // Public methods.
+
+            /*! @brief The constructor.
+             @param[in] theContext The filter context that is active. */
+            inline AddInputChannelCallbackHandler
+                (Ptr(nImO::FilterContext)   theContext) :
+                    inherited(), _context(theContext)
+            {
+            }
+
+        protected :
+            // Protected methods.
+
+        private :
+            // Private methods.
+
+            /*! @brief Process an add input channel request.
+             @return @c true on success. */
+            bool
+            operator()
+                (void)
+                override;
+
+        public :
+            // Public fields.
+
+        protected :
+            // Protected fields.
+
+        private :
+            // Private fields.
+
+            /*! @brief The filter context that is active. */
+            Ptr(nImO::FilterContext)    _context;
+
+    }; // AddInputChannelCallbackHandler
+
+}; // namespace FanIn_Private
+
+bool
+FanIn_Private::AddInputChannelCallbackHandler::operator()
+    (void)
+{
+    ODL_OBJENTER(); //####
+    _failureReason = "*** Unimplemented ***"s;
+    ODL_OBJEXIT_B(false); //####
+    return false;
+} // FanIn_Private::AddInputChannelCallbackHandler::operator()
+
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
 #endif // defined(__APPLE__)
@@ -116,10 +183,11 @@ main
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "FanIn"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
+            auto                addInputChannelCallback{new FanIn_Private::AddInputChannelCallbackHandler{ourContext.get()}};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, 1);
-            nImO::AddInputOutputHandlers(ourContext, cleanup);
+            nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback);
             if (ourContext->findRegistry(registryConnection))
             {
                 nImO::RegistryProxy proxy{ourContext, registryConnection};
@@ -165,13 +233,13 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }
                                 else
                                 {
-                                    std::cerr << "Invalid channel path " << "'" << basePath << "'\n";
+                                    std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
                                     exitCode = 1;
                                 }
                                 for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
@@ -199,13 +267,13 @@ main
                                         }
                                         else
                                         {
-                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << "\n";
+                                            std::cerr << "Problem with 'addChannel': " << statusWithBool.first.second << ".\n";
                                             exitCode = 1;
                                         }
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'\n";
+                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -288,7 +356,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -310,7 +378,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeChannel': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -329,7 +397,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -343,14 +411,14 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << "\n";
+                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << ".\n";
                             exitCode = 1;
                         }
                     }
                 }
                 else
                 {
-                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << "\n";
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << ".\n";
                     exitCode = 1;
                 }
             }

@@ -106,15 +106,16 @@ class LauncherBreakHandler final : public nImO::CallbackFunction
     private :
         // Private methods.
 
-        /*! @brief Process a break signal. */
-        void
+        /*! @brief Process a break signal.
+         @return @c true on success. */
+        bool
         operator()
             (void)
-            const
             override
         {
             ODL_OBJENTER(); //####
-            ODL_OBJEXIT(); //####
+            ODL_OBJEXIT_B(true); //####
+            return true;
         }
 
     public :
@@ -382,7 +383,7 @@ main
                                             statusWithBool = proxy.addAppToList(nodeName, keyValue->getValue(), descriptionValue->getValue());
                                             if (! statusWithBool.first.first)
                                             {
-                                                std::cerr << "Problem with 'addAppToList': " << statusWithBool.first.second << "\n";
+                                                std::cerr << "Problem with 'addAppToList': " << statusWithBool.first.second << ".\n";
                                                 exitCode = 1;
                                                 break;
                                                 
@@ -401,14 +402,14 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                     nImO::gKeepRunning = true; // So that the calls to 'clearAppListForLauncher' and 'removeNode' won't fail...
                                     statusWithBool = proxy.clearAppListForLauncher(nodeName);
                                     if (! statusWithBool.first.first)
                                     {
-                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << "\n";
+                                        std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << ".\n";
                                         exitCode = 1;
                                     }
                                     if (! nImO::gPendingStop)
@@ -425,7 +426,7 @@ main
                                         }
                                         else
                                         {
-                                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << "\n";
+                                            std::cerr << "Problem with 'removeNode': " << statusWithBool.first.second << ".\n";
                                             exitCode = 1;
                                         }
                                     }
@@ -440,14 +441,14 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << "\n";
+                            std::cerr << "Problem with 'addNode': " << statusWithBool.first.second << ".\n";
                             exitCode = 1;
                         }
                     }
                 }
                 else
                 {
-                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << "\n";
+                    std::cerr << "Problem with 'isNodePresent': " << statusWithBool.first.second << ".\n";
                     exitCode = 1;
                 }
             }

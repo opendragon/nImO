@@ -58,6 +58,18 @@ namespace nImO
     /*! @brief The value for the channel limits that represents no limit. */
     constexpr   int64_t kUnlimitedChannels{-1};
 
+    /*! @brief The 'addInputChannel' request. */
+    const std::string   kAddInputChannelRequest{"addInputChannel!"s};
+
+    /*! @brief The 'addInputChannel' response. */
+    const std::string   kAddInputChannelResponse{"addInputChannel="s};
+
+    /*! @brief The 'addOutputChannel' request. */
+    const std::string   kAddOutputChannelRequest{"addOutputChannel!"s};
+
+    /*! @brief The 'addOutputChannel' response. */
+    const std::string   kAddOutputChannelResponse{"addOutputChannel="s};
+
     /*! @brief The 'getChannelLimits' request. */
     const std::string   kGetChannelLimitsRequest{"getChannelLimits."s};
 

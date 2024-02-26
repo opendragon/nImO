@@ -38,6 +38,8 @@
 
 #include <Contexts/nImOinputOutputContext.h>
 
+#include <CommandHandlers/nImOaddInputChannelCommandHandler.h>
+#include <CommandHandlers/nImOaddOutputChannelCommandHandler.h>
 #include <CommandHandlers/nImOgetChannelLimitsCommandHandler.h>
 #include <CommandHandlers/nImOgetChannelStatisticsCommandHandler.h>
 #include <CommandHandlers/nImOsetUpReceiverCommandHandler.h>
@@ -284,10 +286,13 @@ nImO::InputOutputContext::stopInputQueue
 void
 nImO::AddInputOutputHandlers
     (SpInputOutputContext   context,
-     Ptr(CallbackFunction)  shutdownCallback)
+     Ptr(CallbackFunction)  shutdownCallback,
+     Ptr(CallbackFunction)  addInputChannelCallback,
+     Ptr(CallbackFunction)  addOutputChannelCallback)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
+    ODL_P4("context = ", context.get(), "shutdownCallback = ", shutdownCallback, "addInputChannelCallback = ",//####
+           addInputChannelCallback, "addOutputChannelCallback = ", addOutputChannelCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     if (context)
     {
@@ -365,6 +370,26 @@ nImO::AddInputOutputHandlers
 
             ODL_P1("newHandler8 <- ", newHandler8.get()); //####
             if (! context->addHandler(kGetChannelLimitsRequest, newHandler8))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead && (nullptr != addInputChannelCallback))
+        {
+            auto    newHandler9{std::make_shared<AddInputChannelCommandHandler>(context, addInputChannelCallback)};
+
+            ODL_P1("newHandler9 <- ", newHandler9.get()); //####
+            if (! context->addHandler(kAddInputChannelRequest, newHandler9))
+            {
+                goAhead = false;
+            }
+        }
+        if (goAhead && (nullptr != addOutputChannelCallback))
+        {
+            auto    newHandler10{std::make_shared<AddOutputChannelCommandHandler>(context, addOutputChannelCallback)};
+
+            ODL_P1("newHandler10 <- ", newHandler10.get()); //####
+            if (! context->addHandler(kAddOutputChannelRequest, newHandler10))
             {
                 goAhead = false;
             }

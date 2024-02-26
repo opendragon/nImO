@@ -374,11 +374,20 @@ nImO::CommandHandler::sendStatusReport
 
 void
 nImO::CommandHandler::SendBadResponse
-    (SpServiceContext   context,
-     SpSocketTCP        socket)
+    (SpServiceContext       context,
+     SpSocketTCP            socket,
+     const std::string &    reason)
 {
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
-    sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false);
+    ODL_S1s("reason = ", reason); //####
+    if (reason.empty())
+    {
+        sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false);
+    }
+    else
+    {
+        sendSimpleResponseWithContext(context, *socket.get(), reason, "unknown"s, false);
+    }
     ODL_EXIT(); //####
 } // nImO::CommandHandler::SendBadResponse

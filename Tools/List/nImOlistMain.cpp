@@ -358,7 +358,7 @@ listApplications
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllApplications': " << statusWithAllApplications.first.second << "\n";
+        std::cerr << "Problem with 'getInformationForAllApplications': " << statusWithAllApplications.first.second << ".\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -539,7 +539,7 @@ listChannels
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                             okSoFar = false;
                         }
                         if (okSoFar)
@@ -614,7 +614,7 @@ listChannels
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << "\n";
+        std::cerr << "Problem with 'getInformationForAllChannels': " << statusWithAllChannels.first.second << ".\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -804,7 +804,7 @@ listConnections
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << "\n";
+        std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << ".\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -951,7 +951,7 @@ listMachines
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << "\n";
+        std::cerr << "Problem with 'getInformationForAllMachines': " << statusWithAllMachines.first.second << ".\n";
         okSoFar = false;
     }
     return okSoFar;
@@ -1127,7 +1127,7 @@ listNodes
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << "\n";
+                            std::cerr << "Problem with 'getLaunchDetails': " << statusWithDetails.first.second << ".\n";
                             okSoFar = false;
                         }
                     }
@@ -1177,7 +1177,7 @@ listNodes
     }
     else
     {
-        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
+        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
         okSoFar = false;
     }
     return okSoFar;

@@ -80,6 +80,8 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
@@ -112,7 +114,9 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddInputChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddOutputChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.cpp"
@@ -284,6 +288,8 @@ install(FILES
         COMPONENT headers)
 
 install(FILES
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
@@ -328,7 +334,9 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddAppToListResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddInputChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddOutputChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOgetChannelInformationResponseHandler.h"
@@ -421,6 +429,10 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelLimitsCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOgetChannelStatisticsCommandHandler.cpp
@@ -466,8 +478,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddConnectionResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddInputChannelResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddInputChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddNodeResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddOutputChannelResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOaddOutputChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearAppListForLauncherResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOclearChannelInUseResponseHandler.cpp

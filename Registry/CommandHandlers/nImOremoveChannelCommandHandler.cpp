@@ -99,11 +99,12 @@ nImO::RemoveChannelCommandHandler::RemoveChannelCommandHandler
 bool
 nImO::RemoveChannelCommandHandler::doIt
     (BTCP::socket & socket,
-     const Array &  arguments)
+     const Array &  arguments,
+     std::string &  reason)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "arguments = ", &arguments); //####
+    ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
     bool    okSoFar{false};
 
     _owner->report("remove channel request received."s);

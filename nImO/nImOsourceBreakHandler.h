@@ -83,11 +83,11 @@ namespace nImO
         private :
             // Private methods.
 
-            /*! @brief Process a break signal. */
-            void
+            /*! @brief Process a break signal.
+             @return @c true on success. */
+            bool
             operator()
                 (void)
-                const
                 override;
 
         public :

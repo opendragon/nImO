@@ -74,11 +74,20 @@ namespace nImO
             CallbackFunction
                 (void) = default;
 
-            /*! @brief Process a break signal. */
-            virtual void
-            operator()
+            /*! @brief Return the reason for a failure.
+             @return The reason for a failure. */
+            const std::string &
+            failureReason
                 (void)
-                const = 0;
+                const
+            {
+                return _failureReason;
+            }
+
+            /*! @brief Process the callback. */
+            virtual bool
+            operator()
+                (void) = 0;
 
         protected :
             // Protected methods.
@@ -91,6 +100,9 @@ namespace nImO
 
         protected :
             // Protected fields.
+
+            /*! @brief If the callback fails, the reason for the failure. */
+            std::string _failureReason{};
 
         private :
             // Private fields.

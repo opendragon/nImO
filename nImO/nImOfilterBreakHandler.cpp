@@ -86,17 +86,17 @@ nImO::FilterBreakHandler::FilterBreakHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::FilterBreakHandler::operator()
     (void)
-    const
 {
     ODL_OBJENTER(); //####
     if (nullptr != _context)
     {
         _context->stopInputQueue();
     }
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
 } // nImO::FilterBreakHandler::operator()
 
 #if defined(__APPLE__)

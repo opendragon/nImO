@@ -86,13 +86,13 @@ nImO::SourceBreakHandler::SourceBreakHandler
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
-void
+bool
 nImO::SourceBreakHandler::operator()
     (void)
-    const
 {
     ODL_OBJENTER(); //####
-    ODL_OBJEXIT(); //####
+    ODL_OBJEXIT_B(true); //####
+    return true;
 } // nImO::SourceBreakHandler::operator()
 
 #if defined(__APPLE__)

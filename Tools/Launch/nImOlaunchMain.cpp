@@ -236,7 +236,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << "\n";
+                        std::cerr << "Problem with 'getInformationForAllNodes': " << statusWithAllNodes.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -266,7 +266,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << "\n";
+                        std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -341,7 +341,7 @@ main
                     }
                     else
                     {
-                        std::cerr << "Problem with 'getInformationForAllApplicationsOnNode': " << statusWithInfo.first.second << "\n";
+                        std::cerr << "Problem with 'getInformationForAllApplicationsOnNode': " << statusWithInfo.first.second << ".\n";
                         exitCode = 1;
                     }
                 }
@@ -597,7 +597,7 @@ main
                         }
                         else
                         {
-                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << "\n";
+                            std::cerr << "Problem with 'getNodeInformation': " << statusWithInfo.first.second << ".\n";
                             exitCode = 1;
                         }
                     }

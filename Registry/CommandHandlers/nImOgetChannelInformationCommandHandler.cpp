@@ -131,7 +131,7 @@ nImO::GetChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
                 infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
-                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information"s, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information"s, infoArray, reason);
             }
             else
             {
@@ -141,11 +141,13 @@ nImO::GetChannelInformationCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

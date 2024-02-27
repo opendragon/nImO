@@ -128,7 +128,7 @@ nImO::GetInformationForAllApplicationsCommandHandler::doIt
                 applicationArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsResponse, "get information for all applications"s,
-                                          applicationArray);
+                                          applicationArray, reason);
         }
         else
         {
@@ -138,6 +138,7 @@ nImO::GetInformationForAllApplicationsCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

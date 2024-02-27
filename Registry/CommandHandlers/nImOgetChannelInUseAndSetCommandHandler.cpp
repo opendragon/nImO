@@ -121,7 +121,7 @@ nImO::GetChannelInUseAndSetCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kGetChannelInUseAndSetResponse, "get channel in use and set"s, statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kGetChannelInUseAndSetResponse, "get channel in use and set"s, statusWithBool.second, reason);
             }
             else
             {
@@ -131,11 +131,13 @@ nImO::GetChannelInUseAndSetCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

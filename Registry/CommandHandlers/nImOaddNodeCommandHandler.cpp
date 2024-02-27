@@ -160,7 +160,7 @@ nImO::AddNodeCommandHandler::doIt
                 status = _registry->addNode(nodeName, execPath, launchDirectory, commandLine, theType, theConnection);
                 if (status.first)
                 {
-                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node"s, true);
+                    okSoFar = sendSimpleResponse(socket, kAddNodeResponse, "add node"s, true, reason);
                     if (okSoFar)
                     {
                         sendStatusReport(_owner, _statusConnection, kNodeAddedStatus + kStatusSeparator + nodeName);
@@ -180,11 +180,13 @@ nImO::AddNodeCommandHandler::doIt
         {
             ODL_LOG("! ((nullptr != machineNameString) && (nullptr != nodeNameString) && (nullptr != execPathString) && " //####
                     "(nullptr != launchDirectoryString) && (nullptr != commandLineString) && (nullptr != connArray))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (6 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

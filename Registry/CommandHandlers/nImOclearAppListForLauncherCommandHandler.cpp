@@ -121,7 +121,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "clear app list for launcher"s, true);
+                okSoFar = sendSimpleResponse(socket, kClearAppListForLauncherResponse, "clear app list for launcher"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kAppListClearedStatus + kStatusSeparator + launcherNodeName);
@@ -140,6 +140,7 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

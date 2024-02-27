@@ -124,7 +124,7 @@ nImO::StartReceiverCommandHandler::doIt
                 auto    senderPort{StaticCast(IPv4Port, portValue->getIntegerValue())};
 
                 // Send the response to the requestor.
-                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort));
+                okSoFar = sendSimpleResponse(socket, kStartReceiverResponse, "start receiver"s, theChannel->start(senderAddress, senderPort), reason);
             }
             else
             {
@@ -134,11 +134,13 @@ nImO::StartReceiverCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != addressValue) && (nullptr != portValue))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

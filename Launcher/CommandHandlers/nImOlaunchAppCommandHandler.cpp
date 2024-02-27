@@ -197,11 +197,12 @@ nImO::LaunchAppCommandHandler::doIt
                             BP::child   cc{commandLine};
 
                             cc.detach();
-                            okSoFar = sendSimpleResponse(socket, kLaunchAppResponse, "launch app"s, true);
+                            okSoFar = sendSimpleResponse(socket, kLaunchAppResponse, "launch app"s, true, reason);
                         }
                         else
                         {
                             ODL_LOG("! ((nullptr != appOptionsArray) && (nullptr != appParametersArray))"); //####
+                            reason = "One or more invalid arguments"s;
                         }
                     }
                     else

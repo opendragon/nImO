@@ -122,7 +122,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
             {
                 stringSet->addValue(std::make_shared<String>(walker));
             }
-            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines"s, stringSet);
+            okSoFar = sendComplexResponse(socket, kGetNamesOfMachinesResponse, "get names of machines"s, stringSet, reason);
         }
         else
         {
@@ -132,6 +132,7 @@ nImO::GetNamesOfMachinesCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -130,7 +130,7 @@ nImO::AddChannelCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "add channel"s, true);
+                okSoFar = sendSimpleResponse(socket, kAddChannelResponse, "add channel"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelAddedStatus + kStatusSeparator + nodeName + kStatusSeparator + path);
@@ -145,11 +145,13 @@ nImO::AddChannelCommandHandler::doIt
         {
             ODL_LOG("! ((nullptr != nodeNameString) && (nullptr != pathString) && (nullptr != isOutputValue) && " //####
                     "(nullptr != dataTypeString) && (nullptr != modesString))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (5 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

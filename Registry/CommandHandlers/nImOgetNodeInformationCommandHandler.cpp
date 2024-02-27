@@ -117,6 +117,7 @@ nImO::GetNodeInformationCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -133,17 +134,19 @@ nImO::GetNodeInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._address));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._connection._port));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, theInfo._connection._transport)));
-                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "get node information"s, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetNodeInformationResponse, "get node information"s, infoArray, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
+                reason = "getNodeInformation() returned '"s + statusWithInfo.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

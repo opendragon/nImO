@@ -131,7 +131,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(walker._inUse));
                 channelArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels"s, channelArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels"s, channelArray, reason);
         }
         else
         {
@@ -141,6 +141,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

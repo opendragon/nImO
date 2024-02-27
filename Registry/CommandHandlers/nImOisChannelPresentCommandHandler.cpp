@@ -119,7 +119,7 @@ nImO::IsChannelPresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "is channel present"s, statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsChannelPresentResponse, "is channel present"s, statusWithBool.second, reason);
             }
             else
             {
@@ -129,11 +129,13 @@ nImO::IsChannelPresentCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

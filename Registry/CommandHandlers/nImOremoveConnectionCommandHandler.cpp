@@ -124,7 +124,7 @@ nImO::RemoveConnectionCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel"s, true);
+                okSoFar = sendSimpleResponse(socket, kRemoveConnectionResponse, "remove channel"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionRemovedStatus + kStatusSeparator + nodeName + kStatusSeparator + path +
@@ -134,16 +134,19 @@ nImO::RemoveConnectionCommandHandler::doIt
             else
             {
                 ODL_LOG("! (status.first)"); //####
+                reason = "removeConnection() returned '"s + status.second + "'"s;
             }
         }
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (3 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

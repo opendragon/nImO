@@ -150,7 +150,7 @@ handleResponse
                             else
                             {
                                 ODL_LOG("! (expectedKey == response->getValue())"); //####
-                                failureReason = "Unexpected response '" + response->getValue() + "'"s;
+                                failureReason = "Unexpected response [" + response->getValue() + "]"s;
                             }
                         }
                     }

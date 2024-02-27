@@ -116,6 +116,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -142,6 +143,7 @@ nImO::GetChannelStatisticsCommandHandler::doIt
                 else
                 {
                     ODL_LOG("! (theOutputChannel)"); //####
+                    reason = "No channel with that name"s;
                 }
             }
             if (okSoFar)
@@ -150,13 +152,14 @@ nImO::GetChannelStatisticsCommandHandler::doIt
 
                 infoArray->addValue(std::make_shared<Integer>(numberOfBytes));
                 infoArray->addValue(std::make_shared<Integer>(numberOfMessages));
-                okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "get channel statistics"s, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetChannelStatisticsResponse, "get channel statistics"s, infoArray, reason);
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

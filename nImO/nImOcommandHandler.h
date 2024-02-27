@@ -133,14 +133,16 @@ namespace nImO
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
              @param[in] responseText The description of the response.
-             @param[in] contents The data for the response..
+             @param[in] contents The data for the response.
+             @param[out] reason The reason for a failure.
              @return @c true if a response was sent. */
             bool
             sendComplexResponse
                 (BTCP::socket &         socket,
                  const std::string &    responseKey,
                  const std::string &    responseText,
-                 SpValue                contents)
+                 SpValue                contents,
+                 std::string &          reason)
                 const;
 
             /*! @brief Send a simple reponse for the command.
@@ -148,13 +150,15 @@ namespace nImO
              @param[in] responseKey The response type.
              @param[in] responseText The description of the response.
              @param[in] wasOK @c true if the command succeeded and @c false otherwise.
+             @param[out] reason The reason for a failure.
              @return @c true if a response was sent. */
             bool
             sendSimpleResponse
                 (BTCP::socket &         socket,
                  const std::string &    responseKey,
                  const std::string &    responseText,
-                 const bool             wasOK = false)
+                 const bool             wasOK,
+                 std::string &          reason)
                 const;
 
             /*! @brief Send a status report.
@@ -176,7 +180,8 @@ namespace nImO
              @param[in] socket The socket where the response should be sent.
              @param[in] responseKey The response type.
              @param[in] responseText The description of the response.
-             @param[in] contents The data for the response..
+             @param[in] contents The data for the response.
+             @param[out] reason The reason for a failure.
              @return @c true if a response was sent. */
             static bool
             sendComplexResponseWithContext
@@ -184,7 +189,8 @@ namespace nImO
                  BTCP::socket &         socket,
                  const std::string &    responseKey,
                  const std::string &    responseText,
-                 SpValue                contents);
+                 SpValue                contents,
+                 std::string &          reason);
 
             /*! @brief Send a simple reponse for the command.
              @param[in] context The context for the responder.
@@ -192,6 +198,7 @@ namespace nImO
              @param[in] responseKey The response type.
              @param[in] responseText The description of the response.
              @param[in] wasOK @c true if the command succeeded and @c false otherwise.
+             @param[out] reason The reason for a failure.
              @return @c true if a response was sent. */
             static bool
             sendSimpleResponseWithContext
@@ -199,7 +206,8 @@ namespace nImO
                  BTCP::socket &         socket,
                  const std::string &    responseKey,
                  const std::string &    responseText,
-                 const bool             wasOK);
+                 const bool             wasOK,
+                 std::string &          reason);
 
         public :
             // Public fields.

@@ -115,6 +115,7 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -123,7 +124,7 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node"s, true);
+                okSoFar = sendSimpleResponse(socket, kRemoveChannelsForNodeResponse, "remove channels for node"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kChannelsRemovedStatus + kStatusSeparator + nodeName);
@@ -132,12 +133,14 @@ nImO::RemoveChannelsForNodeCommandHandler::doIt
             else
             {
                 ODL_LOG("! (status.first)"); //####
+                reason = "removeChannelsForNode() returned '"s + status.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

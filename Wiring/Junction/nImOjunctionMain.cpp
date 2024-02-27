@@ -98,6 +98,14 @@ namespace Junction_Private
             {
             }
 
+            /*! @brief Indicate that the service is ready to accept these requests. */
+            inline void
+            canAcceptRequests
+                (void)
+            {
+                _requestsAllowed = true;
+            }
+
         protected :
             // Protected methods.
 
@@ -122,6 +130,9 @@ namespace Junction_Private
 
             /*! @brief The filter context that is active. */
             Ptr(nImO::FilterContext)    _context;
+
+            /*! @brief A flag to control when requests can be honoured. */
+            std::atomic_bool    _requestsAllowed{false};
 
     }; // AddInputChannelCallbackHandler
 
@@ -151,6 +162,14 @@ namespace Junction_Private
             {
             }
 
+            /*! @brief Indicate that the service is ready to accept these requests. */
+            inline void
+            canAcceptRequests
+                (void)
+            {
+                _requestsAllowed = true;
+            }
+
         protected :
             // Protected methods.
 
@@ -176,6 +195,9 @@ namespace Junction_Private
             /*! @brief The filter context that is active. */
             Ptr(nImO::FilterContext)    _context;
 
+            /*! @brief A flag to control when requests can be honoured. */
+            std::atomic_bool    _requestsAllowed{false};
+
     }; // AddOutputChannelCallbackHandler
 
 }; // namespace Junction_Private
@@ -185,9 +207,19 @@ Junction_Private::AddInputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
-    _failureReason = "*** Unimplemented ***"s;
-    ODL_OBJEXIT_B(false); //####
-    return false;
+    bool    result{false};
+
+    if (_requestsAllowed)
+    {
+        _failureReason = "*** Unimplemented ***"s;
+
+    }
+    else
+    {
+        _failureReason = "Service not finished setup"s;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
 } // Junction_Private::AddInputChannelCallbackHandler::operator()
 
 bool
@@ -195,9 +227,19 @@ Junction_Private::AddOutputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
-    _failureReason = "*** Unimplemented ***"s;
-    ODL_OBJEXIT_B(false); //####
-    return false;
+    bool    result{false};
+
+    if (_requestsAllowed)
+    {
+        _failureReason = "*** Unimplemented ***"s;
+
+    }
+    else
+    {
+        _failureReason = "Service not finished setup"s;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
 } // Junction_Private::AddOutputChannelCallbackHandler::operator()
 
 #if defined(__APPLE__)
@@ -309,7 +351,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -352,12 +394,14 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }
                                 if (0 == exitCode)
                                 {
+                                    addInputChannelCallback->canAcceptRequests();
+                                    addOutputChannelCallback->canAcceptRequests();
                                     if (optionValues._waitForConnections)
                                     {
                                         bool    connected{false};

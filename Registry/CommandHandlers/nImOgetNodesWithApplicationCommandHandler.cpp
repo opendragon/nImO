@@ -117,6 +117,7 @@ nImO::GetNodesWithApplicationCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -130,17 +131,19 @@ nImO::GetNodesWithApplicationCommandHandler::doIt
                 {
                     stringSet->addValue(std::make_shared<String>(walker));
                 }
-                okSoFar = sendComplexResponse(socket, kGetNodesWithApplicationResponse, "get nodes with application"s, stringSet);
+                okSoFar = sendComplexResponse(socket, kGetNodesWithApplicationResponse, "get nodes with application"s, stringSet, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithSet.first.first)"); //####
+                reason = "getNodesWithApplication() returned '"s + statusWithSet.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

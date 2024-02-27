@@ -117,6 +117,7 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -140,17 +141,19 @@ nImO::GetInformationForAllChannelsOnNodeCommandHandler::doIt
                     channelArray->addValue(infoArray);
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsOnNodeResponse, "get information for all channels on node"s,
-                                              channelArray);
+                                              channelArray, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInfoVector.first.first)"); //####
+                reason = "getInformationForAllChannelsOnNode() returned '"s + statusWithInfoVector.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -133,23 +133,31 @@ nImO::SetUpSenderCommandHandler::doIt
 
                     infoArray->addValue(std::make_shared<Address>(theConnection._address));
                     infoArray->addValue(std::make_shared<Integer>(theConnection._port));
-                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray);
+                    okSoFar = sendComplexResponse(socket, kSetUpSenderResponse, "set up sender"s, infoArray, reason);
+                }
+                else
+                {
+                    ODL_LOG("! (theChannel->setUp(receiveAddress, receivePort, mode))"); //####
+                    reason = "Problem setting up output channel"s;
                 }
             }
             else
             {
                 ODL_LOG("! (theChannel)"); //####
+                reason = "No output channel with that name"s;
             }
         }
         else
         {
             ODL_LOG("! ((nullptr != pathString) && (nullptr != addressValue) && (nullptr != portValue) && (nullptr != dataTypeString) && " //####
                     "(nullptr != modeValue))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (5 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

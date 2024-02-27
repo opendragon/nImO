@@ -132,7 +132,7 @@ nImO::GetConnectionInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._toPath));
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
-                okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information"s, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information"s, infoArray, reason);
             }
             else
             {
@@ -142,11 +142,13 @@ nImO::GetConnectionInformationCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2) && (nullptr != asLogical))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (3 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

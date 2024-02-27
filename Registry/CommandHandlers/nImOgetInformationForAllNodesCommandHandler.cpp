@@ -130,7 +130,7 @@ nImO::GetInformationForAllNodesCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int64_t, walker._connection._transport)));
                 nodeArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesResponse, "get information for all nodes"s, nodeArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesResponse, "get information for all nodes"s, nodeArray, reason);
         }
         else
         {
@@ -140,6 +140,7 @@ nImO::GetInformationForAllNodesCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

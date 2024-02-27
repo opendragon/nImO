@@ -117,7 +117,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines"s, count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfMachinesResponse, "get number of machines"s, count, reason);
         }
         else
         {
@@ -127,6 +127,7 @@ nImO::GetNumberOfMachinesCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

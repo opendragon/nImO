@@ -118,13 +118,14 @@ nImO::CommandHandler::sendComplexResponse
     (BTCP::socket &         socket,
      const std::string &    responseKey,
      const std::string &    responseText,
-     SpValue                contents)
+     SpValue                contents,
+     std::string &          reason)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P2("socket = ", &socket, "contents = ", contents.get()); //####
+    ODL_P3("socket = ", &socket, "contents = ", contents.get(), "reason = ", &reason); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
-    bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents)};
+    bool    okSoFar{sendComplexResponseWithContext(_owner, socket, responseKey, responseText, contents, reason)};
 
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -136,10 +137,11 @@ nImO::CommandHandler::sendComplexResponseWithContext
      BTCP::socket &         socket,
      const std::string &    responseKey,
      const std::string &    responseText,
-     SpValue                contents)
+     SpValue                contents,
+     std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P3("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get()); //####
+    ODL_P4("context = ", context.get(), "socket = ", &socket, "contents = ", contents.get(), "reason = ", &reason); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     bool    okSoFar{false};
     Message responseToSend;
@@ -157,6 +159,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
         if (asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
+            reason = "Empty response"s;
         }
         else
         {
@@ -172,7 +175,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
             context->report("sending response."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
-                                      [context, &keepGoing, &okSoFar, responseText]
+                                      [context, &keepGoing, &okSoFar, responseText, &reason]
                                       (const BSErr &        ec,
                                        const std::size_t    bytes_transferred)
                                       {
@@ -185,10 +188,12 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                                 context->report("async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                reason = "Operation cancelled"s;
                                             }
                                             else
                                             {
                                                 context->report("async_write() failed -> "s + ec.message() + "."s);
+                                                reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
@@ -209,6 +214,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
     else
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
+        reason = "Empty response"s;
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -219,14 +225,15 @@ nImO::CommandHandler::sendSimpleResponse
     (BTCP::socket &         socket,
      const std::string &    responseKey,
      const std::string &    responseText,
-     const bool             wasOK)
+     const bool             wasOK,
+     std::string &          reason)
     const
 {
     ODL_OBJENTER(); //####
-    ODL_P1("socket = ", &socket); //####
+    ODL_P2("socket = ", &socket, "reason = ", &reason); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
-    bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK)};
+    bool    okSoFar{sendSimpleResponseWithContext(_owner, socket, responseKey, responseText, wasOK, reason)};
 
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -238,10 +245,11 @@ nImO::CommandHandler::sendSimpleResponseWithContext
      BTCP::socket &         socket,
      const std::string &    responseKey,
      const std::string &    responseText,
-     const bool             wasOK)
+     const bool             wasOK,
+     std::string &          reason)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "socket = ", &socket); //####
+    ODL_P3("context = ", context.get(), "socket = ", &socket, "reason = ", &reason); //####
     ODL_S2s("responseKey = ", responseKey, "responseText = ", responseText); //####
     ODL_B1("wasOK = ", wasOK); //####
     bool    okSoFar{false};
@@ -260,6 +268,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
         if (asString.empty())
         {
             ODL_LOG("(asString.empty())"); //####
+            reason = "Empty response"s;
         }
         else
         {
@@ -275,7 +284,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
             context->report("sending response"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
             boost::asio::async_write(socket, boost::asio::buffer(outString->c_str(), outString->length()),
-                                      [context, &keepGoing, &okSoFar, responseText]
+                                      [context, &keepGoing, &okSoFar, responseText, &reason]
                                       (const BSErr &        ec,
                                        const std::size_t    bytes_transferred)
                                       {
@@ -288,10 +297,12 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                                 context->report("async_write() operation cancelled"s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
                                                 ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                reason = "async_write() operation cancelled"s;
                                             }
                                             else
                                             {
                                                 context->report("async_write() failed -> "s + ec.message());
+                                                reason = "async_write() failed"s;
                                             }
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
@@ -313,6 +324,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
     else
     {
         ODL_LOG("! (0 < responseToSend.getLength())"); //####
+        reason = "Empty response"s;
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -381,13 +393,15 @@ nImO::CommandHandler::SendBadResponse
     ODL_ENTER(); //####
     ODL_P2("context = ", context.get(), "socket = ", socket.get()); //####
     ODL_S1s("reason = ", reason); //####
+    std::string localReason{}; // this is so the original reason is not lost.
+
     if (reason.empty())
     {
-        sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false);
+        sendSimpleResponseWithContext(context, *socket.get(), nImO::kBadResponse, "unknown"s, false, localReason);
     }
     else
     {
-        sendSimpleResponseWithContext(context, *socket.get(), reason, "unknown"s, false);
+        sendSimpleResponseWithContext(context, *socket.get(), reason, "unknown"s, false, localReason);
     }
     ODL_EXIT(); //####
 } // nImO::CommandHandler::SendBadResponse

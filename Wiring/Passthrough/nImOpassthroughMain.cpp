@@ -168,7 +168,7 @@ main
                                 }
                                 else
                                 {
-                                    std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                    std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                     exitCode = 1;
                                 }
                                 if (0 == exitCode)
@@ -199,7 +199,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }

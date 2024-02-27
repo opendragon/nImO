@@ -117,6 +117,7 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -130,17 +131,19 @@ nImO::GetNamesOfNodesOnMachineCommandHandler::doIt
                 {
                     stringSet->addValue(std::make_shared<String>(walker));
                 }
-                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine"s, stringSet);
+                okSoFar = sendComplexResponse(socket, kGetNamesOfNodesOnMachineResponse, "get names of nodes on machine"s, stringSet, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithSet.first.first)"); //####
+                reason = "getNamesOfNodesOnMachine() returned '"s + statusWithSet.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

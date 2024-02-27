@@ -132,7 +132,7 @@ nImO::AddConnectionCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection"s, true);
+                okSoFar = sendSimpleResponse(socket, kAddConnectionResponse, "add connection"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kConnectionAddedStatus + kStatusSeparator + fromNodeName + kStatusSeparator +
@@ -149,11 +149,13 @@ nImO::AddConnectionCommandHandler::doIt
         {
             ODL_LOG("! ((nullptr != fromNodeNameString) && (nullptr != fromPathString) && (nullptr != toNodeNameString) && " //####
                     "(nullptr != toPathString) && (nullptr != dataTypeString) && (nullptr != modeValue))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (6 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -116,6 +116,7 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -125,17 +126,19 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
             {
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine"s, count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine"s, count, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
+                reason = "getNumberOfNodesOnMachine() returned '"s + statusWithInt.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

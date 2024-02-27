@@ -117,7 +117,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
         {
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels"s, count);
+            okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsResponse, "get number of channels"s, count, reason);
         }
         else
         {
@@ -127,6 +127,7 @@ nImO::GetNumberOfChannelsCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

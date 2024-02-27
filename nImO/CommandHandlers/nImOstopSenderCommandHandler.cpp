@@ -114,6 +114,7 @@ nImO::StopSenderCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -121,17 +122,19 @@ nImO::StopSenderCommandHandler::doIt
 
             if (theChannel)
             {
-                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender"s, theChannel->stop());
+                okSoFar = sendSimpleResponse(socket, kStopSenderResponse, "stop sender"s, theChannel->stop(), reason);
             }
             else
             {
                 ODL_LOG("! (theChannel)"); //####
+                reason = "No output channel with that name"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

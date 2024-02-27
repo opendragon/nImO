@@ -100,6 +100,14 @@ namespace Commutator_Private
             {
             }
 
+            /*! @brief Indicate that the service is ready to accept these requests. */
+            inline void
+            canAcceptRequests
+                (void)
+            {
+                _requestsAllowed = true;
+            }
+
         protected :
             // Protected methods.
 
@@ -125,6 +133,9 @@ namespace Commutator_Private
             /*! @brief The filter context that is active. */
             Ptr(nImO::FilterContext)    _context;
 
+            /*! @brief A flag to control when requests can be honoured. */
+            std::atomic_bool    _requestsAllowed{false};
+
     }; // AddOutputChannelCallbackHandler
 
 }; // namespace Commutator_Private
@@ -134,9 +145,19 @@ Commutator_Private::AddOutputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
-    _failureReason = "*** Unimplemented ***"s;
-    ODL_OBJEXIT_B(false); //####
-    return false;
+    bool    result{false};
+
+    if (_requestsAllowed)
+    {
+        _failureReason = "*** Unimplemented ***"s;
+
+    }
+    else
+    {
+        _failureReason = "Service not finished setup"s;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
 } // Commutator_Private::AddOutputChannelCallbackHandler::operator()
 
 #if defined(__APPLE__)
@@ -244,7 +265,7 @@ main
                                 }
                                 else
                                 {
-                                    std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                    std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                     exitCode = 1;
                                 }
                                 nImO::OutChannelVector  outChannels{};
@@ -286,7 +307,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -296,6 +317,7 @@ main
                                     const size_t    maxChannel{outChannels.size()};
                                     size_t          nextChannel{0};
 
+                                    addOutputChannelCallback->canAcceptRequests();
                                     if (optionValues._waitForConnections)
                                     {
                                         auto    inChannel{ourContext->getInputChannel(inChannelPath)};

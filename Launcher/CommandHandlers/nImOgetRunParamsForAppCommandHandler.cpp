@@ -145,32 +145,37 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         {
                             params->addValue(std::make_shared<String>(line));
                         }
-                        okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params);
+                        okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params, reason);
                         cc.wait();
                     }
                     else
                     {
                         ODL_LOG("! (appInfoMap->end() != appPathIterator)"); //####
+                        reason = "Internal structure invalid - key missing"s;
                     }
                 }
                 else
                 {
                     ODL_LOG("! (nullptr != appInfoMap)"); //####
+                    reason = "Internal structure invalid - not a map"s;
                 }
             }
             else
             {
                 ODL_LOG("! (appList.end() != appListIterator)"); //####
+                reason = "Application name is unknown"s;
             }
         }
         else
         {
             ODL_LOG("! (1 < arguments.size())"); //####
+            reason = "Missing argument(s)"s;
         }
     }
     else
     {
         ODL_LOG("! (0 < appList.size())"); //####
+        reason = "Empty applications list"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

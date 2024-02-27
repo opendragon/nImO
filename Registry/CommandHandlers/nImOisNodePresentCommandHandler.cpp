@@ -115,6 +115,7 @@ nImO::IsNodePresentCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -122,17 +123,19 @@ nImO::IsNodePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "is node present"s, statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsNodePresentResponse, "is node present"s, statusWithBool.second, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
+                reason = "isNodePresent() returned '"s + statusWithBool.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

@@ -131,7 +131,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, walker._mode)));
                 connectionArray->addValue(infoArray);
             }
-            okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections"s, connectionArray);
+            okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsResponse, "get information for all connections"s, connectionArray, reason);
         }
         else
         {
@@ -141,6 +141,7 @@ nImO::GetInformationForAllConnectionsCommandHandler::doIt
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

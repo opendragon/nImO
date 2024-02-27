@@ -121,21 +121,24 @@ nImO::SetChannelInUseCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "set channel inUse"s, true);
+                okSoFar = sendSimpleResponse(socket, kSetChannelInUseResponse, "set channel inUse"s, true, reason);
             }
             else
             {
                 ODL_LOG("! (status.first)"); //####
+                reason = "setChannelInUse() returned '"s + status.second + "'"s;
             }
         }
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

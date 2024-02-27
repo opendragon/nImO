@@ -175,6 +175,26 @@ namespace nImO
                 return _receiveQueue.getNextMessage();
             }
 
+            /*! @brief Return the number of input channels.
+             @return The number of input channels. */
+            int64_t
+            getNumberOfInputChannels
+                (void)
+                const
+            {
+                return _inputChannelMap.size();
+            }
+
+            /*! @brief Return the number of output channels.
+             @return The number of output channels. */
+            int64_t
+            getNumberOfOutputChannels
+                (void)
+                const
+            {
+                return _outputChannelMap.size();
+            }
+
             /*! @brief Get an output channel.
              @param[in] path The path associated with the channel.
              @return The output channel with the provided name. */

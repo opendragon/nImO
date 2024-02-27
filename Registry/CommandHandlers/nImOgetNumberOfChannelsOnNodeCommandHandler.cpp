@@ -116,6 +116,7 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -125,17 +126,19 @@ nImO::GetNumberOfChannelsOnNodeCommandHandler::doIt
             {
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
-                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "get number of channels on node"s, count);
+                okSoFar = sendComplexResponse(socket, kGetNumberOfChannelsOnNodeResponse, "get number of channels on node"s, count, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInt.first.first)"); //####
+                reason = "getNumberOfChannelsOnNode() returned '"s + statusWithInt.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

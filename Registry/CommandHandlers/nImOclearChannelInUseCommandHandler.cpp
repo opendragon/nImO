@@ -121,7 +121,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse"s, true);
+                okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse"s, true, reason);
             }
             else
             {
@@ -131,11 +131,13 @@ nImO::ClearChannelInUseCommandHandler::doIt
         else
         {
             ODL_LOG("! ((nullptr != asString1) && (nullptr != asString2))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (2 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

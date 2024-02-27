@@ -117,6 +117,7 @@ nImO::GetLaunchDetailsCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -131,17 +132,19 @@ nImO::GetLaunchDetailsCommandHandler::doIt
                 detailsArray->addValue(std::make_shared<String>(theDetails._execPath));
                 detailsArray->addValue(std::make_shared<String>(theDetails._launchDirectory));
                 detailsArray->addValue(std::make_shared<String>(theDetails._commandLine));
-                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details"s, detailsArray);
+                okSoFar = sendComplexResponse(socket, kGetLaunchDetailsResponse, "get launch details"s, detailsArray, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithDetails.first.first)"); //####
+                reason = "getLaunchDetails() returned '"s + statusWithDetails.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

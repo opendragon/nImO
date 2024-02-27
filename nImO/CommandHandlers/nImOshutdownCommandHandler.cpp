@@ -105,7 +105,7 @@ nImO::ShutdownCommandHandler::doIt
     ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
     _owner->report("shutdown request received."s);
     // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kShutDownResponse, "shutdown"s, true)};
+    bool    okSoFar{sendSimpleResponse(socket, kShutDownResponse, "shutdown"s, true, reason)};
 
     // Signal to the application that it should terminate.
     gPendingStop = true;

@@ -119,11 +119,12 @@ nImO::GetChannelLimitsCommandHandler::doIt
 
         infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
         infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
-        okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray);
+        okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason);
     }
     else
     {
         ODL_LOG("! (0 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

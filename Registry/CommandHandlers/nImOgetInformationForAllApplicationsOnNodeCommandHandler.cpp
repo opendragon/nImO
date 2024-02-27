@@ -116,6 +116,7 @@ nImO::GetInformationForAllApplicationsOnNodeCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -136,17 +137,19 @@ nImO::GetInformationForAllApplicationsOnNodeCommandHandler::doIt
                     applicationArray->addValue(infoArray);
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsOnNodeResponse, "get information for all applications on node"s,
-                                              applicationArray);
+                                              applicationArray, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInfoVector.first.first)"); //####
+                reason = "getInformationForAllApplicationsOnNode() returned '"s + statusWithInfoVector.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

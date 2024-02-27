@@ -98,6 +98,14 @@ namespace FanIn_Private
             {
             }
 
+            /*! @brief Indicate that the service is ready to accept these requests. */
+            inline void
+            canAcceptRequests
+                (void)
+            {
+                _requestsAllowed = true;
+            }
+
         protected :
             // Protected methods.
 
@@ -123,6 +131,9 @@ namespace FanIn_Private
             /*! @brief The filter context that is active. */
             Ptr(nImO::FilterContext)    _context;
 
+            /*! @brief A flag to control when requests can be honoured. */
+            std::atomic_bool    _requestsAllowed{false};
+
     }; // AddInputChannelCallbackHandler
 
 }; // namespace FanIn_Private
@@ -132,9 +143,57 @@ FanIn_Private::AddInputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
-    _failureReason = "*** Unimplemented ***"s;
-    ODL_OBJEXIT_B(false); //####
-    return false;
+    bool    result{false};
+
+    if (_requestsAllowed)
+    {
+        std::string scratch;
+        int64_t     currentNumChannels = _context->getNumberOfInputChannels();
+
+#if 0
+//    mm = number of current input channels; // increment!
+//    ii = mm + 1;
+    proxy
+    basePath
+    nodeName
+    inType
+
+        // Using one greater than the requested number of channels will ensure that all the
+        // channel paths will have a number at the end.
+        if (nImO::ChannelName::generatePath(basePath, false, mm + 1, ii, scratch))
+        {
+            auto    statusWithBool{proxy.addChannel(nodeName, scratch, false, optionValues._inType,
+                                                    nImO::TransportType::kAny)};
+
+            if (statusWithBool.first.first)
+            {
+                if (statusWithBool.second)
+                {
+                    _context->addInputChannel(scratch);
+                    result = true;
+                }
+                else
+                {
+                    _failureReason = "'"s + scratch << "' already registered"s;
+                }
+            }
+            else
+            {
+                _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+            }
+        }
+        else
+        {
+            _failureReason = "Invalid channel path '"s + basePath + "'"s;
+        }
+#endif//0
+    }
+    else
+    {
+        _failureReason = "Service not finished setup"s;
+    }
+    ODL_OBJEXIT_B(result); //####
+    return result;
 } // FanIn_Private::AddInputChannelCallbackHandler::operator()
 
 #if defined(__APPLE__)
@@ -239,7 +298,7 @@ main
                                 }
                                 else
                                 {
-                                    std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                    std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                     exitCode = 1;
                                 }
                                 for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
@@ -273,7 +332,7 @@ main
                                     }
                                     else
                                     {
-                                        std::cerr << "Invalid channel path " << "'" << basePath << "'.\n";
+                                        std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                         exitCode = 1;
                                     }
                                 }
@@ -283,6 +342,7 @@ main
 
                                     if (outChannel)
                                     {
+                                        addInputChannelCallback->canAcceptRequests();
                                         if (optionValues._waitForConnections)
                                         {
                                             bool    connected{false};

@@ -117,6 +117,7 @@ nImO::GetMachineInformationCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -130,17 +131,19 @@ nImO::GetMachineInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Logical>(theInfo._found));
                 infoArray->addValue(std::make_shared<String>(theInfo._name));
                 infoArray->addValue(std::make_shared<Integer>(theInfo._address));
-                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information"s, infoArray);
+                okSoFar = sendComplexResponse(socket, kGetMachineInformationResponse, "get machine information"s, infoArray, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithInfo.first.first)"); //####
+                reason = "getMachineInformation() returned '"s + statusWithInfo.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

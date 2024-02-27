@@ -140,8 +140,8 @@ bool
 nImO::ChannelName::generatePath
     (const std::string &    base,
      const bool             forOutput,
-     const uint16_t         numChannels,
-     const uint16_t         channelNumber,
+     const int64_t          numChannels,
+     const int64_t          channelNumber,
      std::string &          path)
 {
     ODL_ENTER(); //####

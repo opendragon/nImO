@@ -115,6 +115,7 @@ nImO::IsMachinePresentCommandHandler::doIt
         if (nullptr == asString)
         {
             ODL_LOG("(nullptr == asString)"); //####
+            reason = "Invalid argument(s)"s;
         }
         else
         {
@@ -122,17 +123,19 @@ nImO::IsMachinePresentCommandHandler::doIt
 
             if (statusWithBool.first.first)
             {
-                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present"s, statusWithBool.second);
+                okSoFar = sendSimpleResponse(socket, kIsMachinePresentResponse, "is machine present"s, statusWithBool.second, reason);
             }
             else
             {
                 ODL_LOG("! (statusWithBool.first.first)"); //####
+                reason = "isMachinePresent() returned '"s + statusWithBool.first.second + "'"s;
             }
         }
     }
     else
     {
         ODL_LOG("! (1 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

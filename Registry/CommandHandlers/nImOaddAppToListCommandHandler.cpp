@@ -125,7 +125,7 @@ nImO::AddAppToListCommandHandler::doIt
 
             if (status.first)
             {
-                okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "add app to list"s, true);
+                okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "add app to list"s, true, reason);
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kApplicationAddedStatus + kStatusSeparator + launcherNodeName +
@@ -141,11 +141,13 @@ nImO::AddAppToListCommandHandler::doIt
         {
             ODL_LOG("! ((nullptr != launcherNodeNameString) && (nullptr != applicationNameString) && " //####
                     "(nullptr != applicationDescriptionString))"); //####
+            reason = "One or more invalid arguments"s;
         }
     }
     else
     {
         ODL_LOG("! (3 < arguments.size())"); //####
+        reason = "Missing argument(s)"s;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

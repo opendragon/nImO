@@ -91,20 +91,24 @@ namespace Junction_Private
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] theContext The filter context that is active. */
+             @param[in] theContext The filter context that is active.
+             @param[in] basePath The base part of the channel name. */
             inline AddInputChannelCallbackHandler
-                (Ptr(nImO::FilterContext)   theContext) :
-                    inherited(), _context(theContext)
+                (Ptr(nImO::FilterContext)   theContext,
+                 const std::string &        basePath) :
+                    inherited(), _context(theContext), _basePath(basePath)
             {
             }
 
-            /*! @brief Indicate that the service is ready to accept these requests. */
-            inline void
-            canAcceptRequests
-                (void)
-            {
-                _requestsAllowed = true;
-            }
+            /*! @brief Indicate that the service is ready to accept these requests.
+             @param[in] nodeName The name of this node.
+             @param[in] proxy The RegistryProxy to use.
+             @param[in] dataType The expected data format. */
+            void
+            enable
+                (const std::string &    nodeName,
+                 nImO::SpRegistryProxy  proxy,
+                 const std::string &    dataType);
 
         protected :
             // Protected methods.
@@ -129,10 +133,22 @@ namespace Junction_Private
             // Private fields.
 
             /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context;
+            Ptr(nImO::FilterContext)    _context{nullptr};
 
             /*! @brief A flag to control when requests can be honoured. */
             std::atomic_bool    _requestsAllowed{false};
+
+            /*! @brief The base part of the channel name. */
+            std::string _basePath{};
+
+            /*! @brief The RegistryProxy to use. */
+            nImO::SpRegistryProxy   _proxy{};
+
+            /*! @brief The name of this node. */
+            std::string _nodeName{};
+
+            /*! @brief The expected data type. */
+            std::string _dataType{};
 
     }; // AddInputChannelCallbackHandler
 
@@ -155,20 +171,24 @@ namespace Junction_Private
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] theContext The filter context that is active. */
+             @param[in] theContext The filter context that is active.
+             @param[in] basePath The base part of the channel name. */
             inline AddOutputChannelCallbackHandler
-                (Ptr(nImO::FilterContext)   theContext) :
-                    inherited(), _context(theContext)
+                (Ptr(nImO::FilterContext)   theContext,
+                 const std::string &        basePath) :
+                    inherited(), _context(theContext), _basePath(basePath)
             {
             }
 
-            /*! @brief Indicate that the service is ready to accept these requests. */
-            inline void
-            canAcceptRequests
-                (void)
-            {
-                _requestsAllowed = true;
-            }
+            /*! @brief Indicate that the service is ready to accept these requests.
+             @param[in] nodeName The name of this node.
+             @param[in] proxy The RegistryProxy to use.
+             @param[in] dataType The expected data format. */
+            void
+            enable
+                (const std::string &    nodeName,
+                 nImO::SpRegistryProxy  proxy,
+                 const std::string &    dataType);
 
         protected :
             // Protected methods.
@@ -193,14 +213,38 @@ namespace Junction_Private
             // Private fields.
         
             /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context;
+            Ptr(nImO::FilterContext)    _context{nullptr};
 
             /*! @brief A flag to control when requests can be honoured. */
             std::atomic_bool    _requestsAllowed{false};
 
+            /*! @brief The base part of the channel name. */
+            std::string _basePath{};
+
+            /*! @brief The RegistryProxy to use. */
+            nImO::SpRegistryProxy   _proxy{};
+
+            /*! @brief The name of this node. */
+            std::string _nodeName{};
+
+            /*! @brief The expected data type. */
+            std::string _dataType{};
+
     }; // AddOutputChannelCallbackHandler
 
 }; // namespace Junction_Private
+
+void
+Junction_Private::AddInputChannelCallbackHandler::enable
+    (const std::string &    nodeName,
+     nImO::SpRegistryProxy  proxy,
+     const std::string &    dataType)
+{
+    _dataType = dataType;
+    _nodeName = nodeName;
+    _proxy = proxy;
+    _requestsAllowed = true;
+} // Junction_Private::AddInputChannelCallbackHandler::enable
 
 bool
 Junction_Private::AddInputChannelCallbackHandler::operator()
@@ -211,8 +255,37 @@ Junction_Private::AddInputChannelCallbackHandler::operator()
 
     if (_requestsAllowed)
     {
-        _failureReason = "*** Unimplemented ***"s;
+        std::string scratch;
+        int64_t     currentNumChannels = _context->getNumberOfInputChannels();
+        int64_t     nextChannelNumber = currentNumChannels + 1;
 
+        // Using one greater than the requested number of channels will ensure that all the
+        // channel paths will have a number at the end.
+        if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
+        {
+            auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
+
+            if (statusWithBool.first.first)
+            {
+                if (statusWithBool.second)
+                {
+                    _context->addInputChannel(scratch);
+                    result = true;
+                }
+                else
+                {
+                    _failureReason = "'"s + scratch + "' already registered"s;
+                }
+            }
+            else
+            {
+                _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+            }
+        }
+        else
+        {
+            _failureReason = "Invalid channel path '"s + _basePath + "'"s;
+        }
     }
     else
     {
@@ -221,6 +294,18 @@ Junction_Private::AddInputChannelCallbackHandler::operator()
     ODL_OBJEXIT_B(result); //####
     return result;
 } // Junction_Private::AddInputChannelCallbackHandler::operator()
+
+void
+Junction_Private::AddOutputChannelCallbackHandler::enable
+    (const std::string &    nodeName,
+     nImO::SpRegistryProxy  proxy,
+     const std::string &    dataType)
+{
+    _dataType = dataType;
+    _nodeName = nodeName;
+    _proxy = proxy;
+    _requestsAllowed = true;
+} // Junction_Private::AddOutputChannelCallbackHandler::enable
 
 bool
 Junction_Private::AddOutputChannelCallbackHandler::operator()
@@ -288,19 +373,20 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::ConstructNodeName(optionValues._node, "junction"s, optionValues._tag)};
+            auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                addInputChannelCallback{new Junction_Private::AddInputChannelCallbackHandler{ourContext.get()}};
-            auto                addOutputChannelCallback{new Junction_Private::AddOutputChannelCallbackHandler{ourContext.get()}};
+            auto                addInputChannelCallback{new Junction_Private::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                addOutputChannelCallback{new Junction_Private::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);
             nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback, addOutputChannelCallback);
             if (ourContext->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                statusWithBool{proxy.isNodePresent(nodeName)};
+                auto    proxy{std::make_shared<nImO::RegistryProxy>(ourContext, registryConnection)};
+                auto    statusWithBool{proxy->isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {
@@ -312,14 +398,12 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::FilterService,
-                                                       ourContext->getCommandConnection());
+                        statusWithBool = proxy->addNode(nodeName, argc, argv, nImO::ServiceType::FilterService,
+                                                        ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
                             {
-                                auto    basePath{optionValues._base};
-
                                 for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
@@ -328,8 +412,8 @@ main
                                     // channel paths will have a number at the end.
                                     if (nImO::ChannelName::generatePath(basePath, false, mm + 1, ii, scratch))
                                     {
-                                        statusWithBool = proxy.addChannel(nodeName, scratch, false, optionValues._inType,
-                                                                          nImO::TransportType::kAny);
+                                        statusWithBool = proxy->addChannel(nodeName, scratch, false, optionValues._inType,
+                                                                           nImO::TransportType::kAny);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -365,8 +449,8 @@ main
                                     // channel paths will have a number at the end.
                                     if (nImO::ChannelName::generatePath(basePath, true, mm + 1, ii, scratch))
                                     {
-                                        statusWithBool = proxy.addChannel(nodeName, scratch, true, optionValues._outType,
-                                                                          nImO::TransportType::kAny);
+                                        statusWithBool = proxy->addChannel(nodeName, scratch, true, optionValues._outType,
+                                                                           nImO::TransportType::kAny);
                                         if (statusWithBool.first.first)
                                         {
                                             if (statusWithBool.second)
@@ -400,8 +484,8 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    addInputChannelCallback->canAcceptRequests();
-                                    addOutputChannelCallback->canAcceptRequests();
+                                    addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);
+                                    addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);
                                     if (optionValues._waitForConnections)
                                     {
                                         bool    connected{false};
@@ -472,7 +556,7 @@ main
                                 ourContext->getOutputChannelNames(outChannelPaths);
                                 for (auto & walker : outChannelPaths)
                                 {
-                                    statusWithBool = proxy.removeChannel(nodeName, walker);
+                                    statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)
@@ -493,7 +577,7 @@ main
                                 ourContext->getInputChannelNames(inChannelPaths);
                                 for (auto & walker : inChannelPaths)
                                 {
-                                    statusWithBool = proxy.removeChannel(nodeName, walker);
+                                    statusWithBool = proxy->removeChannel(nodeName, walker);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)
@@ -512,7 +596,7 @@ main
                                 if (! nImO::gPendingStop)
                                 {
                                     nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                    statusWithBool = proxy.removeNode(nodeName);
+                                    statusWithBool = proxy->removeNode(nodeName);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)

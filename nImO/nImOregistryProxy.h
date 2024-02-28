@@ -489,6 +489,9 @@ namespace nImO
 
     }; // RegistryProxy
 
+    /*! @brief A holder for a shared pointer to a RegistryProxy. */
+    using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
+
     /*! @brief Generate a map from an application list.
      @param[in] applications A list of application info structures.
      @return The application info list as a map. */

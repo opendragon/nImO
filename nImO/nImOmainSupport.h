@@ -74,23 +74,6 @@ namespace nImO
     CloseConnection
         (SpContextWithNetworking    context,
          const std::string &        nodeName,
-         RegistryProxy &            proxy,
-         const std::string &        path,
-         const bool                 isFrom,
-         bool &                     reported);
-
-    /*! @brief Perform the operations involved with closing a Connection.
-     @param[in] context The context used with the Connection.
-     @param[in] nodeName The name of the node with the Connection.
-     @param[in] proxy The Registry proxy to use.
-     @param[in] path The path used with the Connection.
-     @param[in] isFrom @c true if this is the source end of the Connection.
-     @param[in/out] reported @c true if a failure has been reported.
-     @return @c true if the Connection exists. */
-    bool
-    CloseConnection
-        (SpContextWithNetworking    context,
-         const std::string &        nodeName,
          SpRegistryProxy            proxy,
          const std::string &        path,
          const bool                 isFrom,

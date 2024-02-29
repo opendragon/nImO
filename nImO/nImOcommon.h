@@ -292,6 +292,7 @@ namespace nImO
     class Logical;
     class Map;
     class Message;
+    class RegistryProxy;
     class Set;
     class String;
     class StringBuffer;
@@ -841,6 +842,9 @@ namespace nImO
 
     /*! @brief A holder for a shared pointer to an Asio deadline timer. */
     using SpDeadlineTimer = std::shared_ptr<BAD_t>;
+
+    /*! @brief A holder for a shared pointer to a RegistryProxy. */
+    using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
 
     /*! @brief A holder for a shared pointer to an Asio TCP/IP socket. */
     using SpSocketTCP = std::shared_ptr<BTCP::socket>;

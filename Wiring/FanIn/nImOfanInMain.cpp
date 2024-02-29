@@ -269,7 +269,7 @@ main
             nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback);
             if (ourContext->findRegistry(registryConnection))
             {
-                auto    proxy{std::make_shared<nImO::RegistryProxy>(ourContext, registryConnection)};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 auto    statusWithBool{proxy->isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)

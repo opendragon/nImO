@@ -71,13 +71,6 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] context The application context to use.
-             @param[in] connection The IP address and port of the Registry. */
-            RegistryProxy
-                (SpContextWithNetworking    context,
-                 const Connection &         connection);
-
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
             RegistryProxy
@@ -162,6 +155,20 @@ namespace nImO
             clearChannelInUse
                 (const std::string &    nodeName,
                  const std::string &    path);
+
+
+            /*! @brief Creates a new RegistryProxy.
+             @param[in] context The application context to use.
+             @param[in] connection The IP address and port of the Registry. */
+            inline static SpRegistryProxy
+            create
+                (SpContextWithNetworking    context,
+                 const Connection &         connection)
+            {
+                SpRegistryProxy newProxy{new RegistryProxy{context, connection}};
+
+                return newProxy;
+            }
 
             /*! @brief Get information on the channel stored in the Registry.
              @param[in] nodeName The name of the node for the channel to be located in the Registry.
@@ -472,6 +479,13 @@ namespace nImO
         private :
             // Private methods.
 
+            /*! @brief The constructor.
+             @param[in] context The application context to use.
+             @param[in] connection The IP address and port of the Registry. */
+            RegistryProxy
+                (SpContextWithNetworking    context,
+                 const Connection &         connection);
+
         public :
             // Public fields.
 
@@ -488,9 +502,6 @@ namespace nImO
             Connection  _connection{};
 
     }; // RegistryProxy
-
-    /*! @brief A holder for a shared pointer to a RegistryProxy. */
-    using SpRegistryProxy = std::shared_ptr<RegistryProxy>;
 
     /*! @brief Generate a map from an application list.
      @param[in] applications A list of application info structures.

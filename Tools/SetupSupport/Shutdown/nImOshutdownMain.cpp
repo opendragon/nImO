@@ -121,13 +121,13 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 
                 if (optionValues._machine.empty())
                 {
                     if (nodeName.empty())
                     {
-                        auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
+                        auto    statusWithAllNodes{proxy->getInformationForAllNodes()};
 
                         if (statusWithAllNodes.first.first)
                         {
@@ -143,7 +143,7 @@ main
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                    auto    statusWithBool{proxy.removeNode(walker._name)};
+                                    auto    statusWithBool{proxy->removeNode(walker._name)};
 
                                     if (! statusWithBool.first.first)
                                     {
@@ -155,7 +155,7 @@ main
                             {
                                 ourContext->report("closing all connections"s);
                             }
-                            auto    statusWithAllConnections{proxy.getInformationForAllConnections()};
+                            auto    statusWithAllConnections{proxy->getInformationForAllConnections()};
 
                             if (statusWithAllConnections.first.first)
                             {
@@ -170,7 +170,7 @@ main
                                         auto                toNode{walker._toNode};
                                         auto                toPath{walker._toPath};
                                         nImO::Connection    fromConnection;
-                                        auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+                                        auto                statusWithNodeInfo{proxy->getNodeInformation(fromNode)};
 
                                         if (statusWithNodeInfo.first.first)
                                         {
@@ -191,7 +191,7 @@ main
                                         }
                                         if (okSoFar)
                                         {
-                                            statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                            statusWithNodeInfo = proxy->getNodeInformation(toNode);
                                             if (statusWithNodeInfo.first.first)
                                             {
                                                 if (statusWithNodeInfo.second._found)
@@ -228,7 +228,7 @@ main
                                                                                      nImO::kShutDownResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                    auto    statusWithBool{proxy.removeNode(walker._name)};
+                                    auto    statusWithBool{proxy->removeNode(walker._name)};
 
                                     if (! statusWithBool.first.first)
                                     {
@@ -251,7 +251,7 @@ main
                     }
                     else
                     {
-                        auto    statusWithInfo{proxy.getNodeInformation(nodeName)};
+                        auto    statusWithInfo{proxy->getNodeInformation(nodeName)};
 
                         if (statusWithInfo.first.first)
                         {
@@ -262,7 +262,7 @@ main
                                 {
                                     ourContext->report("closing all connections to node '"s + nodeName + "'."s);
                                 }
-                                auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnNode(nodeName)};
+                                auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnNode(nodeName)};
 
                                 if (statusWithAllConnections.first.first)
                                 {
@@ -277,7 +277,7 @@ main
                                             auto                toNode{walker._toNode};
                                             auto                toPath{walker._toPath};
                                             nImO::Connection    fromConnection;
-                                            auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+                                            auto                statusWithNodeInfo{proxy->getNodeInformation(fromNode)};
 
                                             if (statusWithNodeInfo.first.first)
                                             {
@@ -298,7 +298,7 @@ main
                                             }
                                             if (okSoFar)
                                             {
-                                                statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                                statusWithNodeInfo = proxy->getNodeInformation(toNode);
                                                 if (statusWithNodeInfo.first.first)
                                                 {
                                                     if (statusWithNodeInfo.second._found)
@@ -306,7 +306,7 @@ main
                                                         bool    reported{false};
 
                                                         nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
-                                                        auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
+                                                        auto    statusWithBool{proxy->clearChannelInUse(fromNode, fromPath)};
 
                                                         if (! statusWithBool.first.first)
                                                         {
@@ -315,7 +315,7 @@ main
                                                         }
                                                         if (okSoFar)
                                                         {
-                                                            statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                                                            statusWithBool = proxy->clearChannelInUse(toNode, toPath);
                                                             if (! statusWithBool.first.first)
                                                             {
                                                                 std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
@@ -349,7 +349,7 @@ main
                                 }
                                 nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
                                                                                  nImO::kShutDownResponse);
-                                auto    statusWithBool{proxy.removeNode(nodeName)};
+                                auto    statusWithBool{proxy->removeNode(nodeName)};
 
                                 if (! statusWithBool.first.first)
                                 {
@@ -370,7 +370,7 @@ main
                 }
                 else
                 {
-                    auto    statusWithAllNodes{proxy.getInformationForAllNodesOnMachine(optionValues._machine)};
+                    auto    statusWithAllNodes{proxy->getInformationForAllNodesOnMachine(optionValues._machine)};
 
                     if (statusWithAllNodes.first.first)
                     {
@@ -386,7 +386,7 @@ main
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                auto    statusWithBool{proxy.removeNode(walker._name)};
+                                auto    statusWithBool{proxy->removeNode(walker._name)};
 
                                 if (! statusWithBool.first.first)
                                 {
@@ -402,7 +402,7 @@ main
                         {
                             ourContext->report("closing all connections on machine '"s + optionValues._machine + "'."s);
                         }
-                        auto    statusWithAllConnections{proxy.getInformationForAllConnectionsOnMachine(optionValues._machine)};
+                        auto    statusWithAllConnections{proxy->getInformationForAllConnectionsOnMachine(optionValues._machine)};
 
                         if (statusWithAllConnections.first.first)
                         {
@@ -417,7 +417,7 @@ main
                                     auto                toNode{walker._toNode};
                                     auto                toPath{walker._toPath};
                                     nImO::Connection    fromConnection;
-                                    auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+                                    auto                statusWithNodeInfo{proxy->getNodeInformation(fromNode)};
 
                                     if (statusWithNodeInfo.first.first)
                                     {
@@ -438,7 +438,7 @@ main
                                     }
                                     if (okSoFar)
                                     {
-                                        statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                                        statusWithNodeInfo = proxy->getNodeInformation(toNode);
                                         if (statusWithNodeInfo.first.first)
                                         {
                                             if (statusWithNodeInfo.second._found)
@@ -446,7 +446,7 @@ main
                                                 bool    reported{false};
 
                                                 nImO::CloseConnection(ourContext, fromNode, proxy, fromPath, true, reported);
-                                                auto    statusWithBool{proxy.clearChannelInUse(fromNode, fromPath)};
+                                                auto    statusWithBool{proxy->clearChannelInUse(fromNode, fromPath)};
 
                                                 if (! statusWithBool.first.first)
                                                 {
@@ -455,7 +455,7 @@ main
                                                 }
                                                 if (okSoFar)
                                                 {
-                                                    statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                                                    statusWithBool = proxy->clearChannelInUse(toNode, toPath);
                                                     if (! statusWithBool.first.first)
                                                     {
                                                         std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
@@ -492,7 +492,7 @@ main
                                                                                  nImO::kShutDownResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
-                                auto    statusWithBool{proxy.removeNode(walker._name)};
+                                auto    statusWithBool{proxy->removeNode(walker._name)};
 
                                 if (! statusWithBool.first.first)
                                 {

@@ -131,10 +131,10 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                nodeName{firstArg->getCurrentValue()};
-                bool                forOutput{secondArg->getCurrentValue()};
-                auto                statusWithInfo{proxy.getNodeInformation(nodeName)};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto    nodeName{firstArg->getCurrentValue()};
+                bool    forOutput{secondArg->getCurrentValue()};
+                auto    statusWithInfo{proxy->getNodeInformation(nodeName)};
 
                 if (statusWithInfo.first.first)
                 {
@@ -144,7 +144,7 @@ main
 
                         if (forOutput)
                         {
-                            auto    statusWithInt{proxy.getNumberOfOutputChannelsOnNode(nodeName)};
+                            auto    statusWithInt{proxy->getNumberOfOutputChannelsOnNode(nodeName)};
 
                             if (statusWithInt.first.first)
                             {
@@ -158,7 +158,7 @@ main
                         }
                         else
                         {
-                            auto    statusWithInt{proxy.getNumberOfInputChannelsOnNode(nodeName)};
+                            auto    statusWithInt{proxy->getNumberOfInputChannelsOnNode(nodeName)};
 
                             if (statusWithInt.first.first)
                             {

@@ -151,20 +151,20 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                fromChannel{firstArg->getCurrentValue()};
-                auto                toChannel{secondArg->getCurrentValue()};
-                auto                modeRequested{thirdArg->getCurrentValue()};
-                auto                fromNode{fromChannel->getNode()};
-                auto                fromPath{fromChannel->getPath()};
-                auto                toNode{toChannel->getNode()};
-                auto                toPath{toChannel->getPath()};
-                std::string         dataType{};
-                auto                statusWithBool{proxy.isChannelPresent(fromNode, fromPath)};
-                bool                previousStateForFrom{false};
-                bool                previousStateForTo{false};
-                bool                needToRestoreFromState{false};
-                bool                needToRestoreToState{false};
+                auto        proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto        fromChannel{firstArg->getCurrentValue()};
+                auto        toChannel{secondArg->getCurrentValue()};
+                auto        modeRequested{thirdArg->getCurrentValue()};
+                auto        fromNode{fromChannel->getNode()};
+                auto        fromPath{fromChannel->getPath()};
+                auto        toNode{toChannel->getNode()};
+                auto        toPath{toChannel->getPath()};
+                std::string dataType{};
+                auto        statusWithBool{proxy->isChannelPresent(fromNode, fromPath)};
+                bool        previousStateForFrom{false};
+                bool        previousStateForTo{false};
+                bool        needToRestoreFromState{false};
+                bool        needToRestoreToState{false};
 
                 if (statusWithBool.first.first)
                 {
@@ -181,7 +181,7 @@ main
                 }
                 if (0 == exitCode)
                 {
-                    statusWithBool = proxy.isChannelPresent(toNode, toPath);
+                    statusWithBool = proxy->isChannelPresent(toNode, toPath);
                     if (statusWithBool.first.first)
                     {
                         if (! statusWithBool.second)
@@ -207,7 +207,7 @@ main
                 if (0 == exitCode)
                 {
                     // Grab the 'from' channel.
-                    statusWithBool = proxy.getChannelInUseAndSet(fromNode, fromPath);
+                    statusWithBool = proxy->getChannelInUseAndSet(fromNode, fromPath);
                     if (statusWithBool.first.first)
                     {
                         previousStateForFrom = statusWithBool.second;
@@ -222,7 +222,7 @@ main
                 if (0 == exitCode)
                 {
                     // Grab the 'to' channel.
-                    statusWithBool = proxy.getChannelInUseAndSet(toNode, toPath);
+                    statusWithBool = proxy->getChannelInUseAndSet(toNode, toPath);
                     if (statusWithBool.first.first)
                     {
                         previousStateForTo = statusWithBool.second;
@@ -259,7 +259,7 @@ main
 
                 if (0 == exitCode)
                 {
-                    auto    statusWithChannelInfo{proxy.getChannelInformation(fromNode, fromPath)};
+                    auto    statusWithChannelInfo{proxy->getChannelInformation(fromNode, fromPath)};
 
                     if (statusWithChannelInfo.first.first)
                     {
@@ -282,7 +282,7 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        statusWithChannelInfo = proxy.getChannelInformation(toNode, toPath);
+                        statusWithChannelInfo = proxy->getChannelInformation(toNode, toPath);
                         if (statusWithChannelInfo.first.first)
                         {
                             if (statusWithChannelInfo.second._found)
@@ -370,7 +370,7 @@ main
                 if (0 == exitCode)
                 {
                     // Everything is fine, record the connection!
-                    statusWithBool = proxy.addConnection(fromNode, fromPath, toNode, toPath, dataType, resolvedMode);
+                    statusWithBool = proxy->addConnection(fromNode, fromPath, toNode, toPath, dataType, resolvedMode);
                     if (statusWithBool.first.first)
                     {
                         if (! statusWithBool.second)
@@ -390,7 +390,7 @@ main
                 {
                     nImO::Connection    fromConnection;
                     nImO::Connection    toConnection;
-                    auto                statusWithNodeInfo{proxy.getNodeInformation(fromNode)};
+                    auto                statusWithNodeInfo{proxy->getNodeInformation(fromNode)};
 
                     if (statusWithNodeInfo.first.first)
                     {
@@ -411,7 +411,7 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        statusWithNodeInfo = proxy.getNodeInformation(toNode);
+                        statusWithNodeInfo = proxy->getNodeInformation(toNode);
                         if (statusWithNodeInfo.first.first)
                         {
                             if (statusWithNodeInfo.second._found)
@@ -529,7 +529,7 @@ main
                     {
                         if (! previousStateForFrom)
                         {
-                            statusWithBool = proxy.clearChannelInUse(fromNode, fromPath);
+                            statusWithBool = proxy->clearChannelInUse(fromNode, fromPath);
                             if (! statusWithBool.first.first)
                             {
                                 std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
@@ -540,7 +540,7 @@ main
                     {
                         if (! previousStateForTo)
                         {
-                            statusWithBool = proxy.clearChannelInUse(toNode, toPath);
+                            statusWithBool = proxy->clearChannelInUse(toNode, toPath);
                             if (! statusWithBool.first.first)
                             {
                                 std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";

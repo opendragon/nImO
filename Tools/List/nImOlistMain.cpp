@@ -185,13 +185,13 @@ helpForList
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listApplications
-    (nImO::RegistryProxy &      proxy,
+    (nImO::SpRegistryProxy      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
-    auto    statusWithAllApplications{proxy.getInformationForAllApplications()};
+    auto    statusWithAllApplications{proxy->getInformationForAllApplications()};
 
     if (statusWithAllApplications.first.first)
     {
@@ -373,13 +373,13 @@ listApplications
 static bool
 listChannels
     (nImO::SpUtilityContext     ourContext,
-     nImO::RegistryProxy &      proxy,
+     nImO::SpRegistryProxy      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
-    auto    statusWithAllChannels{proxy.getInformationForAllChannels()};
+    auto    statusWithAllChannels{proxy->getInformationForAllChannels()};
 
     if (statusWithAllChannels.first.first)
     {
@@ -508,7 +508,7 @@ listChannels
                     if (options._expanded)
                     {
                         // We need to ask the node that holds the channel for the channel statistics
-                        auto    statusWithNodeInfo{proxy.getNodeInformation(node)};
+                        auto    statusWithNodeInfo{proxy->getNodeInformation(node)};
                         int64_t numBytes{0};
                         int64_t numMessages{0};
 
@@ -628,13 +628,13 @@ listChannels
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listConnections
-    (nImO::RegistryProxy &      proxy,
+    (nImO::SpRegistryProxy      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
-    auto    statusWithAllConnections{proxy.getInformationForAllConnections()};
+    auto    statusWithAllConnections{proxy->getInformationForAllConnections()};
 
     if (statusWithAllConnections.first.first)
     {
@@ -818,13 +818,13 @@ listConnections
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listMachines
-    (nImO::RegistryProxy &      proxy,
+    (nImO::SpRegistryProxy      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
-    auto    statusWithAllMachines{proxy.getInformationForAllMachines()};
+    auto    statusWithAllMachines{proxy->getInformationForAllMachines()};
 
     if (statusWithAllMachines.first.first)
     {
@@ -1000,13 +1000,13 @@ mapServiceTypeToString
  @return @c true if no errors encountered or @c false if there was a problem. */
 static bool
 listNodes
-    (nImO::RegistryProxy &      proxy,
+    (nImO::SpRegistryProxy      proxy,
      nImO::StandardOptions &    options,
      const bool                 shouldSanitize,
      const Placement            thePlacement = Placement::kSolitary)
 {
     bool    okSoFar{true};
-    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
+    auto    statusWithAllNodes{proxy->getInformationForAllNodes()};
 
     if (statusWithAllNodes.first.first)
     {
@@ -1096,7 +1096,7 @@ listNodes
                     }
                     if (options._expanded)
                     {
-                        auto    statusWithDetails{proxy.getLaunchDetails(theInfo._name)};
+                        auto    statusWithDetails{proxy->getLaunchDetails(theInfo._name)};
 
                         if (statusWithDetails.first.first)
                         {
@@ -1243,7 +1243,7 @@ main
 
                 if (match != lChoiceMap.end())
                 {
-                    nImO::RegistryProxy proxy{ourContext, registryConnection};
+                    auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 
                     switch (match->second._choice)
                     {

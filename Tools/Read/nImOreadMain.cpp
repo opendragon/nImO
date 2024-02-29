@@ -122,8 +122,8 @@ main
             nImO::AddInputOutputHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                statusWithBool{proxy.isNodePresent(nodeName)};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto    statusWithBool{proxy->isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {
@@ -135,8 +135,8 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::OutputService,
-                                                       ourContext->getCommandConnection());
+                        statusWithBool = proxy->addNode(nodeName, argc, argv, nImO::ServiceType::OutputService,
+                                                        ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
@@ -147,8 +147,8 @@ main
 
                                 if (nImO::ChannelName::generatePath(basePath, false, 1, 1, inChannelPath))
                                 {
-                                    statusWithBool = proxy.addChannel(nodeName, inChannelPath, false, optionValues._inType,
-                                                                      nImO::TransportType::kAny);
+                                    statusWithBool = proxy->addChannel(nodeName, inChannelPath, false, optionValues._inType,
+                                                                       nImO::TransportType::kAny);
                                     if (statusWithBool.first.first)
                                     {
                                         if (statusWithBool.second)
@@ -224,7 +224,7 @@ main
                                 if (inValid)
                                 {
                                     nImO::gKeepRunning = true; // So that the call to 'removeChannel' won't fail...
-                                    statusWithBool = proxy.removeChannel(nodeName, inChannelPath);
+                                    statusWithBool = proxy->removeChannel(nodeName, inChannelPath);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)
@@ -243,7 +243,7 @@ main
                                 if (! nImO::gPendingStop)
                                 {
                                     nImO::gKeepRunning = true; // So that the call to 'removeNode' won't fail...
-                                    statusWithBool = proxy.removeNode(nodeName);
+                                    statusWithBool = proxy->removeNode(nodeName);
                                     if (statusWithBool.first.first)
                                     {
                                         if (! statusWithBool.second)

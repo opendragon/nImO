@@ -119,11 +119,11 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                channel{firstArg->getCurrentValue()};
-                auto                nodeName{channel->getNode()};
-                auto                path{channel->getPath()};
-                bool                reported{false};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto    channel{firstArg->getCurrentValue()};
+                auto    nodeName{channel->getNode()};
+                auto    path{channel->getPath()};
+                bool    reported{false};
 
                 // Remove the connection information from the Registry.
                 if (nImO::CloseConnection(ourContext, nodeName, proxy, path, false, reported))

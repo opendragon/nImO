@@ -348,8 +348,8 @@ main
             nImO::AddLauncherHandlers(ourContext, cleanup);
             if (ourContext->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
-                auto                statusWithBool{proxy.isNodePresent(nodeName)};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
+                auto    statusWithBool{proxy->isNodePresent(nodeName)};
 
                 if (statusWithBool.first.first)
                 {
@@ -361,8 +361,8 @@ main
                     }
                     else
                     {
-                        statusWithBool = proxy.addNode(nodeName, argc, argv, nImO::ServiceType::LauncherService,
-                                                       ourContext->getCommandConnection());
+                        statusWithBool = proxy->addNode(nodeName, argc, argv, nImO::ServiceType::LauncherService,
+                                                        ourContext->getCommandConnection());
                         if (statusWithBool.first.first)
                         {
                             if (statusWithBool.second)
@@ -370,7 +370,7 @@ main
                                 // Load the app list file and exit if not properly structured.
                                 if (loadApplicationInformation(ourContext, firstArg->getCurrentValue()))
                                 {
-                                    statusWithBool = proxy.clearAppListForLauncher(nodeName);
+                                    statusWithBool = proxy->clearAppListForLauncher(nodeName);
                                     if (statusWithBool.first.first)
                                     {
                                         for (auto & walker : *ourContext->getAppList()->asMap())
@@ -380,7 +380,7 @@ main
                                             auto    descriptionIterator{readSubMap->find(std::make_shared<nImO::String>(nImO::kDescriptionKey))};
                                             auto    descriptionValue{descriptionIterator->second->asString()};
 
-                                            statusWithBool = proxy.addAppToList(nodeName, keyValue->getValue(), descriptionValue->getValue());
+                                            statusWithBool = proxy->addAppToList(nodeName, keyValue->getValue(), descriptionValue->getValue());
                                             if (! statusWithBool.first.first)
                                             {
                                                 std::cerr << "Problem with 'addAppToList': " << statusWithBool.first.second << ".\n";
@@ -406,7 +406,7 @@ main
                                         exitCode = 1;
                                     }
                                     nImO::gKeepRunning = true; // So that the calls to 'clearAppListForLauncher' and 'removeNode' won't fail...
-                                    statusWithBool = proxy.clearAppListForLauncher(nodeName);
+                                    statusWithBool = proxy->clearAppListForLauncher(nodeName);
                                     if (! statusWithBool.first.first)
                                     {
                                         std::cerr << "Problem with 'clearAppListForLauncher': " << statusWithBool.first.second << ".\n";
@@ -414,7 +414,7 @@ main
                                     }
                                     if (! nImO::gPendingStop)
                                     {
-                                       statusWithBool = proxy.removeNode(nodeName);
+                                       statusWithBool = proxy->removeNode(nodeName);
                                         if (statusWithBool.first.first)
                                         {
                                             if (! statusWithBool.second)

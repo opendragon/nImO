@@ -120,7 +120,7 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto    proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
 
 std::cerr << "** Unimplemented **\n";
                 // TBD

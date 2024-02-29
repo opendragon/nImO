@@ -160,14 +160,14 @@ main
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
             {
-                nImO::RegistryProxy proxy{ourContext, registryConnection};
+                auto                proxy{nImO::RegistryProxy::create(ourContext, registryConnection)};
                 nImO::Connection    launcherConnection{};
                 auto                launcherName{firstArg->getCurrentValue()};
                 auto                serviceName{secondArg->getCurrentValue()};
 
                 if (launcherName.empty())
                 {
-                    auto    statusWithAllNodes{proxy.getInformationForAllNodes()};
+                    auto    statusWithAllNodes{proxy->getInformationForAllNodes()};
 
                     if (statusWithAllNodes.first.first)
                     {
@@ -242,7 +242,7 @@ main
                 }
                 else
                 {
-                    auto    statusWithNodeInfo{proxy.getNodeInformation(launcherName)};
+                    auto    statusWithNodeInfo{proxy->getNodeInformation(launcherName)};
 
                     if (statusWithNodeInfo.first.first)
                     {
@@ -272,7 +272,7 @@ main
                 }
                 if (0 == exitCode)
                 {
-                    auto    statusWithInfo{proxy.getInformationForAllApplicationsOnNode(launcherName)};
+                    auto    statusWithInfo{proxy->getInformationForAllApplicationsOnNode(launcherName)};
 
                     if (statusWithInfo.first.first)
                     {
@@ -539,7 +539,7 @@ main
                         }
                         // Check if the application already has been registered!
                         auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
-                        auto    statusWithInfo{proxy.getNodeInformation(newNodeName)};
+                        auto    statusWithInfo{proxy->getNodeInformation(newNodeName)};
 
                         if (statusWithInfo.first.first)
                         {

@@ -127,6 +127,15 @@ namespace nImO
                     _requestsAllowed = true;
                 }
 
+                /*! @brief Return @c true if the callback is processing a request.
+                 @return @c true if the callback is processing a request. */
+                inline bool
+                isActive
+                    (void)
+                {
+                    return _active;
+                }
+
             protected :
                 // Protected methods.
 
@@ -166,6 +175,9 @@ namespace nImO
 
                 /*! @brief The expected data type. */
                 std::string _dataType{};
+
+                /*! @brief @c true while the callback is executing. */
+                std::atomic_bool    _active{false};
 
         }; // AddInputChannelCallbackHandler
 
@@ -221,6 +233,15 @@ namespace nImO
                     _requestsAllowed = true;
                 }
 
+                /*! @brief Return @c true if the callback is processing a request.
+                 @return @c true if the callback is processing a request. */
+                inline bool
+                isActive
+                    (void)
+                {
+                    return _active;
+                }
+
             protected :
                 // Protected methods.
 
@@ -261,268 +282,14 @@ namespace nImO
                 /*! @brief The expected data type. */
                 std::string _dataType{};
 
+                /*! @brief @c true while the callback is executing. */
+                std::atomic_bool    _active{false};
+
         }; // AddOutputChannelCallbackHandler
 
     }; // namespace Junction
 
 }; // namespace nImO
-
-//namespace Junction_Private
-//{
-//    /*! @brief A class to provide values that are used for handling callbacks for the application. */
-//    class AddInputChannelCallbackHandler final : public nImO::CallbackFunction
-//    {
-//        public :
-//            // Public type definitions.
-//
-//        protected :
-//            // Protected type definitions.
-//
-//        private :
-//            // Private type definitions.
-//
-//            /*! @brief The class that this class is derived from. */
-//            using inherited = CallbackFunction;
-//
-//        public :
-//            // Public methods.
-//
-//            /*! @brief The constructor.
-//             @param[in] theContext The filter context that is active.
-//             @param[in] basePath The base part of the channel name. */
-//            inline AddInputChannelCallbackHandler
-//                (Ptr(nImO::FilterContext)   theContext,
-//                 const std::string &        basePath) :
-//                    inherited(), _context(theContext), _basePath(basePath)
-//            {
-//            }
-//
-//            /*! @brief Indicate that the service is ready to accept these requests.
-//             @param[in] nodeName The name of this node.
-//             @param[in] proxy The RegistryProxy to use.
-//             @param[in] dataType The expected data format. */
-//            void
-//            enable
-//                (const std::string &    nodeName,
-//                 nImO::SpRegistryProxy  proxy,
-//                 const std::string &    dataType);
-//
-//        protected :
-//            // Protected methods.
-//
-//        private :
-//            // Private methods.
-//
-//            /*! @brief Process an add input channel request.
-//             @return @c true on success. */
-//            bool
-//            operator()
-//                (void)
-//                override;
-//
-//        public :
-//            // Public fields.
-//
-//        protected :
-//            // Protected fields.
-//
-//        private :
-//            // Private fields.
-//
-//            /*! @brief The filter context that is active. */
-//            Ptr(nImO::FilterContext)    _context{nullptr};
-//
-//            /*! @brief A flag to control when requests can be honoured. */
-//            std::atomic_bool    _requestsAllowed{false};
-//
-//            /*! @brief The base part of the channel name. */
-//            std::string _basePath{};
-//
-//            /*! @brief The RegistryProxy to use. */
-//            nImO::SpRegistryProxy   _proxy{};
-//
-//            /*! @brief The name of this node. */
-//            std::string _nodeName{};
-//
-//            /*! @brief The expected data type. */
-//            std::string _dataType{};
-//
-//    }; // AddInputChannelCallbackHandler
-//
-//    /*! @brief A class to provide values that are used for handling callbacks for the application. */
-//    class AddOutputChannelCallbackHandler final : public nImO::CallbackFunction
-//    {
-//        public :
-//            // Public type definitions.
-//
-//        protected :
-//            // Protected type definitions.
-//
-//        private :
-//            // Private type definitions.
-//
-//            /*! @brief The class that this class is derived from. */
-//            using inherited = CallbackFunction;
-//
-//        public :
-//            // Public methods.
-//
-//            /*! @brief The constructor.
-//             @param[in] theContext The filter context that is active.
-//             @param[in] basePath The base part of the channel name. */
-//            inline AddOutputChannelCallbackHandler
-//                (Ptr(nImO::FilterContext)   theContext,
-//                 const std::string &        basePath) :
-//                    inherited(), _context(theContext), _basePath(basePath)
-//            {
-//            }
-//
-//            /*! @brief Indicate that the service is ready to accept these requests.
-//             @param[in] nodeName The name of this node.
-//             @param[in] proxy The RegistryProxy to use.
-//             @param[in] dataType The expected data format. */
-//            void
-//            enable
-//                (const std::string &    nodeName,
-//                 nImO::SpRegistryProxy  proxy,
-//                 const std::string &    dataType);
-//
-//        protected :
-//            // Protected methods.
-//
-//        private :
-//            // Private methods.
-//
-//            /*! @brief Process an add output channel request.
-//             @return @c true on success. */
-//            bool
-//            operator()
-//                (void)
-//                override;
-//
-//        public :
-//            // Public fields.
-//
-//        protected :
-//            // Protected fields.
-//
-//        private :
-//            // Private fields.
-//
-//            /*! @brief The filter context that is active. */
-//            Ptr(nImO::FilterContext)    _context{nullptr};
-//
-//            /*! @brief A flag to control when requests can be honoured. */
-//            std::atomic_bool    _requestsAllowed{false};
-//
-//            /*! @brief The base part of the channel name. */
-//            std::string _basePath{};
-//
-//            /*! @brief The RegistryProxy to use. */
-//            nImO::SpRegistryProxy   _proxy{};
-//
-//            /*! @brief The name of this node. */
-//            std::string _nodeName{};
-//
-//            /*! @brief The expected data type. */
-//            std::string _dataType{};
-//
-//    }; // AddOutputChannelCallbackHandler
-//
-//}; // namespace Junction_Private
-
-//void
-//Junction_Private::AddInputChannelCallbackHandler::enable
-//    (const std::string &    nodeName,
-//     nImO::SpRegistryProxy  proxy,
-//     const std::string &    dataType)
-//{
-//    _dataType = dataType;
-//    _nodeName = nodeName;
-//    _proxy = proxy;
-//    _requestsAllowed = true;
-//} // Junction_Private::AddInputChannelCallbackHandler::enable
-
-//bool
-//Junction_Private::AddInputChannelCallbackHandler::operator()
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    bool    result{false};
-//
-//    if (_requestsAllowed)
-//    {
-//        std::string scratch;
-//        int64_t     currentNumChannels = _context->getNumberOfInputChannels();
-//        int64_t     nextChannelNumber = currentNumChannels + 1;
-//
-//        // Using one greater than the requested number of channels will ensure that all the
-//        // channel paths will have a number at the end.
-//        if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
-//        {
-//            auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
-//
-//            if (statusWithBool.first.first)
-//            {
-//                if (statusWithBool.second)
-//                {
-//                    _context->addInputChannel(scratch);
-//                    result = true;
-//                }
-//                else
-//                {
-//                    _failureReason = "'"s + scratch + "' already registered"s;
-//                }
-//            }
-//            else
-//            {
-//                _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
-//            }
-//        }
-//        else
-//        {
-//            _failureReason = "Invalid channel path '"s + _basePath + "'"s;
-//        }
-//    }
-//    else
-//    {
-//        _failureReason = "Service not finished setup"s;
-//    }
-//    ODL_OBJEXIT_B(result); //####
-//    return result;
-//} // Junction_Private::AddInputChannelCallbackHandler::operator()
-
-//void
-//Junction_Private::AddOutputChannelCallbackHandler::enable
-//    (const std::string &    nodeName,
-//     nImO::SpRegistryProxy  proxy,
-//     const std::string &    dataType)
-//{
-//    _dataType = dataType;
-//    _nodeName = nodeName;
-//    _proxy = proxy;
-//    _requestsAllowed = true;
-//} // Junction_Private::AddOutputChannelCallbackHandler::enable
-
-//bool
-//Junction_Private::AddOutputChannelCallbackHandler::operator()
-//    (void)
-//{
-//    ODL_OBJENTER(); //####
-//    bool    result{false};
-//
-//    if (_requestsAllowed)
-//    {
-//        _failureReason = "*** Unimplemented ***"s;
-//
-//    }
-//    else
-//    {
-//        _failureReason = "Service not finished setup"s;
-//    }
-//    ODL_OBJEXIT_B(result); //####
-//    return result;
-//} // Junction_Private::AddOutputChannelCallbackHandler::operator()
 
 bool
 nImO::Junction::AddInputChannelCallbackHandler::operator()
@@ -533,41 +300,52 @@ nImO::Junction::AddInputChannelCallbackHandler::operator()
 
     if (_requestsAllowed)
     {
-        std::string scratch;
-        int64_t     currentNumChannels = _context->getNumberOfInputChannels();
-        int64_t     nextChannelNumber = currentNumChannels + 1;
-
-        // Using one greater than the requested number of channels will ensure that all the
-        // channel paths will have a number at the end.
-        if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
+        try
         {
-            auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
+            _active = true;
+            std::string scratch;
+            int64_t     currentNumChannels = _context->getNumberOfInputChannels();
+            int64_t     nextChannelNumber = currentNumChannels + 1;
 
-            if (statusWithBool.first.first)
+            // Using one greater than the requested number of channels will ensure that all the
+            // channel paths will have a number at the end.
+            if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
             {
-                if (statusWithBool.second)
+                auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
+
+                if (statusWithBool.first.first)
                 {
-                    _context->addInputChannel(scratch);
-                    result = true;
+                    if (statusWithBool.second)
+                    {
+                        _context->addInputChannel(scratch);
+                        result = true;
+                    }
+                    else
+                    {
+                        _failureReason = "'"s + scratch + "' already registered"s;
+                    }
                 }
                 else
                 {
-                    _failureReason = "'"s + scratch + "' already registered"s;
+                    _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
                 }
             }
             else
             {
-                _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+                _failureReason = "Invalid channel path '"s + _basePath + "'"s;
             }
+            _active = false;
         }
-        else
+        catch (...)
         {
-            _failureReason = "Invalid channel path '"s + _basePath + "'"s;
+            _active = false;
+            throw;
+
         }
     }
     else
     {
-        _failureReason = "Service not finished setup"s;
+        _failureReason = "Service not finished setup or exiting"s;
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -582,12 +360,23 @@ nImO::Junction::AddOutputChannelCallbackHandler::operator()
 
     if (_requestsAllowed)
     {
-        _failureReason = "*** Unimplemented ***"s;
+        try
+        {
+            _active = true;
 
+            _failureReason = "*** Unimplemented ***"s;
+
+        }
+        catch (...)
+        {
+            _active = false;
+            throw;
+
+        }
     }
     else
     {
-        _failureReason = "Service not finished setup"s;
+        _failureReason = "Service not finished setup or exiting"s;
     }
     ODL_OBJEXIT_B(result); //####
     return result;
@@ -798,6 +587,16 @@ main
                                     }
                                     addInputChannelCallback->disable();
                                     addOutputChannelCallback->disable();
+                                    // Wait for the callbacks to finish
+                                    for ( ; addInputChannelCallback->isActive() && nImO::gKeepRunning; )
+                                    {
+                                        boost::this_thread::yield();
+                                    }
+                                    // Wait for the callbacks to finish
+                                    for ( ; addOutputChannelCallback->isActive() && nImO::gKeepRunning; )
+                                    {
+                                        boost::this_thread::yield();
+                                    }
                                     if (! nImO::gPendingStop)
                                     {
                                         bool    alreadyReported{false};

@@ -183,38 +183,41 @@ nImO::OutChannel::send
                                                   });
                         okSoFar = true;
                     }
-                    else if (TransportType::kTCP == _connection._transport)
+                    else
                     {
-                        if (_tcpConnected)
+                        if (TransportType::kTCP == _connection._transport)
                         {
-                            boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
-                                                     [this, outString]
-                                                     (const BSErr &        ec,
-                                                      const std::size_t    bytes_transferred)
-                                                     {
-                                                        if (ec)
-                                                        {
-                                                            if (BAErr::operation_aborted == ec)
+                            if (_tcpConnected)
+                            {
+                                boost::asio::async_write(*_tcpSocket, boost::asio::buffer(*outString),
+                                                         [this, outString]
+                                                         (const BSErr &        ec,
+                                                          const std::size_t    bytes_transferred)
+                                                         {
+                                                            if (ec)
                                                             {
+                                                                if (BAErr::operation_aborted == ec)
+                                                                {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                                _context.report("async_write() operation cancelled."s);
+                                                                    _context.report("async_write() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-                                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                                    ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                                }
+                                                                else
+                                                                {
+                                                                    auto    errMessage{"async_write() failed -> "s + ec.message() + "."s};
+
+                                                                    _context.report(errMessage);
+                                                                }
                                                             }
                                                             else
                                                             {
-                                                                auto    errMessage{"async_write() failed -> "s + ec.message() + "."s};
-
-                                                                _context.report(errMessage);
+                                                                _statistics.update(bytes_transferred - (kMessageSentinel.length() + 1));
                                                             }
-                                                        }
-                                                        else
-                                                        {
-                                                            _statistics.update(bytes_transferred - (kMessageSentinel.length() + 1));
-                                                        }
-                                                     });
+                                                         });
+                            }
+                            okSoFar = true;
                         }
-                        okSoFar = true;
                     }
                 }
             }
@@ -266,17 +269,20 @@ nImO::OutChannel::setUp
         _udpSendpoint.port(_destinationPort);
         okSoFar = true;
     }
-    else if (TransportType::kTCP == _connection._transport)
+    else
     {
-        BTCP::endpoint  outEndpoint{outAddress, 0};
+        if (TransportType::kTCP == _connection._transport)
+        {
+            BTCP::endpoint  outEndpoint{outAddress, 0};
 
-        _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
+            _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
 #if defined(nImO_ChattyTcpUdpLogging)
-        _context.report("destination port = "s + std::to_string(_destinationPort) + "."s);
+            _context.report("destination port = "s + std::to_string(_destinationPort) + "."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-        _tcpSendpoint.address(destAddress);
-        _tcpSendpoint.port(_destinationPort);
-        okSoFar = true;
+            _tcpSendpoint.address(destAddress);
+            _tcpSendpoint.port(_destinationPort);
+            okSoFar = true;
+        }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -296,41 +302,44 @@ nImO::OutChannel::start
         ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
     }
-    else if (TransportType::kTCP == _connection._transport)
+    else
     {
-        _tcpSocket->async_connect(_tcpSendpoint,
-                                  [this]
-                                  (const BSErr  ec)
-                                  {
-                                    if (ec)
-                                    {
-                                        if (BAErr::operation_aborted == ec)
+        if (TransportType::kTCP == _connection._transport)
+        {
+            _tcpSocket->async_connect(_tcpSendpoint,
+                                      [this]
+                                      (const BSErr  ec)
+                                      {
+                                        if (ec)
                                         {
+                                            if (BAErr::operation_aborted == ec)
+                                            {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                            _context.report("async_connect() operation cancelled."s);
+                                                _context.report("async_connect() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-                                            ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                            }
+                                            else
+                                            {
+                                                auto    errMessage{"async_connect() failed -> "s + ec.message() + "."s};
+
+                                                _context.report(errMessage);
+                                            }
                                         }
                                         else
                                         {
-                                            auto    errMessage{"async_connect() failed -> "s + ec.message() + "."s};
-
-                                            _context.report(errMessage);
+                                            _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+                                            _connection._port = _tcpSocket->local_endpoint().port();
+                                            _tcpConnected = true;
+                                            ODL_B1("_tcpConnected <- ", _tcpConnected); //####
                                         }
-                                    }
-                                    else
-                                    {
-                                        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
-                                        _connection._port = _tcpSocket->local_endpoint().port();
-                                        _tcpConnected = true;
-                                        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
-                                    }
-                                  });
-        for ( ; gKeepRunning && (! _tcpConnected); )
-        {
-            boost::this_thread::yield();
+                                      });
+            for ( ; gKeepRunning && (! _tcpConnected); )
+            {
+                boost::this_thread::yield();
+            }
+            okSoFar = true;
         }
-        okSoFar = true;
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -352,17 +361,20 @@ nImO::OutChannel::stop
         }
         okSoFar = true;
     }
-    else if (TransportType::kTCP == _connection._transport)
-    {
-        if (_tcpSocket->is_open())
-        {
-            _tcpSocket->cancel();
-            okSoFar = true;
-        }
-    }
     else
     {
-        okSoFar = true;
+        if (TransportType::kTCP == _connection._transport)
+        {
+            if (_tcpSocket->is_open())
+            {
+                _tcpSocket->cancel();
+                okSoFar = true;
+            }
+        }
+        else
+        {
+            okSoFar = true;
+        }
     }
     _connection._transport = TransportType::kUnknown;
     ODL_OBJEXIT_B(okSoFar); //####

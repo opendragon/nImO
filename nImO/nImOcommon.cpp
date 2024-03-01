@@ -188,15 +188,18 @@ nImO::CanReadFromStandardInput
         // Piped
         result = true;
     }
-    else if (getpgrp() == fg)
-    {
-        // Foreground
-        result = true;
-    }
     else
     {
-        // Background
-        result = false;
+        if (getpgrp() == fg)
+        {
+            // Foreground
+            result = true;
+        }
+        else
+        {
+            // Background
+            result = false;
+        }
     }
 #else // not MAC_OR_LINUX_OR_BSD_
     result = (nullptr != wind);

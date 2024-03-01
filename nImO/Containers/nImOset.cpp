@@ -540,17 +540,20 @@ nImO::Set::greaterThan
     {
         result = false;
     }
-    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
-    {
-        result.clear();
-    }
     else
     {
-        for (auto & walker : *this)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            if (walker)
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
             {
-                result &= walker->greaterThan(other);
+                if (walker)
+                {
+                    result &= walker->greaterThan(other);
+                }
             }
         }
     }
@@ -601,17 +604,20 @@ nImO::Set::lessThan
     {
         result = false;
     }
-    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
-    {
-        result.clear();
-    }
     else
     {
-        for (auto & walker : *this)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            if (walker)
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
             {
-                result &= walker->lessThan(other);
+                if (walker)
+                {
+                    result &= walker->lessThan(other);
+                }
             }
         }
     }
@@ -828,49 +834,55 @@ nImO::Set::readFromStringBuffer
                 ODL_LOG("(atEnd)"); //####
                 done = true;
             }
-            else if (kEndSetChar == aChar)
-            {
-                done = valid = true;
-            }
             else
             {
-                auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
-
-                ODL_I1("localIndex <- ", localIndex); //####
-                if (element)
+                if (kEndSetChar == aChar)
                 {
-                    auto    elementType{element->enumerationType()};
+                    done = valid = true;
+                }
+                else
+                {
+                    auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
 
-                    if ((Enumerable::Unknown == elementType) ||
-                        (Enumerable::NotEnumerable == elementType))
+                    ODL_I1("localIndex <- ", localIndex); //####
+                    if (element)
                     {
-                        ODL_LOG("((Enumerable::Unknown == elementType) || " //####
-                                "(Enumerable::NotEnumerable == elementType))"); //####
-                        element.reset();
-                        done = true;
-                    }
-                    else if (0 < result->size())
-                    {
-                        if (result->_keyKind == elementType)
+                        auto    elementType{element->enumerationType()};
+
+                        if ((Enumerable::Unknown == elementType) ||
+                            (Enumerable::NotEnumerable == elementType))
                         {
-                            result->addValue(element);
+                            ODL_LOG("((Enumerable::Unknown == elementType) || " //####
+                                    "(Enumerable::NotEnumerable == elementType))"); //####
+                            element.reset();
+                            done = true;
                         }
                         else
                         {
-                            ODL_LOG("! (result->_keyKind == elementType)"); //####
-                            element.reset();
-                            done = true;
+                            if (0 < result->size())
+                            {
+                                if (result->_keyKind == elementType)
+                                {
+                                    result->addValue(element);
+                                }
+                                else
+                                {
+                                    ODL_LOG("! (result->_keyKind == elementType)"); //####
+                                    element.reset();
+                                    done = true;
+                                }
+                            }
+                            else
+                            {
+                                result->addValue(element);
+                            }
                         }
                     }
                     else
                     {
-                        result->addValue(element);
+                        ODL_LOG("! (element)"); //####
+                        done = true;
                     }
-                }
-                else
-                {
-                    ODL_LOG("! (element)"); //####
-                    done = true;
                 }
             }
         }

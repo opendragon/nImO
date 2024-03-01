@@ -8737,10 +8737,13 @@ doTestLogicalMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != falseString)
+            else
             {
-                ODL_LOG("(iter->second != falseString)"); //####
-                result = 1;
+                if (iter->second != falseString)
+                {
+                    ODL_LOG("(iter->second != falseString)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -8762,10 +8765,13 @@ doTestLogicalMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != trueString)
+            else
             {
-                ODL_LOG("(iter->second != trueString)"); //####
-                result = 1;
+                if (iter->second != trueString)
+                {
+                    ODL_LOG("(iter->second != trueString)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -8843,10 +8849,13 @@ doTestIntegerMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != string17)
+            else
             {
-                ODL_LOG("(iter->second != string17)"); //####
-                result = 1;
+                if (iter->second != string17)
+                {
+                    ODL_LOG("(iter->second != string17)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -8868,10 +8877,13 @@ doTestIntegerMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != string12)
+            else
             {
-                ODL_LOG("(iter->second != string12)"); //####
-                result = 1;
+                if (iter->second != string12)
+                {
+                    ODL_LOG("(iter->second != string12)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -8949,10 +8961,13 @@ doTestStringMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != stringOneSeven)
+            else
             {
-                ODL_LOG("(iter->second != stringOneSeven)"); //####
-                result = 1;
+                if (iter->second != stringOneSeven)
+                {
+                    ODL_LOG("(iter->second != stringOneSeven)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -8974,10 +8989,13 @@ doTestStringMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != stringOneTwo)
+            else
             {
-                ODL_LOG("(iter->second != stringOneTwo)"); //####
-                result = 1;
+                if (iter->second != stringOneTwo)
+                {
+                    ODL_LOG("(iter->second != stringOneTwo)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -9334,10 +9352,13 @@ doTestAddressMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != string17)
+            else
             {
-                ODL_LOG("(iter->second != string17)"); //####
-                result = 1;
+                if (iter->second != string17)
+                {
+                    ODL_LOG("(iter->second != string17)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)
@@ -9359,10 +9380,13 @@ doTestAddressMapSearches
                 ODL_LOG("(stuff.end() == iter)"); //####
                 result = 1;
             }
-            else if (iter->second != string12)
+            else
             {
-                ODL_LOG("(iter->second != string12)"); //####
-                result = 1;
+                if (iter->second != string12)
+                {
+                    ODL_LOG("(iter->second != string12)"); //####
+                    result = 1;
+                }
             }
         }
         if (0 == result)

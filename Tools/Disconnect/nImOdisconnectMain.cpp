@@ -133,11 +133,14 @@ main
                         exitCode = 1;
                     }
                 }
-                else if (nImO::CloseConnection(ourContext, nodeName, proxy, path, true, reported))
+                else
                 {
-                    if (reported)
+                    if (nImO::CloseConnection(ourContext, nodeName, proxy, path, true, reported))
                     {
-                        exitCode = 1;
+                        if (reported)
+                        {
+                            exitCode = 1;
+                        }
                     }
                 }
             }

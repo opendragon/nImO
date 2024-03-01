@@ -153,9 +153,12 @@ BaseArgumentDescriptor::describe
     {
         result += " (optional)"s;
     }
-    else if (isRequired())
+    else
     {
-        result += " (required)"s;
+        if (isRequired())
+        {
+            result += " (required)"s;
+        }
     }
     result += ": "s + _argDescription;
     ODL_OBJEXIT_s(result); //####
@@ -671,17 +674,20 @@ nImO::ProcessArguments
                 ODL_LOG("(anArg->isExtra())"); //####
                 sawExtra = true;
             }
-            else if (anArg->isOptional())
-            {
-                ODL_LOG("(anArg->isOptional())"); //####
-                result = (! sawExtra);
-                ODL_B1("result <- ", result); //####
-                sawOptional = true;
-            }
             else
             {
-                result = (! sawOptional) && (! sawExtra);
-                ODL_B1("result <- ", result); //####
+                if (anArg->isOptional())
+                {
+                    ODL_LOG("(anArg->isOptional())"); //####
+                    result = (! sawExtra);
+                    ODL_B1("result <- ", result); //####
+                    sawOptional = true;
+                }
+                else
+                {
+                    result = (! sawOptional) && (! sawExtra);
+                    ODL_B1("result <- ", result); //####
+                }
             }
         }
     }

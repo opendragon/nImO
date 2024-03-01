@@ -247,13 +247,16 @@ LogicalArgumentDescriptor::parseArgString
             {
                 defaultValue = true;
             }
-            else if ('0' == defaultString[0])
-            {
-                defaultValue = false;
-            }
             else
             {
-                okSoFar = false;
+                if ('0' == defaultString[0])
+                {
+                    defaultValue = false;
+                }
+                else
+                {
+                    okSoFar = false;
+                }
             }
         }
         if (okSoFar)
@@ -313,16 +316,19 @@ LogicalArgumentDescriptor::validate
         setValidity(true);
         ODL_B1("_valid <- ", isValid()); //####
     }
-    else if (('1' == firstChar) || ('t' == firstChar) || ('y' == firstChar))
-    {
-        boolValue = true;
-        setValidity(true);
-        ODL_B1("_valid <- ", isValid()); //####
-    }
     else
     {
-        setValidity(false);
-        ODL_B1("_valid <- ", isValid()); //####
+        if (('1' == firstChar) || ('t' == firstChar) || ('y' == firstChar))
+        {
+            boolValue = true;
+            setValidity(true);
+            ODL_B1("_valid <- ", isValid()); //####
+        }
+        else
+        {
+            setValidity(false);
+            ODL_B1("_valid <- ", isValid()); //####
+        }
     }
     if (isValid())
     {

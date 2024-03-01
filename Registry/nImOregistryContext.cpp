@@ -146,188 +146,200 @@ announcementServiceCallback
                     }
                 }
             }
-            else if ((name.length == serviceData._serviceName.length) &&
-                     (0 == strncmp(name.str, serviceData._serviceName.str, name.length)))
+            else
             {
-                if ((mDNS::kRecordTypePTR == rType) || (mDNS::kRecordTypeANY == rType))
+                if ((name.length == serviceData._serviceName.length) &&
+                    (0 == strncmp(name.str, serviceData._serviceName.str, name.length)))
                 {
-                    // The PTR query was for our service (usually "<_service-name._tcp.local"), answer a PTR
-                    // record reverse mapping the queried service name to our service instance name
-                    // (typically on the "<hostname>.<_service-name>._tcp.local." format), and add
-                    // additional records containing the SRV record mapping the service instance name to our
-                    // qualified hostname (typically "<hostname>.local.") and port, as well as any IPv4/IPv6
-                    // address for the hostname as A/AAAA records, and two test TXT records
+                    if ((mDNS::kRecordTypePTR == rType) || (mDNS::kRecordTypeANY == rType))
+                    {
+                        // The PTR query was for our service (usually "<_service-name._tcp.local"), answer a PTR
+                        // record reverse mapping the queried service name to our service instance name
+                        // (typically on the "<hostname>.<_service-name>._tcp.local." format), and add
+                        // additional records containing the SRV record mapping the service instance name to our
+                        // qualified hostname (typically "<hostname>.local.") and port, as well as any IPv4/IPv6
+                        // address for the hostname as A/AAAA records, and two test TXT records
 
-                    // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
-                    // "<hostname>.<_service-name>._tcp.local."
-                    mDNS::record_t  answer{serviceData._recordPTR};
-                    mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount{0};
+                        // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
+                        // "<hostname>.<_service-name>._tcp.local."
+                        mDNS::record_t  answer{serviceData._recordPTR};
+                        mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+                        size_t          additionalCount{0};
 
-                    // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
-                    // "<hostname>.local." with port. Set weight & priority to 0.
-                    memset(&additional, 0, sizeof(additional));
-                    additional[additionalCount++] = serviceData._recordSRV;
-                    // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
-                    if (AF_INET == serviceData._addressIpv4.sin_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordA;
-                    }
-                    if (AF_INET6 == serviceData._addressIpv6.sin6_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordAAAA;
-                    }
-                    // Add TXT records for our service instance name, will be coalesced into
-                    // one record with both key-value pair strings by the library
-                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
-                    {
-                        additional[additionalCount++] = serviceData._recordTXT[ii];
-                    }
-                    // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
+                        // SRV record mapping "<hostname>.<_service-name>._tcp.local." to
+                        // "<hostname>.local." with port. Set weight & priority to 0.
+                        memset(&additional, 0, sizeof(additional));
+                        additional[additionalCount++] = serviceData._recordSRV;
+                        // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
+                        if (AF_INET == serviceData._addressIpv4.sin_family)
+                        {
+                            additional[additionalCount++] = serviceData._recordA;
+                        }
+                        if (AF_INET6 == serviceData._addressIpv6.sin6_family)
+                        {
+                            additional[additionalCount++] = serviceData._recordAAAA;
+                        }
+                        // Add TXT records for our service instance name, will be coalesced into
+                        // one record with both key-value pair strings by the library
+                        for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                        {
+                            additional[additionalCount++] = serviceData._recordTXT[ii];
+                        }
+                        // Send the answer, unicast or multicast depending on flag in query
+                        bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
-                    // Send the answer, unicast or multicast depending on flag in query
-                    if (unicast)
-                    {
-                        mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
-                                                   answer, nullptr, 0, additional, additionalCount);
-                    }
-                    else
-                    {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
-                                                     additional, additionalCount);
+                        // Send the answer, unicast or multicast depending on flag in query
+                        if (unicast)
+                        {
+                            mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                                       StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                       answer, nullptr, 0, additional, additionalCount);
+                        }
+                        else
+                        {
+                            mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                         additional, additionalCount);
+                        }
                     }
                 }
-            }
-            else if ((name.length == serviceData._serviceInstance.length) &&
-                     (0 == strncmp(name.str, serviceData._serviceInstance.str, name.length)))
-            {
-                if ((mDNS::kRecordTypeSRV == rType) || (mDNS::kRecordTypeANY == rType))
+                else
                 {
-                    // The SRV query was for our service instance (usually
-                    // "<hostname>.<_service-name._tcp.local"), answer a SRV record mapping the service
-                    // instance name to our qualified hostname (typically "<hostname>.local.") and port, as
-                    // well as any IPv4/IPv6 address for the hostname as A/AAAA records, and two test TXT
-                    // records
+                    if ((name.length == serviceData._serviceInstance.length) &&
+                        (0 == strncmp(name.str, serviceData._serviceInstance.str, name.length)))
+                    {
+                        if ((mDNS::kRecordTypeSRV == rType) || (mDNS::kRecordTypeANY == rType))
+                        {
+                            // The SRV query was for our service instance (usually
+                            // "<hostname>.<_service-name._tcp.local"), answer a SRV record mapping the service
+                            // instance name to our qualified hostname (typically "<hostname>.local.") and port, as
+                            // well as any IPv4/IPv6 address for the hostname as A/AAAA records, and two test TXT
+                            // records
 
-                    // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
-                    // "<hostname>.<_service-name>._tcp.local."
-                    mDNS::record_t  answer{serviceData._recordSRV};
-                    mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount{0};
+                            // Answer PTR record reverse mapping "<_service-name>._tcp.local." to
+                            // "<hostname>.<_service-name>._tcp.local."
+                            mDNS::record_t  answer{serviceData._recordSRV};
+                            mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+                            size_t          additionalCount{0};
 
-                    // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
-                    memset(&additional, 0, sizeof(additional));
-                    if (AF_INET == serviceData._addressIpv4.sin_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordA;
-                    }
-                    if (AF_INET6 == serviceData._addressIpv6.sin6_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordAAAA;
-                    }
-                    // Add TXT records for our service instance name, will be coalesced into
-                    // one record with both key-value pair strings by the library
-                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
-                    {
-                        additional[additionalCount++] = serviceData._recordTXT[ii];
-                    }
-                    // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
+                            // A/AAAA records mapping "<hostname>.local." to IPv4/IPv6 addresses
+                            memset(&additional, 0, sizeof(additional));
+                            if (AF_INET == serviceData._addressIpv4.sin_family)
+                            {
+                                additional[additionalCount++] = serviceData._recordA;
+                            }
+                            if (AF_INET6 == serviceData._addressIpv6.sin6_family)
+                            {
+                                additional[additionalCount++] = serviceData._recordAAAA;
+                            }
+                            // Add TXT records for our service instance name, will be coalesced into
+                            // one record with both key-value pair strings by the library
+                            for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                            {
+                                additional[additionalCount++] = serviceData._recordTXT[ii];
+                            }
+                            // Send the answer, unicast or multicast depending on flag in query
+                            bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
-                    if (unicast)
-                    {
-                        mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
-                                                   answer, nullptr, 0, additional, additionalCount);
+                            if (unicast)
+                            {
+                                mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                                           StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                           answer, nullptr, 0, additional, additionalCount);
+                            }
+                            else
+                            {
+                                mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                             additional, additionalCount);
+                            }
+                        }
                     }
                     else
                     {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
-                                                     additional, additionalCount);
-                    }
-                }
-            }
-            else if ((name.length == serviceData._hostNameQualified.length) &&
-                     (0 == strncmp(name.str, serviceData._hostNameQualified.str, name.length)))
-            {
-                if (((mDNS::kRecordTypeA == rType) || (mDNS::kRecordTypeANY == rType)) &&
-                    (AF_INET == serviceData._addressIpv4.sin_family))
-                {
-                    // The A query was for our qualified hostname (typically "<hostname>.local.") and we
-                    // have an IPv4 address, answer with an A record mapping the hostname to an IPv4
-                    // address, as well as any IPv6 address for the hostname, and two test TXT records
+                        if ((name.length == serviceData._hostNameQualified.length) &&
+                            (0 == strncmp(name.str, serviceData._hostNameQualified.str, name.length)))
+                        {
+                            if (((mDNS::kRecordTypeA == rType) || (mDNS::kRecordTypeANY == rType)) &&
+                                (AF_INET == serviceData._addressIpv4.sin_family))
+                            {
+                                // The A query was for our qualified hostname (typically "<hostname>.local.") and we
+                                // have an IPv4 address, answer with an A record mapping the hostname to an IPv4
+                                // address, as well as any IPv6 address for the hostname, and two test TXT records
 
-                    // Answer A records mapping "<hostname>.local." to IPv4 address
-                    mDNS::record_t  answer{serviceData._recordA};
-                    mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount{0};
+                                // Answer A records mapping "<hostname>.local." to IPv4 address
+                                mDNS::record_t  answer{serviceData._recordA};
+                                mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+                                size_t          additionalCount{0};
 
-                    // AAAA record mapping "<hostname>.local." to IPv6 addresses
-                    memset(&additional, 0, sizeof(additional));
-                    if (AF_INET6 == serviceData._addressIpv6.sin6_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordAAAA;
-                    }
-                    // Add TXT records for our service instance name, will be coalesced into
-                    // one record with both key-value pair strings by the library
-                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
-                    {
-                        additional[additionalCount++] = serviceData._recordTXT[ii];
-                    }
-                    // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
+                                // AAAA record mapping "<hostname>.local." to IPv6 addresses
+                                memset(&additional, 0, sizeof(additional));
+                                if (AF_INET6 == serviceData._addressIpv6.sin6_family)
+                                {
+                                    additional[additionalCount++] = serviceData._recordAAAA;
+                                }
+                                // Add TXT records for our service instance name, will be coalesced into
+                                // one record with both key-value pair strings by the library
+                                for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                                {
+                                    additional[additionalCount++] = serviceData._recordTXT[ii];
+                                }
+                                // Send the answer, unicast or multicast depending on flag in query
+                                bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
-                    if (unicast)
-                    {
-                        mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
-                                                   answer, nullptr, 0, additional, additionalCount);
-                    }
-                    else
-                    {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
-                                                     additional, additionalCount);
-                    }
-                }
-                else if (((mDNS::kRecordTypeAAAA == rType) || (mDNS::kRecordTypeANY == rType)) &&
-                         (AF_INET6 == serviceData._addressIpv6.sin6_family))
-                {
-                    // The AAAA query was for our qualified hostname (typically "<hostname>.local.") and we
-                    // have an IPv6 address, answer with an AAAA record mappiing the hostname to an IPv6
-                    // address, as well as any IPv4 address for the hostname, and two test TXT records
+                                if (unicast)
+                                {
+                                    mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                                               StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                               answer, nullptr, 0, additional, additionalCount);
+                                }
+                                else
+                                {
+                                    mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                                 additional, additionalCount);
+                                }
+                            }
+                            else
+                            {
+                                if (((mDNS::kRecordTypeAAAA == rType) || (mDNS::kRecordTypeANY == rType)) &&
+                                    (AF_INET6 == serviceData._addressIpv6.sin6_family))
+                                {
+                                    // The AAAA query was for our qualified hostname (typically "<hostname>.local.") and we
+                                    // have an IPv6 address, answer with an AAAA record mappiing the hostname to an IPv6
+                                    // address, as well as any IPv4 address for the hostname, and two test TXT records
 
-                    // Answer AAAA records mapping "<hostname>.local." to IPv6 address
-                    mDNS::record_t  answer{serviceData._recordAAAA};
-                    mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
-                    size_t          additionalCount{0};
+                                    // Answer AAAA records mapping "<hostname>.local." to IPv6 address
+                                    mDNS::record_t  answer{serviceData._recordAAAA};
+                                    mDNS::record_t  additional[nImO::kNumTxtRecords + 3];
+                                    size_t          additionalCount{0};
 
-                    // A record mapping "<hostname>.local." to IPv4 addresses
-                    memset(&additional, 0, sizeof(additional));
-                    if (AF_INET == serviceData._addressIpv4.sin_family)
-                    {
-                        additional[additionalCount++] = serviceData._recordA;
-                    }
-                    // Add TXT records for our service instance name, will be coalesced into
-                    // one record with both key-value pair strings by the library
-                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
-                    {
-                        additional[additionalCount++] = serviceData._recordTXT[ii];
-                    }
-                    // Send the answer, unicast or multicast depending on flag in query
-                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
+                                    // A record mapping "<hostname>.local." to IPv4 addresses
+                                    memset(&additional, 0, sizeof(additional));
+                                    if (AF_INET == serviceData._addressIpv4.sin_family)
+                                    {
+                                        additional[additionalCount++] = serviceData._recordA;
+                                    }
+                                    // Add TXT records for our service instance name, will be coalesced into
+                                    // one record with both key-value pair strings by the library
+                                    for (size_t ii = 0; ii < nImO::kNumTxtRecords; ++ii)
+                                    {
+                                        additional[additionalCount++] = serviceData._recordTXT[ii];
+                                    }
+                                    // Send the answer, unicast or multicast depending on flag in query
+                                    bool    unicast{0 != (rClass & MDNS_UNICAST_RESPONSE)};
 
-                    if (unicast)
-                    {
-                        mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
-                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
-                                                   answer, nullptr, 0, additional, additionalCount);
-                    }
-                    else
-                    {
-                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
-                                                     additional, additionalCount);
+                                    if (unicast)
+                                    {
+                                        mDNS::query_answer_unicast(sock, &from, addrLen, lSendBuffer, sizeof(lSendBuffer), queryId,
+                                                                   StaticCast(mDNS::record_type_t, rType), name.str, name.length,
+                                                                   answer, nullptr, 0, additional, additionalCount);
+                                    }
+                                    else
+                                    {
+                                        mDNS::query_answer_multicast(sock, lSendBuffer, sizeof(lSendBuffer), answer, nullptr, 0,
+                                                                     additional, additionalCount);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -504,18 +516,21 @@ nImO::RegistryContext::makePortAnnouncement
             hostAddress = addressString.str;
             release_mdns_string(addressString);
         }
-        else if (nImO::ContextWithMDNS::gHasIpv6)
-        {
-            mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
-                                                                  nImO::ContextWithMDNS::gServiceAddressIpv6,
-                                                                  sizeof(nImO::ContextWithMDNS::gServiceAddressIpv6))};
-
-            hostAddress = addressString.str;
-            release_mdns_string(addressString);
-        }
         else
         {
-            hostAddress = kSelfAddressIpAddress;
+            if (nImO::ContextWithMDNS::gHasIpv6)
+            {
+                mDNS::string_t  addressString{Ipv6AddressToMdnsString(addressBuffer, sizeof(addressBuffer),
+                                                                      nImO::ContextWithMDNS::gServiceAddressIpv6,
+                                                                      sizeof(nImO::ContextWithMDNS::gServiceAddressIpv6))};
+
+                hostAddress = addressString.str;
+                release_mdns_string(addressString);
+            }
+            else
+            {
+                hostAddress = kSelfAddressIpAddress;
+            }
         }
         okSoFar = _announceData->setServiceData(port, serviceName, hostName, dataKey, hostAddress);
         if (okSoFar)

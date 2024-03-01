@@ -242,10 +242,13 @@ main
                         ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is already connected."s);
                         exitCode = 1;
                     }
-                    else if (previousStateForTo)
+                    else
                     {
-                        ourContext->report("channel '"s + toNode + " "s + toPath + "' is already connected."s);
-                        exitCode = 1;
+                        if (previousStateForTo)
+                        {
+                            ourContext->report("channel '"s + toNode + " "s + toPath + "' is already connected."s);
+                            exitCode = 1;
+                        }
                     }
                 }
                 // We now 'own' the two channels, so we need to resolve if they can be connected.
@@ -310,61 +313,72 @@ main
                             ourContext->report("channel '"s + toNode + " "s + toPath + "' is an output!"s);
                             exitCode = 1;
                         }
-                        else if (fromIsOutput)
+                        else
                         {
-                            // Do the data types match up? Set 'dataType'.
-                            if (fromDataType.empty())
+                            if (fromIsOutput)
                             {
-                                dataType = toDataType;
+                                // Do the data types match up? Set 'dataType'.
+                                if (fromDataType.empty())
+                                {
+                                    dataType = toDataType;
+                                }
+                                else
+                                {
+                                    if (toDataType.empty())
+                                    {
+                                        dataType = fromDataType;
+                                    }
+                                    else
+                                    {
+                                        if (fromDataType != toDataType)
+                                        {
+                                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
+                                                               toNode + " "s + toPath + "("s + toDataType + ")'."s);
+                                            exitCode = 1;
+                                        }
+                                    }
+                                }
+                                if (0 == exitCode)
+                                {
+                                    // Do the modes match up? Set 'resolvedMode'.
+                                    resolvedMode = nImO::ResolveTransport(fromModes, toModes);
+                                    ODL_I1("resolvedMode = ", resolvedMode); //####
+                                    if (nImO::TransportType::kUnknown == resolvedMode)
+                                    {
+                                        ourContext->report("channel '"s + fromNode + " "s + fromPath +
+                                                           "' has incompatible transport mode with '"s +
+                                                           toNode + " "s + toPath + "'."s);
+                                        exitCode = 1;
+                                    }
+                                }
+                                if (0 == exitCode)
+                                {
+                                    // Do the modes match up? Set 'resolvedMode'.
+                                    resolvedMode = nImO::ResolveTransport(resolvedMode, nImO::ChannelName::transportFromName(modeRequested));
+                                    ODL_I1("resolvedMode = ", resolvedMode); //####
+                                    if (nImO::TransportType::kUnknown == resolvedMode)
+                                    {
+                                        ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath +
+                                                           "' and '"s + toNode + " "s + toPath + "'."s);
+                                        exitCode = 1;
+                                    }
+                                    else
+                                    {
+                                        if (nImO::TransportType::kAny == resolvedMode)
+                                        {
+                                            ourContext->report("requested transport mode is ambiguous."s);
+                                            exitCode = 1;
+                                        }
+                                    }
+                                }
                             }
                             else
                             {
-                                if (toDataType.empty())
-                                {
-                                    dataType = fromDataType;
-                                }
-                                else if (fromDataType != toDataType)
-                                {
-                                    ourContext->report("channel '"s + fromNode + " "s + fromPath + "("s + fromDataType + ")' does not match '"s  +
-                                                       toNode + " "s + toPath + "("s + toDataType + ")'."s);
-                                    exitCode = 1;
-                                }
-                            }
-                            if (0 == exitCode)
-                            {
-                                // Do the modes match up? Set 'resolvedMode'.
-                                resolvedMode = nImO::ResolveTransport(fromModes, toModes);
-                                ODL_I1("resolvedMode = ", resolvedMode); //####
-                                if (nImO::TransportType::kUnknown == resolvedMode)
-                                {
-                                    ourContext->report("channel '"s + fromNode + " "s + fromPath + "' has incompatible transport mode with '"s  +
-                                                       toNode + " "s + toPath + "'."s);
-                                    exitCode = 1;
-                                }
-                            }
-                            if (0 == exitCode)
-                            {
-                                // Do the modes match up? Set 'resolvedMode'.
-                                resolvedMode = nImO::ResolveTransport(resolvedMode, nImO::ChannelName::transportFromName(modeRequested));
-                                ODL_I1("resolvedMode = ", resolvedMode); //####
-                                if (nImO::TransportType::kUnknown == resolvedMode)
-                                {
-                                    ourContext->report("requested transport mode is incompatible with '"s + fromNode + " "s + fromPath + "' and '"s +
-                                                       toNode + " "s + toPath + "'."s);
-                                    exitCode = 1;
-                                }
-                                else if (nImO::TransportType::kAny == resolvedMode)
-                                {
-                                    ourContext->report("requested transport mode is ambiguous."s);
-                                    exitCode = 1;
-                                }
+                                ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
+                                exitCode = 1;
                             }
                         }
-                        else
-                        {
-                            ourContext->report("channel '"s + fromNode + " "s + fromPath + "' is an input!"s);
-                            exitCode = 1;
-                        }
+
                     }
                 }
                 if (0 == exitCode)

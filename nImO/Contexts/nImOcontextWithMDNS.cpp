@@ -344,23 +344,26 @@ getLocalAddresses
                     nImO::ContextWithMDNS::gHasIpv4 = true;
                 }
             }
-            else if (AF_INET6 == address->ifa_addr->sa_family)
+            else
             {
-                struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr)};
-                static const uint8_t    localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-                static const uint8_t    localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
-                                                           0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
-
-                if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
-                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
-                    (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+                if (AF_INET6 == address->ifa_addr->sa_family)
                 {
-                    if (firstIpv6)
+                    struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), address->ifa_addr)};
+                    static const uint8_t    localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+                    static const uint8_t    localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
+                                                               0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+                    if ((0 == (IFF_LOOPBACK & address->ifa_flags)) &&
+                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
                     {
-                        nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
-                        firstIpv6 = false;
+                        if (firstIpv6)
+                        {
+                            nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                            firstIpv6 = false;
+                        }
+                        nImO::ContextWithMDNS::gHasIpv6 = true;
                     }
-                    nImO::ContextWithMDNS::gHasIpv6 = true;
                 }
             }
         }
@@ -424,23 +427,26 @@ getLocalAddresses
                         nImO::ContextWithMDNS::gHasIpv4 = true;
                     }
                 }
-                else if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
+                else
                 {
-                    struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
-                    static const uchar      localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-                    static const uchar      localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
-                                                               0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
-
-                    if ((NldsPreferred == unicast->DadState) &&
-                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
-                        (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
+                    if (AF_INET6 == unicast->Address.lpSockaddr->sa_family)
                     {
-                        if (firstIpv6)
+                        struct sockaddr_in6 &   saddr{*ReinterpretCast(Ptr(struct sockaddr_in6), unicast->Address.lpSockaddr)};
+                        static const uchar      localHost[]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+                        static const uchar      localHostMapped[]{ 0, 0, 0,    0,    0,    0, 0, 0,
+                                                                   0, 0, 0xff, 0xff, 0x7f, 0, 0, 1 };
+
+                        if ((NldsPreferred == unicast->DadState) &&
+                            (0 != memcmp(saddr.sin6_addr.s6_addr, localHost, sizeof(localHost))) &&
+                            (0 != memcmp(saddr.sin6_addr.s6_addr, localHostMapped, sizeof(localHostMapped))))
                         {
-                            nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
-                            firstIpv6 = false;
+                            if (firstIpv6)
+                            {
+                                nImO::ContextWithMDNS::gServiceAddressIpv6 = saddr;
+                                firstIpv6 = false;
+                            }
+                            nImO::ContextWithMDNS::gHasIpv6 = true;
                         }
-                        nImO::ContextWithMDNS::gHasIpv6 = true;
                     }
                 }
             }
@@ -912,10 +918,13 @@ nImO::ContextWithMDNS::waitForRegistry
         }
         wasFound = (_havePort && _haveAddress);
     }
-    else if (lPerformSingleRegistryCheck)
+    else
     {
-        gatherAnnouncements(true);
-        wasFound = (_havePort && _haveAddress);
+        if (lPerformSingleRegistryCheck)
+        {
+            gatherAnnouncements(true);
+            wasFound = (_havePort && _haveAddress);
+        }
     }
     ODL_OBJEXIT_B(wasFound); //####
     return wasFound;

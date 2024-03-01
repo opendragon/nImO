@@ -202,32 +202,41 @@ nImO::Number::readFromStringBuffer
                        sawInitialPlus = true;
                    }
                 }
-                else if ('-' == aChar)
-                {
-                   if (sawInitialMinus || sawInitialPlus)
-                   {
-                       ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
-                       done = true; // more than one sign character
-                   }
-                   else
-                   {
-                       sawInitialMinus = true;
-                   }
-                }
-                else if ('.' == aChar)
-                {
-                    needsAdigit = isDouble = true;
-                    currentState = ScanState::FractionStartSeen;
-                }
-                else if (isdigit(aChar))
-                {
-                    currentState = ScanState::IntegerDigitSeen;
-                    integerPart = aChar - '0';
-                }
                 else
                 {
-                    ODL_LOG("! (isdigit(aChar))"); //####
-                    done = true; // unexpected character
+                    if ('-' == aChar)
+                    {
+                       if (sawInitialMinus || sawInitialPlus)
+                       {
+                           ODL_LOG("(sawInitialMinus || sawInitialPlus)"); //####
+                           done = true; // more than one sign character
+                       }
+                       else
+                       {
+                           sawInitialMinus = true;
+                       }
+                    }
+                    else
+                    {
+                        if ('.' == aChar)
+                        {
+                            needsAdigit = isDouble = true;
+                            currentState = ScanState::FractionStartSeen;
+                        }
+                        else
+                        {
+                            if (isdigit(aChar))
+                            {
+                                currentState = ScanState::IntegerDigitSeen;
+                                integerPart = aChar - '0';
+                            }
+                            else
+                            {
+                                ODL_LOG("! (isdigit(aChar))"); //####
+                                done = true; // unexpected character
+                            }
+                        }
+                    }
                 }
                 break;
 
@@ -237,26 +246,35 @@ nImO::Number::readFromStringBuffer
                     isDouble = true;
                     currentState = ScanState::FractionStartSeen;
                 }
-                else if ('e' == aChar)
-                {
-                    isDouble = true;
-                    currentState = ScanState::ExponentStart;
-                }
-                else if (atEnd || isLegalTerminator(aChar))
-                {
-                    // unexpected character seen, but valid so far
-                    --localIndex;
-                    done = valid = true;
-                }
-                else if (isdigit(aChar))
-                {
-                    integerPart *= 10;
-                    integerPart += aChar - '0';
-                }
                 else
                 {
-                    ODL_LOG("! (isDigit(aChar))"); //####
-                    done = true;
+                    if ('e' == aChar)
+                    {
+                        isDouble = true;
+                        currentState = ScanState::ExponentStart;
+                    }
+                    else
+                    {
+                        if (atEnd || isLegalTerminator(aChar))
+                        {
+                            // unexpected character seen, but valid so far
+                            --localIndex;
+                            done = valid = true;
+                        }
+                        else
+                        {
+                            if (isdigit(aChar))
+                            {
+                                integerPart *= 10;
+                                integerPart += aChar - '0';
+                            }
+                            else
+                            {
+                                ODL_LOG("! (isDigit(aChar))"); //####
+                                done = true;
+                            }
+                        }
+                    }
                 }
                 break;
 
@@ -272,30 +290,36 @@ nImO::Number::readFromStringBuffer
                         currentState = ScanState::ExponentStart;
                     }
                 }
-                else if (atEnd || isLegalTerminator(aChar))
+                else
                 {
-                    if (needsAdigit)
+                    if (atEnd || isLegalTerminator(aChar))
                     {
-                        ODL_LOG("(needsAdigit)"); //####
-                        done = true; // decimal point with no trailing digits
+                        if (needsAdigit)
+                        {
+                            ODL_LOG("(needsAdigit)"); //####
+                            done = true; // decimal point with no trailing digits
+                        }
+                        else
+                        {
+                            --localIndex;
+                            done = valid = true; // the character seen is the end of the value
+                        }
                     }
                     else
                     {
-                        --localIndex;
-                        done = valid = true; // the character seen is the end of the value
+                        if (isdigit(aChar))
+                        {
+                            needsAdigit = false;
+                            fractionPart *= 10;
+                            fractionPart += aChar - '0';
+                            ++fractionPower;
+                        }
+                        else
+                        {
+                            ODL_LOG("! (isDigit(aChar))"); //####
+                            done = true; // decimal point with no trailing digits
+                        }
                     }
-                }
-                else if (isdigit(aChar))
-                {
-                    needsAdigit = false;
-                    fractionPart *= 10;
-                    fractionPart += aChar - '0';
-                    ++fractionPower;
-                }
-                else
-                {
-                    ODL_LOG("! (isDigit(aChar))"); //####
-                    done = true; // decimal point with no trailing digits
                 }
                 break;
 
@@ -312,27 +336,33 @@ nImO::Number::readFromStringBuffer
                        sawExponentPlus = true;
                    }
                 }
-                else if ('-' == aChar)
-                {
-                   if (sawExponentMinus || sawExponentPlus)
-                   {
-                       ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
-                       done = true; // more than one sign character
-                   }
-                   else
-                   {
-                       sawExponentMinus = true;
-                   }
-                }
-                else if (isdigit(aChar))
-                {
-                    currentState = ScanState::ExponentSeen;
-                    exponent = aChar - '0';
-                }
                 else
                 {
-                    ODL_LOG("! (isdigit(aChar))"); //####
-                    done = true; // unexpected character
+                    if ('-' == aChar)
+                    {
+                       if (sawExponentMinus || sawExponentPlus)
+                       {
+                           ODL_LOG("(sawExponentMinus || sawExponentPlus)"); //####
+                           done = true; // more than one sign character
+                       }
+                       else
+                       {
+                           sawExponentMinus = true;
+                       }
+                    }
+                    else
+                    {
+                        if (isdigit(aChar))
+                        {
+                            currentState = ScanState::ExponentSeen;
+                            exponent = aChar - '0';
+                        }
+                        else
+                        {
+                            ODL_LOG("! (isdigit(aChar))"); //####
+                            done = true; // unexpected character
+                        }
+                    }
                 }
                 break;
 
@@ -342,15 +372,18 @@ nImO::Number::readFromStringBuffer
                     --localIndex;
                     done = valid = true; // the character seen is the buffer end
                 }
-                else if (isdigit(aChar))
-                {
-                    exponent *= 10;
-                    exponent += aChar - '0';
-                }
                 else
                 {
-                    ODL_LOG("! (isDigit(aChar))"); //####
-                    done = true;
+                    if (isdigit(aChar))
+                    {
+                        exponent *= 10;
+                        exponent += aChar - '0';
+                    }
+                    else
+                    {
+                        ODL_LOG("! (isDigit(aChar))"); //####
+                        done = true;
+                    }
                 }
                 break;
 
@@ -369,23 +402,32 @@ nImO::Number::readFromStringBuffer
             {
                 fullNumber = integerPart + (fractionPart / std::pow(10.0, fractionPower));
             }
-            else if (sawExponentMinus)
-            {
-                fullNumber = ((integerPart + (fractionPart / std::pow(10.0, fractionPower))) / std::pow(10.0, exponent));
-            }
-            else if (exponent > fractionPower)
-            {
-                fullNumber = ((integerPart * std::pow(10.0, exponent)) +
-                              (fractionPart * std::pow(10.0, exponent - fractionPower)));
-            }
-            else if (exponent < fractionPower)
-            {
-                fullNumber = ((integerPart * std::pow(10.0, exponent)) +
-                              (fractionPart / std::pow(10.0, fractionPower - exponent)));
-            }
             else
             {
-                fullNumber = (integerPart * std::pow(10.0, exponent)) + fractionPart;
+                if (sawExponentMinus)
+                {
+                    fullNumber = ((integerPart + (fractionPart / std::pow(10.0, fractionPower))) / std::pow(10.0, exponent));
+                }
+                else
+                {
+                    if (exponent > fractionPower)
+                    {
+                        fullNumber = ((integerPart * std::pow(10.0, exponent)) +
+                                      (fractionPart * std::pow(10.0, exponent - fractionPower)));
+                    }
+                    else
+                    {
+                        if (exponent < fractionPower)
+                        {
+                            fullNumber = ((integerPart * std::pow(10.0, exponent)) +
+                                          (fractionPart / std::pow(10.0, fractionPower - exponent)));
+                        }
+                        else
+                        {
+                            fullNumber = (integerPart * std::pow(10.0, exponent)) + fractionPart;
+                        }
+                    }
+                }
             }
             result = std::make_shared<Double>(sawInitialMinus ? -fullNumber : fullNumber);
         }

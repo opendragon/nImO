@@ -3167,36 +3167,39 @@ doTestNodeInfoWithRegistryWithTwoNodes
                                             ODL_LOG("! (secondElem._name == kNodeName2)"); //####
                                         }
                                     }
-                                    else if (secondElem._name == kNodeName1)
+                                    else
                                     {
-                                        if (firstElem._name == kNodeName2)
+                                        if (secondElem._name == kNodeName1)
                                         {
-                                            if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
-                                                (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
-                                                (randomAddress1 == secondElem._connection._address) &&
-                                                (randomPort1 == secondElem._connection._port) &&
-                                                (nImO::ServiceType::FilterService == secondElem._serviceType))
+                                            if (firstElem._name == kNodeName2)
                                             {
-                                                result = 0;
+                                                if ((randomAddress2 == firstElem._connection._address) && (randomPort2 == firstElem._connection._port) &&
+                                                    (nImO::ServiceType::LauncherService == firstElem._serviceType) &&
+                                                    (randomAddress1 == secondElem._connection._address) &&
+                                                    (randomPort1 == secondElem._connection._port) &&
+                                                    (nImO::ServiceType::FilterService == secondElem._serviceType))
+                                                {
+                                                    result = 0;
+                                                }
+                                                else
+                                                {
+                                                    ODL_LOG("! ((randomAddress2 == firstElem._connection._address) && " //####
+                                                            "(randomPort2 == firstElem._connection._port) && " //####
+                                                            "(nImO::ServiceType::LauncherService == firstElem._serviceType) && " //####
+                                                            "(randomAddress1 == secondElem._connection._address) && " //####
+                                                            "(randomPort1 == secondElem._connection._port) && " //####
+                                                            "(nImO::ServiceType::FilterService == secondElem._serviceType))"); //####
+                                                }
                                             }
                                             else
                                             {
-                                                ODL_LOG("! ((randomAddress2 == firstElem._connection._address) && " //####
-                                                        "(randomPort2 == firstElem._connection._port) && " //####
-                                                        "(nImO::ServiceType::LauncherService == firstElem._serviceType) && " //####
-                                                        "(randomAddress1 == secondElem._connection._address) && " //####
-                                                        "(randomPort1 == secondElem._connection._port) && " //####
-                                                        "(nImO::ServiceType::FilterService == secondElem._serviceType))"); //####
+                                                ODL_LOG("! (firstElem._name == kNodeName2)"); //####
                                             }
                                         }
                                         else
                                         {
-                                            ODL_LOG("! (firstElem._name == kNodeName2)"); //####
+                                            ODL_LOG("! (secondElem._name == kNodeName1)"); //####
                                         }
-                                    }
-                                    else
-                                    {
-                                        ODL_LOG("! (secondElem._name == kNodeName1)"); //####
                                     }
                                 }
                                 else
@@ -7058,25 +7061,30 @@ doTestGetChannelSetForNodeFromRegistryWithTwoChannels
                                     {
                                         result = 0;
                                     }
-                                    else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
-                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
-                                             (nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                             (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath2) &&
-                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
-                                             (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))
-                                    {
-                                        result = 0;
-                                    }
                                     else
                                     {
-                                        ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
-                                                "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
-                                                "(theChannel2._dataType == \"<chuckles>\"s) && " //####
-                                                "(nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
-                                                "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
-                                                "(theChannel1._dataType == \"only-blort\"s) && " //####
-                                                "(nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                        if (theChannel2._found && (theChannel2._node == kNodeName1) &&
+                                            (theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) &&
+                                            (theChannel2._dataType == "<chuckles>"s) &&
+                                            (nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) &&
+                                            theChannel1._found && (theChannel1._node == kNodeName1) &&
+                                            (theChannel1._path == kChannelPath2) && theChannel1._isOutput &&
+                                            (theChannel1._dataType == "only-blort"s) &&
+                                            (nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\"s) && " //####
+                                                    "(nImO::TransportType::kTCP == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                    "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
+                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
+                                                    "(theChannel1._dataType == \"only-blort\"s) && " //####
+                                                    "(nImO::TransportType::kUDP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                        }
                                     }
                                 }
                                 else
@@ -7194,25 +7202,30 @@ doTestGetChannelSetForNodesFromRegistryWithTwoNodesWithChannels
                                         {
                                             result = 0;
                                         }
-                                        else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
-                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
-                                                 (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                                 (theChannel1._node == kNodeName2) && (theChannel1._path == kChannelPath2) &&
-                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
-                                                 (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
-                                        {
-                                            result = 0;
-                                        }
                                         else
                                         {
-                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
-                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
-                                                    "(theChannel2._dataType == \"<chuckles>\"s) && " //####
-                                                    "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                    "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
-                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
-                                                    "(theChannel1._dataType == \"only-blort\"s) && " //####
-                                                    "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                            if (theChannel2._found && (theChannel2._node == kNodeName1) &&
+                                                (theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) &&
+                                                (theChannel2._dataType == "<chuckles>"s) &&
+                                                (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) &&
+                                                theChannel1._found && (theChannel1._node == kNodeName2) &&
+                                                (theChannel1._path == kChannelPath2) && theChannel1._isOutput &&
+                                                (theChannel1._dataType == "only-blort"s) &&
+                                                (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                        "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
+                                                        "(theChannel2._dataType == \"<chuckles>\"s) && " //####
+                                                        "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                        "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
+                                                        "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
+                                                        "(theChannel1._dataType == \"only-blort\"s) && " //####
+                                                        "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                            }
                                         }
                                     }
                                     else
@@ -7442,25 +7455,30 @@ doTestGetChannelSetForMachineFromRegistryWithTwoChannels
                                     {
                                         result = 0;
                                     }
-                                    else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
-                                             (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
-                                             (nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                             (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath2) &&
-                                             theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
-                                             (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
-                                    {
-                                        result = 0;
-                                    }
                                     else
                                     {
-                                        ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
-                                                "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
-                                                "(theChannel2._dataType == \"<chuckles>\"s) && " //####
-                                                "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
-                                                "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
-                                                "(theChannel1._dataType == \"only-blort\"s) && " //####
-                                                "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                        if (theChannel2._found && (theChannel2._node == kNodeName1) &&
+                                            (theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) &&
+                                            (theChannel2._dataType == "<chuckles>"s) &&
+                                            (nImO::TransportType::kAny == theChannel2._modes) &&
+                                            (! theChannel2._inUse) && theChannel1._found &&
+                                            (theChannel1._node == kNodeName1) && (theChannel1._path == kChannelPath2) &&
+                                            theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
+                                            (nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
+                                                    "(theChannel2._dataType == \"<chuckles>\"s) && " //####
+                                                    "(nImO::TransportType::kAny == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                    "theChannel1._found && (theChannel1._node == kNodeName1) && " //####
+                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
+                                                    "(theChannel1._dataType == \"only-blort\"s) && " //####
+                                                    "(nImO::TransportType::kTCP == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                        }
                                     }
                                 }
                                 else
@@ -7579,25 +7597,30 @@ doTestGetChannelSetForMachineFromRegistryWithTwoNodesWithChannels
                                         {
                                             result = 0;
                                         }
-                                        else if (theChannel2._found && (theChannel2._node == kNodeName1) && (theChannel2._path == kChannelPath1) &&
-                                                 (! theChannel2._isOutput) && (theChannel2._dataType == "<chuckles>"s) &&
-                                                 (nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && theChannel1._found &&
-                                                 (theChannel1._node == kNodeName2) && (theChannel1._path == kChannelPath2) &&
-                                                 theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
-                                                 (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))
-                                        {
-                                            result = 0;
-                                        }
                                         else
                                         {
-                                            ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
-                                                    "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
-                                                    "(theChannel2._dataType == \"<chuckles>\"s) && " //####
-                                                    "(nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && " //####
-                                                    "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
-                                                    "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
-                                                    "(theChannel1._dataType == \"only-blort\"s) && " //####
-                                                    "(nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                            if (theChannel2._found && (theChannel2._node == kNodeName1) &&
+                                                (theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) &&
+                                                (theChannel2._dataType == "<chuckles>"s) &&
+                                                (nImO::TransportType::kUDP == theChannel2._modes) &&
+                                                (! theChannel2._inUse) && theChannel1._found &&
+                                                (theChannel1._node == kNodeName2) && (theChannel1._path == kChannelPath2) &&
+                                                theChannel1._isOutput && (theChannel1._dataType == "only-blort"s) &&
+                                                (nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("(theChannel2._found && (theChannel2._node == kNodeName1) && " //####
+                                                        "(theChannel2._path == kChannelPath1) && (! theChannel2._isOutput) && " //####
+                                                        "(theChannel2._dataType == \"<chuckles>\"s) && " //####
+                                                        "(nImO::TransportType::kUDP == theChannel2._modes) && (! theChannel2._inUse) && " //####
+                                                        "theChannel1._found && (theChannel1._node == kNodeName2) && " //####
+                                                        "(theChannel1._path == kChannelPath2) && theChannel1._isOutput && " //####
+                                                        "(theChannel1._dataType == \"only-blort\"s) && " //####
+                                                        "(nImO::TransportType::kAny == theChannel1._modes) && (! theChannel1._inUse))"); //####
+                                            }
                                         }
                                     }
                                     else
@@ -13613,18 +13636,21 @@ doTestGetApplicationInformationInRegistryWithTwoApplicationsFromOneLauncher
                                     {
                                         result = 0;
                                     }
-                                    else if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
-                                             (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
-                                             (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
-                                    {
-                                        result = 0;
-                                    }
                                     else
                                     {
-                                        ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
-                                                "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
-                                                "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
-                                                "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                        if (elem1._found && (kNodeName1 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
+                                            (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
+                                            (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                        {
+                                            result = 0;
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (elem1._found && (kNodeName1 == elem1._launcherName) && " //####
+                                                    "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
+                                                    "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
+                                                    "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                        }
                                     }
                                 }
                                 else
@@ -13742,18 +13768,22 @@ doTestGetApplicationInformationInRegistryWithApplicationsFromTwoLaunchers
                                         {
                                             result = 0;
                                         }
-                                        else if (elem1._found && (kNodeName2 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
-                                                 (kAppDescr2 == elem1._appDescription) && elem2._found && (kNodeName1 == elem2._launcherName) &&
-                                                 (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
-                                        {
-                                            result = 0;
-                                        }
                                         else
                                         {
-                                            ODL_LOG("! (elem1._found && (kNodeName2 == elem1._launcherName) && " //####
-                                                    "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
-                                                    "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
-                                                    "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                            if (elem1._found && (kNodeName2 == elem1._launcherName) && (kAppName2 == elem1._appName) &&
+                                                (kAppDescr2 == elem1._appDescription) && elem2._found &&
+                                                (kNodeName1 == elem2._launcherName) &&
+                                                (kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))
+                                            {
+                                                result = 0;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (elem1._found && (kNodeName2 == elem1._launcherName) && " //####
+                                                        "(kAppName2 == elem1._appName) && (kAppDescr2 == elem1._appDescription) && " //####
+                                                        "elem2._found && (kNodeName1 == elem2._launcherName) && " //####
+                                                        "(kAppName1 == elem2._appName) && (kAppDescr1 == elem2._appDescription))"); //####
+                                            }
                                         }
                                     }
                                     else

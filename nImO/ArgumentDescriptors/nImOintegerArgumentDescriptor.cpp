@@ -162,9 +162,12 @@ IntegerArgumentDescriptor::describe
             result += " and a minimum of "s + std::to_string(_minimumValue);
         }
     }
-    else if (_hasMaximumValue)
+    else
     {
-        result += " and a maximum of "s + std::to_string(_maximumValue);
+        if (_hasMaximumValue)
+        {
+            result += " and a maximum of "s + std::to_string(_maximumValue);
+        }
     }
     ODL_OBJEXIT_s(result); //####
     return result;

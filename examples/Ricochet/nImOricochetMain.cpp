@@ -141,7 +141,7 @@ std::cerr << "** Unimplemented **\n";
                     }
                     [turn off the blue LED]
                 }
-                else if it's a 'quit' message
+                else, if it's a 'quit' message
                 {
                     running = false
                     [set the blue LED to 'heartbeat' mode]

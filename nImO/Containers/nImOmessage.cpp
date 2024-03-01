@@ -273,98 +273,107 @@ nImO::Message::getValue
                     _readPosition = savedPosition;
                     ODL_I1("_readPosition <- ", _readPosition); //####
                 }
-                else if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
-                {
-                    // Step to the next byte.
-                    ++_readPosition;
-                    ODL_I1("_readPosition <- ", _readPosition); //####
-                }
                 else
                 {
-                    ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                    result = std::make_shared<Invalid>("Empty Message with incorrect end tag", _readPosition);
-                }
-            }
-            else if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
-            {
-                DataKind    initTag{aByte & DataKind::OtherMessageExpectedTypeMask};
-
-                ODL_X1("initTag <- ", toUType(initTag)); //####
-                aByte = getByte(++_readPosition, atEnd);
-                ODL_I2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
-                ODL_B1("atEnd <- ", atEnd); //####
-                if (atEnd)
-                {
-                    ODL_LOG("(atEnd)"); //####
-                    _readPosition = savedPosition;
-                    ODL_I1("_readPosition <- ", _readPosition); //####
-                }
-                else
-                {
-                    ODL_LOG("! (atEnd)"); //####
-                    DataKind    nextTag{(aByte >> toUType(DataKind::OtherMessageExpectedTypeShift)) & DataKind::OtherMessageExpectedTypeMask};
-
-                    ODL_X1("nextTag <- ", toUType(nextTag)); //####
-                    if (nextTag == initTag)
+                    if (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))
                     {
-                        result = Value::getValueFromMessage(*this, _readPosition, aByte, nullptr);
-                        ODL_P1("result <- ", result.get()); //####
+                        // Step to the next byte.
+                        ++_readPosition;
                         ODL_I1("_readPosition <- ", _readPosition); //####
-                        if (result)
-                        {
-                            if (! result->asFlaw())
-                            {
-                                ODL_LOG("(! result->asFlaw())"); //####
-                                aByte = getByte(_readPosition, atEnd);
-                                ODL_X1("aByte <- ", aByte); //####
-                                ODL_B1("atEnd <- ", atEnd); //####
-                                if (atEnd)
-                                {
-                                    ODL_LOG("(atEnd)"); //####
-                                    _readPosition = savedPosition;
-                                    ODL_I1("_readPosition <- ", _readPosition); //####
-                                    result.reset();
-                                    ODL_P1("result <- ", result.get()); //####
-                                }
-                                else if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
-                                {
-                                    nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
-                                    ODL_X1("nextTag <- ", toUType(nextTag)); //####
-                                    if (nextTag == initTag)
-                                    {
-                                        // Step to the next byte.
-                                        ++_readPosition;
-                                    }
-                                    else
-                                    {
-                                        ODL_LOG("! (nextTag == initTag)"); //####
-                                        result = std::make_shared<Invalid>("Message with mismatched end Value tag", _readPosition);
-                                    }
-                                }
-                                else
-                                {
-                                    ODL_LOG("! (kTermNonEmptyMessageValue == " //####
-                                            "(aByte & kInitTermMessageMask))"); //####
-                                    result = std::make_shared<Invalid>("Message with incorrect end tag", _readPosition);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            result = std::make_shared<Invalid>("Null Value read", _readPosition);
-                        }
                     }
                     else
                     {
-                        ODL_LOG("! (nextTag == initTag)"); //####
-                        result = std::make_shared<Invalid>("Message with mismatched initial Value tag", _readPosition);
+                        ODL_LOG("! (kTermEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                        result = std::make_shared<Invalid>("Empty Message with incorrect end tag", _readPosition);
                     }
                 }
             }
             else
             {
-                ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
-                result = std::make_shared<Invalid>("Message with incorrect start tag", _readPosition);
+                if (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+                {
+                    DataKind    initTag{aByte & DataKind::OtherMessageExpectedTypeMask};
+
+                    ODL_X1("initTag <- ", toUType(initTag)); //####
+                    aByte = getByte(++_readPosition, atEnd);
+                    ODL_I2("aByte <- ", aByte, "_readPosition <- ", _readPosition); //####
+                    ODL_B1("atEnd <- ", atEnd); //####
+                    if (atEnd)
+                    {
+                        ODL_LOG("(atEnd)"); //####
+                        _readPosition = savedPosition;
+                        ODL_I1("_readPosition <- ", _readPosition); //####
+                    }
+                    else
+                    {
+                        ODL_LOG("! (atEnd)"); //####
+                        DataKind    nextTag{(aByte >> toUType(DataKind::OtherMessageExpectedTypeShift)) & DataKind::OtherMessageExpectedTypeMask};
+
+                        ODL_X1("nextTag <- ", toUType(nextTag)); //####
+                        if (nextTag == initTag)
+                        {
+                            result = Value::getValueFromMessage(*this, _readPosition, aByte, nullptr);
+                            ODL_P1("result <- ", result.get()); //####
+                            ODL_I1("_readPosition <- ", _readPosition); //####
+                            if (result)
+                            {
+                                if (! result->asFlaw())
+                                {
+                                    ODL_LOG("(! result->asFlaw())"); //####
+                                    aByte = getByte(_readPosition, atEnd);
+                                    ODL_X1("aByte <- ", aByte); //####
+                                    ODL_B1("atEnd <- ", atEnd); //####
+                                    if (atEnd)
+                                    {
+                                        ODL_LOG("(atEnd)"); //####
+                                        _readPosition = savedPosition;
+                                        ODL_I1("_readPosition <- ", _readPosition); //####
+                                        result.reset();
+                                        ODL_P1("result <- ", result.get()); //####
+                                    }
+                                    else
+                                    {
+                                        if (kTermNonEmptyMessageValue == (aByte & kInitTermMessageMask))
+                                        {
+                                            nextTag = (aByte & DataKind::OtherMessageExpectedTypeMask);
+                                            ODL_X1("nextTag <- ", toUType(nextTag)); //####
+                                            if (nextTag == initTag)
+                                            {
+                                                // Step to the next byte.
+                                                ++_readPosition;
+                                            }
+                                            else
+                                            {
+                                                ODL_LOG("! (nextTag == initTag)"); //####
+                                                result = std::make_shared<Invalid>("Message with mismatched end Value tag", _readPosition);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ODL_LOG("! (kTermNonEmptyMessageValue == " //####
+                                                    "(aByte & kInitTermMessageMask))"); //####
+                                            result = std::make_shared<Invalid>("Message with incorrect end tag", _readPosition);
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                result = std::make_shared<Invalid>("Null Value read", _readPosition);
+                            }
+                        }
+                        else
+                        {
+                            ODL_LOG("! (nextTag == initTag)"); //####
+                            result = std::make_shared<Invalid>("Message with mismatched initial Value tag", _readPosition);
+                        }
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! (kInitNonEmptyMessageValue == (aByte & kInitTermMessageMask))"); //####
+                    result = std::make_shared<Invalid>("Message with incorrect start tag", _readPosition);
+                }
             }
         }
     }

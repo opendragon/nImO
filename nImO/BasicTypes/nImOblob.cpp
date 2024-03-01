@@ -103,47 +103,56 @@ compareBytes
             result = -1; // Left is empty, right is not
         }
     }
-    else if (0 == rightSize)
-    {
-        result = 1; // Right is empty, left is not
-    }
     else
     {
-        size_t firstCount;
-
-        if (leftSize > rightSize)
+        if (0 == rightSize)
         {
-            firstCount = rightSize;
+            result = 1; // Right is empty, left is not
         }
         else
         {
-            firstCount = leftSize;
-        }
-        result = 0;
-        for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
-        {
-            uint8_t leftByte{leftValue[ii]};
-            uint8_t rightByte{rightValue[ii]};
+            size_t firstCount;
 
-            if (leftByte > rightByte)
-            {
-                result = 1; // Left sequence is greater
-            }
-            else if (leftByte < rightByte)
-            {
-                result = -1; // Right sequence is greater
-            }
-        }
-        if (0 == result)
-        {
-            // The shorter sequence is a prefix of the longer sequence
             if (leftSize > rightSize)
             {
-                result = 1; // Left sequence is longer
+                firstCount = rightSize;
             }
-            else if (leftSize < rightSize)
+            else
             {
-                result = -1; // Right sequence is longer
+                firstCount = leftSize;
+            }
+            result = 0;
+            for (size_t ii = 0; (0 == result) && (firstCount > ii); ++ii)
+            {
+                uint8_t leftByte{leftValue[ii]};
+                uint8_t rightByte{rightValue[ii]};
+
+                if (leftByte > rightByte)
+                {
+                    result = 1; // Left sequence is greater
+                }
+                else
+                {
+                    if (leftByte < rightByte)
+                    {
+                        result = -1; // Right sequence is greater
+                    }
+                }
+            }
+            if (0 == result)
+            {
+                // The shorter sequence is a prefix of the longer sequence
+                if (leftSize > rightSize)
+                {
+                    result = 1; // Left sequence is longer
+                }
+                else
+                {
+                    if (leftSize < rightSize)
+                    {
+                        result = -1; // Right sequence is longer
+                    }
+                }
             }
         }
     }

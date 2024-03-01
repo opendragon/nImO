@@ -118,28 +118,34 @@ nImO::ConvertDoubleToPacketOrder
     {
         result = sizeof(double);
     }
-    else if (nullptr == end)
-    {
-        result = 0;
-    }
-    else if ((start + sizeof(double)) > end)
-    {
-        result = 0;
-    }
     else
     {
+        if (nullptr == end)
+        {
+            result = 0;
+        }
+        else
+        {
+            if ((start + sizeof(double)) > end)
+            {
+                result = 0;
+            }
+            else
+            {
 #if (BYTE_ORDER != NIMO_PACKET_ORDER)
-        uint8_t buffer[sizeof(double)];
+                uint8_t buffer[sizeof(double)];
 #endif // BYTE_ORDER != NIMO_PACKET_ORDER
 
 #if (BYTE_ORDER == NIMO_PACKET_ORDER)
-        memcpy(start, &value, sizeof(double));
+                memcpy(start, &value, sizeof(double));
 #else // BYTE_ORDER != NIMO_PACKET_ORDER
-        memcpy(buffer, &value, sizeof(buffer));
-        swapBytes(buffer, sizeof(buffer));
-        memcpy(start, buffer, sizeof(buffer));
+                memcpy(buffer, &value, sizeof(buffer));
+                swapBytes(buffer, sizeof(buffer));
+                memcpy(start, buffer, sizeof(buffer));
 #endif // BYTE_ORDER != NIMO_PACKET_ORDER
-        result = sizeof(double);
+                result = sizeof(double);
+            }
+        }
     }
     return result;
 } /* nImO:ConvertDoubleToPacketOrder */

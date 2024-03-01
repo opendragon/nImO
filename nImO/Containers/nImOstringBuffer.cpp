@@ -339,17 +339,26 @@ nImO::StringBuffer::processCharacters
         {
             hasSpecials = true;
         }
-        else if (kSingleQuote == aByte)
+        else
         {
-            ++numSingleQuotes;
-        }
-        else if (kDoubleQuote == aByte)
-        {
-            ++numDoubleQuotes;
-        }
-        else if (kEscapeChar == aByte)
-        {
-            ++numEscapes;
+            switch (aByte)
+            {
+                case kSingleQuote :
+                    ++numSingleQuotes;
+                    break;
+
+                case kDoubleQuote :
+                    ++numDoubleQuotes;
+                    break;
+
+                case kEscapeChar :
+                    ++numEscapes;
+                    break;
+
+                default :
+                    break;
+
+            }
         }
     }
     if (hasSpecials || (0 < (numDoubleQuotes + numSingleQuotes + numEscapes)))
@@ -381,45 +390,51 @@ nImO::StringBuffer::processCharacters
 
                         inherited::appendBytes(metaBlank, sizeof(metaBlank));
                     }
-                    else if (0x7F == aByte)
-                    {
-                        // As is 0xFF
-                        static const uint8_t    metaDel[]{ '3', '7', '7' };
-
-                        inherited::appendBytes(metaDel, sizeof(metaDel));
-                    }
-                    else if (delimiter == aByte)
-                    {
-                        // Make sure that we don't break if there's a meta-quote of some form!
-                        static const uint8_t    metaDoubleQuote[]{ '2', '4', '2' };
-                        static const uint8_t    metaSingleQuote[]{ '2', '4', '7' };
-
-                        if (kSingleQuote == aByte)
-                        {
-                            inherited::appendBytes(metaSingleQuote, sizeof(metaSingleQuote));
-                        }
-                        else
-                        {
-                            inherited::appendBytes(metaDoubleQuote, sizeof(metaDoubleQuote));
-                        }
-                    }
                     else
                     {
-                        // 'Regular' meta characters
-                        static const uint8_t    metaPrefix[]{ 'M', '-' };
-
-                        inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
-                        if (0x20 > aByte)
+                        if (0x7F == aByte)
                         {
-                            CPtr(char)  controlString{kCanonicalControl[aByte]};
+                            // As is 0xFF
+                            static const uint8_t    metaDel[]{ '3', '7', '7' };
 
-                            appendChar(kEscapeChar);
-                            inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
-                                                   strlen(controlString) * sizeof(*controlString));
+                            inherited::appendBytes(metaDel, sizeof(metaDel));
                         }
                         else
                         {
-                            inherited::appendBytes(&aByte, sizeof(aByte));
+                            if (delimiter == aByte)
+                            {
+                                // Make sure that we don't break if there's a meta-quote of some form!
+                                static const uint8_t    metaDoubleQuote[]{ '2', '4', '2' };
+                                static const uint8_t    metaSingleQuote[]{ '2', '4', '7' };
+
+                                if (kSingleQuote == aByte)
+                                {
+                                    inherited::appendBytes(metaSingleQuote, sizeof(metaSingleQuote));
+                                }
+                                else
+                                {
+                                    inherited::appendBytes(metaDoubleQuote, sizeof(metaDoubleQuote));
+                                }
+                            }
+                            else
+                            {
+                                // 'Regular' meta characters
+                                static const uint8_t    metaPrefix[]{ 'M', '-' };
+
+                                inherited::appendBytes(metaPrefix, sizeof(metaPrefix));
+                                if (0x20 > aByte)
+                                {
+                                    CPtr(char)  controlString{kCanonicalControl[aByte]};
+
+                                    appendChar(kEscapeChar);
+                                    inherited::appendBytes(ReinterpretCast(CPtr(uint8_t), controlString),
+                                                           strlen(controlString) * sizeof(*controlString));
+                                }
+                                else
+                                {
+                                    inherited::appendBytes(&aByte, sizeof(aByte));
+                                }
+                            }
                         }
                     }
                 }

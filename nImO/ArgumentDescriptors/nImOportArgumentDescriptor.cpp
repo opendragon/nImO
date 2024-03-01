@@ -201,9 +201,12 @@ PortArgumentDescriptor::parseArgString
         {
             isSystemPort = true;
         }
-        else if ("r" != portClass)
+        else
         {
-            okSoFar = false;
+            if ("r" != portClass)
+            {
+                okSoFar = false;
+            }
         }
         if (okSoFar && (! defaultString.empty()))
         {

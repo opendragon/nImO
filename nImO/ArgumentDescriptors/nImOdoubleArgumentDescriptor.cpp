@@ -162,9 +162,12 @@ DoubleArgumentDescriptor::describe
             result += " and a minimum of "s + ConvertDoubleToString(_minimumValue);
         }
     }
-    else if (_hasMaximumValue)
+    else
     {
-        result += " and a maximum of "s + ConvertDoubleToString(_maximumValue);
+        if (_hasMaximumValue)
+        {
+            result += " and a maximum of "s + ConvertDoubleToString(_maximumValue);
+        }
     }
     ODL_OBJEXIT_s(result); //####
     return result;

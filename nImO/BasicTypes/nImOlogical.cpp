@@ -545,10 +545,13 @@ nImO::Logical::readFromStringBuffer
         {
             candidate = &kCanonicalFalse;
         }
-        else if (('t' == aChar) || ('T' == aChar))
+        else
         {
-            candidate = &kCanonicalTrue;
-            candidateValue = true;
+            if (('t' == aChar) || ('T' == aChar))
+            {
+                candidate = &kCanonicalTrue;
+                candidateValue = true;
+            }
         }
     }
     if (nullptr != candidate)
@@ -563,24 +566,27 @@ nImO::Logical::readFromStringBuffer
             {
                 done = valid = true; // the character seen is a valid terminator
             }
-            else if ((*candidate)[ii] == aChar)
-            {
-                ++localIndex;
-                if (len == ++ii)
-                {
-                    // the last character of the reference value was seen
-                    valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
-                    if (atEnd)
-                    {
-                        valid = true;
-                    }
-                    done = true;
-                }
-            }
             else
             {
-                // valid so far
-                done = true;
+                if ((*candidate)[ii] == aChar)
+                {
+                    ++localIndex;
+                    if (len == ++ii)
+                    {
+                        // the last character of the reference value was seen
+                        valid = isLegalTerminator(inBuffer.getChar(localIndex, atEnd));
+                        if (atEnd)
+                        {
+                            valid = true;
+                        }
+                        done = true;
+                    }
+                }
+                else
+                {
+                    // valid so far
+                    done = true;
+                }
             }
         }
         if (valid)

@@ -104,9 +104,12 @@ constructNodeNameFromOptions
             {
                 nodeName = optionValue;
             }
-            else if ('t' == optionChar)
+            else
             {
-                tag = optionValue;
+                if ('t' == optionChar)
+                {
+                    tag = optionValue;
+                }
             }
         }
     }

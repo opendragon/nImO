@@ -234,18 +234,21 @@ nImO::InChannel::setUp
         _context.report("local port = "s + std::to_string(_connection._port) + "."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
     }
-    else if (TransportType::kTCP == _connection._transport)
+    else
     {
-        _tcpAcceptor = std::make_shared<BTCP::acceptor>(*_context.getService());
-        _tcpAcceptor->open(BTCP::v4());
-        _tcpAcceptor->listen();
-        _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
-        _connection._port = _tcpAcceptor->local_endpoint().port();
+        if (TransportType::kTCP == _connection._transport)
+        {
+            _tcpAcceptor = std::make_shared<BTCP::acceptor>(*_context.getService());
+            _tcpAcceptor->open(BTCP::v4());
+            _tcpAcceptor->listen();
+            _connection._address = ntohl(ContextWithMDNS::gServiceAddressIpv4.sin_addr.s_addr);
+            _connection._port = _tcpAcceptor->local_endpoint().port();
 #if defined(nImO_ChattyTcpUdpLogging)
-        _context.report("acceptor port = "s + std::to_string(_connection._port) + "."s);
+            _context.report("acceptor port = "s + std::to_string(_connection._port) + "."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-        _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
-        okSoFar = true;
+            _tcpSocket = std::make_shared<BTCP::socket>(*_context.getService());
+            okSoFar = true;
+        }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -272,36 +275,39 @@ nImO::InChannel::start
         receiveUdpMessages();
         okSoFar = true;
     }
-    else if (TransportType::kTCP == _connection._transport)
+    else
     {
-        // Start the acceptor listening.
-        _unfiltered = true;
-        _tcpAcceptor->async_accept(*_tcpSocket,
-                                   [this]
-                                   (const BSErr ec)
-                                   {
-                                        if (ec)
-                                        {
-                                            if (BAErr::operation_aborted == ec)
+        if (TransportType::kTCP == _connection._transport)
+        {
+            // Start the acceptor listening.
+            _unfiltered = true;
+            _tcpAcceptor->async_accept(*_tcpSocket,
+                                       [this]
+                                       (const BSErr ec)
+                                       {
+                                            if (ec)
                                             {
+                                                if (BAErr::operation_aborted == ec)
+                                                {
 #if defined(nImO_ChattyTcpUdpLogging)
-                                                _context.report("async_accept() operation cancelled."s);
+                                                    _context.report("async_accept() operation cancelled."s);
 #endif /* defined(nImO_ChattyTcpUdpLogging) */
-                                                ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                    ODL_LOG("(BAErr::operation_aborted == ec)"); //####
+                                                }
+                                                else
+                                                {
+                                                    _context.report("async_accept() failed -> "s + ec.message() + "."s);
+                                                }
                                             }
                                             else
                                             {
-                                                _context.report("async_accept() failed -> "s + ec.message() + "."s);
+                                                _tcpConnected = true;
+                                                ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+                                                receiveTcpMessages();
                                             }
-                                        }
-                                        else
-                                        {
-                                            _tcpConnected = true;
-                                            ODL_B1("_tcpConnected <- ", _tcpConnected); //####
-                                            receiveTcpMessages();
-                                        }
-                                   });
-        okSoFar = true;
+                                       });
+            okSoFar = true;
+        }
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -325,23 +331,26 @@ nImO::InChannel::stop
         ODL_B1("_udpConnected <- ", _udpConnected); //####
         okSoFar = true;
     }
-    else if (TransportType::kTCP == _connection._transport)
-    {
-        if (_tcpSocket->is_open())
-        {
-            _tcpSocket->cancel();
-        }
-        if (_tcpAcceptor->is_open())
-        {
-            _tcpAcceptor->close();
-        }
-        _tcpConnected = false;
-        ODL_B1("_tcpConnected <- ", _tcpConnected); //####
-        okSoFar = true;
-    }
     else
     {
-        okSoFar = true;
+        if (TransportType::kTCP == _connection._transport)
+        {
+            if (_tcpSocket->is_open())
+            {
+                _tcpSocket->cancel();
+            }
+            if (_tcpAcceptor->is_open())
+            {
+                _tcpAcceptor->close();
+            }
+            _tcpConnected = false;
+            ODL_B1("_tcpConnected <- ", _tcpConnected); //####
+            okSoFar = true;
+        }
+        else
+        {
+            okSoFar = true;
+        }
     }
     _connection._transport = TransportType::kUnknown;
     ODL_OBJEXIT_B(okSoFar); //####

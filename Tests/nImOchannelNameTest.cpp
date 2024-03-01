@@ -557,9 +557,12 @@ doTestGeneratePath
                     result = 0;
                 }
             }
-            else if (! expected)
+            else
             {
-                result = 0;
+                if (! expected)
+                {
+                    result = 0;
+                }
             }
         }
     }

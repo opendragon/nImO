@@ -183,18 +183,24 @@ getIPv4Bytes
             {
                 okSoFar = false;
             }
-            else if ((kEndOfString == *endPtr) && (ii == (mm - 1)))
-            {
-                asBytes[ii] = StaticCast(uint8_t, value);
-            }
-            else if ((kAddressSeparator == *endPtr) && (ii < (mm - 1)))
-            {
-                asBytes[ii] = StaticCast(uint8_t, value);
-                inString = endPtr + 1;
-            }
             else
             {
-                okSoFar = false;
+                if ((kEndOfString == *endPtr) && (ii == (mm - 1)))
+                {
+                    asBytes[ii] = StaticCast(uint8_t, value);
+                }
+                else
+                {
+                    if ((kAddressSeparator == *endPtr) && (ii < (mm - 1)))
+                    {
+                        asBytes[ii] = StaticCast(uint8_t, value);
+                        inString = endPtr + 1;
+                    }
+                    else
+                    {
+                        okSoFar = false;
+                    }
+                }
             }
         }
     }

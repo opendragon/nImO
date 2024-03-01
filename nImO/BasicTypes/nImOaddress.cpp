@@ -578,37 +578,43 @@ nImO::Address::readFromStringBuffer
                     ODL_LOG("(atEnd)"); //####
                     okSoFar = false;
                 }
-                else if (isdigit(aChar))
-                {
-                    digitSeen = true;
-                    if (0 < collector)
-                    {
-                        collector = (collector * 10) + (aChar - '0');
-                    }
-                    else
-                    {
-                        collector = (aChar - '0');
-                    }
-                    ODL_X1("collector = ", collector); //####
-                    ++localIndex;
-                    ODL_I1("localIndex = ", localIndex); //####
-                }
-                else if (kAddressSeparator == aChar)
-                {
-                    if ((! digitSeen) || (255 < collector))
-                    {
-                        okSoFar = false;
-                    }
-                    else
-                    {
-                        ++localIndex;
-                        ODL_I1("localIndex = ", localIndex); //####
-                        break;
-                    }
-                }
                 else
                 {
-                    okSoFar = false;
+                    if (isdigit(aChar))
+                    {
+                        digitSeen = true;
+                        if (0 < collector)
+                        {
+                            collector = (collector * 10) + (aChar - '0');
+                        }
+                        else
+                        {
+                            collector = (aChar - '0');
+                        }
+                        ODL_X1("collector = ", collector); //####
+                        ++localIndex;
+                        ODL_I1("localIndex = ", localIndex); //####
+                    }
+                    else
+                    {
+                        if (kAddressSeparator == aChar)
+                        {
+                            if ((! digitSeen) || (255 < collector))
+                            {
+                                okSoFar = false;
+                            }
+                            else
+                            {
+                                ++localIndex;
+                                ODL_I1("localIndex = ", localIndex); //####
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                        }
+                    }
                 }
             }
             if (okSoFar)
@@ -640,24 +646,27 @@ nImO::Address::readFromStringBuffer
                     okSoFar = false;
                 }
             }
-            else if (isdigit(aChar))
+            else
             {
-                digitSeen = true;
-                if (0 < collector)
+                if (isdigit(aChar))
                 {
-                    collector = (collector * 10) + (aChar - '0');
+                    digitSeen = true;
+                    if (0 < collector)
+                    {
+                        collector = (collector * 10) + (aChar - '0');
+                    }
+                    else
+                    {
+                        collector = (aChar - '0');
+                    }
+                    ODL_X1("collector = ", collector); //####
+                    ++localIndex;
+                    ODL_I1("localIndex = ", localIndex); //####
                 }
                 else
                 {
-                    collector = (aChar - '0');
+                    okSoFar = false;
                 }
-                ODL_X1("collector = ", collector); //####
-                ++localIndex;
-                ODL_I1("localIndex = ", localIndex); //####
-            }
-            else
-            {
-                okSoFar = false;
             }
         }
         if (okSoFar)

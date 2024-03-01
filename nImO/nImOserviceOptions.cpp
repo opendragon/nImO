@@ -323,135 +323,150 @@ nImO::ProcessServiceOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
-             (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
-    {
-        Option_::printUsage(std::cout, usage, kHelpLineLength);
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionARGS)])
-    {
-        for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
-        {
-            auto    anArg{argumentDescriptions[ii]};
-
-            if (nullptr != anArg)
-            {
-                std::cout << anArg->toString().c_str() << "\n";
-            }
-        }
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
-    {
-        std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " <<
-                    copyrightHolder << ".\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
-    {
-        // Note that we don't report the 'd', 'h' and 'v' options, as they are not involved in
-        // determining what choices to offer when launching a service.
-        if (0 == (skipOptions & kSkipArgsOption))
-        {
-            std::cout << "a";
-        }
-        if (0 == (skipOptions & kSkipBaseOption))
-        {
-            std::cout << "b";
-        }
-        if (0 == (skipOptions & kSkipConfigFileOption))
-        {
-            std::cout << "c";
-        }
-        if (0 == (skipOptions & kSkipExpandedOption))
-        {
-            std::cout << "e";
-        }
-        if (0 == (skipOptions & kSkipInTypeOption))
-        {
-            std::cout << "i";
-        }
-        if (0 == (skipOptions & kSkipLoggingOption))
-        {
-            std::cout << "l";
-        }
-        if (0 == (skipOptions & kSkipNodeOption))
-        {
-            std::cout << "n";
-        }
-        if (0 == (skipOptions & kSkipOutTypeOption))
-        {
-            std::cout << "o";
-        }
-        if (0 == (skipOptions & kSkipTagOption))
-        {
-            std::cout << "t";
-        }
-        if (0 == (skipOptions & kSkipWaitOption))
-        {
-            std::cout << "w";
-        }
-        std::cout << "\t" << serviceDescription << "\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (ProcessArguments(argumentDescriptions, parse, badArgs))
-    {
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
-        {
-            optionValues._expanded = true;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
-        {
-            optionValues._logging = true;
-        }
-        if ((0 == (skipOptions & kSkipBaseOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionBASE)]))
-        {
-            optionValues._base = options[StaticCast(size_t, OptionIndex::kOptionBASE)].arg;
-        }
-        Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
-
-        if ((0 == (skipOptions & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
-        {
-            optionValues._configFilePath = configOption->arg;
-        }
-        if ((0 == (skipOptions & kSkipInTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]))
-        {
-            optionValues._inType = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)].arg;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNODE)])
-        {
-            optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
-        }
-        if ((0 == (skipOptions & kSkipOutTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]))
-        {
-            optionValues._outType = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)].arg;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
-        {
-            optionValues._tag = options[StaticCast(size_t, OptionIndex::kOptionTAG)].arg;
-        }
-        if ((0 == (skipOptions & kSkipWaitOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionWAIT)]))
-        {
-            optionValues._waitForConnections = true;
-        }
-        if (nullptr != arguments)
-        {
-            for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
-            {
-                arguments->push_back(parse.nonOption(ii));
-            }
-        }
-    }
     else
     {
-        std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
+        if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
+            (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
+        {
+            Option_::printUsage(std::cout, usage, kHelpLineLength);
+            keepGoing = false;
+            ODL_B1("keepGoing <- ", keepGoing); //####
+        }
+        else
+        {
+            if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionARGS)])
+            {
+                if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
+                {
+                    if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionDESCRIBE)])
+                    {
+                        if (ProcessArguments(argumentDescriptions, parse, badArgs))
+                        {
+                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
+                            {
+                                optionValues._expanded = true;
+                            }
+                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
+                            {
+                                optionValues._logging = true;
+                            }
+                            if ((0 == (skipOptions & kSkipBaseOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionBASE)]))
+                            {
+                                optionValues._base = options[StaticCast(size_t, OptionIndex::kOptionBASE)].arg;
+                            }
+                            Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
+
+                            if ((0 == (skipOptions & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
+                            {
+                                optionValues._configFilePath = configOption->arg;
+                            }
+                            if ((0 == (skipOptions & kSkipInTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]))
+                            {
+                                optionValues._inType = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)].arg;
+                            }
+                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNODE)])
+                            {
+                                optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
+                            }
+                            if ((0 == (skipOptions & kSkipOutTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]))
+                            {
+                                optionValues._outType = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)].arg;
+                            }
+                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
+                            {
+                                optionValues._tag = options[StaticCast(size_t, OptionIndex::kOptionTAG)].arg;
+                            }
+                            if ((0 == (skipOptions & kSkipWaitOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionWAIT)]))
+                            {
+                                optionValues._waitForConnections = true;
+                            }
+                            if (nullptr != arguments)
+                            {
+                                for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
+                                {
+                                    arguments->push_back(parse.nonOption(ii));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
+                            keepGoing = false;
+                            ODL_B1("keepGoing <- ", keepGoing); //####
+                        }
+                    }
+                    else
+                    {
+                        // Note that we don't report the 'd', 'h' and 'v' options, as they are not involved in
+                        // determining what choices to offer when launching a service.
+                        if (0 == (skipOptions & kSkipArgsOption))
+                        {
+                            std::cout << "a";
+                        }
+                        if (0 == (skipOptions & kSkipBaseOption))
+                        {
+                            std::cout << "b";
+                        }
+                        if (0 == (skipOptions & kSkipConfigFileOption))
+                        {
+                            std::cout << "c";
+                        }
+                        if (0 == (skipOptions & kSkipExpandedOption))
+                        {
+                            std::cout << "e";
+                        }
+                        if (0 == (skipOptions & kSkipInTypeOption))
+                        {
+                            std::cout << "i";
+                        }
+                        if (0 == (skipOptions & kSkipLoggingOption))
+                        {
+                            std::cout << "l";
+                        }
+                        if (0 == (skipOptions & kSkipNodeOption))
+                        {
+                            std::cout << "n";
+                        }
+                        if (0 == (skipOptions & kSkipOutTypeOption))
+                        {
+                            std::cout << "o";
+                        }
+                        if (0 == (skipOptions & kSkipTagOption))
+                        {
+                            std::cout << "t";
+                        }
+                        if (0 == (skipOptions & kSkipWaitOption))
+                        {
+                            std::cout << "w";
+                        }
+                        std::cout << "\t" << serviceDescription << "\n";
+                        keepGoing = false;
+                        ODL_B1("keepGoing <- ", keepGoing); //####
+                    }
+                }
+                else
+                {
+                    std::cout << "Version " << SanitizeString(nImO_VERSION_, true) << ": Copyright (c) " << year << " by " <<
+                                copyrightHolder << ".\n";
+                    keepGoing = false;
+                    ODL_B1("keepGoing <- ", keepGoing); //####
+                }
+            }
+            else
+            {
+                for (size_t ii = 0, mm = argumentDescriptions.size(); mm > ii; ++ii)
+                {
+                    auto    anArg{argumentDescriptions[ii]};
+
+                    if (nullptr != anArg)
+                    {
+                        std::cout << anArg->toString().c_str() << "\n";
+                    }
+                }
+                keepGoing = false;
+                ODL_B1("keepGoing <- ", keepGoing); //####
+            }
+        }
     }
     free(ConstCast(Ptr(char), firstDescriptor.help));
     delete[] usage;

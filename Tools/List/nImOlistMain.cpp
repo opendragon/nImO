@@ -469,9 +469,12 @@ listChannels
                                     modes += "+"s + nImO::kProtocolUdpName;
                                 }
                             }
-                            else if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))
+                            else
                             {
-                                modes = nImO::kProtocolUdpName;
+                                if (nImO::TransportType::kUDP == (theInfo._modes & nImO::TransportType::kUDP))
+                                {
+                                    modes = nImO::kProtocolUdpName;
+                                }
                             }
                             break;
                             
@@ -726,9 +729,12 @@ listConnections
                                     mode += '+' + nImO::kProtocolUdpName;
                                 }
                             }
-                            else if (nImO::TransportType::kUDP == (theInfo._mode & nImO::TransportType::kUDP))
+                            else
                             {
-                                mode = nImO::kProtocolUdpName;
+                                if (nImO::TransportType::kUDP == (theInfo._mode & nImO::TransportType::kUDP))
+                                {
+                                    mode = nImO::kProtocolUdpName;
+                                }
                             }
                             break;
 

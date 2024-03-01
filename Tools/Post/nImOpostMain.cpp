@@ -139,19 +139,25 @@ main
                         exitCode = 1;
                     }
                 }
-                else if (0 < stuffToSend.size())
+                else
                 {
-                    if (! ourContext.report(stuffToSend[0]))
+                    if (0 < stuffToSend.size())
                     {
-                        exitCode = 1;
+                        if (! ourContext.report(stuffToSend[0]))
+                        {
+                            exitCode = 1;
+                        }
                     }
                 }
             }
-            else if (! header.empty())
+            else
             {
-                if (! ourContext.report(header))
+                if (! header.empty())
                 {
-                    exitCode = 1;
+                    if (! ourContext.report(header))
+                    {
+                        exitCode = 1;
+                    }
                 }
             }
         }

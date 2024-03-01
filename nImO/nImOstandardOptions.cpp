@@ -321,74 +321,86 @@ nImO::ProcessStandardOptions
         keepGoing = false;
         ODL_B1("keepGoing <- ", keepGoing); //####
     }
-    else if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
-             (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
+    else
     {
-        Option_::printUsage(std::cout, usage, kHelpLineLength);
-        if (nullptr != helper)
+        if ((nullptr != options[StaticCast(size_t, OptionIndex::kOptionHELP)]) ||
+            (nullptr != options[StaticCast(size_t, OptionIndex::kOptionUNKNOWN)]))
         {
-            helper(std::cout);
-        }
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
-    {
-        auto    nImOversionString{SanitizeString(nImO_VERSION_, true)};
-
-        std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
-                    copyrightHolder << ".\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
-    }
-    else if (ProcessArguments(argumentDescriptions, parse, badArgs))
-    {
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionJSON)])
-        {
-            optionValues._flavour = OutputFlavour::kFlavourJSON;
-        }
-        else if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
-        {
-            optionValues._flavour = OutputFlavour::kFlavourTabs;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
-        {
-            optionValues._expanded = true;
-        }
-        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
-        {
-            optionValues._logging = true;
-        }
-        Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
-
-        if ((0 == (kSkipConfigFileOption & optionsToIgnore)) && (nullptr != configOption) && (nullptr != configOption->arg))
-        {
-            optionValues._configFilePath = configOption->arg;
+            Option_::printUsage(std::cout, usage, kHelpLineLength);
+            if (nullptr != helper)
+            {
+                helper(std::cout);
+            }
+            keepGoing = false;
+            ODL_B1("keepGoing <- ", keepGoing); //####
         }
         else
         {
-            optionValues._configFilePath = kDefaultConfigFilePath;
-        }
-        Ptr(Option_::Option)    machineOption{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]};
-
-        if ((0 == (kSkipMachineOption & optionsToIgnore)) && (nullptr != machineOption) && (nullptr != machineOption->arg))
-        {
-            optionValues._machine = machineOption->arg;
-        }
-        if (nullptr != arguments)
-        {
-            arguments->clear();
-            for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
+            if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionVERSION)])
             {
-                arguments->emplace_back(parse.nonOption(ii));
+                if (ProcessArguments(argumentDescriptions, parse, badArgs))
+                {
+                    if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionJSON)])
+                    {
+                        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
+                        {
+                            optionValues._flavour = OutputFlavour::kFlavourTabs;
+                        }
+                    }
+                    else
+                    {
+                        optionValues._flavour = OutputFlavour::kFlavourJSON;
+                    }
+                    if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
+                    {
+                        optionValues._expanded = true;
+                    }
+                    if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
+                    {
+                        optionValues._logging = true;
+                    }
+                    Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
+
+                    if ((0 == (kSkipConfigFileOption & optionsToIgnore)) && (nullptr != configOption) && (nullptr != configOption->arg))
+                    {
+                        optionValues._configFilePath = configOption->arg;
+                    }
+                    else
+                    {
+                        optionValues._configFilePath = kDefaultConfigFilePath;
+                    }
+                    Ptr(Option_::Option)    machineOption{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]};
+
+                    if ((0 == (kSkipMachineOption & optionsToIgnore)) && (nullptr != machineOption) && (nullptr != machineOption->arg))
+                    {
+                        optionValues._machine = machineOption->arg;
+                    }
+                    if (nullptr != arguments)
+                    {
+                        arguments->clear();
+                        for (int ii = 0; ii < parse.nonOptionsCount(); ++ii)
+                        {
+                            arguments->emplace_back(parse.nonOption(ii));
+                        }
+                    }
+                }
+                else
+                {
+                    std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
+                    keepGoing = false;
+                    ODL_B1("keepGoing <- ", keepGoing); //####
+                }
+            }
+            else
+            {
+                auto    nImOversionString{SanitizeString(nImO_VERSION_, true)};
+
+                std::cout << "Version " << nImOversionString << ": Copyright (c) " << year << " by " <<
+                            copyrightHolder << ".\n";
+                keepGoing = false;
+                ODL_B1("keepGoing <- ", keepGoing); //####
             }
         }
-    }
-    else
-    {
-        std::cout << "One or more invalid or missing arguments (" << badArgs << ").\n";
-        keepGoing = false;
-        ODL_B1("keepGoing <- ", keepGoing); //####
     }
     ODL_EXIT_B(keepGoing); //####
     return keepGoing;

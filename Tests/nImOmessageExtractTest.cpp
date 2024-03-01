@@ -4316,24 +4316,27 @@ doTestExtractMessageWithArrayWithRangeOfIntegers
                 {
                     auto    asFlaw{extractedValue->asFlaw()};
 
-                    if (nullptr != asFlaw)
+                    if (nullptr == asFlaw)
                     {
-                        ODL_LOG(asFlaw->getDescription().c_str()); //####
-                    }
-                    else if (stuff->readAtEnd())
-                    {
-                        if (extractedValue->deeplyEqualTo(*arrayWithIntegers))
+                        if (stuff->readAtEnd())
                         {
-                            result = 0;
+                            if (extractedValue->deeplyEqualTo(*arrayWithIntegers))
+                            {
+                                result = 0;
+                            }
+                            else
+                            {
+                                ODL_LOG("! (extractedValue->deeplyEqualTo(arrayWithIntegers))"); //####
+                            }
                         }
                         else
                         {
-                            ODL_LOG("! (extractedValue->deeplyEqualTo(arrayWithIntegers))"); //####
+                            ODL_LOG("! (stuff->readAtEnd())"); //####
                         }
                     }
                     else
                     {
-                        ODL_LOG("! (stuff->readAtEnd())"); //####
+                        ODL_LOG(asFlaw->getDescription().c_str()); //####
                     }
                 }
                 else

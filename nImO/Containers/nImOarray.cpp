@@ -713,23 +713,26 @@ nImO::Array::readFromStringBuffer
                 ODL_LOG("(atEnd)"); //####
                 done = true;
             }
-            else if (kEndArrayChar == aChar)
-            {
-                done = valid = true;
-            }
             else
             {
-                auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
-
-                ODL_I1("localIndex <- ", localIndex); //####
-                if (element)
+                if (kEndArrayChar == aChar)
                 {
-                    result->addValue(element);
+                    done = valid = true;
                 }
                 else
                 {
-                    ODL_LOG("! (element)"); //####
-                    done = true;
+                    auto    element{Value::readFromStringBuffer(inBuffer, localIndex)};
+
+                    ODL_I1("localIndex <- ", localIndex); //####
+                    if (element)
+                    {
+                        result->addValue(element);
+                    }
+                    else
+                    {
+                        ODL_LOG("! (element)"); //####
+                        done = true;
+                    }
                 }
             }
         }

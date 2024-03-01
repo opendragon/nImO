@@ -606,13 +606,16 @@ nImO::String::readFromStringBuffer
                             }
                             done = true; // possibly ready to use
                         }
-                        else if (kEscapeChar == aChar)
-                        {
-                            state = ScanState::SawEscape;
-                        }
                         else
                         {
-                            holding.appendChar(aChar);
+                            if (kEscapeChar == aChar)
+                            {
+                                state = ScanState::SawEscape;
+                            }
+                            else
+                            {
+                                holding.appendChar(aChar);
+                            }
                         }
                         break;
 

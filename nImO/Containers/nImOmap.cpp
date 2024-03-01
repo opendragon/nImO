@@ -609,17 +609,20 @@ nImO::Map::greaterThan
     {
         result = false;
     }
-    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
-    {
-        result.clear();
-    }
     else
     {
-        for (auto & walker : *this)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            if (walker.first)
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
             {
-                result &= walker.first->greaterThan(other);
+                if (walker.first)
+                {
+                    result &= walker.first->greaterThan(other);
+                }
             }
         }
     }
@@ -670,17 +673,20 @@ nImO::Map::lessThan
     {
         result = false;
     }
-    else if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
-    {
-        result.clear();
-    }
     else
     {
-        for (auto & walker : *this)
+        if ((Enumerable::Unknown == _keyKind) || (other.enumerationType() != _keyKind))
         {
-            if (walker.first)
+            result.clear();
+        }
+        else
+        {
+            for (auto & walker : *this)
             {
-                result &= walker.first->lessThan(other);
+                if (walker.first)
+                {
+                    result &= walker.first->lessThan(other);
+                }
             }
         }
     }
@@ -910,71 +916,83 @@ nImO::Map::readFromStringBuffer
                 ODL_LOG("(atEnd)"); //####
                 done = true;
             }
-            else if (kEndMapChar == aChar)
-            {
-                done = valid = true;
-            }
             else
             {
-                auto    keyValue{Value::readFromStringBuffer(inBuffer, localIndex)};
-
-                ODL_I1("localIndex <- ", localIndex); //####
-                if (keyValue)
+                if (kEndMapChar == aChar)
                 {
-                    auto    elementType{keyValue->enumerationType()};
-
-                    if ((Enumerable::Unknown == elementType) || (Enumerable::NotEnumerable == elementType))
-                    {
-                        ODL_LOG("((Enumerable::Unknown == elementType) || " //####
-                                "(Enumerable::NotEnumerable == elementType))"); //####
-                        keyValue.reset();
-                        done = true;
-                    }
-                    else if (0 < result->size())
-                    {
-                        if (result->_keyKind != elementType)
-                        {
-                            ODL_LOG("(result->_keyKind != elementType)"); //####
-                            keyValue.reset();
-                            done = true;
-                        }
-                    }
+                    done = valid = true;
                 }
                 else
                 {
-                    ODL_LOG("! (keyValue)"); //####
-                    done = true;
-                }
-                if (keyValue)
-                {
-                    inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
-                    ODL_I1("localIndex = ", localIndex); //####
-                    ODL_C1("aChar = ", aChar); //####
-                    ODL_B1("atEnd = ", atEnd); //####
-                    // Check for the closing bracket
-                    if (atEnd)
-                    {
-                        ODL_LOG("(atEnd)"); //####
-                        done = true;
-                    }
-                    else if (kEndMapChar == aChar)
-                    {
-                        ODL_LOG("(kEndMapChar == aChar)"); //####
-                        done = true;
-                    }
-                    else if (kKeyValueSeparator == aChar)
-                    {
-                        ++localIndex;
-                        auto    assocValue{Value::readFromStringBuffer(inBuffer, localIndex)};
+                    auto    keyValue{Value::readFromStringBuffer(inBuffer, localIndex)};
 
-                        if (assocValue)
+                    ODL_I1("localIndex <- ", localIndex); //####
+                    if (keyValue)
+                    {
+                        auto    elementType{keyValue->enumerationType()};
+
+                        if ((Enumerable::Unknown == elementType) || (Enumerable::NotEnumerable == elementType))
                         {
-                            result->addValue(keyValue, assocValue);
+                            ODL_LOG("((Enumerable::Unknown == elementType) || " //####
+                                    "(Enumerable::NotEnumerable == elementType))"); //####
+                            keyValue.reset();
+                            done = true;
                         }
                         else
                         {
-                            ODL_LOG("! (assocValue)"); //####
+                            if (0 < result->size())
+                            {
+                                if (result->_keyKind != elementType)
+                                {
+                                    ODL_LOG("(result->_keyKind != elementType)"); //####
+                                    keyValue.reset();
+                                    done = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ODL_LOG("! (keyValue)"); //####
+                        done = true;
+                    }
+                    if (keyValue)
+                    {
+                        inBuffer.skipOverWhiteSpace(localIndex, aChar, atEnd);
+                        ODL_I1("localIndex = ", localIndex); //####
+                        ODL_C1("aChar = ", aChar); //####
+                        ODL_B1("atEnd = ", atEnd); //####
+                        // Check for the closing bracket
+                        if (atEnd)
+                        {
+                            ODL_LOG("(atEnd)"); //####
                             done = true;
+                        }
+                        else
+                        {
+                            if (kEndMapChar == aChar)
+                            {
+                                ODL_LOG("(kEndMapChar == aChar)"); //####
+                                done = true;
+                            }
+                            else
+                            {
+                                if (kKeyValueSeparator == aChar)
+                                {
+                                    ++localIndex;
+                                    auto    assocValue{Value::readFromStringBuffer(inBuffer, localIndex)};
+
+                                    if (assocValue)
+                                    {
+                                        result->addValue(keyValue, assocValue);
+                                    }
+                                    else
+                                    {
+                                        ODL_LOG("! (assocValue)"); //####
+                                        done = true;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

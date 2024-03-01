@@ -148,7 +148,7 @@ std::cerr << "** Unimplemented **\n";
             //             send a 'fire' message with the vector of 'next' machines on the specified port number
             //         }
             //     }
-            //     else if it's a 'q':
+            //     else, if it's a 'q':
             //     {
             //         send a 'quit' message to all the cluster machines on the specified port number
             //         running = false

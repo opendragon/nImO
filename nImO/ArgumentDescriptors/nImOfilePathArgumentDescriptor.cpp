@@ -124,18 +124,21 @@ checkFilePath
 #endif // not MAC_OR_LINUX_OR_BSD_
         }
     }
-    else if (0 < strlen(thePath))
-    {
-        // The file must exist and be readable.
-#if MAC_OR_LINUX_OR_BSD_
-        okSoFar = (0 == access(thePath, R_OK));
-#else // not MAC_OR_LINUX_OR_BSD_
-        okSoFar = (0 == _access(thePath, 4));
-#endif // not MAC_OR_LINUX_OR_BSD_
-    }
     else
     {
-        okSoFar = emptyIsOK;
+        if (0 < strlen(thePath))
+        {
+            // The file must exist and be readable.
+#if MAC_OR_LINUX_OR_BSD_
+            okSoFar = (0 == access(thePath, R_OK));
+#else // not MAC_OR_LINUX_OR_BSD_
+            okSoFar = (0 == _access(thePath, 4));
+#endif // not MAC_OR_LINUX_OR_BSD_
+        }
+        else
+        {
+            okSoFar = emptyIsOK;
+        }
     }
     ODL_EXIT_B(okSoFar); //####
     return okSoFar;
@@ -330,9 +333,12 @@ FilePathArgumentDescriptor::parseArgString
         {
             forOutput = true;
         }
-        else if ("i" != direction)
+        else
         {
-            okSoFar = false;
+            if ("i" != direction)
+            {
+                okSoFar = false;
+            }
         }
         if (okSoFar)
         {
@@ -340,9 +346,12 @@ FilePathArgumentDescriptor::parseArgString
             {
                 usesRandom = true;
             }
-            else if ("0" != randomFlag)
+            else
             {
-                okSoFar = false;
+                if ("0" != randomFlag)
+                {
+                    okSoFar = false;
+                }
             }
         }
         if (okSoFar)

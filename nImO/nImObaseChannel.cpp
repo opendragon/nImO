@@ -116,13 +116,16 @@ nImO::BaseChannel::isConnected
     {
         result = _udpConnected;
     }
-    else if (TransportType::kTCP == _connection._transport)
-    {
-        result = _tcpConnected;
-    }
     else
     {
-        result = false;
+        if (TransportType::kTCP == _connection._transport)
+        {
+            result = _tcpConnected;
+        }
+        else
+        {
+            result = false;
+        }
     }
     ODL_OBJEXIT_B(result); //####
     return result;

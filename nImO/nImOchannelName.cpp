@@ -310,13 +310,19 @@ nImO::ChannelName::transportFromName
     {
         protocol = TransportType::kAny;
     }
-    else if (nameToCheck == transportToName(TransportType::kUDP))
+    else
     {
-        protocol = TransportType::kUDP;
-    }
-    else if (nameToCheck == transportToName(TransportType::kTCP))
-    {
-        protocol = TransportType::kTCP;
+        if (nameToCheck == transportToName(TransportType::kUDP))
+        {
+            protocol = TransportType::kUDP;
+        }
+        else
+        {
+            if (nameToCheck == transportToName(TransportType::kTCP))
+            {
+                protocol = TransportType::kTCP;
+            }
+        }
     }
     ODL_EXIT_I(StaticCast(int, protocol)); //####
     return protocol;

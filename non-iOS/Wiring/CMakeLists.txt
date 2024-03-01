@@ -38,9 +38,6 @@
 
 add_subdirectory(Commutator)
 add_subdirectory(Delay)
-add_subdirectory(FanIn)
-add_subdirectory(FanOut)
 add_subdirectory(Junction)
-add_subdirectory(Passthrough)
 
 enable_testing()

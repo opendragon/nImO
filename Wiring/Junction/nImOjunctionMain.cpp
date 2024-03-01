@@ -70,184 +70,462 @@
 # pragma mark Private structures, constants and variables
 #endif // defined(__APPLE__)
 
-namespace Junction_Private
+namespace nImO
 {
-    /*! @brief A class to provide values that are used for handling callbacks for the application. */
-    class AddInputChannelCallbackHandler final : public nImO::CallbackFunction
+
+    namespace Junction
     {
-        public :
-            // Public type definitions.
+        /*! @brief A class to provide values that are used for handling callbacks for the application. */
+        class AddInputChannelCallbackHandler final : public nImO::CallbackFunction
+        {
+            public :
+                // Public type definitions.
 
-        protected :
-            // Protected type definitions.
+            protected :
+                // Protected type definitions.
 
-        private :
-            // Private type definitions.
+            private :
+                // Private type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = CallbackFunction;
+                /*! @brief The class that this class is derived from. */
+                using inherited = CallbackFunction;
 
-        public :
-            // Public methods.
+            public :
+                // Public methods.
 
-            /*! @brief The constructor.
-             @param[in] theContext The filter context that is active.
-             @param[in] basePath The base part of the channel name. */
-            inline AddInputChannelCallbackHandler
-                (Ptr(nImO::FilterContext)   theContext,
-                 const std::string &        basePath) :
-                    inherited(), _context(theContext), _basePath(basePath)
-            {
-            }
+                /*! @brief The constructor.
+                 @param[in] theContext The filter context that is active.
+                 @param[in] basePath The base part of the channel name. */
+                inline AddInputChannelCallbackHandler
+                    (Ptr(nImO::FilterContext)   theContext,
+                     const std::string &        basePath) :
+                        inherited(), _context(theContext), _basePath(basePath)
+                {
+                }
 
-            /*! @brief Indicate that the service is ready to accept these requests.
-             @param[in] nodeName The name of this node.
-             @param[in] proxy The RegistryProxy to use.
-             @param[in] dataType The expected data format. */
-            void
-            enable
-                (const std::string &    nodeName,
-                 nImO::SpRegistryProxy  proxy,
-                 const std::string &    dataType);
+                /*! @brief Stop accepting requests. */
+                inline void
+                disable
+                    (void)
+                {
+                    _requestsAllowed = false;
+                }
 
-        protected :
-            // Protected methods.
+                /*! @brief Indicate that the service is ready to accept these requests.
+                 @param[in] nodeName The name of this node.
+                 @param[in] proxy The RegistryProxy to use.
+                 @param[in] dataType The expected data format. */
+                inline void
+                enable
+                    (const std::string &    nodeName,
+                     nImO::SpRegistryProxy  proxy,
+                     const std::string &    dataType)
+                {
+                    _dataType = dataType;
+                    _nodeName = nodeName;
+                    _proxy = proxy;
+                    _requestsAllowed = true;
+                }
 
-        private :
-            // Private methods.
+            protected :
+                // Protected methods.
 
-            /*! @brief Process an add input channel request.
-             @return @c true on success. */
-            bool
-            operator()
-                (void)
-                override;
+            private :
+                // Private methods.
 
-        public :
-            // Public fields.
+                /*! @brief Process an add input channel request.
+                 @return @c true on success. */
+                bool
+                operator()
+                    (void)
+                    override;
 
-        protected :
-            // Protected fields.
+            public :
+                // Public fields.
 
-        private :
-            // Private fields.
+            protected :
+                // Protected fields.
 
-            /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context{nullptr};
+            private :
+                // Private fields.
 
-            /*! @brief A flag to control when requests can be honoured. */
-            std::atomic_bool    _requestsAllowed{false};
+                /*! @brief The filter context that is active. */
+                Ptr(nImO::FilterContext)    _context{nullptr};
 
-            /*! @brief The base part of the channel name. */
-            std::string _basePath{};
+                /*! @brief A flag to control when requests can be honoured. */
+                std::atomic_bool    _requestsAllowed{false};
 
-            /*! @brief The RegistryProxy to use. */
-            nImO::SpRegistryProxy   _proxy{};
+                /*! @brief The base part of the channel name. */
+                std::string _basePath{};
 
-            /*! @brief The name of this node. */
-            std::string _nodeName{};
+                /*! @brief The RegistryProxy to use. */
+                nImO::SpRegistryProxy   _proxy{};
 
-            /*! @brief The expected data type. */
-            std::string _dataType{};
+                /*! @brief The name of this node. */
+                std::string _nodeName{};
 
-    }; // AddInputChannelCallbackHandler
+                /*! @brief The expected data type. */
+                std::string _dataType{};
 
-    /*! @brief A class to provide values that are used for handling callbacks for the application. */
-    class AddOutputChannelCallbackHandler final : public nImO::CallbackFunction
-    {
-        public :
-            // Public type definitions.
+        }; // AddInputChannelCallbackHandler
 
-        protected :
-            // Protected type definitions.
+        /*! @brief A class to provide values that are used for handling callbacks for the application. */
+        class AddOutputChannelCallbackHandler final : public nImO::CallbackFunction
+        {
+            public :
+                // Public type definitions.
 
-        private :
-            // Private type definitions.
+            protected :
+                // Protected type definitions.
 
-            /*! @brief The class that this class is derived from. */
-            using inherited = CallbackFunction;
+            private :
+                // Private type definitions.
 
-        public :
-            // Public methods.
+                /*! @brief The class that this class is derived from. */
+                using inherited = CallbackFunction;
 
-            /*! @brief The constructor.
-             @param[in] theContext The filter context that is active.
-             @param[in] basePath The base part of the channel name. */
-            inline AddOutputChannelCallbackHandler
-                (Ptr(nImO::FilterContext)   theContext,
-                 const std::string &        basePath) :
-                    inherited(), _context(theContext), _basePath(basePath)
-            {
-            }
+            public :
+                // Public methods.
 
-            /*! @brief Indicate that the service is ready to accept these requests.
-             @param[in] nodeName The name of this node.
-             @param[in] proxy The RegistryProxy to use.
-             @param[in] dataType The expected data format. */
-            void
-            enable
-                (const std::string &    nodeName,
-                 nImO::SpRegistryProxy  proxy,
-                 const std::string &    dataType);
+                /*! @brief The constructor.
+                 @param[in] theContext The filter context that is active.
+                 @param[in] basePath The base part of the channel name. */
+                inline AddOutputChannelCallbackHandler
+                    (Ptr(nImO::FilterContext)   theContext,
+                     const std::string &        basePath) :
+                        inherited(), _context(theContext), _basePath(basePath)
+                {
+                }
 
-        protected :
-            // Protected methods.
+                /*! @brief Stop accepting requests. */
+                inline void
+                disable
+                    (void)
+                {
+                    _requestsAllowed = false;
+                }
 
-        private :
-            // Private methods.
+                /*! @brief Indicate that the service is ready to accept these requests.
+                 @param[in] nodeName The name of this node.
+                 @param[in] proxy The RegistryProxy to use.
+                 @param[in] dataType The expected data format. */
+                inline void
+                enable
+                    (const std::string &    nodeName,
+                     nImO::SpRegistryProxy  proxy,
+                     const std::string &    dataType)
+                {
+                    _dataType = dataType;
+                    _nodeName = nodeName;
+                    _proxy = proxy;
+                    _requestsAllowed = true;
+                }
 
-            /*! @brief Process an add output channel request.
-             @return @c true on success. */
-            bool
-            operator()
-                (void)
-                override;
+            protected :
+                // Protected methods.
 
-        public :
-            // Public fields.
+            private :
+                // Private methods.
 
-        protected :
-            // Protected fields.
+                /*! @brief Process an add output channel request.
+                 @return @c true on success. */
+                bool
+                operator()
+                    (void)
+                    override;
 
-        private :
-            // Private fields.
-        
-            /*! @brief The filter context that is active. */
-            Ptr(nImO::FilterContext)    _context{nullptr};
+            public :
+                // Public fields.
 
-            /*! @brief A flag to control when requests can be honoured. */
-            std::atomic_bool    _requestsAllowed{false};
+            protected :
+                // Protected fields.
 
-            /*! @brief The base part of the channel name. */
-            std::string _basePath{};
+            private :
+                // Private fields.
 
-            /*! @brief The RegistryProxy to use. */
-            nImO::SpRegistryProxy   _proxy{};
+                /*! @brief The filter context that is active. */
+                Ptr(nImO::FilterContext)    _context{nullptr};
 
-            /*! @brief The name of this node. */
-            std::string _nodeName{};
+                /*! @brief A flag to control when requests can be honoured. */
+                std::atomic_bool    _requestsAllowed{false};
 
-            /*! @brief The expected data type. */
-            std::string _dataType{};
+                /*! @brief The base part of the channel name. */
+                std::string _basePath{};
 
-    }; // AddOutputChannelCallbackHandler
+                /*! @brief The RegistryProxy to use. */
+                nImO::SpRegistryProxy   _proxy{};
 
-}; // namespace Junction_Private
+                /*! @brief The name of this node. */
+                std::string _nodeName{};
 
-void
-Junction_Private::AddInputChannelCallbackHandler::enable
-    (const std::string &    nodeName,
-     nImO::SpRegistryProxy  proxy,
-     const std::string &    dataType)
-{
-    _dataType = dataType;
-    _nodeName = nodeName;
-    _proxy = proxy;
-    _requestsAllowed = true;
-} // Junction_Private::AddInputChannelCallbackHandler::enable
+                /*! @brief The expected data type. */
+                std::string _dataType{};
+
+        }; // AddOutputChannelCallbackHandler
+
+    }; // namespace Junction
+
+}; // namespace nImO
+
+//namespace Junction_Private
+//{
+//    /*! @brief A class to provide values that are used for handling callbacks for the application. */
+//    class AddInputChannelCallbackHandler final : public nImO::CallbackFunction
+//    {
+//        public :
+//            // Public type definitions.
+//
+//        protected :
+//            // Protected type definitions.
+//
+//        private :
+//            // Private type definitions.
+//
+//            /*! @brief The class that this class is derived from. */
+//            using inherited = CallbackFunction;
+//
+//        public :
+//            // Public methods.
+//
+//            /*! @brief The constructor.
+//             @param[in] theContext The filter context that is active.
+//             @param[in] basePath The base part of the channel name. */
+//            inline AddInputChannelCallbackHandler
+//                (Ptr(nImO::FilterContext)   theContext,
+//                 const std::string &        basePath) :
+//                    inherited(), _context(theContext), _basePath(basePath)
+//            {
+//            }
+//
+//            /*! @brief Indicate that the service is ready to accept these requests.
+//             @param[in] nodeName The name of this node.
+//             @param[in] proxy The RegistryProxy to use.
+//             @param[in] dataType The expected data format. */
+//            void
+//            enable
+//                (const std::string &    nodeName,
+//                 nImO::SpRegistryProxy  proxy,
+//                 const std::string &    dataType);
+//
+//        protected :
+//            // Protected methods.
+//
+//        private :
+//            // Private methods.
+//
+//            /*! @brief Process an add input channel request.
+//             @return @c true on success. */
+//            bool
+//            operator()
+//                (void)
+//                override;
+//
+//        public :
+//            // Public fields.
+//
+//        protected :
+//            // Protected fields.
+//
+//        private :
+//            // Private fields.
+//
+//            /*! @brief The filter context that is active. */
+//            Ptr(nImO::FilterContext)    _context{nullptr};
+//
+//            /*! @brief A flag to control when requests can be honoured. */
+//            std::atomic_bool    _requestsAllowed{false};
+//
+//            /*! @brief The base part of the channel name. */
+//            std::string _basePath{};
+//
+//            /*! @brief The RegistryProxy to use. */
+//            nImO::SpRegistryProxy   _proxy{};
+//
+//            /*! @brief The name of this node. */
+//            std::string _nodeName{};
+//
+//            /*! @brief The expected data type. */
+//            std::string _dataType{};
+//
+//    }; // AddInputChannelCallbackHandler
+//
+//    /*! @brief A class to provide values that are used for handling callbacks for the application. */
+//    class AddOutputChannelCallbackHandler final : public nImO::CallbackFunction
+//    {
+//        public :
+//            // Public type definitions.
+//
+//        protected :
+//            // Protected type definitions.
+//
+//        private :
+//            // Private type definitions.
+//
+//            /*! @brief The class that this class is derived from. */
+//            using inherited = CallbackFunction;
+//
+//        public :
+//            // Public methods.
+//
+//            /*! @brief The constructor.
+//             @param[in] theContext The filter context that is active.
+//             @param[in] basePath The base part of the channel name. */
+//            inline AddOutputChannelCallbackHandler
+//                (Ptr(nImO::FilterContext)   theContext,
+//                 const std::string &        basePath) :
+//                    inherited(), _context(theContext), _basePath(basePath)
+//            {
+//            }
+//
+//            /*! @brief Indicate that the service is ready to accept these requests.
+//             @param[in] nodeName The name of this node.
+//             @param[in] proxy The RegistryProxy to use.
+//             @param[in] dataType The expected data format. */
+//            void
+//            enable
+//                (const std::string &    nodeName,
+//                 nImO::SpRegistryProxy  proxy,
+//                 const std::string &    dataType);
+//
+//        protected :
+//            // Protected methods.
+//
+//        private :
+//            // Private methods.
+//
+//            /*! @brief Process an add output channel request.
+//             @return @c true on success. */
+//            bool
+//            operator()
+//                (void)
+//                override;
+//
+//        public :
+//            // Public fields.
+//
+//        protected :
+//            // Protected fields.
+//
+//        private :
+//            // Private fields.
+//
+//            /*! @brief The filter context that is active. */
+//            Ptr(nImO::FilterContext)    _context{nullptr};
+//
+//            /*! @brief A flag to control when requests can be honoured. */
+//            std::atomic_bool    _requestsAllowed{false};
+//
+//            /*! @brief The base part of the channel name. */
+//            std::string _basePath{};
+//
+//            /*! @brief The RegistryProxy to use. */
+//            nImO::SpRegistryProxy   _proxy{};
+//
+//            /*! @brief The name of this node. */
+//            std::string _nodeName{};
+//
+//            /*! @brief The expected data type. */
+//            std::string _dataType{};
+//
+//    }; // AddOutputChannelCallbackHandler
+//
+//}; // namespace Junction_Private
+
+//void
+//Junction_Private::AddInputChannelCallbackHandler::enable
+//    (const std::string &    nodeName,
+//     nImO::SpRegistryProxy  proxy,
+//     const std::string &    dataType)
+//{
+//    _dataType = dataType;
+//    _nodeName = nodeName;
+//    _proxy = proxy;
+//    _requestsAllowed = true;
+//} // Junction_Private::AddInputChannelCallbackHandler::enable
+
+//bool
+//Junction_Private::AddInputChannelCallbackHandler::operator()
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    bool    result{false};
+//
+//    if (_requestsAllowed)
+//    {
+//        std::string scratch;
+//        int64_t     currentNumChannels = _context->getNumberOfInputChannels();
+//        int64_t     nextChannelNumber = currentNumChannels + 1;
+//
+//        // Using one greater than the requested number of channels will ensure that all the
+//        // channel paths will have a number at the end.
+//        if (nImO::ChannelName::generatePath(_basePath, false, nextChannelNumber + 1, nextChannelNumber, scratch))
+//        {
+//            auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, false, _dataType, nImO::TransportType::kAny)};
+//
+//            if (statusWithBool.first.first)
+//            {
+//                if (statusWithBool.second)
+//                {
+//                    _context->addInputChannel(scratch);
+//                    result = true;
+//                }
+//                else
+//                {
+//                    _failureReason = "'"s + scratch + "' already registered"s;
+//                }
+//            }
+//            else
+//            {
+//                _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+//            }
+//        }
+//        else
+//        {
+//            _failureReason = "Invalid channel path '"s + _basePath + "'"s;
+//        }
+//    }
+//    else
+//    {
+//        _failureReason = "Service not finished setup"s;
+//    }
+//    ODL_OBJEXIT_B(result); //####
+//    return result;
+//} // Junction_Private::AddInputChannelCallbackHandler::operator()
+
+//void
+//Junction_Private::AddOutputChannelCallbackHandler::enable
+//    (const std::string &    nodeName,
+//     nImO::SpRegistryProxy  proxy,
+//     const std::string &    dataType)
+//{
+//    _dataType = dataType;
+//    _nodeName = nodeName;
+//    _proxy = proxy;
+//    _requestsAllowed = true;
+//} // Junction_Private::AddOutputChannelCallbackHandler::enable
+
+//bool
+//Junction_Private::AddOutputChannelCallbackHandler::operator()
+//    (void)
+//{
+//    ODL_OBJENTER(); //####
+//    bool    result{false};
+//
+//    if (_requestsAllowed)
+//    {
+//        _failureReason = "*** Unimplemented ***"s;
+//
+//    }
+//    else
+//    {
+//        _failureReason = "Service not finished setup"s;
+//    }
+//    ODL_OBJEXIT_B(result); //####
+//    return result;
+//} // Junction_Private::AddOutputChannelCallbackHandler::operator()
 
 bool
-Junction_Private::AddInputChannelCallbackHandler::operator()
+nImO::Junction::AddInputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
@@ -293,22 +571,10 @@ Junction_Private::AddInputChannelCallbackHandler::operator()
     }
     ODL_OBJEXIT_B(result); //####
     return result;
-} // Junction_Private::AddInputChannelCallbackHandler::operator()
-
-void
-Junction_Private::AddOutputChannelCallbackHandler::enable
-    (const std::string &    nodeName,
-     nImO::SpRegistryProxy  proxy,
-     const std::string &    dataType)
-{
-    _dataType = dataType;
-    _nodeName = nodeName;
-    _proxy = proxy;
-    _requestsAllowed = true;
-} // Junction_Private::AddOutputChannelCallbackHandler::enable
+} // nImO::Junction::AddInputChannelCallbackHandler::operator()
 
 bool
-Junction_Private::AddOutputChannelCallbackHandler::operator()
+nImO::Junction::AddOutputChannelCallbackHandler::operator()
     (void)
 {
     ODL_OBJENTER(); //####
@@ -325,7 +591,7 @@ Junction_Private::AddOutputChannelCallbackHandler::operator()
     }
     ODL_OBJEXIT_B(result); //####
     return result;
-} // Junction_Private::AddOutputChannelCallbackHandler::operator()
+} // nImO::Junction::AddOutputChannelCallbackHandler::operator()
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -377,8 +643,8 @@ main
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
-            auto                addInputChannelCallback{new Junction_Private::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
-            auto                addOutputChannelCallback{new Junction_Private::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                addInputChannelCallback{new nImO::Junction::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
+            auto                addOutputChannelCallback{new nImO::Junction::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);
@@ -530,6 +796,8 @@ main
                                             }
                                         }
                                     }
+                                    addInputChannelCallback->disable();
+                                    addOutputChannelCallback->disable();
                                     if (! nImO::gPendingStop)
                                     {
                                         bool    alreadyReported{false};

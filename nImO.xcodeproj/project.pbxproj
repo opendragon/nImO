@@ -69,18 +69,9 @@
 		F62CFD602B514C73000AA344 /* nImOdelayMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOdelayMain.cpp; sourceTree = "<group>"; };
 		F62CFD612B514C73000AA344 /* nImOdelay.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOdelay.rc.in; sourceTree = "<group>"; };
 		F62CFD622B514C73000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		F62CFD662B514CFB000AA344 /* nImOfanIn.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanIn.rc.in; sourceTree = "<group>"; };
-		F62CFD672B514CFB000AA344 /* nImOfanInMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanInMain.cpp; sourceTree = "<group>"; };
-		F62CFD682B514CFB000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		F62CFD6A2B514D31000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		F62CFD6B2B514D31000AA344 /* nImOfanOutMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOfanOutMain.cpp; sourceTree = "<group>"; };
-		F62CFD6C2B514D31000AA344 /* nImOfanOut.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOfanOut.rc.in; sourceTree = "<group>"; };
 		F62CFD6E2B514D60000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F62CFD6F2B514D60000AA344 /* nImOjunction.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOjunction.rc.in; sourceTree = "<group>"; };
 		F62CFD702B514D60000AA344 /* nImOjunctionMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOjunctionMain.cpp; sourceTree = "<group>"; };
-		F62CFD722B514D89000AA344 /* nImOpassthroughMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOpassthroughMain.cpp; sourceTree = "<group>"; };
-		F62CFD732B514D89000AA344 /* nImOpassthrough.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOpassthrough.rc.in; sourceTree = "<group>"; };
-		F62CFD742B514D89000AA344 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F62FE69929FBCE1D002D5FE3 /* nImOoutChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOoutChannel.cpp; path = nImO/nImOoutChannel.cpp; sourceTree = "<group>"; };
 		F62FE69A29FBCE1D002D5FE3 /* nImOinChannel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOinChannel.cpp; path = nImO/nImOinChannel.cpp; sourceTree = "<group>"; };
 		F62FE69B29FBCE1D002D5FE3 /* nImOinChannel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOinChannel.h; path = nImO/nImOinChannel.h; sourceTree = "<group>"; };
@@ -344,10 +335,7 @@
 		F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5D92B51505700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Commutator/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5DB2B5150B100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Delay/CMakeLists.txt"; sourceTree = "<group>"; };
-		F6ADA5DD2B5150F400BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/FanIn/CMakeLists.txt"; sourceTree = "<group>"; };
-		F6ADA5DF2B51516400BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/FanOut/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Junction/CMakeLists.txt"; sourceTree = "<group>"; };
-		F6ADA5E32B5151C700BE55B0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/Wiring/Passthrough/CMakeLists.txt"; sourceTree = "<group>"; };
 		F6ADA5E52B51567B00BE55B0 /* nImOsinkBreakHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOsinkBreakHandler.cpp; path = nImO/nImOsinkBreakHandler.cpp; sourceTree = "<group>"; };
 		F6ADA5E62B51567B00BE55B0 /* nImOsinkBreakHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOsinkBreakHandler.h; path = nImO/nImOsinkBreakHandler.h; sourceTree = "<group>"; };
 		F6AEC43120E469F500934786 /* nImOconvertersTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOconvertersTest.cpp; path = Tests/nImOconvertersTest.cpp; sourceTree = "<group>"; };
@@ -866,26 +854,6 @@
 			path = Delay;
 			sourceTree = "<group>";
 		};
-		F62CFD692B514D01000AA344 /* FanIn */ = {
-			isa = PBXGroup;
-			children = (
-				F62CFD662B514CFB000AA344 /* nImOfanIn.rc.in */,
-				F62CFD672B514CFB000AA344 /* nImOfanInMain.cpp */,
-				F62CFD682B514CFB000AA344 /* resource.h */,
-			);
-			path = FanIn;
-			sourceTree = "<group>";
-		};
-		F62CFD6D2B514D36000AA344 /* FanOut */ = {
-			isa = PBXGroup;
-			children = (
-				F62CFD6C2B514D31000AA344 /* nImOfanOut.rc.in */,
-				F62CFD6B2B514D31000AA344 /* nImOfanOutMain.cpp */,
-				F62CFD6A2B514D31000AA344 /* resource.h */,
-			);
-			path = FanOut;
-			sourceTree = "<group>";
-		};
 		F62CFD712B514D66000AA344 /* Junction */ = {
 			isa = PBXGroup;
 			children = (
@@ -894,16 +862,6 @@
 				F62CFD6E2B514D60000AA344 /* resource.h */,
 			);
 			path = Junction;
-			sourceTree = "<group>";
-		};
-		F62CFD752B514D8E000AA344 /* Passthrough */ = {
-			isa = PBXGroup;
-			children = (
-				F62CFD732B514D89000AA344 /* nImOpassthrough.rc.in */,
-				F62CFD722B514D89000AA344 /* nImOpassthroughMain.cpp */,
-				F62CFD742B514D89000AA344 /* resource.h */,
-			);
-			path = Passthrough;
 			sourceTree = "<group>";
 		};
 		F6491B0A29BE236200DE5D58 /* UpdateApplication */ = {
@@ -1427,10 +1385,7 @@
 				F6ADA5D72B51500F00BE55B0 /* CMakeLists.txt */,
 				F6ADA5DA2B51506300BE55B0 /* Commutator */,
 				F6ADA5DC2B5150BB00BE55B0 /* Delay */,
-				F6ADA5DE2B5150FF00BE55B0 /* FanIn */,
-				F6ADA5E02B51516C00BE55B0 /* FanOut */,
 				F6ADA5E22B5151A700BE55B0 /* Junction */,
-				F6ADA5E42B5151CE00BE55B0 /* Passthrough */,
 			);
 			name = Wiring;
 			sourceTree = "<group>";
@@ -1451,36 +1406,12 @@
 			name = Delay;
 			sourceTree = "<group>";
 		};
-		F6ADA5DE2B5150FF00BE55B0 /* FanIn */ = {
-			isa = PBXGroup;
-			children = (
-				F6ADA5DD2B5150F400BE55B0 /* CMakeLists.txt */,
-			);
-			name = FanIn;
-			sourceTree = "<group>";
-		};
-		F6ADA5E02B51516C00BE55B0 /* FanOut */ = {
-			isa = PBXGroup;
-			children = (
-				F6ADA5DF2B51516400BE55B0 /* CMakeLists.txt */,
-			);
-			name = FanOut;
-			sourceTree = "<group>";
-		};
 		F6ADA5E22B5151A700BE55B0 /* Junction */ = {
 			isa = PBXGroup;
 			children = (
 				F6ADA5E12B5151A100BE55B0 /* CMakeLists.txt */,
 			);
 			name = Junction;
-			sourceTree = "<group>";
-		};
-		F6ADA5E42B5151CE00BE55B0 /* Passthrough */ = {
-			isa = PBXGroup;
-			children = (
-				F6ADA5E32B5151C700BE55B0 /* CMakeLists.txt */,
-			);
-			name = Passthrough;
 			sourceTree = "<group>";
 		};
 		F6B1E7A329B7B8BE00FDF4D6 /* SQLite */ = {
@@ -1842,10 +1773,7 @@
 			children = (
 				F61D210B299BA9EA0083424E /* Commutator */,
 				F62CFD652B514CB7000AA344 /* Delay */,
-				F62CFD692B514D01000AA344 /* FanIn */,
-				F62CFD6D2B514D36000AA344 /* FanOut */,
 				F62CFD712B514D66000AA344 /* Junction */,
-				F62CFD752B514D8E000AA344 /* Passthrough */,
 			);
 			path = Wiring;
 			sourceTree = "<group>";

@@ -138,6 +138,12 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Fill a vector with all the available output channels.
+             @peram[out] outChannels A vector which will contain all the available output channels. */
+            void
+            collectOutputChannels
+                (OutChannelVector & outChannels);
+
             /*! @brief Retrieve the maximum number of allowed input and output channels.
              @param[out] maxInputChannels The maximum number of allowed input channels, @c -1 if unrestricted.
              @param[out] maxOutputChannels The maximum number of allowed output channels, @c -1 if unrestricted. */

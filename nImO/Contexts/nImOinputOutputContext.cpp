@@ -204,6 +204,20 @@ nImO::InputOutputContext::anOutputChannelIsConnected
     return result;
 } // nImO::InputOutputContext::anOutputChannelIsConnected
 
+void
+nImO::InputOutputContext::collectOutputChannels
+    (OutChannelVector & outChannels)
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outChannels = ", &outChannels); //####
+    outChannels.clear();
+    for (auto & walker : _outputChannelMap)
+    {
+        outChannels.push_back(walker.second);
+    }
+    ODL_OBJEXIT(); //####
+} // nImO::InputOutputContext::collectOutputChannels
+
 nImO::SpInChannel
 nImO::InputOutputContext::getInputChannel
     (const std::string &    path)

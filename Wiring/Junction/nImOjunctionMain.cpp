@@ -242,6 +242,16 @@ namespace nImO
                     return _active;
                 }
 
+                /*! @brief Return @c true is a channel was added and clear the flag
+                 used to track when a channel is added.
+                 @return @c true if a channel was added. */
+                inline bool
+                wasAdded
+                    (void)
+                {
+                    return _added.exchange(false);
+                }
+
             protected :
                 // Protected methods.
 
@@ -284,6 +294,9 @@ namespace nImO
 
                 /*! @brief @c true while the callback is executing. */
                 std::atomic_bool    _active{false};
+
+                /*! @brief @c true when a channel has been added. */
+                std::atomic_bool    _added{false};
 
         }; // AddOutputChannelCallbackHandler
 
@@ -363,9 +376,38 @@ nImO::Junction::AddOutputChannelCallbackHandler::operator()
         try
         {
             _active = true;
+            std::string scratch;
+            int64_t     currentNumChannels = _context->getNumberOfOutputChannels();
+            int64_t     nextChannelNumber = currentNumChannels + 1;
 
-            _failureReason = "*** Unimplemented ***"s;
+            // Using one greater than the requested number of channels will ensure that all the
+            // channel paths will have a number at the end.
+            if (nImO::ChannelName::generatePath(_basePath, true, nextChannelNumber + 1, nextChannelNumber, scratch))
+            {
+                auto    statusWithBool{_proxy->addChannel(_nodeName, scratch, true, _dataType, nImO::TransportType::kAny)};
 
+                if (statusWithBool.first.first)
+                {
+                    if (statusWithBool.second)
+                    {
+                        _context->addOutputChannel(scratch);
+                        _added = result = true;
+                    }
+                    else
+                    {
+                        _failureReason = "'"s + scratch + "' already registered"s;
+                    }
+                }
+                else
+                {
+                    _failureReason = "Problem with 'addChannel': "s + statusWithBool.first.second;
+                }
+            }
+            else
+            {
+                _failureReason = "Invalid channel path '"s + _basePath + "'"s;
+            }
+            _active = false;
         }
         catch (...)
         {
@@ -564,6 +606,10 @@ main
 
                                         if (nImO::gKeepRunning)
                                         {
+                                            if (addOutputChannelCallback->wasAdded())
+                                            {
+                                                ourContext->collectOutputChannels(outChannels);
+                                            }
                                             if (nextData)
                                             {
                                                 auto    contents{nextData->_receivedMessage};

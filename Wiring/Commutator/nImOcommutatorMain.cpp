@@ -367,8 +367,6 @@ main
                                     std::cerr << "Invalid channel path '" << basePath << "'.\n";
                                     exitCode = 1;
                                 }
-                                nImO::OutChannelVector  outChannels{};
-
                                 for (int ii = 1, mm = firstArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
@@ -384,12 +382,6 @@ main
                                             if (statusWithBool.second)
                                             {
                                                 ourContext->addOutputChannel(scratch);
-                                                auto    aChannel{ourContext->getOutputChannel(scratch)};
-
-                                                if (aChannel)
-                                                {
-                                                    outChannels.push_back(aChannel);
-                                                }
                                             }
                                             else
                                             {
@@ -412,10 +404,9 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
-                                    bool            randomRouting{secondArg->getCurrentValue()};
-                                    const size_t    maxChannel{outChannels.size()};
-                                    size_t          nextChannel{0};
+                                    nImO::OutChannelVector  outChannels{};
 
+                                    ourContext->collectOutputChannels(outChannels);
                                     addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);
                                     if (optionValues._waitForConnections)
                                     {
@@ -434,6 +425,10 @@ main
                                         ourContext->report("waiting for messages."s);
                                         std::cerr << "ready.\n";
                                     }
+                                    bool    randomRouting{secondArg->getCurrentValue()};
+                                    size_t  nextChannel{0};
+                                    size_t  maxChannel{outChannels.size()};
+
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
                                         boost::this_thread::yield();
@@ -444,6 +439,7 @@ main
                                             if (addOutputChannelCallback->wasAdded())
                                             {
                                                 ourContext->collectOutputChannels(outChannels);
+                                                maxChannel = outChannels.size();
                                             }
                                             if (nextData)
                                             {

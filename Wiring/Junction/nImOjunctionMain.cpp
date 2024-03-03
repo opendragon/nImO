@@ -536,8 +536,6 @@ main
                                         exitCode = 1;
                                     }
                                 }
-                                nImO::OutChannelVector  outChannels{};
-
                                 for (int ii = 1, mm = secondArg->getCurrentValue(); (ii <= mm) && (0 == exitCode); ++ii)
                                 {
                                     std::string scratch;
@@ -553,12 +551,6 @@ main
                                             if (statusWithBool.second)
                                             {
                                                 ourContext->addOutputChannel(scratch);
-                                                auto    aChannel{ourContext->getOutputChannel(scratch)};
-
-                                                if (aChannel)
-                                                {
-                                                    outChannels.push_back(aChannel);
-                                                }
                                             }
                                             else
                                             {
@@ -581,6 +573,9 @@ main
                                 }
                                 if (0 == exitCode)
                                 {
+                                    nImO::OutChannelVector  outChannels{};
+
+                                    ourContext->collectOutputChannels(outChannels);
                                     addInputChannelCallback->enable(nodeName, proxy, optionValues._inType);
                                     addOutputChannelCallback->enable(nodeName, proxy, optionValues._outType);
                                     if (optionValues._waitForConnections)

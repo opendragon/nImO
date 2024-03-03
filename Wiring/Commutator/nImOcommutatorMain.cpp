@@ -455,11 +455,7 @@ main
                                                     }
                                                     else
                                                     {
-                                                        thisChannel = nextChannel++;
-                                                        if (maxChannel == nextChannel)
-                                                        {
-                                                            nextChannel = 0;
-                                                        }
+                                                        thisChannel = (++nextChannel % maxChannel);
                                                     }
                                                     auto    outChannel{outChannels[thisChannel]};
 

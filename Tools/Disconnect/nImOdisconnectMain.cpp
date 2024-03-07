@@ -94,7 +94,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     std::string             progName{*argv};
-    auto                    firstArg{std::make_shared<nImO::ChannelArgumentDescriptor>("from/to"s, "'Sending'or 'Receiving' channel"s,
+    auto                    firstArg{std::make_shared<nImO::ChannelArgumentDescriptor>("from/to"s, "'Sending' or 'Receiving' channel"s,
                                                                                        nImO::ArgumentMode::Required, "/out"s)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};

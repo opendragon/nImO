@@ -304,7 +304,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "commutator"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Commutator"s, optionValues._tag)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Commutator"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};

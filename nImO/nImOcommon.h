@@ -1013,9 +1013,9 @@ namespace nImO
      @return The constructed node name. */
     std::string
     ConstructNodeName
-        (const std::string  nameFromOptions,
-         const std::string  suffixIfNotFromOptions,
-         const std::string  tag);
+        (const std::string &    nameFromOptions,
+         const std::string &    suffixIfNotFromOptions,
+         const std::string &    tag);
 
     /*! @brief Introduce some delay in processing.
      @param[in] context The active runtime environment.

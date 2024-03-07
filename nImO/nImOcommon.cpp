@@ -244,13 +244,13 @@ nImO::CompareBytes
 
 std::string
 nImO::ConstructNodeName
-    (const std::string  nameFromOptions,
-     const std::string  suffixIfNotFromOptions,
-     const std::string  tag)
+    (const std::string &    nameFromOptions,
+     const std::string &    suffixIfNotFromOptions,
+     const std::string &    tag)
 {
     ODL_ENTER(); //####
     ODL_S3s("nameFromOptions = ", nameFromOptions, "suffixIfNotFromOptions = ", suffixIfNotFromOptions, "tag =", tag); //####
-    std::string nodeName;
+    std::string nodeName{};
 
     if (nameFromOptions.empty())
     {
@@ -258,7 +258,7 @@ nImO::ConstructNodeName
     }
     else
     {
-        nodeName = nameFromOptions;
+        nodeName = nameFromOptions + "-"s + suffixIfNotFromOptions;
     }
     if (! tag.empty())
     {

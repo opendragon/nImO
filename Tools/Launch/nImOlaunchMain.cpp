@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOlauchMain.cpp
+//  File:       nImOlaunchMain.cpp
 //
 //  Project:    nImO
 //
@@ -412,7 +412,7 @@ main
                     }
                     if (0 == exitCode)
                     {
-                        std::cout << "Options for " << serviceName << " on " << launcherName << ":\n";
+                        std::cout << "Options for '" << serviceName << "' on '" << launcherName << "':\n";
                         for (auto charWalker : availableOptions)
                         {
                             std::cout << "\t" << charWalker << "\t";
@@ -474,16 +474,18 @@ main
                         std::string             optionsSoFar{};
                         nImO::StdStringVector   optionsToApply{};
 
+                        // Eat any pending newline.
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         // Build up the option list:
                         for ( ; ; )
                         {
                             if (! optionsSoFar.empty())
                             {
-                                std::cout << "Options already selected: " << optionsSoFar << "\n";
+                                std::cout << "Selected options: " << optionsSoFar << "\n";
                             }
                             std::cout << "Option to apply (empty line when finished): ";
                             std::cout.flush();
-                            std::string inLine;
+                            std::string inLine{};
 
                             if (getline(std::cin, inLine))
                             {
@@ -542,20 +544,21 @@ main
                         }
                         // Check if the application already has been registered!
                         auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
+std::cout << launcherName << " " << serviceName << std::endl;//!!
                         auto    statusWithInfo{proxy->getNodeInformation(newNodeName)};
 
                         if (statusWithInfo.first.first)
                         {
                             if (statusWithInfo.second._found)
                             {
-                                ourContext->report("Node '"s + newNodeName + "'already present."s);
+                                ourContext->report("Node '"s + newNodeName + "' already present."s);
                                 exitCode = 1;
                             }
                             else
                             {
                                 if (! appDescriptors.empty())
                                 {
-                                    std::cout << "Parameters for " << serviceName << " on " << launcherName << ":\n";
+                                    std::cout << "Parameters for '" << serviceName << "' on '" << launcherName << "':\n";
                                     for (auto & walker : appDescriptors)
                                     {
                                         std::cout << "\t" << walker->describe() << "\n";

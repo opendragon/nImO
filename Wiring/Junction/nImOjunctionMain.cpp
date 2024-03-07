@@ -469,7 +469,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "junction"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Junction"s, optionValues._tag)};
             auto                basePath{optionValues._base};
             auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};

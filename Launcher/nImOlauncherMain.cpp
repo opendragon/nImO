@@ -210,13 +210,13 @@ loadApplicationInformation
 
                                     if (readSubMap->end() == descriptionEntry)
                                     {
-                                        std::cerr << "warning: value with key " << walker.first << " is missing a description.\n";
+                                        std::cerr << "warning: value with key '" << *walker.first << "' is missing a description.\n";
                                     }
                                     else
                                     {
                                         if (readSubMap->end() == pathEntry)
                                         {
-                                            std::cerr << "warning: value with key " << walker.first << " is missing a path.\n";
+                                            std::cerr << "warning: value with key '" << *walker.first << "' is missing a path.\n";
                                         }
                                         else
                                         {
@@ -225,13 +225,13 @@ loadApplicationInformation
 
                                             if (nullptr == descriptionAsString)
                                             {
-                                                std::cerr << "warning: description for value with key " << walker.first << " is invalid.\n";
+                                                std::cerr << "warning: description for value with key '" << *walker.first << "' is invalid.\n";
                                             }
                                             else
                                             {
                                                 if (nullptr == pathAsString)
                                                 {
-                                                    std::cerr << "warning: path for value with key " << walker.first << " is invalid.\n";
+                                                    std::cerr << "warning: path for value with key '" << *walker.first << "' is invalid.\n";
                                                 }
                                                 else
                                                 {
@@ -267,8 +267,8 @@ loadApplicationInformation
                                                     }
                                                     else
                                                     {
-                                                        std::cerr << "warning: file at path for value with key " << walker.first <<
-                                                                    " could not be found.\n";
+                                                        std::cerr << "warning: file at path for value with key '" << *walker.first <<
+                                                                    "' could not be found.\n";
                                                     }
                                                 }
                                             }
@@ -278,7 +278,7 @@ loadApplicationInformation
                                 else
                                 {
                                     // Ignore entries that are Maps with the wrong key type, rather than rejecting the whole file.
-                                    std::cerr << "warning: value with key " << walker.first << " does not have the correct structure.\n";
+                                    std::cerr << "warning: value with key '" << *walker.first << "' does not have the correct structure.\n";
                                 }
                             }
                         }
@@ -347,7 +347,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "launcher"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Launcher"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging,
                                                                                    nodeName)};
             nImO::Connection    registryConnection{};

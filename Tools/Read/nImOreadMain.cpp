@@ -112,7 +112,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "read"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Read"s, optionValues._tag)};
             auto                ourContext{std::make_shared<nImO::SinkContext>(argc, argv, progName, "Read"s, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SinkBreakHandler{ourContext.get()}};

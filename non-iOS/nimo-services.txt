@@ -1,22 +1,14 @@
 {
+"Commutator" > {
+            "path" > "$$/nImOcommutator"
+            "description" > "Route a message to one of the outputs"
+            }
 "Delay" > {
             "path" > "$$/nImOdelay"
             "description" > "Passes along messages after a delay"
             }
-"FanIn" > {
-            "path" > "$$/nImOfanIn"
-            "description" > "Multiple inlets to a single outlet"
-            }
-"FanOut" > {
-            "path" > "$$/nImOfanOut"
-            "description" > "Single inlet to multiple outlets"
-            }
 "Junction" > {
             "path" > "$$/nImOjunction"
             "description" > "Multiple inlets to multiple outlets"
-            }
-"Passthrough" > {
-            "path" > "$$/nImOpassthrough"
-            "description" > "Pass along a message"
             }
 }

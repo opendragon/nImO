@@ -16,7 +16,7 @@ tools:\
 * nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd'] 
 \f1\b DONE
 \f0\b0 \
-* nImOdisconnect 'c' 'd' \'97 removes connection from channel 'c' to channel d' 
+* nImOdisconnect 'c' \'97 removes connection from or to channel 'c' 
 \f1\b DONE\
 
 \f0\b0 * nImOlaunch [ 'a' [ 'b' ]] - launches a service via a launcher 
@@ -81,7 +81,7 @@ shell script:\
 		nImO addc <a> <b> - invokes nImOaddChannel <a> <b>\
 		nimo bridge <a> <b> - invokes nImObridge <a> <b>\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
-		nimo disconnect <c> <d> - invokes nImOdisconnect <c> <d>\
+		nimo disconnect <c> - invokes nImOdisconnect <c>\
 		nimo help - lists choices\
 		nimo launch <a> <b> - invokes nImOlaunch <a> <b>\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\

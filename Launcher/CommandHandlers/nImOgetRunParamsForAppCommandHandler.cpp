@@ -38,8 +38,6 @@
 
 #include <Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.h>
 
-//#include <BasicTypes/nImOaddress.h>
-//#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
@@ -124,18 +122,32 @@ nImO::GetRunParamsForAppCommandHandler::doIt
         {
             auto    appListIterator{appList.find(arguments[1])};
 
-            if (appList.end() != appListIterator)
+            if (appList.end() == appListIterator)
+            {
+                ODL_LOG("(appList.end() == appListIterator)"); //####
+                reason = "Application name is unknown"s;
+            }
+            else
             {
                 auto    appInfoMap{appListIterator->second->asMap()};
 
-                if (nullptr != appInfoMap)
+                if (nullptr == appInfoMap)
+                {
+                    ODL_LOG("(nullptr == appInfoMap)"); //####
+                    reason = "Internal structure invalid - not a map"s;
+                }
+                else
                 {
                     auto    appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))};
 
-                    if (appInfoMap->end() != appPathIterator)
+                    if (appInfoMap->end() == appPathIterator)
                     {
-                        auto    appPath{appPathIterator->second->asString()->getValue()};
-
+                        ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
+                        reason = "Internal structure invalid - key missing"s;
+                    }
+                    else
+                    {
+                        auto            appPath{appPathIterator->second->asString()->getValue()};
                         BP::ipstream    pipeStream{};
                         BP::child       cc{StdStringVector{appPath, MakeOption("a"s)}, BP::std_out > pipeStream};
                         std::string     line{};
@@ -148,22 +160,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                         okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params, reason);
                         cc.wait();
                     }
-                    else
-                    {
-                        ODL_LOG("! (appInfoMap->end() != appPathIterator)"); //####
-                        reason = "Internal structure invalid - key missing"s;
-                    }
                 }
-                else
-                {
-                    ODL_LOG("! (nullptr != appInfoMap)"); //####
-                    reason = "Internal structure invalid - not a map"s;
-                }
-            }
-            else
-            {
-                ODL_LOG("! (appList.end() != appListIterator)"); //####
-                reason = "Application name is unknown"s;
             }
         }
         else

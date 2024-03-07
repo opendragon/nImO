@@ -325,6 +325,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Launcher"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::FilePathArgumentDescriptor>("appList"s, "File containing a list of applications"s,
                                                                                         nImO::ArgumentMode::Optional, ""s, kDefaultAppListFilePath)};
@@ -339,7 +340,7 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launcher"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Launch another service locally"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipOutTypeOption | nImO::kSkipWaitOption))
     {
@@ -347,8 +348,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Launcher"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, "Launcher"s, optionValues._logging,
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::LauncherContext>(argc, argv, progName, thisService, optionValues._logging,
                                                                                    nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new LauncherBreakHandler};
@@ -401,12 +402,14 @@ main
                                         if (0 == exitCode)
                                         {
                                             ourContext->report("waiting for requests."s);
-                                            std::cerr << "ready.\n";
+                                            std::cout << "ready.\n";
+                                            std::cout.flush();
                                             for ( ; nImO::gKeepRunning; )
                                             {
                                                 boost::this_thread::yield();
                                             }
-                                            std::cerr << "done.\n";
+                                            std::cout << "done.\n";
+                                            std::cout.flush();
                                         }
                                     }
                                     else

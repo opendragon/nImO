@@ -95,6 +95,7 @@ main
      Ptr(Ptr(char)) argv)
 {
     constexpr double        tinyValue{1e-6};
+    std::string             thisService{"Pulse"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("duration"s, "Number of seconds for full cycle"s,
                                                                                       nImO::ArgumentMode::Optional, 1.0, true, tinyValue, false, 0.0)};
@@ -113,7 +114,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Pulse"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a pulse out a channel"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption |
                                     nImO::kSkipOutTypeOption))
     {
@@ -121,8 +122,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Pulse"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Pulse"s, optionValues._logging, nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SourceBreakHandler{}};
 
@@ -154,6 +155,13 @@ main
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
+                                if (! basePath.empty())
+                                {
+                                    if ('/' != basePath[0])
+                                    {
+                                        basePath = "/"s + basePath;
+                                    }
+                                }
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {
                                     // Note the fixed data type and the restriction to TCP.
@@ -248,7 +256,8 @@ main
                                             nImO::gKeepRunning = true; // So that the calls to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                         }
-                                        std::cerr << "done.\n";
+                                        std::cout << "done.\n";
+                                        std::cout.flush();
                                     }
                                 }
                                 if (outValid)

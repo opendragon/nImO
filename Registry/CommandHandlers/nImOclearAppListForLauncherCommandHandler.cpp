@@ -114,7 +114,11 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
     {
         auto    launcherNodeNameString{arguments[1]->asString()};
 
-        if (nullptr != launcherNodeNameString)
+        if (nullptr == launcherNodeNameString)
+        {
+            ODL_LOG("(nullptr == launcherNodeNameString)"); //####
+        }
+        else
         {
             auto    launcherNodeName{launcherNodeNameString->getValue()};
             auto    status{_registry->clearAppListForLauncher(launcherNodeName)};
@@ -131,10 +135,6 @@ nImO::ClearAppListForLauncherCommandHandler::doIt
             {
                 ODL_LOG("! (status.first)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != launcherNodeNameString)"); //####
         }
     }
     else

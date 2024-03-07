@@ -128,6 +128,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Write"s};
     std::string             progName{*argv};
     nImO::DescriptorVector  argumentList{};
     nImO::ServiceOptions    optionValues{};
@@ -146,8 +147,8 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Write"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, "Write"s, optionValues._logging, nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::SourceContext>(argc, argv, progName, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::SourceBreakHandler{}};
 
@@ -179,6 +180,13 @@ main
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
+                                if (! basePath.empty())
+                                {
+                                    if ('/' != basePath[0])
+                                    {
+                                        basePath = "/"s + basePath;
+                                    }
+                                }
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {
                                     statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, optionValues._outType,
@@ -236,7 +244,8 @@ main
 
                                         ODL_P1("aThread = ", aThread); //####
                                         aThread->detach();
-                                        std::cerr << "ready.\n";
+                                        std::cout << "ready.\n";
+                                        std::cout.flush();
                                         for ( ; nImO::gKeepRunning; )
                                         {
                                             {
@@ -284,7 +293,8 @@ main
                                             nImO::gKeepRunning = true; // So that the call to 'removeConnection' won't fail...
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                         }
-                                        std::cerr << "done.\n";
+                                        std::cout << "done.\n";
+                                        std::cout.flush();
                                     }
                                 }
                                 if (outValid)

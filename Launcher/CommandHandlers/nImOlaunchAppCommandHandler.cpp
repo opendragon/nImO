@@ -38,8 +38,6 @@
 
 #include <Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h>
 
-//#include <BasicTypes/nImOaddress.h>
-//#include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
@@ -124,15 +122,27 @@ nImO::LaunchAppCommandHandler::doIt
         {
             auto    appListIterator{appList.find(arguments[1])};
 
-            if (appList.end() != appListIterator)
+            if (appList.end() == appListIterator)
+            {
+                ODL_LOG("(appList.end() == appListIterator)"); //####
+            }
+            else
             {
                 auto    appInfoMap{appListIterator->second->asMap()};
 
-                if (nullptr != appInfoMap)
+                if (nullptr == appInfoMap)
+                {
+                    ODL_LOG("(nullptr == appInfoMap)"); //####
+                }
+                else
                 {
                     auto    appPathIterator{appInfoMap->find(std::make_shared<nImO::String>(nImO::kPathKey))};
 
-                    if (appInfoMap->end() != appPathIterator)
+                    if (appInfoMap->end() == appPathIterator)
+                    {
+                        ODL_LOG("(appInfoMap->end() == appPathIterator)"); //####
+                    }
+                    else
                     {
                         auto    appPath{appPathIterator->second->asString()->getValue()};
                         auto    appOptionsArray{arguments[2]->asArray()};
@@ -142,12 +152,16 @@ nImO::LaunchAppCommandHandler::doIt
                         {
                             StdStringVector commandLine{};
 
-                            commandLine.push_back(appPath);
+                            //commandLine.push_back(appPath);
                             for (auto & walker : *appOptionsArray)
                             {
                                 auto    anOptionString{walker->asString()};
 
-                                if (nullptr != anOptionString)
+                                if (nullptr == anOptionString)
+                                {
+                                    ODL_LOG("(nullptr == anOptionString)"); //####
+                                }
+                                else
                                 {
                                     auto    anOption{anOptionString->getValue()};
 
@@ -167,16 +181,16 @@ nImO::LaunchAppCommandHandler::doIt
                                         ODL_LOG("! (0 < anOption.length())"); //####
                                     }
                                 }
-                                else
-                                {
-                                    ODL_LOG("! (nullptr != anOptionString)"); //####
-                                }
                             }
                             for (auto & walker : *appParametersArray)
                             {
                                 auto    aParameterString{walker->asString()};
 
-                                if (nullptr != aParameterString)
+                                if (nullptr == aParameterString)
+                                {
+                                    ODL_LOG("(nullptr == aParameterString)"); //####
+                                }
+                                else
                                 {
                                     auto    aParameter{aParameterString->getValue()};
 
@@ -189,12 +203,9 @@ nImO::LaunchAppCommandHandler::doIt
                                         ODL_LOG("! (0 < aParameter.length())"); //####
                                     }
                                 }
-                                else
-                                {
-                                    ODL_LOG("! (nullptr != aParameterString)"); //####
-                                }
                             }
-                            BP::child   cc{commandLine};
+                            // Make sure to 'throw away' any standard output from the child process.
+                            BP::child   cc{appPath, commandLine, BP::std_out > BP::null};
 
                             cc.detach();
                             okSoFar = sendSimpleResponse(socket, kLaunchAppResponse, "launch app"s, true, reason);
@@ -205,19 +216,7 @@ nImO::LaunchAppCommandHandler::doIt
                             reason = "One or more invalid arguments"s;
                         }
                     }
-                    else
-                    {
-                        ODL_LOG("! (appInfoMap->end() != appPathIterator)"); //####
-                    }
                 }
-                else
-                {
-                    ODL_LOG("! (nullptr != appInfoMap)"); //####
-                }
-            }
-            else
-            {
-                ODL_LOG("! (appList.end() != appListIterator)"); //####
             }
         }
         else

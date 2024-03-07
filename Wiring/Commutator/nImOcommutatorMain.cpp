@@ -280,6 +280,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Commutator"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numOut"s, "Number of output channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
@@ -297,20 +298,27 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Commutator"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to one of a set of channels"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, false, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Commutator"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                basePath{optionValues._base};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Commutator"s, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addOutputChannelCallback{new nImO::Commutator::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
+            if (! basePath.empty())
+            {
+                if ('/' != basePath[0])
+                {
+                    basePath = "/"s + basePath;
+                }
+            }
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(1, nImO::kUnlimitedChannels);
             nImO::AddInputOutputHandlers(ourContext, cleanup, nullptr, addOutputChannelCallback);
@@ -423,7 +431,8 @@ main
                                     if (nImO::gKeepRunning)
                                     {
                                         ourContext->report("waiting for messages."s);
-                                        std::cerr << "ready.\n";
+                                        std::cout << "ready.\n";
+                                        std::cout.flush();
                                     }
                                     bool    randomRouting{secondArg->getCurrentValue()};
                                     size_t  nextChannel{0};
@@ -488,7 +497,8 @@ main
                                         }
                                         nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                     }
-                                    std::cerr << "done.\n";
+                                    std::cout << "done.\n";
+                                    std::cout.flush();
                                 }
                                 if (inValid)
                                 {

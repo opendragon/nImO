@@ -103,7 +103,12 @@ handleResponse
     ODL_S2s("incoming = ", incoming, "expectedKey = ", expectedKey); //####
     bool    wasOK{false};
 
-    if (nullptr != handler)
+    if (nullptr == handler)
+    {
+        ODL_LOG("(nullptr == handler)"); //####
+        failureReason = "No handler provided"s;
+    }
+    else
     {
         // We need to strip off the Message separator first.
         auto                trimmed{nImO::UnpackageMessage(incoming)};
@@ -177,11 +182,6 @@ handleResponse
             ODL_LOG("! (nImO::DecodeMIMEToBytes(trimmed, rawStuff))"); //####
             failureReason = "Could not decode message"s;
         }
-    }
-    else
-    {
-        ODL_LOG("! (nullptr != handler)"); //####
-        failureReason = "No handler provided"s;
     }
     ODL_EXIT_B(wasOK); //####
     return wasOK;

@@ -38,13 +38,7 @@
 
 #include <CommandHandlers/nImOaddInputChannelCommandHandler.h>
 
-//#include <BasicTypes/nImOaddress.h>
-//#include <BasicTypes/nImOinteger.h>
-//#include <BasicTypes/nImOstring.h>
-//#include <Containers/nImOarray.h>
-//#include <nImOinChannel.h>
 #include <nImOinputOutputCommands.h>
-//#include <nImOoutChannel.h>
 
 //#include <odlEnable.h>
 #include <odlInclude.h>

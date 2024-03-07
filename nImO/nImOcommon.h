@@ -1010,12 +1010,14 @@ namespace nImO
      @param[in] nameFromOptions The name to be used if provided via a command-line option.
      @param[in] suffixIfNotFromOptions If nameFromOptions is blank, construct a name with this as the suffix.
      @param[in] tag The tag to be applied to the name.
+     @param[in] alwaysAddTheSuffix If @c true, the suffixIfNotFromOptions is applied even when nameFromOptions is supplied.
      @return The constructed node name. */
     std::string
     ConstructNodeName
         (const std::string &    nameFromOptions,
          const std::string &    suffixIfNotFromOptions,
-         const std::string &    tag);
+         const std::string &    tag,
+         const bool             alwaysAddTheSuffix = false);
 
     /*! @brief Introduce some delay in processing.
      @param[in] context The active runtime environment.

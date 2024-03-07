@@ -44,8 +44,6 @@
 #include <nImOregistryProxy.h>
 #include <nImOserviceOptions.h>
 
-//#include <boost/date_time/posix_time/posix_time.hpp>
-
 //#include <odlEnable.h>
 #include <odlInclude.h>
 
@@ -92,6 +90,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Delay"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::DoubleArgumentDescriptor>("delay"s, "Number of seconds to delay messages"s,
                                                                                       nImO::ArgumentMode::Optional, 1.0, true, 0.0, false, 0.0)};
@@ -106,15 +105,15 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Delay"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send a message to a channel after a delay"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Delay"s, optionValues._tag)};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Delay"s, optionValues._logging, nodeName)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
 
@@ -148,6 +147,13 @@ main
                                 std::string outChannelPath;
                                 auto        basePath{optionValues._base};
 
+                                if (! basePath.empty())
+                                {
+                                    if ('/' != basePath[0])
+                                    {
+                                        basePath = "/"s + basePath;
+                                    }
+                                }
                                 if (nImO::ChannelName::generatePath(basePath, true, 1, 1, outChannelPath))
                                 {
                                     statusWithBool = proxy->addChannel(nodeName, outChannelPath, true, optionValues._outType,
@@ -230,7 +236,8 @@ main
                                         if (nImO::gKeepRunning)
                                         {
                                             ourContext->report("waiting for messages."s);
-                                            std::cerr << "ready.\n";
+                                            std::cout << "ready.\n";
+                                            std::cout.flush();
                                         }
                                         int                             numMilliseconds{StaticCast(int, 1000.0 * firstArg->getCurrentValue())};
                                         auto                            delayTime{boost::posix_time::milliseconds(numMilliseconds)};
@@ -281,7 +288,8 @@ main
                                             nImO::CloseConnection(ourContext, nodeName, proxy, outChannelPath, true, alreadyReported);
                                             nImO::CloseConnection(ourContext, nodeName, proxy, inChannelPath, false, alreadyReported);
                                         }
-                                        std::cerr << "done.\n";
+                                        std::cout << "done.\n";
+                                        std::cout.flush();
                                     }
                                 }
                                 if (inValid)

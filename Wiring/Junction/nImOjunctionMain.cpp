@@ -445,6 +445,7 @@ main
     (int            argc,
      Ptr(Ptr(char)) argv)
 {
+    std::string             thisService{"Junction"s};
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::IntegerArgumentDescriptor>("numIn"s, "Number of input channels"s,
                                                                                        nImO::ArgumentMode::Optional, 1, true, 1, false, 0)};
@@ -462,21 +463,28 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Junction"s, 2023, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Send messages to all output channels from any input channel"s, 2023, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption, true, true))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                nodeName{nImO::ConstructNodeName(optionValues._node, "Junction"s, optionValues._tag)};
+            auto                nodeName{nImO::ConstructNodeName(optionValues._node, thisService, optionValues._tag)};
             auto                basePath{optionValues._base};
-            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, "Junction"s, optionValues._logging, nodeName)};
+            auto                ourContext{std::make_shared<nImO::FilterContext>(argc, argv, progName, thisService, optionValues._logging, nodeName)};
             nImO::Connection    registryConnection{};
             auto                cleanup{new nImO::FilterBreakHandler{ourContext.get()}};
             auto                addInputChannelCallback{new nImO::Junction::AddInputChannelCallbackHandler{ourContext.get(), basePath}};
             auto                addOutputChannelCallback{new nImO::Junction::AddOutputChannelCallbackHandler{ourContext.get(), basePath}};
 
+            if (! basePath.empty())
+            {
+                if ('/' != basePath[0])
+                {
+                    basePath = "/"s + basePath;
+                }
+            }
             nImO::SetSpecialBreakObject(cleanup);
             ourContext->setChannelLimits(nImO::kUnlimitedChannels, nImO::kUnlimitedChannels);
             nImO::AddInputOutputHandlers(ourContext, cleanup, addInputChannelCallback, addOutputChannelCallback);
@@ -592,7 +600,8 @@ main
                                     if (nImO::gKeepRunning)
                                     {
                                         ourContext->report("waiting for messages."s);
-                                        std::cerr << "ready.\n";
+                                        std::cout << "ready.\n";
+                                        std::cout.flush();
                                     }
                                     for ( ; nImO::gKeepRunning && (0 == exitCode); )
                                     {
@@ -655,7 +664,8 @@ main
                                             nImO::CloseConnection(ourContext, nodeName, proxy, walker, false, alreadyReported);
                                         }
                                     }
-                                    std::cerr << "done.\n";
+                                    std::cout << "done.\n";
+                                    std::cout.flush();
                                 }
                                 nImO::StdStringVector   outChannelPaths;
 

@@ -113,7 +113,7 @@ constructNodeNameFromOptions
             }
         }
     }
-    std::string result{nImO::ConstructNodeName(nodeName, serviceName, tag)};
+    std::string result{nImO::ConstructNodeName(nodeName, serviceName, tag, true)};
 
     ODL_EXIT_s(result); //####
     return result;
@@ -150,7 +150,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launch a service"s, "nImOlaunch launcher-node passthrough"s, 2024,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launch a service"s, "nImOlaunch launcher-node Junction"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption |
                                      nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
@@ -208,6 +208,8 @@ main
                                  std::cin >> selection;
                              }
                             while ((0 > selection) || (selection > count));
+                            // Eat any pending newline.
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             if (0 == selection)
                             {
                                 exitCode = 2;
@@ -303,12 +305,15 @@ main
                                  std::cin >> selection;
                              }
                             while ((0 > selection) || (selection > count));
+                            // Eat any pending newline.
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                             if (0 == selection)
                             {
                                 exitCode = 2;
                             }
                             else
                             {
+
                                 count = 0;
                                 for (auto & walker : applicationsInfo)
                                 {
@@ -474,8 +479,6 @@ main
                         std::string             optionsSoFar{};
                         nImO::StdStringVector   optionsToApply{};
 
-                        // Eat any pending newline.
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         // Build up the option list:
                         for ( ; ; )
                         {
@@ -544,7 +547,6 @@ main
                         }
                         // Check if the application already has been registered!
                         auto    newNodeName{constructNodeNameFromOptions(launcherName, serviceName, optionsToApply)};
-std::cout << launcherName << " " << serviceName << std::endl;//!!
                         auto    statusWithInfo{proxy->getNodeInformation(newNodeName)};
 
                         if (statusWithInfo.first.first)

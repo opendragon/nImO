@@ -147,7 +147,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Registry"s, 2022, nImO::kCopyrightName, optionValues,
+    if (nImO::ProcessServiceOptions(argc, argv, argumentList, "Maintain a registry of services"s, 2022, nImO::kCopyrightName, optionValues,
                                     nImO::kSkipArgsOption | nImO::kSkipBaseOption | nImO::kSkipDescribeOption | nImO::kSkipExpandedOption |
                                     nImO::kSkipFlavoursOption | nImO::kSkipInTypeOption | nImO::kSkipNodeOption | nImO::kSkipOutTypeOption |
                                     nImO::kSkipTagOption | nImO::kSkipWaitOption))
@@ -276,13 +276,15 @@ main
                     if (asRegistryContext->makePortAnnouncement(asRegistryContext->getCommandPort(), NIMO_REGISTRY_SERVICE_NAME,
                                                                 nImO::GetShortComputerName(), nImO::kRegistryAddressKey))
                     {
-                        std::cerr << "ready.\n";
+                        std::cout << "ready.\n";
+                        std::cout.flush();
                         for ( ; nImO::gKeepRunning; )
                         {
                             boost::this_thread::yield();
                         }
                         asRegistryContext->removeAnnouncement();
-                        std::cerr << "done.\n";
+                        std::cout << "done.\n";
+                        std::cout.flush();
                     }
                 }
                 else

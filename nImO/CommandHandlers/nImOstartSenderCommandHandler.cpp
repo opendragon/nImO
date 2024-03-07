@@ -112,7 +112,11 @@ nImO::StartSenderCommandHandler::doIt
     {
         auto    pathString{arguments[1]->asString()};
 
-        if (nullptr != pathString)
+        if (nullptr == pathString)
+        {
+            ODL_LOG("(nullptr == pathString)"); //####
+        }
+        else
         {
             auto    theChannel{_ownerForInputOutput->getOutputChannel(pathString->getValue())};
 
@@ -125,10 +129,6 @@ nImO::StartSenderCommandHandler::doIt
             {
                 ODL_LOG("! (theChannel)"); //####
             }
-        }
-        else
-        {
-            ODL_LOG("! (nullptr != pathString)"); //####
         }
     }
     ODL_OBJEXIT_B(okSoFar); //####

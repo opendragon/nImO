@@ -86,7 +86,6 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] argc The number of arguments in 'argv'.
              @param[in] argv The command-line arguments provided to the application.
-             @param[in] executable The name of the executing program.
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] startBrowser @c true if the browser thread is to be started.
@@ -94,7 +93,6 @@ namespace nImO
             ServiceContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
-                 const std::string &    executableName,
                  const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const bool             startBrowser = false,
@@ -188,6 +186,16 @@ namespace nImO
                 (const std::string &    commandName)
                 const;
 
+            /*! @brief Returns the name of the service.
+             @return The name of the service. */
+            inline std::string
+            getName
+                (void)
+                const
+            {
+                return _nodeName;
+            }
+
             /*! @brief Remove a command handler from the set of handlers.
              @param[in] commandName The name of the command to be removed.
              @return @c true if the handler was successfully removed. */
@@ -253,6 +261,9 @@ namespace nImO
 
             /*! @brief The command handlers. */
             std::map<std::string, SpCommandHandler> _commandHandlers{};
+
+            /*! @brief The @nImO-visible name of the executing program. */
+            std::string _nodeName{};
 
     }; // ServiceContext
 

@@ -115,7 +115,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "shutdown"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("shutdown"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 

@@ -110,7 +110,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "bridge"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("bridge"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))

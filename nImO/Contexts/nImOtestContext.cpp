@@ -77,12 +77,10 @@
 #endif // defined(__APPLE__)
 
 nImO::TestContext::TestContext
-    (const std::string &    executableName,
-     const std::string &    nodeName) :
-        inherited{executableName, nodeName}
+    (void) :
+        inherited{}
 {
     ODL_ENTER(); //####
-    ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####
     try
     {
 

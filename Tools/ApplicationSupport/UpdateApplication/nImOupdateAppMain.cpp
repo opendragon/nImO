@@ -115,7 +115,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             auto                nodeName{nImO::GetShortComputerName()};
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "updateApp"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("updateApp"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))

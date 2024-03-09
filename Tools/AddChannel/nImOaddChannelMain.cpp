@@ -126,7 +126,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>(progName, "addChannel"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("addChannel"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))

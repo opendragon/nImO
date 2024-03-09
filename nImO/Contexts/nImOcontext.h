@@ -147,12 +147,9 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
+            /*! @brief The constructor. */
             Context
-                (const std::string &    executableName,
-                 const std::string &    nodeName = ""s);
+                (void);
 
         private :
             // Private methods.
@@ -162,12 +159,6 @@ namespace nImO
 
         protected :
             // Protected fields.
-
-            /*! @brief The name of the executing program. */
-            std::string _executableName{};
-
-            /*! @brief The @nImO-visible name of the executing program. */
-            std::string _nodeName{};
 
         private :
             // Private fields.

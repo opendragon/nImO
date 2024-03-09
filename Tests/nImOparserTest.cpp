@@ -764,7 +764,7 @@ main
     nImO::ReportVersions();
     try
     {
-        nImO::TestContext   ourContext{progName};
+        nImO::TestContext   ourContext{};
 
         if (3 < --argc)
         {

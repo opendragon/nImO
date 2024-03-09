@@ -114,7 +114,7 @@ main
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
-            nImO::ContextWithNetworking ourContext{progName, "post"s, optionValues._logging};
+            nImO::ContextWithNetworking ourContext{"post"s, optionValues._logging};
             auto                        header{secondArg->getCurrentValue()};
             bool                        readFromStdin{firstArg->getCurrentValue()};
 

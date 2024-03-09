@@ -263,7 +263,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{progName, "monitor"s, optionValues._logging};
+            nImO::ContextWithNetworking             ourContext{"monitor"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};

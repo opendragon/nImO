@@ -593,16 +593,14 @@ queryCallback
 #endif // defined(__APPLE__)
 
 nImO::ContextWithMDNS::ContextWithMDNS
-    (const std::string &    executableName,
-     const std::string &    tagForLogging,
+    (const std::string &    tagForLogging,
      const bool             logging,
-     const bool             startBrowser,
-     const std::string &    nodeName) :
-        inherited{executableName, tagForLogging, logging, 2 /* browse + announce */, nodeName}, _numSockets{0},
+     const bool             startBrowser) :
+        inherited{tagForLogging, logging, 2 /* browse + announce */}, _numSockets{0},
         _buffer{new char[kBufferCapacity]}, _startBrowser{startBrowser}, _browserThread{nullptr}
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
+    ODL_S1s("tagForLogging = ", tagForLogging); //####
     ODL_B2("logging = ", logging, "startBrowser = ", startBrowser); //####
     getLocalAddresses();
     openSockets();

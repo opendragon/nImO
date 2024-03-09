@@ -76,14 +76,12 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] argc The number of arguments in 'argv'.
              @param[in] argv The command-line arguments provided to the application.
-             @param[in] executable The name of the executing program.
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged.
              @param[in] nodeName The @nImO-visible name of the executing program. */
             SinkContext
                 (const int              argc,
                  Ptr(Ptr(char))         argv,
-                 const std::string &    executableName,
                  const std::string &    tagForLogging = ""s,
                  const bool             logging = false,
                  const std::string &    nodeName = ""s);

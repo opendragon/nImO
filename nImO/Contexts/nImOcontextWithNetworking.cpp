@@ -105,16 +105,14 @@ static const std::string    kStatusPortKey{"status port"s};
 #endif // defined(__APPLE__)
 
 nImO::ContextWithNetworking::ContextWithNetworking
-    (const std::string &    executableName,
-     const std::string &    tagForLogging,
+    (const std::string &    tagForLogging,
      const bool             logging,
-     const int              numReservedThreads,
-     const std::string &    nodeName) :
-        inherited{executableName, nodeName}, _logConnection{kDefaultLogConnection},
+     const int              numReservedThreads) :
+        inherited{}, _logConnection{kDefaultLogConnection},
         _statusConnection{kDefaultStatusConnection}, _loggingEnabled{logging}
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
+    ODL_S1s("tagForLogging = ", tagForLogging); //####
     ODL_B1("logging = ", logging); //####
     ODL_I1("numReservedThreads = ", numReservedThreads); //####
 #if (! MAC_OR_LINUX_OR_BSD_)

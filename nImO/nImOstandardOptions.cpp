@@ -340,40 +340,50 @@ nImO::ProcessStandardOptions
             {
                 if (ProcessArguments(argumentDescriptions, parse, badArgs))
                 {
-                    if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionJSON)])
+                    if (0 == (kSkipFlavoursOption & optionsToIgnore))
                     {
-                        if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
+                        if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionJSON)])
                         {
-                            optionValues._flavour = OutputFlavour::kFlavourTabs;
+                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
+                            {
+                                optionValues._flavour = OutputFlavour::kFlavourTabs;
+                            }
+                        }
+                        else
+                        {
+                            optionValues._flavour = OutputFlavour::kFlavourJSON;
                         }
                     }
-                    else
-                    {
-                        optionValues._flavour = OutputFlavour::kFlavourJSON;
-                    }
-                    if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
+                    if ((0 == (kSkipExpandedOption & optionsToIgnore)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)]))
                     {
                         optionValues._expanded = true;
                     }
-                    if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
+                    if ((0 == (kSkipLoggingOption & optionsToIgnore)) &&(nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)]))
                     {
                         optionValues._logging = true;
                     }
-                    Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
-
-                    if ((0 == (kSkipConfigFileOption & optionsToIgnore)) && (nullptr != configOption) && (nullptr != configOption->arg))
+                    optionValues._configFilePath = kDefaultConfigFilePath;
+                    if (0 == (kSkipConfigFileOption & optionsToIgnore))
                     {
-                        optionValues._configFilePath = configOption->arg;
+                        // Use the last 'machine' value.
+                        for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]; nullptr != opt; opt = opt->next())
+                        {
+                            if (nullptr != opt->arg)
+                            {
+                                optionValues._configFilePath = opt->arg;
+                            }
+                        }
                     }
-                    else
+                    if (0 == (kSkipMachineOption & optionsToIgnore))
                     {
-                        optionValues._configFilePath = kDefaultConfigFilePath;
-                    }
-                    Ptr(Option_::Option)    machineOption{options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]};
-
-                    if ((0 == (kSkipMachineOption & optionsToIgnore)) && (nullptr != machineOption) && (nullptr != machineOption->arg))
-                    {
-                        optionValues._machine = machineOption->arg;
+                        // Use the last 'machine' value.
+                        for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionMACHINE)]; nullptr != opt; opt = opt->next())
+                        {
+                            if (nullptr != opt->arg)
+                            {
+                                optionValues._machine = opt->arg;
+                            }
+                        }
                     }
                     if (nullptr != arguments)
                     {

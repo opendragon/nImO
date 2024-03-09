@@ -73,12 +73,9 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor.
-            @param[in] executable The name of the executing program.
-            @param[in] nodeName The @nImO-visible name of the executing program. */
+            /*! @brief The constructor. */
             MiscellaneousContext
-                (const std::string &    executableName,
-                 const std::string &    nodeName = ""s);
+                (void);
 
         protected :
             // Protected methods.

@@ -77,13 +77,12 @@
 #endif // defined(__APPLE__)
 
 nImO::UtilityContext::UtilityContext
-    (const std::string &    executableName,
-     const std::string &    tagForLogging,
+    (const std::string &    tagForLogging,
      const bool             logging) :
-        inherited{executableName, tagForLogging, logging, true, ""s}
+        inherited{tagForLogging, logging, true}
 {
     ODL_ENTER(); //####
-    ODL_S2s("executableName = ", executableName, "tagForLogging = ", tagForLogging); //####
+    ODL_S1s("tagForLogging = ", tagForLogging); //####
     ODL_B1("logging = ", logging); //####
     try
     {

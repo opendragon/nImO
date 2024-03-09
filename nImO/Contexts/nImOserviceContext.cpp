@@ -87,16 +87,15 @@
 nImO::ServiceContext::ServiceContext
     (const int              argc,
      Ptr(Ptr(char))         argv,
-     const std::string &    executableName,
      const std::string &    tagForLogging,
      const bool             logging,
      const bool             startBrowser,
      const std::string &    nodeName) :
-        inherited{executableName, tagForLogging, logging, startBrowser, nodeName}, _acceptor{*getService()},
-        _commandLine{std::make_shared<Array>()}, _keepGoing{true}
+        inherited{tagForLogging, logging, startBrowser}, _acceptor{*getService()},
+        _commandLine{std::make_shared<Array>()}, _keepGoing{true}, _nodeName{nodeName}
 {
     ODL_ENTER(); //####
-    ODL_S3s("executableName = ", executableName, "tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
+    ODL_S2s("tagForLogging = ", tagForLogging, "nodeName = ", nodeName); //####
     ODL_B2("logging = ", logging, "startBrowser = ", startBrowser); //####
     for (int ii = 0; ii < argc; ++ii)
     {

@@ -80,12 +80,10 @@ static bool lContextCreated{false};
 #endif // defined(__APPLE__)
 
 nImO::Context::Context
-    (const std::string &    executableName,
-     const std::string &    nodeName) :
-        _executableName{executableName}, _nodeName{nodeName}, _service{std::make_shared<boost::asio::io_service>()}
+    (void) :
+        _service{std::make_shared<boost::asio::io_service>()}
 {
     ODL_ENTER(); //####
-    ODL_S2s("executableName = ", executableName, "nodeName = ", nodeName); //####
     ODL_P1("_service <- ", _service.get()); //####
     if (lContextCreated)
     {

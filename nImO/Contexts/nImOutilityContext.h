@@ -74,12 +74,10 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor.
-             @param[in] executable The name of the executing program.
              @param[in] tagForLogging The symbolic name for the current process.
              @param[in] logging @c true if the executing program is to be logged. */
             UtilityContext
-                (const std::string &    executableName,
-                 const std::string &    tagForLogging = ""s,
+                (const std::string &    tagForLogging = ""s,
                  const bool             logging = false);
 
             /*! @brief Is this a UtilityContext?

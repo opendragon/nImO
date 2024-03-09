@@ -110,7 +110,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::MiscellaneousContext  ourContext{progName};
+            nImO::MiscellaneousContext  ourContext{};
 
 std::cerr << "** Unimplemented **\n";
             std::cout << "ready.\n";

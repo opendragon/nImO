@@ -157,7 +157,7 @@ main
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
             nImO::DisableWaitForRegistry(true);
-            auto    ourContext{std::make_shared<nImO::RegistryContext>(argc, argv, progName, optionValues._logging, true)};
+            auto    ourContext{std::make_shared<nImO::RegistryContext>(argc, argv, optionValues._logging, true)};
             auto    statusConnection{ourContext->getStatusInfo()};
 
             nImO::ServiceContext::addStandardHandlers(ourContext);

@@ -342,39 +342,79 @@ nImO::ProcessServiceOptions
                     {
                         if (ProcessArguments(argumentDescriptions, parse, badArgs))
                         {
-                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)])
+                            if ((0 == (skipOptions & kSkipExpandedOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionEXPANDED)]))
                             {
                                 optionValues._expanded = true;
                             }
-                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)])
+                            if ((0 == (skipOptions & kSkipLoggingOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionLOG)]))
                             {
                                 optionValues._logging = true;
                             }
-                            if ((0 == (skipOptions & kSkipBaseOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionBASE)]))
+                            if (0 == (skipOptions & kSkipBaseOption))
                             {
-                                optionValues._base = options[StaticCast(size_t, OptionIndex::kOptionBASE)].arg;
+                                // Use the last 'base' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionBASE)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._base = opt->arg;
+                                    }
+                                }
                             }
-                            Ptr(Option_::Option)    configOption{options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]};
-
-                            if ((0 == (skipOptions & kSkipConfigFileOption)) && (nullptr != configOption) && (nullptr != configOption->arg))
+                            if (0 == (skipOptions & kSkipConfigFileOption))
                             {
-                                optionValues._configFilePath = configOption->arg;
+                                // Use the last 'config' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionCONFIG)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._configFilePath = opt->arg;
+                                    }
+                                }
                             }
-                            if ((0 == (skipOptions & kSkipInTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]))
+                            if (0 == (skipOptions & kSkipInTypeOption))
                             {
-                                optionValues._inType = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)].arg;
+                                // Use the last 'inType' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionINTYPE)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._inType = opt->arg;
+                                    }
+                                }
                             }
-                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNODE)])
+                            if (0 == (skipOptions & kSkipNodeOption))
                             {
-                                optionValues._node = options[StaticCast(size_t, OptionIndex::kOptionNODE)].arg;
+                                // Use the last 'node' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionNODE)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._node = opt->arg;
+                                    }
+                                }
                             }
-                            if ((0 == (skipOptions & kSkipOutTypeOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]))
+                            if (0 == (skipOptions & kSkipOutTypeOption))
                             {
-                                optionValues._outType = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)].arg;
+                                // Use the last 'outType' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionOUTTYPE)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._outType = opt->arg;
+                                    }
+                                }
                             }
-                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTAG)])
+                            if (0 == (skipOptions & kSkipTagOption))
                             {
-                                optionValues._tag = options[StaticCast(size_t, OptionIndex::kOptionTAG)].arg;
+                                // Use the last 'tag' value.
+                                for (Ptr(Option_::Option) opt = options[StaticCast(size_t, OptionIndex::kOptionTAG)]; nullptr != opt; opt = opt->next())
+                                {
+                                    if (nullptr != opt->arg)
+                                    {
+                                        optionValues._tag = opt->arg;
+                                    }
+                                }
                             }
                             if ((0 == (skipOptions & kSkipWaitOption)) && (nullptr != options[StaticCast(size_t, OptionIndex::kOptionWAIT)]))
                             {

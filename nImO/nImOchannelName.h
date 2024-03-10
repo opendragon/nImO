@@ -254,6 +254,13 @@ namespace nImO
 
     }; // ChannelName
 
+    /*! @brief Checks a segment of a name for validity.
+     @param[in] inString The string to be analyzed.
+     @return @c true if the string is a valid name and @c false otherwise. */
+    bool
+    ValidNameSegment
+        (const std::string &    inString);
+
     /*! @brief The standard name for any protocol. */
     extern const std::string    kProtocolAnyName;
 

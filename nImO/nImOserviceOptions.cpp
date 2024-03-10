@@ -39,6 +39,7 @@
 #include <nImOserviceOptions.h>
 
 #include <ArgumentDescriptors/nImObaseArgumentDescriptor.h>
+#include <nImOchannelName.h>
 #include <nImOmainSupport.h>
 
 #include <string>
@@ -74,6 +75,43 @@ using namespace nImO;
 #if defined(__APPLE__)
 # pragma mark Local functions
 #endif // defined(__APPLE__)
+
+static Option_::ArgStatus
+checkRequiredName
+    (const Option_::Option &    option,
+     const bool                 msg)
+{
+    Option_::ArgStatus  result;
+
+    if (nullptr == option.arg)
+    {
+        result = Option_::ARG_ILLEGAL;
+        if (msg)
+        {
+            std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
+
+            std::cerr << "Option '" << actualName << "' requires and argument.\n";
+        }
+    }
+    else
+    {
+        if (nImO::ValidNameSegment(option.arg))
+        {
+            result = Option_::ARG_OK;
+        }
+        else
+        {
+            result = Option_::ARG_ILLEGAL;
+            if (msg)
+            {
+                std::string actualName{option.name, StaticCast(std::string::size_type, option.namelen)};
+
+                std::cerr << "Option '" << actualName << "' requires a valid argument.\n";
+            }
+        }
+    }
+    return result;
+} // checkRequiredName
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -123,7 +161,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor argsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionARGS), 0, "a", "args", Option_::Arg::None,
                                         argsHelpString.c_str()};
     auto                baseHelpString{"  "s + MakeOption("b"s, "base"s) + " <name> \tSpecifies the base name for channels"s};
-    Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", Option_::Arg::Required,
+    Option_::Descriptor baseDescriptor{StaticCast(unsigned int, OptionIndex::kOptionBASE), 0, "b", "base", checkRequiredName,
                                         baseHelpString.c_str()};
     auto                configHelpString{"  "s + MakeOption("c"s, "config"s) + " <path> \tSpecify the path to the configuration file"s};
     Option_::Descriptor configDescriptor{StaticCast(unsigned int, OptionIndex::kOptionCONFIG), 0, "c", "config", Option_::Arg::Optional,
@@ -148,7 +186,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor logDescriptor{StaticCast(unsigned int, OptionIndex::kOptionLOG), 0, "l", "log", Option_::Arg::None,
                                         logHelpString.c_str()};
     auto                nodeHelpString{"  "s + MakeOption("n"s, "node"s) + " <name> \tSpecify a non-default node name to be used"s};
-    Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", Option_::Arg::Required,
+    Option_::Descriptor nodeDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNODE), 0, "n", "node", checkRequiredName,
                                         nodeHelpString.c_str()};
     auto                outTypeHelpString1{"  "s + MakeOption("o"s, "outtype"s) + " <type> \tSpecify the data type for the output channel"s};
     Option_::Descriptor outTypeDescriptor1{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
@@ -157,7 +195,7 @@ nImO::ProcessServiceOptions
     Option_::Descriptor outTypeDescriptor2{StaticCast(unsigned int, OptionIndex::kOptionOUTTYPE), 0, "o", "outtype", Option_::Arg::Required,
                                             outTypeHelpString2.c_str()};
     auto                tagHelpString{"  "s + MakeOption("t"s, "tag"s) + " <tag> \tSpecify the tag to be used as part of the service name"s};
-    Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag",Option_::Arg::Required, tagHelpString.c_str()};
+    Option_::Descriptor tagDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTAG), 0, "t", "tag", checkRequiredName, tagHelpString.c_str()};
     auto                versionHelpString{"  "s + MakeOption("v"s, "version"s) + " \tPrint version information and exit"s};
     Option_::Descriptor versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v", "version", Option_::Arg::None,
                                             versionHelpString.c_str()};

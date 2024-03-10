@@ -154,6 +154,9 @@ non-iOS/Tests/nImOmessageInsertTest.rc
 non-iOS/Tests/nImOmessageTest
 non-iOS/Tests/nImOmessageTest.dir/
 non-iOS/Tests/nImOmessageTest.rc
+non-iOS/Tests/nImOnamesTest
+non-iOS/Tests/nImOnamesTest.dir/
+non-iOS/Tests/nImOnamesTest.rc
 non-iOS/Tests/nImOparserTest
 non-iOS/Tests/nImOparserTest.dir/
 non-iOS/Tests/nImOparserTest.rc

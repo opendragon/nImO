@@ -424,3 +424,15 @@ nImO::ChannelName::validTransport
 #if defined(__APPLE__)
 # pragma mark Global functions
 #endif // defined(__APPLE__)
+
+bool
+nImO::ValidNameSegment
+    (const std::string &    inString)
+{
+    ODL_ENTER(); //####
+    ODL_S1s("inString = ", inString); //####
+    bool    result{std::regex_match(inString, lNameMatch)};
+
+    ODL_EXIT_B(result); //####
+    return result;
+} // nImO::ValidNameSegment

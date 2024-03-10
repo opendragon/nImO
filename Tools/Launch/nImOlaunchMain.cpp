@@ -43,6 +43,7 @@
 #include <ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h>
 #include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
 #include <ResponseHandlers/nImOlaunchAppResponseHandler.h>
+#include <nImOchannelName.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
 #include <nImOregistryProxy.h>
@@ -365,6 +366,7 @@ main
                                                                                                      nImO::kGetRunOptionsForAppRequest,
                                                                                                      nImO::kGetRunOptionsForAppResponse)};
                     std::set<char>  availableOptions{};
+                    std::set<char>  optionNeedsName{};
                     std::set<char>  optionNeedsString{};
 
                     if (statusWithBool.first)
@@ -429,6 +431,7 @@ main
 
                                 case 'b' :
                                     std::cout << "Specify the base name for channels"; // string arg required
+                                    optionNeedsName.insert(charWalker);
                                     optionNeedsString.insert(charWalker);
                                     break;
 
@@ -452,6 +455,7 @@ main
 
                                 case 'n' :
                                     std::cout << "Specify a non-default node name to be used"; // string arg required
+                                    optionNeedsName.insert(charWalker);
                                     optionNeedsString.insert(charWalker);
                                     break;
 
@@ -462,6 +466,7 @@ main
 
                                 case 't' :
                                     std::cout << "Specify the tag to be used as part of the service name"; // string arg required
+                                    optionNeedsName.insert(charWalker);
                                     optionNeedsString.insert(charWalker);
                                     break;
 
@@ -503,15 +508,16 @@ main
 
                                 if (availableOptions.end() == availableOptions.find(aChar))
                                 {
-                                    std::cout << "No such option." << "\n";
+                                    std::cout << "No such option.\n";
+                                    std::cout.flush();
                                 }
                                 else
                                 {
-                                    optionsSoFar += " "s + aChar;
                                     std::string newOption{aChar};
 
                                     if (optionNeedsString.end() == optionNeedsString.find(aChar))
                                     {
+                                        optionsSoFar += " "s + aChar;
                                         optionsToApply.push_back(newOption);
                                     }
                                     else
@@ -524,15 +530,37 @@ main
                                             inLine = nImO::LeftTrim(inLine);
                                             if (inLine.empty())
                                             {
-                                                break;
-
+                                                std::cout << "Empty argument. Option ignored.\n";
+                                                std::cout.flush();
                                             }
-                                            inLine = nImO::RightTrim(inLine);
-                                            newOption += inLine;
-                                            optionsToApply.push_back(newOption);
+                                            else
+                                            {
+                                                inLine = nImO::RightTrim(inLine);
+                                                if (optionNeedsName.end() == optionNeedsName.find(aChar))
+                                                {
+                                                    optionsSoFar += " "s + aChar;
+                                                    newOption += inLine;
+                                                    optionsToApply.push_back(newOption);
+                                                }
+                                                else
+                                                {
+                                                    if (nImO::ValidNameSegment(inLine))
+                                                    {
+                                                        optionsSoFar += " "s + aChar;
+                                                        newOption += inLine;
+                                                        optionsToApply.push_back(newOption);
+                                                    }
+                                                    else
+                                                    {
+                                                        std::cout << "Invalid argument. Option ignored.\n";
+                                                        std::cout.flush();
+                                                    }
+                                                }
+                                            }
                                         }
                                         else
                                         {
+                                            // EOF - just exit the loop.
                                             break;
 
                                         }
@@ -541,6 +569,7 @@ main
                             }
                             else
                             {
+                                // EOF - just exit the loop.
                                 break;
 
                             }

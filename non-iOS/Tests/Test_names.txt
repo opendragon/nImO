@@ -1,0 +1,299 @@
+#--------------------------------------------------------------------------------------------------
+#
+#  File:       non-iOS/Tests/Test_names.txt
+#
+#  Project:    nImO
+#
+#  Contains:   The CMAKE definitions for the unit test application.
+#
+#  Written by: Norman Jaffe
+#
+#  Copyright:  (c) 2020 by OpenDragon.
+#
+#              All rights reserved. Redistribution and use in source and binary forms, with or
+#              without modification, are permitted provided that the following conditions are met:
+#                * Redistributions of source code must retain the above copyright notice, this list
+#                  of conditions and the following disclaimer.
+#                * Redistributions in binary form must reproduce the above copyright notice, this
+#                  list of conditions and the following disclaimer in the documentation and / or
+#                  other materials provided with the distribution.
+#                * Neither the name of the copyright holders nor the names of its contributors may
+#                  be used to endorse or promote products derived from this software without
+#                  specific prior written permission.
+#
+#              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+#              EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+#              OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+#              SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+#              INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+#              TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+#              BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+#              CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+#              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+#              DAMAGE.
+#
+#  Created:    2020-03-06
+#
+#--------------------------------------------------------------------------------------------------
+
+set(THIS_TARGET nImOnamesTest)
+
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+enable_testing()
+
+add_executable(${THIS_TARGET}
+                ${THIS_SOURCE_DIR}/nImOnamesTest.cpp
+                ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+## Test valid simple network name
+add_test(NAME TestSimpleNetworkName COMMAND ${THIS_TARGET} 1 t "thisNet")
+## Test valid network name with special character
+add_test(NAME TestNetworkNameWithSpecialCharacter COMMAND ${THIS_TARGET} 1 t "this-net")
+## Test empty network name
+add_test(NAME TestEmptyNetworkName COMMAND ${THIS_TARGET} 1 f "")
+## Test network name with pair of special characters
+add_test(NAME TestNetworkNameWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 1 f "this-.net")
+## Test network name with invalid characters
+add_test(NAME TestNetworkNameWithInvalidCharacters COMMAND ${THIS_TARGET} 1 f "this^net")
+## Test network name with special character as lead character
+add_test(NAME TestNetworkNameWithSpecialCharacterAsLeadCharacter COMMAND ${THIS_TARGET} 1 f "-thisnet")
+## Test network name with special character as trailing character
+add_test(NAME TestNetworkNameWithTrailingSpecialCharacter COMMAND ${THIS_TARGET} 1 f "thisNet.")
+
+## Test valid simple node name
+add_test(NAME TestSimpleNodeName COMMAND ${THIS_TARGET} 2 t "thisNode")
+## Test valid node name with special character
+add_test(NAME TestNodeNameWithSpecialCharacter COMMAND ${THIS_TARGET} 2 t "thi$.node")
+## Test valid node name with pair of special characters
+add_test(NAME TestNodeNameWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 2 f "this__node")
+## Test empty node name
+add_test(NAME TestEmptyNodeName COMMAND ${THIS_TARGET} 2 f "")
+## Test node name with invalid characters
+add_test(NAME TestNodeNameWithInvalidCharacters COMMAND ${THIS_TARGET} 2 f "this/node")
+## Test node name with special character as lead character
+add_test(NAME TestNodeNameWithSpecialCharacterAsLeadCharacter COMMAND ${THIS_TARGET} 2 f ".thisNode")
+## Test node name with special character as trailing character
+add_test(NAME TestNodeNameWithTrailingSpecialCharacter COMMAND ${THIS_TARGET} 2 f "thisNode_")
+
+## Test valid simple path
+add_test(NAME TestSimplePath COMMAND ${THIS_TARGET} 3 t "/arbitraryPath")
+## Test valid path with special character
+add_test(NAME TestPathWithSpecialCharacter COMMAND ${THIS_TARGET} 3 t "/arbitrary_path")
+## Test valid path with pair of special characters
+add_test(NAME TestPathWithPairOfSpecialCharacters COMMAND ${THIS_TARGET} 3 f "/arbitrary..path")
+## Test empty path
+add_test(NAME TestEmptyPath COMMAND ${THIS_TARGET} 3 f "")
+## Test path with just leading forward slash
+add_test(NAME TestPathWithJustLeadingForwardSlash COMMAND ${THIS_TARGET} 3 f "/")
+## Test path with invalid characters
+add_test(NAME TestPathWithInvalidCharacters COMMAND ${THIS_TARGET} 3 f "/arbitrary&path")
+## Test path with special character as lead character
+add_test(NAME TestPathWithSpecialCharacterAsLeadCharacter COMMAND ${THIS_TARGET} 3 f "/.arbitrary-path")
+## Test path with special character as trailing character
+add_test(NAME TestPathWithTrailingSpecialCharacter COMMAND ${THIS_TARGET} 3 f "/arbitrary-path-")
+## Test path without leading forward slash
+add_test(NAME TestPathWithoutLeadingForwardSlash COMMAND ${THIS_TARGET} 3 f "arbitrary-path")
+## Test path with trailing forward slash
+add_test(NAME TestPathWithTrailingForwardSlash COMMAND ${THIS_TARGET} 3 f "/arbitrary-path/")
+
+## Test valid transport
+add_test(NAME TestValidTransport COMMAND ${THIS_TARGET} 4 t "UDP")
+## Test valid transport with mixed case
+add_test(NAME TestTransportWithMixedCase COMMAND ${THIS_TARGET} 4 t "AnY")
+## Test empty transport
+add_test(NAME TestEmptyTransport COMMAND ${THIS_TARGET} 4 f "")
+## Test invalid transport
+add_test(NAME TestInvalidTransport COMMAND ${THIS_TARGET} 4 f "RDP")
+
+## Test full channel name
+add_test(NAME TestFullChannelName COMMAND ${THIS_TARGET} 10 t "this-net:this-node/arbitrary-path#udp")
+## Test full channel name with empty network
+add_test(NAME TestFullChannelNameEmptyNetwork COMMAND ${THIS_TARGET} 10 t ":this-node/arbitrary-path#tcp")
+## Test full channel name with missing network
+add_test(NAME TestFullChannelNameMissingNetwork COMMAND ${THIS_TARGET} 10 t "this-node/arbitrary-path#udp")
+## Test full channel name with missing node
+add_test(NAME TestFullChannelNameMissingNode COMMAND ${THIS_TARGET} 10 t "this-net:/arbitrary-path#udp")
+## Test full channel name with missing protocol
+add_test(NAME TestFullChannelNameMissingProtocol COMMAND ${THIS_TARGET} 10 t "this-net:this-node/arbitrary-path")
+## Test full channel name with missing node and network
+add_test(NAME TestFullChannelNameMissingNodeAndNetwork COMMAND ${THIS_TARGET} 10 t "/arbitrary-path#udp")
+## Test minimal channel name
+add_test(NAME TestMinimalChannelName COMMAND ${THIS_TARGET} 10 t "/arbitrary-path")
+## Test channel name with longer path
+add_test(NAME TestChannelNameWithLongerPath COMMAND ${THIS_TARGET} 10 t "/top/level/path/$has_special-chars")
+## Test channel name with out-of-order delimiters
+add_test(NAME TestChannelNameWithOutOfOrderDelimiters COMMAND ${THIS_TARGET} 10 f "this-net#udp:/arbitrary-path")
+## Test channel name with missing path root
+add_test(NAME TestChannelNameWithMissingPathRoot COMMAND ${THIS_TARGET} 10 f "arbitrary-path#udp")
+## Test channel name with bad network name
+add_test(NAME TestChannelNameWithBadNetworkName COMMAND ${THIS_TARGET} 10 f "this^net:this-mode/arbitrary-path#udp")
+## Test channel name with bad node name
+add_test(NAME TestChannelNameWithBadNodeName COMMAND ${THIS_TARGET} 10 f "this-net:this@mode/arbitrary-path#udp")
+## Test channel name with bad path
+add_test(NAME TestChannelNameWithBadPath COMMAND ${THIS_TARGET} 10 f "this-net:this-mode/arbitrary%path#udp")
+## Test channel name with bad protocol
+add_test(NAME TestChannelNameWithBadProtocol COMMAND ${THIS_TARGET} 10 f "this-net:this-mode/arbitrary_path#http")
+## Test channel name with empty path
+add_test(NAME TestChannelNameWithEmptyPath COMMAND ${THIS_TARGET} 10 f "this-net:this-mode/#tcp")
+## Test channel name with empty protocol
+add_test(NAME TestChannelNameWithEmptyProtocol COMMAND ${THIS_TARGET} 10 f "this-net:this-mode/arbitrary-path#")
+## Test full channel name, fetch name
+add_test(NAME TestFullChannelNameGetName COMMAND ${THIS_TARGET} 11 t "this-net:this-node/arbitrary-path#udp" "this-net:this-node/arbitrary-path#udp")
+## Test full channel name with empty network, fetch name
+add_test(NAME TestFullChannelNameEmptyNetworkGetName COMMAND ${THIS_TARGET} 11 t ":this-node/arbitrary-path#tcp" "this-node/arbitrary-path#tcp")
+## Test full channel name with missing network, fetch name
+add_test(NAME TestFullChannelNameMissingNetworkGetName COMMAND ${THIS_TARGET} 11 t "this-node/arbitrary-path#udp" "this-node/arbitrary-path#udp")
+## Test full channel name with missing node, fetch name
+add_test(NAME TestFullChannelNameMissingNodeGetName COMMAND ${THIS_TARGET} 11 t "this-net:/arbitrary-path#udp" "this-net:/arbitrary-path#udp")
+## Test full channel name with missing protocol, fetch name
+add_test(NAME TestFullChannelNameMissingProtocolGetName COMMAND ${THIS_TARGET} 11 t "this-net:this-node/arbitrary-path" "this-net:this-node/arbitrary-path")
+## Test full channel name with missing node and network, fetch name
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetName COMMAND ${THIS_TARGET} 11 t "/arbitrary-path#udp" "/arbitrary-path#udp")
+## Test minimal channel name, fetch name
+add_test(NAME TestMinimalChannelNameGetName COMMAND ${THIS_TARGET} 11 t "/arbitrary-path" "/arbitrary-path")
+## Test channel name with longer path, fetch name
+add_test(NAME TestChannelNameWithLongerPathGetName COMMAND ${THIS_TARGET} 11 t "/top/level/path/$has_special-chars" "/top/level/path/$has_special-chars")
+## Test full channel name, fetch network
+add_test(NAME TestFullChannelNameGetNetwork COMMAND ${THIS_TARGET} 12 t "this-net:this-node/arbitrary-path#udp" "this-net")
+## Test full channel name with empty network, fetch network
+add_test(NAME TestFullChannelNameEmptyNetworkGetNetwork COMMAND ${THIS_TARGET} 12 t ":this-node/arbitrary-path#tcp" "")
+## Test full channel name with missing network, fetch network
+add_test(NAME TestFullChannelNameMissingNetworkGetNetwork COMMAND ${THIS_TARGET} 12 t "this-node/arbitrary-path#udp" "")
+## Test full channel name with missing node, fetch network
+add_test(NAME TestFullChannelNameMissingNodeGetNetwork COMMAND ${THIS_TARGET} 12 t "thIs-net:/arbitrary-path#udp" "thIs-net")
+## Test full channel name with missing protocol, fetch network
+add_test(NAME TestFullChannelNameMissingProtocolGetNetwork COMMAND ${THIS_TARGET} 12 t "this-Net:this-node/arbitrary-path" "this-Net")
+## Test full channel name with missing node and network, fetch network
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetNetwork COMMAND ${THIS_TARGET} 12 t "/arbitrary-path#udp" "")
+## Test minimal channel name, fetch network
+add_test(NAME TestMinimalChannelNameGetNetwork COMMAND ${THIS_TARGET} 12 t "/arbitrary-path" "")
+## Test channel name with longer path, fetch network
+add_test(NAME TestChannelNameWithLongerPathGetNetwork COMMAND ${THIS_TARGET} 12 t "/top/level/path/$has_special-chars" "")
+## Test full channel name, fetch node
+add_test(NAME TestFullChannelNameGetNode COMMAND ${THIS_TARGET} 13 t "this-net:this-node/arbitrary-path#udp" "this-node")
+## Test full channel name with empty network, fetch node
+add_test(NAME TestFullChannelNameEmptyNetworkGetNode COMMAND ${THIS_TARGET} 13 t ":thiS-node/arbitrary-path#tcp" "thiS-node")
+## Test full channel name with missing network, fetch node
+add_test(NAME TestFullChannelNameMissingNetworkGetNode COMMAND ${THIS_TARGET} 13 t "this-Node/arbitrary-path#udp" "this-Node")
+## Test full channel name with missing node, fetch node
+add_test(NAME TestFullChannelNameMissingNodeGetNode COMMAND ${THIS_TARGET} 13 t "this-net:/arbitrary-path#udp" "")
+## Test full channel name with missing protocol, fetch node
+add_test(NAME TestFullChannelNameMissingProtocolGetNode COMMAND ${THIS_TARGET} 13 t "this-net:this-noDe/arbitrary-path" "this-noDe")
+## Test full channel name with missing node and network, fetch node
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetNode COMMAND ${THIS_TARGET} 13 t "/arbitrary-path#udp" "")
+## Test minimal channel name, fetch node
+add_test(NAME TestMinimalChannelNameGetNode COMMAND ${THIS_TARGET} 13 t "/arbitrary-path" "")
+## Test channel name with longer path, fetch node
+add_test(NAME TestChannelNameWithLongerPathGetNode COMMAND ${THIS_TARGET} 13 t "/top/level/path/$has_special-chars" "")
+## Test full channel name, fetch path
+add_test(NAME TestFullChannelNameGetPath COMMAND ${THIS_TARGET} 14 t "this-net:this-node/Arbitrary-path#udp" "/Arbitrary-path")
+## Test full channel name with empty network, fetch path
+add_test(NAME TestFullChannelNameEmptyNetworkGetPath COMMAND ${THIS_TARGET} 14 t ":this-node/aRbitrary-path#tcp" "/aRbitrary-path")
+## Test full channel name with missing network, fetch path
+add_test(NAME TestFullChannelNameMissingNetworkGetPath COMMAND ${THIS_TARGET} 14 t "this-node/arbitrary-Path#udp" "/arbitrary-Path")
+## Test full channel name with missing node, fetch path
+add_test(NAME TestFullChannelNameMissingNodeGetPath COMMAND ${THIS_TARGET} 14 t "this-net:/arbitrary-patH#udp" "/arbitrary-patH")
+## Test full channel name with missing protocol, fetch path
+add_test(NAME TestFullChannelNameMissingProtocolGetPath COMMAND ${THIS_TARGET} 14 t "this-net:this-node/arbitrarY-path" "/arbitrarY-path")
+## Test full channel name with missing node and network, fetch path
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetPath COMMAND ${THIS_TARGET} 14 t "/arbitraRy-path#udp" "/arbitraRy-path")
+## Test minimal channel name, fetch path
+add_test(NAME TestMinimalChannelNameGetPath COMMAND ${THIS_TARGET} 14 t "/arbitrAry-path" "/arbitrAry-path")
+## Test channel name with longer path, fetch path
+add_test(NAME TestChannelNameWithLongerPathGetPath COMMAND ${THIS_TARGET} 14 t "/top/level/path/$has_special-chars" "/top/level/path/$has_special-chars")
+## Test full channel name, fetch protocol
+add_test(NAME TestFullChannelNameGetProtocol COMMAND ${THIS_TARGET} 15 t "this-net:this-node/arbitrary-path#udp" "udp")
+## Test full channel name with empty network, fetch protocol
+add_test(NAME TestFullChannelNameEmptyNetworkGetProtocol COMMAND ${THIS_TARGET} 15 t ":this-node/arbitrary-path#tcp" "tcp")
+## Test full channel name with missing network, fetch protocol
+add_test(NAME TestFullChannelNameMissingNetworkGetProtocol COMMAND ${THIS_TARGET} 15 t "this-node/arbitrary-path#udp" "udp")
+## Test full channel name with missing node, fetch protocol
+add_test(NAME TestFullChannelNameMissingNodeGetProtocol COMMAND ${THIS_TARGET} 15 t "this-net:/arbitrary-path#udp" "udp")
+## Test full channel name with missing protocol, fetch protocol
+add_test(NAME TestFullChannelNameMissingProtocolGetProtocol COMMAND ${THIS_TARGET} 15 t "this-net:this-node/arbitrary-path" "unknown")
+## Test full channel name with missing node and network, fetch protocol
+add_test(NAME TestFullChannelNameMissingNodeAndNetworkGetProtocol COMMAND ${THIS_TARGET} 15 t "/arbitrary-path#udp" "udp")
+## Test minimal channel name, fetch protocol
+add_test(NAME TestMinimalChannelNameGetProtocol COMMAND ${THIS_TARGET} 15 t "/arbitrary-path" "unknown")
+## Test channel name with longer path, fetch protocol
+add_test(NAME TestChannelNameWithLongerPathGetProtocol COMMAND ${THIS_TARGET} 15 t "/top/level/path/$has_special-chars" "unknown")
+
+## Test generated singular output channel name with default base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 1 1 "/out")
+## Test generated singular input channel name with default base
+add_test(NAME TestGeneratedSingularInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 1 1 "/in")
+## Test generated first output channel name with default base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 10 1 "/out1")
+## Test generated last output channel name with default base
+add_test(NAME TestGeneratedLastOutputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" t 10 10 "/out10")
+## Test generated first input channel name with default base
+add_test(NAME TestGeneratedFirstInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 10 1 "/in1")
+## Test generated last input channel name with default base
+add_test(NAME TestGeneratedLastInputChannelNameWithDefaultBase COMMAND ${THIS_TARGET} 16 t "" f 10 10 "/in10")
+
+## Test generated singular output channel name with simple base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 1 1 "/chuckles/out")
+## Test generated singular input channel name with simple base
+add_test(NAME TestGeneratedSingularInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 1 1 "/chuckles/in")
+## Test generated first output channel name with simple base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 10 1 "/chuckles/out1")
+## Test generated last output channel name with simple base
+add_test(NAME TestGeneratedLastOutputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" t 10 10 "/chuckles/out10")
+## Test generated first input channel name with simple base
+add_test(NAME TestGeneratedFirstInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 10 1 "/chuckles/in1")
+## Test generated last input channel name with simple base
+add_test(NAME TestGeneratedLastInputChannelNameWithSimpleBase COMMAND ${THIS_TARGET} 16 t "/chuckles" f 10 10 "/chuckles/in10")
+
+## Test generated singular output channel name with full base
+add_test(NAME TestGeneratedSingularOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 1 1
+            "/arbitrary-path/out")
+## Test generated singular input channel name with full base
+add_test(NAME TestGeneratedSingularInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 1 1
+            "/arbitrary-path/in")
+## Test generated first output channel name with full base
+add_test(NAME TestGeneratedFirstOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 10 1
+            "/arbitrary-path/out1")
+## Test generated last output channel name with full base
+add_test(NAME TestGeneratedLastOutputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" t 10 10
+            "/arbitrary-path/out10")
+## Test generated first input channel name with full base
+add_test(NAME TestGeneratedFirstInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 10 1
+            "/arbitrary-path/in1")
+## Test generated last input channel name with full base
+add_test(NAME TestGeneratedLastInputChannelNameWithFullBase COMMAND ${THIS_TARGET} 16 t "this-net:this-node/arbitrary-path#udp" f 10 10
+            "/arbitrary-path/in10")
+
+## Test generated channel name with invalid base
+add_test(NAME TestGeneratedInputChannelNameWithInvalidBase COMMAND ${THIS_TARGET} 16 f "this-net:this-mode/arbitrary%path#udp" f 1 1
+            "/arbitrary%path/in")
+## Test generated channel name with out-of-range index
+add_test(NAME TestGeneratedInputChannelNameWithOutOfRangeIndex COMMAND ${THIS_TARGET} 16 f "/chuckles" f 1 2 "/chuckles/in")
+
+## Test single valid character
+add_test(NAME TestValidSingleCharacter COMMAND ${THIS_TARGET} 17 t "a")
+## Test single invalid character
+add_test(NAME TestInvalidSingleCharacter COMMAND ${THIS_TARGET} 17 f "_")
+## Test two valid starting characters
+add_test(NAME TestTwoValidCharacters COMMAND ${THIS_TARGET} 17 t "ab")
+## Test valid character followed by invalid character
+add_test(NAME TestValidCharacterFollowedByInvalidCharacter COMMAND ${THIS_TARGET} 17 f "a#")
+## Test valid starting character followed by valid separator character
+add_test(NAME TestValidCharacterFollowedByValidSeparatorCharacter COMMAND ${THIS_TARGET} 17 f "a_")
+## Test valid starting character followed by two separator characters
+add_test(NAME TestValidCharacterFollowedByTwoSeparatorCharacters COMMAND ${THIS_TARGET} 17 f "a_.")
+## Test full set of valid starting characters
+add_test(NAME TestAllValidCharacters COMMAND ${THIS_TARGET} 17 t "abcdefghijklmnopqrstuvwxyzABCDEFGHIHKLMNOPQRSTUVWXYZ0123456789$")
+## Test all separator characters
+add_test(NAME TestAllSeparatorCharacters COMMAND ${THIS_TARGET} 17 t "a-b.c_d")

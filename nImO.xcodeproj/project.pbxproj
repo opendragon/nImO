@@ -41,6 +41,9 @@
 		F620CB232B569F8F00C7377B /* nImOlaunchAppResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlaunchAppResponseHandler.cpp; path = nImO/ResponseHandlers/nImOlaunchAppResponseHandler.cpp; sourceTree = "<group>"; };
 		F620CB242B569F8F00C7377B /* nImOgetRunParamsForAppResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetRunParamsForAppResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetRunParamsForAppResponseHandler.cpp; sourceTree = "<group>"; };
 		F620CB252B569F9000C7377B /* nImOgetInformationForAllApplicationsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetInformationForAllApplicationsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetInformationForAllApplicationsResponseHandler.cpp; sourceTree = "<group>"; };
+		F6239B642B9DFBE5002DE944 /* Test_names.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_names.txt; path = "non-iOS/Tests/Test_names.txt"; sourceTree = "<group>"; };
+		F6239B652B9DFC4C002DE944 /* nImOnamesTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOnamesTest.cpp; path = Tests/nImOnamesTest.cpp; sourceTree = "<group>"; };
+		F6239B662B9DFC4C002DE944 /* nImOnamesTest.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOnamesTest.rc.in; path = Tests/nImOnamesTest.rc.in; sourceTree = "<group>"; };
 		F627506924141ACB00FCF36C /* sloc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = sloc.sh; sourceTree = "<group>"; };
 		F62A14AD2A6D706400886581 /* nImOgetNumberOfConnectionsResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOgetNumberOfConnectionsResponseHandler.h; path = nImO/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.h; sourceTree = "<group>"; };
 		F62A14AE2A6D706400886581 /* nImOgetNumberOfConnectionsResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOgetNumberOfConnectionsResponseHandler.cpp; path = nImO/ResponseHandlers/nImOgetNumberOfConnectionsResponseHandler.cpp; sourceTree = "<group>"; };
@@ -250,7 +253,6 @@
 		F67832032B456E3600618040 /* nImOreceiveQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOreceiveQueue.cpp; path = nImO/nImOreceiveQueue.cpp; sourceTree = "<group>"; };
 		F67832042B456E3600618040 /* nImOreceiveQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOreceiveQueue.h; path = nImO/nImOreceiveQueue.h; sourceTree = "<group>"; };
 		F679516E29C927B000AEBFB8 /* nImOregistryCommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOregistryCommands.h; path = nImO/nImOregistryCommands.h; sourceTree = "<group>"; };
-		F679D6C224126ED8001648DB /* Test_channelName.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_channelName.txt; path = "non-iOS/Tests/Test_channelName.txt"; sourceTree = "<group>"; };
 		F679D6C4241270CE001648DB /* Test_badMessage.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_badMessage.txt; path = "non-iOS/Tests/Test_badMessage.txt"; sourceTree = "<group>"; };
 		F679D6C524127191001648DB /* Test_messageExtract.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Test_messageExtract.txt; path = "non-iOS/Tests/Test_messageExtract.txt"; sourceTree = "<group>"; };
 		F679D6CB2412751E001648DB /* Test_converters.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Test_converters.txt; path = "non-iOS/Tests/Test_converters.txt"; sourceTree = "<group>"; };
@@ -277,8 +279,6 @@
 		F68373F3240409EB0030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/Ricochet/CMakeLists.txt"; sourceTree = "<group>"; };
 		F68373F4240409F80030F969 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = "non-iOS/examples/CMakeLists.txt"; sourceTree = "<group>"; };
 		F683BD86240F2F27009E20FE /* nimo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = nimo.sh; path = "non-iOS/nimo.sh"; sourceTree = "<group>"; };
-		F683BD87240F32FA009E20FE /* nImOchannelNameTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOchannelNameTest.cpp; path = Tests/nImOchannelNameTest.cpp; sourceTree = "<group>"; };
-		F683BD88240F335A009E20FE /* nImOchannelNameTest.rc.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = nImOchannelNameTest.rc.in; path = Tests/nImOchannelNameTest.rc.in; sourceTree = "<group>"; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
 		F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandHandler.cpp; path = nImO/nImOcommandHandler.cpp; sourceTree = "<group>"; };
@@ -1457,8 +1457,6 @@
 				F6B9F1B81CB4931A00ECC740 /* nImOatomicTest.rc.in */,
 				F6B8B9FA1E6D976B0094EF96 /* nImObadMessageTest.cpp */,
 				F6B8B9FB1E6D976B0094EF96 /* nImObadMessageTest.rc.in */,
-				F683BD87240F32FA009E20FE /* nImOchannelNameTest.cpp */,
-				F683BD88240F335A009E20FE /* nImOchannelNameTest.rc.in */,
 				F6B9F1B91CB4931A00ECC740 /* nImOcontainerTest.cpp */,
 				F6B9F1BA1CB4931A00ECC740 /* nImOcontainerTest.rc.in */,
 				F6D6DDFB2981424600922249 /* nImOcontextTest.cpp */,
@@ -1471,6 +1469,8 @@
 				F6A4A0581CD236BD005D1AF8 /* nImOmessageInsertTest.rc.in */,
 				F61A18B3293FB39A0032B156 /* nImOMIMEAndMessagesTest.cpp */,
 				F61A18B2293FB39A0032B156 /* nImOMIMEAndMessagesTest.rc.in */,
+				F6239B652B9DFC4C002DE944 /* nImOnamesTest.cpp */,
+				F6239B662B9DFC4C002DE944 /* nImOnamesTest.rc.in */,
 				F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */,
 				F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */,
 				F6F0F3A329828DA100E8A1CE /* nImOregistryTest.cpp */,
@@ -1598,13 +1598,13 @@
 				F6D1740924128D1000133E72 /* Test_argumentDescriptors.txt */,
 				F679D6CD2412751F001648DB /* Test_atomic.txt */,
 				F679D6C4241270CE001648DB /* Test_badMessage.txt */,
-				F679D6C224126ED8001648DB /* Test_channelName.txt */,
 				F679D6CE2412751F001648DB /* Test_container.txt */,
 				F680E46C29FFCC8F00614B6E /* Test_contexts.txt */,
 				F679D6CB2412751E001648DB /* Test_converters.txt */,
 				F679D6C524127191001648DB /* Test_messageExtract.txt */,
 				F679D6CC2412751E001648DB /* Test_messageInsert.txt */,
 				F6351BEA29462B9200A93CA2 /* Test_MIMEAndMessages.txt */,
+				F6239B642B9DFBE5002DE944 /* Test_names.txt */,
 				F679D6CF2412751F001648DB /* Test_parser.txt */,
 				F6F0F3A229828D7200E8A1CE /* Test_registry.txt */,
 			);

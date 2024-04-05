@@ -40,7 +40,7 @@
 
 #include <Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.h>
 #include <Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.h>
-#include <Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOstartAppCommandHandler.h>
 #include <nImOlauncherCommands.h>
 
 //#include <odlEnable.h>
@@ -142,10 +142,10 @@ nImO::AddLauncherHandlers
         }
         if (goAhead)
         {
-            auto    newHandler3{std::make_shared<LaunchAppCommandHandler>(context)};
+            auto    newHandler3{std::make_shared<StartAppCommandHandler>(context)};
 
             ODL_P1("newHandler3 <- ", newHandler3.get()); //####
-            if (! context->addHandler(kLaunchAppRequest, newHandler3))
+            if (! context->addHandler(kStartAppRequest, newHandler3))
             {
                 goAhead = false;
             }

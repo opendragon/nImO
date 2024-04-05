@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOlaunchAppResponseHandler.h
+//  File:       nImO/ResponseHandlers/nImOstartAppResponseHandler.h
 //
 //  Project:    nImO
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlaunchAppResponseHandler_H_))
-# define nImOlaunchAppResponseHandler_H_ /* Header guard */
+#if (! defined(nImOstartAppResponseHandler_H_))
+# define nImOstartAppResponseHandler_H_ /* Header guard */
 
 # include <ResponseHandlers/nImOresponseHandler.h>
 
@@ -55,7 +55,7 @@
 namespace nImO
 {
     /*! @brief A class to provide a functor used with the %nImO request/response mechanism. */
-    class LaunchAppResponseHandler final : public ResponseHandler
+    class StartAppResponseHandler final : public ResponseHandler
     {
 
         public :
@@ -74,7 +74,7 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor. */
-            LaunchAppResponseHandler
+            StartAppResponseHandler
                 (void);
 
             /*! @brief Handle the response, returning @c true if successful.
@@ -113,8 +113,8 @@ namespace nImO
             /*! @brief The received value. */
             bool    _result{false};
 
-    }; // LaunchAppResponseHandler
+    }; // StartAppResponseHandler
 
 } // nImO
 
-#endif // not defined(nImOlaunchAppResponseHandler_H_)
+#endif // not defined(nImOstartAppResponseHandler_H_)

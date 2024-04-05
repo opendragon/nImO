@@ -67,11 +67,11 @@ BEGIN
         BLOCK "100904b0"
         BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
-            VALUE "FileDescription", "Launch\0"
+            VALUE "FileDescription", "Start\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOlaunch.exe\0"
+            VALUE "InternalName", "nImOstart.exe\0"
             VALUE "LegalCopyright", "(c) 2024 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOlaunch.exe\0"
+            VALUE "OriginalFilename", "nImOstart.exe\0"
             VALUE "ProductName", "nImO\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

@@ -158,7 +158,6 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.cpp"
-            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.cpp"
@@ -167,6 +166,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.cpp"
+            "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp"
             "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.cpp"
@@ -378,7 +378,6 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisChannelPresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.h"
-        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveConnectionResponseHandler.h"
@@ -387,6 +386,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetChannelInUseResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.h"
+        "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.h"
         "${THIS_SOURCE_DIR}/ResponseHandlers/nImOstopReceiverResponseHandler.h"
@@ -566,8 +566,6 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOisMachinePresentResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOisNodePresentResponseHandler.h
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.cpp
-        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOlaunchAppResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.cpp
@@ -583,6 +581,8 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpReceiverResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOsetUpSenderResponseHandler.h
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.cpp
+        ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartAppResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.cpp
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartReceiverResponseHandler.h
         ${THIS_SOURCE_DIR}/ResponseHandlers/nImOstartSenderResponseHandler.cpp

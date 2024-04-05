@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h
+//  File:       nImO/Launcher/CommandHandlers/nImOstartAppCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO launch app command handler.
+//  Contains:   The class declaration for the nImO start app command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOlaunchAppCommandHandler_H_))
-# define nImOlaunchAppCommandHandler_H_ /* Header guard */
+#if (! defined(nImOstartAppCommandHandler_H_))
+# define nImOstartAppCommandHandler_H_ /* Header guard */
 
 # include <Launcher/CommandHandlers/nImOlauncherCommandHandler.h>
 
@@ -47,15 +47,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO launch app command handler. */
+ @brief The class declaration for the %nImO start app command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the launch app command. */
-    class LaunchAppCommandHandler final : public LauncherCommandHandler
+    /*! @brief A class to provide a handler for the start app command. */
+    class StartAppCommandHandler final : public LauncherCommandHandler
     {
 
         public :
@@ -75,7 +75,7 @@ namespace nImO
 
             /*! @brief The constructor.
              @param[in] owner The owning Context. */
-            LaunchAppCommandHandler
+            StartAppCommandHandler
                 (SpLauncherContext  owner);
 
             /*! @brief Handle the command, returning @c true if successful.
@@ -106,8 +106,8 @@ namespace nImO
         private :
             // Private fields.
 
-    }; // LaunchAppCommandHandler
+    }; // StartAppCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOlaunchAppCommandHandler_H_)
+#endif // not defined(nImOstartAppCommandHandler_H_)

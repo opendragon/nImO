@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/ResponseHandlers/nImOlaunchAppResponseHandler.cpp
+//  File:       nImO/ResponseHandlers/nImOstartAppResponseHandler.cpp
 //
 //  Project:    nImO
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <ResponseHandlers/nImOlaunchAppResponseHandler.h>
+#include <ResponseHandlers/nImOstartAppResponseHandler.h>
 
 #include <BasicTypes/nImOlogical.h>
 
@@ -78,20 +78,20 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::LaunchAppResponseHandler::LaunchAppResponseHandler
+nImO::StartAppResponseHandler::StartAppResponseHandler
     (void) :
         inherited{}
 {
     ODL_ENTER(); //####
     ODL_EXIT_P(this); //####
-} // nImO::LaunchAppResponseHandler::LaunchAppResponseHandler
+} // nImO::StartAppResponseHandler::StartAppResponseHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::LaunchAppResponseHandler::doIt
+nImO::StartAppResponseHandler::doIt
     (const Array &  stuff)
 {
     ODL_OBJENTER(); //####
@@ -117,7 +117,7 @@ nImO::LaunchAppResponseHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::LaunchAppResponseHandler::doIt
+} // nImO::StartAppResponseHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

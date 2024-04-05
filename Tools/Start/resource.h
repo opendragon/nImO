@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by nImOlaunch.rc
+// Used by nImOstart.rc
 
 // Next default values for new objects
 //

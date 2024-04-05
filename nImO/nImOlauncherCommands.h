@@ -73,11 +73,11 @@ namespace nImO
     /*! @brief The 'getRunParamsForApp' response. */
     const std::string   kGetRunParamsForAppResponse{"getRunParamsForApp="s};
 
-    /*! @brief The 'launchApp' request. */
-    const std::string   kLaunchAppRequest{"launchApp."s};
+    /*! @brief The 'startApp' request. */
+    const std::string   kStartAppRequest{"startApp."s};
 
-    /*! @brief The 'launchApp' response. */
-    const std::string   kLaunchAppResponse{"launchApp="s};
+    /*! @brief The 'startApp' response. */
+    const std::string   kStartAppResponse{"startApp="s};
 
 } // nImO
 

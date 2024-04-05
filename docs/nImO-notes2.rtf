@@ -19,10 +19,7 @@ tools:\
 * nImOdisconnect 'c' \'97 removes connection from or to channel 'c'; 
 \f1\b DONE\
 
-\f0\b0 * nImOlaunch [ 'a' [ 'b' ]] - launches a service via a launcher; 
-\f1\b DONE
-\f0\b0 \
-* nImOlist xyz \'97 reports all the known nodes, channels, connections, bridges, machines, applications depending on filters and options; 
+\f0\b0 * nImOlist xyz \'97 reports all the known nodes, channels, connections, bridges, machines, applications depending on filters and options; 
 \f1\b DONE
 \f0\b0 \
 * nImOlog - displays the log in a terminal; 
@@ -32,6 +29,9 @@ tools:\
 \f1\b DONE
 \f0\b0 \
 * nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'; 
+\f1\b DONE
+\f0\b0 \
+* nImOstart [ 'a' [ 'b' ]] - starts a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
@@ -86,7 +86,6 @@ shell script:\
 		nimo connect <c> <d> <m> - invokes nImOconnect <c> <d> <m>\
 		nimo disconnect <c> - invokes nImOdisconnect <c>\
 		nimo help - lists choices\
-		nimo launch <a> <b> - invokes nImOlaunch <a> <b>\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\
@@ -95,6 +94,7 @@ shell script:\
 		nimo read <c> - invokes nImOread <c>\
 		nimo remove <a> - invokes nImOremoveApp <a>\
 		nimo shutdown <a> - invokes nImOshutdown <a>\
+		nimo start <a> <b> - invokes nImOstart <a> <b>\
 		nimo storea <a> - invokes nImOstoreApps <a>\
 		nimo stores <a> - invokes nImOstoreSetup <a>\
 		nimo update <a> - invokes nImOupdateApp <a>\
@@ -104,7 +104,7 @@ shell script:\
 >> 
 \f2\i improve the 'one-line' descriptions for the applications
 \f0\i0 .\
->> nImOlaunch needs to check if a node has already been defined, given the command-line options\
+>> nImOstart needs to check if a node has already been defined, given the command-line options\
 \
 \pard\pardeftab720\sl360\partightenfactor0
 

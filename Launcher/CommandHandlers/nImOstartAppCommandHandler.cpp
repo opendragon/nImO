@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/Launcher/CommandHandlers/nImOlaunchAppCommandHandler.cpp
+//  File:       nImO/Launcher/CommandHandlers/nImOstartAppCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO launch app command handler.
+//  Contains:   The class definition for the nImO start app command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <Launcher/CommandHandlers/nImOlaunchAppCommandHandler.h>
+#include <Launcher/CommandHandlers/nImOstartAppCommandHandler.h>
 
 #include <BasicTypes/nImOstring.h>
 #include <Containers/nImOarray.h>
@@ -59,7 +59,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO launch app command handler. */
+ @brief The class definition for the %nImO start app command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -90,21 +90,21 @@ namespace BP = boost::process;
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::LaunchAppCommandHandler::LaunchAppCommandHandler
+nImO::StartAppCommandHandler::StartAppCommandHandler
     (SpLauncherContext  owner) :
         inherited{owner}
 {
     ODL_ENTER(); //####
     ODL_P1("owner = ", owner.get()); //####
     ODL_EXIT_P(this); //####
-} // nImO::LaunchAppCommandHandler::LaunchAppCommandHandler
+} // nImO::StartAppCommandHandler::StartAppCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::LaunchAppCommandHandler::doIt
+nImO::StartAppCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments,
      std::string &  reason)
@@ -115,7 +115,7 @@ nImO::LaunchAppCommandHandler::doIt
     bool    okSoFar{false};
     auto    appList{*_ownerForLauncher->getAppList()->asMap()};
 
-    _ownerForLauncher->report("launch app request received."s);
+    _ownerForLauncher->report("start app request received."s);
     if (0 < appList.size())
     {
         if (3 < arguments.size())
@@ -217,7 +217,7 @@ nImO::LaunchAppCommandHandler::doIt
                                 BP::child   cc{appPath, BP::args(commandLine), BP::std_out > BP::null};
 
                                 cc.detach();
-                                okSoFar = sendSimpleResponse(socket, kLaunchAppResponse, "launch app"s, true, reason);
+                                okSoFar = sendSimpleResponse(socket, kStartAppResponse, "start app"s, true, reason);
                             }
                             else
                             {
@@ -240,7 +240,7 @@ nImO::LaunchAppCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::LaunchAppCommandHandler::doIt
+} // nImO::StartAppCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

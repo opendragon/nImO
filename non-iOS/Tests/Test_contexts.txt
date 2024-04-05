@@ -52,8 +52,8 @@ add_executable(${THIS_TARGET}
                ${THIS_SOURCE_DIR}/../Launcher/nImOlauncherContext.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOgetRunOptionsForAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOgetRunParamsForAppCommandHandler.cpp
-               ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOlaunchAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOlauncherCommandHandler.cpp
+               ${THIS_SOURCE_DIR}/../Launcher/CommandHandlers/nImOstartAppCommandHandler.cpp
                ${THIS_SOURCE_DIR}/../Registry/nImOregistryContext.cpp
                ${VERS_RESOURCE})
 

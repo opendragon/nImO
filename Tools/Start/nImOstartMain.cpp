@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOlaunchMain.cpp
+//  File:       nImOstartMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A utility application to start a service via a nImO launcher.
+//  Contains:   A utility application to start a service via a nImO starter.
 //
 //  Written by: Norman Jaffe
 //
@@ -42,7 +42,7 @@
 #include <Contexts/nImOutilityContext.h>
 #include <ResponseHandlers/nImOgetRunOptionsForAppResponseHandler.h>
 #include <ResponseHandlers/nImOgetRunParamsForAppResponseHandler.h>
-#include <ResponseHandlers/nImOlaunchAppResponseHandler.h>
+#include <ResponseHandlers/nImOstartAppResponseHandler.h>
 #include <nImOchannelName.h>
 #include <nImOlauncherCommands.h>
 #include <nImOmainSupport.h>
@@ -137,7 +137,7 @@ main
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("launcher"s, "Launcher to use"s,
                                                                                       nImO::ArgumentMode::Optional, ""s)};
-    auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("service"s, "Service to launch"s,
+    auto                    secondArg{std::make_shared<nImO::StringArgumentDescriptor>("service"s, "Service to start"s,
                                                                                        nImO::ArgumentMode::Optional, ""s)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
@@ -151,7 +151,7 @@ main
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
     argumentList.push_back(secondArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Launch a service"s, "nImOlaunch launcher-node Junction"s, 2024,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Start a service"s, "nImOstart launcher-node Junction"s, 2024,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipExpandedOption |
                                      nImO::kSkipFlavoursOption | nImO::kSkipMachineOption))
     {
@@ -159,7 +159,7 @@ main
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>("launch"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("start"s, optionValues._logging)};
             nImO::Connection    registryConnection{};
 
             if (ourContext->asUtilityContext()->findRegistry(registryConnection))
@@ -607,7 +607,7 @@ main
                                     while (true);
                                 }
                                 auto    argArray2{std::make_shared<nImO::Array>()};
-                                auto    handler2{std::make_unique<nImO::LaunchAppResponseHandler>()};
+                                auto    handler2{std::make_unique<nImO::StartAppResponseHandler>()};
                                 auto    optionsArray{std::make_shared<nImO::Array>()};
                                 auto    parametersArray{std::make_shared<nImO::Array>()};
 
@@ -623,11 +623,11 @@ main
                                 argArray2->addValue(optionsArray);
                                 argArray2->addValue(parametersArray);
                                 statusWithBool = nImO::SendRequestWithArgumentsAndNonEmptyResponse(ourContext, launcherConnection, handler2.get(),
-                                                                                                   argArray2.get(), nImO::kLaunchAppRequest,
-                                                                                                   nImO::kLaunchAppResponse);
+                                                                                                   argArray2.get(), nImO::kStartAppRequest,
+                                                                                                   nImO::kStartAppResponse);
                                 if (! statusWithBool.first)
                                 {
-                                    std::cerr << "Problem launching the application '" << serviceName << "' on '" << launcherName + "'.\n";
+                                    std::cerr << "Problem starting the application '" << serviceName << "' on '" << launcherName + "'.\n";
                                     exitCode = 1;
                                 }
                             }

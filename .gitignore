@@ -119,6 +119,9 @@ non-iOS/Tools/SetupSupport/Shutdown/nImOshutdown.rc
 non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup
 non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup.dir/
 non-iOS/Tools/SetupSupport/StoreSetup/nImOstoreSetup.rc
+non-iOS/Tools/Start/nImOstart
+non-iOS/Tools/Start/nImOstart.dir/
+non-iOS/Tools/Start/nImOstart.rc
 non-iOS/Registry/nImOregistry
 non-iOS/Registry/nImOregistry.dir/
 non-iOS/Registry/nImOregistry.rc

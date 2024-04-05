@@ -19,6 +19,7 @@ function list_commands() {
     echo "    read       read from a channel"
     echo "    remove     remove an application"
     echo "    shutdown   shutdown one or all applications except active log programs"
+    echo "    start      start an application"
     echo "    storea     store a set of applications"
     echo "    stores     store a setup"
     echo "    update     update an application"
@@ -79,6 +80,9 @@ function usage_help() {
                 ;;
             "shutdown")
                 nImOshutdown -h
+                ;;
+            "start")
+                nImOstart -h
                 ;;
             "storea")
                 nImOstoreApps -h
@@ -193,6 +197,13 @@ else
             ;;
         "shutdown")
             nImOshutdown $*
+            ;;
+        "start")
+            if [[ $# -eq 0 ]]; then
+                usage_help start
+            else
+                nImOstart $*
+            fi
             ;;
         "storea")
             if [[ $# -eq 0 ]]; then

@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/Launch/CMakeLists.txt
+#  File:       non-iOS/Tools/Start/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Launch application.
+#  Contains:   The CMAKE definitions for the Start application.
 #
 #  Written by: Norman Jaffe
 #
@@ -38,8 +38,8 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOlaunch)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Launch)
+set(THIS_TARGET nImOstart)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Start)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOlaunchMain.cpp
+               ${THIS_SOURCE_DIR}/nImOstartMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

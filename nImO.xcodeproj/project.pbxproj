@@ -141,7 +141,6 @@
 		F65AE4542A1A773200457BD4 /* nImOremoveChannelsForNodeResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOremoveChannelsForNodeResponseHandler.h; path = nImO/ResponseHandlers/nImOremoveChannelsForNodeResponseHandler.h; sourceTree = "<group>"; };
 		F65AE4552A1A773200457BD4 /* nImOremoveChannelResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOremoveChannelResponseHandler.cpp; path = nImO/ResponseHandlers/nImOremoveChannelResponseHandler.cpp; sourceTree = "<group>"; };
 		F65C4A3F2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		F65C4A592985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A722985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A742985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F65C4A8F2985620100430284 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -156,9 +155,6 @@
 		F65C4B9F2985636700430284 /* nImOwrite.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOwrite.rc.in; sourceTree = "<group>"; };
 		F65C4BA02985636700430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F65C4BA12985636700430284 /* nImOwriteMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOwriteMain.cpp; sourceTree = "<group>"; };
-		F65C4BA32985636700430284 /* nImOmonitorMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOmonitorMain.cpp; sourceTree = "<group>"; };
-		F65C4BA42985636700430284 /* nImOmonitor.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOmonitor.rc.in; sourceTree = "<group>"; };
-		F65C4BA52985636700430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F65C4BA72985636700430284 /* nImOpost.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOpost.rc.in; sourceTree = "<group>"; };
 		F65C4BA82985636700430284 /* nImOpostMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOpostMain.cpp; sourceTree = "<group>"; };
 		F65C4BA92985636700430284 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
@@ -281,6 +277,10 @@
 		F683BD86240F2F27009E20FE /* nimo.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = nimo.sh; path = "non-iOS/nimo.sh"; sourceTree = "<group>"; };
 		F6863A911CBF0F6700B8572E /* nImOparserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOparserTest.cpp; path = Tests/nImOparserTest.cpp; sourceTree = SOURCE_ROOT; };
 		F6863A921CBF0FAB00B8572E /* nImOparserTest.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOparserTest.rc.in; path = Tests/nImOparserTest.rc.in; sourceTree = SOURCE_ROOT; };
+		F68F63D82BBFFD8400E08558 /* nImOlog.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = nImOlog.rc.in; path = Log/nImOlog.rc.in; sourceTree = "<group>"; };
+		F68F63D92BBFFD8400E08558 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource.h; path = Log/resource.h; sourceTree = "<group>"; };
+		F68F63DA2BBFFD8400E08558 /* nImOlogMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nImOlogMain.cpp; path = Log/nImOlogMain.cpp; sourceTree = "<group>"; };
+		F68F63DC2BBFFDB900E08558 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = Log/CMakeLists.txt; sourceTree = "<group>"; };
 		F69004E729CF4E7100271A73 /* nImOcommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOcommandHandler.cpp; path = nImO/nImOcommandHandler.cpp; sourceTree = "<group>"; };
 		F69004E829CF4E7100271A73 /* nImOcommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandHandler.h; path = nImO/nImOcommandHandler.h; sourceTree = "<group>"; };
 		F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrequestResponse.cpp; path = nImO/nImOrequestResponse.cpp; sourceTree = "<group>"; };
@@ -929,7 +929,7 @@
 				F65C4B692985620200430284 /* Disconnect */,
 				F6755C132B63C0C500168F75 /* Launch */,
 				F65C4B4F2985620200430284 /* List */,
-				F65C4A582985620100430284 /* Monitor */,
+				F68F63DB2BBFFDA400E08558 /* Log */,
 				F65C4A732985620100430284 /* Post */,
 				F65C4B012985620200430284 /* Read */,
 				F692A44429C0E954003711E9 /* SetupSupport */,
@@ -946,14 +946,6 @@
 				F65C4A3F2985620100430284 /* CMakeLists.txt */,
 			);
 			path = Write;
-			sourceTree = "<group>";
-		};
-		F65C4A582985620100430284 /* Monitor */ = {
-			isa = PBXGroup;
-			children = (
-				F65C4A592985620100430284 /* CMakeLists.txt */,
-			);
-			path = Monitor;
 			sourceTree = "<group>";
 		};
 		F65C4A732985620100430284 /* Post */ = {
@@ -1051,7 +1043,7 @@
 				F65C4BCB2985636800430284 /* Disconnect */,
 				F6755C152B63C30900168F75 /* Launch */,
 				F65C4BC72985636800430284 /* List */,
-				F65C4BA22985636700430284 /* Monitor */,
+				F68F63D72BBFFCB400E08558 /* Log */,
 				F65C4BA62985636700430284 /* Post */,
 				F65C4BBB2985636800430284 /* Read */,
 				F692A43729C0E911003711E9 /* SetupSupport */,
@@ -1069,16 +1061,6 @@
 				F65C4BA02985636700430284 /* resource.h */,
 			);
 			path = Write;
-			sourceTree = "<group>";
-		};
-		F65C4BA22985636700430284 /* Monitor */ = {
-			isa = PBXGroup;
-			children = (
-				F65C4BA42985636700430284 /* nImOmonitor.rc.in */,
-				F65C4BA32985636700430284 /* nImOmonitorMain.cpp */,
-				F65C4BA52985636700430284 /* resource.h */,
-			);
-			path = Monitor;
 			sourceTree = "<group>";
 		};
 		F65C4BA62985636700430284 /* Post */ = {
@@ -1302,6 +1284,24 @@
 				F68373F3240409EB0030F969 /* CMakeLists.txt */,
 			);
 			name = Ricochet;
+			sourceTree = "<group>";
+		};
+		F68F63D72BBFFCB400E08558 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				F68F63D82BBFFD8400E08558 /* nImOlog.rc.in */,
+				F68F63DA2BBFFD8400E08558 /* nImOlogMain.cpp */,
+				F68F63D92BBFFD8400E08558 /* resource.h */,
+			);
+			name = Log;
+			sourceTree = "<group>";
+		};
+		F68F63DB2BBFFDA400E08558 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				F68F63DC2BBFFDB900E08558 /* CMakeLists.txt */,
+			);
+			name = Log;
 			sourceTree = "<group>";
 		};
 		F692A43729C0E911003711E9 /* SetupSupport */ = {

@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOmonitorMain.cpp
+//  File:       nImOlogMain.cpp
 //
 //  Project:    nImO
 //
@@ -63,8 +63,8 @@
 /*! @file
  @brief A utility application to continuously report information on #nImO. */
 
-/*! @dir Monitor
- @brief The set of files that implement the Monitor application. */
+/*! @dir Log
+ @brief The set of files that implement the Log application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -168,7 +168,7 @@ class ReceiveOnMessagePort final
 }; // ReceiveOnMessagePort
 
 /*! @brief A class to provide values that are used for handling callbacks for the application. */
-class MonitorBreakHandler final : public nImO::CallbackFunction
+class LogBreakHandler final : public nImO::CallbackFunction
 {
     public :
         // Public type definitions.
@@ -186,7 +186,7 @@ class MonitorBreakHandler final : public nImO::CallbackFunction
         // Public methods.
 
         /*! @brief The constructor. */
-        inline MonitorBreakHandler
+        inline LogBreakHandler
             (void) :
                 inherited()
         {
@@ -220,7 +220,7 @@ class MonitorBreakHandler final : public nImO::CallbackFunction
     private :
         // Private fields.
 
-}; // MonitorBreakHandler
+}; // LogBreakHandler
 
 #if defined(__APPLE__)
 # pragma mark Global constants and variables
@@ -256,20 +256,20 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO"s, "nImOmonitor"s, 2017, nImO::kCopyrightName, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Report on nImO"s, "nImOlog"s, 2017, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{"monitor"s, optionValues._logging};
+            nImO::ContextWithNetworking             ourContext{"log"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};
             std::shared_ptr<ReceiveOnMessagePort>   statusReceiver;
 
-            nImO::SetSpecialBreakObject(new MonitorBreakHandler());
+            nImO::SetSpecialBreakObject(new LogBreakHandler());
             if (loggingConnection != statusConnection)
             {
                 statusReceiver = std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), statusConnection);

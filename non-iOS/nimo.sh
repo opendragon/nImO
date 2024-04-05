@@ -14,11 +14,11 @@ function list_commands() {
     echo "    list       list channels, applications, services, et cetera"
     echo "    loada      load a set of applications"
     echo "    loads      load a setup"
-    echo "    monitor    report on nImO"
+    echo "    log        report on nImO"
     echo "    post       write to the log"
     echo "    read       read from a channel"
     echo "    remove     remove an application"
-    echo "    shutdown   shutdown one or all applications except active monitors"
+    echo "    shutdown   shutdown one or all applications except active log programs"
     echo "    storea     store a set of applications"
     echo "    stores     store a setup"
     echo "    update     update an application"
@@ -65,8 +65,8 @@ function usage_help() {
             "loads")
                 nImOloadSetup -h
                 ;;
-            "monitor")
-                nImOmonitor -h
+            "log")
+                nImOlog -h
                 ;;
             "post")
                 nImOpost -h
@@ -167,8 +167,8 @@ else
                 nImOloadSetup $*
             fi
             ;;
-        "monitor")
-            nImOmonitor $*
+        "log")
+            nImOlog $*
             ;;
         "post")
             if [[ $# -eq 0 ]]; then

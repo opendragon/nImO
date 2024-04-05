@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by nImOmonitor.rc
+// Used by nImOlog.rc
 
 // Next default values for new objects
 //

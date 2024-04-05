@@ -9,51 +9,54 @@
 \f0\fs24 \cf0 it appears that both a TCP and a UDP socket can be opened with the same port\'85\
 \
 tools:\
-* nImOaddChannel 'a' ['b'] - add a channel to the node 'a' with 'b' = true adding an output and 'b' = false adding an input ('b' defaults to false) 
+* nImOaddChannel 'a' ['b'] - add a channel to the node 'a' with 'b' = true adding an output and 'b' = false adding an input ('b' defaults to false); 
 \f1\b DONE
 \f0\b0 \
 * [nImObridge 'a' 'b' \'97 routing between networks; 'a' is the name of this network, 'b' is the address to connect to the other]\
-* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd'] 
+* nImOconnect 'c' 'd' ['m'] \'97 connects channel 'c' to channel 'd' with transport 'm' (TCP or UDP [or UDT]) [only one connection allowed between 'c' and 'd']; 
 \f1\b DONE
 \f0\b0 \
-* nImOdisconnect 'c' \'97 removes connection from or to channel 'c' 
+* nImOdisconnect 'c' \'97 removes connection from or to channel 'c'; 
 \f1\b DONE\
 
-\f0\b0 * nImOlaunch [ 'a' [ 'b' ]] - launches a service via a launcher 
+\f0\b0 * nImOlaunch [ 'a' [ 'b' ]] - launches a service via a launcher; 
 \f1\b DONE
 \f0\b0 \
-* nImOlist xyz \'97 reports all the known nodes, channels, connections, bridges, machines, applications depending on filters and options 
+* nImOlist xyz \'97 reports all the known nodes, channels, connections, bridges, machines, applications depending on filters and options; 
 \f1\b DONE
 \f0\b0 \
-* nImOmonitor - displays the log; 
+* nImOlog - displays the log in a terminal; 
 \f1\b DONE
 \f0\b0 \
 * nImOpost 'a' 'b' - writes text to the log; 
 \f1\b DONE
 \f0\b0 \
-* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c' 
+* nImOread 'c' \'97 writes out the string representation of messages received on channel 'c'; 
 \f1\b DONE
 \f0\b0 \
 * nImOversion \'97 reports the versions of the libraries; 
 \f1\b DONE
 \f0\b0 \
-* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c' 
+* nImOwrite 'c' \'97 reads the string representation of a message and sends it out channel 'c'; 
 \f1\b DONE\
 
 \f0\b0 \
+interface:\
+* nImOmonitor - GUI application to display and control nImO applications\
+\
 examples:\
 * nImOpulse ['t' [ 'd' ]] - sends a simple integer message on an interval of 't' seconds and duty cycle 'd' ('t' defaults to 1 and 'd' defaults to 0.5)\
 * nImOricochet 'p' - forwards a message to the next machine in a list [uses unfiltered InChannels]\
 * nImOricochetControl 'r' 'p' - creates a machine list and sends it to one of the machines ('r' indicates whether random or sequential machine order) [uses unfiltered inChannels]\
 \
 wiring:\
-* nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false] 
+* nImOcommutator ['n' ['r']] - forwards a message to one of 'n' output channels (default 1), sequentially if 'r' is missing or false, randomly if true [default false]; 
 \f1\b DONE
 \f0\b0 \
-* nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1) 
+* nImOdelay ['d'] - forwards any message from the input channel to the output channel after a delay of 'd' seconds ('d' defaults to 1); 
 \f1\b DONE
 \f0\b0 \
-* nImOjunction ['n' ['m']] - forwards any messages from one of the 'n' input channels to all of the 'm' output channels ('n' and 'm' default to 1) 
+* nImOjunction ['n' ['m']] - forwards any messages from one of the 'n' input channels to all of the 'm' output channels ('n' and 'm' default to 1); 
 \f1\b DONE
 \f0\b0 \
 \
@@ -62,15 +65,15 @@ application support:\
 * nImOremoveApp 'a' - removes an application from the list of available applications on the machine\
 * nImOloadApps 'a' - loads a set of applications\
 * nImOloadSetup 'a' - loads a setup\
-* nImOshutdown 'a' - shutdown one or all nodes or machines except active monitors 
+* nImOshutdown 'a' - shutdown one or all nodes or machines except active log programs; 
 \f1\b DONE
 \f0\b0 \
 * nImOstoreApps 'a' - stores the current set of loaded applications\
 * nImOstoreSetup 'a' - stores a setup\
-* nImOlauncher 'a' - records the machine and known applications with the Registry and waits for requests to start applications 
+* nImOlauncher 'a' - records the machine and known applications with the Registry and waits for requests to start applications; 
 \f1\b DONE
 \f0\b0 \
-* nImOregistry - the Registry, one per LAN 
+* nImOregistry - the Registry, one per LAN; 
 \f1\b DONE
 \f0\b0 \
 \
@@ -87,7 +90,7 @@ shell script:\
 		nimo list <type> - invokes nImOlist <type>; with no <type>, lists choices\
 		nimo loada <a> - invokes nImOloadApps <a>\
 		nimo loads <a> - invokes nImOloadSetup <a>\
-		nimo monitor - invokes nImOmonitor\
+		nimo log - invokes nImOlog\
 		nimo post <a> <b> - invokes nImOport <a> <b>\
 		nimo read <c> - invokes nImOread <c>\
 		nimo remove <a> - invokes nImOremoveApp <a>\

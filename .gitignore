@@ -98,6 +98,9 @@ non-iOS/Tools/Launch/nImOlaunch.rc
 non-iOS/Tools/List/nImOlist
 non-iOS/Tools/List/nImOlist.dir/
 non-iOS/Tools/List/nImOlist.rc
+non-iOS/Tools/Log/nImOlog
+non-iOS/Tools/Log/nImOlog.dir/
+non-iOS/Tools/Log/nImOlog.rc
 non-iOS/Tools/Monitor/nImOmonitor
 non-iOS/Tools/Monitor/nImOmonitor.dir/
 non-iOS/Tools/Monitor/nImOmonitor.rc

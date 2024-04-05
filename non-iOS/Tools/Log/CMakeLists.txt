@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/Monitor/CMakeLists.txt
+#  File:       non-iOS/Tools/Log/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Monitor application.
+#  Contains:   The CMAKE definitions for the Log application.
 #
 #  Written by: Norman Jaffe
 #
@@ -37,9 +37,9 @@
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Monitor)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Log)
 
-set(THIS_TARGET nImOmonitor)
+set(THIS_TARGET nImOlog)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOmonitorMain.cpp
+               ${THIS_SOURCE_DIR}/nImOlogMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

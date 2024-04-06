@@ -115,10 +115,10 @@ nImO::LauncherContext::LauncherContext
 void
 nImO::AddLauncherHandlers
     (SpLauncherContext      context,
-     Ptr(CallbackFunction)  shutdownCallback)
+     Ptr(CallbackFunction)  stopCallback)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
+    ODL_P2("context = ", context.get(), "stopCallback = ", stopCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     if (context)
     {
@@ -152,7 +152,7 @@ nImO::AddLauncherHandlers
         }
         if (goAhead)
         {
-            ServiceContext::addStandardHandlers(context, shutdownCallback);
+            ServiceContext::addStandardHandlers(context, stopCallback);
         }
     }
     ODL_EXIT(); //####

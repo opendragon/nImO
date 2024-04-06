@@ -39,7 +39,7 @@
 #include <Contexts/nImOserviceContext.h>
 
 #include <BasicTypes/nImOstring.h>
-#include <CommandHandlers/nImOshutdownCommandHandler.h>
+#include <CommandHandlers/nImOstopCommandHandler.h>
 #include <Containers/nImOarray.h>
 #include <nImOcommandHandler.h>
 #include <nImOcommandSession.h>
@@ -150,16 +150,16 @@ nImO::ServiceContext::addHandler
 void
 nImO::ServiceContext::addStandardHandlers
     (SpServiceContext       context,
-     Ptr(CallbackFunction)  shutdownCallback)
+     Ptr(CallbackFunction)  stopCallback)
 {
     ODL_ENTER(); //####
-    ODL_P2("context = ", context.get(), "shutdownCallback = ", shutdownCallback); //####
+    ODL_P2("context = ", context.get(), "stopCallback = ", stopCallback); //####
     if (context)
     {
-        auto    newHandler{std::make_shared<ShutdownCommandHandler>(context, shutdownCallback)};
+        auto    newHandler{std::make_shared<StopCommandHandler>(context, stopCallback)};
 
         ODL_P1("newHandler <- ", newHandler.get()); //####
-        if (context->addHandler(kShutDownRequest, newHandler))
+        if (context->addHandler(kStopRequest, newHandler))
         {
             auto    newSession{std::make_shared<CommandSession>(context)};
 

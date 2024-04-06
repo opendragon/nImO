@@ -55,11 +55,11 @@
 namespace nImO
 {
 
-    /*! @brief The 'shutdown' request. */
-    const std::string   kShutDownRequest{"shutDown."s};
+    /*! @brief The 'stop' request. */
+    const std::string   kStopRequest{"stop."s};
 
-    /*! @brief The 'shutdown' response. */
-    const std::string   kShutDownResponse{"shutDown="s};
+    /*! @brief The 'stop' response. */
+    const std::string   kStopResponse{"stop="s};
 
     /*! @brief A place-holder response for a bad command. */
     const std::string   kBadResponse{"BAD!!!"s};

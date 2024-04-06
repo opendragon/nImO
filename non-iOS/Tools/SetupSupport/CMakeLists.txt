@@ -37,7 +37,6 @@
 #--------------------------------------------------------------------------------------------------
 
 add_subdirectory(LoadSetup)
-add_subdirectory(Shutdown)
 add_subdirectory(StoreSetup)
 
 enable_testing()

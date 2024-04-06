@@ -280,13 +280,13 @@ namespace nImO
     /*! @brief Add the standard command handlers for an InputOutputContext.
      Note that this can't be a member function as the newly-added handlers need to access the shared pointer.
      @param[in] context The Context to be updated.
-     @param[in] shutdownCallback A callback to be used when a shutdown command is processed.
+     @param[in] stopCallback A callback to be used when a stop command is processed.
      @param[in] addInputChannelCallback A callback to be used when an add input channel command is processed.
      @param[in] addOutputChannelCallback A callback to be used when an add output channel command is processed. */
     void
     AddInputOutputHandlers
         (SpInputOutputContext   context,
-         Ptr(CallbackFunction)  shutdownCallback,
+         Ptr(CallbackFunction)  stopCallback,
          Ptr(CallbackFunction)  addInputChannelCallback = nullptr,
          Ptr(CallbackFunction)  addOutputChannelCallback = nullptr);
 

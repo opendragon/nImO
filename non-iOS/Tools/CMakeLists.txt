@@ -47,6 +47,7 @@ add_subdirectory(Post)
 add_subdirectory(Read)
 add_subdirectory(SetupSupport)
 add_subdirectory(Start)
+add_subdirectory(Stop)
 add_subdirectory(Version)
 add_subdirectory(Write)
 

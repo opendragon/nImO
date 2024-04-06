@@ -121,7 +121,7 @@ namespace nImO
     /*! @brief Set to @c false when a SIGINT occurs. */
     extern std::atomic_bool gKeepRunning;
 
-    /*! @brief Set to @c true when there's a pending shutdown request. */
+    /*! @brief Set to @c true when there's a pending stop request. */
     extern std::atomic_bool gPendingStop;
 
 } // nImO

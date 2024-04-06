@@ -130,11 +130,11 @@ namespace nImO
 
     /*! @brief Add the standard command handlers for an LauncherContext.
      @param[in] context The Context to be updated.
-     @param[in] shutdownCallback A callback to be used when a shutdown command is processed. */
+     @param[in] stopCallback A callback to be used when a stop command is processed. */
     void
     AddLauncherHandlers
         (SpLauncherContext      context,
-         Ptr(CallbackFunction)  shutdownCallback = nullptr);
+         Ptr(CallbackFunction)  stopCallback = nullptr);
 
 } // nImO
 

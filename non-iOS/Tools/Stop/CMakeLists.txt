@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tools/SetupSupport/Shutdown/CMakeLists.txt
+#  File:       non-iOS/Tools/Stop/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Shutdown tool.
+#  Contains:   The CMAKE definitions for the Stop tool.
 #
 #  Written by: Norman Jaffe
 #
@@ -38,8 +38,8 @@
 
 include_directories("${nImO_SOURCE_DIR}")
 
-set(THIS_TARGET nImOshutdown)
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/SetupSupport/Shutdown)
+set(THIS_TARGET nImOstop)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tools/Stop)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOshutdownMain.cpp
+               ${THIS_SOURCE_DIR}/nImOstopMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

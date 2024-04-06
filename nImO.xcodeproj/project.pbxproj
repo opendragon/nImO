@@ -226,8 +226,8 @@
 		F677180C2B37639100959A15 /* nImOstartReceiverResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartReceiverResponseHandler.cpp; path = nImO/ResponseHandlers/nImOstartReceiverResponseHandler.cpp; sourceTree = "<group>"; };
 		F677180D2B37641E00959A15 /* nImOstopSenderResponseHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstopSenderResponseHandler.cpp; path = nImO/ResponseHandlers/nImOstopSenderResponseHandler.cpp; sourceTree = "<group>"; };
 		F677180E2B37641E00959A15 /* nImOstopSenderResponseHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstopSenderResponseHandler.h; path = nImO/ResponseHandlers/nImOstopSenderResponseHandler.h; sourceTree = "<group>"; };
-		F677180F2B376A9000959A15 /* nImOshutdownCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOshutdownCommandHandler.cpp; path = nImO/CommandHandlers/nImOshutdownCommandHandler.cpp; sourceTree = "<group>"; };
-		F67718102B376A9000959A15 /* nImOshutdownCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOshutdownCommandHandler.h; path = nImO/CommandHandlers/nImOshutdownCommandHandler.h; sourceTree = "<group>"; };
+		F677180F2B376A9000959A15 /* nImOstopCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstopCommandHandler.cpp; path = nImO/CommandHandlers/nImOstopCommandHandler.cpp; sourceTree = "<group>"; };
+		F67718102B376A9000959A15 /* nImOstopCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstopCommandHandler.h; path = nImO/CommandHandlers/nImOstopCommandHandler.h; sourceTree = "<group>"; };
 		F67718122B376CB600959A15 /* nImOstartSenderCommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOstartSenderCommandHandler.h; path = nImO/CommandHandlers/nImOstartSenderCommandHandler.h; sourceTree = "<group>"; };
 		F67718132B376CB600959A15 /* nImOstopReceiverCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstopReceiverCommandHandler.cpp; path = nImO/CommandHandlers/nImOstopReceiverCommandHandler.cpp; sourceTree = "<group>"; };
 		F67718142B376CB600959A15 /* nImOstartSenderCommandHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOstartSenderCommandHandler.cpp; path = nImO/CommandHandlers/nImOstartSenderCommandHandler.cpp; sourceTree = "<group>"; };
@@ -277,9 +277,9 @@
 		F69004E829CF4E7100271A73 /* nImOcommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandHandler.h; path = nImO/nImOcommandHandler.h; sourceTree = "<group>"; };
 		F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrequestResponse.cpp; path = nImO/nImOrequestResponse.cpp; sourceTree = "<group>"; };
 		F69004EC29CF654300271A73 /* nImOrequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOrequestResponse.h; path = nImO/nImOrequestResponse.h; sourceTree = "<group>"; };
-		F692A43929C0E911003711E9 /* nImOshutdownMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOshutdownMain.cpp; sourceTree = "<group>"; };
+		F692A43929C0E911003711E9 /* nImOstopMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstopMain.cpp; sourceTree = "<group>"; };
 		F692A43A29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		F692A43B29C0E911003711E9 /* nImOshutdown.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOshutdown.rc.in; sourceTree = "<group>"; };
+		F692A43B29C0E911003711E9 /* nImOstop.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOstop.rc.in; sourceTree = "<group>"; };
 		F692A43D29C0E911003711E9 /* nImOloadSetupMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOloadSetupMain.cpp; sourceTree = "<group>"; };
 		F692A43E29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F692A43F29C0E911003711E9 /* nImOloadSetup.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOloadSetup.rc.in; sourceTree = "<group>"; };
@@ -933,6 +933,7 @@
 				F65C4B012985620200430284 /* Read */,
 				F692A44429C0E954003711E9 /* SetupSupport */,
 				F6B0A16F2BC0126B009453D3 /* Start */,
+				F692A44629C0E954003711E9 /* Stop */,
 				F65C4B352985620200430284 /* Version */,
 				F65C4A3E2985620100430284 /* Write */,
 			);
@@ -1047,6 +1048,7 @@
 				F65C4BBB2985636800430284 /* Read */,
 				F692A43729C0E911003711E9 /* SetupSupport */,
 				F6B0A1712BC01296009453D3 /* Start */,
+				F692A43829C0E911003711E9 /* Stop */,
 				F65C4BC32985636800430284 /* Version */,
 				F65C4B9E2985636700430284 /* Write */,
 			);
@@ -1200,12 +1202,12 @@
 				F6A3953A2B39C1910098CF7C /* nImOsetUpReceiverCommandHandler.h */,
 				F6A395382B39C1910098CF7C /* nImOsetUpSenderCommandHandler.cpp */,
 				F6A395372B39C1910098CF7C /* nImOsetUpSenderCommandHandler.h */,
-				F677180F2B376A9000959A15 /* nImOshutdownCommandHandler.cpp */,
-				F67718102B376A9000959A15 /* nImOshutdownCommandHandler.h */,
 				F67718192B376CB600959A15 /* nImOstartReceiverCommandHandler.cpp */,
 				F67718172B376CB600959A15 /* nImOstartReceiverCommandHandler.h */,
 				F67718142B376CB600959A15 /* nImOstartSenderCommandHandler.cpp */,
 				F67718122B376CB600959A15 /* nImOstartSenderCommandHandler.h */,
+				F677180F2B376A9000959A15 /* nImOstopCommandHandler.cpp */,
+				F67718102B376A9000959A15 /* nImOstopCommandHandler.h */,
 				F67718132B376CB600959A15 /* nImOstopReceiverCommandHandler.cpp */,
 				F67718182B376CB600959A15 /* nImOstopReceiverCommandHandler.h */,
 				F67718162B376CB600959A15 /* nImOstopSenderCommandHandler.cpp */,
@@ -1290,20 +1292,19 @@
 			isa = PBXGroup;
 			children = (
 				F692A43C29C0E911003711E9 /* LoadSetup */,
-				F692A43829C0E911003711E9 /* Shutdown */,
 				F692A44029C0E911003711E9 /* StoreSetup */,
 			);
 			path = SetupSupport;
 			sourceTree = "<group>";
 		};
-		F692A43829C0E911003711E9 /* Shutdown */ = {
+		F692A43829C0E911003711E9 /* Stop */ = {
 			isa = PBXGroup;
 			children = (
-				F692A43B29C0E911003711E9 /* nImOshutdown.rc.in */,
-				F692A43929C0E911003711E9 /* nImOshutdownMain.cpp */,
+				F692A43B29C0E911003711E9 /* nImOstop.rc.in */,
+				F692A43929C0E911003711E9 /* nImOstopMain.cpp */,
 				F692A43A29C0E911003711E9 /* resource.h */,
 			);
-			path = Shutdown;
+			path = Stop;
 			sourceTree = "<group>";
 		};
 		F692A43C29C0E911003711E9 /* LoadSetup */ = {
@@ -1331,18 +1332,17 @@
 			children = (
 				F692A44529C0E954003711E9 /* CMakeLists.txt */,
 				F692A44829C0E954003711E9 /* LoadSetup */,
-				F692A44629C0E954003711E9 /* Shutdown */,
 				F692A44A29C0E954003711E9 /* StoreSetup */,
 			);
 			path = SetupSupport;
 			sourceTree = "<group>";
 		};
-		F692A44629C0E954003711E9 /* Shutdown */ = {
+		F692A44629C0E954003711E9 /* Stop */ = {
 			isa = PBXGroup;
 			children = (
 				F692A44729C0E954003711E9 /* CMakeLists.txt */,
 			);
-			path = Shutdown;
+			path = Stop;
 			sourceTree = "<group>";
 		};
 		F692A44829C0E954003711E9 /* LoadSetup */ = {

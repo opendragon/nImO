@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOshutdownMain.cpp
+//  File:       nImOstopMain.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   A tool to shutdown all active nImO applications except copies of nImOmonitor.
+//  Contains:   A tool to stop active nImO applications except copies of nImOmonitor.
 //
 //  Written by: Norman Jaffe
 //
@@ -56,10 +56,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A tool to shutdown all active #nImO applications except copies of nImOmonitor.. */
+ @brief A tool to stop all active #nImO applications except copies of nImOmonitor.. */
 
-/*! @dir Shutdown
- @brief The set of files that implement the Shutdown tool. */
+/*! @dir Stop
+ @brief The set of files that implement the Stop tool. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -95,7 +95,7 @@ main
 {
     std::string             progName{*argv};
     auto                    firstArg{std::make_shared<nImO::StringArgumentDescriptor>("node"s,
-                                                                                      "Node to be shutdown (if machine is not specified)"s,
+                                                                                      "Node to be stop (if machine is not specified)"s,
                                                                                       nImO::ArgumentMode::Optional, ""s)};
     nImO::DescriptorVector  argumentList{};
     nImO::StandardOptions   optionValues{};
@@ -108,14 +108,14 @@ main
     nImO::Initialize();
     nImO::ReportVersions();
     argumentList.push_back(firstArg);
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Shutdown one node or machine or all nodes"s, "nImOshutdown node"s, 2023,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Stop one node or machine or all nodes"s, "nImOstop node"s, 2023,
                                      nImO::kCopyrightName, optionValues, nullptr, nImO::kSkipFlavoursOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
         try
         {
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            auto                ourContext{std::make_shared<nImO::UtilityContext>("shutdown"s, optionValues._logging)};
+            auto                ourContext{std::make_shared<nImO::UtilityContext>("stop"s, optionValues._logging)};
             auto                nodeName{firstArg->getCurrentValue()};
             nImO::Connection    registryConnection{};
 
@@ -133,14 +133,14 @@ main
                         {
                             auto    nodes{statusWithAllNodes.second};
 
-                            // Send Shutdown command to all launchers.
+                            // Send Stop command to all launchers.
                             for (auto & walker : nodes)
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
-                                                                                     nImO::kShutDownResponse);
+                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
+                                                                                     nImO::kStopResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
                                     auto    statusWithBool{proxy->removeNode(walker._name)};
@@ -218,14 +218,14 @@ main
                                 std::cerr << "Problem with 'getInformationForAllConnections': " << statusWithAllConnections.first.second << ".\n";
                                 exitCode = 1;
                             }
-                            // Send Shutdown command to all other nodes.
+                            // Send Stop command to all other nodes.
                             for (auto & walker : nodes)
                             {
                                 if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                                 {
-                                    ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
-                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
-                                                                                     nImO::kShutDownResponse);
+                                    ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                    nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
+                                                                                     nImO::kStopResponse);
                                     // Give the service time to inform the Registry.
                                     nImO::ConsumeSomeTime(ourContext.get(), 20);
                                     auto    statusWithBool{proxy->removeNode(walker._name)};
@@ -244,10 +244,10 @@ main
                         }
                         // Give the Registry time to handle pending requests.
                         nImO::ConsumeSomeTime(ourContext.get(), 20);
-                        ourContext->report("sending shutdown request to Registry."s);
-                        // Send Shutdown command to Registry.
-                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kShutDownRequest,
-                                                                         nImO::kShutDownResponse);
+                        ourContext->report("sending stop request to Registry."s);
+                        // Send Stop command to Registry.
+                        nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, registryConnection, nImO::kStopRequest,
+                                                                         nImO::kStopResponse);
                     }
                     else
                     {
@@ -342,13 +342,13 @@ main
                                                 ".\n";
                                     exitCode = 1;
                                 }
-                                // Send Shutdown command to the node.
+                                // Send Stop command to the node.
                                 if (optionValues._expanded)
                                 {
-                                    ourContext->report("sending shutdown request to '"s + nodeName + "'."s);
+                                    ourContext->report("sending stop request to '"s + nodeName + "'."s);
                                 }
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kShutDownRequest,
-                                                                                 nImO::kShutDownResponse);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, statusWithInfo.second._connection, nImO::kStopRequest,
+                                                                                 nImO::kStopResponse);
                                 auto    statusWithBool{proxy->removeNode(nodeName)};
 
                                 if (! statusWithBool.first.first)
@@ -376,14 +376,14 @@ main
                     {
                         auto    nodes{statusWithAllNodes.second};
 
-                        // Send Shutdown command to all the launchers on the machine.
+                        // Send Stop command to all the launchers on the machine.
                         for (auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService == walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
-                                                                                 nImO::kShutDownResponse);
+                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
+                                                                                 nImO::kStopResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
                                 auto    statusWithBool{proxy->removeNode(walker._name)};
@@ -482,14 +482,14 @@ main
                                         ".\n";
                             exitCode = 1;
                         }
-                        // Send Shutdown command to all other nodes on the machine.
+                        // Send Stop command to all other nodes on the machine.
                         for (auto & walker : nodes)
                         {
                             if (walker._found && (nImO::ServiceType::LauncherService != walker._serviceType))
                             {
-                                ourContext->report("sending shutdown request to '"s + walker._name + "'."s);
-                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kShutDownRequest,
-                                                                                 nImO::kShutDownResponse);
+                                ourContext->report("sending stop request to '"s + walker._name + "'."s);
+                                nImO::SendRequestWithNoArgumentsAndEmptyResponse(ourContext, walker._connection, nImO::kStopRequest,
+                                                                                 nImO::kStopResponse);
                                 // Give the service time to inform the Registry.
                                 nImO::ConsumeSomeTime(ourContext.get(), 20);
                                 auto    statusWithBool{proxy->removeNode(walker._name)};

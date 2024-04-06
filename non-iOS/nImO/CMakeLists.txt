@@ -87,9 +87,9 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp"
-            "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp"
+            "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/Containers/nImOarray.cpp"
@@ -295,9 +295,9 @@ install(FILES
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOinputOutputCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h"
-        "${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h"
+        "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h"
         "${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.h"
         DESTINATION ${INCLUDE_DEST}/CommandHandlers
@@ -443,12 +443,12 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOsetUpSenderCommandHandler.h
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.cpp
-        ${THIS_SOURCE_DIR}/CommandHandlers/nImOshutdownCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstartSenderCommandHandler.h
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopCommandHandler.cpp
+        ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopReceiverCommandHandler.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOstopSenderCommandHandler.cpp

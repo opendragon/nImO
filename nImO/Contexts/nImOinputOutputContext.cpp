@@ -299,12 +299,12 @@ nImO::InputOutputContext::stopInputQueue
 void
 nImO::AddInputOutputHandlers
     (SpInputOutputContext   context,
-     Ptr(CallbackFunction)  shutdownCallback,
+     Ptr(CallbackFunction)  stopCallback,
      Ptr(CallbackFunction)  addInputChannelCallback,
      Ptr(CallbackFunction)  addOutputChannelCallback)
 {
     ODL_ENTER(); //####
-    ODL_P4("context = ", context.get(), "shutdownCallback = ", shutdownCallback, "addInputChannelCallback = ",//####
+    ODL_P4("context = ", context.get(), "stopCallback = ", stopCallback, "addInputChannelCallback = ",//####
            addInputChannelCallback, "addOutputChannelCallback = ", addOutputChannelCallback); //####
     // Note that we have to add our handlers first, since adding the standard handlers initiates an acceptor.
     if (context)
@@ -409,7 +409,7 @@ nImO::AddInputOutputHandlers
         }
         if (goAhead)
         {
-            ServiceContext::addStandardHandlers(context, shutdownCallback);
+            ServiceContext::addStandardHandlers(context, stopCallback);
         }
     }
     ODL_EXIT(); //####

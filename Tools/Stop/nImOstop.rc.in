@@ -67,11 +67,11 @@ BEGIN
         BLOCK "100904b0"
         BEGIN
             VALUE "CompanyName", "@nImO_COMPANY@\0"
-            VALUE "FileDescription", "Shutdown\0"
+            VALUE "FileDescription", "Stop\0"
             VALUE "FileVersion", "@nImO_VERSION_STRING@.0\0"
-            VALUE "InternalName", "nImOshutdown.exe\0"
+            VALUE "InternalName", "nImOstop.exe\0"
             VALUE "LegalCopyright", "(c) 2023 by @nImO_COMPANY@.\0"
-            VALUE "OriginalFilename", "nImOshutdown.exe\0"
+            VALUE "OriginalFilename", "nImOstop.exe\0"
             VALUE "ProductName", "nImO\0"
             VALUE "ProductVersion", "@nImO_VERSION_STRING@.0\0"
         END

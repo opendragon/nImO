@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOshutdownCommandHandler.h
+//  File:       nImO/CommandHandlers/nImOstopCommandHandler.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for the nImO shutdown command handler.
+//  Contains:   The class declaration for the nImO stop command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,8 +36,8 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOshutdownCommandHandler_H_))
-# define nImOshutdownCommandHandler_H_ /* Header guard */
+#if (! defined(nImOstopCommandHandler_H_))
+# define nImOstopCommandHandler_H_ /* Header guard */
 
 # include <nImOcallbackFunction.h>
 # include <nImOcommandHandler.h>
@@ -48,15 +48,15 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for the %nImO shutdown command handler. */
+ @brief The class declaration for the %nImO stop command handler. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
 
 namespace nImO
 {
-    /*! @brief A class to provide a handler for the shutdown command. */
-    class ShutdownCommandHandler final : public CommandHandler
+    /*! @brief A class to provide a handler for the stop command. */
+    class StopCommandHandler final : public CommandHandler
     {
 
         public :
@@ -77,7 +77,7 @@ namespace nImO
             /*! @brief The constructor.
              @param[in] owner The owning Context.
              @param[in] callback The function to invoke when the command is received. */
-            ShutdownCommandHandler
+            StopCommandHandler
                 (SpServiceContext       owner,
                  Ptr(CallbackFunction)  callback = nullptr);
 
@@ -112,8 +112,8 @@ namespace nImO
             /*! @brief A function to invoke when the command is triggered via doIt(). */
             Ptr(CallbackFunction)   _callback{nullptr};
 
-    }; // ShutdownCommandHandler
+    }; // StopCommandHandler
 
 } // nImO
 
-#endif // not defined(nImOshutdownCommandHandler_H_)
+#endif // not defined(nImOstopCommandHandler_H_)

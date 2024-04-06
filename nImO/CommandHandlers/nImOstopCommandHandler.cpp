@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/CommandHandlers/nImOshutdownCommandHandler.cpp
+//  File:       nImO/CommandHandlers/nImOstopCommandHandler.cpp
 //
 //  Project:    nImO
 //
-//  Contains:   The class definition for the nImO shutdown command handler.
+//  Contains:   The class definition for the nImO stop command handler.
 //
 //  Written by: Norman Jaffe
 //
@@ -36,7 +36,7 @@
 //
 //--------------------------------------------------------------------------------------------------
 
-#include <CommandHandlers/nImOshutdownCommandHandler.h>
+#include <CommandHandlers/nImOstopCommandHandler.h>
 
 #include <nImOcommonCommands.h>
 #include <nImOmainSupport.h>
@@ -50,7 +50,7 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief The class definition for the %nImO shutdown command handler. */
+ @brief The class definition for the %nImO stop command handler. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -79,7 +79,7 @@
 # pragma mark Constructors and Destructors
 #endif // defined(__APPLE__)
 
-nImO::ShutdownCommandHandler::ShutdownCommandHandler
+nImO::StopCommandHandler::StopCommandHandler
     (SpServiceContext       owner,
      Ptr(CallbackFunction)  callback) :
         inherited{owner}, _callback(callback)
@@ -87,14 +87,14 @@ nImO::ShutdownCommandHandler::ShutdownCommandHandler
     ODL_ENTER(); //####
     ODL_P2("owner = ", owner.get(), "callback = ", callback); //####
     ODL_EXIT_P(this); //####
-} // nImO::ShutdownCommandHandler::ShutdownCommandHandler
+} // nImO::StopCommandHandler::StopCommandHandler
 
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
 
 bool
-nImO::ShutdownCommandHandler::doIt
+nImO::StopCommandHandler::doIt
     (BTCP::socket & socket,
      const Array &  arguments,
      std::string &  reason)
@@ -103,9 +103,9 @@ nImO::ShutdownCommandHandler::doIt
     NIMO_UNUSED_VAR_(arguments);
     ODL_OBJENTER(); //####
     ODL_P3("socket = ", &socket, "arguments = ", &arguments, "reason = ", &reason); //####
-    _owner->report("shutdown request received."s);
+    _owner->report("stop request received."s);
     // Send the response to the requestor.
-    bool    okSoFar{sendSimpleResponse(socket, kShutDownResponse, "shutdown"s, true, reason)};
+    bool    okSoFar{sendSimpleResponse(socket, kStopResponse, "stop"s, true, reason)};
 
     // Signal to the application that it should terminate.
     gPendingStop = true;
@@ -116,7 +116,7 @@ nImO::ShutdownCommandHandler::doIt
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
-} // nImO::ShutdownCommandHandler::doIt
+} // nImO::StopCommandHandler::doIt
 
 #if defined(__APPLE__)
 # pragma mark Global functions

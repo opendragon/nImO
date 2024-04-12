@@ -280,10 +280,11 @@ install(PROGRAMS
 install(EXPORT ${PROJECT_NAME}
         DESTINATION ${LIB_DEST})
 
+add_subdirectory(nImO)
 add_subdirectory(CPack)
 add_subdirectory(examples)
+add_subdirectory(GUI)
 add_subdirectory(Launcher)
-add_subdirectory(nImO)
 add_subdirectory(Registry)
 add_subdirectory(Tests)
 add_subdirectory(Tools)

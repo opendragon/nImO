@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/GUI/Watch/CMakeLists.txt
+#  File:       non-iOS/GUI/Manage/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the Watch application.
+#  Contains:   The CMAKE definitions for the Manage application.
 #
 #  Written by: Norman Jaffe
 #
@@ -37,9 +37,9 @@
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/GUI/Watch)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/GUI/manage)
 
-set(THIS_TARGET nImOwatch)
+set(THIS_TARGET nImOmanage)
 
 if(WIN32)
     set(VERS_RESOURCE ${THIS_TARGET}.rc)
@@ -50,7 +50,7 @@ endif()
 
 # Set up our program
 add_executable(${THIS_TARGET}
-               ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
+               ${THIS_SOURCE_DIR}/nImOmanageMain.cpp
                ${VERS_RESOURCE})
 
 # Note that the order of inclusion of libraries is critical in Linux, as they appear to only be

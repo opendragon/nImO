@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImOwatchMain.cpp
+//  File:       nImOmanageMain.cpp
 //
 //  Project:    nImO
 //
@@ -61,10 +61,10 @@
 # pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 #endif // defined(__APPLE__)
 /*! @file
- @brief A utility application to display information about #nImO. */
+ @brief A utility application to monitor and control an #nImO installation. */
 
 /*! @dir Log
- @brief The set of files that implement the Watch application. */
+ @brief The set of files that implement the manage application. */
 #if defined(__APPLE__)
 # pragma clang diagnostic pop
 #endif // defined(__APPLE__)
@@ -256,7 +256,7 @@ main
     ODL_ENTER(); //####
     nImO::Initialize();
     nImO::ReportVersions();
-    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "Watch nImO"s, "nImOwatch"s, 2024, nImO::kCopyrightName, optionValues, nullptr,
+    if (nImO::ProcessStandardOptions(argc, argv, argumentList, "manage nImO"s, "nImOmanage"s, 2024, nImO::kCopyrightName, optionValues, nullptr,
                                      nImO::kSkipExpandedOption | nImO::kSkipFlavoursOption | nImO::kSkipLoggingOption | nImO::kSkipMachineOption))
     {
         nImO::LoadConfiguration(optionValues._configFilePath);
@@ -264,7 +264,7 @@ main
         {
 #if 0
             nImO::SetSignalHandlers(nImO::CatchSignal);
-            nImO::ContextWithNetworking             ourContext{"monitor"s, optionValues._logging};
+            nImO::ContextWithNetworking             ourContext{"manage"s, optionValues._logging};
             auto                                    loggingConnection{ourContext.getLoggingInfo()};
             auto                                    statusConnection{ourContext.getStatusInfo()};
             auto                                    logReceiver{std::make_shared<ReceiveOnMessagePort>(ourContext.getService(), loggingConnection)};

@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 #
-#  File:       non-iOS/Tests/CMakeLists.txt
+#  File:       non-iOS/GUI/Watch/CMakeLists.txt
 #
 #  Project:    nImO
 #
-#  Contains:   The CMAKE definitions for the unit test applications.
+#  Contains:   The CMAKE definitions for the Log application.
 #
 #  Written by: Norman Jaffe
 #
-#  Copyright:  (c) 2016 by OpenDragon.
+#  Copyright:  (c) 2024 by OpenDragon.
 #
 #              All rights reserved. Redistribution and use in source and binary forms, with or
 #              without modification, are permitted provided that the following conditions are met:
@@ -32,23 +32,36 @@
 #              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 #              DAMAGE.
 #
-#  Created:    2016-02-18
+#  Created:    2024-04-12
 #
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/GUI/Watch)
 
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/Tests)
+set(THIS_TARGET nImOwatch)
 
-include(Test_argumentDescriptors.txt)
-include(Test_atomic.txt)
-include(Test_badMessage.txt)
-include(Test_container.txt)
-include(Test_contexts.txt)
-include(Test_converters.txt)
-include(Test_messageExtract.txt)
-include(Test_messageInsert.txt)
-include(Test_MIMEAndMessages.txt)
-include(Test_names.txt)
-include(Test_parser.txt)
-include(Test_registry.txt)
+if(WIN32)
+    set(VERS_RESOURCE ${THIS_TARGET}.rc)
+    configure_file(${THIS_SOURCE_DIR}/${THIS_TARGET}.rc.in ${THIS_TARGET}.rc)
+else()
+    set(VERS_RESOURCE "")
+endif()
+
+# Set up our program
+add_executable(${THIS_TARGET}
+               ${THIS_SOURCE_DIR}/nImOwatchMain.cpp
+               ${VERS_RESOURCE})
+
+# Note that the order of inclusion of libraries is critical in Linux, as they appear to only be
+# processed once.
+target_link_libraries(${THIS_TARGET} ${nImO_LINK_LIBRARIES})
+
+fix_dynamic_libs(${THIS_TARGET})
+
+install(TARGETS
+        ${THIS_TARGET}
+        DESTINATION bin
+        COMPONENT applications)
+
+enable_testing()

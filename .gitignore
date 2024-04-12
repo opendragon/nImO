@@ -190,4 +190,7 @@ non-iOS/Tools/Version/nImOversion.rc
 non-iOS/Tools/Write/nImOwrite
 non-iOS/Tools/Write/nImOwrite.dir/
 non-iOS/Tools/Write/nImOwrite.rc
+non-iOS/GUI/nImOwatch
+non-iOS/GUI/nImOwatch.dir/
+non-iOS/GUI/nImOwatch.rc
 nImO.xcodeproj/project.xcworkspace/xcuserdata/

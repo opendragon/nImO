@@ -37,7 +37,7 @@
 #--------------------------------------------------------------------------------------------------
 
 include_directories("${nImO_SOURCE_DIR}")
-set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/GUI/manage)
+set(THIS_SOURCE_DIR ${nImO_SOURCE_DIR}/GUI/Manage)
 
 set(THIS_TARGET nImOmanage)
 

@@ -3,6 +3,6 @@
     "logger address" > @239.55.12.17 # This is a local multicast address
     "logger port" > 2261 # this should parse fine
     "registry search timeout" > 5 # seconds
-    "status address" > @239.55.12.17
+    "status address" > @239.55.12.17; # Note that commas and semi-colons are ignored
     "status port" > 2262 # this should not match the logger port
 }

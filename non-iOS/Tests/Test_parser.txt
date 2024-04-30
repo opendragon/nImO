@@ -83,6 +83,22 @@ add_test(NAME TestWhitespaceAndLogicalFalseValue2 COMMAND ${THIS_TARGET} 1 t "fa
 add_test(NAME TestWhitespaceAndLogicalTrueValue1 COMMAND ${THIS_TARGET} 1 t "tr " "true")
 # Test parse of whitespace and logical true value
 add_test(NAME TestWhitespaceAndLogicalTrueValue2 COMMAND ${THIS_TARGET} 1 t "tr #chuckles" "true")
+# Test parse of whitespace and logical false value
+add_test(NAME TestWhitespaceAndLogicalFalseValue3 COMMAND ${THIS_TARGET} 1 t "fa;" "false")
+# Test parse of whitespace and logical false value
+add_test(NAME TestWhitespaceAndLogicalFalseValue4 COMMAND ${THIS_TARGET} 1 t "fa,," "false")
+# Test parse of whitespace and logical true value
+add_test(NAME TestWhitespaceAndLogicalTrueValue3 COMMAND ${THIS_TARGET} 1 t "tr ,;" "true")
+# Test parse of whitespace and logical true value
+add_test(NAME TestWhitespaceAndLogicalTrueValue4 COMMAND ${THIS_TARGET} 1 t "tr ;," "true")
+# Test parse of whitespace and logical false value
+add_test(NAME TestWhitespaceAndLogicalFalseValue5 COMMAND ${THIS_TARGET} 1 t ";fa" "false")
+# Test parse of whitespace and logical false value
+add_test(NAME TestWhitespaceAndLogicalFalseValue6 COMMAND ${THIS_TARGET} 1 t ",,fa" "false")
+# Test parse of whitespace and logical true value
+add_test(NAME TestWhitespaceAndLogicalTrueValue5 COMMAND ${THIS_TARGET} 1 t ",;tr " "true")
+# Test parse of whitespace and logical true value
+add_test(NAME TestWhitespaceAndLogicalTrueValue6 COMMAND ${THIS_TARGET} 1 t ";,tr " "true")
 
 # Test parse of number value
 add_test(NAME TestNumberValue01 COMMAND ${THIS_TARGET} 2 t "0" "0")
@@ -132,6 +148,18 @@ add_test(NAME TestWhitespaceAndNumberValue1 COMMAND ${THIS_TARGET} 2 t "0.5  " "
 add_test(NAME TestWhitespaceAndNumberValue2 COMMAND ${THIS_TARGET} 2 t "-1e2#asda" "-100")
 # Test parse of whitespace and number value
 add_test(NAME TestWhitespaceAndNumberValue3 COMMAND ${THIS_TARGET} 2 t ".5e1 #chuckles" "5")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue4 COMMAND ${THIS_TARGET} 2 t "0.5  ,," "0.5")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue5 COMMAND ${THIS_TARGET} 2 t "-1e2;" "-100")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue6 COMMAND ${THIS_TARGET} 2 t ".5e1 ,;," "5")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue7 COMMAND ${THIS_TARGET} 2 t ",,0.5 " "0.5")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue8 COMMAND ${THIS_TARGET} 2 t ";-1e2" "-100")
+# Test parse of whitespace and number value
+add_test(NAME TestWhitespaceAndNumberValue9 COMMAND ${THIS_TARGET} 2 t ",;,.5e1 " "5")
 
 # Test parse of invalid number value
 add_test(NAME TestInvalidNumberValue01 COMMAND ${THIS_TARGET} 2 f "f" "")
@@ -184,6 +212,18 @@ add_test(NAME TestWhitespaceAndStringValue1 COMMAND ${THIS_TARGET} 3 t "\"abc\"\
 add_test(NAME TestWhitespaceAndStringValue2 COMMAND ${THIS_TARGET} 3 t "\"abc\"#blort" "\"abc\"")
 # Test parse of whitespace and string value
 add_test(NAME TestWhitespaceAndStringValue3 COMMAND ${THIS_TARGET} 3 t "\"\"  #ignore" "\"\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue4 COMMAND ${THIS_TARGET} 3 t "\"abc\"," "\"abc\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue5 COMMAND ${THIS_TARGET} 3 t "\"abc\";" "\"abc\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue6 COMMAND ${THIS_TARGET} 3 t "\"\"  ;,;" "\"\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue7 COMMAND ${THIS_TARGET} 3 t ",\"abc\"" "\"abc\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue8 COMMAND ${THIS_TARGET} 3 t ";\"abc\"" "\"abc\"")
+# Test parse of whitespace and string value
+add_test(NAME TestWhitespaceAndStringValue9 COMMAND ${THIS_TARGET} 3 t ";,;\"\"  " "\"\"")
 
 # Test parse of string value
 add_test(NAME TestInvalidStringValue01 COMMAND ${THIS_TARGET} 3 f "'abc" "")
@@ -216,6 +256,18 @@ add_test(NAME TestWhitespaceAndAddressValue1 COMMAND ${THIS_TARGET} 4 t "@0.0.0.
 add_test(NAME TestWhitespaceAndAddressValue2 COMMAND ${THIS_TARGET} 4 t "@010.020.030.040 #dad" "@10.20.30.40")
 # Test parse of whitespace and address value
 add_test(NAME TestWhitespaceAndAddressValue3 COMMAND ${THIS_TARGET} 4 t "@255.255.255.255#ddads" "@255.255.255.255")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue4 COMMAND ${THIS_TARGET} 4 t "@0.0.0.0   ,,," "@0.0.0.0")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue5 COMMAND ${THIS_TARGET} 4 t "@010.020.030.040 ;;;" "@10.20.30.40")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue6 COMMAND ${THIS_TARGET} 4 t "@255.255.255.255,;," "@255.255.255.255")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue7 COMMAND ${THIS_TARGET} 4 t ",,,@0.0.0.0   " "@0.0.0.0")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue8 COMMAND ${THIS_TARGET} 4 t ";;;@010.020.030.040 " "@10.20.30.40")
+# Test parse of whitespace and address value
+add_test(NAME TestWhitespaceAndAddressValue9 COMMAND ${THIS_TARGET} 4 t ",;,@255.255.255.255" "@255.255.255.255")
 
 # Test parse of invalid address value
 add_test(NAME TestInvalidAddressValue01 COMMAND ${THIS_TARGET} 4 f "@x" "")
@@ -286,6 +338,26 @@ add_test(NAME TestWhitespaceAndArrayValue5 COMMAND ${THIS_TARGET} 5 t "( 42 )#21
 add_test(NAME TestWhitespaceAndArrayValue6 COMMAND ${THIS_TARGET} 5 t "( 42#556\n)" "( 42 )")
 # Test parse of whitespace and array value
 add_test(NAME TestWhitespaceAndArrayValue7 COMMAND ${THIS_TARGET} 5 t "(#424234\n42 )" "( 42 )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue8 COMMAND ${THIS_TARGET} 5 t "( )," "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue9 COMMAND ${THIS_TARGET} 5 t "( ;\n)" "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue10 COMMAND ${THIS_TARGET} 5 t "(),;" "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue11 COMMAND ${THIS_TARGET} 5 t "(;,\n)" "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue12 COMMAND ${THIS_TARGET} 5 t "( 42 ),," "( 42 )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue13 COMMAND ${THIS_TARGET} 5 t "( 42;;\n)" "( 42 )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue14 COMMAND ${THIS_TARGET} 5 t "(,,,\n42 )" "( 42 )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue15 COMMAND ${THIS_TARGET} 5 t ",( )" "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue16 COMMAND ${THIS_TARGET} 5 t ",;()" "( )")
+# Test parse of whitespace and array value
+add_test(NAME TestWhitespaceAndArrayValue17 COMMAND ${THIS_TARGET} 5 t ",,( 42 )" "( 42 )")
 
 # Test parse of array value
 add_test(NAME TestInvalidArrayValue01 COMMAND ${THIS_TARGET} 5 f "(" "")
@@ -340,6 +412,26 @@ add_test(NAME TestWhitespaceAndSetValue5 COMMAND ${THIS_TARGET} 6 t "[ 42 ]#fds"
 add_test(NAME TestWhitespaceAndSetValue6 COMMAND ${THIS_TARGET} 6 t "[ 42#546\n]" "[ 42 ]")
 # Test parse of whitespace and set value
 add_test(NAME TestWhitespaceAndSetValue7 COMMAND ${THIS_TARGET} 6 t "[#eryey\n42 ]" "[ 42 ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue8 COMMAND ${THIS_TARGET} 6 t "[ ]," "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue9 COMMAND ${THIS_TARGET} 6 t "[;\n]" "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue10 COMMAND ${THIS_TARGET} 6 t "[];;" "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue11 COMMAND ${THIS_TARGET} 6 t "[,,\n]" "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue12 COMMAND ${THIS_TARGET} 6 t "[ 42 ];,;" "[ 42 ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue13 COMMAND ${THIS_TARGET} 6 t "[ 42,;,\n]" "[ 42 ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue14 COMMAND ${THIS_TARGET} 6 t "[,,,;;;\n42 ]" "[ 42 ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue15 COMMAND ${THIS_TARGET} 6 t ",[ ]" "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue16 COMMAND ${THIS_TARGET} 6 t ";;[]" "[ ]")
+# Test parse of whitespace and set value
+add_test(NAME TestWhitespaceAndSetValue17 COMMAND ${THIS_TARGET} 6 t ";,;[ 42 ]" "[ 42 ]")
 
 # Test parse of set value
 add_test(NAME TestInvalidSetValue01 COMMAND ${THIS_TARGET} 6 f "[42.25]" "")
@@ -412,6 +504,30 @@ add_test(NAME TestWhitespaceAndMapValue7 COMMAND ${THIS_TARGET} 7 t "{ 42 >#fdds
 add_test(NAME TestWhitespaceAndMapValue8 COMMAND ${THIS_TARGET} 7 t "{ 42#6554645\n> 12 }" "{ 42 > 12 }")
 # Test parse of whitespace and map value
 add_test(NAME TestWhitespaceAndMapValue9 COMMAND ${THIS_TARGET} 7 t "{#3423432\n42 > 12 }" "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue10 COMMAND ${THIS_TARGET} 7 t "{ }," "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue11 COMMAND ${THIS_TARGET} 7 t "{;\n}" "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue12 COMMAND ${THIS_TARGET} 7 t "{},," "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue13 COMMAND ${THIS_TARGET} 7 t "{;;\n}" "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue14 COMMAND ${THIS_TARGET} 7 t "{ 42 > 12 },,," "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue15 COMMAND ${THIS_TARGET} 7 t "{ 42 > 12;;;\n}" "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue16 COMMAND ${THIS_TARGET} 7 t "{ 42 >,;,\n12 }" "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue17 COMMAND ${THIS_TARGET} 7 t "{ 42;,;\n> 12 }" "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue18 COMMAND ${THIS_TARGET} 7 t "{,,,\n42 > 12 }" "{ 42 > 12 }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue19 COMMAND ${THIS_TARGET} 7 t ",{ }" "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue20 COMMAND ${THIS_TARGET} 7 t ",,{}" "{ }")
+# Test parse of whitespace and map value
+add_test(NAME TestWhitespaceAndMapValue21 COMMAND ${THIS_TARGET} 7 t ";;;{ 42 > 12 }" "{ 42 > 12 }")
 
 # Test parse of map value
 add_test(NAME TestInvalidMapValue01 COMMAND ${THIS_TARGET} 7 f "{42.25}" "")

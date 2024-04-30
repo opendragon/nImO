@@ -1147,6 +1147,16 @@ namespace nImO
     NameOfSignal
         (const int  theSignal);
 
+    /*! @brief Checks if a character is 'noise' - can be ignored.
+     @param[in] aChar The character to be checked.
+     @return @c true if the character can be ignored and @c false otherwise. */
+    inline bool
+    Noise
+        (const char aChar)
+    {
+        return ((',' == aChar) || (';' == aChar));
+    }
+
     UnaryAndBinaryOperators(DataKind)
 
     UnaryAndBinaryOperators(TransportType)

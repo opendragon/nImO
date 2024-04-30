@@ -34,6 +34,7 @@
 <mapped-value> ::= <atom> <sp>* <map-separator> <sp>* <value>; ## floating-point numbers can't be keys (the atom before the <map-separator>)\
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
 <meta-sequence> ::= 'M-' <meta-char>;\
+<noise> ::= ',' | ';';\
 <non-double-quote-character> ::= <non-quote-character> | <single-quote>;\
 <non-single-quote-character> ::= <non-quote-character> | <double-quote>;\
 <non-quote-character> ::= <non-special-character> | <escape-character> <special-character>;\
@@ -46,7 +47,7 @@
 <sign> ::= '+' | '-';\
 <single-quote> ::= "'";\
 <single-quoted-string> ::= <single-quote> <non-single-quote-character>* <single-quote>; ## empty strings allowed\
-<sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v' | <comment>; ## whitespace characters\
+<sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v' | <noise> | <comment>; ## whitespace characters\
 <special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
 <string> ::= <single-quoted-string> | <double-quoted-string>;\
 <unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\

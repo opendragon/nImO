@@ -528,7 +528,7 @@ nImO::Value::isLegalTerminator
     ODL_C1("aChar = ", aChar); //####
     bool    result;
 
-    if (isspace(aChar) || (kCommentChar == aChar))
+    if (isspace(aChar) || Noise(aChar) || (kCommentChar == aChar))
     {
         result = true;
     }

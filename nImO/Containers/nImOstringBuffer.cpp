@@ -474,7 +474,7 @@ nImO::StringBuffer::skipOverWhiteSpace
     {
         ODL_C1("aChar <- ", aChar); //####
         ODL_I1("position <- ", position); //####
-        if (isspace(aChar) || (kCommentChar == aChar))
+        if (isspace(aChar) || Noise(aChar) || (kCommentChar == aChar))
         {
             if (kCommentChar == aChar)
             {

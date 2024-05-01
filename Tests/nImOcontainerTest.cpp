@@ -394,9 +394,9 @@ doTestSmallArrayValue
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
-                    '1', '2', '3', '.', '4', '5', ' ',
-                    't', 'r', 'u', 'e', ' ',
-                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
+                    '1', '2', '3', '.', '4', '5', ',', ' ',
+                    't', 'r', 'u', 'e', ',', ' ',
+                    '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ',', ' ',
                     '4', '2', ' ',
                 kEndArrayChar, kEndOfString
             };
@@ -476,7 +476,6 @@ doTestBigArrayValue
                 std::string expectedString{kStartArrayChar};
                 char        numBuff[10];
 
-                expectedString += ' ';
                 for (size_t ii = 0; kBigTestSize > ii; ++ii)
                 {
                     Ptr(uint8_t)    addr{bigBlob.get()};
@@ -484,15 +483,20 @@ doTestBigArrayValue
 
                     if (0 != ii)
                     {
+                        expectedString += ',';
+                    }
+                    expectedString += ' ';
+                    if (0 != ii)
+                    {
                         expectedSquishedString += ' ';
                     }
                     bigBlob[ii] = aByte;
                     stuff->addValue(std::make_shared<Integer>(aByte));
-                    snprintf(numBuff, sizeof(numBuff), "%d ", aByte);
-                    expectedString += numBuff;
                     snprintf(numBuff, sizeof(numBuff), "%d", aByte);
+                    expectedString += numBuff;
                     expectedSquishedString += numBuff;
                 }
+                expectedString += ' ';
                 expectedSquishedString += kEndArrayChar;
                 expectedString += kEndArrayChar;
                 if (0 == compareValueWithString(*stuff, expectedString.c_str()))
@@ -1393,7 +1397,7 @@ doTestSmallLogicalMapValue
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                    'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ' ',
+                    'f', 'a', 'l', 's', 'e', ' ', kKeyValueSeparator, ' ', '4', '2', ',', ' ',
                     't', 'r', 'u', 'e', ' ', kKeyValueSeparator, ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
@@ -1475,8 +1479,8 @@ doTestSmallIntegerMapValue
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                    '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
-                    '1', '7', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ' ',
+                    '1', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ',', ' ',
+                    '1', '7', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ',', ' ',
                     '4', '2', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -1562,9 +1566,9 @@ doTestSmallStringMapValue
             {
                 kStartMapChar, ' ',
                     '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
-                        '1', '2', '3', '4', '.', '5', ' ',
+                        '1', '2', '3', '4', '.', '5', ',', ' ',
                     '"', 'd', 'e', 'l', 't', 'a', '"', ' ', kKeyValueSeparator, ' ',
-                        '1', '2', '3', '.', '4', '5', ' ',
+                        '1', '2', '3', '.', '4', '5', ',', ' ',
                     '"', 'l', 'i', 'm', 'a', '"', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '.', '3', '4', '5', ' ',
                 kEndMapChar, kEndOfString
@@ -2239,9 +2243,9 @@ doTestSmallAddressMapValue
             {
                 kStartMapChar, ' ',
                     '@', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ', kKeyValueSeparator, ' ',
-                        '1', '2', '3', '.', '4', '5', ' ',
+                        '1', '2', '3', '.', '4', '5', ',', ' ',
                     '@', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ' ', kKeyValueSeparator, ' ',
-                        '1', '2', '.', '3', '4', '5', ' ',
+                        '1', '2', '.', '3', '4', '5', ',', ' ',
                     '@', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '4', '.', '5', ' ',
                 kEndMapChar, kEndOfString
@@ -2626,7 +2630,7 @@ doTestSmallLogicalSetValue
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    'f', 'a', 'l', 's', 'e', ' ',
+                    'f', 'a', 'l', 's', 'e', ',', ' ',
                     't', 'r', 'u', 'e', ' ',
                 kEndSetChar, kEndOfString
             };
@@ -2710,9 +2714,9 @@ doTestSmallIntegerSetValue
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    '1', '2', ' ',
-                    '1', '7', ' ',
-                    '4', '2', ' ',
+                    '1', '2', ',', ' ',
+                    '1', '7', ',', ' ',
+                    '4', '2', ',', ' ',
                     '1', '2', '3', ' ',
                 kEndSetChar, kEndOfString
             };
@@ -2800,9 +2804,9 @@ doTestSmallStdStringSetValue
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    '"', 'a', 'l', 'p', 'h', 'a', '"', ' ',
-                    '"', 'b', 'e', 't', 'a', '"', ' ',
-                    '"', 'd', 'e', 'l', 't', 'a', '"', ' ',
+                    '"', 'a', 'l', 'p', 'h', 'a', '"', ',', ' ',
+                    '"', 'b', 'e', 't', 'a', '"', ',', ' ',
+                    '"', 'd', 'e', 'l', 't', 'a', '"', ',', ' ',
                     '"', 'g', 'a', 'm', 'm', 'a', '"', ' ',
                 kEndSetChar, kEndOfString
             };
@@ -3485,9 +3489,9 @@ doTestSmallAddressSetValue
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ',
-                    kStartAddressChar, '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ' ',
-                    kStartAddressChar, '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '2', '0', '5', ' ',
+                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ',', ' ',
+                    kStartAddressChar, '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ',', ' ',
+                    kStartAddressChar, '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', ',', ' ',
                     kStartAddressChar, '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '.', '2', '3', '9', ' ',
                 kEndSetChar, kEndOfString
             };

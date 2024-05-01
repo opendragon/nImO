@@ -309,21 +309,21 @@ add_test(NAME TestArrayValue05 COMMAND ${THIS_TARGET} 5 t "(t)" "( true )")
 # Test parse of array value
 add_test(NAME TestArrayValue06 COMMAND ${THIS_TARGET} 5 t "('abc')" "( \"abc\" )")
 # Test parse of array value
-add_test(NAME TestArrayValue07 COMMAND ${THIS_TARGET} 5 t "(42.25 fa)" "( 42.25 false )")
+add_test(NAME TestArrayValue07 COMMAND ${THIS_TARGET} 5 t "(42.25 fa)" "( 42.25, false )")
 # Test parse of array value
-add_test(NAME TestArrayValue08 COMMAND ${THIS_TARGET} 5 t "(fa 17)" "( false 17 )")
+add_test(NAME TestArrayValue08 COMMAND ${THIS_TARGET} 5 t "(fa 17)" "( false, 17 )")
 # Test parse of array value
-add_test(NAME TestArrayValue09 COMMAND ${THIS_TARGET} 5 t "(12 'abc' t)" "( 12 \"abc\" true )")
+add_test(NAME TestArrayValue09 COMMAND ${THIS_TARGET} 5 t "(12 'abc' t)" "( 12, \"abc\", true )")
 # Test parse of array value
 add_test(NAME TestArrayValue10 COMMAND ${THIS_TARGET} 5 t "( @1.2.3.4 )" "( @1.2.3.4 )")
 # Test parse of array value
 add_test(NAME TestArrayValue11 COMMAND ${THIS_TARGET} 5 t "(@2.3.4.5)" "( @2.3.4.5 )")
 # Test parse of array value
-add_test(NAME TestArrayValue12 COMMAND ${THIS_TARGET} 5 t "(@3.4.5.6 fa)" "( @3.4.5.6 false )")
+add_test(NAME TestArrayValue12 COMMAND ${THIS_TARGET} 5 t "(@3.4.5.6 fa)" "( @3.4.5.6, false )")
 # Test parse of array value
-add_test(NAME TestArrayValue13 COMMAND ${THIS_TARGET} 5 t "(fa @4.5.6.7)" "( false @4.5.6.7 )")
+add_test(NAME TestArrayValue13 COMMAND ${THIS_TARGET} 5 t "(fa @4.5.6.7)" "( false, @4.5.6.7 )")
 # Test parse of array value
-add_test(NAME TestArrayValue14 COMMAND ${THIS_TARGET} 5 t "(@5.6.7.8 'abc' t)" "( @5.6.7.8 \"abc\" true )")
+add_test(NAME TestArrayValue14 COMMAND ${THIS_TARGET} 5 t "(@5.6.7.8 'abc' t)" "( @5.6.7.8, \"abc\", true )")
 # Test parse of whitespace and array value
 add_test(NAME TestWhitespaceAndArrayValue1 COMMAND ${THIS_TARGET} 5 t "( )#1123" "( )")
 # Test parse of whitespace and array value
@@ -549,27 +549,27 @@ add_test(NAME TestInvalidMapValue08 COMMAND ${THIS_TARGET} 7 f "{@24.25.26.27 13
 add_test(NAME TestInvalidMapValue09 COMMAND ${THIS_TARGET} 7 f "{ @25.26.27.28 " "")
 
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue01 COMMAND ${THIS_TARGET} 8 t "1 2" "( 1 2 )")
+add_test(NAME TestImplicitArrayValue01 COMMAND ${THIS_TARGET} 8 t "1 2" "( 1, 2 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue02 COMMAND ${THIS_TARGET} 8 t "1 t" "( 1 true )")
+add_test(NAME TestImplicitArrayValue02 COMMAND ${THIS_TARGET} 8 t "1 t" "( 1, true )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue03 COMMAND ${THIS_TARGET} 8 t "'abc' 2" "( \"abc\" 2 )")
+add_test(NAME TestImplicitArrayValue03 COMMAND ${THIS_TARGET} 8 t "'abc' 2" "( \"abc\", 2 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue04 COMMAND ${THIS_TARGET} 8 t "(1 2) 3" "( ( 1 2 ) 3 )")
+add_test(NAME TestImplicitArrayValue04 COMMAND ${THIS_TARGET} 8 t "(1 2) 3" "( ( 1, 2 ), 3 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue05 COMMAND ${THIS_TARGET} 8 t "@24.25.26.27 2" "( @24.25.26.27 2 )")
+add_test(NAME TestImplicitArrayValue05 COMMAND ${THIS_TARGET} 8 t "@24.25.26.27 2" "( @24.25.26.27, 2 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue06 COMMAND ${THIS_TARGET} 8 t "1 @24.25.26.27" "( 1 @24.25.26.27 )")
+add_test(NAME TestImplicitArrayValue06 COMMAND ${THIS_TARGET} 8 t "1 @24.25.26.27" "( 1, @24.25.26.27 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue07 COMMAND ${THIS_TARGET} 8 t "@24.25.26.27 t" "( @24.25.26.27 true )")
+add_test(NAME TestImplicitArrayValue07 COMMAND ${THIS_TARGET} 8 t "@24.25.26.27 t" "( @24.25.26.27, true )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue08 COMMAND ${THIS_TARGET} 8 t "'abc' @24.25.26.27" "( \"abc\" @24.25.26.27 )")
+add_test(NAME TestImplicitArrayValue08 COMMAND ${THIS_TARGET} 8 t "'abc' @24.25.26.27" "( \"abc\", @24.25.26.27 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue09 COMMAND ${THIS_TARGET} 8 t "(@24.25.26.27 2) 3" "( ( @24.25.26.27 2 ) 3 )")
+add_test(NAME TestImplicitArrayValue09 COMMAND ${THIS_TARGET} 8 t "(@24.25.26.27 2) 3" "( ( @24.25.26.27, 2 ), 3 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue10 COMMAND ${THIS_TARGET} 8 t "(1 @25.26.27.28) 3" "( ( 1 @25.26.27.28 ) 3 )")
+add_test(NAME TestImplicitArrayValue10 COMMAND ${THIS_TARGET} 8 t "(1 @25.26.27.28) 3" "( ( 1, @25.26.27.28 ), 3 )")
 # Test parse of implicit array
-add_test(NAME TestImplicitArrayValue11 COMMAND ${THIS_TARGET} 8 t "(1 2) @25.26.27.28" "( ( 1 2 ) @25.26.27.28 )")
+add_test(NAME TestImplicitArrayValue11 COMMAND ${THIS_TARGET} 8 t "(1 2) @25.26.27.28" "( ( 1, 2 ), @25.26.27.28 )")
 
 # Test parse of implicit array
 add_test(NAME TestInvalidImplicitArrayValue01 COMMAND ${THIS_TARGET} 8 f "1 (" "")

@@ -709,6 +709,10 @@ nImO::Set::printToStringBuffer
     {
         if (walker)
         {
+            if (! first)
+            {
+                outBuffer.appendChar(',');
+            }
             if ((! squished) || (! first))
             {
                 outBuffer.appendChar(' ');

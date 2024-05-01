@@ -773,6 +773,10 @@ nImO::Map::printToStringBuffer
     outBuffer.appendChar(kStartMapChar);
     for (auto & walker : *this)
     {
+        if (! first)
+        {
+            outBuffer.appendChar(',');
+        }
         if ((! squished) || (! first))
         {
             outBuffer.appendChar(' ');

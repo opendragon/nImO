@@ -118,6 +118,9 @@ namespace nImO
          spaces. */
         kFlavourTabs,
 
+        /*! @brief Output in nImO format. Tabs and newlines are replaced with spaces. */
+        kFlavourNiMo,
+
         /*! @brief The output format is unknown. */
         kFlavourUnknown
 

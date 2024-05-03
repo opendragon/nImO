@@ -159,6 +159,23 @@ main
                                 sqlVersionString << CHAR_DOUBLEQUOTE_ << " }\n";
                     break;
 
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_);
+                    nImOversionString = nImO::SanitizeString(nImO_VERSION_);
+                    odlVersionString = nImO::SanitizeString(ODL_VERSION_);
+                    std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "nImO" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                    " " CHAR_DOUBLEQUOTE_ << nImOversionString <<
+                                CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "ODL" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                    " " CHAR_DOUBLEQUOTE_ <<
+                                odlVersionString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "mdns_plusplus"
+                                                       CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                mdnsVersionString << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "Boost"
+                                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                getBoostVersion() << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "SQLite"
+                                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                sqlVersionString << CHAR_DOUBLEQUOTE_ << " " << nImO::kEndMapChar << "\n";
+                    break;
+
                 case nImO::OutputFlavour::kFlavourNormal :
                     mdnsVersionString = nImO::SanitizeString(mdns_plusplus_VERSION_, true);
                     nImOversionString = nImO::SanitizeString(nImO_VERSION_, true);

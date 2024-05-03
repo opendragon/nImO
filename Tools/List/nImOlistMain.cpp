@@ -212,7 +212,25 @@ listApplications
         }
         else
         {
-            std::cout << "Applications:\n";
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kFirst :
+                        std::cout << nImO::kStartMapChar << " ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << CHAR_DOUBLEQUOTE_ "applications" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator;
+            }
+            else
+            {
+                std::cout << "Applications:\n";
+            }
         }
         nImO::ApplicationInfoVector &   applications{statusWithAllApplications.second};
 
@@ -226,6 +244,10 @@ listApplications
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    std::cout << " " << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -245,6 +267,13 @@ listApplications
             {
                 std::cout << " [ ";
             }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kStartArrayChar << " ";
+                }
+            }
             for (auto walker{applicationMap->begin()}; walker != applicationMap->end(); )
             {
                 auto    launcherName{nImO::SanitizeString(walker->first->asString()->getValue(), shouldSanitize)};
@@ -257,8 +286,14 @@ listApplications
                         break;
 
                     case nImO::OutputFlavour::kFlavourJSON :
-                        std::cout << "{ " << CHAR_DOUBLEQUOTE_ "launcher" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ <<
+                        std::cout << "{ " CHAR_DOUBLEQUOTE_ "launcher" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                     launcherName << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "applications" CHAR_DOUBLEQUOTE_ ": ";
+                        break;
+
+                    case nImO::OutputFlavour::kFlavourNiMo :
+                        std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "launcher" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                    " " CHAR_DOUBLEQUOTE_ << launcherName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "applications"
+                                    CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " ";
                         break;
 
                     default :
@@ -271,12 +306,26 @@ listApplications
                     {
                         std::cout << "[ ]";
                     }
+                    else
+                    {
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            std::cout << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
+                        }
+                    }
                 }
                 else
                 {
                     if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
                     {
                         std::cout << "[\n";
+                    }
+                    else
+                    {
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            std::cout << nImO::kStartArrayChar << "\n";
+                        }
                     }
                     for (auto subWalker{appSubMap->begin()}; subWalker != appSubMap->end(); )
                     {
@@ -290,9 +339,15 @@ listApplications
                                 break;
 
                             case nImO::OutputFlavour::kFlavourJSON :
-                                std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " << CHAR_DOUBLEQUOTE_ << appName <<
-                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ ": " <<
+                                std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << appName <<
+                                            CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ ": "
                                             CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " }";
+                                break;
+
+                            case nImO::OutputFlavour::kFlavourNiMo :
+                                std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
+                                            CHAR_DOUBLEQUOTE_ << appName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "description" CHAR_DOUBLEQUOTE_ " " <<
+                                            nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << appDescr << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
                                 break;
 
                             case nImO::OutputFlavour::kFlavourTabs :
@@ -313,12 +368,29 @@ listApplications
                         }
                         else
                         {
-                            std::cout << "\n";
+                            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                            {
+                                if (appSubMap->end() != subWalker)
+                                {
+                                    std::cout << "\n";
+                                }
+                            }
+                            else
+                            {
+                                std::cout << "\n";
+                            }
                         }
                     }
                     if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
                     {
                         std::cout << " ]";
+                    }
+                    else
+                    {
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            std::cout << " " << nImO::kEndArrayChar;
+                        }
                     }
                 }
                 ++walker;
@@ -329,10 +401,27 @@ listApplications
                         std::cout << ",\n";
                     }
                 }
+                else
+                {
+                    if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                    {
+                        if (applicationMap->end() != walker)
+                        {
+                            std::cout << "\n";
+                        }
+                    }
+                }
             }
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kEndArrayChar;
+                }
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -354,6 +443,24 @@ listApplications
 
             }
             std::cout << "\n";
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kLast :
+                        std::cout << " " << nImO::kEndMapChar;
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << "\n";
+            }
         }
     }
     else
@@ -400,7 +507,25 @@ listChannels
         }
         else
         {
-            std::cout << "Channels:\n";
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kFirst :
+                        std::cout << nImO::kStartMapChar << " ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << CHAR_DOUBLEQUOTE_ "channels" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator;
+            }
+            else
+            {
+                std::cout << "Channels:\n";
+            }
         }
         nImO::ChannelInfoVector &   channels{statusWithAllChannels.second};
 
@@ -414,6 +539,10 @@ listChannels
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    std::cout << " " << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -430,6 +559,13 @@ listChannels
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " [ ";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kStartArrayChar << " ";
+                }
             }
             for (auto walker{channels.begin()}; (walker != channels.end()) && okSoFar; )
             {
@@ -487,7 +623,7 @@ listChannels
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
-                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << node << CHAR_DOUBLEQUOTE_ ", "
+                            std::cout << "{ " CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << node << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "path" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << path << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << dataType << CHAR_DOUBLEQUOTE_ ", "
                                         CHAR_DOUBLEQUOTE_ "isOutput" CHAR_DOUBLEQUOTE_ ": " << std::boolalpha << theInfo._isOutput << ", "
@@ -496,6 +632,21 @@ listChannels
                             if (! options._expanded)
                             {
                                 std::cout << " }";
+                            }
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "node" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << node << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "path" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << path << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "dataType"
+                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << dataType << CHAR_DOUBLEQUOTE_ " "
+                                        CHAR_DOUBLEQUOTE_ "isOutput" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << std::boolalpha <<
+                                        theInfo._isOutput << " " CHAR_DOUBLEQUOTE_ "modes" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << modes << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "inUse" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " << std::boolalpha << theInfo._inUse;
+                            if (! options._expanded)
+                            {
+                                std::cout << " " << nImO::kEndMapChar;
                             }
                             break;
 
@@ -557,8 +708,12 @@ listChannels
                                     std::cout << ", " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << numBytes <<
                                                 CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                                 numMessages << CHAR_DOUBLEQUOTE_ " }";
+                                    break;
 
-
+                                case nImO::OutputFlavour::kFlavourNiMo :
+                                    std::cout << " " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                                numBytes << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                " " CHAR_DOUBLEQUOTE_ << numMessages << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourTabs :
@@ -581,7 +736,17 @@ listChannels
                     }
                     else
                     {
-                        std::cout << "\n";
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            if (channels.end() != walker)
+                            {
+                                std::cout << "\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "\n";
+                        }
                     }
                 }
                 else
@@ -592,6 +757,13 @@ listChannels
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kEndArrayChar;
+                }
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -613,6 +785,24 @@ listChannels
 
             }
             std::cout << "\n";
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kLast :
+                        std::cout << " " << nImO::kEndMapChar;
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << "\n";
+            }
         }
     }
     else
@@ -658,7 +848,25 @@ listConnections
         }
         else
         {
-            std::cout << "Connections:\n";
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kFirst :
+                        std::cout << nImO::kStartMapChar << " ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << CHAR_DOUBLEQUOTE_ "connections" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator;
+            }
+            else
+            {
+                std::cout << "Connections:\n";
+            }
         }
         nImO::ConnectionInfoVector &    connections{statusWithAllConnections.second};
 
@@ -672,6 +880,10 @@ listConnections
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    std::cout << " " << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -688,6 +900,13 @@ listConnections
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " [ ";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kStartArrayChar << " ";
+                }
             }
             for (auto walker{connections.begin()}; walker != connections.end(); )
             {
@@ -746,13 +965,25 @@ listConnections
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
-                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "fromNode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << fromNode <<
+                            std::cout << "{ " CHAR_DOUBLEQUOTE_ "fromNode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << fromNode <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "fromPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << fromPath <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "toNode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << toNode <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "toPath" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << toPath <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << dataType <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "mode" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << mode <<
                                         CHAR_DOUBLEQUOTE_ " }";
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "fromNode" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << fromNode << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "fromPath" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << fromPath << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "toNode"
+                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << toNode <<
+                                        CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "toPath" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << toPath << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "dataType" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << dataType << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "mode"
+                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << mode << CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kEndMapChar;
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
@@ -773,9 +1004,18 @@ listConnections
                     }
                     else
                     {
-                        std::cout << "\n";
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            if (connections.end() != walker)
+                            {
+                                std::cout << "\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "\n";
+                        }
                     }
-
                 }
                 else
                 {
@@ -785,6 +1025,13 @@ listConnections
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kEndArrayChar;
+                }
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -806,6 +1053,24 @@ listConnections
 
             }
             std::cout << "\n";
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kLast :
+                        std::cout << " " << nImO::kEndMapChar;
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << "\n";
+            }
         }
     }
     else
@@ -851,7 +1116,25 @@ listMachines
         }
         else
         {
-            std::cout << "Machines:\n";
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kFirst :
+                        std::cout << nImO::kStartMapChar << " ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << CHAR_DOUBLEQUOTE_ "machines" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator;
+            }
+            else
+            {
+                std::cout << "Machines:\n";
+            }
         }
         nImO::MachineInfoVector &   machines{statusWithAllMachines.second};
 
@@ -865,6 +1148,10 @@ listMachines
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    std::cout << " " << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -882,6 +1169,13 @@ listMachines
             {
                 std::cout << " [ ";
             }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kStartArrayChar << " ";
+                }
+            }
             for (auto walker{machines.begin()}; walker != machines.end(); )
             {
                 auto    theInfo{*walker};
@@ -898,9 +1192,15 @@ listMachines
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
-                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << machineName <<
+                            std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << machineName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ " }";
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << machineName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << address.to_string() << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
@@ -921,7 +1221,17 @@ listMachines
                     }
                     else
                     {
-                        std::cout << "\n";
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            if (machines.end() != walker)
+                            {
+                                std::cout << "\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "\n";
+                        }
                     }
                 }
                 else
@@ -932,6 +1242,13 @@ listMachines
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kEndArrayChar;
+                }
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -953,6 +1270,24 @@ listMachines
 
             }
             std::cout << "\n";
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kLast :
+                        std::cout << " " << nImO::kEndMapChar;
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << "\n";
+            }
         }
     }
     else
@@ -1035,7 +1370,25 @@ listNodes
         }
         else
         {
-            std::cout << "Nodes:\n";
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kFirst :
+                        std::cout << nImO::kStartMapChar << " ";
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << CHAR_DOUBLEQUOTE_ "nodes" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator;
+            }
+            else
+            {
+                std::cout << "Nodes:\n";
+            }
         }
         if (nodes.empty())
         {
@@ -1047,6 +1400,10 @@ listNodes
 
                 case nImO::OutputFlavour::kFlavourJSON :
                     std::cout << " [ ]";
+                    break;
+
+                case nImO::OutputFlavour::kFlavourNiMo :
+                    std::cout << " " << nImO::kStartArrayChar << " " << nImO::kEndArrayChar;
                     break;
 
                 case nImO::OutputFlavour::kFlavourTabs :
@@ -1063,6 +1420,13 @@ listNodes
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " [ ";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kStartArrayChar << " ";
+                }
             }
             for (auto walker{nodes.begin()}; walker != nodes.end(); )
             {
@@ -1081,7 +1445,7 @@ listNodes
                             break;
 
                         case nImO::OutputFlavour::kFlavourJSON :
-                            std::cout << "{ " << CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
+                            std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
                                         address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
                                         CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ ": "
@@ -1089,6 +1453,19 @@ listNodes
                             if (! options._expanded)
                             {
                                 std::cout << " }";
+                            }
+                            break;
+
+                        case nImO::OutputFlavour::kFlavourNiMo :
+                            std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                        " " CHAR_DOUBLEQUOTE_ << nodeName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ " " <<
+                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << address.to_string() << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "port"
+                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << theInfo._connection._port <<
+                                        CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
+                                        CHAR_DOUBLEQUOTE_ << serviceType << CHAR_DOUBLEQUOTE_;
+                            if (! options._expanded)
+                            {
+                                std::cout << " " << nImO::kEndMapChar;
                             }
                             break;
 
@@ -1122,6 +1499,14 @@ listNodes
                                     nImO::SanitizeString(details._commandLine, true) << CHAR_DOUBLEQUOTE_ " }";
                                     break;
 
+                                case nImO::OutputFlavour::kFlavourNiMo :
+                                    std::cout << " " CHAR_DOUBLEQUOTE_ "execPath" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                    nImO::SanitizeString(details._execPath, true) << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "launchDirectory"
+                                    CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << nImO::SanitizeString(details._launchDirectory, true) <<
+                                    CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "commandLine" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
+                                    nImO::SanitizeString(details._commandLine, true) << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
+                                    break;
+
                                 case nImO::OutputFlavour::kFlavourTabs :
                                     std::cout << "\t" << details._execPath << "\t" << details._launchDirectory << "\t" << details._commandLine;
                                     break;
@@ -1147,7 +1532,17 @@ listNodes
                     }
                     else
                     {
-                        std::cout << "\n";
+                        if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                        {
+                            if (nodes.end() != walker)
+                            {
+                                std::cout << "\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "\n";
+                        }
                     }
                 }
                 else
@@ -1158,6 +1553,13 @@ listNodes
             if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
             {
                 std::cout << " ]";
+            }
+            else
+            {
+                if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+                {
+                    std::cout << " " << nImO::kEndArrayChar;
+                }
             }
         }
         if (nImO::OutputFlavour::kFlavourJSON == options._flavour)
@@ -1179,6 +1581,24 @@ listNodes
 
             }
             std::cout << "\n";
+        }
+        else
+        {
+            if (nImO::OutputFlavour::kFlavourNiMo == options._flavour)
+            {
+                switch (thePlacement)
+                {
+                    case Placement::kSolitary :
+                    case Placement::kLast :
+                        std::cout << " " << nImO::kEndMapChar;
+                        break;
+
+                    default :
+                        break;
+
+                }
+                std::cout << "\n";
+            }
         }
     }
     else

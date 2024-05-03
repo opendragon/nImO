@@ -206,6 +206,7 @@ nImO::ProcessStandardOptions
         kOptionJSON,
         kOptionLOG,
         kOptionMACHINE,
+        kOptionNIMO,
         kOptionTABS,
         kOptionVERSION
     }; // OptionIndex
@@ -231,6 +232,9 @@ nImO::ProcessStandardOptions
     auto                        machineHelpString{"  "s + MakeOption("m"s, "machine"s) + " <name> \tSpecify machine to be referenced"s};
     Option_::Descriptor         machineDescriptor{StaticCast(unsigned int, OptionIndex::kOptionMACHINE), 0, "m", "machine",
                                                     Option_::Arg::Required, machineHelpString.c_str()};
+    auto                        nimoHelpString{"  "s + MakeOption("n"s, "nimo"s) + " \tGenerate output in nImO format"s};
+    Option_::Descriptor         nimoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNIMO), 0, "n", "nimo",
+                                                Option_::Arg::None, nimoHelpString.c_str()};
     auto                        tabsHelpString{"  "s + MakeOption("t"s, "tabs"s) + " \tGenerate output in tab-format"s};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
                                                 Option_::Arg::None, tabsHelpString.c_str()};
@@ -238,7 +242,7 @@ nImO::ProcessStandardOptions
     Option_::Descriptor         versionDescriptor{StaticCast(unsigned int, OptionIndex::kOptionVERSION), 0, "v",
                                                     "version", Option_::Arg::None, versionHelpString.c_str()};
     Option_::Descriptor         lastDescriptor{0, 0, nullptr, nullptr, nullptr, nullptr};
-    Option_::Descriptor         usage[11]; // first, config, describe, expanded, help, json, log, machine, tabs, version, last
+    Option_::Descriptor         usage[12]; // first, config, describe, expanded, help, json, log, machine, nimo, tabs, version, last
     Ptr(Option_::Descriptor)    usageWalker{usage};
     int                         argcWork = argc;
     Ptr(Ptr(char))              argvWork{argv};
@@ -304,6 +308,10 @@ nImO::ProcessStandardOptions
     }
     if (0 == (kSkipFlavoursOption & optionsToIgnore))
     {
+        memcpy(usageWalker++, &nimoDescriptor, sizeof(nimoDescriptor));
+    }
+    if (0 == (kSkipFlavoursOption & optionsToIgnore))
+    {
         memcpy(usageWalker++, &tabsDescriptor, sizeof(tabsDescriptor));
     }
     memcpy(usageWalker++, &versionDescriptor, sizeof(versionDescriptor));
@@ -344,7 +352,14 @@ nImO::ProcessStandardOptions
                     {
                         if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionJSON)])
                         {
-                            if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionTABS)])
+                            if (nullptr == options[StaticCast(size_t, OptionIndex::kOptionTABS)])
+                            {
+                                if (nullptr != options[StaticCast(size_t, OptionIndex::kOptionNIMO)])
+                                {
+                                    optionValues._flavour = OutputFlavour::kFlavourNiMo;
+                                }
+                            }
+                            else
                             {
                                 optionValues._flavour = OutputFlavour::kFlavourTabs;
                             }

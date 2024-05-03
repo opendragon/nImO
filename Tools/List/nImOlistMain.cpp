@@ -705,15 +705,15 @@ listChannels
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourJSON :
-                                    std::cout << ", " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << numBytes <<
-                                                CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                                numMessages << CHAR_DOUBLEQUOTE_ " }";
+                                    std::cout << ", " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ ": " << numBytes <<
+                                                ", " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ ": " <<
+                                                numMessages << " }";
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourNiMo :
-                                    std::cout << " " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ <<
-                                                numBytes << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
-                                                " " CHAR_DOUBLEQUOTE_ << numMessages << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
+                                    std::cout << " " CHAR_DOUBLEQUOTE_ "bytes" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " <<
+                                                numBytes << " " CHAR_DOUBLEQUOTE_ "messages" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
+                                                " " << numMessages << " " << nImO::kEndMapChar;
                                     break;
 
                                 case nImO::OutputFlavour::kFlavourTabs :
@@ -1200,7 +1200,7 @@ listMachines
                         case nImO::OutputFlavour::kFlavourNiMo :
                             std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
                                         " " CHAR_DOUBLEQUOTE_ << machineName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ " " <<
-                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << address.to_string() << CHAR_DOUBLEQUOTE_ " " << nImO::kEndMapChar;
+                                        nImO::kKeyValueSeparator << " " << nImO::kStartAddressChar << address.to_string() << " " << nImO::kEndMapChar;
                             break;
 
                         case nImO::OutputFlavour::kFlavourTabs :
@@ -1447,8 +1447,8 @@ listNodes
                         case nImO::OutputFlavour::kFlavourJSON :
                             std::cout << "{ " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ << nodeName <<
                                         CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ ": " CHAR_DOUBLEQUOTE_ <<
-                                        address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": "
-                                        CHAR_DOUBLEQUOTE_ << theInfo._connection._port << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ ": "
+                                        address.to_string() << CHAR_DOUBLEQUOTE_ ", " CHAR_DOUBLEQUOTE_ "port" CHAR_DOUBLEQUOTE_ ": " <<
+                                        theInfo._connection._port << ", " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ ": "
                                         CHAR_DOUBLEQUOTE_ << serviceType << CHAR_DOUBLEQUOTE_;
                             if (! options._expanded)
                             {
@@ -1459,9 +1459,9 @@ listNodes
                         case nImO::OutputFlavour::kFlavourNiMo :
                             std::cout << nImO::kStartMapChar << " " CHAR_DOUBLEQUOTE_ "name" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator <<
                                         " " CHAR_DOUBLEQUOTE_ << nodeName << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "address" CHAR_DOUBLEQUOTE_ " " <<
-                                        nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << address.to_string() << CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "port"
-                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " CHAR_DOUBLEQUOTE_ << theInfo._connection._port <<
-                                        CHAR_DOUBLEQUOTE_ " " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
+                                        nImO::kKeyValueSeparator << " " << nImO::kStartAddressChar << address.to_string() << " " CHAR_DOUBLEQUOTE_ "port"
+                                        CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " " << theInfo._connection._port <<
+                                        " " CHAR_DOUBLEQUOTE_ "serviceType" CHAR_DOUBLEQUOTE_ " " << nImO::kKeyValueSeparator << " "
                                         CHAR_DOUBLEQUOTE_ << serviceType << CHAR_DOUBLEQUOTE_;
                             if (! options._expanded)
                             {

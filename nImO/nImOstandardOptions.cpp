@@ -235,7 +235,7 @@ nImO::ProcessStandardOptions
     auto                        nimoHelpString{"  "s + MakeOption("n"s, "nimo"s) + " \tGenerate output in nImO format"s};
     Option_::Descriptor         nimoDescriptor{StaticCast(unsigned int, OptionIndex::kOptionNIMO), 0, "n", "nimo",
                                                 Option_::Arg::None, nimoHelpString.c_str()};
-    auto                        tabsHelpString{"  "s + MakeOption("t"s, "tabs"s) + " \tGenerate output in tab-format"s};
+    auto                        tabsHelpString{"  "s + MakeOption("t"s, "tabs"s) + " \tGenerate output in tab-delimited format"s};
     Option_::Descriptor         tabsDescriptor{StaticCast(unsigned int, OptionIndex::kOptionTABS), 0, "t", "tabs",
                                                 Option_::Arg::None, tabsHelpString.c_str()};
     auto                        versionHelpString{"  "s + MakeOption("v"s, "version"s) + " \tPrint version information and exit"s};

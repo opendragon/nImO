@@ -22,7 +22,9 @@
 <control-sequence-2> ::= 'C-' <low-char>;\
 
 \f1\b <date> ::= '$' ('d' | 'D') <year> '/' <month> '/' <day>;\
-<day> ::= \\d\\d;\
+<day> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
 
 \f0\b0 <double-quote> ::= '"';\
 <double-quoted-string> ::= <double-quote> <non-double-quote-character>* <double-quote>; ## empty strings allowed\
@@ -33,7 +35,9 @@
 <fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
 <hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
 
-\f1\b <hour> ::= \\d\\d;\
+\f1\b <hour> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
 
 \f0\b0 <in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
 <low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
@@ -44,9 +48,15 @@
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
 <meta-sequence> ::= 'M-' <meta-char>;\
 
-\f1\b <milliseconds> ::= \\d\\d\\d;\
-<minutes> ::= \\d\\d;\
-<month> ::= \\d\\d;\
+\f1\b <milliseconds> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
+<minutes> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
+<month> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
 
 \f0\b0 <noise> ::= ',' | ';';\
 <non-double-quote-character> ::= <non-quote-character> | <single-quote>;\
@@ -62,7 +72,9 @@
 \f0\b0 ;\
 <scalar-atom-list> ::= <scalar-atom> (<sp>+ <scalar-atom>)*; ## space-separated scalar atomic values\
 
-\f1\b <seconds> ::= \\d\\d;\
+\f1\b <seconds> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
 \pard\pardeftab720\ri-23724\sl360\partightenfactor0
 
 \f0\b0 \cf0 <set> ::= '[' <sp>* (<scalar-atom-list> <sp>*)? ']'; ## empty sets allowed and floating-point numbers can't be elements; the first value seen establishes the type of the remaining values\
@@ -82,7 +94,9 @@
 <value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
 <value> ::= <atom> | <container> | <blob>;\
 
-\f1\b <year> ::= \\d\\d\\d\\d;\
+\f1\b <year> ::= 
+\f0\b0 <unsigned-integer>
+\f1\b ;\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
 
 \f0\b0 \cf0 \expnd0\expndtw0\kerning0

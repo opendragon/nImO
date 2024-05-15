@@ -189,7 +189,7 @@ nImO::Value::asContainer
     return nullptr;
 } // nImO::Value::asContainer
 
-CPtr(nImO::DateTime)
+CPtr(nImO::Date)
 nImO::Value::asDate
     (void)
     const
@@ -279,7 +279,7 @@ nImO::Value::asString
     return nullptr;
 } // nImO::Value::asString
 
-CPtr(nImO::DateTime)
+CPtr(nImO::Time)
 nImO::Value::asTime
     (void)
     const

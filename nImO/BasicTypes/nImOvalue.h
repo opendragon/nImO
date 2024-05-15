@@ -58,9 +58,10 @@ namespace nImO
     // Forward declarations.
     class Blob;
     class Container;
-    class DateTime;
+    class Date;
     class Double;
     class Number;
+    class Time;
 
     /*! @brief The status of a conversion operation from a numeric string to an int64_t value. */
     enum class IntStatus
@@ -177,7 +178,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Date.
              @return Non-@c nullptr if the object is a Date and @c nullptr otherwise. */
-            virtual CPtr(DateTime)
+            virtual CPtr(Date)
             asDate
                 (void)
                 const;
@@ -240,7 +241,7 @@ namespace nImO
 
             /*! @brief Return non-@c nullptr if the object is a Time.
              @return Non-@c nullptr if the object is a Time and @c nullptr otherwise. */
-            virtual CPtr(DateTime)
+            virtual CPtr(Time)
             asTime
                 (void)
                 const;

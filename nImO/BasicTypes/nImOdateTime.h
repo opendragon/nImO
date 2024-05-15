@@ -54,8 +54,8 @@
 
 namespace nImO
 {
-    /*! @brief A class to provide IPv4 address values. */
-    class DateTime final : public Atom
+    /*! @brief A class to provide Date and Time values. */
+    class DateTime : public Atom
     {
 
         public :
@@ -79,98 +79,8 @@ namespace nImO
         public :
             // Public methods.
 
-            /*! @brief The constructor. */
-            DateTime
-                (void);
-
-            /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object.
-             @param[in] isDate @c true if a Date value and @c false if a Time value*/
-            DateTime
-                (const uint32_t initialValue,
-                 const bool     isDate);
-
-            /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object.
-             @param[in] isDate @c true if a Date value and @c false if a Time value*/
-            DateTime
-                (const DateTimeBytes &  initialValue,
-                 const bool             isDate);
-
-            /*! @brief The copy constructor.
-             @param[in] other The object to be copied. */
-            DateTime
-                (const DateTime &    other);
-
-            /*! @brief The move constructor.
-             @param[in] other The object to be moved. */
-            DateTime
-                (DateTime && other)
-                noexcept;
-
-            /*! @brief Return non-@c nullptr if the object is a Date.
-             @return Non-@c nullptr if the object is a Date and @c nullptr otherwise. */
-            CPtr(DateTime)
-            asDate
-                (void)
-                const
-                override;
-
-            /*! @brief Return non-@c nullptr if the object is a Time.
-             @return Non-@c nullptr if the object is a Time and @c nullptr otherwise. */
-            CPtr(DateTime)
-            asTime
-                (void)
-                const
-                override;
-
-            /*! @brief Return @c true if two Values are structurally identical.
-             @param[in] other The Value to be compared with.
-             @return @c true if the two Values are structurally identical. */
-            bool
-            deeplyEqualTo
-                (const Value &  other)
-                const
-                override;
-
-            /*! @brief Write a short description of the Value to a stream.
-             @param[in/out] output The stream to write to.
-             @return The modified stream. */
-            std::ostream &
-            describe
-                (std::ostream & output)
-                const
-                override;
-
-            /*! @brief Return the enumeration type of an object.
-             @return The enumeration type of an object. */
-            Enumerable
-            enumerationType
-                (void)
-                const
-                override;
-
-            /*! @brief Return the relative ordering of two Values.
-             @param[in] other The Value to be compared with.
-             @return The relative ordering of the two Values. */
-            ComparisonStatus
-            equalTo
-                (const Value &  other)
-                const
-                override;
-
-//            /*! @brief Return the value of the object.
-//             @return The value of the object. */
-//            inline IPv4Address
-//            getAddressValue
-//                (void)
-//                const
-//            {
-//                return _addressValue;
-//            }
-
-            /*! @brief Get the extraction information for Address objects.
-             @param[out] aByte The byte value that indicates the start of an Address value.
+            /*! @brief Get the extraction information for Date and Time objects.
+             @param[out] aByte The byte value that indicates the start of a Date or Time value.
              @param[out] aMask The mask to apply to a lead byte.
              @return The function to perform when the lead byte is seen. */
             static Extractor
@@ -178,8 +88,8 @@ namespace nImO
                 (DataKind & aByte,
                  DataKind & aMask);
 
-            /*! @brief Return the characters that can appear as the start of an Address.
-             @return The characters that can appear as the start of an Address. */
+            /*! @brief Return the characters that can appear as the start of a Date or a Time.
+             @return The characters that can appear as the start of a Date or a Time. */
             static CPtr(char)
             getInitialCharacters
                 (void);
@@ -189,42 +99,6 @@ namespace nImO
             DataKind
             getTypeTag
                 (void)
-                const
-                override;
-
-            /*! @brief Return the relative ordering of two Values.
-             @param[in] other The Value to be compared with.
-             @return The relative ordering of the two Values. */
-            ComparisonStatus
-            greaterThan
-                (const Value &  other)
-                const
-                override;
-
-            /*! @brief Return the relative ordering of two Values.
-             @param[in] other The Value to be compared with.
-             @return The relative ordering of the two Values. */
-            ComparisonStatus
-            greaterThanOrEqual
-                (const Value &  other)
-                const
-                override;
-
-            /*! @brief Return the relative ordering of two Values.
-             @param[in] other The Value to be compared with.
-             @return The relative ordering of the two Values. */
-            ComparisonStatus
-            lessThan
-                (const Value &  other)
-                const
-                override;
-
-            /*! @brief Return the relative ordering of two Values.
-             @param[in] other The Value to be compared with.
-             @return The relative ordering of the two Values. */
-            ComparisonStatus
-            lessThanOrEqual
-                (const Value &  other)
                 const
                 override;
 
@@ -251,41 +125,6 @@ namespace nImO
                 (DateTime && other)
                 noexcept;
 
-//            /*! @brief The assignment operator.
-//             @param[in] value The value to be assigned.
-//             @return The updated object. */
-//            inline Address &
-//            operator=
-//                (const IPv4Address  value)
-//            {
-//                _addressValue = value;
-//                return *this;
-//            }
-
-            /*! @brief Add a readable representation of the object to the buffer.
-             @param[in,out] outBuffer The buffer to be appended to.
-             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-            is as readable as possible. */
-            void
-            printToStringBuffer
-                (StringBuffer & outBuffer,
-                 const bool     squished = false)
-                const
-                override;
-
-            /*! @brief Add a JSON representation of the object to the buffer.
-             @param[in,out] outBuffer The buffer to be appended to.
-             @param[in] asKey The value is a key.
-             @param[in] squished @c true if the output has no unnecessary characters and @c false if it
-             is as readable as possible. */
-            void
-            printToStringBufferAsJSON
-                (StringBuffer & outBuffer,
-                 const bool     asKey = false,
-                 const bool     squished = false)
-                const
-                override;
-
             /*! @brief Convert a readable representation of the object in a buffer into an object.
              @param[in] inBuffer The buffer to be scanned.
              @param[out] position Where in the buffer to start.
@@ -306,15 +145,35 @@ namespace nImO
         protected :
             // Protected methods.
 
-            /*! @brief Insert a readable version of the object into an output stream.
-             @param[in,out] out The stream to be added to.
-             @param[in] aValue The object to be printed.
-             @return The modified stream. */
-            std::ostream &
-            operator<<
-                (std::ostream & out)
-                const
-                override;
+            /*! @brief The constructor.
+             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+            DateTime
+                (const bool isDate);
+
+            /*! @brief The constructor.
+             @param[in] initialValue The initial value for the object.
+             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+            DateTime
+                (const uint32_t initialValue,
+                 const bool     isDate);
+
+            /*! @brief The constructor.
+             @param[in] initialValue The initial value for the object.
+             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+            DateTime
+                (const DateTimeBytes &  initialValue,
+                 const bool             isDate);
+
+            /*! @brief The copy constructor.
+             @param[in] other The object to be copied. */
+            DateTime
+                (const DateTime &    other);
+
+            /*! @brief The move constructor.
+             @param[in] other The object to be moved. */
+            DateTime
+                (DateTime && other)
+                noexcept;
 
         private :
             // Private methods.
@@ -345,16 +204,16 @@ namespace nImO
         protected :
             // Protected fields.
 
-        private :
-            // Private fields.
-
             /*! @brief The associated value. */
             uint32_t    _dateTimeValue{0};
 
             /*! @brief @c true if the value is a Date and @c false if it is a Time. */
             bool    _isDate{false};
 
-    }; // Address
+        private :
+            // Private fields.
+
+    }; // DateTime
 
 } // nImO
 

@@ -72,6 +72,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp"
+            "${THIS_SOURCE_DIR}/BasicTypes/nImOdate.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.cpp"
@@ -80,6 +81,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOlogical.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp"
+            "${THIS_SOURCE_DIR}/BasicTypes/nImOtime.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.cpp"
             "${THIS_SOURCE_DIR}/CommandHandlers/nImOaddOutputChannelCommandHandler.cpp"
@@ -277,6 +279,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h"
+        "${THIS_SOURCE_DIR}/BasicTypes/nImOdate.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.h"
@@ -285,6 +288,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/BasicTypes/nImOlogical.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h"
+        "${THIS_SOURCE_DIR}/BasicTypes/nImOtime.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h"
         DESTINATION ${INCLUDE_DEST}/BasicTypes
         COMPONENT headers)
@@ -423,6 +427,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h
+        ${THIS_SOURCE_DIR}/BasicTypes/nImOdate.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdate.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.h
@@ -431,6 +436,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOlogical.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOlogical.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOnumber.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOstring.h
+        ${THIS_SOURCE_DIR}/BasicTypes/nImOtime.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOtime.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOvalue.h
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.cpp
         ${THIS_SOURCE_DIR}/CommandHandlers/nImOaddInputChannelCommandHandler.h

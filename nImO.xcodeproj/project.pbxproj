@@ -277,6 +277,10 @@
 		F69004E829CF4E7100271A73 /* nImOcommandHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOcommandHandler.h; path = nImO/nImOcommandHandler.h; sourceTree = "<group>"; };
 		F69004EB29CF654300271A73 /* nImOrequestResponse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOrequestResponse.cpp; path = nImO/nImOrequestResponse.cpp; sourceTree = "<group>"; };
 		F69004EC29CF654300271A73 /* nImOrequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOrequestResponse.h; path = nImO/nImOrequestResponse.h; sourceTree = "<group>"; };
+		F69119492BF4AF79002B9D4E /* nImOtime.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOtime.cpp; path = nImO/BasicTypes/nImOtime.cpp; sourceTree = "<group>"; };
+		F691194A2BF4AF79002B9D4E /* nImOtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOtime.h; path = nImO/BasicTypes/nImOtime.h; sourceTree = "<group>"; };
+		F691194B2BF4AF79002B9D4E /* nImOdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOdate.h; path = nImO/BasicTypes/nImOdate.h; sourceTree = "<group>"; };
+		F691194C2BF4AF79002B9D4E /* nImOdate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdate.cpp; path = nImO/BasicTypes/nImOdate.cpp; sourceTree = "<group>"; };
 		F692A43929C0E911003711E9 /* nImOstopMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nImOstopMain.cpp; sourceTree = "<group>"; };
 		F692A43A29C0E911003711E9 /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		F692A43B29C0E911003711E9 /* nImOstop.rc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOstop.rc.in; sourceTree = "<group>"; };
@@ -826,6 +830,8 @@
 				F6E510ED2A1968C600D52E80 /* nImOatom.h */,
 				F6E510E62A1968C600D52E80 /* nImOblob.cpp */,
 				F6E510EA2A1968C600D52E80 /* nImOblob.h */,
+				F691194C2BF4AF79002B9D4E /* nImOdate.cpp */,
+				F691194B2BF4AF79002B9D4E /* nImOdate.h */,
 				F6FC44B42BF41A8E00CB317A /* nImOdateTime.cpp */,
 				F6FC44B32BF41A8D00CB317A /* nImOdateTime.h */,
 				F6E510DB2A1968C500D52E80 /* nImOdouble.cpp */,
@@ -842,6 +848,8 @@
 				F6E510E22A1968C600D52E80 /* nImOnumber.h */,
 				F6E510E32A1968C600D52E80 /* nImOstring.cpp */,
 				F6E510E92A1968C600D52E80 /* nImOstring.h */,
+				F69119492BF4AF79002B9D4E /* nImOtime.cpp */,
+				F691194A2BF4AF79002B9D4E /* nImOtime.h */,
 				F6E510EC2A1968C600D52E80 /* nImOvalue.cpp */,
 				F6E510EE2A1968C600D52E80 /* nImOvalue.h */,
 			);

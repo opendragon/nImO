@@ -255,6 +255,14 @@ nImO::Set::describe
             output << "string";
             break;
 
+        case Enumerable::Date :
+            output << "date";
+            break;
+
+        case Enumerable::Time :
+            output << "time";
+            break;
+
         default :
             output << "<unknown>";
             break;

@@ -58,6 +58,7 @@ namespace nImO
     // Forward declarations.
     class Blob;
     class Container;
+    class DateTime;
     class Double;
     class Number;
 
@@ -174,6 +175,13 @@ namespace nImO
                 (void)
                 const;
 
+            /*! @brief Return non-@c nullptr if the object is a Date.
+             @return Non-@c nullptr if the object is a Date and @c nullptr otherwise. */
+            virtual CPtr(DateTime)
+            asDate
+                (void)
+                const;
+
             /*! @brief Return non-@c nullptr if the object is a Double.
              @return Non-@c nullptr if the object is a Double and @c nullptr otherwise. */
             virtual CPtr(Double)
@@ -227,6 +235,13 @@ namespace nImO
              @return Non-@c nullptr if the object is a String and @c nullptr otherwise. */
             virtual CPtr(String)
             asString
+                (void)
+                const;
+
+            /*! @brief Return non-@c nullptr if the object is a Time.
+             @return Non-@c nullptr if the object is a Time and @c nullptr otherwise. */
+            virtual CPtr(DateTime)
+            asTime
                 (void)
                 const;
 

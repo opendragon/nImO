@@ -571,6 +571,8 @@
 		F6F1D465294CE0E5000B48A7 /* nImOcommonSettings.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOcommonSettings.cmake; sourceTree = "<group>"; };
 		F6F8A1461EA164C5002C7228 /* nImOConfig.cmake */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfig.cmake; sourceTree = "<group>"; };
 		F6F8A1471EA164C5002C7228 /* nImOConfigVersion.cmake.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nImOConfigVersion.cmake.in; sourceTree = "<group>"; };
+		F6FC44B32BF41A8D00CB317A /* nImOdateTime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nImOdateTime.h; path = nImO/BasicTypes/nImOdateTime.h; sourceTree = "<group>"; };
+		F6FC44B42BF41A8E00CB317A /* nImOdateTime.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = nImOdateTime.cpp; path = nImO/BasicTypes/nImOdateTime.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -824,6 +826,8 @@
 				F6E510ED2A1968C600D52E80 /* nImOatom.h */,
 				F6E510E62A1968C600D52E80 /* nImOblob.cpp */,
 				F6E510EA2A1968C600D52E80 /* nImOblob.h */,
+				F6FC44B42BF41A8E00CB317A /* nImOdateTime.cpp */,
+				F6FC44B32BF41A8D00CB317A /* nImOdateTime.h */,
 				F6E510DB2A1968C500D52E80 /* nImOdouble.cpp */,
 				F6E510E02A1968C600D52E80 /* nImOdouble.h */,
 				F6E510DD2A1968C500D52E80 /* nImOflaw.cpp */,

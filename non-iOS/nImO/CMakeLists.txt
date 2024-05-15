@@ -72,6 +72,7 @@ add_library(${THIS_TARGET}
             "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp"
+            "${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.cpp"
             "${THIS_SOURCE_DIR}/BasicTypes/nImOinteger.cpp"
@@ -276,6 +277,7 @@ install(FILES
         "${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h"
+        "${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.h"
         "${THIS_SOURCE_DIR}/BasicTypes/nImOinteger.h"
@@ -421,6 +423,7 @@ if(nImO_DO_SWIG)
         ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOaddress.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOatom.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOblob.h
+        ${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdateTime.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOdouble.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOflaw.h
         ${THIS_SOURCE_DIR}/BasicTypes/nImOinteger.cpp ${THIS_SOURCE_DIR}/BasicTypes/nImOinteger.h

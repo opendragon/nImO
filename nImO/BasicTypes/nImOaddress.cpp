@@ -687,6 +687,7 @@ nImO::Address::readFromStringBuffer
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::Logical::readFromStringBuffer
+
 void
 nImO::Address::writeToMessage
     (Message &  outMessage)

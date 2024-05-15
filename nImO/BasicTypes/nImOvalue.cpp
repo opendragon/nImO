@@ -40,6 +40,7 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdateTime.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOinvalid.h>
@@ -188,6 +189,16 @@ nImO::Value::asContainer
     return nullptr;
 } // nImO::Value::asContainer
 
+CPtr(nImO::DateTime)
+nImO::Value::asDate
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asDate
+
 CPtr(nImO::Double)
 nImO::Value::asDouble
     (void)
@@ -267,6 +278,16 @@ nImO::Value::asString
     ODL_OBJEXIT_P(nullptr); //####
     return nullptr;
 } // nImO::Value::asString
+
+CPtr(nImO::DateTime)
+nImO::Value::asTime
+    (void)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_OBJEXIT_P(nullptr); //####
+    return nullptr;
+} // nImO::Value::asTime
 
 bool
 nImO::Value::deeplyEqualTo
@@ -477,6 +498,7 @@ nImO::Value::initialize
 {
     ODL_ENTER(); //####
     addToReaderMap(Address::getInitialCharacters(), &Address::readFromStringBuffer);
+    addToReaderMap(DateTime::getInitialCharacters(), &DateTime::readFromStringBuffer);
     addToReaderMap(Logical::getInitialCharacters(), &Logical::readFromStringBuffer);
     addToReaderMap(Number::getInitialCharacters(), &Number::readFromStringBuffer);
     addToReaderMap(String::getInitialCharacters(), &String::readFromStringBuffer);
@@ -504,6 +526,8 @@ nImO::Value::initialize
     theExtractor = Array::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = Blob::getExtractionInfo(aByte, aMask);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    theExtractor = DateTime::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = Double::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);

@@ -404,11 +404,20 @@ namespace nImO
                 /*! @brief The value is an IPv4 address. */
                 OtherMiscellaneousTypeIPv4Address = 0x0004,
 
-                /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellaneousTypeReserved1 = 0x0008,
+                /*! @brief The value is a Date or a Time */
+                OtherMiscellaneousTypeDateTime = 0x0008,
+
+                    /*! @brief The mask for the value of the Logical. */
+                    OtherMiscellaneousDateTimeValueMask = 0x0001,
+
+                    /*! @brief The value is a Date. */
+                    OtherMiscellaneousDateTimeDateValue = 0x0000,
+
+                    /*! @brief The value is a Time. */
+                    OtherMiscellaneousDateTimeTimeValue = 0x0001,
 
                 /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellaneousTypeReserved2 = 0x000C,
+                OtherMiscellaneousTypeReserved1 = 0x000C,
 
             /*! @brief The value that follows is a Container. */
             OtherContainerStart = 0x0010,
@@ -512,6 +521,12 @@ namespace nImO
 
         /*! @brief The Value is a String and therefore enumerable. */
         String,
+
+        /*! @brief The Value is a Date and therefore enumerable. */
+        Date,
+
+        /*! @brief The Value is a Time and therefore enumerable. */
+        Time,
 
         /*! @brief The Value is not enumerable. */
         NotEnumerable
@@ -711,6 +726,12 @@ namespace nImO
     /*! @brief The character that is used with Address data formatting. */
     constexpr char  kAddressSeparator{'.'};
 
+    /*! @brief The alternative character that indicates a Date value. */
+    constexpr char  kAltSecondCharForDate{'D'};
+
+    /*! @brief The alternative character that indicates a Time value. */
+    constexpr char  kAltSecondCharForTime{'T'};
+
     /*! @brief The character separating argument descriptors. */
     constexpr char  kArgumentSeparator{'\v'};
 
@@ -719,6 +740,9 @@ namespace nImO
 
     /*! @brief The character that starts a comment. */
     constexpr char  kCommentChar{'#'};
+
+    /*! @brief The character that is used with Date data formatting. */
+    constexpr char  kDateSeparator{'/'};
 
     /*! @brief A character that brackets a string value. */
     constexpr char  kDoubleQuote{'"'};
@@ -744,6 +768,15 @@ namespace nImO
     /*! @brief The character that separates a key from a value in a key/value pair. */
     constexpr char  kKeyValueSeparator{'>'};
 
+    /*! @brief The character that indicates a Date value. */
+    constexpr char  kSecondCharForDate{'d'};
+
+    /*! @brief The character that indicates a Time value. */
+    constexpr char  kSecondCharForTime{'t'};
+
+    /*! @brief The character that is used with Time data formatting. */
+    constexpr char  kSecondMillisecondSeparator{'.'};
+
     /*! @brief A character that brackets a string value. */
     constexpr char  kSingleQuote{'\''};
 
@@ -753,11 +786,17 @@ namespace nImO
     /*! @brief The character that starts an Array value. */
     constexpr char  kStartArrayChar{'('};
 
+    /*! @brief The character that starts a Date or Time value. */
+    constexpr char  kStartDateTimeChar{'$'};
+
     /*! @brief The character that starts a Map value. */
     constexpr char  kStartMapChar{'{'};
 
     /*! @brief The character that starts a Set value. */
     constexpr char  kStartSetChar{'['};
+
+    /*! @brief The character that is used with Time data formatting. */
+    constexpr char  kTimeSeparator{':'};
 
     /*! @brief The maximum count representable in a short integer for a sequence of floating point values. */
     constexpr int   kDataKindDoubleShortCountMaxValue{32};

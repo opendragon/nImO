@@ -14,6 +14,7 @@
 #include "BasicTypes/nImOaddress.h"
 #include "BasicTypes/nImOatom.h"
 #include "BasicTypes/nImOblob.h"
+#include "BasicTypes/nImOdateTime.h"
 #include "BasicTypes/nImOdouble.h"
 #include "BasicTypes/nImOflaw.h"
 #include "BasicTypes/nImOinteger.h"

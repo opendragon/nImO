@@ -1,14 +1,14 @@
 //--------------------------------------------------------------------------------------------------
 //
-//  File:       nImO/BasicTypes/nImOinteger.h
+//  File:       nImO/BasicTypes/nImOdateTime.h
 //
 //  Project:    nImO
 //
-//  Contains:   The class declaration for nImO IPv4 address values.
+//  Contains:   The class declaration for nImO Date and Time values.
 //
 //  Written by: Norman Jaffe
 //
-//  Copyright:  (c) 2023 by OpenDragon.
+//  Copyright:  (c) 2024 by OpenDragon.
 //
 //              All rights reserved. Redistribution and use in source and binary forms, with or
 //              without modification, are permitted provided that the following conditions are met:
@@ -32,12 +32,12 @@
 //              ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 //              DAMAGE.
 //
-//  Created:    2023-09-18
+//  Created:    2024-05-14
 //
 //--------------------------------------------------------------------------------------------------
 
-#if (! defined(nImOaddress_H_))
-# define nImOaddress_H_ /* Header guard */
+#if (! defined(nImOdateTime_H_))
+# define nImOdateTime_H_ /* Header guard */
 
 # include <BasicTypes/nImOatom.h>
 
@@ -47,7 +47,7 @@
 #  pragma clang diagnostic ignored "-Wdocumentation-unknown-command"
 # endif // defined(__APPLE__)
 /*! @file
- @brief The class declaration for %nImO IPv4 address values. */
+ @brief The class declaration for %nImO Date and Time values. */
 # if defined(__APPLE__)
 #  pragma clang diagnostic pop
 # endif // defined(__APPLE__)
@@ -55,14 +55,17 @@
 namespace nImO
 {
     /*! @brief A class to provide IPv4 address values. */
-    class Address final : public Atom
+    class DateTime final : public Atom
     {
 
         public :
             // Public type definitions.
 
             /*! @brief A convenience type. */
-            using IPv4Bytes = uint8_t[4];
+            using DateTimeBytes = uint8_t[4];
+
+            /*! @brief Another convenience type. */
+            using DateTimeInts = uint16_t[4];
 
         protected :
             // Protected type definitions.
@@ -77,34 +80,46 @@ namespace nImO
             // Public methods.
 
             /*! @brief The constructor. */
-            Address
+            DateTime
                 (void);
 
             /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object. */
-            explicit Address
-                (const IPv4Address  initialValue);
+             @param[in] initialValue The initial value for the object.
+             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+            DateTime
+                (const uint32_t initialValue,
+                 const bool     isDate);
 
             /*! @brief The constructor.
-             @param[in] initialValue The initial value for the object. */
-            Address
-                (const IPv4Bytes &  initialValue);
+             @param[in] initialValue The initial value for the object.
+             @param[in] isDate @c true if a Date value and @c false if a Time value*/
+            DateTime
+                (const DateTimeBytes &  initialValue,
+                 const bool             isDate);
 
             /*! @brief The copy constructor.
              @param[in] other The object to be copied. */
-            Address
-                (const Address &    other);
+            DateTime
+                (const DateTime &    other);
 
             /*! @brief The move constructor.
              @param[in] other The object to be moved. */
-            Address
-                (Address && other)
+            DateTime
+                (DateTime && other)
                 noexcept;
 
-            /*! @brief Return non-@c nullptr if the object is an Address.
-             @return Non-@c nullptr if the object is an Address and @c nullptr otherwise. */
-            CPtr(Address)
-            asAddress
+            /*! @brief Return non-@c nullptr if the object is a Date.
+             @return Non-@c nullptr if the object is a Date and @c nullptr otherwise. */
+            CPtr(DateTime)
+            asDate
+                (void)
+                const
+                override;
+
+            /*! @brief Return non-@c nullptr if the object is a Time.
+             @return Non-@c nullptr if the object is a Time and @c nullptr otherwise. */
+            CPtr(DateTime)
+            asTime
                 (void)
                 const
                 override;
@@ -144,15 +159,15 @@ namespace nImO
                 const
                 override;
 
-            /*! @brief Return the value of the object.
-             @return The value of the object. */
-            inline IPv4Address
-            getAddressValue
-                (void)
-                const
-            {
-                return _addressValue;
-            }
+//            /*! @brief Return the value of the object.
+//             @return The value of the object. */
+//            inline IPv4Address
+//            getAddressValue
+//                (void)
+//                const
+//            {
+//                return _addressValue;
+//            }
 
             /*! @brief Get the extraction information for Address objects.
              @param[out] aByte The byte value that indicates the start of an Address value.
@@ -216,13 +231,14 @@ namespace nImO
             /*! @brief The copy assignment operator.
              @param[in] other The object to be copied.
              @return The updated object. */
-            inline Address &
+            inline DateTime &
             operator=
-                (const Address &    other)
+                (const DateTime &    other)
             {
                 if (this != &other)
                 {
-                    _addressValue = other._addressValue;
+                    _dateTimeValue = other._dateTimeValue;
+                    _isDate = other._isDate;
                 }
                 return *this;
             }
@@ -230,21 +246,21 @@ namespace nImO
             /*! @brief The move assignment operator.
              @param[in] other The object to be moved.
              @return The updated object. */
-            Address &
+            DateTime &
             operator=
-                (Address && other)
+                (DateTime && other)
                 noexcept;
 
-            /*! @brief The assignment operator.
-             @param[in] value The value to be assigned.
-             @return The updated object. */
-            inline Address &
-            operator=
-                (const IPv4Address  value)
-            {
-                _addressValue = value;
-                return *this;
-            }
+//            /*! @brief The assignment operator.
+//             @param[in] value The value to be assigned.
+//             @return The updated object. */
+//            inline Address &
+//            operator=
+//                (const IPv4Address  value)
+//            {
+//                _addressValue = value;
+//                return *this;
+//            }
 
             /*! @brief Add a readable representation of the object to the buffer.
              @param[in,out] outBuffer The buffer to be appended to.
@@ -333,10 +349,13 @@ namespace nImO
             // Private fields.
 
             /*! @brief The associated value. */
-            IPv4Address _addressValue{0};
+            uint32_t    _dateTimeValue{0};
+
+            /*! @brief @c true if the value is a Date and @c false if it is a Time. */
+            bool    _isDate{false};
 
     }; // Address
 
 } // nImO
 
-#endif // not defined(nImOaddress_H_)
+#endif // not defined(nImOdateTime_H_)

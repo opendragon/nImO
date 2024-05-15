@@ -133,6 +133,7 @@ nImO::GetConnectionInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<String>(theInfo._dataType));
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._mode)));
                 okSoFar = sendComplexResponse(socket, kGetConnectionInformationResponse, "get connection information"s, infoArray, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

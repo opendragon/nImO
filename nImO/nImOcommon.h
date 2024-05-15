@@ -787,7 +787,7 @@ namespace nImO
     constexpr char  kStartArrayChar{'('};
 
     /*! @brief The character that starts a Date or Time value. */
-    constexpr char  kStartDateTimeChar{'$'};
+    constexpr char  kStartDateTimeChar{'^'};
 
     /*! @brief The character that starts a Map value. */
     constexpr char  kStartMapChar{'{'};

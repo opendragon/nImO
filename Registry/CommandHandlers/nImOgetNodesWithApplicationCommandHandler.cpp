@@ -132,6 +132,7 @@ nImO::GetNodesWithApplicationCommandHandler::doIt
                     stringSet->addValue(std::make_shared<String>(walker));
                 }
                 okSoFar = sendComplexResponse(socket, kGetNodesWithApplicationResponse, "get nodes with application"s, stringSet, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

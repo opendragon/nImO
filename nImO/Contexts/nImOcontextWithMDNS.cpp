@@ -801,6 +801,7 @@ nImO::ContextWithMDNS::gatherAnnouncements
             {
                 report("Failed to send mDNS query: "s + std::string(strerror(errno)) + "."s);
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar)

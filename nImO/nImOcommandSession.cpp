@@ -135,6 +135,7 @@ processRequest
                         else
                         {
                             okSoFar = handler->doIt(*socket.get(), *asArray, reason);
+                            ODL_B1("okSoFar = ", okSoFar); //####
                         }
                     }
                 }

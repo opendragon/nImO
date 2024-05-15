@@ -131,6 +131,7 @@ nImO::GetInformationForAllNodesCommandHandler::doIt
                 nodeArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesResponse, "get information for all nodes"s, nodeArray, reason);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

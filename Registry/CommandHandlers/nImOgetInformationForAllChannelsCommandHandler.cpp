@@ -132,6 +132,7 @@ nImO::GetInformationForAllChannelsCommandHandler::doIt
                 channelArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllChannelsResponse, "get information for all channels"s, channelArray, reason);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

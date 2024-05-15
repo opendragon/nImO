@@ -426,6 +426,7 @@ nImO::Map::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {
@@ -438,6 +439,7 @@ nImO::Map::extractValue
                                         ODL_LOG("(keyValue->asFlaw())"); //####
                                         result = keyValue;
                                         okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
                                     }
                                     else
                                     {
@@ -450,6 +452,7 @@ nImO::Map::extractValue
                                             ODL_LOG("(atEnd)"); //####
                                             result.reset();
                                             okSoFar = false;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
                                         }
                                         else
                                         {
@@ -462,6 +465,7 @@ nImO::Map::extractValue
                                                     ODL_LOG("(vValue->asFlaw())"); //####
                                                     result = vValue;
                                                     okSoFar = false;
+                                                    ODL_B1("okSoFar = ", okSoFar); //####
                                                 }
                                                 else
                                                 {
@@ -474,6 +478,7 @@ nImO::Map::extractValue
                                                 ODL_LOG("! (vValue)"); //####
                                                 result = std::make_shared<Invalid>("Null value Value read", position);
                                                 okSoFar = false;
+                                                ODL_B1("okSoFar = ", okSoFar); //####
                                             }
                                         }
                                     }
@@ -483,6 +488,7 @@ nImO::Map::extractValue
                                     ODL_LOG("! (aValue)"); //####
                                     result = std::make_shared<Invalid>("Null key Value read", position);
                                     okSoFar = false;
+                                    ODL_B1("okSoFar = ", okSoFar); //####
                                 }
                             }
                         }
@@ -496,6 +502,7 @@ nImO::Map::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {
@@ -515,6 +522,7 @@ nImO::Map::extractValue
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result = std::make_shared<Invalid>("Non-empty Map with incorrect end tag", position);
                                     okSoFar = false;
+                                    ODL_B1("okSoFar = ", okSoFar); //####
                                 }
                             }
                         }

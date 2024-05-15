@@ -80,10 +80,10 @@ convertToIntArray
     (nImO::DateTime::DateTimeInts & outValue,
      const uint32_t                 inValue)
 {
-    outValue[3] = StaticCast(uint16_t, inValue % 1000);
-    outValue[2] = StaticCast(uint16_t, (inValue / 1000) % 60);
-    outValue[1] = StaticCast(uint16_t, (inValue / (1000 * 160)) % 60);
-    outValue[0] = StaticCast(uint16_t, (inValue / (1000 * 60 * 60)) % 24);
+    outValue[3] = StaticCast(uint16_t, inValue % (nImO::kMaxMilliseconds + 1));
+    outValue[2] = StaticCast(uint16_t, (inValue / (nImO::kMaxMilliseconds + 1)) % (nImO::kMaxSeconds + 1));
+    outValue[1] = StaticCast(uint16_t, (inValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxSeconds + 1));
+    outValue[0] = StaticCast(uint16_t, (inValue / ((nImO::kMaxMilliseconds + 1) * (nImO::kMaxSeconds + 1) * (nImO::kMaxSeconds + 1))) % (nImO::kMaxHours + 1));
 } // convertToIntArray
 
 /*! @brief Convert a 16-bit unsigned value into a string with a specific width.

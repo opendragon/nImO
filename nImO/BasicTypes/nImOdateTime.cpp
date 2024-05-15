@@ -231,7 +231,7 @@ nImO::DateTime::getInitialCharacters
     (void)
 {
     ODL_ENTER(); //####
-    static CPtr(char)   initialChars{"$"};
+    static CPtr(char)   initialChars{"^"};
 
     ODL_EXIT_S(initialChars); //####
     return initialChars;
@@ -276,134 +276,330 @@ nImO::DateTime::readFromStringBuffer
     ODL_ENTER(); //####
     ODL_P2("inBuffer = ", &inBuffer, "position = ", &position); //####
     SpValue result;
-//    size_t  localIndex{position};
-//    bool    atEnd;
-//    int     aChar{inBuffer.getChar(localIndex++, atEnd)};
-//
-//    if ((! atEnd) && (kStartAddressChar == aChar))
-//    {
-//        uint64_t    collector{0};
-//        bool        okSoFar{true};
-//        bool        digitSeen{false};
-//        IPv4Address totalValue{0};
-//
-//        for (int ii = 0; ii <= 2; ++ii)
-//        {
-//            for ( ; okSoFar; )
-//            {
-//                aChar = inBuffer.getChar(localIndex, atEnd);
-//                ODL_C1("aChar = ", aChar); //####
-//                if (atEnd)
-//                {
-//                    ODL_LOG("(atEnd)"); //####
-//                    okSoFar = false;
-//                }
-//                else
-//                {
-//                    if (isdigit(aChar))
-//                    {
-//                        digitSeen = true;
-//                        if (0 < collector)
-//                        {
-//                            collector = (collector * 10) + (aChar - '0');
-//                        }
-//                        else
-//                        {
-//                            collector = (aChar - '0');
-//                        }
-//                        ODL_X1("collector = ", collector); //####
-//                        ++localIndex;
-//                        ODL_I1("localIndex = ", localIndex); //####
-//                    }
-//                    else
-//                    {
-//                        if (kAddressSeparator == aChar)
-//                        {
-//                            if ((! digitSeen) || (255 < collector))
-//                            {
-//                                okSoFar = false;
-//                            }
-//                            else
-//                            {
-//                                ++localIndex;
-//                                ODL_I1("localIndex = ", localIndex); //####
-//                                break;
-//                            }
-//                        }
-//                        else
-//                        {
-//                            okSoFar = false;
-//                        }
-//                    }
-//                }
-//            }
-//            if (okSoFar)
-//            {
-//                totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
-//                ODL_I1("totalValue = ", totalValue); //####
-//                digitSeen = false;
-//                collector = 0;
-//                ODL_X1("collector = ", collector); //####
-//            }
-//            else
-//            {
-//                break;
-//            }
-//        }
-//        for ( ; okSoFar; )
-//        {
-//            aChar = inBuffer.getChar(localIndex, atEnd);
-//            ODL_C1("aChar = ", aChar); //####
-//            if (atEnd || isLegalTerminator(aChar))
-//            {
-//                if (digitSeen && (255 >= collector))
-//                {
-//                    // unexpected character seen, but valid so far
-//                    break;
-//                }
-//                else
-//                {
-//                    okSoFar = false;
-//                }
-//            }
-//            else
-//            {
-//                if (isdigit(aChar))
-//                {
-//                    digitSeen = true;
-//                    if (0 < collector)
-//                    {
-//                        collector = (collector * 10) + (aChar - '0');
-//                    }
-//                    else
-//                    {
-//                        collector = (aChar - '0');
-//                    }
-//                    ODL_X1("collector = ", collector); //####
-//                    ++localIndex;
-//                    ODL_I1("localIndex = ", localIndex); //####
-//                }
-//                else
-//                {
-//                    okSoFar = false;
-//                }
-//            }
-//        }
-//        if (okSoFar)
-//        {
-//            totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
-//            ODL_X1("totalValue = ", totalValue); //####
-//            result = std::make_shared<DateTime>(totalValue);
-//        }
-//    }
-//    else
-//    {
-//        ODL_LOG("! ((! atEnd) && (kStartAddressChar == aChar))"); //####
-//    }
-//    if (result)
-//    {
-//        position = localIndex;
-//    }
+    size_t  localIndex{position};
+    bool    atEnd;
+    int     aChar{inBuffer.getChar(localIndex++, atEnd)};
+
+    if ((! atEnd) && (kStartDateTimeChar == aChar))
+    {
+        // Determine if it's a Date or a Time.
+        aChar = inBuffer.getChar(localIndex++, atEnd);
+        if ((! atEnd) && ((kSecondCharForDate == aChar) || (kSecondCharForTime == aChar) ||
+                          (kAltSecondCharForDate == aChar) || (kAltSecondCharForTime == aChar)))
+        {
+            bool    isDate{(kSecondCharForDate == aChar) || (kAltSecondCharForDate == aChar)};
+            bool    okSoFar{true};
+            bool    digitSeen{false};
+            int64_t collector{0};
+
+            if (isDate)
+            {
+                // y/m/d
+                const int       maxs[] = { kMaxYear, kMaxMonth, kMaxDay };
+                const int       mins[] = { 0, 1, 1 };
+                int             values[3];
+                constexpr int   kNumValues{numElementsInArray(values)};
+
+                assert((kNumValues == numElementsInArray(maxs)) && (kNumValues == numElementsInArray(mins)));
+                for (int ii = 0; ii < kNumValues; ++ii)
+                {
+                    values[ii] = 0;
+                }
+                for (int ii = 0; ii < (kNumValues - 1); ++ii)
+                {
+                    for ( ; okSoFar; )
+                    {
+                        aChar = inBuffer.getChar(localIndex, atEnd);
+                        ODL_C1("aChar = ", aChar); //####
+                        if (atEnd)
+                        {
+                            ODL_LOG("(atEnd)"); //####
+                            okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
+                        }
+                        else
+                        {
+                            if (isdigit(aChar))
+                            {
+                                digitSeen = true;
+                                ODL_B1("digitSeen = ", digitSeen); //####
+                                if (0 < collector)
+                                {
+                                    collector = (collector * 10) + (aChar - '0');
+                                }
+                                else
+                                {
+                                    collector = (aChar - '0');
+                                }
+                                ODL_X1("collector = ", collector); //####
+                                ++localIndex;
+                                ODL_I1("localIndex = ", localIndex); //####
+                            }
+                            else
+                            {
+                                if (kDateSeparator == aChar)
+                                {
+                                    if ((! digitSeen) || (mins[ii] > collector) || (maxs[ii] < collector))
+                                    {
+                                        okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
+                                    }
+                                    else
+                                    {
+                                        ++localIndex;
+                                        ODL_I1("localIndex = ", localIndex); //####
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    okSoFar = false;
+                                    ODL_B1("okSoFar = ", okSoFar); //####
+                                }
+                            }
+                        }
+                    }
+                    if (okSoFar)
+                    {
+                        values[ii] = collector;
+                        digitSeen = false;
+                        ODL_B1("digitSeen = ", digitSeen); //####
+                        collector = 0;
+                        ODL_X1("collector = ", collector); //####
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                for ( ; okSoFar; )
+                {
+                    aChar = inBuffer.getChar(localIndex, atEnd);
+                    ODL_C1("aChar = ", aChar); //####
+                    if (atEnd || isLegalTerminator(aChar))
+                    {
+                        if (digitSeen && ((mins[kNumValues - 1] <= collector) &&
+                                          (maxs[kNumValues - 1] >= collector)))
+                        {
+                            // unexpected character seen, but valid so far
+                            values[kNumValues - 1] = collector;
+                            break;
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
+                        }
+                    }
+                    else
+                    {
+                        if (isdigit(aChar))
+                        {
+                            digitSeen = true;
+                            ODL_B1("digitSeen = ", digitSeen); //####
+                            if (0 < collector)
+                            {
+                                collector = (collector * 10) + (aChar - '0');
+                            }
+                            else
+                            {
+                                collector = (aChar - '0');
+                            }
+                            ODL_X1("collector = ", collector); //####
+                            ++localIndex;
+                            ODL_I1("localIndex = ", localIndex); //####
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
+                        }
+                    }
+                }
+                if (okSoFar)
+                {
+                    uint32_t    dateValue = (values[0] * (kMaxMonth + 1) * (kMaxDay + 1)) +
+                                            (values[1] * (kMaxDay + 1)) +
+                                             values[2];
+
+                    result = std::make_shared<Date>(dateValue);
+                }
+            }
+            else
+            {
+                // h:m[:s[.ms]]
+                bool            moreToGo{true};
+                const int       maxs[] = { kMaxHours, kMaxMinutes, kMaxSeconds, kMaxMilliseconds };
+                const int       mins[] = { 0, 0, 0, 0 };
+                int             values[4];
+                constexpr int   kNumValues{numElementsInArray(values)};
+
+                assert((kNumValues == numElementsInArray(maxs)) && (kNumValues == numElementsInArray(mins)));
+                for (int ii = 0; ii < kNumValues; ++ii)
+                {
+                    values[ii] = 0;
+                }
+                for (int ii = 0; ii < (kNumValues - 1); ++ii)
+                {
+                    for ( ; okSoFar; )
+                    {
+                        aChar = inBuffer.getChar(localIndex, atEnd);
+                        ODL_C1("aChar = ", aChar); //####
+                        if (atEnd || isLegalTerminator(aChar))
+                        {
+                            if (digitSeen && ((mins[ii] <= collector) && (maxs[ii] >= collector)))
+                            {
+                                // unexpected character seen, but valid so far
+                                moreToGo = false;
+                                ODL_B1("moreToGo = ", moreToGo); //####
+                                break;
+                            }
+                            else
+                            {
+                                okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
+                            }
+                        }
+                        else
+                        {
+                            if (isdigit(aChar))
+                            {
+                                digitSeen = true;
+                                ODL_B1("digitSeen = ", digitSeen); //####
+                                if (0 < collector)
+                                {
+                                    collector = (collector * 10) + (aChar - '0');
+                                }
+                                else
+                                {
+                                    collector = (aChar - '0');
+                                }
+                                ODL_X1("collector = ", collector); //####
+                                ++localIndex;
+                                ODL_I1("localIndex = ", localIndex); //####
+                            }
+                            else
+                            {
+                                if ((kTimeSeparator == aChar) && ((kNumValues - 2) > ii))
+                                {
+                                    if ((! digitSeen) || (mins[ii] > collector) || (maxs[ii] < collector))
+                                    {
+                                        okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
+                                    }
+                                    else
+                                    {
+                                        ++localIndex;
+                                        ODL_I1("localIndex = ", localIndex); //####
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if ((kSecondMillisecondSeparator == aChar) && ((kNumValues - 2) == ii))
+                                    {
+                                        if ((! digitSeen) || (mins[ii] > collector) || (maxs[ii] < collector))
+                                        {
+                                            okSoFar = false;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
+                                        }
+                                        else
+                                        {
+                                            ++localIndex;
+                                            ODL_I1("localIndex = ", localIndex); //####
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (okSoFar)
+                    {
+                        values[ii] = collector;
+                        digitSeen = false;
+                        ODL_B1("digitSeen = ", digitSeen); //####
+                        collector = 0;
+                        ODL_X1("collector = ", collector); //####
+                        if (! moreToGo)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                for ( ; okSoFar && moreToGo; )
+                {
+                    aChar = inBuffer.getChar(localIndex, atEnd);
+                    ODL_C1("aChar = ", aChar); //####
+                    if (atEnd || isLegalTerminator(aChar))
+                    {
+                        if (digitSeen && ((mins[kNumValues - 1] <= collector) &&
+                                          (maxs[kNumValues - 1] >= collector)))
+                        {
+                            // unexpected character seen, but valid so far
+                            values[kNumValues - 1] = collector;
+                            break;
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
+                        }
+                    }
+                    else
+                    {
+                        if (isdigit(aChar))
+                        {
+                            digitSeen = true;
+                            ODL_B1("digitSeen = ", digitSeen); //####
+                            if (0 < collector)
+                            {
+                                collector = (collector * 10) + (aChar - '0');
+                            }
+                            else
+                            {
+                                collector = (aChar - '0');
+                            }
+                            ODL_X1("collector = ", collector); //####
+                            ++localIndex;
+                            ODL_I1("localIndex = ", localIndex); //####
+                        }
+                        else
+                        {
+                            okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
+                        }
+                    }
+                }
+                if (okSoFar)
+                {
+                    uint32_t    timeValue = (values[0] * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                            (values[1] * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                            (values[2] * (kMaxMilliseconds + 1)) +
+                                            values[3];
+
+                    result = std::make_shared<Time>(timeValue);
+                }
+            }
+        }
+    }
+    else
+    {
+        ODL_LOG("! ((! atEnd) && (kStartDateTimeChar == aChar))"); //####
+    }
+    if (result)
+    {
+        position = localIndex;
+    }
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::DateTime::readFromStringBuffer

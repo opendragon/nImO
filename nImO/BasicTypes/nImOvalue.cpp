@@ -386,6 +386,7 @@ nImO::Value::extractInt64FromMessage
                     status = IntStatus::Incomplete;
                     ODL_I1("status <- ", toUType(status)); //####
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {

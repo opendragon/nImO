@@ -240,6 +240,7 @@ LogicalArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
@@ -256,6 +257,7 @@ LogicalArgumentDescriptor::parseArgString
                 else
                 {
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
             }
         }

@@ -371,15 +371,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringToSend);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -401,15 +404,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringToSend);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;
@@ -431,15 +437,18 @@ nImO::ContextWithNetworking::report
         if (nullptr == _logger)
         {
             okSoFar = true;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
             okSoFar = _logger->report(stringsToSend);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     else
     {
         okSoFar = true; // If we aren't set up for logging, ignore this call.
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

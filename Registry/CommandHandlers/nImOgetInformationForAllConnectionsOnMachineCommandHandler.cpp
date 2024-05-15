@@ -142,6 +142,7 @@ nImO::GetInformationForAllConnectionsOnMachineCommandHandler::doIt
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllConnectionsOnMachineResponse,
                                               "get information for all connections on machine"s, connectionArray, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

@@ -202,6 +202,7 @@ nImO::CommandHandler::sendComplexResponseWithContext
                                         {
                                             context->report(responseText + " response sent."s);
                                             okSoFar = true;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
                                             keepGoing = false;
                                         }
                                       });
@@ -311,6 +312,7 @@ nImO::CommandHandler::sendSimpleResponseWithContext
                                         {
                                             context->report(responseText + " response sent"s);
                                             okSoFar = true;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
                                             keepGoing = false;
                                             ODL_B1("keepGoing <- ", keepGoing); //####
                                         }

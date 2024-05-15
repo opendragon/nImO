@@ -193,10 +193,12 @@ nImO::AnnounceServiceData::setServiceData
         _recordTXT[0].data.txt.key = make_mdns_string(dataKey.c_str(), dataKey.length());
         _recordTXT[0].data.txt.value = make_mdns_string(hostAddress.c_str(), hostAddress.length());
         okSoFar = true;
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     else
     {
         okSoFar = false;
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     ODL_OBJEXIT_B(okSoFar); //####
     return okSoFar;

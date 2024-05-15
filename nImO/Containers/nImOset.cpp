@@ -406,6 +406,7 @@ nImO::Set::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {
@@ -418,6 +419,7 @@ nImO::Set::extractValue
                                         ODL_LOG("(aValue->asFlaw())"); //####
                                         result = aValue;
                                         okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
                                     }
                                     else
                                     {
@@ -430,6 +432,7 @@ nImO::Set::extractValue
                                     ODL_LOG("! (aValue)"); //####
                                     result = std::make_shared<Invalid>("Null Value read", position);
                                     okSoFar = false;
+                                    ODL_B1("okSoFar = ", okSoFar); //####
                                 }
                             }
                         }
@@ -443,6 +446,7 @@ nImO::Set::extractValue
                                 ODL_LOG("(atEnd)"); //####
                                 result.reset();
                                 okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {
@@ -462,6 +466,7 @@ nImO::Set::extractValue
                                     ODL_LOG("! (toUType(endMarker) == aByte)"); //####
                                     result = std::make_shared<Invalid>("Non-empty Set with incorrect end tag", position);
                                     okSoFar = false;
+                                    ODL_B1("okSoFar = ", okSoFar); //####
                                 }
                             }
                         }

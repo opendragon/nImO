@@ -118,6 +118,7 @@ nImO::GetNumberOfConnectionsCommandHandler::doIt
             auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
             okSoFar = sendComplexResponse(socket, kGetNumberOfConnectionsResponse, "get number of connections"s, count, reason);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

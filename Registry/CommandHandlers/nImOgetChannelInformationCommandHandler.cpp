@@ -132,6 +132,7 @@ nImO::GetChannelInformationCommandHandler::doIt
                 infoArray->addValue(std::make_shared<Integer>(StaticCast(int, theInfo._modes)));
                 infoArray->addValue(std::make_shared<Logical>(theInfo._inUse));
                 okSoFar = sendComplexResponse(socket, kGetChannelInformationResponse, "get channel information"s, infoArray, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

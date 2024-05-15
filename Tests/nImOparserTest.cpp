@@ -438,6 +438,160 @@ doTestParseAddressValue
  @param[in] expectedString The expected output from the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
+doTestParseDateValue
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result{1};
+
+    try
+    {
+        StringBuffer    buff;
+
+        buff.addString(inString);
+        auto    readValue{buff.convertToValue()};
+
+        if ((nullptr != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (nullptr == readValue->asDate())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestParseDateValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 06 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestParseTimeValue
+    (const bool expected,
+     CPtr(char) inString,
+     CPtr(char) expectedString)
+{
+    ODL_ENTER(); //####
+    ODL_B1("expected = ", expected); //####
+    ODL_S2("inString = ", inString, "expectedString = ", expectedString); //####
+    int result{1};
+
+    try
+    {
+        StringBuffer    buff;
+
+        buff.addString(inString);
+        auto    readValue{buff.convertToValue()};
+
+        if ((nullptr != readValue) == expected)
+        {
+            result = 0;
+        }
+        else
+        {
+            ODL_LOG("((nullptr != readValue) == expected)"); //####
+        }
+        if (readValue)
+        {
+            if (nullptr == readValue->asTime())
+            {
+                if (expected)
+                {
+                    ODL_LOG("(expected)"); //####
+                    result = 1;
+                }
+                else
+                {
+                    result = 0; // wrong type returned, but it was not expected to succeed
+                }
+            }
+            else
+            {
+                if (0 == compareValueWithString(*readValue, expectedString))
+                {
+                    result = 0;
+                }
+                else
+                {
+                    ODL_LOG("! (0 == compareValueWithString(*readValue, expectedString))"); //####
+                    result = 1;
+                }
+            }
+        }
+        else
+        {
+            ODL_LOG("! (readValue)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestParseTimeValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 07 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] expected @c true if the test is expected to succeed, and @c false otherwise.
+ @param[in] inString The string to be used for the test.
+ @param[in] expectedString The expected output from the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
 doTestParseArrayValue
     (const bool expected,
      CPtr(char) inString,
@@ -506,7 +660,7 @@ doTestParseArrayValue
 } // doTestParseArrayValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 06 ***
+# pragma mark *** Test Case 08 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -583,7 +737,7 @@ doTestParseSetValue
 } // doTestParseSetValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 07 ***
+# pragma mark *** Test Case 09 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -660,7 +814,7 @@ doTestParseMapValue
 } // doTestParseMapValue
 
 #if defined(__APPLE__)
-# pragma mark *** Test Case 08 ***
+# pragma mark *** Test Case 10 ***
 #endif // defined(__APPLE__)
 
 /*! @brief Perform a test case.
@@ -795,18 +949,26 @@ main
                         break;
 
                     case 5 :
-                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseDateValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 6 :
-                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseTimeValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 7 :
-                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
+                        result = doTestParseArrayValue(expected, *(argv + 3), *(argv + 4));
                         break;
 
                     case 8 :
+                        result = doTestParseSetValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+
+                    case 9 :
+                        result = doTestParseMapValue(expected, *(argv + 3), *(argv + 4));
+                        break;
+
+                    case 10 :
                         result = doTestParseImplicitArrayValue(expected, *(argv + 3), *(argv + 4));
                         break;
 

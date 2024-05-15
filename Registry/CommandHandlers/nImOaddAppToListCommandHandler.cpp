@@ -126,6 +126,7 @@ nImO::AddAppToListCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kAddAppToListResponse, "add app to list"s, true, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
                 if (okSoFar)
                 {
                     sendStatusReport(_owner, _statusConnection, kApplicationAddedStatus + kStatusSeparator + launcherNodeName +

@@ -80,9 +80,9 @@ convertToIntArray
     (nImO::DateTime::DateTimeInts & outValue,
      const uint32_t                 inValue)
 {
-    outValue[2] = StaticCast(uint16_t, inValue % 31) + 1;
-    outValue[1] = StaticCast(uint16_t, (inValue / 31) % 12) + 1;
-    outValue[0] = StaticCast(uint16_t, (inValue / (31 * 12)) % 10000) + 1;
+    outValue[2] = StaticCast(uint16_t, inValue % (nImO::kMaxDay + 1));
+    outValue[1] = StaticCast(uint16_t, (inValue / (nImO::kMaxDay + 1)) % (nImO::kMaxMonth + 1));
+    outValue[0] = StaticCast(uint16_t, (inValue / ((nImO::kMaxDay + 1) * (nImO::kMaxMonth + 1))) % (nImO::kMaxYear + 1));
 } // convertToIntArray
 
 #if defined(__APPLE__)

@@ -329,6 +329,7 @@ BaseArgumentDescriptor::partitionString
                 {
                     workingCopy = workingCopy.substr(1);
                     okSoFar = true;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {
@@ -377,11 +378,13 @@ BaseArgumentDescriptor::partitionString
         if ((1 != typeTag.length()) || (expectedTag != StaticCast(ArgumentTypeTag, typeTag[0])))
         {
             okSoFar = false;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         if (okSoFar)
         {
             argMode = modeFromString(modeString);
             okSoFar = (ArgumentMode::Unknown != argMode);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

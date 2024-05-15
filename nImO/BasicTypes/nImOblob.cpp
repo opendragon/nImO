@@ -345,6 +345,7 @@ nImO::Blob::extractValue
             {
                 ODL_LOG("(atEnd)"); //####
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {
@@ -373,6 +374,7 @@ nImO::Blob::extractValue
                 ODL_LOG("(atEnd)"); //####
                 result.reset();
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

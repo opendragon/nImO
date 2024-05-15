@@ -120,6 +120,7 @@ nImO::GetChannelLimitsCommandHandler::doIt
         infoArray->addValue(std::make_shared<Integer>(maxInputChannels));
         infoArray->addValue(std::make_shared<Integer>(maxOutputChannels));
         okSoFar = sendComplexResponse(socket, kGetChannelLimitsResponse, "get channel limits"s, infoArray, reason);
+        ODL_B1("okSoFar = ", okSoFar); //####
     }
     else
     {

@@ -266,6 +266,7 @@ DoubleArgumentDescriptor::parseArgString
         if (defaultString.empty())
         {
             okSoFar = false;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
@@ -278,6 +279,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar && (! minValString.empty()))
@@ -291,6 +293,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar && (! maxValString.empty()))
@@ -304,6 +307,7 @@ DoubleArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar)

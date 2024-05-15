@@ -54,6 +54,27 @@
 
 namespace nImO
 {
+    /*! @brief The largest allowed value for the year. */
+    constexpr int   kMaxYear{9999};
+
+    /*! @brief The largest allowed value for the month. */
+    constexpr int   kMaxMonth{12};
+
+    /*! @brief The largest allowed value for the day. */
+    constexpr int   kMaxDay{31};
+
+    /*! @brief The largest allowed value for the hour. */
+    constexpr int   kMaxHours{23};
+
+    /*! @brief The largest allowed value for the minutes. */
+    constexpr int   kMaxMinutes{59};
+
+    /*! @brief The largest allowed value for the seconds. */
+    constexpr int   kMaxSeconds{59};
+
+    /*! @brief The largest allowed value for the seconds. */
+    constexpr int   kMaxMilliseconds{999};
+
     /*! @brief A class to provide Date and Time values. */
     class DateTime : public Atom
     {

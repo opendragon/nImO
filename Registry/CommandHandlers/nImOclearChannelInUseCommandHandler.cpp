@@ -122,6 +122,7 @@ nImO::ClearChannelInUseCommandHandler::doIt
             if (status.first)
             {
                 okSoFar = sendSimpleResponse(socket, kClearChannelInUseResponse, "clear channel inUse"s, true, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

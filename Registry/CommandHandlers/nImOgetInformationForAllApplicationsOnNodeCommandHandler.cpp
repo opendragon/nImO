@@ -138,6 +138,7 @@ nImO::GetInformationForAllApplicationsOnNodeCommandHandler::doIt
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllApplicationsOnNodeResponse, "get information for all applications on node"s,
                                               applicationArray, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

@@ -123,6 +123,7 @@ nImO::GetNamesOfNodesCommandHandler::doIt
                 stringSet->addValue(std::make_shared<String>(walker));
             }
             okSoFar = sendComplexResponse(socket, kGetNamesOfNodesResponse, "get names of nodes"s, stringSet, reason);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

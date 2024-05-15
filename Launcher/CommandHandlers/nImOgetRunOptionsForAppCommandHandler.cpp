@@ -167,6 +167,7 @@ nImO::GetRunOptionsForAppCommandHandler::doIt
                             }
                             okSoFar = sendComplexResponse(socket, kGetRunOptionsForAppResponse, "get run options for app"s,
                                                           std::make_shared<String>(runOptions), reason);
+                            ODL_B1("okSoFar = ", okSoFar); //####
                         }
                         else
                         {

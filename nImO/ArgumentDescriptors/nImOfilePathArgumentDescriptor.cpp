@@ -108,10 +108,12 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
                 okSoFar = (0 == _access("..", 2));
 #endif // not MAC_OR_LINUX_OR_BSD_
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {
                 okSoFar = emptyIsOK;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         else
@@ -122,6 +124,7 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == _access(dirPath.c_str(), 2));
 #endif // not MAC_OR_LINUX_OR_BSD_
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     else
@@ -134,10 +137,12 @@ checkFilePath
 #else // not MAC_OR_LINUX_OR_BSD_
             okSoFar = (0 == _access(thePath, 4));
 #endif // not MAC_OR_LINUX_OR_BSD_
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {
             okSoFar = emptyIsOK;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     ODL_EXIT_B(okSoFar); //####
@@ -338,6 +343,7 @@ FilePathArgumentDescriptor::parseArgString
             if ("i" != direction)
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar)
@@ -351,6 +357,7 @@ FilePathArgumentDescriptor::parseArgString
                 if ("0" != randomFlag)
                 {
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
             }
         }
@@ -364,6 +371,7 @@ FilePathArgumentDescriptor::parseArgString
             }
             tempString += suffixValue;
             okSoFar = checkFilePath(tempString.c_str(), forOutput, 0 == (toUType(argMode) & toUType(ArgumentMode::Optional)));
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         if (okSoFar)
         {

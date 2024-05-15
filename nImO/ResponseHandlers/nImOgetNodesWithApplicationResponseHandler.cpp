@@ -114,6 +114,7 @@ nImO::GetNodesWithApplicationResponseHandler::doIt
                     _result.insert(walker->asString()->getValue());
                 }
                 okSoFar = true;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

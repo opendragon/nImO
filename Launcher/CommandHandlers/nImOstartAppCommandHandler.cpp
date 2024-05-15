@@ -218,6 +218,7 @@ nImO::StartAppCommandHandler::doIt
 
                                 cc.detach();
                                 okSoFar = sendSimpleResponse(socket, kStartAppResponse, "start app"s, true, reason);
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {

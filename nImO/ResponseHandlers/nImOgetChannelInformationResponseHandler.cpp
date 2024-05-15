@@ -129,6 +129,7 @@ nImO::GetChannelInformationResponseHandler::doIt
                     _result._dataType = dataTypePtr->getValue();
                     _result._modes = StaticCast(TransportType, modesPtr->getIntegerValue());
                     okSoFar = true;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {

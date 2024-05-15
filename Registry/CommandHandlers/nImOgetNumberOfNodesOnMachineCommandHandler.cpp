@@ -127,6 +127,7 @@ nImO::GetNumberOfNodesOnMachineCommandHandler::doIt
                 auto    count{std::make_shared<Integer>(statusWithInt.second)};
 
                 okSoFar = sendComplexResponse(socket, kGetNumberOfNodesOnMachineResponse, "get number of nodes on machine"s, count, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

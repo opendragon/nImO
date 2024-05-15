@@ -128,6 +128,7 @@ nImO::GetInformationForAllMachinesCommandHandler::doIt
                 machineArray->addValue(infoArray);
             }
             okSoFar = sendComplexResponse(socket, kGetInformationForAllMachinesResponse, "get information for all machines"s, machineArray, reason);
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
         else
         {

@@ -182,12 +182,14 @@ main
                                             {
                                                 ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                                 okSoFar = false;
+                                                ODL_B1("okSoFar = ", okSoFar); //####
                                             }
                                         }
                                         else
                                         {
                                             std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                             okSoFar = false;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
                                         }
                                         if (okSoFar)
                                         {
@@ -289,12 +291,14 @@ main
                                                 {
                                                     ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                                     okSoFar = false;
+                                                    ODL_B1("okSoFar = ", okSoFar); //####
                                                 }
                                             }
                                             else
                                             {
                                                 std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                                 okSoFar = false;
+                                                ODL_B1("okSoFar = ", okSoFar); //####
                                             }
                                             if (okSoFar)
                                             {
@@ -312,6 +316,7 @@ main
                                                         {
                                                             std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                             okSoFar = false;
+                                                            ODL_B1("okSoFar = ", okSoFar); //####
                                                         }
                                                         if (okSoFar)
                                                         {
@@ -429,12 +434,14 @@ main
                                         {
                                             ourContext->report("Unknown node: '"s + fromNode + "'."s);
                                             okSoFar = false;
+                                            ODL_B1("okSoFar = ", okSoFar); //####
                                         }
                                     }
                                     else
                                     {
                                         std::cerr << "Problem with 'getNodeInformation': " << statusWithNodeInfo.first.second << ".\n";
                                         okSoFar = false;
+                                        ODL_B1("okSoFar = ", okSoFar); //####
                                     }
                                     if (okSoFar)
                                     {
@@ -452,6 +459,7 @@ main
                                                 {
                                                     std::cerr << "Problem with 'clearChannelInUse': " << statusWithBool.first.second << ".\n";
                                                     okSoFar = false;
+                                                    ODL_B1("okSoFar = ", okSoFar); //####
                                                 }
                                                 if (okSoFar)
                                                 {

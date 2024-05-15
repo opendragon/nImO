@@ -206,6 +206,7 @@ PortArgumentDescriptor::parseArgString
             if ("r" != portClass)
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar && (! defaultString.empty()))
@@ -219,6 +220,7 @@ PortArgumentDescriptor::parseArgString
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar)

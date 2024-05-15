@@ -204,6 +204,7 @@ AddressArgumentDescriptor::parseArgString
 #else // not MAC_OR_LINUX_OR_BSD_
         okSoFar = (0 < InetPton(AF_INET, defaultString.c_str(), &addrBuff));
 #endif // not MAC_OR_LINUX_OR_BSD_
+        ODL_B1("okSoFar = ", okSoFar); //####
         if (okSoFar)
         {
             result = std::make_shared<AddressArgumentDescriptor>(name, description, argMode, defaultString);

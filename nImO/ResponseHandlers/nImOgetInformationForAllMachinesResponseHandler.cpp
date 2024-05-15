@@ -111,6 +111,7 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
         else
         {
             okSoFar = true;
+            ODL_B1("okSoFar = ", okSoFar); //####
             for (auto & walker : *infoVector)
             {
                 auto    infoArray{walker->asArray()};
@@ -119,6 +120,7 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {
@@ -146,12 +148,14 @@ nImO::GetInformationForAllMachinesResponseHandler::doIt
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != namePtr) && (nullptr != serviceTypePtr) && " //####
                                     "(nullptr != addressPtr) && (nullptr != portPtr) && (nullptr != transportPtr))"); //####
                             okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
                         }
                     }
                     else
                     {
                         ODL_LOG("! (2 < infoArray->size())"); //####
                         okSoFar = false;
+                        ODL_B1("okSoFar = ", okSoFar); //####
                     }
                 }
             }

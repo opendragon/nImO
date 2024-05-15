@@ -111,6 +111,7 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
         else
         {
             okSoFar = true;
+            ODL_B1("okSoFar = ", okSoFar); //####
             for (auto & walker : *infoVector)
             {
                 auto    infoArray{walker->asArray()};
@@ -119,6 +120,7 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
                 {
                     ODL_LOG("(nullptr == infoArray)"); //####
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {
@@ -155,12 +157,14 @@ nImO::GetInformationForAllChannelsOnNodeResponseHandler::doIt
                             ODL_LOG("! ((nullptr != foundPtr) && (nullptr != nodePtr) && (nullptr != pathPtr) && (nullptr != isOutputPtr) && " //####
                                     "(nullptr != dataTypePtr) && (nullptr != inUsePtr))"); //####
                             okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
                         }
                     }
                     else
                     {
                         ODL_LOG("! (6 < infoArray->size())"); //####
                         okSoFar = false;
+                        ODL_B1("okSoFar = ", okSoFar); //####
                     }
                 }
             }

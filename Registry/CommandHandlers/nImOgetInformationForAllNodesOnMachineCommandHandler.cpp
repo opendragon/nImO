@@ -141,6 +141,7 @@ nImO::GetInformationForAllNodesOnMachineCommandHandler::doIt
                 }
                 okSoFar = sendComplexResponse(socket, kGetInformationForAllNodesOnMachineResponse, "get information for all nodes on machine"s,
                                               nodeArray, reason);
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
             else
             {

@@ -577,12 +577,14 @@ nImO::Address::readFromStringBuffer
                 {
                     ODL_LOG("(atEnd)"); //####
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
                 else
                 {
                     if (isdigit(aChar))
                     {
                         digitSeen = true;
+                        ODL_B1("digitSeen = ", digitSeen); //####
                         if (0 < collector)
                         {
                             collector = (collector * 10) + (aChar - '0');
@@ -602,6 +604,7 @@ nImO::Address::readFromStringBuffer
                             if ((! digitSeen) || (255 < collector))
                             {
                                 okSoFar = false;
+                                ODL_B1("okSoFar = ", okSoFar); //####
                             }
                             else
                             {
@@ -613,6 +616,7 @@ nImO::Address::readFromStringBuffer
                         else
                         {
                             okSoFar = false;
+                            ODL_B1("okSoFar = ", okSoFar); //####
                         }
                     }
                 }
@@ -622,6 +626,7 @@ nImO::Address::readFromStringBuffer
                 totalValue = (totalValue << 8) + StaticCast(IPv4Address, collector);
                 ODL_I1("totalValue = ", totalValue); //####
                 digitSeen = false;
+                ODL_B1("digitSeen = ", digitSeen); //####
                 collector = 0;
                 ODL_X1("collector = ", collector); //####
             }
@@ -644,6 +649,7 @@ nImO::Address::readFromStringBuffer
                 else
                 {
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
             }
             else
@@ -651,6 +657,7 @@ nImO::Address::readFromStringBuffer
                 if (isdigit(aChar))
                 {
                     digitSeen = true;
+                    ODL_B1("digitSeen = ", digitSeen); //####
                     if (0 < collector)
                     {
                         collector = (collector * 10) + (aChar - '0');
@@ -666,6 +673,7 @@ nImO::Address::readFromStringBuffer
                 else
                 {
                     okSoFar = false;
+                    ODL_B1("okSoFar = ", okSoFar); //####
                 }
             }
         }

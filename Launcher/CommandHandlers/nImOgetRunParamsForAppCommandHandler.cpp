@@ -158,6 +158,7 @@ nImO::GetRunParamsForAppCommandHandler::doIt
                             params->addValue(std::make_shared<String>(line));
                         }
                         okSoFar = sendComplexResponse(socket, kGetRunParamsForAppResponse, "get run params for app"s, params, reason);
+                        ODL_B1("okSoFar = ", okSoFar); //####
                         cc.wait();
                     }
                 }

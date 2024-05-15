@@ -20,13 +20,9 @@
 <control-sequence> ::= <control-sequence-1> | <control-sequence-2>;\
 <control-sequence-1> ::= 'c' <low-char>;\
 <control-sequence-2> ::= 'C-' <low-char>;\
-
-\f1\b <date> ::= '$' ('d' | 'D') <year> '/' <month> '/' <day>;\
-<day> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
-
-\f0\b0 <double-quote> ::= '"';\
+<date> ::= '^' ('d' | 'D') <year> '/' <month> '/' <day>;\
+<day> ::= <unsigned-integer>;\
+<double-quote> ::= '"';\
 <double-quoted-string> ::= <double-quote> <non-double-quote-character>* <double-quote>; ## empty strings allowed\
 <escape-character> ::= '\\';\
 <escape-sequence> ::= 'a' | 'b' | 'f' | 'n' | 'r' | 's' | 't' | 'v' | <octal-sequence> | <control-sequence> | <meta-sequence>;\
@@ -34,12 +30,8 @@
 <exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
 <fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
 <hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
-
-\f1\b <hour> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
-
-\f0\b0 <in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
+<hour> ::= <unsigned-integer>;\
+<in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
 <low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
 <map> ::= '\{' <sp>* (<mapped-value-list> <sp>*)? '\}'; ## the first key seen establishes the type of the remaining keys\
 <map-separator> ::= '>';\
@@ -47,18 +39,10 @@
 <mapped-value> ::= <scalar-atom> <sp>* <map-separator> <sp>* <value>; ## floating-point numbers can't be keys\
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
 <meta-sequence> ::= 'M-' <meta-char>;\
-
-\f1\b <milliseconds> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
-<minutes> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
-<month> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
-
-\f0\b0 <noise> ::= ',' | ';';\
+<milliseconds> ::= <unsigned-integer>;\
+<minutes> ::= <unsigned-integer>;\
+<month> ::= <unsigned-integer>;\
+<noise> ::= ',' | ';';\
 <non-double-quote-character> ::= <non-quote-character> | <single-quote>;\
 <non-single-quote-character> ::= <non-quote-character> | <double-quote>;\
 <non-quote-character> ::= <non-special-character> | <escape-character> <special-character>;\
@@ -71,13 +55,9 @@
 \f1\b | <date> | <time>
 \f0\b0 ;\
 <scalar-atom-list> ::= <scalar-atom> (<sp>+ <scalar-atom>)*; ## space-separated scalar atomic values\
-
-\f1\b <seconds> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
+<seconds> ::= <unsigned-integer>;\
 \pard\pardeftab720\ri-23724\sl360\partightenfactor0
-
-\f0\b0 \cf0 <set> ::= '[' <sp>* (<scalar-atom-list> <sp>*)? ']'; ## empty sets allowed and floating-point numbers can't be elements; the first value seen establishes the type of the remaining values\
+\cf0 <set> ::= '[' <sp>* (<scalar-atom-list> <sp>*)? ']'; ## empty sets allowed and floating-point numbers can't be elements; the first value seen establishes the type of the remaining values\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
 \cf0 <sign> ::= '+' | '-';\
 <single-quote> ::= "'";\
@@ -85,21 +65,15 @@
 <sp> ::= ' ' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v' | <noise> | <comment>; ## whitespace characters\
 <special-character> ::= <single-quote> | <double-quote> | <escape-character> | <escape-sequence>; ## only specific escapes\
 <string> ::= <single-quoted-string> | <double-quoted-string>;\
-
-\f1\b <time> ::= '$' ('t' | 'T') <hour> ':' <minutes> ':' <seconds> '.' <milliseconds>;\
-
-\f0\b0 <unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
+<time> ::= '$' ('t' | 'T') <hour> (':' <minutes> (':' <seconds> ('.' <milliseconds>)?)?)?; ## only hours is strictly required\
+<unscaled-number> ::= <unsigned-integer> <fraction>? | '.' <unsigned-integer>;\
 <unsigned-integer> ::= \\d+;\
 <unsigned-number> ::= <unscaled-number> <exponent>?;\
 <value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
 <value> ::= <atom> | <container> | <blob>;\
-
-\f1\b <year> ::= 
-\f0\b0 <unsigned-integer>
-\f1\b ;\
+<year> ::= <unsigned-integer>;\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
-
-\f0\b0 \cf0 \expnd0\expndtw0\kerning0
+\cf0 \expnd0\expndtw0\kerning0
 \
 ## when generating output, insert single spaces wherever <sp>+ or <sp>* appear in these patterns, adding commas if <sp>+ with more than one element\
 ## unless 'squashed' output is requested, in which case single spaces only appear wherever <sp>+ appears\

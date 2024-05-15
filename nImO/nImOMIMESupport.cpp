@@ -140,6 +140,7 @@ nImO::DecodeMIMEToBytes
         else
         {
             okSoFar = false;
+            ODL_B1("okSoFar = ", okSoFar); //####
         }
     }
     if (okSoFar)
@@ -180,6 +181,7 @@ nImO::DecodeMIMEToBytes
             else
             {
                 okSoFar = false;
+                ODL_B1("okSoFar = ", okSoFar); //####
             }
         }
         if (okSoFar && (count4s > 0))

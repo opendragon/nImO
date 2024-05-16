@@ -849,7 +849,7 @@ nImO::Map::printToStringBufferAsJSON
         {
             outBuffer.appendChar(' ');
         }
-        outBuffer.appendChar(kKeyValueSeparator);
+        outBuffer.appendChar(':');
         if (! squished)
         {
             outBuffer.appendChar(' ');

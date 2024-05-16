@@ -418,11 +418,7 @@ nImO::DateTime::readFromStringBuffer
                 }
                 if (okSoFar)
                 {
-                    uint32_t    dateValue = (values[0] * (kMaxMonth + 1) * (kMaxDay + 1)) +
-                                            (values[1] * (kMaxDay + 1)) +
-                                             values[2];
-
-                    result = std::make_shared<Date>(dateValue);
+                    result = std::make_shared<Date>(MakeDateValue(values[0], values[1], values[2]));
                 }
             }
             else
@@ -582,12 +578,7 @@ nImO::DateTime::readFromStringBuffer
                 }
                 if (okSoFar)
                 {
-                    uint32_t    timeValue = (values[0] * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                            (values[1] * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
-                                            (values[2] * (kMaxMilliseconds + 1)) +
-                                            values[3];
-
-                    result = std::make_shared<Time>(timeValue);
+                    result = std::make_shared<Time>(MakeTimeValue(values[0], values[1], values[2], values[3]));
                 }
             }
         }

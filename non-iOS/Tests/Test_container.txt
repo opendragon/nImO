@@ -120,6 +120,14 @@ add_test(NAME TestClearingNonEmptyMapUsingRandomIterator COMMAND ${THIS_TARGET} 
 add_test(NAME TestSingularAddressMapValue COMMAND ${THIS_TARGET} 66)
 # Test small map with address keys
 add_test(NAME TestSmallAddressMapValue COMMAND ${THIS_TARGET} 67)
+# Test singular map with date keys
+add_test(NAME TestSingularDateMapValue COMMAND ${THIS_TARGET} 68)
+# Test small map with date keys
+add_test(NAME TestSmallDateMapValue COMMAND ${THIS_TARGET} 69)
+# Test singular map with time keys
+add_test(NAME TestSingularTimeMapValue COMMAND ${THIS_TARGET} 70)
+# Test small map with teim keys
+add_test(NAME TestSmallTimeMapValue COMMAND ${THIS_TARGET} 71)
 
 # Test empty set
 add_test(NAME TestEmptySetValue COMMAND ${THIS_TARGET} 100)
@@ -157,6 +165,14 @@ add_test(NAME TestClearingNonEmptySetUsingRandomIterator COMMAND ${THIS_TARGET} 
 add_test(NAME TestSingularAddressSetValue COMMAND ${THIS_TARGET} 116)
 # Test small set with address keys
 add_test(NAME TestSmallAddressSetValue COMMAND ${THIS_TARGET} 117)
+# Test singular set with date keys
+add_test(NAME TestSingularDateSetValue COMMAND ${THIS_TARGET} 118)
+# Test small set with date keys
+add_test(NAME TestSmallDateSetValue COMMAND ${THIS_TARGET} 119)
+# Test singular set with time keys
+add_test(NAME TestSingularTimeSetValue COMMAND ${THIS_TARGET} 120)
+# Test small set with time keys
+add_test(NAME TestSmallTimeSetValue COMMAND ${THIS_TARGET} 121)
 
 # Test array with array
 add_test(NAME TestArrayWithArrayValue COMMAND ${THIS_TARGET} 150)
@@ -187,6 +203,14 @@ add_test(NAME TestStdStringSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 2
 add_test(NAME TestAddressMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 206)
 # Test address set with incompatible keys
 add_test(NAME TestAddressSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 207)
+# Test date map with incompatible keys
+add_test(NAME TestDateMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 208)
+# Test date set with incompatible keys
+add_test(NAME TestDateSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 209)
+# Test time map with incompatible keys
+add_test(NAME TestTimeMapValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 210)
+# Test time set with incompatible keys
+add_test(NAME TestTimeSetValueWithIncompatibleKeys COMMAND ${THIS_TARGET} 211)
 
 # Test valid array compares
 add_test(NAME TestValidArrayCompares COMMAND ${THIS_TARGET} 250)
@@ -224,6 +248,22 @@ add_test(NAME TestValidAddressSetCompares COMMAND ${THIS_TARGET} 265)
 add_test(NAME TestInvalidAddressMapCompares COMMAND ${THIS_TARGET} 266)
 # Test invalid address set compares
 add_test(NAME TestInvalidAddressSetCompares COMMAND ${THIS_TARGET} 267)
+# Test valid date map compares
+add_test(NAME TestValidDateMapCompares COMMAND ${THIS_TARGET} 268)
+# Test valid date set compares
+add_test(NAME TestValidDateSetCompares COMMAND ${THIS_TARGET} 269)
+# Test invalid date map compares
+add_test(NAME TestInvalidDateMapCompares COMMAND ${THIS_TARGET} 270)
+# Test invalid date set compares
+add_test(NAME TestInvalidDateSetCompares COMMAND ${THIS_TARGET} 271)
+# Test valid time map compares
+add_test(NAME TestValidTimeMapCompares COMMAND ${THIS_TARGET} 272)
+# Test valid time set compares
+add_test(NAME TestValidTimeSetCompares COMMAND ${THIS_TARGET} 273)
+# Test invalid time map compares
+add_test(NAME TestInvalidTimeMapCompares COMMAND ${THIS_TARGET} 274)
+# Test invalid time set compares
+add_test(NAME TestInvalidTimeSetCompares COMMAND ${THIS_TARGET} 275)
 
 # Test array indices
 add_test(NAME TestArrayIndices COMMAND ${THIS_TARGET} 300)
@@ -243,6 +283,14 @@ add_test(NAME TestStdStringSetSearches COMMAND ${THIS_TARGET} 306)
 add_test(NAME TestAddressMapSearches COMMAND ${THIS_TARGET} 307)
 # Test address set searches
 add_test(NAME TestAddressSetSearches COMMAND ${THIS_TARGET} 308)
+# Test date map searches
+add_test(NAME TestDateMapSearches COMMAND ${THIS_TARGET} 309)
+# Test date set searches
+add_test(NAME TestDateSetSearches COMMAND ${THIS_TARGET} 310)
+# Test time map searches
+add_test(NAME TestTimeMapSearches COMMAND ${THIS_TARGET} 311)
+# Test time set searches
+add_test(NAME TestTimeSetSearches COMMAND ${THIS_TARGET} 312)
 
 # Test empty array as JSON
 add_test(NAME TestEmptyArrayValueAsJSON COMMAND ${THIS_TARGET} 320)
@@ -271,6 +319,14 @@ add_test(NAME TestSmallStringMapValueAsJSON COMMAND ${THIS_TARGET} 346)
 add_test(NAME TestSingularAddressMapValueAsJSON COMMAND ${THIS_TARGET} 347)
 # Test small map with address keys as JSON
 add_test(NAME TestSmallAddressMapValueAsJSON COMMAND ${THIS_TARGET} 348)
+# Test singular map with date keys as JSON
+add_test(NAME TestSingularDateMapValueAsJSON COMMAND ${THIS_TARGET} 349)
+# Test small map with date keys as JSON
+add_test(NAME TestSmallDateMapValueAsJSON COMMAND ${THIS_TARGET} 350)
+# Test singular map with time keys as JSON
+add_test(NAME TestSingularTimeMapValueAsJSON COMMAND ${THIS_TARGET} 351)
+# Test small map with time keys as JSON
+add_test(NAME TestSmallTimeMapValueAsJSON COMMAND ${THIS_TARGET} 352)
 
 # Test empty set as JSON
 add_test(NAME TestEmptySetValueAsJSON COMMAND ${THIS_TARGET} 360)
@@ -290,6 +346,14 @@ add_test(NAME TestSmallStdStringSetValueAsJSON COMMAND ${THIS_TARGET} 366)
 add_test(NAME TestSingularAddressSetValueAsJSON COMMAND ${THIS_TARGET} 367)
 # Test small set with address keys as JSON
 add_test(NAME TestSmallAddressSetValueAsJSON COMMAND ${THIS_TARGET} 368)
+# Test singular set with date keys as JSON
+add_test(NAME TestSingularDateSetValueAsJSON COMMAND ${THIS_TARGET} 369)
+# Test small set with date keys as JSON
+add_test(NAME TestSmallDateSetValueAsJSON COMMAND ${THIS_TARGET} 370)
+# Test singular set with time keys as JSON
+add_test(NAME TestSingularTimeSetValueAsJSON COMMAND ${THIS_TARGET} 371)
+# Test small set with time keys as JSON
+add_test(NAME TestSmallTimeSetValueAsJSON COMMAND ${THIS_TARGET} 372)
 
 # Test array with array as JSON
 add_test(NAME TestArrayWithArrayValueAsJSON COMMAND ${THIS_TARGET} 380)
@@ -312,3 +376,7 @@ add_test(NAME TestKeysFromMapWithIntegerKeys COMMAND ${THIS_TARGET} 401)
 add_test(NAME TestKeysFromMapWithStringKeys COMMAND ${THIS_TARGET} 402)
 # Test keys from map with address keys
 add_test(NAME TestKeysFromMapWithAddressKeys COMMAND ${THIS_TARGET} 403)
+# Test keys from map with date keys
+add_test(NAME TestKeysFromMapWithDateKeys COMMAND ${THIS_TARGET} 404)
+# Test keys from map with time keys
+add_test(NAME TestKeysFromMapWithTimeKeys COMMAND ${THIS_TARGET} 405)

@@ -236,6 +236,38 @@ namespace nImO
 
     }; // DateTime
 
+    /*! @brief Generate a value that can be used to initialize a Date value.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The year, month and day combined to make a suitable initialization value for a Date. */
+    inline constexpr uint32_t
+    MakeDateValue
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return StaticCast(uint32_t, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
+    }
+
+    /*! @brief Generate a value that can be used to initialize a Time value.
+     @param[in] theHour The hour part of the value.
+     @param[in] theMinute The minute part of the value.
+     @param[in] theSecond The second part of the value.
+     @param[in] theMillisecond The millisecond part of the value.
+     @return The hour, minute, second and millisecond combined to make a suitable initialization value for a Time. */
+    inline constexpr uint32_t
+    MakeTimeValue
+        (const int  theHour = 0,
+         const int  theMinute = 0,
+         const int  theSecond = 0,
+         const int  theMillisecond = 0)
+    {
+        return StaticCast(uint32_t, (theHour * (kMaxMinutes + 1) * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                    (theMinute * (kMaxSeconds + 1) * (kMaxMilliseconds + 1)) +
+                                    (theSecond * (kMaxMilliseconds + 1)) + theMillisecond);
+    }
+
 } // nImO
 
 #endif // not defined(nImOdateTime_H_)

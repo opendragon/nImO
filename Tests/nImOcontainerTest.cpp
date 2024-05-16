@@ -38,10 +38,12 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
+#include <BasicTypes/nImOdate.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOtime.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImObufferChunk.h>
 #include <Containers/nImOmap.h>
@@ -2157,14 +2159,14 @@ doTestSingularAddressMapValue
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', kKeyValueSeparator,
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kKeyValueSeparator,
                     '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ', kKeyValueSeparator,
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ', kKeyValueSeparator,
                     ' ', '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -2231,22 +2233,22 @@ doTestSmallAddressMapValue
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', kKeyValueSeparator,
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kKeyValueSeparator,
                         '1', '2', '3', '.', '4', '5', ' ',
-                    kStartAddressChar, '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', kKeyValueSeparator,
+                    kStartAddressChar, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kKeyValueSeparator,
                         '1', '2', '.', '3', '4', '5', ' ',
-                    kStartAddressChar, '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', kKeyValueSeparator,
+                    kStartAddressChar, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', kKeyValueSeparator,
                         '1', '2', '3', '4', '.', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                    '@', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ', kKeyValueSeparator, ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '.', '4', '5', ',', ' ',
-                    '@', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ' ', kKeyValueSeparator, ' ',
+                    kStartAddressChar, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '.', '3', '4', '5', ',', ' ',
-                    '@', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', ' ', kKeyValueSeparator, ' ',
+                    kStartAddressChar, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', ' ', kKeyValueSeparator, ' ',
                         '1', '2', '3', '4', '.', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -2286,6 +2288,332 @@ doTestSmallAddressMapValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallAddressMapValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 68 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularDateMapValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', kKeyValueSeparator,
+                    '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', ' ', kKeyValueSeparator,
+                    ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(10, 11, 12)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularDateMapValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 69 ***
+#endif // defined(__APPLE__)
+
+static int
+doTestSmallDateMapValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', kKeyValueSeparator,
+                        '1', '2', '3', '.', '4', '5', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', kKeyValueSeparator,
+                        '1', '2', '.', '3', '4', '5', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '3', kDateSeparator, '1', '0', kDateSeparator, '9', kKeyValueSeparator,
+                        '1', '2', '3', '4', '.', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', ' ', kKeyValueSeparator, ' ',
+                        '1', '2', '3', '.', '4', '5', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', ' ', kKeyValueSeparator, ' ',
+                        '1', '2', '.', '3', '4', '5', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '3', kDateSeparator, '1', '0', kDateSeparator, '9', ' ', kKeyValueSeparator, ' ',
+                        '1', '2', '3', '4', '.', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(10, 11, 12)), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 12, 13)), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(13, 10, 9)), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallDateMapValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 70 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularTimeMapValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4',
+                    kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4', ' ',
+                    kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 14)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularTimeMapValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 71 ***
+#endif // defined(__APPLE__)
+
+static int
+doTestSmallTimeMapValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3',
+                        kKeyValueSeparator, '1', '2', '3', '.', '4', '5', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4',
+                        kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '3', kTimeSeparator, '1', '0', kTimeSeparator, '0', '9', kSecondMillisecondSeparator, '0', '1', '5',
+                        kKeyValueSeparator, '1', '2', '3', '4', '.', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3', ' ',
+                        kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4', ' ',
+                        kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '3', kTimeSeparator, '1', '0', kTimeSeparator, '0', '9', kSecondMillisecondSeparator, '0', '1', '5', ' ',
+                        kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(10, 11, 12, 13)), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 14)), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(13, 10, 9, 15)), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallTimeMapValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 100 ***
@@ -2523,7 +2851,7 @@ doTestSingularIntegerSetValue
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStdStringSetValue
+doTestSingularStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2588,7 +2916,7 @@ doTestSingularStdStringSetValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSingularStdStringSetValue
+} // doTestSingularStringSetValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 104 ***
@@ -2772,7 +3100,7 @@ doTestSmallIntegerSetValue
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStdStringSetValue
+doTestSmallStringSetValue
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -2850,7 +3178,7 @@ doTestSmallStdStringSetValue
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallStdStringSetValue
+} // doTestSmallStringSetValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 107 ***
@@ -3403,13 +3731,13 @@ doTestSingularAddressSetValue
             static const char   expectedSquishedString[]
             {
                 kStartSetChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0',
                 kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ',
                 kEndSetChar, kEndOfString
             };
 
@@ -3480,19 +3808,19 @@ doTestSmallAddressSetValue
             static const char   expectedSquishedString[]
             {
                 kStartSetChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ',
-                    kStartAddressChar, '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ' ',
-                    kStartAddressChar, '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', ' ',
-                    kStartAddressChar, '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '.', '2', '3', '9',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ',
+                    kStartAddressChar, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', ' ',
+                    kStartAddressChar, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', ' ',
+                    kStartAddressChar, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', kAddressSeparator, '2', '3', '9',
                 kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ',', ' ',
-                    kStartAddressChar, '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', ',', ' ',
-                    kStartAddressChar, '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', ',', ' ',
-                    kStartAddressChar, '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '.', '2', '3', '9', ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ',', ' ',
+                    kStartAddressChar, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', ',', ' ',
+                    kStartAddressChar, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', ',', ' ',
+                    kStartAddressChar, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', kAddressSeparator, '2', '3', '9', ' ',
                 kEndSetChar, kEndOfString
             };
 
@@ -3532,6 +3860,334 @@ doTestSmallAddressSetValue
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallAddressSetValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 118 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularDateSetValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(10, 11, 12)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularDateSetValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 119 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallDateSetValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForDate, '8', kDateSeparator, '7', kDateSeparator, '6', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '9', kDateSeparator, '8', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', kDateSeparator, '1', '0', kDateSeparator, '9', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '2', kDateSeparator, '1', '1', kDateSeparator, '1', '0',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '8', kDateSeparator, '7', kDateSeparator, '6', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', kDateSeparator, '9', kDateSeparator, '8', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', kDateSeparator, '1', '0', kDateSeparator, '9', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '2', kDateSeparator, '1', '1', kDateSeparator, '1', '0', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(12, 11, 10)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 10, 9)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(10, 9, 8)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(8, 7, 6)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallDateSetValue
+
+//# Test singular set with time keys
+//add_test(NAME TestSingularTimeSetValue COMMAND ${THIS_TARGET} 120)
+#if defined(__APPLE__)
+# pragma mark *** Test Case 120 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularTimeSetValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(10, 11, 12, 13)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularTimeSetValue
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 121 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallTimeSetValue
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForTime, '0', '8', kTimeSeparator, '0', '7', kTimeSeparator, '0', '6', kSecondMillisecondSeparator, '0', '4', '5', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '0', '9', kTimeSeparator, '0', '8', kSecondMillisecondSeparator, '0', '4', '4', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '0', kTimeSeparator, '0', '9', kSecondMillisecondSeparator, '0', '4', '3', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '2', kTimeSeparator, '1', '1', kTimeSeparator, '1', '0', kSecondMillisecondSeparator, '0', '4', '2',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '0', '8', kTimeSeparator, '0', '7', kTimeSeparator, '0', '6', kSecondMillisecondSeparator, '0', '4', '5', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '0', '9', kTimeSeparator, '0', '8', kSecondMillisecondSeparator, '0', '4', '4', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '1', kTimeSeparator, '1', '0', kTimeSeparator, '0', '9', kSecondMillisecondSeparator, '0', '4', '3', ',', ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '2', kTimeSeparator, '1', '1', kTimeSeparator, '1', '0', kSecondMillisecondSeparator, '0', '4', '2', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(12, 11, 10, 42)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 10, 9, 43)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(10, 9, 8, 44)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(8, 7, 6, 45)));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallTimeSetValue
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 150 ***
@@ -4420,7 +5076,7 @@ doTestIntegerSetValueWithIncompatibleKeys
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStdStringSetValueWithIncompatibleKeys
+doTestStringSetValueWithIncompatibleKeys
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -4489,7 +5145,7 @@ doTestStdStringSetValueWithIncompatibleKeys
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStdStringSetValueWithIncompatibleKeys
+} // doTestStringSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 206 ***
@@ -4524,14 +5180,14 @@ doTestAddressMapValueWithIncompatibleKeys
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', kKeyValueSeparator,
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kKeyValueSeparator,
                         '1', '7', '.', '1', '2',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ', kKeyValueSeparator, ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ', kKeyValueSeparator, ' ',
                         '1', '7', '.', '1', '2', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -4607,13 +5263,13 @@ doTestAddressSetValueWithIncompatibleKeys
             static const char   expectedSquishedString[]
             {
                 kStartSetChar,
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0',
                 kEndSetChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartSetChar, ' ',
-                    kStartAddressChar, '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', ' ',
+                    kStartAddressChar, '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', ' ',
                 kEndSetChar, kEndOfString
             };
 
@@ -4654,6 +5310,334 @@ doTestAddressSetValueWithIncompatibleKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestAddressSetValueWithIncompatibleKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 208 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateMapValueWithIncompatibleKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', kKeyValueSeparator,
+                        '1', '7', '.', '1', '2',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '0', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', ' ', kKeyValueSeparator, ' ',
+                        '1', '7', '.', '1', '2', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(100, 11, 12)), std::make_shared<Double>(17.12));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Double>(19.77), std::make_shared<Double>(1.2345));
+            stuff->addValue(std::make_shared<String>("zebra"), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateMapValueWithIncompatibleKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 209 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateSetValueWithIncompatibleKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', '1', kDateSeparator, '1', '0', kDateSeparator, '2', '5',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                    kStartDateTimeChar, kSecondCharForDate, '1', '1', '1', kDateSeparator, '1', '0', kDateSeparator, '2', '5', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(111, 10, 25)));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateSetValueWithIncompatibleKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 210 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeMapValueWithIncompatibleKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3',
+                    kKeyValueSeparator, '1', '7', '.', '1', '2',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '1', '3', ' ',
+                    kKeyValueSeparator, ' ', '1', '7', '.', '1', '2', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(10, 11, 12, 13)), std::make_shared<Double>(17.12));
+            stuff->addValue(std::make_shared<Integer>(42), std::make_shared<Double>(123.45));
+            stuff->addValue(std::make_shared<Logical>(true), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Double>(19.77), std::make_shared<Double>(1.2345));
+            stuff->addValue(std::make_shared<String>("zebra"), std::make_shared<Double>(1234.5));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeMapValueWithIncompatibleKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 211 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeSetValueWithIncompatibleKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartSetChar,
+                    kStartDateTimeChar, kSecondCharForTime, '1', '7', kTimeSeparator, '1', '8', kTimeSeparator, '1', '9', kSecondMillisecondSeparator, '0', '2', '0',
+                kEndSetChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartSetChar, ' ',
+                    kStartDateTimeChar, kSecondCharForTime, '1', '7', kTimeSeparator, '1', '8', kTimeSeparator, '1', '9', kSecondMillisecondSeparator, '0', '2', '0', ' ',
+                kEndSetChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(17, 18, 19, 20)));
+            stuff->addValue(std::make_shared<Integer>(42));
+            stuff->addValue(std::make_shared<Logical>(true));
+            stuff->addValue(std::make_shared<Double>(19.77));
+            stuff->addValue(std::make_shared<String>("zebra"));
+            if (0 == compareValueWithString(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithString(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedString(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedString(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeSetValueWithIncompatibleKeys
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 250 ***
@@ -6885,7 +7869,7 @@ doTestValidIntegerSetCompares
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestValidStdStringSetCompares
+doTestValidStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -7077,7 +8061,7 @@ doTestValidStdStringSetCompares
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestValidStdStringSetCompares
+} // doTestValidStringSetCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 257 ***
@@ -7115,10 +8099,14 @@ doTestInvalidArrayCompares
         Map                 rightValue6;
         Set                 rightValue7;
         Integer             rightValue8;
+        Address             rightValue9;
+        Date                rightValue10;
+        Time                rightValue11;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4,
-            &rightValue5, &rightValue6, &rightValue7, &rightValue8
+            &rightValue5, &rightValue6, &rightValue7, &rightValue8,
+            &rightValue9, &rightValue10, &rightValue11
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7231,10 +8219,12 @@ doTestInvalidLogicalMapCompares
         Set                 rightValue6;
         Double              rightValue7;
         Address             rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7345,10 +8335,12 @@ doTestInvalidIntegerMapCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Address             rightValue7;
+        Date                rightValue8;
+        Time                rightValue9;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7
+            &rightValue7, &rightValue8, &rightValue9
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7461,10 +8453,12 @@ doTestInvalidStringMapCompares
         Set                 rightValue6;
         Integer             rightValue7;
         Address             rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7577,10 +8571,12 @@ doTestInvalidLogicalSetCompares
         Set                 rightValue6;
         Integer             rightValue7;
         Address             rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7691,10 +8687,12 @@ doTestInvalidIntegerSetCompares
         Map                 rightValue5;
         Set                 rightValue6;
         Address             rightValue7;
+        Date                rightValue8;
+        Time                rightValue9;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7
+            &rightValue7, &rightValue8, &rightValue9
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7781,7 +8779,7 @@ doTestInvalidIntegerSetCompares
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestInvalidStdStringSetCompares
+doTestInvalidStringSetCompares
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -7807,10 +8805,12 @@ doTestInvalidStdStringSetCompares
         Set                 rightValue6;
         Integer             rightValue7;
         Address             rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -7885,7 +8885,7 @@ doTestInvalidStdStringSetCompares
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestInvalidStdStringSetCompares
+} // doTestInvalidStringSetCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 264 ***
@@ -8348,7 +9348,7 @@ doTestValidAddressSetCompares
 #if defined(__APPLE__)
 # pragma mark *** Test Case 266 ***
 #endif // defined(__APPLE__)
-//                        result = doTestInvalidAddressMapCompares(*argv, argc - 1, argv + 2);
+
 /*! @brief Perform a test case.
  @param[in] launchPath The command-line name used to launch the service.
  @param[in] argc The number of arguments in 'argv'.
@@ -8381,10 +9381,12 @@ doTestInvalidAddressMapCompares
         Set                 rightValue6;
         Integer             rightValue7;
         Double              rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -8497,10 +9499,12 @@ doTestInvalidAddressSetCompares
         Set                 rightValue6;
         Integer             rightValue7;
         Double              rightValue8;
+        Date                rightValue9;
+        Time                rightValue10;
         Ptr(Value)          rightValues[]
         {
             &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
-            &rightValue7, &rightValue8
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
         };
         constexpr size_t    numRightValues{numElementsInArray(rightValues)};
 
@@ -8576,6 +9580,1422 @@ doTestInvalidAddressSetCompares
     ODL_EXIT_I(result); //####
     return result;
 } // doTestInvalidAddressSetCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 268 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidDateMapCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int             result{0};
+    const uint32_t  val1{MakeDateValue(1, 2, 3)};
+    const uint32_t  val2{MakeDateValue(2, 3, 4)};
+    const uint32_t  val3{MakeDateValue(3, 4, 5)};
+    const uint32_t  val4{MakeDateValue(4, 5, 6)};
+    const uint32_t  val5{MakeDateValue(5, 6, 7)};
+    const uint32_t  val6{MakeDateValue(6, 7, 8)};
+    const uint32_t  val7{MakeDateValue(7, 8, 9)};
+
+    try
+    {
+        struct testDates
+        {
+            uint32_t            _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testDates
+
+        static testDates    testSet1l[]
+        {
+            { val1,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
+        static testDates    testSet1r[]
+        {
+            { val1,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
+        Map                 stuff;
+
+        stuff.addValue(std::make_shared<Date>(val2), std::make_shared<String>("abc"));
+        stuff.addValue(std::make_shared<Date>(val3), std::make_shared<String>("def"));
+        stuff.addValue(std::make_shared<Date>(val5), std::make_shared<String>("ghi"));
+        stuff.addValue(std::make_shared<Date>(val6), std::make_shared<String>("jkl"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            Date    aValue{testSet1l[ii]._testValue};
+
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            Date    aValue{testSet1r[ii]._testValue};
+
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidDateMapCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 269 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidDateSetCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int             result{0};
+    const uint32_t  val1{MakeDateValue(1, 2, 3)};
+    const uint32_t  val2{MakeDateValue(2, 3, 4)};
+    const uint32_t  val3{MakeDateValue(3, 4, 5)};
+    const uint32_t  val4{MakeDateValue(4, 5, 6)};
+    const uint32_t  val5{MakeDateValue(5, 6, 7)};
+    const uint32_t  val6{MakeDateValue(6, 7, 8)};
+    const uint32_t  val7{MakeDateValue(7, 8, 9)};
+
+    try
+    {
+        struct testDates
+        {
+            uint32_t            _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testDates
+
+        static testDates    testSet1l[]
+        {
+            { val1,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
+        static testDates    testSet1r[]
+        {
+            { val1,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
+        Set                 stuff;
+
+        stuff.addValue(std::make_shared<Date>(val2));
+        stuff.addValue(std::make_shared<Date>(val3));
+        stuff.addValue(std::make_shared<Date>(val5));
+        stuff.addValue(std::make_shared<Date>(val6));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            Date    aValue{testSet1l[ii]._testValue};
+
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            Date    aValue{testSet1r[ii]._testValue};
+
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidDateSetCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 270 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidDateMapCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Map                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Double              rightValue8;
+        Address             rightValue9;
+        Time                rightValue10;
+        Ptr(Value)          rightValues[]
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
+        };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(1, 2, 3)), std::make_shared<Double>(123.45));
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(2, 3, 4)), std::make_shared<Double>(12.345));
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)), std::make_shared<Double>(1234.5));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidDateMapCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 271 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidDateSetCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Set                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Double              rightValue8;
+        Address             rightValue9;
+        Time                rightValue10;
+        Ptr(Value)          rightValues[]
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
+        };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(1, 2, 3)));
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(2, 3, 4)));
+        leftValue.addValue(std::make_shared<Date>(MakeDateValue(3, 4, 5)));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidDateSetCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 272 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidTimeMapCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int             result{0};
+    const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
+    const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+    const uint32_t  val3{MakeTimeValue(3, 4, 5, 6)};
+    const uint32_t  val4{MakeTimeValue(4, 5, 6, 7)};
+    const uint32_t  val5{MakeTimeValue(5, 6, 7, 8)};
+    const uint32_t  val6{MakeTimeValue(6, 7, 8, 9)};
+    const uint32_t  val7{MakeTimeValue(7, 8, 9, 10)};
+
+    try
+    {
+        struct testDates
+        {
+            uint32_t            _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testDates
+
+        static testDates    testSet1l[]
+        {
+            { val1,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
+        static testDates    testSet1r[]
+        {
+            { val1,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
+        Map                 stuff;
+
+        stuff.addValue(std::make_shared<Time>(val2), std::make_shared<String>("abc"));
+        stuff.addValue(std::make_shared<Time>(val3), std::make_shared<String>("def"));
+        stuff.addValue(std::make_shared<Time>(val5), std::make_shared<String>("ghi"));
+        stuff.addValue(std::make_shared<Time>(val6), std::make_shared<String>("jkl"));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            Time    aValue{testSet1l[ii]._testValue};
+
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            Time    aValue{testSet1r[ii]._testValue};
+
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidTimeMapCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 273 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestValidTimeSetCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int             result{0};
+    const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
+    const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+    const uint32_t  val3{MakeTimeValue(3, 4, 5, 6)};
+    const uint32_t  val4{MakeTimeValue(4, 5, 6, 7)};
+    const uint32_t  val5{MakeTimeValue(5, 6, 7, 8)};
+    const uint32_t  val6{MakeTimeValue(6, 7, 8, 9)};
+    const uint32_t  val7{MakeTimeValue(7, 8, 9, 10)};
+
+    try
+    {
+        struct testDates
+        {
+            uint32_t            _testValue;
+            ComparisonStatus    _lessThan;
+            ComparisonStatus    _greaterThan;
+            ComparisonStatus    _lessThanOrEqual;
+            ComparisonStatus    _greaterThanOrEqual;
+            ComparisonStatus    _equalTo;
+        }; // testDates
+
+        static testDates    testSet1l[]
+        {
+            { val1,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1l{numElementsInArray(testSet1l)};
+        static testDates    testSet1r[]
+        {
+            { val1,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{true}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val2,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{true}, // >=
+                ComparisonStatus{false} }, // ==
+            { val3,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val4,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val5,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{false}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val6,
+                ComparisonStatus{false}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} }, // ==
+            { val7,
+                ComparisonStatus{true}, // <
+                ComparisonStatus{false}, // >
+                ComparisonStatus{true}, // <=
+                ComparisonStatus{false}, // >=
+                ComparisonStatus{false} } // ==
+        };
+        constexpr size_t    numTestValues1r{numElementsInArray(testSet1r)};
+        Set                 stuff;
+
+        stuff.addValue(std::make_shared<Time>(val2));
+        stuff.addValue(std::make_shared<Time>(val3));
+        stuff.addValue(std::make_shared<Time>(val5));
+        stuff.addValue(std::make_shared<Time>(val6));
+        for (size_t ii = 0; (0 == result) && (numTestValues1l > ii); ++ii)
+        {
+            Time    aValue{testSet1l[ii]._testValue};
+
+            if (testSet1l[ii]._lessThan != aValue.lessThan(stuff))
+            {
+                ODL_LOG("(testSet1l[ii]._lessThan != aValue.lessThan(stuff))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThan != aValue.greaterThan(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._lessThanOrEqual != aValue.lessThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._greaterThanOrEqual != aValue.greaterThanOrEqual(stuff))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1l[ii]._equalTo != aValue.equalTo(stuff))
+                {
+                    ODL_LOG("(testSet1l[ii]._equalTo != aValue.equalTo(stuff))"); //####
+                    result = 1;
+                }
+            }
+        }
+        for (size_t ii = 0; (0 == result) && (numTestValues1r > ii); ++ii)
+        {
+            Time    aValue{testSet1r[ii]._testValue};
+
+            if (testSet1r[ii]._lessThan != stuff.lessThan(aValue))
+            {
+                ODL_LOG("(testSet1r[ii]._lessThan != stuff.lessThan(aValue))"); //####
+                result = 1;
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThan != stuff.greaterThan(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._lessThanOrEqual != stuff.lessThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._greaterThanOrEqual != stuff.greaterThanOrEqual(aValue))"); //####
+                    result = 1;
+                }
+            }
+            if (0 == result)
+            {
+                if (testSet1r[ii]._equalTo != stuff.equalTo(aValue))
+                {
+                    ODL_LOG("(testSet1r[ii]._equalTo != stuff.equalTo(aValue))"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestValidTimeSetCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 274 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidTimeMapCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Map                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Double              rightValue8;
+        Address             rightValue9;
+        Date                rightValue10;
+        Ptr(Value)          rightValues[]
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
+        };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(1, 2, 3, 4)), std::make_shared<Double>(123.45));
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(2, 3, 4, 5)), std::make_shared<Double>(12.345));
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)), std::make_shared<Double>(1234.5));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidTimeMapCompares
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 275 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestInvalidTimeSetCompares
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        ComparisonStatus    status;
+        Set                 leftValue;
+        Logical             rightValue1;
+        String              rightValue2;
+        Blob                rightValue3;
+        Array               rightValue4;
+        Map                 rightValue5;
+        Set                 rightValue6;
+        Integer             rightValue7;
+        Double              rightValue8;
+        Address             rightValue9;
+        Date                rightValue10;
+        Ptr(Value)          rightValues[]
+        {
+            &rightValue1, &rightValue2, &rightValue3, &rightValue4, &rightValue5, &rightValue6,
+            &rightValue7, &rightValue8, &rightValue9, &rightValue10
+        };
+        constexpr size_t    numRightValues{numElementsInArray(rightValues)};
+
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(1, 2, 3, 4)));
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(2, 3, 4, 5)));
+        leftValue.addValue(std::make_shared<Time>(MakeTimeValue(3, 4, 5, 6)));
+        for (size_t ii = 0; (0 == result) && (numRightValues > ii); ++ii)
+        {
+            Value & aRightValue{*rightValues[ii]};
+
+            status = leftValue.lessThan(aRightValue);
+            if (status.isValid())
+            {
+                ODL_LOG("(status.isValid())"); //####
+                result = 1;
+            }
+            else
+            {
+                status = leftValue.greaterThan(aRightValue);
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.lessThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.greaterThanOrEqual(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+                else
+                {
+                    status = leftValue.equalTo(aRightValue);
+                }
+            }
+            if (0 == result)
+            {
+                if (status.isValid())
+                {
+                    ODL_LOG("(status.isValid())"); //####
+                    result = 1;
+                }
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestInvalidTimeSetCompares
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 300 ***
@@ -9227,7 +11647,7 @@ doTestIntegerSetSearches
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestStdStringSetSearches
+doTestStringSetSearches
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -9308,7 +11728,7 @@ doTestStdStringSetSearches
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestStdStringSetSearches
+} // doTestStringSetSearches
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 307 ***
@@ -9342,7 +11762,7 @@ doTestAddressMapSearches
         SpString        string12;
 
         stuff.addValue(std::make_shared<Address>(0x12345678), string17);
-        iter = stuff.find(std::make_shared<Integer>(0x345678AB));
+        iter = stuff.find(std::make_shared<Address>(0x345678AB));
         if (stuff.end() != iter)
         {
             ODL_LOG("(stuff.end() != iter)"); //####
@@ -9514,6 +11934,424 @@ doTestAddressSetSearches
     ODL_EXIT_I(result); //####
     return result;
 } // doTestAddressSetSearches
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 309 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateMapSearches
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        Map             stuff;
+        Map::iterator   iter;
+        auto            string17{std::make_shared<String>("17")};
+        SpString        string12;
+        const uint32_t  val1{MakeDateValue(1, 2, 3)};
+        const uint32_t  val2{MakeDateValue(2, 3, 4)};
+
+        stuff.addValue(std::make_shared<Date>(val1), string17);
+        iter = stuff.find(std::make_shared<Date>(val2));
+        if (stuff.end() != iter)
+        {
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Date>(val1));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != string17)
+                {
+                    ODL_LOG("(iter->second != string17)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Date>(val2));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            string12 = std::make_shared<String>("12");
+            stuff.addValue(std::make_shared<Date>(val2), string12);
+            iter = stuff.find(std::make_shared<Date>(val2));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != string12)
+                {
+                    ODL_LOG("(iter->second != string12)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Logical>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<String>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateMapSearches
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 310 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestDateSetSearches
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        Set             stuff;
+        Set::iterator   iter;
+        const uint32_t  val1{MakeDateValue(1, 2, 3)};
+        const uint32_t  val2{MakeDateValue(2, 3, 4)};
+
+        stuff.addValue(std::make_shared<Date>(val1));
+        iter = stuff.find(std::make_shared<Date>(val2));
+        if (stuff.end() != iter)
+        {
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Date>(val1));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Date>(val2));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            stuff.addValue(std::make_shared<Date>(val2));
+            iter = stuff.find(std::make_shared<Date>(val2));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Logical>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<String>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestDateSetSearches
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 311 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeMapSearches
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        Map             stuff;
+        Map::iterator   iter;
+        auto            string17{std::make_shared<String>("17")};
+        SpString        string12;
+        const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
+        const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+
+        stuff.addValue(std::make_shared<Time>(val1), string17);
+        iter = stuff.find(std::make_shared<Time>(val2));
+        if (stuff.end() != iter)
+        {
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Time>(val1));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != string17)
+                {
+                    ODL_LOG("(iter->second != string17)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Time>(val2));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            string12 = std::make_shared<String>("12");
+            stuff.addValue(std::make_shared<Time>(val2), string12);
+            iter = stuff.find(std::make_shared<Time>(val2));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+            else
+            {
+                if (iter->second != string12)
+                {
+                    ODL_LOG("(iter->second != string12)"); //####
+                    result = 1;
+                }
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Logical>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<String>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeMapSearches
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 312 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestTimeSetSearches
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{0};
+
+    try
+    {
+        Set             stuff;
+        Set::iterator   iter;
+        const uint32_t  val1{MakeTimeValue(1, 2, 3, 4)};
+        const uint32_t  val2{MakeTimeValue(2, 3, 4, 5)};
+
+        stuff.addValue(std::make_shared<Time>(val1));
+        iter = stuff.find(std::make_shared<Time>(val2));
+        if (stuff.end() != iter)
+        {
+            ODL_LOG("(stuff.end() != iter)"); //####
+            result = 1;
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Time>(val1));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Time>(val2));
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            stuff.addValue(std::make_shared<Time>(val2));
+            iter = stuff.find(std::make_shared<Time>(val2));
+            if (stuff.end() == iter)
+            {
+                ODL_LOG("(stuff.end() == iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<Logical>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+        if (0 == result)
+        {
+            iter = stuff.find(std::make_shared<String>());
+            if (stuff.end() != iter)
+            {
+                ODL_LOG("(stuff.end() != iter)"); //####
+                result = 1;
+            }
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestTimeSetSearches
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 320 ***
@@ -9947,14 +12785,14 @@ doTestSingularLogicalMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', 't', 'r', 'u', 'e', '"', kKeyValueSeparator,
+                '"', 't', 'r', 'u', 'e', '"', ':',
                 '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', 't', 'r', 'u', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '"', 't', 'r', 'u', 'e', '"', ' ', ':', ' ',
                 '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -10026,13 +12864,13 @@ doTestSingularIntegerMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '4', '2', '"', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                '"', '4', '2', '"', ':', '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                '"', '4', '2', '"', ' ', ':', ' ', '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
 
@@ -10104,14 +12942,14 @@ doTestSingularStringMapValueAsJSON
             {
                 kStartMapChar,
                 '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"',
-                kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                ':', '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
                 '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ',
-                kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                ':', ' ', '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
 
@@ -10182,16 +13020,16 @@ doTestSmallLogicalMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', 'f', 'a', 'l', 's', 'e', '"', kKeyValueSeparator, '4', '2', ',',
-                '"', 't', 'r', 'u', 'e', '"', kKeyValueSeparator,
+                '"', 'f', 'a', 'l', 's', 'e', '"', ':', '4', '2', ',',
+                '"', 't', 'r', 'u', 'e', '"', ':',
                 '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', 'f', 'a', 'l', 's', 'e', '"', ' ', kKeyValueSeparator, ' ', '4', '2', ',', ' ',
-                '"', 't', 'r', 'u', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '"', 'f', 'a', 'l', 's', 'e', '"', ' ', ':', ' ', '4', '2', ',', ' ',
+                '"', 't', 'r', 'u', 'e', '"', ' ', ':', ' ',
                 '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -10264,17 +13102,17 @@ doTestSmallIntegerMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '1', '2', '"', kKeyValueSeparator, '1', '2', '3', '4', '.', '5', ',',
-                '"', '1', '7', '"', kKeyValueSeparator, '1', '2', '.', '3', '4', '5', ',',
-                '"', '4', '2', '"', kKeyValueSeparator, '1', '2', '3', '.', '4', '5',
+                '"', '1', '2', '"', ':', '1', '2', '3', '4', '.', '5', ',',
+                '"', '1', '7', '"', ':', '1', '2', '.', '3', '4', '5', ',',
+                '"', '4', '2', '"', ':', '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '1', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '4', '.', '5', ',', ' ',
-                '"', '1', '7', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '.', '3', '4', '5', ',', ' ',
-                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ', '1', '2', '3', '.', '4', '5', ' ',
+                '"', '1', '2', '"', ' ', ':', ' ', '1', '2', '3', '4', '.', '5', ',', ' ',
+                '"', '1', '7', '"', ' ', ':', ' ', '1', '2', '.', '3', '4', '5', ',', ' ',
+                '"', '4', '2', '"', ' ', ':', ' ', '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
 
@@ -10347,22 +13185,22 @@ doTestSmallStringMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', kKeyValueSeparator,
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ':',
                 '1', '2', '3', '4', '.', '5', ',',
-                '"', 'd', 'e', 'l', 't', 'a', '"', kKeyValueSeparator,
+                '"', 'd', 'e', 'l', 't', 'a', '"', ':',
                 '1', '2', '3', '.', '4', '5', ',',
-                '"', 'l', 'i', 'm', 'a', '"', kKeyValueSeparator,
+                '"', 'l', 'i', 'm', 'a', '"', ':',
                 '1', '2', '.', '3', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', kKeyValueSeparator, ' ',
+                '"', 'c', 'h', 'a', 'r', 'l', 'i', 'e', '"', ' ', ':', ' ',
                 '1', '2', '3', '4', '.', '5', ',', ' ',
-                '"', 'd', 'e', 'l', 't', 'a', '"', ' ', kKeyValueSeparator, ' ',
+                '"', 'd', 'e', 'l', 't', 'a', '"', ' ', ':', ' ',
                 '1', '2', '3', '.', '4', '5', ',', ' ',
-                '"', 'l', 'i', 'm', 'a', '"', ' ', kKeyValueSeparator, ' ',
+                '"', 'l', 'i', 'm', 'a', '"', ' ', ':', ' ',
                 '1', '2', '.', '3', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -10436,14 +13274,14 @@ doTestSingularAddressMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', kKeyValueSeparator,
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ':',
                     '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ' ', ':', ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -10515,22 +13353,22 @@ doTestSmallAddressMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', kKeyValueSeparator,
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ':',
                     '1', '2', '3', '4', '.', '5', ',',
-                '"', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '"', kKeyValueSeparator,
+                '"', '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', '"', ':',
                     '1', '2', '.', '3', '4', '5', ',',
-                '"', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '"', kKeyValueSeparator,
+                '"', '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', '"', ':',
                     '1', '2', '3', '.', '4', '5',
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ' ', ':', ' ',
                     '1', '2', '3', '4', '.', '5', ',', ' ',
-                '"', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', '"', ' ', ':', ' ',
                     '1', '2', '.', '3', '4', '5', ',', ' ',
-                '"', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', '"', ' ', ':', ' ',
                     '1', '2', '3', '.', '4', '5', ' ',
                 kEndMapChar, kEndOfString
             };
@@ -10570,6 +13408,342 @@ doTestSmallAddressMapValueAsJSON
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallAddressMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 349 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularDateMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ':',
+                    '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ' ', ':', ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 12, 13)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularDateMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 350 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallDateMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ':',
+                    '1', '2', '3', '4', '.', '5', ',',
+                '"', '1', '2', kDateSeparator, '1', '1', kDateSeparator, '1', '0', '"', ':',
+                    '1', '2', '.', '3', '4', '5', ',',
+                '"', '1', '3', kDateSeparator, '1', '0', kDateSeparator, '1', '1', '"', ':',
+                    '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ' ', ':', ' ',
+                    '1', '2', '3', '4', '.', '5', ',', ' ',
+                '"', '1', '2', kDateSeparator, '1', '1', kDateSeparator, '1', '0', '"', ' ', ':', ' ',
+                    '1', '2', '.', '3', '4', '5', ',', ' ',
+                '"', '1', '3', kDateSeparator, '1', '0', kDateSeparator, '1', '1', '"', ' ', ':', ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 12, 13)), std::make_shared<Double>(1234.5));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(12, 11, 10)), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(13, 10, 11)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallDateMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 351 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularTimeMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4', '"', ':',
+                    '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '1', '4', '"', ' ', ':', ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 14)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularTimeMapValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 352 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallTimeMapValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartMapChar,
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '4', '2', '"', ':',
+                    '1', '2', '3', '4', '.', '5', ',',
+                '"', '1', '2', kTimeSeparator, '1', '1', kTimeSeparator, '1', '0', kSecondMillisecondSeparator, '0', '4', '3', '"', ':',
+                    '1', '2', '.', '3', '4', '5', ',',
+                '"', '1', '3', kTimeSeparator, '1', '0', kTimeSeparator, '1', '1', kSecondMillisecondSeparator, '0', '4', '4', '"', ':',
+                    '1', '2', '3', '.', '4', '5',
+                kEndMapChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartMapChar, ' ',
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '4', '2', '"', ' ', ':', ' ',
+                    '1', '2', '3', '4', '.', '5', ',', ' ',
+                '"', '1', '2', kTimeSeparator, '1', '1', kTimeSeparator, '1', '0', kSecondMillisecondSeparator, '0', '4', '3', '"', ' ', ':', ' ',
+                    '1', '2', '.', '3', '4', '5', ',', ' ',
+                '"', '1', '3', kTimeSeparator, '1', '0', kTimeSeparator, '1', '1', kSecondMillisecondSeparator, '0', '4', '4', '"', ' ', ':', ' ',
+                    '1', '2', '3', '.', '4', '5', ' ',
+                kEndMapChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 42)), std::make_shared<Double>(1234.5));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(12, 11, 10, 43)), std::make_shared<Double>(12.345));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(13, 10, 11, 44)), std::make_shared<Double>(123.45));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallTimeMapValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 360 ***
@@ -10807,7 +13981,7 @@ doTestSingularIntegerSetValueAsJSON
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSingularStdStringSetValueAsJSON
+doTestSingularStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -10872,7 +14046,7 @@ doTestSingularStdStringSetValueAsJSON
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSingularStdStringSetValueAsJSON
+} // doTestSingularStringSetValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 364 ***
@@ -11056,7 +14230,7 @@ doTestSmallIntegerSetValueAsJSON
  @param[in] argv The arguments to be used for the test.
  @return @c 0 on success and @c 1 on failure. */
 static int
-doTestSmallStdStringSetValueAsJSON
+doTestSmallStringSetValueAsJSON
     (CPtr(char)     launchPath,
      const int      argc,
      Ptr(Ptr(char)) argv)
@@ -11134,7 +14308,7 @@ doTestSmallStdStringSetValueAsJSON
     }
     ODL_EXIT_I(result); //####
     return result;
-} // doTestSmallStdStringSetValueAsJSON
+} // doTestSmallStringSetValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 367 ***
@@ -11169,13 +14343,13 @@ doTestSingularAddressSetValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"',
                 kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', ' ',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ' ',
                 kEndArrayChar, kEndOfString
             };
 
@@ -11246,19 +14420,19 @@ doTestSmallAddressSetValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartArrayChar,
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', ',',
-                '"', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '"', ',',
-                '"', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '"', ',',
-                '"', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '.', '2', '3', '9', '"',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ',',
+                '"', '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', '"', ',',
+                '"', '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', '"', ',',
+                '"', '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', kAddressSeparator, '2', '3', '9', '"',
                 kEndArrayChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartArrayChar, ' ',
-                '"', '1', '8', '.', '5', '2', '.', '8', '6', '.', '1', '2', '0', '"', ',', ' ',
-                '"', '5', '2', '.', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '"', ',', ' ',
-                '"', '8', '6', '.', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '"', ',', ' ',
-                '"', '1', '2', '0', '.', '1', '7', '1', '.', '2', '0', '5', '.', '2', '3', '9', '"', ' ',
+                '"', '1', '8', kAddressSeparator, '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', '"', ',', ' ',
+                '"', '5', '2', kAddressSeparator, '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', '"', ',', ' ',
+                '"', '8', '6', kAddressSeparator, '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', '"', ',', ' ',
+                '"', '1', '2', '0', kAddressSeparator, '1', '7', '1', kAddressSeparator, '2', '0', '5', kAddressSeparator, '2', '3', '9', '"', ' ',
                 kEndArrayChar, kEndOfString
             };
 
@@ -11298,6 +14472,332 @@ doTestSmallAddressSetValueAsJSON
     ODL_EXIT_I(result); //####
     return result;
 } // doTestSmallAddressSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 369 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularDateSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 12, 13)));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularDateSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 370 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallDateSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', '9', kDateSeparator, '1', '0', kDateSeparator, '1', '1', '"', ',',
+                '"', '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', '"', ',',
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ',',
+                '"', '1', '2', kDateSeparator, '9', kDateSeparator, '8', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', '9', kDateSeparator, '1', '0', kDateSeparator, '1', '1', '"', ',', ' ',
+                '"', '1', '0', kDateSeparator, '1', '1', kDateSeparator, '1', '2', '"', ',', ' ',
+                '"', '1', '1', kDateSeparator, '1', '2', kDateSeparator, '1', '3', '"', ',', ' ',
+                '"', '1', '2', kDateSeparator, '9', kDateSeparator, '8', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(9, 10, 11)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(10, 11, 12)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(11, 12, 13)));
+            stuff->addValue(std::make_shared<Date>(MakeDateValue(12, 9, 8)));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallDateSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 371 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSingularTimeSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '5', '0', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '5', '0', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 50)));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSingularTimeSetValueAsJSON
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 372 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestSmallTimeSetValueAsJSON
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Set>()};
+
+        if (stuff)
+        {
+            static const char   expectedSquishedString[]
+            {
+                kStartArrayChar,
+                '"', '0', '9', kTimeSeparator, '1', '0', kTimeSeparator, '1', '1', kSecondMillisecondSeparator, '0', '5', '0', '"', ',',
+                '"', '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '4', '9', '"', ',',
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '4', '8', '"', ',',
+                '"', '1', '2', kTimeSeparator, '0', '9', kTimeSeparator, '0', '8', kSecondMillisecondSeparator, '0', '4', '7', '"',
+                kEndArrayChar, kEndOfString
+            };
+            static const char   expectedString[]
+            {
+                kStartArrayChar, ' ',
+                '"', '0', '9', kTimeSeparator, '1', '0', kTimeSeparator, '1', '1', kSecondMillisecondSeparator, '0', '5', '0', '"', ',', ' ',
+                '"', '1', '0', kTimeSeparator, '1', '1', kTimeSeparator, '1', '2', kSecondMillisecondSeparator, '0', '4', '9', '"', ',', ' ',
+                '"', '1', '1', kTimeSeparator, '1', '2', kTimeSeparator, '1', '3', kSecondMillisecondSeparator, '0', '4', '8', '"', ',', ' ',
+                '"', '1', '2', kTimeSeparator, '0', '9', kTimeSeparator, '0', '8', kSecondMillisecondSeparator, '0', '4', '7', '"', ' ',
+                kEndArrayChar, kEndOfString
+            };
+
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(9, 10, 11, 50)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(10, 11, 12, 49)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(11, 12, 13, 48)));
+            stuff->addValue(std::make_shared<Time>(MakeTimeValue(12, 9, 8, 47)));
+            if (0 == compareValueWithStringAsJSON(*stuff, expectedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithStringAsJSON(*stuff, expectedString))"); //####
+            }
+            if (0 == compareValueWithSquishedStringAsJSON(*stuff, expectedSquishedString))
+            {
+                result = 0;
+            }
+            else
+            {
+                ODL_LOG("! (0 == compareValueWithSquishedStringAsJSON(*stuff, " //####
+                        "expectedSquishedString))"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestSmallTimeSetValueAsJSON
 
 #if defined(__APPLE__)
 # pragma mark *** Test Case 380 ***
@@ -11563,14 +15063,14 @@ doTestMapWithArrayValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '4', '2', '"', kKeyValueSeparator,
+                '"', '4', '2', '"', ':',
                 kStartArrayChar, kEndArrayChar,
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '4', '2', '"', ' ', ':', ' ',
                 kStartArrayChar, ' ', kEndArrayChar, ' ',
                 kEndMapChar, kEndOfString
             };
@@ -11642,14 +15142,14 @@ doTestMapWithMapValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '4', '2', '"', kKeyValueSeparator,
+                '"', '4', '2', '"', ':',
                 kStartMapChar, kEndMapChar,
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '4', '2', '"', ' ', ':', ' ',
                 kStartMapChar, ' ', kEndMapChar, ' ',
                 kEndMapChar, kEndOfString
             };
@@ -11721,14 +15221,14 @@ doTestMapWithSetValueAsJSON
             static const char   expectedSquishedString[]
             {
                 kStartMapChar,
-                '"', '4', '2', '"', kKeyValueSeparator,
+                '"', '4', '2', '"', ':',
                 kStartArrayChar, kEndArrayChar,
                 kEndMapChar, kEndOfString
             };
             static const char   expectedString[]
             {
                 kStartMapChar, ' ',
-                '"', '4', '2', '"', ' ', kKeyValueSeparator, ' ',
+                '"', '4', '2', '"', ' ', ':', ' ',
                 kStartArrayChar, ' ', kEndArrayChar, ' ',
                 kEndMapChar, kEndOfString
             };
@@ -11971,14 +15471,14 @@ doTestKeysFromMapWithAddressKeys
 
             if (otherStuff)
             {
-                static const std::string    rawKeys[]
+                static const uint64_t   rawKeys[]
                 {
-                    "abc"s, "def"s, "ghi", "012345"
+                    0x12345678, 0x345678AB, 0x5678ABCD, 0x78ABCDEF
                 };
 
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
-                    auto    aKey{std::make_shared<String>(rawKeys[ii])};
+                    auto    aKey{std::make_shared<Address>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(rand())};
 
                     stuff->addValue(aKey, aValue);
@@ -12041,9 +15541,9 @@ doTestKeysFromMapWithStringKeys
     NIMO_UNUSED_VAR_(argc);
     NIMO_UNUSED_VAR_(argv);
     ODL_ENTER(); //####
-    //ODL_S1("launchPath = ", launchPath); //####
-    //ODL_I1("argc = ", argc); //####
-    //ODL_P1("argv = ", argv); //####
+                 //ODL_S1("launchPath = ", launchPath); //####
+                 //ODL_I1("argc = ", argc); //####
+                 //ODL_P1("argv = ", argv); //####
     int result{1};
 
     try
@@ -12056,14 +15556,14 @@ doTestKeysFromMapWithStringKeys
 
             if (otherStuff)
             {
-                static const uint64_t   rawKeys[]
+                static const std::string    rawKeys[]
                 {
-                    0x12345678, 0x345678AB, 0x5678ABCD, 0x78ABCDEF
+                    "abc"s, "def"s, "ghi", "012345"
                 };
 
                 for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
                 {
-                    auto    aKey{std::make_shared<Address>(rawKeys[ii])};
+                    auto    aKey{std::make_shared<String>(rawKeys[ii])};
                     auto    aValue{std::make_shared<Double>(rand())};
 
                     stuff->addValue(aKey, aValue);
@@ -12106,6 +15606,176 @@ doTestKeysFromMapWithStringKeys
     ODL_EXIT_I(result); //####
     return result;
 } // doTestKeysFromMapWithStringKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 404 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithDateKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (otherStuff)
+            {
+                static const uint32_t   rawKeys[]
+                {
+                    MakeDateValue(8, 9, 10), MakeDateValue(9, 10, 11), MakeDateValue(10, 11, 12), MakeDateValue(11, 12, 13)
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<Date>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (otherStuff)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithDateKeys
+
+#if defined(__APPLE__)
+# pragma mark *** Test Case 405 ***
+#endif // defined(__APPLE__)
+
+/*! @brief Perform a test case.
+ @param[in] launchPath The command-line name used to launch the service.
+ @param[in] argc The number of arguments in 'argv'.
+ @param[in] argv The arguments to be used for the test.
+ @return @c 0 on success and @c 1 on failure. */
+static int
+doTestKeysFromMapWithTimeKeys
+    (CPtr(char)     launchPath,
+     const int      argc,
+     Ptr(Ptr(char)) argv)
+{
+    NIMO_UNUSED_VAR_(launchPath);
+    NIMO_UNUSED_VAR_(argc);
+    NIMO_UNUSED_VAR_(argv);
+    ODL_ENTER(); //####
+    //ODL_S1("launchPath = ", launchPath); //####
+    //ODL_I1("argc = ", argc); //####
+    //ODL_P1("argv = ", argv); //####
+    int result{1};
+
+    try
+    {
+        auto    stuff{std::make_unique<Map>()};
+
+        if (stuff)
+        {
+            auto    otherStuff{std::make_unique<Set>()};
+
+            if (otherStuff)
+            {
+                static const uint32_t   rawKeys[]
+                {
+                    MakeTimeValue(8, 9, 10, 60), MakeTimeValue(9, 10, 11, 61), MakeTimeValue(10, 11, 12, 62), MakeTimeValue(11, 12, 13, 63)
+                };
+
+                for (size_t ii = 0, mm = numElementsInArray(rawKeys); ii < mm; ++ii)
+                {
+                    auto    aKey{std::make_shared<Time>(rawKeys[ii])};
+                    auto    aValue{std::make_shared<Double>(rand())};
+
+                    stuff->addValue(aKey, aValue);
+                    otherStuff->addValue(aKey);
+                }
+                if ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))
+                {
+                    auto    theKeys{stuff->getKeys()};
+
+                    if (theKeys->deeplyEqualTo(*otherStuff))
+                    {
+                        result = 0;
+                    }
+                    else
+                    {
+                        ODL_LOG("! (theKeys->deeplyEqualTo(*otherStuff))"); //####
+                    }
+                }
+                else
+                {
+                    ODL_LOG("! ((0 < stuff->size()) && (stuff->size() == otherStuff->size()))"); //####
+                }
+            }
+            else
+            {
+                ODL_LOG("! (otherStuff)"); //####
+            }
+        }
+        else
+        {
+            ODL_LOG("! (stuff)"); //####
+        }
+    }
+    catch (...)
+    {
+        ODL_LOG("Exception caught"); //####
+        throw;
+
+    }
+    ODL_EXIT_I(result); //####
+    return result;
+} // doTestKeysFromMapWithTimeKeys
 
 #if defined(__APPLE__)
 # pragma mark Global functions
@@ -12275,6 +15945,22 @@ main
                         result = doTestSmallAddressMapValue(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 68 :
+                        result = doTestSingularDateMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 69 :
+                        result = doTestSmallDateMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 70 :
+                        result = doTestSingularTimeMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 71 :
+                        result = doTestSmallTimeMapValue(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 100 :
                         result = doTestEmptySetValue(*argv, argc - 1, argv + 2);
                         break;
@@ -12288,7 +15974,7 @@ main
                         break;
 
                     case 103 :
-                        result = doTestSingularStdStringSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 104 :
@@ -12300,7 +15986,7 @@ main
                         break;
 
                     case 106 :
-                        result = doTestSmallStdStringSetValue(*argv, argc - 1, argv + 2);
+                        result = doTestSmallStringSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 107 :
@@ -12345,6 +16031,22 @@ main
 
                     case 117 :
                         result = doTestSmallAddressSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 118 :
+                        result = doTestSingularDateSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 119 :
+                        result = doTestSmallDateSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 120 :
+                        result = doTestSingularTimeSetValue(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 121 :
+                        result = doTestSmallTimeSetValue(*argv, argc - 1, argv + 2);
                         break;
 
                     case 150 :
@@ -12392,7 +16094,7 @@ main
                         break;
 
                     case 205 :
-                        result = doTestStdStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        result = doTestStringSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 206 :
@@ -12401,6 +16103,22 @@ main
 
                     case 207 :
                         result = doTestAddressSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 208 :
+                        result = doTestDateMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 209 :
+                        result = doTestDateSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 210 :
+                        result = doTestTimeMapValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 211 :
+                        result = doTestTimeSetValueWithIncompatibleKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     case 250 :
@@ -12428,7 +16146,7 @@ main
                         break;
 
                     case 256 :
-                        result = doTestValidStdStringSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestValidStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 257 :
@@ -12456,7 +16174,7 @@ main
                         break;
 
                     case 263 :
-                        result = doTestInvalidStdStringSetCompares(*argv, argc - 1, argv + 2);
+                        result = doTestInvalidStringSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 264 :
@@ -12473,6 +16191,38 @@ main
 
                     case 267 :
                         result = doTestInvalidAddressSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 268 :
+                        result = doTestValidDateMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 269 :
+                        result = doTestValidDateSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 270 :
+                        result = doTestInvalidDateMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 271 :
+                        result = doTestInvalidDateSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 272 :
+                        result = doTestValidTimeMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 273 :
+                        result = doTestValidTimeSetCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 274 :
+                        result = doTestInvalidTimeMapCompares(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 275 :
+                        result = doTestInvalidTimeSetCompares(*argv, argc - 1, argv + 2);
                         break;
 
                     case 300 :
@@ -12500,7 +16250,7 @@ main
                         break;
 
                     case 306 :
-                        result = doTestStdStringSetSearches(*argv, argc - 1, argv + 2);
+                        result = doTestStringSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     case 307 :
@@ -12509,6 +16259,22 @@ main
 
                     case 308 :
                         result = doTestAddressSetSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 309 :
+                        result = doTestDateMapSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 310 :
+                        result = doTestDateSetSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 311 :
+                        result = doTestTimeMapSearches(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 312 :
+                        result = doTestTimeSetSearches(*argv, argc - 1, argv + 2);
                         break;
 
                     case 320 :
@@ -12563,6 +16329,22 @@ main
                         result = doTestSmallAddressMapValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
+                    case 349 :
+                        result = doTestSingularDateMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 350 :
+                        result = doTestSmallDateMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 351 :
+                        result = doTestSingularTimeMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 352 :
+                        result = doTestSmallTimeMapValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
                     case 360 :
                         result = doTestEmptySetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
@@ -12576,7 +16358,7 @@ main
                         break;
 
                     case 363 :
-                        result = doTestSingularStdStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        result = doTestSingularStringSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     case 364 :
@@ -12588,7 +16370,7 @@ main
                         break;
 
                     case 366 :
-                        result = doTestSmallStdStringSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        result = doTestSmallStringSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     case 367 :
@@ -12597,6 +16379,22 @@ main
 
                     case 368 :
                         result = doTestSmallAddressSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 369 :
+                        result = doTestSingularDateSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 370 :
+                        result = doTestSmallDateSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 371 :
+                        result = doTestSingularTimeSetValueAsJSON(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 372 :
+                        result = doTestSmallTimeSetValueAsJSON(*argv, argc - 1, argv + 2);
                         break;
 
                     case 380 :
@@ -12637,6 +16435,14 @@ main
 
                     case 403 :
                         result = doTestKeysFromMapWithAddressKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 404 :
+                        result = doTestKeysFromMapWithDateKeys(*argv, argc - 1, argv + 2);
+                        break;
+
+                    case 405 :
+                        result = doTestKeysFromMapWithTimeKeys(*argv, argc - 1, argv + 2);
                         break;
 
                     default :

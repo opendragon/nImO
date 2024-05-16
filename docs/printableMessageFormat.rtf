@@ -1,17 +1,15 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2639
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;\f1\fmodern\fcharset0 CourierNewPS-BoldMT;}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \margl1440\margr1440\vieww31780\viewh23720\viewkind0
 \deftab720
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
 
-\f0\fs28 \cf0 <address> ::= '@' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer>; # subfields limited to 0..255 \
+\f0\fs28 \cf0 <address> ::= '@' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer> '.' <unsigned-integer>; ## subfields limited to 0..255 \
 <array> ::= '(' <sp>* (<value_list> <sp>*)? ')'; ## empty arrays allowed\
 <atom-list> ::= <atom> (<sp>+ <atom>)*; ## space-separated atomic values\
-<atom> ::= <sign>? <unsigned-number> | <string> | <boolean> | <address> 
-\f1\b | <date> | <time>
-\f0\b0 ;\
+<atom> ::= <sign>? <unsigned-number> | <string> | <boolean> | <address> | <date> | <time>;\
 <blob> ::= '%' <unsigned-integer> '%' <byte>* '%'; ## number of values == leading integer, >= 0\
 <boolean> ::= 'true' | 'false'; ## Note: case-insensitive, initial substrings accepted\
 <byte> ::= <hex-digit> <hex-digit>;\
@@ -21,7 +19,7 @@
 <control-sequence-1> ::= 'c' <low-char>;\
 <control-sequence-2> ::= 'C-' <low-char>;\
 <date> ::= '^' ('d' | 'D') <year> '/' <month> '/' <day>;\
-<day> ::= <unsigned-integer>;\
+<day> ::= <unsigned-integer>; ## limited to 1..31\
 <double-quote> ::= '"';\
 <double-quoted-string> ::= <double-quote> <non-double-quote-character>* <double-quote>; ## empty strings allowed\
 <escape-character> ::= '\\';\
@@ -30,7 +28,7 @@
 <exponent> ::= <exponent-tag> <sign>? <unsigned-integer>;\
 <fraction> ::= '.' <unsigned-integer>?; ## 'number.' must be legal\
 <hex-digit> ::= \\d | 'a' .. 'f' | 'A' .. 'F';\
-<hour> ::= <unsigned-integer>;\
+<hour> ::= <unsigned-integer>; ## limited to 0..23\
 <in-message> ::= <sp>* <value-list>? <sp>*; ## if more than one value, implicit array\
 <low-char> ::= '@' .. '_'; ## map to Ctrl-@ (0x00) through Ctrl-_ (0x1F)\
 <map> ::= '\{' <sp>* (<mapped-value-list> <sp>*)? '\}'; ## the first key seen establishes the type of the remaining keys\
@@ -39,9 +37,9 @@
 <mapped-value> ::= <scalar-atom> <sp>* <map-separator> <sp>* <value>; ## floating-point numbers can't be keys\
 <meta-char> ::= '!' .. '~' | '\\' <control-sequence2>; ## meta-sequences represent bytes with MSB on\
 <meta-sequence> ::= 'M-' <meta-char>;\
-<milliseconds> ::= <unsigned-integer>;\
-<minutes> ::= <unsigned-integer>;\
-<month> ::= <unsigned-integer>;\
+<milliseconds> ::= <unsigned-integer>; ## limited to 0..999\
+<minutes> ::= <unsigned-integer>; ## limited to 0..59\
+<month> ::= <unsigned-integer>; ## limited to 1..12\
 <noise> ::= ',' | ';';\
 <non-double-quote-character> ::= <non-quote-character> | <single-quote>;\
 <non-single-quote-character> ::= <non-quote-character> | <double-quote>;\
@@ -51,11 +49,9 @@
 <octal-sequence> ::= <octal-digit> <octal-digit> <octal-digit>;\
 <out-message> ::= <sp>* <value>? <sp>*;\
 <printable-character> ::= ' ' .. '~'; ## excludes control characters and characters with the high bit set \
-<scalar-atom> ::= <string> | <boolean> | <address> | <sign>? <unsigned-integer> 
-\f1\b | <date> | <time>
-\f0\b0 ;\
+<scalar-atom> ::= <string> | <boolean> | <address> | <sign>? <unsigned-integer> | <date> | <time>;\
 <scalar-atom-list> ::= <scalar-atom> (<sp>+ <scalar-atom>)*; ## space-separated scalar atomic values\
-<seconds> ::= <unsigned-integer>;\
+<seconds> ::= <unsigned-integer>; ## limited to 0..59\
 \pard\pardeftab720\ri-23724\sl360\partightenfactor0
 \cf0 <set> ::= '[' <sp>* (<scalar-atom-list> <sp>*)? ']'; ## empty sets allowed and floating-point numbers can't be elements; the first value seen establishes the type of the remaining values\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
@@ -71,7 +67,7 @@
 <unsigned-number> ::= <unscaled-number> <exponent>?;\
 <value-list> ::= <value> (<sp>+ <value>)*; ## space-separated values\
 <value> ::= <atom> | <container> | <blob>;\
-<year> ::= <unsigned-integer>;\
+<year> ::= <unsigned-integer>; ## limited to 0..9999\
 \pard\pardeftab720\ri-21372\sl360\partightenfactor0
 \cf0 \expnd0\expndtw0\kerning0
 \

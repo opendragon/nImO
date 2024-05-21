@@ -141,6 +141,15 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Get the extraction information for Date and Time objects.
+             @param[out] aByte The byte value that indicates the start of a Date or Time value.
+             @param[out] aMask The mask to apply to a lead byte.
+             @return The function to perform when the lead byte is seen. */
+            static Extractor
+            getExtractionInfo
+                (DataKind & aByte,
+                 DataKind & aMask);
+
             /*! @brief Return the relative ordering of two Values.
              @param[in] other The Value to be compared with.
              @return The relative ordering of the two Values. */
@@ -230,6 +239,14 @@ namespace nImO
                 const
                 override;
 
+            /*! @brief Add a binary representation of the object to the message.
+             @param[in,out] outMessage The Message to be appended to. */
+            void
+            writeToMessage
+                (Message &  outMessage)
+                const
+                override;
+
         protected :
             // Protected methods.
 
@@ -246,6 +263,26 @@ namespace nImO
         private :
             // Private methods.
 
+            /*! @brief Extracts Value objects from a Message.
+             Note that the parentValue argument is normally @c nullptr, and is used for handling
+             multiple floating-point numbers in a sequence; if a series of Double values are extracted,
+             they are directly added to the Array and the last Value is returned as the result of the
+             function; for all other Value objects, the (single) Value that is extracted is added to
+             the Array to simplify the logic, as well as being returned.
+             @param[in] theMessage The Message being processed.
+             @param[in] leadByte The initial byte of the Value.
+             @param[in,out] position The location of the next byte to be processed.
+             @param[in] parentValue A pointer to the Value that will contain the new object.
+             @return @c nullptr if the Value could not be extracted because the Message ended before
+             the Value did, a Flaw if the Value could not be extracted because it was not correct and
+             a non-Flaw Value if extraction was successful. */
+            static SpValue
+            extractValue
+                (const Message &    theMessage,
+                 const int          leadByte,
+                 size_t &           position,
+                 SpArray            parentValue);
+
         public :
             // Public fields.
 
@@ -256,6 +293,76 @@ namespace nImO
             // Private fields.
 
     }; // Date
+
+    /*! @brief Generate a value that can be used to initialize a Date value.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The year, month and day combined to make a suitable initialization value for a Date. */
+    inline constexpr uint32_t
+    MakeDateValue
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return StaticCast(uint32_t, (theYear * (kMaxMonth + 1) * (kMaxDay + 1)) + (theMonth * (kMaxDay + 1)) + theDay);
+    }
+
+    /*! @brief Extract the first byte of a Date value in network order.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The first byte of a Date value in network order. */
+    inline constexpr uint8_t
+    FirstDateByte
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return ((MakeDateValue(theYear, theMonth, theDay) >> 24) & 0x0FF);
+    }
+
+    /*! @brief Extract the second byte of a Date value in network order.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The second byte of a Date value in network order. */
+    inline constexpr uint8_t
+    SecondDateByte
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return ((MakeDateValue(theYear, theMonth, theDay) >> 16) & 0x0FF);
+    }
+
+    /*! @brief Extract the third byte of a Date value in network order.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The third byte of a Date value in network order. */
+    inline constexpr uint8_t
+    ThirdDateByte
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return ((MakeDateValue(theYear, theMonth, theDay) >> 8) & 0x0FF);
+    }
+
+    /*! @brief Extract the fourth byte of a Date value in network order.
+     @param[in] theYear The year part of the value.
+     @param[in] theMonth The month part of the value.
+     @param[in] theDay The day part of the value.
+     @return The fourth byte of a Date value in network order. */
+    inline constexpr uint8_t
+    FourthDateByte
+        (const int  theYear = 0,
+         const int  theMonth = 0,
+         const int  theDay = 0)
+    {
+        return (MakeDateValue(theYear, theMonth, theDay) & 0x0FF);
+    }
 
 } // nImO
 

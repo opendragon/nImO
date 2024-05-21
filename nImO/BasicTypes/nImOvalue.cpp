@@ -40,13 +40,14 @@
 
 #include <BasicTypes/nImOaddress.h>
 #include <BasicTypes/nImOblob.h>
-#include <BasicTypes/nImOdateTime.h>
+#include <BasicTypes/nImOdate.h>
 #include <BasicTypes/nImOdouble.h>
 #include <BasicTypes/nImOinteger.h>
 #include <BasicTypes/nImOinvalid.h>
 #include <BasicTypes/nImOlogical.h>
 #include <BasicTypes/nImOnumber.h>
 #include <BasicTypes/nImOstring.h>
+#include <BasicTypes/nImOtime.h>
 #include <Containers/nImOarray.h>
 #include <Containers/nImOmap.h>
 #include <Containers/nImOmessage.h>
@@ -528,7 +529,7 @@ nImO::Value::initialize
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = Blob::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
-    theExtractor = DateTime::getExtractionInfo(aByte, aMask);
+    theExtractor = Date::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = Double::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
@@ -541,6 +542,8 @@ nImO::Value::initialize
     theExtractor = Set::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     theExtractor = String::getExtractionInfo(aByte, aMask);
+    addToExtractionMap(aByte, aMask, theExtractor);
+    theExtractor = Time::getExtractionInfo(aByte, aMask);
     addToExtractionMap(aByte, aMask, theExtractor);
     ODL_EXIT(); //####
 } // nImO::Value::initialize

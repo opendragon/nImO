@@ -74,11 +74,12 @@
 # pragma mark Local functions
 #endif // defined(__APPLE__)
 
-/*! @brief Convert a 32-bit unsigned value into a sequence of bytes in network order.
- @param[out] outValue The byte sequence.
- @param[in] inValue The input value. */
-static void
-convertToByteArray
+#if defined(__APPLE__)
+# pragma mark Class methods
+#endif // defined(__APPLE__)
+
+void
+nImO::DateTime::convertToByteArray
     (nImO::DateTime::DateTimeBytes &    outValue,
      const uint32_t                     inValue)
 {
@@ -87,10 +88,6 @@ convertToByteArray
     outValue[2] = StaticCast(uint8_t, (inValue >> 8) & 0x0FF);
     outValue[3] = StaticCast(uint8_t, inValue & 0x0FF);
 } // convertToByteArray
-
-#if defined(__APPLE__)
-# pragma mark Class methods
-#endif // defined(__APPLE__)
 
 #if defined(__APPLE__)
 # pragma mark Constructors and Destructors
@@ -153,78 +150,6 @@ nImO::DateTime::DateTime
 #if defined(__APPLE__)
 # pragma mark Actions and Accessors
 #endif // defined(__APPLE__)
-
-nImO::SpValue
-nImO::DateTime::extractValue
-    (const Message &    theMessage,
-     const int          leadByte,
-     size_t &           position,
-     SpArray            parentValue)
-{
-    NIMO_UNUSED_VAR_(leadByte);
-    ODL_ENTER(); //####
-    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
-    ODL_X1("leadByte = ", leadByte); //####
-    SpValue     result;
-    uint32_t    accumulator{0};
-    bool        atEnd{false};
-    bool        isDate{DataKind::OtherMiscellaneousDateTimeDateValue == (DataKind::OtherMiscellaneousDateTimeValueMask & leadByte)};
-
-    ++position; // We will always accept the lead byte
-    for (int ii = 0; (ii < 4) && (! atEnd); ++ii)
-    {
-        uint8_t aByte = theMessage.getByte(position, atEnd);
-
-        ODL_X1("aByte <- ", aByte); //####
-        ODL_B1("atEnd <- ", atEnd); //####
-        if (atEnd)
-        {
-            ODL_LOG("(atEnd)"); //####
-        }
-        else
-        {
-            accumulator = ((accumulator << 8) | aByte);
-            ++position;
-            ODL_I1("position <- ", position); //####
-        }
-    }
-    if (atEnd)
-    {
-        ODL_LOG("(atEnd)"); //####
-        result.reset();
-    }
-    else
-    {
-        if (isDate)
-        {
-            result = std::make_shared<Date>(accumulator);
-        }
-        else
-        {
-            result = std::make_shared<Time>(accumulator);
-        }
-    }
-    if (parentValue && result)
-    {
-        ODL_LOG("(parentValue && result)"); //####
-        parentValue->addValue(result);
-    }
-    ODL_EXIT_P(result.get()); //####
-    return result;
-} // nImO::DateTime::extractValue
-
-nImO::Value::Extractor
-nImO::DateTime::getExtractionInfo
-    (DataKind & aByte,
-     DataKind & aMask)
-{
-    ODL_ENTER(); //####
-    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
-    aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeDateTime);
-    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
-    ODL_EXIT(); //####
-    return extractValue;
-} // nImO::DateTime::getExtractionInfo
 
 CPtr(char)
 nImO::DateTime::getInitialCharacters
@@ -594,23 +519,6 @@ nImO::DateTime::readFromStringBuffer
     ODL_EXIT_P(result.get()); //####
     return result;
 } // nImO::DateTime::readFromStringBuffer
-
-void
-nImO::DateTime::writeToMessage
-    (Message &  outMessage)
-    const
-{
-    ODL_OBJENTER(); //####
-    ODL_P1("outMessage = ", &outMessage); //####
-    DataKind        stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeDateTime |
-                        (_isDate ? DataKind::OtherMiscellaneousDateTimeDateValue : DataKind::OtherMiscellaneousDateTimeTimeValue)};
-    DateTimeBytes   bytes;
-
-    convertToByteArray(bytes, _dateTimeValue);
-    outMessage.appendBytes(&stuff, sizeof(stuff));
-    outMessage.appendBytes(bytes, sizeof(bytes));
-    ODL_OBJEXIT(); //####
-} // nImO::DateTime::writeToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

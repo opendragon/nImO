@@ -401,23 +401,44 @@ namespace nImO
                     /*! @brief The value is @c true. */
                     OtherMiscellaneousLogicalTrueValue = 0x0001,
 
-                /*! @brief The value is an IPv4 address. */
-                OtherMiscellaneousTypeIPv4Address = 0x0004,
+                /*! @brief The value is a fixed bitfield. */
+                OtherMiscellaneousTypeBitField = 0x0004,
 
-                /*! @brief The value is a Date or a Time */
-                OtherMiscellaneousTypeDateTime = 0x0008,
+                    /*! @brief The mask for the value of the bitfield. */
+                    OtherMiscellaneousTypeBitFieldTypeMask = 0x0003,
 
-                    /*! @brief The mask for the value of the Logical. */
-                    OtherMiscellaneousDateTimeValueMask = 0x0001,
+                    /*! @brief The value is an IPv4 address. */
+                    OtherMiscellaneousTypeBitFieldTypeIPv4Address = 0x0000,
 
                     /*! @brief The value is a Date. */
-                    OtherMiscellaneousDateTimeDateValue = 0x0000,
+                    OtherMiscellaneousTypeBitFieldTypeDate = 0x0001,
 
                     /*! @brief The value is a Time. */
-                    OtherMiscellaneousDateTimeTimeValue = 0x0001,
+                    OtherMiscellaneousTypeBitFieldTypeTime = 0x0002,
+
+                    /*! @brief An unimplemented bit field. */
+                    OtherMiscellaneousTypeBitFieldTypeReserved = 0x0003,
+
+//                /*! @brief The value is an IPv4 address. */
+//                OtherMiscellaneousTypeIPv4Address = 0x0004,
+//
+//                /*! @brief The value is a Date or a Time */
+//                OtherMiscellaneousTypeDateTime = 0x0008,
+//
+//                    /*! @brief The mask for the value of the Logical. */
+//                    OtherMiscellaneousDateTimeValueMask = 0x0001,
+//
+//                    /*! @brief The value is a Date. */
+//                    OtherMiscellaneousDateTimeDateValue = 0x0000,
+//
+//                    /*! @brief The value is a Time. */
+//                    OtherMiscellaneousDateTimeTimeValue = 0x0001,
+//
+                /*! @brief An unimplemented miscellaneous value. */
+                OtherMiscellaneousTypeReserved1 = 0x0008,
 
                 /*! @brief An unimplemented miscellaneous value. */
-                OtherMiscellaneousTypeReserved1 = 0x000C,
+                OtherMiscellaneousTypeReserved2 = 0x000C,
 
             /*! @brief The value that follows is a Container. */
             OtherContainerStart = 0x0010,

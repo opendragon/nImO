@@ -231,6 +231,72 @@ nImO::Date::equalTo
     return result;
 } // nImO::Date::equalTo
 
+nImO::SpValue
+nImO::Date::extractValue
+    (const Message &    theMessage,
+     const int          leadByte,
+     size_t &           position,
+     SpArray            parentValue)
+{
+    NIMO_UNUSED_VAR_(leadByte);
+    ODL_ENTER(); //####
+    ODL_P3("theMessage = ", &theMessage, "position = ", &position, "parentValue = ", parentValue.get()); //####
+    ODL_X1("leadByte = ", leadByte); //####
+    SpValue     result;
+    uint32_t    accumulator{0};
+    bool        atEnd{false};
+
+    ++position; // We will always accept the lead byte
+    for (int ii = 0; (ii < 4) && (! atEnd); ++ii)
+    {
+        uint8_t aByte = theMessage.getByte(position, atEnd);
+
+        ODL_X1("aByte <- ", aByte); //####
+        ODL_B1("atEnd <- ", atEnd); //####
+        if (atEnd)
+        {
+            ODL_LOG("(atEnd)"); //####
+        }
+        else
+        {
+            accumulator = ((accumulator << 8) | aByte);
+            ++position;
+            ODL_I1("position <- ", position); //####
+        }
+    }
+    if (atEnd)
+    {
+        ODL_LOG("(atEnd)"); //####
+        result.reset();
+    }
+    else
+    {
+        result = std::make_shared<Date>(accumulator);
+    }
+    if (parentValue && result)
+    {
+        ODL_LOG("(parentValue && result)"); //####
+        parentValue->addValue(result);
+    }
+    ODL_EXIT_P(result.get()); //####
+    return result;
+} // nImO::Date::extractValue
+
+nImO::Value::Extractor
+nImO::Date::getExtractionInfo
+    (DataKind & aByte,
+     DataKind & aMask)
+{
+    ODL_ENTER(); //####
+    ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
+    aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+             DataKind::OtherMiscellaneousTypeBitFieldTypeDate);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask |
+             DataKind::OtherMiscellaneousTypeBitFieldTypeMask);
+    ODL_EXIT(); //####
+    return extractValue;
+} // nImO::Date::getExtractionInfo
+
 nImO::ComparisonStatus
 nImO::Date::greaterThan
     (const Value &  other)
@@ -433,6 +499,23 @@ nImO::Date::printToStringBufferAsJSON
     outBuffer.appendChar(kDoubleQuote);
     ODL_OBJEXIT(); //####
 } // nImO::Date::printToStringBufferAsJSON
+
+void
+nImO::Date::writeToMessage
+    (Message &  outMessage)
+    const
+{
+    ODL_OBJENTER(); //####
+    ODL_P1("outMessage = ", &outMessage); //####
+    DataKind        stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                            DataKind::OtherMiscellaneousTypeBitFieldTypeDate};
+    DateTimeBytes   bytes;
+
+    convertToByteArray(bytes, _dateTimeValue);
+    outMessage.appendBytes(&stuff, sizeof(stuff));
+    outMessage.appendBytes(bytes, sizeof(bytes));
+    ODL_OBJEXIT(); //####
+} // nImO::Date::writeToMessage
 
 #if defined(__APPLE__)
 # pragma mark Global functions

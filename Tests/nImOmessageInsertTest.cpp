@@ -1259,7 +1259,8 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x12),
                     StaticCast(DataKind, 0x34),
                     StaticCast(DataKind, 0x56),
@@ -1277,7 +1278,8 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x34),
                     StaticCast(DataKind, 0x56),
                     StaticCast(DataKind, 0x78),
@@ -1295,7 +1297,8 @@ doTestInsertAddressMessage
                   DataKind::OtherMessageNonEmptyValue |
                   DataKind::OtherMessageExpectedOtherValue,
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x56),
                     StaticCast(DataKind, 0x78),
                     StaticCast(DataKind, 0xAB),
@@ -2234,7 +2237,8 @@ doTestInsertArrayWithOneAddressMessage
                   ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x12),
                     StaticCast(DataKind, 0x34),
                     StaticCast(DataKind, 0x56),
@@ -3542,13 +3546,15 @@ doTestInsertArrayWithTwoAddressesMessage
                   ((2 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x12),
                     StaticCast(DataKind, 0x34),
                     StaticCast(DataKind, 0x56),
                     StaticCast(DataKind, 0x78),
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0x34),
                     StaticCast(DataKind, 0x56),
                     StaticCast(DataKind, 0x78),
@@ -4109,7 +4115,8 @@ doTestInsertAddressMapMessage
                   ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0),
                     StaticCast(DataKind, 0),
                     StaticCast(DataKind, 0),
@@ -4193,7 +4200,8 @@ doTestInsertAddressSetMessage
                   ((1 + kDataKindIntegerShortValueMinValue - 1) &
                     DataKind::IntegerShortValueValueMask),
                 // Address
-                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address,
+                DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address,
                     StaticCast(DataKind, 0),
                     StaticCast(DataKind, 0),
                     StaticCast(DataKind, 0),

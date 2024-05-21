@@ -293,8 +293,10 @@ nImO::Address::getExtractionInfo
 {
     ODL_ENTER(); //####
     ODL_P2("aByte = ", &aByte, "aMask = ", &aMask); //####
-    aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address);
-    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask);
+    aByte = (DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+             DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address);
+    aMask = (DataKind::Mask | DataKind::OtherTypeMask | DataKind::OtherMiscellaneousTypeMask |
+             DataKind::OtherMiscellaneousTypeBitFieldTypeMask);
     ODL_EXIT(); //####
     return extractValue;
 } // nImO::Address::getExtractionInfo
@@ -703,7 +705,8 @@ nImO::Address::writeToMessage
 {
     ODL_OBJENTER(); //####
     ODL_P1("outMessage = ", &outMessage); //####
-    DataKind    stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeIPv4Address};
+    DataKind    stuff{DataKind::Other | DataKind::OtherMiscellaneous | DataKind::OtherMiscellaneousTypeBitField |
+                        DataKind::OtherMiscellaneousTypeBitFieldTypeIPv4Address};
     IPv4Bytes   bytes;
 
     convertToByteArray(bytes, _addressValue);
